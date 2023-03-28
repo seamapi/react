@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/seam-components",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Zero backend drop-in beautiful pre-built components with everything you need to get started with Seam",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
