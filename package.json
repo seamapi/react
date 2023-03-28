@@ -1,0 +1,19 @@
+{
+  "name": "seam-components",
+  "version": "1.0.0",
+  "description": "Zero backend drop-in beautiful pre-built components with everything you need to get started with Seam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seamapi/seam-components.git"
+  },
+  "author": "Azat Mardan",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/seamapi/seam-components/issues"
+  },
+  "homepage": "https://github.com/seamapi/seam-components#readme"
+}
