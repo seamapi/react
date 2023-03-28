@@ -102,3 +102,35 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+node_modules
+*.code-workspace
+
+/dist
+
+# dependencies
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env*
+!.env.example
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vercel
+
+.next
+.yalc
+yalc.lock
+# Sentry
+.sentryclirc

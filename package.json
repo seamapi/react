@@ -2,7 +2,13 @@
   "name": "@seamapi/seam-components",
   "version": "1.0.0",
   "description": "Zero backend drop-in beautiful pre-built components with everything you need to get started with Seam",
-  "main": "index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/seamapi/seam-components.git"
@@ -11,12 +17,24 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rollup": "rollup -c"
   },
   "author": "Azat Mardan",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/seamapi/seam-components/issues"
   },
-  "homepage": "https://github.com/seamapi/seam-components#readme"
+  "homepage": "https://github.com/seamapi/seam-components#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/react": "^18.0.30",
+    "react": "^18.2.0",
+    "rollup": "^3.20.2",
+    "rollup-plugin-dts": "^5.3.0",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2"
+  }
 }
