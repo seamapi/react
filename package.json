@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Zero backend drop-in beautiful pre-built components with everything you need to get started with Seam",
   "main": "index.js",
-  "repository": "git@github.com:seamapi/seam-components.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/seamapi/seam-components.git"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
