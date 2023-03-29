@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Seam from 'seamapi'
+// import Seam from 'seamapi'
 
 export interface DeviceManagerProps {
   label: string
