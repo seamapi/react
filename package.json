@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/seam-components",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Zero backend drop-in beautiful pre-built components with everything you need to get started with Seam",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -40,7 +40,9 @@
     "seamapi": "^5.11.0"
   },
   "tsup": {
-    "entry": ["src/index.ts"],
+    "entry": [
+      "src/index.ts"
+    ],
     "splitting": false,
     "sourcemap": true,
     "clean": true
