@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from 'react'
+import Seam from 'seamapi'
 
 export interface DeviceManagerProps {
-  label: string;
+  label: string
 }
 
 const DeviceManager = (props: DeviceManagerProps) => {
-  return <>
-    <h1>Device Manager</h1>
-    <button>{props.label}</button>
-  </>;
-};
+  const [devices, setDevices] = React.useState([])
+  useEffect(() => {}, [])
+  return (
+    <>
+      <h1>Device Manager</h1>
+      <button>{props.label}</button>
+    </>
+  )
+}
 
-export default DeviceManager;
+export default DeviceManager

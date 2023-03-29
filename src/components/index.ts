@@ -1,1 +1,1 @@
-export { default as DeviceManager } from "./DeviceManager";
+export { default as DeviceManager } from './DeviceManager'
