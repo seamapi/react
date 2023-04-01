@@ -25,29 +25,33 @@ const deleteCookie = (name: string) => {
 
 export interface DeviceManagerProps {
   label: string
+  email: string
 }
 let isInit = false
 const DeviceManager = (props: DeviceManagerProps) => {
+  const { email } = props
   const [devices, setDevices] = useState<Device<CommonDeviceProperties>[]>([])
   useEffect(() => {
     if (isInit) return
     isInit = true
     ;(async () => {
-      debugger
       const clientAccessTokenFromCookie = getCookie('seam-clientAccessToken')
       if (clientAccessTokenFromCookie) {
         const seam = new Seam({
           apiKey: clientAccessTokenFromCookie,
           endpoint: window.SEAM_ENDPOINT,
         })
+
         const devices = await seam.devices.list()
+        // const connectWebviews = await seam.connectWebviews.list()
+
+        setDevices(devices)
         return
       }
       const clientAccessTokenResponse = await Seam.getClientAccessToken(
         window.SEAM_PUBLISHED_KEY,
-        'azat@getseam.com',
-        window.SEAM_ENDPOINT,
-        '0cb1c256-4589-4d15-aae0-c434d94fb138'
+        email,
+        window.SEAM_ENDPOINT
       )
       if (
         clientAccessTokenResponse.ok === false ||
@@ -67,6 +71,7 @@ const DeviceManager = (props: DeviceManagerProps) => {
         endpoint: window.SEAM_ENDPOINT,
       })
       const devices = await seam.devices.list()
+      // const connectWebviews = await seam.connectWebviews.list()
       setDevices(devices)
     })()
   }, [])
