@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Seam, { CommonDeviceProperties, Device } from 'seamapi'
 const getCookie = (name: string) => {
   const nameEQ = name + '='
@@ -24,17 +24,39 @@ const deleteCookie = (name: string) => {
 }
 
 export interface DeviceManagerProps {
-  label: string
+  clientAccessToken: string
   email: string
 }
-let isInit = false
+
 const DeviceManager = (props: DeviceManagerProps) => {
+  const triggered = useRef<boolean>(false)
+
   const { email } = props
+  const clientAccessTokenFromProp = props.clientAccessToken
   const [devices, setDevices] = useState<Device<CommonDeviceProperties>[]>([])
   useEffect(() => {
-    if (isInit) return
-    isInit = true
+    const hasBeenTriggered = triggered.current
+    if (hasBeenTriggered) {
+      return
+    } else {
+      triggered.current = true
+    }
+
     ;(async () => {
+      if (clientAccessTokenFromProp) {
+        const seam = new Seam({
+          apiKey: clientAccessTokenFromProp,
+          endpoint: window.SEAM_ENDPOINT,
+        })
+
+        const devices = await seam.devices.list()
+        const connectWebviews = await seam.connectWebviews.list()
+
+        setDevices(devices)
+        console.log('connectWebviews', connectWebviews)
+
+        return
+      }
       const clientAccessTokenFromCookie = getCookie('seam-clientAccessToken')
       if (clientAccessTokenFromCookie) {
         const seam = new Seam({
