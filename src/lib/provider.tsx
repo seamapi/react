@@ -31,6 +31,24 @@ export function SeamProvider({ children, ...props }: Props): ReactNode {
   )
 }
 
+const createDefaultSeamContext = (): SeamContext => {
+  if (
+    globalThis.seam?.client == null &&
+    globalThis.seam?.publishableKey == null
+  ) {
+    return { client: null }
+  }
+
+  try {
+    const client = getClient(globalThis.seam)
+    return { client }
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(err)
+    return { client: null }
+  }
+}
+
 const getClient = ({ client, ...options }: Omit<Props, 'children'>): Seam => {
   if (client != null && Object.values(options).some((v) => v == null)) {
     throw new Error(
@@ -47,6 +65,6 @@ const getClient = ({ client, ...options }: Omit<Props, 'children'>): Seam => {
   return client ?? new Seam(options)
 }
 
-export const seamContext = createContext<SeamContext>({
-  client: globalThis.seam == null ? null : getClient(globalThis.seam)
-})
+export const seamContext = createContext<SeamContext>(
+  createDefaultSeamContext()
+)
