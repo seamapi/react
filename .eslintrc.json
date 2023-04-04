@@ -4,6 +4,7 @@
     "standard-with-typescript",
     "standard-jsx",
     "standard-react",
+    "plugin:react/jsx-runtime",
     "prettier"
   ],
   "plugins": ["simple-import-sort", "unused-imports"],
