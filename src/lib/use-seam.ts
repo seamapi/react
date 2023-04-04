@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
-import { type Seam } from 'seamapi'
 
 import { seamContext } from 'lib/provider.js'
+// import { type Seam } from 'seamapi'
+import { type Seam } from 'lib/seam-client-stub.js'
 
 export function useSeam(): {
   client: Seam
@@ -18,9 +19,8 @@ export function useSeam(): {
 
   const { isLoading, isError, error } = useQuery({
     queryKey: ['seam', 'useClientSession'],
-    queryFn: () => {
-      // @ts-expect-error Client sessions not yet implemented in SDK.
-      client.useClientSession()
+    queryFn: async () => {
+      await client.useClientSession()
     }
   })
 

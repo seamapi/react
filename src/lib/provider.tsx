@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createContext, type ReactNode } from 'react'
-import { Seam } from 'seamapi'
+
+// import { Seam } from 'seamapi'
+import { Seam } from 'lib/seam-client-stub.js'
 
 declare global {
   // eslint-disable-next-line no-var
