@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createContext, type ReactElement,type ReactNode } from 'react'
+import { createContext, type ReactElement, type ReactNode } from 'react'
 
 // import { Seam } from 'seamapi'
 import { Seam } from 'lib/seam-client-stub.js'
