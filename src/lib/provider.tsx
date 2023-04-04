@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createContext, type ReactNode } from 'react'
+import { createContext, type ReactElement,type ReactNode } from 'react'
 
 // import { Seam } from 'seamapi'
 import { Seam } from 'lib/seam-client-stub.js'
@@ -26,7 +26,7 @@ const queryClient = new QueryClient()
 export function SeamProvider({
   children,
   ...props
-}: SeamProviderProps): ReactNode {
+}: SeamProviderProps): ReactElement {
   const { Provider } = seamContext
   const client = getClient(props)
   return (
