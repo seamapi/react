@@ -6,14 +6,14 @@ import { Seam } from 'lib/seam-client-stub.js'
 
 declare global {
   // eslint-disable-next-line no-var
-  var seam: Omit<Props, 'children'> | undefined
+  var seam: Omit<SeamProviderProps, 'children'> | undefined
 }
 
 export interface SeamContext {
   client: Seam | null
 }
 
-interface Props {
+export interface SeamProviderProps {
   client?: Seam
   publishableKey?: string
   sessionKey?: string
@@ -23,7 +23,10 @@ interface Props {
 
 const queryClient = new QueryClient()
 
-export function SeamProvider({ children, ...props }: Props): ReactNode {
+export function SeamProvider({
+  children,
+  ...props
+}: SeamProviderProps): ReactNode {
   const { Provider } = seamContext
   const client = getClient(props)
   return (
@@ -51,7 +54,10 @@ const createDefaultSeamContext = (): SeamContext => {
   }
 }
 
-const getClient = ({ client, ...options }: Omit<Props, 'children'>): Seam => {
+const getClient = ({
+  client,
+  ...options
+}: Omit<SeamProviderProps, 'children'>): Seam => {
   if (client != null && Object.values(options).some((v) => v == null)) {
     throw new Error(
       'Cannot provide both a Seam client along with a publishableKey, sessionKey, or endpoint.'
