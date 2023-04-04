@@ -4,6 +4,7 @@
     "noEmit": true,
     "strict": true,
     "module": "es2022",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "target": "es2022",
     "jsx": "react-jsx",
