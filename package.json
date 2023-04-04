@@ -1,7 +1,7 @@
 {
-  "name": "@seamapi/makenew-tsmodule",
-  "version": "1.0.1",
-  "description": "Package skeleton for a TypeScript module.",
+  "name": "@seamapi/react",
+  "version": "0.0.0",
+  "description": "Seam React component library.",
   "type": "module",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -13,9 +13,9 @@
   "keywords": [
     "node"
   ],
-  "homepage": "https://github.com/seamapi/makenew-tsmodule",
-  "bugs": "https://github.com/seamapi/makenew-tsmodule/issues",
-  "repository": "seamapi/makenew-tsmodule",
+  "homepage": "https://github.com/seamapi/react",
+  "bugs": "https://github.com/seamapi/react/issues",
+  "repository": "seamapi/react",
   "license": "MIT",
   "author": {
     "name": "Seam Labs, Inc.",
