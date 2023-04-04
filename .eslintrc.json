@@ -1,6 +1,11 @@
 {
   "root": true,
-  "extends": ["standard-with-typescript", "prettier"],
+  "extends": [
+    "standard-with-typescript",
+    "standard-jsx",
+    "standard-react",
+    "prettier"
+  ],
   "plugins": ["simple-import-sort", "unused-imports"],
   "parserOptions": {
     "project": "./tsconfig.json"
