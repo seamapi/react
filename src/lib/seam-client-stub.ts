@@ -43,7 +43,7 @@ export class Seam {
   }
 }
 
-interface Device {
+export interface Device {
   device_id: string
 }
 
