@@ -43,6 +43,8 @@ export class Seam {
   }
 }
 
+export interface SeamError extends Error {}
+
 export interface Device {
   device_id: string
 }
