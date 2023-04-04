@@ -1,9 +1,5 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery
-} from '@tanstack/react-query'
-import { createContext, type ReactNode, useContext } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { createContext, type ReactNode } from 'react'
 import { Seam } from 'seamapi'
 
 declare global {
@@ -13,29 +9,6 @@ declare global {
 
 export interface SeamContext {
   client: Seam | null
-}
-
-export function useSeam(): {
-  client: Seam
-  isLoading: boolean
-  isError: boolean
-  error: unknown
-} {
-  const { client } = useContext(seamContext)
-
-  if (client == null) {
-    throw new Error('Must useSeam inside a SeamProvider.')
-  }
-
-  const { isLoading, isError, error } = useQuery({
-    queryKey: ['seam', 'useClientSession'],
-    queryFn: () => {
-      // @ts-expect-error Client sessions not yet implemented in SDK.
-      client.useClientSession()
-    }
-  })
-
-  return { client, isLoading, isError, error }
 }
 
 interface Props {
@@ -74,6 +47,6 @@ const getClient = ({ client, ...options }: Omit<Props, 'children'>): Seam => {
   return client ?? new Seam(options)
 }
 
-const seamContext = createContext<SeamContext>({
+export const seamContext = createContext<SeamContext>({
   client: globalThis.seam == null ? null : getClient(globalThis.seam)
 })
