@@ -156,4 +156,4 @@ jobs:
         with:
           node_version: ${{ matrix.node }}
       - name: Build docs
-        run: npm run build:docs
+        run: npm run docs:build
