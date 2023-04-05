@@ -5,6 +5,7 @@
     "standard-jsx",
     "standard-react",
     "plugin:react/jsx-runtime",
+    "plugin:storybook/recommended",
     "prettier"
   ],
   "plugins": ["simple-import-sort", "unused-imports"],
