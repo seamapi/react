@@ -68,6 +68,10 @@ const createSeamContextValue = ({
   client,
   ...options
 }: Omit<SeamProviderProps, 'children'>): SeamContext => {
+  if (client == null && Object.keys(options).length === 0) {
+    return { client: null }
+  }
+
   if (client != null && Object.values(options).some((v) => v == null)) {
     throw new Error(
       'Cannot provide both a Seam client along with a publishableKey, sessionKey, or endpoint.'

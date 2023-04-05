@@ -6,10 +6,7 @@ export const App = (): ReactElement => {
   return (
     <main>
       <h1>Seam Components</h1>
-      <SeamProvider
-        publishableKey='my-seam-publishable-key'
-        sessionKey='my-user-id'
-      >
+      <SeamProvider>
         <DeviceList />
       </SeamProvider>
     </main>

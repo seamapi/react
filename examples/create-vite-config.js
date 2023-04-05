@@ -8,6 +8,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 /** @type {(url: string) => import('vite').ResolvedConfig} */
 export default async (url) =>
   await defineConfig({
+    envPrefix: 'SEAM_',
     root: dirname(fileURLToPath(url)),
     plugins: [tsconfigPaths(), react()]
   })
