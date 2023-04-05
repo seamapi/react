@@ -9,7 +9,7 @@ export interface DeviceListProps {
 }
 
 /**
- * Shows a list of devices
+ * Fetch and list devices.
  */
 export const DeviceList = ({ manufacturer }: DeviceListProps): ReactElement => {
   const { devices, isLoading, isError, error } = useDevices({ manufacturer })
