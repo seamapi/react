@@ -4,7 +4,8 @@
     "package/**/*.ts",
     "examples/**/*.ts",
     "**/*.test.ts",
-    "**/vite.config.ts"
+    "**/vite.config.ts",
+    "jest.config.cjs"
   ],
   "reporter": ["html", "lcov", "text"]
 }
