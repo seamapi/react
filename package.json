@@ -31,11 +31,13 @@
     "!**/*.test.ts"
   ],
   "scripts": {
+    "start": "npm run storybook",
     "build": "npm run build:ts",
     "postbuild": "node ./index.js",
     "build:ts": "tsc --project tsconfig.build.json",
     "prebuild:ts": "del 'index.*' lib",
     "postbuild:ts": "tsc-alias --project tsconfig.build.json",
+    "build:docs": "storybook build",
     "typecheck": "tsc",
     "dependencies": "dpdm --exit-code circular:1 src/index.ts",
     "test": "jest",
@@ -47,7 +49,6 @@
     "postversion": "git push --follow-tags",
     "example:basic": "vite --config examples/basic/vite.config.js",
     "storybook": "storybook dev --port 6006",
-    "storybook:build": "storybook build",
     "format": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.mjs,.ts,.tsx .",
     "preformat": "prettier --write --ignore-path .gitignore .",
     "report": "c8 report"
