@@ -9,7 +9,6 @@
 *.d.ts
 *.js
 *.js.map
-!ava.config.js
 !vite.config.js
 
 # Build directories
