@@ -45,6 +45,10 @@ export interface SeamError extends Error {}
 
 export interface Device {
   device_id: string
+  manufacturer: string
 }
 
-const devices = [{ device_id: '1' }, { device_id: '2' }]
+const devices = [
+  { device_id: '1', manufacturer: 'august' },
+  { device_id: '2', manufacturer: 'yale' }
+]
