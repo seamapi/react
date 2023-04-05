@@ -10,6 +10,7 @@
 *.js
 *.js.map
 !src/**/*.d.ts
+!examples/**/*.js
 !examples/**/*.d.ts
 
 # Build directories
