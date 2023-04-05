@@ -45,7 +45,7 @@
     "docs:start": "storybook dev --docs --port 6007",
     "typecheck": "tsc",
     "dependencies": "dpdm --exit-code circular:1 src/index.ts",
-    "test": "jest",
+    "test": "jest --collect-coverage",
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
     "test:inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
