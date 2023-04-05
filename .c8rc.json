@@ -4,7 +4,7 @@
     "package/**/*.ts",
     "examples/**/*.ts",
     "**/*.test.ts",
-    "vite.config.js"
+    "**/vite.config.ts"
   ],
   "reporter": ["html", "lcov", "text"]
 }

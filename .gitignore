@@ -9,7 +9,6 @@
 *.d.ts
 *.js
 *.js.map
-!vite.config.js
 
 # Build directories
 package
