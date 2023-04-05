@@ -1,5 +1,6 @@
 {
   "buildCommand": "npm run docs:build",
+  "installCommand": "npm install",
   "outputDirectory": "docs",
   "cleanUrls": true
 }
