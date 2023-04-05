@@ -7,13 +7,19 @@ import { useSeam } from './use-seam.js'
 
 type Result = UseQueryResult<Device[], SeamError>
 
+interface UseDevicesOptions {
+  manufacturer?: string | undefined
+}
+
 type UseDevicesResult = Omit<Result, 'data'> & { devices: Result['data'] }
 
-export function useDevices(): UseDevicesResult {
+export function useDevices({
+  manufacturer
+}: UseDevicesOptions = {}): UseDevicesResult {
   const { client } = useSeam()
   const { data: devices, ...rest } = useQuery<Device[], SeamError>({
-    queryKey: ['list', 'devices'],
-    queryFn: async () => await client.devices.list()
+    queryKey: ['list', 'devices', { manufacturer }],
+    queryFn: async () => await client.devices.list({ manufacturer })
   })
 
   return { ...rest, devices }

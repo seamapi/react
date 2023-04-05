@@ -5,24 +5,20 @@ import { type Device } from 'lib/seam-client-stub.js'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DeviceListProps {
-  manufacturer?: string
+  manufacturer?: string | undefined
 }
 
 export const DeviceList = ({ manufacturer }: DeviceListProps): ReactElement => {
-  const { devices, isLoading, isError, error } = useDevices()
+  const { devices, isLoading, isError, error } = useDevices({ manufacturer })
 
   if (isLoading) return <p role='loading'>{i18nStub.loading}</p>
   if (isError) return <p>${error?.message}</p>
 
   return (
     <ul>
-      {devices
-        ?.filter((device) =>
-          manufacturer == null ? true : device.manufacturer === manufacturer
-        )
-        ?.map((device) => (
-          <DeviceListItem key={device.device_id} {...device} />
-        ))}
+      {devices?.map((device) => (
+        <DeviceListItem key={device.device_id} {...device} />
+      ))}
     </ul>
   )
 }

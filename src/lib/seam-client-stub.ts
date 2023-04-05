@@ -32,11 +32,18 @@ export class Seam {
   }
 
   devices = {
-    list: async (): Promise<Device[]> => {
+    list: async ({
+      manufacturer
+    }: {
+      manufacturer?: string | undefined
+    } = {}): Promise<Device[]> => {
       if (this.#clientSessionId == null) {
         throw new Error('No client session')
       }
-      return devices
+
+      return devices?.filter((device) =>
+        manufacturer == null ? true : device.manufacturer === manufacturer
+      )
     }
   }
 }
