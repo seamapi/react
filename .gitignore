@@ -13,6 +13,9 @@
 !examples/**/*.js
 !examples/**/*.d.ts
 
+# Storybook
+docs
+
 # Build directories
 package
 

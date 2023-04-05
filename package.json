@@ -41,7 +41,7 @@
     "build:ts": "tsc --project tsconfig.build.json",
     "prebuild:ts": "del 'index.*' lib",
     "postbuild:ts": "tsc-alias --project tsconfig.build.json",
-    "docs:build": "storybook build --docs",
+    "docs:build": "storybook build --docs --output-dir docs",
     "docs:start": "storybook dev --docs --port 6007",
     "typecheck": "tsc",
     "dependencies": "dpdm --exit-code circular:1 src/index.ts",
