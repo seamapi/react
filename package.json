@@ -31,7 +31,6 @@
     "!**/*.test.ts"
   ],
   "scripts": {
-    "start": "vite --config examples/basic/vite.config.js",
     "build": "npm run build:ts",
     "postbuild": "node ./index.js",
     "build:ts": "tsc --project tsconfig.build.json",
@@ -46,6 +45,7 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.mjs,.ts,.tsx .",
     "prelint": "prettier --check --ignore-path .gitignore .",
     "postversion": "git push --follow-tags",
+    "example:basic": "vite --config examples/basic/vite.config.js",
     "format": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.mjs,.ts,.tsx .",
     "preformat": "prettier --write --ignore-path .gitignore .",
     "report": "c8 report"
