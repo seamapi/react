@@ -12,9 +12,11 @@ const preview: Preview = {
       }
     }
   },
+  argTypes: { publishableKey: { control: { type: 'text' } } },
+  args: { publishableKey: 'default_publishable_key' },
   decorators: [
-    (Story) => (
-      <SeamProvider publishableKey='test-key'>
+    (Story, { args }) => (
+      <SeamProvider publishableKey={args['publishableKey']}>
         <Story />
       </SeamProvider>
     )
