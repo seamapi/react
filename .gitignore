@@ -13,6 +13,9 @@
 !examples/**/*.js
 !examples/**/*.d.ts
 
+# Vite
+*.timestamp-*
+
 # Storybook
 docs
 
