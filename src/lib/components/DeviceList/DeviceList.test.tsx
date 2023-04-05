@@ -4,5 +4,5 @@ import { DeviceList } from './DeviceList.js'
 
 test('DeviceList', () => {
   render(<DeviceList />)
-  expect(screen.getByRole('loading')).toBeTruthy()
+  expect(screen.findByRole('loading')).toBeTruthy()
 })
