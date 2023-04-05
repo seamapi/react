@@ -31,7 +31,7 @@
     "!**/*.test.ts"
   ],
   "scripts": {
-    "start": "vite",
+    "start": "vite --config examples/basic/vite.config.js",
     "build": "npm run build:ts",
     "postbuild": "node ./index.js",
     "build:ts": "tsc --project tsconfig.build.json",
