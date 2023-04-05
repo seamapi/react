@@ -16,7 +16,7 @@ export class Seam {
     this.#endpoint = endpoint ?? 'https://seam.example.com'
   }
 
-  async useClientSession(): Promise<void> {
+  async useClientSession(): Promise<{ clientSessionId: string }> {
     if (this.#publishableKey == null) {
       throw new Error('Missing publishableKey')
     }
@@ -29,6 +29,8 @@ export class Seam {
       this.#publishableKey,
       this.#sessionKey
     ].join('_')
+
+    return { clientSessionId: this.#clientSessionId }
   }
 
   devices = {

@@ -19,9 +19,7 @@ export function useSeam(): {
 
   const { isLoading, isError, error } = useQuery({
     queryKey: ['useClientSession'],
-    queryFn: async () => {
-      await client.useClientSession()
-    }
+    queryFn: async () => await client.useClientSession()
   })
 
   return { client, isLoading, isError, error }
