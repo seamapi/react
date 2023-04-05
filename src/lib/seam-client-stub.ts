@@ -21,9 +21,7 @@ export class Seam {
       throw new Error('Missing publishableKey')
     }
 
-    if (this.#sessionKey == null) {
-      throw new Error('Missing sessionKey')
-    }
+    this.#sessionKey ??= 'default-session-key'
 
     this.#clientSessionId = [
       'mock-client-session-id',
