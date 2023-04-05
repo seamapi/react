@@ -1,8 +1,3 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import createConfig from '../vite-config-base.js'
 
-export default defineConfig({
-  root: 'examples/basic',
-  plugins: [tsconfigPaths(), react()]
-})
+export default createConfig(import.meta.url)
