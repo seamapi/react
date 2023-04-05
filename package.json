@@ -28,7 +28,11 @@
     "lib",
     "src",
     "!test",
-    "!**/*.test.ts"
+    "!**/*.test.ts",
+    "!**/*.test.tsx",
+    "!**/*.stories.ts",
+    "!**/*.stories.tsx",
+    "!src/stories"
   ],
   "scripts": {
     "start": "storybook dev --port 6006",
