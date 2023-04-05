@@ -26,16 +26,22 @@ export function SeamProvider({
   ...props
 }: SeamProviderProps): ReactElement {
   const { Provider } = seamContext
-  const clientRef = useRef(getClient(props))
+
   const queryClientRef = useRef(new QueryClient())
+
+  const contextRef = useRef(createSeamContextValue(props))
+  if (contextRef.current.client == null) {
+    contextRef.current = defaultSeamContextValue
+  }
+
   return (
     <QueryClientProvider client={queryClientRef.current}>
-      <Provider value={{ client: clientRef.current }}>{children}</Provider>
+      <Provider value={{ ...contextRef.current }}>{children}</Provider>
     </QueryClientProvider>
   )
 }
 
-const createDefaultSeamContext = (): SeamContext => {
+const createDefaultSeamContextValue = (): SeamContext => {
   if (
     globalThis.seam?.client == null &&
     globalThis.seam?.publishableKey == null
@@ -44,8 +50,7 @@ const createDefaultSeamContext = (): SeamContext => {
   }
 
   try {
-    const client = getClient(globalThis.seam)
-    return { client }
+    return createSeamContextValue(globalThis.seam)
   } catch (err) {
     // eslint-disable-next-line no-console
     console.warn(err)
@@ -53,10 +58,10 @@ const createDefaultSeamContext = (): SeamContext => {
   }
 }
 
-const getClient = ({
+const createSeamContextValue = ({
   client,
   ...options
-}: Omit<SeamProviderProps, 'children'>): Seam => {
+}: Omit<SeamProviderProps, 'children'>): SeamContext => {
   if (client != null && Object.values(options).some((v) => v == null)) {
     throw new Error(
       'Cannot provide both a Seam client along with a publishableKey, sessionKey, or endpoint.'
@@ -69,9 +74,11 @@ const getClient = ({
     )
   }
 
-  return client ?? new Seam(options)
+  return {
+    client: client ?? new Seam(options)
+  }
 }
 
-export const seamContext = createContext<SeamContext>(
-  createDefaultSeamContext()
-)
+const defaultSeamContextValue = createDefaultSeamContextValue()
+
+export const seamContext = createContext<SeamContext>(defaultSeamContextValue)
