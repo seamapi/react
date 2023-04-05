@@ -6,7 +6,7 @@ if (env.SEAM_PUBLISHABLE_KEY == null) {
   // eslint-disable-next-line no-console
   console.error(
     `> To run this example, set SEAM_PUBLISHABLE_KEY in your environment.
-> Get one for free at from https://console.seam.co/
+> Get one for free at https://console.seam.co/
 `
   )
   process.exit(1)
