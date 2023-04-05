@@ -63,6 +63,7 @@
   },
   "peerDependencies": {
     "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
     "seamapi": ">=5.11.0"
   },
   "dependencies": {
