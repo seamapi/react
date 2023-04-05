@@ -24,6 +24,7 @@
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
+      "fixtures/*": ["./test/fixtures/*"],
       "index.js": ["./src/index.ts"],
       "lib/*": ["./src/lib/*"]
     }

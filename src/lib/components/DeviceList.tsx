@@ -9,20 +9,20 @@ export interface DeviceListProps {}
 export const DeviceList = (_: DeviceListProps): ReactElement => {
   const { devices, isLoading, isError, error } = useDevices()
 
-  if (isLoading) return <p>{i18nStub.loading}</p>
+  if (isLoading) return <p role='loading'>{i18nStub.loading}</p>
   if (isError) return <p>${error?.message}</p>
 
   return (
-    <>
+    <ul>
       {devices?.map((device) => (
         <DeviceListItem key={device.device_id} {...device} />
       ))}
-    </>
+    </ul>
   )
 }
 
 const DeviceListItem = (props: Device): ReactElement => {
-  return <p>{props.device_id}</p>
+  return <li>{props.device_id}</li>
 }
 
 const i18nStub = {
