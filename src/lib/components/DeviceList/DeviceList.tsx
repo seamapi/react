@@ -3,7 +3,6 @@ import { type ReactElement } from 'react'
 import { useDevices } from 'lib/hooks/use-devices.js'
 import { type Device } from 'lib/seam-client-stub.js'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DeviceListProps {
   manufacturer?: string | undefined
 }
