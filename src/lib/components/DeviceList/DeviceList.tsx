@@ -22,7 +22,11 @@ export const DeviceList = (_: DeviceListProps): ReactElement => {
 }
 
 const DeviceListItem = (props: Device): ReactElement => {
-  return <li>{props.device_id}</li>
+  return (
+    <li>
+      {i18nStub.device_id}: {props.device_id}
+    </li>
+  )
 }
 
 const i18nStub = {
