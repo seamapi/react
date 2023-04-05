@@ -12,7 +12,7 @@ export const DeviceList = ({ manufacturer }: DeviceListProps): ReactElement => {
   const { devices, isLoading, isError, error } = useDevices({ manufacturer })
 
   if (isLoading) return <p role='loading'>{i18nStub.loading}</p>
-  if (isError) return <p>${error?.message}</p>
+  if (isError) return <p>{error?.message}</p>
 
   return (
     <ul>
