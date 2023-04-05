@@ -1,5 +1,6 @@
-import { DeviceList } from 'index.js'
+import { render, screen } from 'fixtures/react.js'
 
 test('DeviceList', () => {
-  expect(DeviceList).toBeTruthy()
+  render(<p>Foo</p>)
+  expect(screen.getByText('Foo')).toBeTruthy()
 })
