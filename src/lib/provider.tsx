@@ -64,7 +64,7 @@ const getClient = ({
     )
   }
 
-  if (client == null && Object.keys(options).length > 0) {
+  if (client == null && Object.keys(options).length === 0) {
     throw new Error(
       'Must provide either a Seam client or a publishableKey and a sessionKey.'
     )
