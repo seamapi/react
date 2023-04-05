@@ -34,6 +34,12 @@ export function SeamProvider({
     contextRef.current = defaultSeamContextValue
   }
 
+  if (contextRef.current.client == null) {
+    throw new Error(
+      'Must provide either a Seam client or a publishableKey and a sessionKey.'
+    )
+  }
+
   return (
     <QueryClientProvider client={queryClientRef.current}>
       <Provider value={{ ...contextRef.current }}>{children}</Provider>
@@ -65,12 +71,6 @@ const createSeamContextValue = ({
   if (client != null && Object.values(options).some((v) => v == null)) {
     throw new Error(
       'Cannot provide both a Seam client along with a publishableKey, sessionKey, or endpoint.'
-    )
-  }
-
-  if (client == null && Object.keys(options).length === 0) {
-    throw new Error(
-      'Must provide either a Seam client or a publishableKey and a sessionKey.'
     )
   }
 
