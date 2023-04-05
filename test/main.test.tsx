@@ -1,4 +1,4 @@
-import { DeviceList } from './DeviceList.js'
+import { DeviceList } from 'index.js'
 
 test('DeviceList', () => {
   expect(DeviceList).toBeTruthy()
