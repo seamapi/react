@@ -8,6 +8,9 @@ export interface DeviceListProps {
   manufacturer?: string | undefined
 }
 
+/**
+ * Shows a list of devices
+ */
 export const DeviceList = ({ manufacturer }: DeviceListProps): ReactElement => {
   const { devices, isLoading, isError, error } = useDevices({ manufacturer })
 
