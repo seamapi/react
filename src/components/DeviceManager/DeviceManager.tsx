@@ -16,7 +16,8 @@ const DeviceManager = (props: any) => {
 
   const { email } = props // TODO: change email to userIdentifierKey in DB
   const seam = useSeamClient({
-    apiKey: pubKey || clientAccessToken || '',
+    pubKey,
+    clientAccessToken,
     endpoint: seamEndpoint,
     userIdentifierKey,
   })
