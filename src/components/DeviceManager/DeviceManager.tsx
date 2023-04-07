@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Seam, { CommonDeviceProperties, Device } from 'seamapi'
 import { getCookie, setCookie } from '../../utils'
+import { SeamContext } from '../SeamProvider'
 
-export interface DeviceManagerProps {
-  clientAccessToken: string
-  email: string
-}
+const DeviceManager = (props: any) => {
+  const { pubKey, clientAccessToken, seamEndpoint } = useContext(SeamContext)
+  console.log('pubKey', pubKey)
+  console.log('clientAccessToken', clientAccessToken)
 
-const DeviceManager = (props: DeviceManagerProps) => {
   const triggered = useRef<boolean>(false)
 
-  const { email } = props
+  const { email } = props // TODO: change email to userIdentifierKey in DB
   const clientAccessTokenFromProp = props.clientAccessToken
   const [devices, setDevices] = useState<Device<CommonDeviceProperties>[]>([])
   useEffect(() => {
@@ -25,7 +25,7 @@ const DeviceManager = (props: DeviceManagerProps) => {
       if (clientAccessTokenFromProp) {
         const seam = new Seam({
           apiKey: clientAccessTokenFromProp,
-          endpoint: window.SEAM_ENDPOINT,
+          endpoint: seamEndpoint,
         })
 
         const devices = await seam.devices.list()
@@ -40,7 +40,7 @@ const DeviceManager = (props: DeviceManagerProps) => {
       if (clientAccessTokenFromCookie) {
         const seam = new Seam({
           apiKey: clientAccessTokenFromCookie,
-          endpoint: window.SEAM_ENDPOINT,
+          endpoint: seamEndpoint,
         })
 
         const devices = await seam.devices.list()
@@ -52,7 +52,7 @@ const DeviceManager = (props: DeviceManagerProps) => {
       const clientAccessTokenResponse = await Seam.getClientAccessToken(
         window.SEAM_PUBLISHED_KEY,
         email,
-        window.SEAM_ENDPOINT
+        seamEndpoint
       )
       if (
         clientAccessTokenResponse.ok === false ||
@@ -69,7 +69,7 @@ const DeviceManager = (props: DeviceManagerProps) => {
       setCookie('seam-clientAccessToken', clientAccessToken, 1)
       const seam = new Seam({
         apiKey: clientAccessToken,
-        endpoint: window.SEAM_ENDPOINT,
+        endpoint: seamEndpoint,
       })
       const devices = await seam.devices.list()
       // const connectWebviews = await seam.connectWebviews.list()
