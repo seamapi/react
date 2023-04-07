@@ -4,6 +4,7 @@ import useDevices from '../../hooks/use-devices'
 import useSeamClient from '../../hooks/use-seam-client'
 import { getCookie, setCookie } from '../../utils'
 import { SeamContext } from '../SeamProvider'
+import './DeviceManager.css' // TODO: add postcss
 
 const DeviceManager = (props: any) => {
   const { pubKey, clientAccessToken, seamEndpoint, userIdentifierKey } = useContext(SeamContext)
