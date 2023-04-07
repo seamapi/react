@@ -22,6 +22,7 @@ export const useSeamClient = ({
       apiKey: clientAccessTokenFromCookie,
       endpoint,
     })
+    // TODO: check if client access token is valid (not expired), if expired/invalid, get new one with the public key
     return seam
   } else if (apiKey.startsWith('seam_cat')) {
     // backend generated client access token
@@ -34,11 +35,11 @@ export const useSeamClient = ({
   } else if (apiKey.startsWith('seam_pk1')) {
     // public key, need to exchange for client access token
     ;(async () => {
-      const clientAccessTokenResponse = await Seam.getClientAccessToken(apiKey, userIdentifierKey, endpoint)
-      if (clientAccessTokenResponse.ok === false || !clientAccessTokenResponse['client_access_token']) {
+      const clientAccessTokenResponse = await Seam.getClientAccessToken({ apiKey, userIdentifierKey, endpoint })
+      if (clientAccessTokenResponse.ok === false || !clientAccessTokenResponse['client_session']) {
         throw new Error('Could not get client access token')
       }
-      const clientAccessToken = clientAccessTokenResponse?.client_access_token?.token
+      const clientAccessToken = clientAccessTokenResponse?.client_session?.token
       if (!clientAccessToken) {
         throw new Error('Could not get client access token')
       }
