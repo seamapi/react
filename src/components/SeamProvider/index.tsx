@@ -5,15 +5,15 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 export const queryClient = new QueryClient()
 
 export type SeamContextType = {
-  pubKey?: string
-  clientAccessToken?: string
+  publishedKey?: string
+  clientSessionToken?: string
   seamEndpoint: string
   userIdentifierKey: string
 }
 
 export const SeamContext = createContext<SeamContextType>({
-  pubKey: '',
-  clientAccessToken: '',
+  publishedKey: '',
+  clientSessionToken: '',
   seamEndpoint: '',
   userIdentifierKey: '',
 })
@@ -24,13 +24,13 @@ type Props = {
 
 export default function SeamProvider({
   children,
-  pubKey,
-  clientAccessToken,
+  publishedKey,
+  clientSessionToken,
   seamEndpoint,
   userIdentifierKey,
 }: Props & SeamContextType) {
   return (
-    <SeamContext.Provider value={{ pubKey, clientAccessToken, seamEndpoint, userIdentifierKey }}>
+    <SeamContext.Provider value={{ publishedKey, clientSessionToken, seamEndpoint, userIdentifierKey }}>
       <QueryClientProvider client={queryClient}>
         {children}
       </QueryClientProvider>
