@@ -7,17 +7,11 @@ import { SeamContext } from '../SeamProvider'
 import './DeviceManager.css' // TODO: add postcss
 
 const DeviceManager = (props: any) => {
-  const { pubKey, clientAccessToken, seamEndpoint, userIdentifierKey } = useContext(SeamContext)
-  console.log('pubKey', pubKey)
-  console.log('clientAccessToken', clientAccessToken)
-  console.log('userIdentifierKey', userIdentifierKey)
-
-  // const triggered = useRef<boolean>(false)
-
+  const { publishedKey, clientSessionToken, seamEndpoint, userIdentifierKey } = useContext(SeamContext)
   const { email } = props // TODO: change email to userIdentifierKey in DB
   const seam = useSeamClient({
-    pubKey,
-    clientAccessToken,
+    publishedKey,
+    clientSessionToken,
     endpoint: seamEndpoint,
     userIdentifierKey,
   })
