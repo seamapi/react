@@ -1,3 +1,3 @@
-# seam-components
+# @seamapi/react
 
 Zero backend drop-in beautiful pre-built components with everything you need to get started with Seam
