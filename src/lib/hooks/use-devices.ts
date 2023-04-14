@@ -1,7 +1,5 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
-
-// import { type Device } from 'seamapi'
-import { type Device, type SeamError } from 'lib/seam-client-stub.js'
+import { type Device, type SeamError } from 'seamapi'
 
 import { useSeam } from './use-seam.js'
 

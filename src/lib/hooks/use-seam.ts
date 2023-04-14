@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
+import { type Seam } from 'seamapi'
 
 import { seamContext } from 'lib/provider.js'
-// import { type Seam } from 'seamapi'
-import { type Seam } from 'lib/seam-client-stub.js'
 
 export function useSeam(): {
   client: Seam

@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
+import { type Device } from 'seamapi'
 
 import { useDevices } from 'lib/hooks/use-devices.js'
-import { type Device } from 'lib/seam-client-stub.js'
 
 export interface DeviceListProps {
   manufacturer?: string | undefined
