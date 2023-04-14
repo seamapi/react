@@ -3,14 +3,14 @@ import { type CommonDeviceProperties, type Device } from 'seamapi'
 
 import { useDevices, type UseDevicesParams } from 'lib/hooks/use-devices.js'
 
-export interface DeviceListProps {
+export interface DeviceManagerProps {
   manufacturer?: string | undefined
 }
 
 /**
  * Fetch and list devices.
  */
-export const DeviceList = (props: UseDevicesParams): ReactElement => {
+export const DeviceManager = (props: UseDevicesParams): ReactElement => {
   const { devices, isLoading, isError, error } = useDevices(props)
 
   if (isLoading) return <p role='loading'>{i18nStub.loading}</p>
@@ -19,13 +19,13 @@ export const DeviceList = (props: UseDevicesParams): ReactElement => {
   return (
     <ul>
       {devices?.map((device) => (
-        <DeviceListItem key={device.device_id} {...device} />
+        <DeviceManagerItem key={device.device_id} {...device} />
       ))}
     </ul>
   )
 }
 
-const DeviceListItem = (
+const DeviceManagerItem = (
   props: Device<CommonDeviceProperties>
 ): ReactElement => {
   return (

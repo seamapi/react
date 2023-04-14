@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DeviceList } from './DeviceList.js'
+import { DeviceManager } from './DeviceManager.js'
 
 /**
- * # DeviceList stories
+ * # DeviceManager stories
  * These stories showcase the device list.
  */
-const meta: Meta<typeof DeviceList> = {
-  title: 'Example/DeviceList',
-  component: DeviceList,
+const meta: Meta<typeof DeviceManager> = {
+  title: 'Example/DeviceManager',
+  component: DeviceManager,
   tags: ['autodocs']
 }
 
 export default meta
 
-type Story = StoryObj<typeof DeviceList>
+type Story = StoryObj<typeof DeviceManager>
 
 /**
  * # List of devices
