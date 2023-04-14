@@ -31,7 +31,10 @@ export function SeamProvider({
   const queryClientRef = useRef(new QueryClient())
 
   const contextRef = useRef(createSeamContextValue(props))
-  if (contextRef.current.client == null) {
+  if (
+    contextRef.current.client == null &&
+    contextRef.current.publishableKey == null
+  ) {
     contextRef.current = defaultSeamContextValue
   }
 
