@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createContext, type ReactElement, type ReactNode, useRef } from 'react'
-import { Seam, type SeamClientOptions } from 'seamapi'
+import { type Seam, type SeamClientOptions } from 'seamapi'
 
 declare global {
   // eslint-disable-next-line no-var
@@ -16,7 +16,6 @@ export interface SeamContext {
 
 export interface SeamProviderProps {
   client?: Seam
-  clientSessionToken?: string
   publishableKey?: string
   userIdentifierKey?: string
   endpoint?: string
@@ -83,21 +82,10 @@ const createSeamContextValue = ({
     )
   }
 
-  const {
-    clientSessionToken,
-    publishableKey,
-    userIdentifierKey,
-    ...clientOptions
-  } = options
+  const { publishableKey, userIdentifierKey, ...clientOptions } = options
 
   if (client != null) {
     return { client }
-  }
-
-  if (clientSessionToken != null) {
-    return {
-      client: new Seam({ ...options, clientSessionToken })
-    }
   }
 
   return {
