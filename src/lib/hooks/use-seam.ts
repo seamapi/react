@@ -19,7 +19,7 @@ export function useSeam(): {
   const userIdentifierKey = useUserIdentifierKey(context.userIdentifierKey)
 
   const { isLoading, isError, error, data } = useQuery<Seam>({
-    queryKey: ['client'],
+    queryKey: ['client', { client, clientSession, userIdentifierKey }],
     queryFn: async () => {
       if (client != null) return client
 
