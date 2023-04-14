@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { type ClientSession, Seam } from 'seamapi'
+import { v4 as uuidv4 } from 'uuid'
 
 import { seamContext } from 'lib/provider.js'
 
@@ -10,10 +11,12 @@ export function useSeam(): {
   isError: boolean
   error: unknown
 } {
-  const { client, clientOptions, publishableKey, userIdentifierKey } =
+  const { client, clientOptions, publishableKey, ...context } =
     useContext(seamContext)
 
   const [clientSession, setClientSession] = useClientSession()
+
+  const userIdentifierKey = useUserIdentifierKey(context.userIdentifierKey)
 
   const { isLoading, isError, error, data } = useQuery<Seam>({
     queryKey: ['client'],
@@ -74,4 +77,26 @@ function useClientSession(): [
   }
 
   return [null, setClientSession]
+}
+
+function useUserIdentifierKey(userIdentifierKey: string | undefined): string {
+  if (userIdentifierKey != null) {
+    return userIdentifierKey
+  }
+
+  const localStorageKey = 'seam_user_identifier_key'
+  const setUserIdentifierKey = (userIdentifierKey: string): void => {
+    globalThis?.localStorage?.setItem(localStorageKey, userIdentifierKey)
+  }
+
+  const cachedUserIdentifierKey =
+    globalThis?.localStorage?.getItem(localStorageKey)
+
+  if (cachedUserIdentifierKey != null) {
+    return cachedUserIdentifierKey
+  }
+
+  const newUserIdentifierKey = uuidv4()
+  setUserIdentifierKey(newUserIdentifierKey)
+  return newUserIdentifierKey
 }
