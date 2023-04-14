@@ -18,7 +18,7 @@ export function useDevices(params: DevicesListRequest): UseDevicesResult {
   const { client } = useSeam()
   const { data, ...rest } = useQuery<DevicesListResponse['devices'], SeamError>(
     {
-      queryKey: ['list', 'devices', 'foo'],
+      queryKey: ['list', 'devices', params],
       queryFn: async () => {
         if (client == null) return []
         return await client?.devices.list(params)
@@ -26,5 +26,5 @@ export function useDevices(params: DevicesListRequest): UseDevicesResult {
     }
   )
 
-  return { ...rest, devices: [] }
+  return { ...rest, devices: data }
 }
