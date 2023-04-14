@@ -10,5 +10,14 @@ export default async (url) =>
   await defineConfig({
     envPrefix: 'SEAM_',
     root: dirname(fileURLToPath(url)),
-    plugins: [tsconfigPaths(), react()]
+    plugins: [tsconfigPaths(), react()],
+    server: {
+      proxy: {
+        '/api': {
+          target: 'https://connect.getseam.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '')
+        }
+      }
+    }
   })

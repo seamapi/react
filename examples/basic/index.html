@@ -8,7 +8,10 @@
   <body>
     <div id="root"></div>
     <script>
-      globalThis.seam = { publishableKey: '%SEAM_PUBLISHABLE_KEY%' }
+      globalThis.seam = {
+        endpoint: '/api',
+        publishableKey: '%SEAM_PUBLISHABLE_KEY%'
+      }
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
