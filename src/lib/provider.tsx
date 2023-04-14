@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createContext, type ReactElement, type ReactNode, useRef } from 'react'
-import { Seam } from 'seamapi'
+import { Seam, type SeamClientOptions } from 'seamapi'
 
 declare global {
   // eslint-disable-next-line no-var
@@ -9,12 +9,16 @@ declare global {
 
 export interface SeamContext {
   client: Seam | null
+  clientOptions?: SeamClientOptions | undefined
+  publishableKey?: string | undefined
+  userIdentifierKey?: string | undefined
 }
 
 export interface SeamProviderProps {
   client?: Seam
+  clientSessionToken?: string
   publishableKey?: string
-  sessionKey?: string
+  userIdentifierKey?: string
   endpoint?: string
   children?: ReactNode
 }
@@ -32,10 +36,11 @@ export function SeamProvider({
     contextRef.current = defaultSeamContextValue
   }
 
-  if (contextRef.current.client == null) {
-    throw new Error(
-      'Must provide either a Seam client or a publishableKey and a sessionKey.'
-    )
+  if (
+    contextRef.current.client == null &&
+    contextRef.current.publishableKey == null
+  ) {
+    throw new Error('Must provide either a Seam client or a publishableKey.')
   }
 
   return (
@@ -53,6 +58,8 @@ const createDefaultSeamContextValue = (): SeamContext => {
     return { client: null }
   }
 
+  // TODO: Try createSeamContextValue(...seamObjectFromCookies)
+  // TODO: Always load userIdentifierKey from
   try {
     return createSeamContextValue(globalThis.seam)
   } catch (err) {
@@ -72,12 +79,32 @@ const createSeamContextValue = ({
 
   if (client != null && Object.values(options).some((v) => v == null)) {
     throw new Error(
-      'Cannot provide both a Seam client along with a publishableKey, sessionKey, or endpoint.'
+      'Cannot provide both a Seam client along with other options.'
     )
   }
 
+  const {
+    clientSessionToken,
+    publishableKey,
+    userIdentifierKey,
+    ...clientOptions
+  } = options
+
+  if (client != null) {
+    return { client }
+  }
+
+  if (clientSessionToken != null) {
+    return {
+      client: new Seam({ ...options, clientSessionToken })
+    }
+  }
+
   return {
-    client: client ?? new Seam(options)
+    client: null,
+    publishableKey,
+    userIdentifierKey,
+    clientOptions
   }
 }
 

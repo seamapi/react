@@ -1,25 +1,43 @@
 import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
-import { type Seam } from 'seamapi'
+import { Seam } from 'seamapi'
 
 import { seamContext } from 'lib/provider.js'
 
 export function useSeam(): {
-  client: Seam
+  client: Seam | null
   isLoading: boolean
   isError: boolean
   error: unknown
 } {
-  const { client } = useContext(seamContext)
+  const { client, clientOptions, publishableKey, userIdentifierKey } =
+    useContext(seamContext)
 
-  if (client == null) {
-    throw new Error('Must useSeam inside a SeamProvider.')
-  }
+  const { isLoading, isError, error, data } = useQuery<Seam>({
+    queryKey: ['client'],
+    queryFn: async () => {
+      if (client != null) return client
 
-  const { isLoading, isError, error } = useQuery({
-    queryKey: ['useClientSession'],
-    queryFn: async () => await client.useClientSession()
+      if (publishableKey == null) {
+        throw new Error('Missing publishableKey')
+      }
+
+      const res = await Seam.getClientSessionToken({
+        ...clientOptions,
+        publishableKey,
+        userIdentifierKey
+      })
+
+      if (!res.ok || res.client_session?.token == null) {
+        throw new Error('Failed to get client access token')
+      }
+
+      return new Seam({
+        ...clientOptions,
+        clientSessionToken: res.client_session.token
+      })
+    }
   })
 
-  return { client, isLoading, isError, error }
+  return { client: data ?? null, isLoading, isError, error }
 }

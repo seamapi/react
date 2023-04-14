@@ -1,24 +1,30 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
-import { type Device, type SeamError } from 'seamapi'
+import {
+  type DevicesListRequest,
+  type DevicesListResponse,
+  type SeamError
+} from 'seamapi'
 
 import { useSeam } from './use-seam.js'
 
-type Result = UseQueryResult<Device[], SeamError>
+export type UseDevicesParams = DevicesListRequest
+export type UseDevicesData = DevicesListResponse['devices']
 
-interface UseDevicesOptions {
-  manufacturer?: string | undefined
-}
+type Result = UseQueryResult<UseDevicesData, SeamError>
 
 type UseDevicesResult = Omit<Result, 'data'> & { devices: Result['data'] }
 
-export function useDevices({
-  manufacturer
-}: UseDevicesOptions = {}): UseDevicesResult {
+export function useDevices(params: DevicesListRequest): UseDevicesResult {
   const { client } = useSeam()
-  const { data: devices, ...rest } = useQuery<Device[], SeamError>({
-    queryKey: ['list', 'devices', { manufacturer }],
-    queryFn: async () => await client.devices.list({ manufacturer })
-  })
+  const { data, ...rest } = useQuery<DevicesListResponse['devices'], SeamError>(
+    {
+      queryKey: ['list', 'devices', 'foo'],
+      queryFn: async () => {
+        if (client == null) return []
+        return await client?.devices.list(params)
+      }
+    }
+  )
 
-  return { ...rest, devices }
+  return { ...rest, devices: [] }
 }
