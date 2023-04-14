@@ -7,7 +7,7 @@ Seam React component library.
 
 ## Description
 
-TODO
+Zero-backend beautiful drop-in pre-built components with everything you need to get started with Seam.
 
 ## Installation
 
