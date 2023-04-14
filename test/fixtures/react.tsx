@@ -4,7 +4,12 @@ import { type ReactElement, type ReactNode } from 'react'
 import { SeamProvider } from 'index.js'
 
 const Providers = ({ children }: { children: ReactNode }): ReactElement => {
-  return <SeamProvider publishableKey='test-key'>{children}</SeamProvider>
+  return (
+    // TODO: Use fake-seam-connect endpoint and publishableKey
+    <SeamProvider publishableKey='seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'>
+      {children}
+    </SeamProvider>
+  )
 }
 
 type Render = typeof render
