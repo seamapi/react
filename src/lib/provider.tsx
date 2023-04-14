@@ -57,8 +57,6 @@ const createDefaultSeamContextValue = (): SeamContext => {
     return { client: null }
   }
 
-  // TODO: Try createSeamContextValue(...seamObjectFromCookies)
-  // TODO: Always load userIdentifierKey from
   try {
     return createSeamContextValue(globalThis.seam)
   } catch (err) {
