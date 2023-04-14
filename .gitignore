@@ -12,6 +12,7 @@
 !src/**/*.d.ts
 !examples/**/*.js
 !examples/**/*.d.ts
+!.storybook/middleware.js
 
 # Vite
 *.timestamp-*

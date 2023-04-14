@@ -18,11 +18,14 @@ const preview: Preview = {
   // TODO: Use fake-seam-connect endpoint and publishableKey
   args: { publishableKey: 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98' },
   decorators: [
-    (Story, { args }) => (
-      <SeamProvider publishableKey={args['publishableKey']}>
-        <Story />
-      </SeamProvider>
-    )
+    (Story, { args }) => {
+      const publishableKey = args['publishableKey']
+      return (
+        <SeamProvider publishableKey={publishableKey} endpoint='/api'>
+          <Story />
+        </SeamProvider>
+      )
+    }
   ]
 }
 
