@@ -23,6 +23,7 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
     "paths": {
       "fixtures/*": ["./test/fixtures/*"],
       "index.js": ["./src/index.ts"],
