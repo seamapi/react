@@ -2,5 +2,11 @@
   "buildCommand": "npm run docs:build",
   "installCommand": "npm ci",
   "outputDirectory": "docs",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://connect.getseam.com/:match"
+    }
+  ]
 }
