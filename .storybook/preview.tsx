@@ -18,7 +18,7 @@ const preview: Preview = {
     }
   },
   decorators: [
-    (Story, { args }) => {
+    (Story) => {
       return (
         <SeamProvider publishableKey={publishableKey} endpoint='/api'>
           <Story />
