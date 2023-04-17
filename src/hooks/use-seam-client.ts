@@ -20,7 +20,7 @@ export const useSeamClient = ({
     // backend generated client access token
     setCookie(`seam-clientSessionToken-${userIdentifierKey}`, clientSessionToken, 30)
     const seam = new Seam({
-      apiKey: clientSessionToken,
+      clientSessionToken: clientSessionToken,
       endpoint,
     })
     return seam
@@ -28,7 +28,7 @@ export const useSeamClient = ({
     // already have client access token from cookie
     // no need to use public key
     const seam = new Seam({
-      apiKey: clientSessionTokenFromCookie,
+      clientSessionToken: clientSessionTokenFromCookie,
       endpoint,
     })
     // TODO: check if client access token is valid (not expired), if expired/invalid, get new one with the public key
@@ -46,7 +46,7 @@ export const useSeamClient = ({
       }
       setCookie(`seam-clientSessionToken-${userIdentifierKey}`, clientSessionToken, 30)
       const seam = new Seam({
-        apiKey: clientSessionToken,
+        clientSessionToken: clientSessionToken,
         endpoint: endpoint,
       })
       return seam
