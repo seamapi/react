@@ -107,7 +107,7 @@
     "seamapi": "^5.15.0-alpha.0",
     "storybook": "^7.0.2",
     "ts-jest": "^29.1.0",
-    "tsc-alias": "1.8.2",
+    "tsc-alias": "^1.8.5",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "typescript": "^5.0.2",
     "vite": "^4.2.1",
