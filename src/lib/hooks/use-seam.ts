@@ -84,18 +84,7 @@ function useUserIdentifierKey(userIdentifierKey: string | undefined): string {
   }
 
   const localStorageKey = 'seam_user_identifier_key'
-  const setUserIdentifierKey = (userIdentifierKey: string): void => {
-    globalThis?.localStorage?.setItem(localStorageKey, userIdentifierKey)
-  }
-
-  const cachedUserIdentifierKey =
-    globalThis?.localStorage?.getItem(localStorageKey)
-
-  if (cachedUserIdentifierKey != null) {
-    return cachedUserIdentifierKey
-  }
-
-  const newUserIdentifierKey = uuidv4()
-  setUserIdentifierKey(newUserIdentifierKey)
-  return newUserIdentifierKey
+  const key = globalThis?.localStorage?.getItem(localStorageKey) ?? uuidv4()
+  globalThis?.localStorage?.setItem(localStorageKey, key)
+  return key
 }
