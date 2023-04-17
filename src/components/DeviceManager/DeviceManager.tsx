@@ -7,10 +7,10 @@ import { SeamContext } from '../SeamProvider'
 import './DeviceManager.css' // TODO: add postcss
 
 const DeviceManager = (props: any) => {
-  const { publishedKey, clientSessionToken, seamEndpoint, userIdentifierKey } = useContext(SeamContext)
+  const { publishableKey, clientSessionToken, seamEndpoint, userIdentifierKey } = useContext(SeamContext)
   const { email } = props // TODO: change email to userIdentifierKey in DB
   const seam = useSeamClient({
-    publishedKey,
+    publishableKey,
     clientSessionToken,
     endpoint: seamEndpoint,
     userIdentifierKey,

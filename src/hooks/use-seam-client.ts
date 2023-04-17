@@ -2,12 +2,12 @@ import Seam from 'seamapi'
 import { getCookie, setCookie } from '../utils'
 
 export const useSeamClient = ({
-  publishedKey,
+  publishableKey,
   endpoint,
   userIdentifierKey,
   clientSessionToken,
 }: {
-  publishedKey?: string
+  publishableKey?: string
   endpoint: string
   userIdentifierKey: string
   clientSessionToken?: string
@@ -31,10 +31,14 @@ export const useSeamClient = ({
     // no need to use public key
     // TODO: check if client access token is valid (not expired), if expired/invalid, get new one with the public key
     return getSeam(clientSessionTokenFromCookie)
-  } else if (publishedKey?.startsWith('seam_pk1')) {
+  } else if (publishableKey?.startsWith('seam_pk1')) {
     // public key, need to create a client access token and store it in cookie
     ;(async () => {
-      const clientSessionTokenResponse = await Seam.getClientSessionToken({ publishedKey, userIdentifierKey, endpoint })
+      const clientSessionTokenResponse = await Seam.getClientSessionToken({
+        publishableKey,
+        userIdentifierKey,
+        endpoint,
+      })
       if (clientSessionTokenResponse.ok === false || !clientSessionTokenResponse['client_session']) {
         throw new Error('Could not get client access token')
       }
@@ -47,7 +51,7 @@ export const useSeamClient = ({
       // TODO: improve: use devices are not loading probably due to async nature of this hook
     })()
   } else {
-    throw new Error('No publishedKey nor clientSessionToken provided or they are invalid')
+    throw new Error('No publishableKey nor clientSessionToken provided or they are invalid')
     return null as any
   }
   return null as any
