@@ -139,7 +139,9 @@ The following repository secrets must be set on [GitHub Actions]:
 
 ## License
 
-This npm package is licensed under the MIT license.
+This npm package is licensed under the [MIT license].
+
+[MIT license]: https://github.com/seamapi/react/blob/main/LICENSE.txt
 
 ## Warranty
 
