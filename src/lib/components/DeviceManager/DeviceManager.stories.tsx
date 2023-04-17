@@ -4,7 +4,7 @@ import { DeviceManager } from './DeviceManager.js'
 
 /**
  * # DeviceManager stories
- * These stories showcase the device list.
+ * These stories showcase the device manager.
  */
 const meta: Meta<typeof DeviceManager> = {
   title: 'Example/DeviceManager',

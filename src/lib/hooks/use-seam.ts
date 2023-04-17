@@ -13,9 +13,7 @@ export function useSeam(): {
 } {
   const { client, clientOptions, publishableKey, ...context } =
     useContext(seamContext)
-
   const [clientSession, setClientSession] = useClientSession()
-
   const userIdentifierKey = useUserIdentifierKey(context.userIdentifierKey)
 
   const { isLoading, isError, error, data } = useQuery<Seam>({

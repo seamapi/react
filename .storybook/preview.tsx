@@ -2,9 +2,9 @@ import type { Preview } from '@storybook/react'
 
 import { SeamProvider } from 'index.js'
 
-// TODO: UPSTREAM: Use toolbar input when it lands
+// UPSTREAM: Use toolbar input when it lands.
 // https://github.com/storybookjs/storybook/pull/21959
-// TODO: Use fake-seam-connect endpoint and publishableKey
+// TODO: Use fake-seam-connect endpoint and publishableKey.
 const publishableKey = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
 
 const preview: Preview = {
