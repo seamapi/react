@@ -72,11 +72,10 @@ function useClientSession(): [
 
   const cachedClientSession = globalThis?.localStorage?.getItem(localStorageKey)
 
-  if (cachedClientSession != null) {
-    return [JSON.parse(cachedClientSession), setClientSession]
-  }
-
-  return [null, setClientSession]
+  return [
+    cachedClientSession != null ? JSON.parse(cachedClientSession) : null,
+    setClientSession
+  ]
 }
 
 function useUserIdentifierKey(userIdentifierKey: string | undefined): string {
