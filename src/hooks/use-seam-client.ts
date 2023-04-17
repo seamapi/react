@@ -31,7 +31,7 @@ export const useSeamClient = ({
     // no need to use public key
     // TODO: check if client access token is valid (not expired), if expired/invalid, get new one with the public key
     return getSeam(clientSessionTokenFromCookie)
-  } else if (publishableKey?.startsWith('seam_pk1')) {
+  } else if (publishableKey?.startsWith('seam_pk')) {
     // public key, need to create a client access token and store it in cookie
     ;(async () => {
       const clientSessionTokenResponse = await Seam.getClientSessionToken({
