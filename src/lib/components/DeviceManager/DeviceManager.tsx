@@ -11,7 +11,7 @@ export type DeviceManagerProps = UseDevicesParams
 export const DeviceManager = (props: DeviceManagerProps): ReactElement => {
   const { devices, isLoading, isError, error } = useDevices(props)
 
-  if (isLoading) return <p role='loading'>{i18nStub.loading}</p>
+  if (isLoading) return <p role='loading'>{t.loading}</p>
   if (isError) return <p>{error?.message}</p>
 
   return (
@@ -28,14 +28,13 @@ const DeviceManagerItem = (
 ): ReactElement => {
   return (
     <li>
-      {i18nStub.device_id}: {props.device_id}
-      <br />
-      {i18nStub.name}: {props.properties.name}
+      <p>{t.device_id}: {props.device_id}</p>
+      <p>{t.name}: {props.properties.name}</p>
     </li>
   )
 }
 
-const i18nStub = {
+const t = {
   loading: 'Loading devices',
   device_id: 'Device ID',
   name: 'Device name'
