@@ -12,6 +12,7 @@ export default async (url) =>
     root: dirname(fileURLToPath(url)),
     plugins: [tsconfigPaths(), react()],
     server: {
+      port: 8080,
       proxy: {
         '/api': {
           target: 'https://connect.getseam.com',
