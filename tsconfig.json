@@ -31,6 +31,5 @@
     }
   },
   "files": ["src/index.ts"],
-  "include": ["src/**/*", "test/**/*", "examples/**/*", ".storybook/**/*"],
-  "exclude": [".storybook/main.ts"]
+  "include": ["src/**/*", "test/**/*", "examples/**/*", ".storybook/**/*"]
 }
