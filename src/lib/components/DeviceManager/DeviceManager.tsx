@@ -28,8 +28,12 @@ const DeviceManagerItem = (
 ): ReactElement => {
   return (
     <li>
-      <p>{t.device_id}: {props.device_id}</p>
-      <p>{t.name}: {props.properties.name}</p>
+      <p>
+        {t.device_id}: {props.device_id}
+      </p>
+      <p>
+        {t.name}: {props.properties.name}
+      </p>
     </li>
   )
 }
