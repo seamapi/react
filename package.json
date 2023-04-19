@@ -63,7 +63,7 @@
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
-    "seamapi": ">=5.15.0-alpha.0"
+    "seamapi": ">=5.15.0"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.28.0",
