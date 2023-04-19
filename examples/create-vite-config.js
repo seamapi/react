@@ -10,9 +10,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default async (url) =>
   await defineConfig({
     envPrefix: 'SEAM_',
-    base: env.CI
-      ? `/examples/${basename(dirname(fileURLToPath(url)))}`
-      : '/',
+    base: env.CI ? `/examples/${basename(dirname(fileURLToPath(url)))}` : '/',
     root: dirname(fileURLToPath(url)),
     plugins: [tsconfigPaths(), react()],
     server: {
