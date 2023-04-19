@@ -1,3 +1,44 @@
+# Parts of this file were adapted from
+# GitHub’s collection of .gitignore file templates
+# which are Copyright (c) 2023 GitHub, Inc.
+# and released under the MIT License.
+# For more details, visit the project page:
+# https://github.com/github/gitignore
+
+# TypeScript build output
+*.d.ts
+*.js
+*.js.map
+!src/**/*.d.ts
+!examples/**/*.js
+!examples/**/*.d.ts
+!.storybook/middleware.js
+
+# Vite
+*.timestamp-*
+
+# Storybook
+docs
+
+# Build directories
+package
+
+# Environment versions file
+.versions
+
+# Tern
+.tern-project
+.tern-port
+
+# npm config
+.npmrc
+
+# Temporary development files
+tmp
+
+# Yarn lockfile (only package-lock.json supported)
+yarn.lock
+
 # Logs
 logs
 *.log
@@ -5,6 +46,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+.pnpm-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -41,8 +83,8 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
-typings/
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
@@ -52,6 +94,9 @@ typings/
 
 # Optional eslint cache
 .eslintcache
+
+# Optional stylelint cache
+.stylelintcache
 
 # Microbundle cache
 .rpt2_cache/
@@ -68,15 +113,20 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# dotenv environment variable files
 .env
-.env.test
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+.parcel-cache
 
 # Next.js build output
 .next
+out
 
 # Nuxt.js build / generate output
 .nuxt
@@ -84,12 +134,19 @@ dist
 
 # Gatsby files
 .cache/
-# Comment in the public line in if your project uses Gatsby and *not* Next.js
+# Comment in the public line in if your project uses Gatsby and not Next.js
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
 # vuepress build output
 .vuepress/dist
+
+# vuepress v2.x temp and cache directory
+.temp
+.cache
+
+# Docusaurus cache and generated files
+.docusaurus
 
 # Serverless directories
 .serverless/
@@ -103,34 +160,68 @@ dist
 # TernJS port file
 .tern-port
 
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
 
-node_modules
-*.code-workspace
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
 
-/dist
+# Windows
 
-# dependencies
-/.pnp
-.pnp.js
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
 
-# testing
-/coverage
+# Dump file
+*.stackdump
 
-# production
-/build
+# Folder config file
+[Dd]esktop.ini
 
-# misc
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# macOS
+
+# General
 .DS_Store
-.env*
-!.env.example
+.AppleDouble
+.LSOverride
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.vercel
+# Icon must end with two \r
+Icon
 
-.next
-.yalc
-yalc.lock
-# Sentry
-.sentryclirc
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

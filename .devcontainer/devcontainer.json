@@ -1,0 +1,23 @@
+{
+  "name": "TypeScript",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "18"
+    }
+  },
+  "extensions": [
+    "ms-vsliveshare.vsliveshare",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode"
+  ],
+  "forwardPorts": [6006, 6007, 8080],
+  "portsAttributes": {
+    "6006": { "label": "Storybook" },
+    "6007": { "label": "Docs" },
+    "8080": { "label": "Example" }
+  },
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
+}
