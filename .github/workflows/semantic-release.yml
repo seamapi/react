@@ -6,8 +6,7 @@ run-name: Semantic Release from ${{ github.ref_name }}
 on:
   push:
     branches:
-      - 'TODO: re-enable when ready to publish'
-      # - '**'
+      - '**'
 
 jobs:
   semantic:
