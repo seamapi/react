@@ -4,7 +4,9 @@ import { SeamProvider } from 'index.js'
 
 // UPSTREAM: Use toolbar input when it lands.
 // https://github.com/storybookjs/storybook/pull/21959
-const publishableKey = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
+const defaultPublishableKey =
+  process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ??
+  'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
 
 const preview: Preview = {
   parameters: {
@@ -19,7 +21,7 @@ const preview: Preview = {
   decorators: [
     (Story) => {
       return (
-        <SeamProvider publishableKey={publishableKey} endpoint='/api'>
+        <SeamProvider publishableKey={defaultPublishableKey} endpoint='/api'>
           <Story />
         </SeamProvider>
       )
