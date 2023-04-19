@@ -9,7 +9,7 @@ import { DeviceManager } from './DeviceManager.js'
 const meta: Meta<typeof DeviceManager> = {
   title: 'Example/DeviceManager',
   component: DeviceManager,
-  tags: ['autodocs']
+  tags: ['autodocs'],
 }
 
 export default meta

@@ -41,5 +41,5 @@ const DeviceManagerItem = (
 const t = {
   loading: 'Loading devices',
   device_id: 'Device ID',
-  name: 'Device name'
+  name: 'Device name',
 }

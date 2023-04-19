@@ -17,8 +17,8 @@ export default async (url) =>
         '/api': {
           target: 'https://connect.getseam.com',
           rewrite: (path) => path.replace(/^\/api/, ''),
-          changeOrigin: true
-        }
-      }
-    }
+          changeOrigin: true,
+        },
+      },
+    },
   })

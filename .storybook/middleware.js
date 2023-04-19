@@ -9,7 +9,7 @@ export default (app) => {
     createProxyMiddleware({
       target: 'https://connect.getseam.com',
       pathRewrite: { '^/api': '' },
-      changeOrigin: true
+      changeOrigin: true,
     })
   )
 }

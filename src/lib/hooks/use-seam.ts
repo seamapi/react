@@ -29,14 +29,14 @@ export function useSeam(): {
       if (clientSession != null) {
         return new Seam({
           ...clientOptions,
-          clientSessionToken: clientSession.token
+          clientSessionToken: clientSession.token,
         })
       }
 
       const res = await Seam.getClientSessionToken({
         ...clientOptions,
         publishableKey,
-        userIdentifierKey
+        userIdentifierKey,
       })
 
       if (!res.ok || res.client_session?.token == null) {
@@ -47,9 +47,9 @@ export function useSeam(): {
 
       return new Seam({
         ...clientOptions,
-        clientSessionToken: res.client_session.token
+        clientSessionToken: res.client_session.token,
       })
-    }
+    },
   })
 
   return { client: data ?? null, isLoading, isError, error }
@@ -72,7 +72,7 @@ function useClientSession(): [
 
   return [
     cachedClientSession != null ? JSON.parse(cachedClientSession) : null,
-    setClientSession
+    setClientSession,
   ]
 }
 

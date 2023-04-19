@@ -5,5 +5,5 @@ export default create({
   brandTitle: 'Seam',
   brandUrl: 'https://github.com/seamapi/react',
   brandImage: '/seam-wordmark-s.webp',
-  brandTarget: '_self'
+  brandTarget: '_self',
 })

@@ -93,7 +93,7 @@ const createSeamContextValue = ({
     client: null,
     publishableKey,
     userIdentifierKey,
-    clientOptions
+    clientOptions,
   }
 }
 

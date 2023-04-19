@@ -11,14 +11,14 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-interactions'
+    '@storybook/addon-interactions',
   ],
   framework: {
     name: '@storybook/react-webpack5',
-    options: {}
+    options: {},
   },
   docs: {
-    autodocs: 'tag'
+    autodocs: 'tag',
   },
   // UPSTREAM: https://github.com/storybookjs/storybook/issues/14274
   // Workaround from https://github.com/vercel/next.js/issues/41961#issuecomment-1311091390
@@ -66,7 +66,7 @@ const config: StorybookConfig = {
     config.resolve.plugins.push(new TsconfigPathsPlugin({ baseUrl: '.' }))
 
     return config
-  }
+  },
 }
 
 export default config

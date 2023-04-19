@@ -2,7 +2,7 @@ import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import {
   type DevicesListRequest,
   type DevicesListResponse,
-  type SeamError
+  type SeamError,
 } from 'seamapi'
 
 import { useSeam } from './use-seam.js'
@@ -23,7 +23,7 @@ export function useDevices(params: DevicesListRequest): UseDevicesResult {
       queryFn: async () => {
         if (client == null) return []
         return await client?.devices.list(params)
-      }
+      },
     }
   )
 

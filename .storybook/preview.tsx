@@ -12,9 +12,9 @@ const preview: Preview = {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/
-      }
-    }
+        date: /Date$/,
+      },
+    },
   },
   decorators: [
     (Story) => {
@@ -23,8 +23,8 @@ const preview: Preview = {
           <Story />
         </SeamProvider>
       )
-    }
-  ]
+    },
+  ],
 }
 
 export default preview
