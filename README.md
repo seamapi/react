@@ -7,7 +7,13 @@ Seam React component library.
 
 ## Description
 
-Zero-backend beautiful drop-in pre-built components with everything you need to get started with Seam.
+Zero-backend beautiful drop-in pre-built components
+with everything you need to get started with [Seam].
+
+Play with them live in the [Storybook]!
+
+[Seam]: https://www.seam.co/
+[Storybook]: https://seam-react.vercel.app/
 
 ## Installation
 
@@ -19,6 +25,31 @@ $ npm install @seamapi/react
 
 [npm]: https://www.npmjs.com/
 
+## Usage
+
+> Check out the [full example app](./examples/basic)!
+
+1. Obtain a publishable key from the [Seam Console].
+2. Wrap your app with the `SeamProvider`.
+3. Drop in Seam components.
+
+```ts
+import { SeamProvider, DeviceManager } from '@seamapi/react'
+
+export const App = () => {
+  return (
+    <SeamProvider>
+      <main>
+        <h1>My App</h1>
+        <DeviceManager />
+      </main>
+    </SeamProvider>
+  )
+}
+```
+
+[Seam Console]: https://console.seam.co/
+
 ## Development and Testing
 
 ### Quickstart
@@ -28,7 +59,7 @@ $ git clone https://github.com/seamapi/react.git
 $ cd react
 $ nvm install
 $ npm install
-$ npm run test:watch
+$ npm start
 ```
 
 Primary development tasks are defined under `scripts` in `package.json`
@@ -53,6 +84,9 @@ $ git clone git@github.com:seamapi/react.git
 ### Requirements
 
 You will need [Node.js] with [npm] and a [Node.js debugging] client.
+Alternately, develop in the cloud with [Codespaces].
+
+[codespaces]: https://github.com/features/codespaces
 
 Be sure that all commands run under the correct Node version, e.g.,
 if using [nvm], install the correct version with
@@ -77,6 +111,51 @@ $ npm install
 [Node.js debugging]: https://nodejs.org/en/docs/guides/debugging-getting-started/
 [npm]: https://www.npmjs.com/
 [nvm]: https://github.com/creationix/nvm
+
+### Storybook
+
+Develop components with [Storybook].
+
+Run Storybook in development mode with
+
+```
+$ npm start
+```
+
+The Storybook is deployed in docs mode.
+Develop the Storybook in docs mode with
+
+```
+$ npm run docs:start
+```
+
+[Storybook]: https://storybook.js.org/
+
+### Previews
+
+Every pull request deploys the Storybook with the examples
+in a [Vercel Preview Deployment]
+where you may [comment directly on the preview][Vercel Comments].
+
+[Vercel Preview Deployment]: https://vercel.com/docs/concepts/deployments/preview-deployments
+[Vercel Comments]: https://vercel.com/docs/concepts/deployments/comments
+
+### Tests
+
+Write tests with [Jest].
+
+[Jest]: https://jestjs.io/
+
+### Examples
+
+Find fully working examples apps under `examples/`.
+Each example app is built and deployed along with the Storybook documentation.
+
+Run and develop an example with, e.g.,
+
+```
+$ npm run example:basic
+```
 
 ### Publishing
 

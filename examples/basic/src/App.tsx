@@ -4,11 +4,11 @@ import { DeviceManager, SeamProvider } from 'index.js'
 
 export const App = (): ReactElement => {
   return (
-    <main>
-      <h1>Seam Components</h1>
-      <SeamProvider>
+    <SeamProvider>
+      <main>
+        <h1>Seam Components</h1>
         <DeviceManager />
-      </SeamProvider>
-    </main>
+      </main>
+    </SeamProvider>
   )
 }
