@@ -10,11 +10,10 @@ Seam React component library.
 Zero-backend beautiful drop-in pre-built components
 with everything you need to get started with [Seam].
 
-Play with them in the [Storybook]!
-
-[Storybook]: https://seam-react.vercel.app/
+Play with them live in the [Storybook]!
 
 [Seam]: https://www.seam.co/
+[Storybook]: https://seam-react.vercel.app/
 
 ## Installation
 
