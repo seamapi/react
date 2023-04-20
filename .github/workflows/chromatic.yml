@@ -1,0 +1,22 @@
+---
+name: Chromatic
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  commit:
+    name: Publish to Chromatic
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
