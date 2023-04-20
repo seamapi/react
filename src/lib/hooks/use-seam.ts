@@ -25,7 +25,6 @@ export function useSeam(): {
         throw new Error('Missing publishableKey')
       }
 
-      // TODO: Check if client session is still valid before resuming it.
       if (clientSession != null) {
         return new Seam({
           ...clientOptions,
