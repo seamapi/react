@@ -27,6 +27,8 @@ $ npm install @seamapi/react
 
 ## Usage
 
+> Check out the [full example app](./examples/basic)!
+
 1. Obtain a publishable key from the [Seam Console].
 2. Wrap your app with the `SeamProvider`.
 3. Drop in Seam components.
@@ -45,8 +47,6 @@ export const App = () => {
   )
 }
 ```
-
-> Check out the [full example app](./examples/basic)!
 
 [Seam Console]: https://console.seam.co/
 
