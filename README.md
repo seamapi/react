@@ -26,6 +26,31 @@ $ npm install @seamapi/react
 
 [npm]: https://www.npmjs.com/
 
+## Usage
+
+1. Obtain a publishable key from the [Seam Console].
+2. Wrap your app with the `SeamProvider`.
+3. Drop in Seam components.
+
+```ts
+import { SeamProvider, DeviceManager } from '@seamapi/react'
+
+export const App = () => {
+  return (
+    <SeamProvider>
+      <main>
+        <h1>My App</h1>
+        <DeviceManager />
+      </main>
+    </SeamProvider>
+  )
+}
+```
+
+> Check out the [full example app](./examples/basic)!
+
+[Seam Console]: https://console.seam.co/
+
 ## Development and Testing
 
 ### Quickstart
