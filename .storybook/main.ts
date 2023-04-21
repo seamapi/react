@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { join, parse, resolve } from 'node:path'
 
-import { type StorybookConfig } from '@storybook/react-webpack5'
+import type { StorybookConfig } from '@storybook/react-webpack5'
 import { NormalModuleReplacementPlugin } from 'webpack'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 

@@ -1,8 +1,8 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
-import {
-  type DevicesListRequest,
-  type DevicesListResponse,
-  type SeamError,
+import type {
+  DevicesListRequest,
+  DevicesListResponse,
+  SeamError,
 } from 'seamapi'
 
 import { useSeam } from './use-seam.js'
