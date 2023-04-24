@@ -1,5 +1,5 @@
-import { type ReactElement } from 'react'
-import { type CommonDeviceProperties, type Device } from 'seamapi'
+import type { ReactElement } from 'react'
+import type { CommonDeviceProperties, Device } from 'seamapi'
 
 import { useDevices, type UseDevicesParams } from 'lib/hooks/use-devices.js'
 
