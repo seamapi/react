@@ -38,7 +38,7 @@ import { SeamProvider, DeviceManager } from '@seamapi/react'
 
 export const App = () => {
   return (
-    <SeamProvider>
+    <SeamProvider publishableKey='your_publishable_key'>
       <main>
         <h1>My App</h1>
         <DeviceManager />
