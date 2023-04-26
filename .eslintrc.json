@@ -15,7 +15,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.test.tsx?"],
+      "files": ["**/*.test.tsx?", "test/fixtures/setup.cjs"],
       "env": { "jest": true }
     }
   ],
