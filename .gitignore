@@ -22,7 +22,6 @@ docs
 
 # Build directories
 package
-dist
 
 # Environment versions file
 .versions
