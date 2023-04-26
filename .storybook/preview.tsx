@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react'
 
+import '../lib/styles/index.css'
+
 import { SeamComponents } from 'index.js'
 
 // UPSTREAM: Use toolbar input when it lands.

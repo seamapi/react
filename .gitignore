@@ -22,6 +22,7 @@ docs
 
 # Build directories
 package
+dist
 
 # Environment versions file
 .versions
@@ -205,7 +206,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*

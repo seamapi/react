@@ -8,6 +8,64 @@ import AccessCodeTable from 'lib/ui/AccessCodeTable/index.js'
 const meta: Meta<typeof AccessCodeTable> = {
   title: 'Example/AccessCodeTable',
   component: AccessCodeTable,
+  args: {
+    accessCodes: [
+      {
+        access_code_id: 'someeid',
+        type: 'ongoing',
+        code: '1234',
+        created_at: Date.now().toString(),
+        device_id: 'some_device_id',
+        status: 'set',
+        name: 'Guest - Gonzalez',
+      },
+      {
+        access_code_id: 'someeid',
+        type: 'ongoing',
+        code: '1234',
+        created_at: Date.now().toString(),
+        device_id: 'some_device_id',
+        status: 'set',
+        name: 'Guest - Thompson',
+      },
+      {
+        access_code_id: 'someeid',
+        type: 'ongoing',
+        code: '1234',
+        created_at: Date.now().toString(),
+        device_id: 'some_device_id',
+        status: 'set',
+        name: 'Guest - Kranz',
+      },
+      {
+        access_code_id: 'someeid',
+        type: 'ongoing',
+        code: '1234',
+        created_at: Date.now().toString(),
+        device_id: 'some_device_id',
+        status: 'set',
+        name: 'Sparkle Cleaners',
+      },
+      {
+        access_code_id: 'someeid',
+        type: 'ongoing',
+        code: '1234',
+        created_at: Date.now().toString(),
+        device_id: 'some_device_id',
+        status: 'set',
+        name: 'Guest - yang',
+      },
+      {
+        access_code_id: 'someeid',
+        type: 'ongoing',
+        code: '1234',
+        created_at: Date.now().toString(),
+        device_id: 'some_device_id',
+        status: 'set',
+        name: 'Astro Plumbing',
+      },
+    ],
+  },
 }
 
 export default meta

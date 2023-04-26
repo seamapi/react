@@ -36,9 +36,10 @@
   ],
   "scripts": {
     "start": "storybook dev --port 6006",
-    "build": "npm run build:ts",
+    "build": "npm run build:ts && npm run build:css",
     "postbuild": "node ./index.js",
     "build:ts": "tsc --project tsconfig.build.json",
+    "build:css": "node ./build-css.cjs",
     "prebuild:ts": "del 'index.*' lib",
     "postbuild:ts": "tsc-alias --project tsconfig.build.json",
     "docs:build": "storybook build --docs --output-dir docs",
@@ -70,7 +71,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.28.0",
-    "seamapi": "^5.15.0",
+    "seamapi": "^5.17.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -109,6 +110,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass": "^1.62.1",
     "storybook": "^7.0.2",
     "ts-jest": "^29.1.0",
     "tsc-alias": "^1.8.5",

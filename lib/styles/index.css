@@ -1,0 +1,82 @@
+.seam-css {
+  font-family: "Source Sans Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --primary: #007AFC;
+  --text-gray: #9DA1A9;
+  --input-border: #D5D8DC;
+}
+.seam-css *, .seam-css *:before, .seam-css *:after {
+  box-sizing: border-box;
+}
+.seam-css html, .seam-css body, .seam-css div, .seam-css span, .seam-css object, .seam-css iframe, .seam-css figure, .seam-css h1, .seam-css h2, .seam-css h3, .seam-css h4, .seam-css h5, .seam-css h6, .seam-css p, .seam-css blockquote, .seam-css pre, .seam-css a, .seam-css code, .seam-css em, .seam-css img, .seam-css small, .seam-css strike, .seam-css strong, .seam-css sub, .seam-css sup, .seam-css tt, .seam-css b, .seam-css u, .seam-css i, .seam-css ol, .seam-css ul, .seam-css li, .seam-css fieldset, .seam-css form, .seam-css label, .seam-css table, .seam-css caption, .seam-css tbody, .seam-css tfoot, .seam-css thead, .seam-css tr, .seam-css th, .seam-css td, .seam-css main, .seam-css canvas, .seam-css embed, .seam-css footer, .seam-css header, .seam-css nav, .seam-css section, .seam-css video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+}
+.seam-css footer, .seam-css header, .seam-css nav, .seam-css section, .seam-css main {
+  display: block;
+}
+.seam-css body {
+  line-height: 1;
+}
+.seam-css ol, .seam-css ul {
+  list-style: none;
+}
+.seam-css blockquote, .seam-css q {
+  quotes: none;
+}
+.seam-css blockquote:before, .seam-css blockquote:after, .seam-css q:before, .seam-css q:after {
+  content: "";
+  content: none;
+}
+.seam-css table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.seam-css input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.seam-css h1, .seam-css h2, .seam-css h3, .seam-css h4, .seam-css h5, .seam-css h6 {
+  font-weight: 600;
+}
+.seam-css .seam--caption {
+  color: var(--text-gray);
+}
+.seam-css .seam--table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.seam-css .seam--table-title {
+  font-size: 21px;
+  line-height: 132%;
+}
+.seam-css .seam--table-title .seam--caption {
+  font-size: 16px;
+  line-height: 134%;
+}
+.seam-css .seam--table-row {
+  display: flex;
+  padding: 12px 16px;
+}
+.seam-css .seam--table-row .seam--title {
+  font-weight: 600;
+  font-size: 18px;
+}
+.seam-css .seam--table-cell {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+.seam-css .seam--text-field {
+  padding: 0px 8px;
+  height: 40px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+}
