@@ -13,6 +13,12 @@
     "project": "./tsconfig.json",
     "ecmaVersion": "latest"
   },
+  "overrides": [
+    {
+      "files": ["**/*.test.tsx?", "test/fixtures/setup.cjs"],
+      "env": { "jest": true }
+    }
+  ],
   "rules": {
     "no-console": "warn",
     "@typescript-eslint/consistent-type-imports": [
