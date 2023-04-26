@@ -5,7 +5,7 @@ import type {
   SeamError,
 } from 'seamapi'
 
-import { useSeamClient } from 'index.js'
+import { useSeamClient } from 'lib/seam/client.js'
 
 export type UseDevicesParams = DevicesListRequest
 export type UseDevicesData = DevicesListResponse['devices']
