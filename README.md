@@ -50,6 +50,17 @@ export const App = () => {
 
 [Seam Console]: https://console.seam.co/
 
+### Fonts
+
+The components have been designed with Source Sans Pro in mind with fallback to other system sans-serif fonts. To use it with Source Sans Pro, please load the font from Google Fonts by placing the following in you `<head>` tag:
+
+```html
+<link
+  href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
+  rel="stylesheet"
+/>
+```
+
 ## Development and Testing
 
 ### Quickstart
