@@ -10,7 +10,8 @@
   ],
   "plugins": ["simple-import-sort", "unused-imports"],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
+    "ecmaVersion": "latest"
   },
   "rules": {
     "no-console": "warn",
