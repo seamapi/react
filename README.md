@@ -61,6 +61,10 @@ The components have been designed with Source Sans Pro in mind with fallback to 
 />
 ```
 
+### Styles
+
+Import `@seamapi/react/styles/index.css` to include the default styles.
+
 ## Development and Testing
 
 ### Quickstart
