@@ -2,6 +2,7 @@
 module.exports = {
   preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/test/fixtures/setup.cjs'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
     '^fixtures/(.*).js$': '<rootDir>/test/fixtures/$1',
