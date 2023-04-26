@@ -28,7 +28,7 @@ export interface SeamProviderProps {
   children?: ReactNode
 }
 
-export function SeamComponents({
+export function SeamProvider({
   children,
   ...props
 }: SeamProviderProps): ReactElement {
@@ -109,7 +109,7 @@ const defaultSeamContextValue = createDefaultSeamContextValue()
 
 export const seamContext = createContext<SeamContext>(defaultSeamContextValue)
 
-export function useSeamComponents() {
+export function useSeam() {
   const context = useContext(seamContext)
 
   if (context === undefined) {

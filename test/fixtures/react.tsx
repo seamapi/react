@@ -1,14 +1,12 @@
 import { render } from '@testing-library/react'
 import type { ReactElement, ReactNode } from 'react'
 
-import { SeamComponents } from 'index.js'
+import { SeamProvider } from 'index.js'
 
 const publishableKey = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
 
 const Providers = ({ children }: { children: ReactNode }): ReactElement => {
-  return (
-    <SeamComponents publishableKey={publishableKey}>{children}</SeamComponents>
-  )
+  return <SeamProvider publishableKey={publishableKey}>{children}</SeamProvider>
 }
 
 type Render = typeof render

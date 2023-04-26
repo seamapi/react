@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { type ClientSession, Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
-import { useSeamComponents } from 'lib/SeamComponents.js'
+import { useSeam } from 'lib/SeamProvider.js'
 
 export function useSeamClient(): {
   client: Seam | null
@@ -10,8 +10,7 @@ export function useSeamClient(): {
   isError: boolean
   error: unknown
 } {
-  const { client, clientOptions, publishableKey, ...context } =
-    useSeamComponents()
+  const { client, clientOptions, publishableKey, ...context } = useSeam()
   const [clientSession, setClientSession] = useClientSession()
   const userIdentifierKey = useUserIdentifierKey(context.userIdentifierKey)
 
