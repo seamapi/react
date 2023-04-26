@@ -107,7 +107,7 @@ const defaultSeamContextValue = createDefaultSeamContextValue()
 
 export const seamContext = createContext<SeamContext>(defaultSeamContextValue)
 
-export function useSeamComponents(): SeamContext {
+export function useSeamComponents() {
   const context = useContext(seamContext)
 
   if (context === undefined) {
