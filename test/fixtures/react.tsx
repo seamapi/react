@@ -3,10 +3,15 @@ import type { ReactElement, ReactNode } from 'react'
 
 import { SeamProvider } from 'index.js'
 
-const publishableKey = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
-
 const Providers = ({ children }: { children: ReactNode }): ReactElement => {
-  return <SeamProvider publishableKey={publishableKey}>{children}</SeamProvider>
+  return (
+    <SeamProvider
+      endpoint='http://localhost:9000'
+      publishableKey='seam_pk1fGd41X_zKs0ZELRWEc8nWxiBEXAMPLE'
+    >
+      {children}
+    </SeamProvider>
+  )
 }
 
 type Render = typeof render
