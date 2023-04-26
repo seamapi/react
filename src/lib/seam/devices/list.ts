@@ -5,7 +5,7 @@ import type {
   SeamError,
 } from 'seamapi'
 
-import { useSeam } from './use-seam.js'
+import { useSeamClient } from 'index.js'
 
 export type UseDevicesParams = DevicesListRequest
 export type UseDevicesData = DevicesListResponse['devices']
@@ -15,7 +15,7 @@ type Result = UseQueryResult<UseDevicesData, SeamError>
 type UseDevicesResult = Omit<Result, 'data'> & { devices: Result['data'] }
 
 export function useDevices(params: DevicesListRequest): UseDevicesResult {
-  const { client } = useSeam()
+  const { client } = useSeamClient()
   const { data, ...rest } = useQuery<DevicesListResponse['devices'], SeamError>(
     {
       enabled: client != null,

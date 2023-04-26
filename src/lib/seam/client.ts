@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { seamContext } from 'lib/provider.js'
 
-export function useSeam(): {
+export function useSeamClient(): {
   client: Seam | null
   isLoading: boolean
   isError: boolean
