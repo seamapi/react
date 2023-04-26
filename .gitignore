@@ -9,10 +9,10 @@
 *.d.ts
 *.js
 *.js.map
-!fake.js
 !src/**/*.d.ts
 !examples/**/*.js
 !examples/**/*.d.ts
+!test/fixtures/api.js
 !.storybook/middleware.js
 
 # Vite
