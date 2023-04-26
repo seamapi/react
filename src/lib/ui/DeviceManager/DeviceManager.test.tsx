@@ -1,4 +1,4 @@
-import { DeviceManager } from './index.js'
+import DeviceManager from './index.js'
 
 import { render, screen } from 'fixtures/react.js'
 
