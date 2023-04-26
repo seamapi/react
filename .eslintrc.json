@@ -10,12 +10,11 @@
   ],
   "plugins": ["simple-import-sort", "unused-imports"],
   "parserOptions": {
-    "project": "./tsconfig.json",
-    "ecmaVersion": "latest"
+    "project": "./tsconfig.json"
   },
   "overrides": [
     {
-      "files": ["**/*.test.tsx?", "test/fixtures/setup.cjs"],
+      "files": ["**/*.test.tsx?", "test/jest/setup-*.cjs"],
       "env": { "jest": true }
     }
   ],

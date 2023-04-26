@@ -17,9 +17,7 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
-          # UPSTREAM: Fails with 'The filename, directory name, or volume label syntax is incorrect.'
-          # https://github.com/seamapi/react/issues/48
-          # - windows-latest
+          - windows-latest
         node:
           - '16'
           - '18'
@@ -28,9 +26,8 @@ jobs:
             os_name: Linux
           - os: macos-latest
             os_name: macOS
-          # UPSTREAM: See above comment.
-          # - os: windows-latest
-          #   os_name: Windows
+          - os: windows-latest
+            os_name: Windows
     steps:
       - name: Checkout
         uses: actions/checkout@v3

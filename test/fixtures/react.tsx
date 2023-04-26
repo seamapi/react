@@ -3,11 +3,18 @@ import type { ReactElement, ReactNode } from 'react'
 
 import { SeamProvider } from 'index.js'
 
+declare global {
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_ENDPOINT: string
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_PUBLISHABLE_KEY: string
+}
+
 const Providers = ({ children }: { children: ReactNode }): ReactElement => {
   return (
     <SeamProvider
-      endpoint='http://localhost:9000'
-      publishableKey='seam_pk1fGd41X_zKs0ZELRWEc8nWxiBEXAMPLE'
+      endpoint={globalThis.JEST_SEAM_ENDPOINT}
+      publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY}
     >
       {children}
     </SeamProvider>

@@ -12,7 +12,6 @@
 !src/**/*.d.ts
 !examples/**/*.js
 !examples/**/*.d.ts
-!test/fixtures/api.js
 !.storybook/middleware.js
 
 # Vite
@@ -206,8 +205,7 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
-
+Icon
 
 # Thumbnails
 ._*
