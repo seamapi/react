@@ -1,6 +1,4 @@
-import MuiContainer from '@mui/material/Container'
-import Dialog from '@mui/material/Dialog'
-import DialogContent from '@mui/material/DialogContent'
+import { Container as MuiContainer, Dialog, DialogContent } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import AccessCodeTable from 'lib/ui/AccessCodeTable/index.js'
