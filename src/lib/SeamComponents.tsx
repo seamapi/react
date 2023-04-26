@@ -1,5 +1,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createContext, type ReactElement, type ReactNode, useRef } from 'react'
+import {
+  createContext,
+  type ReactElement,
+  type ReactNode,
+  useContext,
+  useRef,
+} from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
 declare global {
@@ -22,7 +28,7 @@ export interface SeamProviderProps {
   children?: ReactNode
 }
 
-export function SeamProvider({
+export function SeamComponents({
   children,
   ...props
 }: SeamProviderProps): ReactElement {
@@ -100,3 +106,13 @@ const createSeamContextValue = ({
 const defaultSeamContextValue = createDefaultSeamContextValue()
 
 export const seamContext = createContext<SeamContext>(defaultSeamContextValue)
+
+export function useSeamComponents(): SeamContext {
+  const context = useContext(seamContext)
+
+  if (context === undefined) {
+    throw new Error('useSeamComponents must be used inside a <SeamComponents/>')
+  }
+
+  return context
+}

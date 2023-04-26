@@ -1,14 +1,14 @@
 import type { ReactElement } from 'react'
 
-import { DeviceManager, SeamProvider } from 'index.js'
+import { DeviceManager, SeamComponents } from 'index.js'
 
 export const App = (): ReactElement => {
   return (
-    <SeamProvider>
+    <SeamComponents>
       <main>
         <h1>Seam Components</h1>
         <DeviceManager />
       </main>
-    </SeamProvider>
+    </SeamComponents>
   )
 }
