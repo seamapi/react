@@ -1,6 +1,6 @@
 import { render, screen } from 'fixtures/react.js'
 
-import { DeviceManager } from './DeviceManager.js'
+import { DeviceManager } from './index.js'
 
 test('DeviceManager', () => {
   render(<DeviceManager />)
