@@ -199,6 +199,19 @@ The following repository secrets must be set on [GitHub Actions]:
 [GitHub Actions]: https://github.com/features/actions
 [GPG private key]: https://github.com/marketplace/actions/import-gpg#prerequisites
 
+## Vercel
+
+_Vercel should already be configured: this section is for reference only._
+
+The following environment variables must be set on [Vercel]:
+
+- `SEAM_ENDPOINT`: The Seam API endpoint to use with the examples.
+- `SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with the examples.
+- `STORYBOOK_SEAM_ENDPOINT`: The Seam API endpoint to use with Storybook.
+- `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
+
+[Vercel]: https://vercel.com/seamapi/react
+
 ## Contributing
 
 > If using squash merge, edit and ensure the commit message follows the [Angular Commit Message Conventions] specification.
