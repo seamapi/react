@@ -9,7 +9,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'"
+          "value": "default-src 'self'; connect-src https://connect.getseam.com"
         },
         {
           "key": "Referrer-Policy",
