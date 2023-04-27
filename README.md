@@ -195,6 +195,7 @@ The following repository secrets must be set on [GitHub Actions]:
 - `GIT_USER_EMAIL`: The GitHub bot user's email.
 - `GPG_PRIVATE_KEY`: The GitHub bot user's [GPG private key].
 - `GPG_PASSPHRASE`: The GitHub bot user's GPG passphrase.
+- `CHROMATIC_PROJECT_TOKEN`: The Chromatic project token.
 
 The following repository variables must be set on [GitHub Actions]:
 
