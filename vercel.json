@@ -8,7 +8,7 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "Content-Security-Policy",
+          "key": "Content-Security-Policy-Report-Only",
           "value": "default-src 'self'; connect-src https://connect.getseam.com"
         },
         {
@@ -26,6 +26,35 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    },
+    {
+      "source": "/examples/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; connect-src https://connect.getseam.com"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubdomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
         },
         {
           "key": "X-XSS-Protection",
