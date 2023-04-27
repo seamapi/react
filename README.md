@@ -196,6 +196,11 @@ The following repository secrets must be set on [GitHub Actions]:
 - `GPG_PRIVATE_KEY`: The GitHub bot user's [GPG private key].
 - `GPG_PASSPHRASE`: The GitHub bot user's GPG passphrase.
 
+The following repository variables must be set on [GitHub Actions]:
+
+- `STORYBOOK_SEAM_ENDPOINT`: The Seam API endpoint to use with Storybook.
+- `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
+
 [GitHub Actions]: https://github.com/features/actions
 [GPG private key]: https://github.com/marketplace/actions/import-gpg#prerequisites
 
