@@ -34,6 +34,15 @@
           "value": "1; mode=block"
         }
       ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
     }
   ]
 }
