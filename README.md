@@ -52,7 +52,8 @@ export const App = () => {
 
 ### Fonts
 
-The components have been designed with Source Sans Pro in mind with fallback to other system sans-serif fonts. To use it with Source Sans Pro, please load the font from Google Fonts by placing the following in you `<head>` tag:
+The components are optimized for use with [Source Sans Pro](https://fonts.google.com/specimen/Source+Sans+Pro), but will fallback to other system sans-serif fonts.
+Load the font from Google Fonts by placing the following in you `<head>` tag:
 
 ```html
 <link
