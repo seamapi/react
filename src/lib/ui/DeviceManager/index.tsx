@@ -1,7 +1,10 @@
 import type { ReactElement } from 'react'
 import type { CommonDeviceProperties, Device } from 'seamapi'
 
-import { useDevices, type UseDevicesParams } from 'lib/seam/devices/list.js'
+import {
+  useDevices,
+  type UseDevicesParams,
+} from 'lib/seam/devices/use-devices.js'
 
 export type DeviceManagerProps = UseDevicesParams
 
