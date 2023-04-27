@@ -3,12 +3,6 @@
   "installCommand": "npm ci",
   "outputDirectory": "docs",
   "cleanUrls": true,
-  "rewrites": [
-    {
-      "source": "/api/:match*",
-      "destination": "https://connect.getseam.com/:match"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",

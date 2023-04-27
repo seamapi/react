@@ -5,6 +5,8 @@ import createConfig from '../create-vite-config.js'
 
 /** @type {import('vite').ResolvedConfig} */
 export default async () => {
+  env.SEAM_ENDPOINT ??= 'https://connect.getseam.com/'
+
   if (env.SEAM_PUBLISHABLE_KEY == null) {
     // eslint-disable-next-line no-console
     console.warn(
