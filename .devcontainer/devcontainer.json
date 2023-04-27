@@ -6,6 +6,9 @@
       "VARIANT": "18"
     }
   },
+  "hostRequirements": {
+    "memory": "8gb"
+  },
   "extensions": [
     "ms-vsliveshare.vsliveshare",
     "dbaeumer.vscode-eslint",
