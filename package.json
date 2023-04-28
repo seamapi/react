@@ -43,7 +43,7 @@
     "postbuild:ts": "tsc-alias --project tsconfig.build.json",
     "docs:build": "storybook build --docs --output-dir docs",
     "predocs:build": "npm run example:basic:build",
-    "postdocs:build": "cpy . ../../../docs/examples/basic --cwd=examples/basic/dist",
+    "postdocs:build": "cpy . ../../../docs/examples/basic --cwd=examples/basic/dist && node ./.storybook/csp.js",
     "docs:start": "storybook dev --docs --port 6007",
     "typecheck": "tsc",
     "dependencies": "dpdm --exit-code circular:1 src/index.ts",
