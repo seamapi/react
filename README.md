@@ -211,7 +211,6 @@ _Vercel should already be configured: this section is for reference only._
 
 The following environment variables must be set on [Vercel]:
 
-- `SEAM_ENDPOINT`: The Seam API endpoint to use with the examples.
 - `SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with the examples.
 - `STORYBOOK_SEAM_ENDPOINT`: The Seam API endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
