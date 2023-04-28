@@ -7,9 +7,28 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 /** @type {(url: string) => import('vite').ResolvedConfig} */
 export default defineConfig(async ({ command }) => {
-  const endpoint = 'https://connect.getseam.com'
+  const target = 'https://connect.getseam.com'
+  const endpoint = command === 'build' ? target : '/api'
+  await setupEnv(endpoint)
+  return {
+    envPrefix: 'SEAM_',
+    plugins: [tsconfigPaths(), react()],
+    server: {
+      port: 8080,
+      proxy: {
+        '/api': {
+          target,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+          changeOrigin: true,
+        },
+      },
+    },
+  }
+})
 
-  env.SEAM_ENDPOINT ??= command === 'build' ? endpoint : '/api'
+/** @type {(endpoint: string) => Promise<void>} */
+const setupEnv = async (endpoint) => {
+  env.SEAM_ENDPOINT ??= endpoint
 
   if (env.SEAM_PUBLISHABLE_KEY == null) {
     // eslint-disable-next-line no-console
@@ -22,19 +41,4 @@ export default defineConfig(async ({ command }) => {
     await setTimeout(2000)
     env.SEAM_PUBLISHABLE_KEY = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
   }
-
-  return {
-    envPrefix: 'SEAM_',
-    plugins: [tsconfigPaths(), react()],
-    server: {
-      port: 8080,
-      proxy: {
-        '/api': {
-          target: endpoint,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-          changeOrigin: true,
-        },
-      },
-    },
-  }
-})
+}
