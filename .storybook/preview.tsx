@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/react'
-import { CacheProvider, createCache } from '@storybook/theming'
 
 import { SeamProvider } from 'index.js'
 
@@ -10,11 +9,6 @@ const defaultPublishableKey =
   'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
 
 const endpoint = process.env['STORYBOOK_SEAM_ENDPOINT'] ?? '/api'
-
-const cache = createCache({
-  key: 'prefix',
-  nonce: 'nonce-storybook',
-})
 
 const preview: Preview = {
   parameters: {
@@ -29,14 +23,12 @@ const preview: Preview = {
   decorators: [
     (Story) => {
       return (
-        <CacheProvider value={cache}>
-          <SeamProvider
-            publishableKey={defaultPublishableKey}
-            endpoint={endpoint}
-          >
-            <Story />
-          </SeamProvider>
-        </CacheProvider>
+        <SeamProvider
+          publishableKey={defaultPublishableKey}
+          endpoint={endpoint}
+        >
+          <Story />
+        </SeamProvider>
       )
     },
   ],
