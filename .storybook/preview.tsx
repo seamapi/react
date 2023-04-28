@@ -8,8 +8,6 @@ const defaultPublishableKey =
   process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ??
   'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
 
-const endpoint = process.env['STORYBOOK_SEAM_ENDPOINT'] ?? '/api'
-
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -25,7 +23,9 @@ const preview: Preview = {
       return (
         <SeamProvider
           publishableKey={defaultPublishableKey}
-          endpoint={endpoint}
+          {...(process.env['NODE_ENV'] === 'production'
+            ? {}
+            : { endpoint: '/api' })}
         >
           <Story />
         </SeamProvider>
