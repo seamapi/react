@@ -3,7 +3,7 @@ import { setTimeout } from 'node:timers/promises'
 
 import createConfig from '../create-vite-config.js'
 
-/** @type {import('vite').ResolvedConfig} */
+/** @type {() => Promise<import('vite').ResolvedConfig>} */
 export default async () => {
   env.SEAM_ENDPOINT ??= '/api'
 
