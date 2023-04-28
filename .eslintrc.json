@@ -12,6 +12,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": ["!.storybook"],
   "rules": {
     "no-console": "warn",
     "@typescript-eslint/consistent-type-imports": [
