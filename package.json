@@ -55,7 +55,7 @@
     "prelint": "prettier --check --ignore-path .gitignore .",
     "postversion": "git push --follow-tags",
     "storybook:build": "storybook build",
-    "example:basic": "vite --config examples/basic/vite.config.js",
+    "example:basic": "vite --base /examples/basic --config examples/basic/vite.config.js",
     "example:basic:build": "vite build --config examples/basic/vite.config.js",
     "example:basic:preview": "vite preview --config examples/basic/vite.config.js",
     "format": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.mjs,.ts,.tsx .",

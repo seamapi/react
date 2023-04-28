@@ -5,8 +5,6 @@ import createConfig from '../create-vite-config.js'
 
 /** @type {() => Promise<import('vite').ResolvedConfig>} */
 export default async () => {
-  env.SEAM_ENDPOINT ??= '/api'
-
   if (env.SEAM_PUBLISHABLE_KEY == null) {
     // eslint-disable-next-line no-console
     console.warn(
