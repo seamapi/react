@@ -1,6 +1,6 @@
 import type { ButtonProps } from 'lib/ui/types.js'
 
-export default function IconButton(props: ButtonProps) {
+export function IconButton(props: ButtonProps) {
   return (
     <button
       {...props}

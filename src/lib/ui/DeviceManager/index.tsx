@@ -11,7 +11,7 @@ export type DeviceManagerProps = UseDevicesParams
 /**
  * Fetch, list, and manage devices.
  */
-export default function DeviceManager(props: DeviceManagerProps) {
+export function DeviceManager(props: DeviceManagerProps) {
   const { devices, isLoading, isError, error } = useDevices(props)
 
   if (isLoading) return <p role='loading'>{t.loading}</p>

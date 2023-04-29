@@ -5,7 +5,7 @@ export type TextFieldProps = {
   onChange: (value: string) => void
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
 
-export default function TextField(props: TextFieldProps) {
+export function TextField(props: TextFieldProps) {
   const { value, onChange, ...inputProps } = props
   return (
     <input

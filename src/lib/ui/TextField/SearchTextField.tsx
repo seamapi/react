@@ -1,5 +1,5 @@
-import TextField, { type TextFieldProps } from 'lib/ui/TextField/index.js'
+import { TextField, type TextFieldProps } from 'lib/ui/TextField/index.js'
 
-export default function SearchTextField(props: TextFieldProps) {
+export function SearchTextField(props: TextFieldProps) {
   return <TextField {...props} />
 }

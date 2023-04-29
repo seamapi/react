@@ -3,18 +3,18 @@ import type { AccessCode } from 'seamapi'
 
 import { accessCodeKey } from 'lib/icons/access-code-key.js'
 import { dotsEllipsis } from 'lib/icons/dots-ellipsis.js'
-import IconButton from 'lib/ui/IconButton.js'
-import SvgImage from 'lib/ui/SVGimage.js'
-import TableBody from 'lib/ui/Table/TableBody.js'
-import TableCell from 'lib/ui/Table/TableCell.js'
-import TableHeader from 'lib/ui/Table/TableHeader.js'
-import TableRow from 'lib/ui/Table/TableRow.js'
-import TableTitle from 'lib/ui/Table/TableTitle.js'
-import SearchTextField from 'lib/ui/TextField/SearchTextField.js'
-import Caption from 'lib/ui/typography/Caption.js'
-import Title from 'lib/ui/typography/Title.js'
+import { IconButton } from 'lib/ui/IconButton.js'
+import { SvgImage } from 'lib/ui/SVGimage.js'
+import { TableBody } from 'lib/ui/Table/TableBody.js'
+import { TableCell } from 'lib/ui/Table/TableCell.js'
+import { TableHeader } from 'lib/ui/Table/TableHeader.js'
+import { TableRow } from 'lib/ui/Table/TableRow.js'
+import { TableTitle } from 'lib/ui/Table/TableTitle.js'
+import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
+import { Caption } from 'lib/ui/typography/Caption.js'
+import { Title } from 'lib/ui/typography/Title.js'
 
-export default function AccessCodeTable(props: { accessCodes: AccessCode[] }) {
+export function AccessCodeTable(props: { accessCodes: AccessCode[] }) {
   const { accessCodes } = props
   const [searchTerm, setSearchTerm] = useState('')
 
