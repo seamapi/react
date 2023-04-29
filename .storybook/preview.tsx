@@ -1,6 +1,6 @@
-import type { Preview } from '@storybook/react'
-
 import '../lib/styles/index.css'
+
+import type { Preview } from '@storybook/react'
 
 import { SeamProvider } from 'index.js'
 
