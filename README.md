@@ -211,9 +211,28 @@ The following repository secrets must be set on [GitHub Actions]:
 - `GIT_USER_EMAIL`: The GitHub bot user's email.
 - `GPG_PRIVATE_KEY`: The GitHub bot user's [GPG private key].
 - `GPG_PASSPHRASE`: The GitHub bot user's GPG passphrase.
+- `CHROMATIC_PROJECT_TOKEN`: The Chromatic project token.
+
+The following repository variables must be set on [GitHub Actions]:
+
+- `STORYBOOK_SEAM_ENDPOINT`: The Seam API endpoint to use with Storybook.
+- `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 
 [GitHub Actions]: https://github.com/features/actions
 [GPG private key]: https://github.com/marketplace/actions/import-gpg#prerequisites
+
+## Vercel
+
+_Vercel should already be configured: this section is for reference only._
+
+The following environment variables must be set on [Vercel]:
+
+- `SEAM_ENDPOINT`: The Seam API endpoint to use with the examples.
+- `SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with the examples.
+- `STORYBOOK_SEAM_ENDPOINT`: The Seam API endpoint to use with Storybook.
+- `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
+
+[Vercel]: https://vercel.com/seamapi/react
 
 ## Contributing
 

@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/react",
-  "version": "0.2.1",
+  "version": "0.4.1",
   "description": "Seam React component library.",
   "type": "module",
   "main": "index.js",
@@ -58,6 +58,7 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.mjs,.ts,.tsx .",
     "prelint": "prettier --check --ignore-path .gitignore .",
     "postversion": "git push --follow-tags",
+    "storybook:build": "storybook build",
     "example:basic": "vite --config examples/basic/vite.config.js",
     "example:basic:build": "vite build --config examples/basic/vite.config.js",
     "example:basic:preview": "vite preview --config examples/basic/vite.config.js",
@@ -74,7 +75,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.28.0",
-    "seamapi": "^5.17.0",
+    "seamapi": "^5.18.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -118,6 +119,7 @@
     "react-dom": "^18.2.0",
     "sass": "^1.62.1",
     "storybook": "^7.0.2",
+    "storybook-addon-designs": "^7.0.0-beta.2",
     "ts-jest": "^29.1.0",
     "tsc-alias": "^1.8.5",
     "tsconfig-paths-webpack-plugin": "^4.0.1",

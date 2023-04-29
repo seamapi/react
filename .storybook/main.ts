@@ -2,8 +2,8 @@ import { existsSync } from 'node:fs'
 import { join, parse, resolve } from 'node:path'
 
 import type { StorybookConfig } from '@storybook/react-webpack5'
-import { NormalModuleReplacementPlugin } from 'webpack'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
+import { NormalModuleReplacementPlugin } from 'webpack'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -12,6 +12,7 @@ const config: StorybookConfig = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    'storybook-addon-designs',
   ],
   framework: {
     name: '@storybook/react-webpack5',
