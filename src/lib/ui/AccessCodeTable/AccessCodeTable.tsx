@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
+import {
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+  TableTitle,
+} from 'lib/ui/Table/index.js'
+import { SearchTextField } from 'lib/ui/TextField/index.js'
+
 import { accessCodeKey } from 'lib/icons/access-code-key.js'
 import { dotsEllipsis } from 'lib/icons/dots-ellipsis.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { SvgImage } from 'lib/ui/SVGimage.js'
-import { TableBody } from 'lib/ui/Table/TableBody.js'
-import { TableCell } from 'lib/ui/Table/TableCell.js'
-import { TableHeader } from 'lib/ui/Table/TableHeader.js'
-import { TableRow } from 'lib/ui/Table/TableRow.js'
-import { TableTitle } from 'lib/ui/Table/TableTitle.js'
-import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 

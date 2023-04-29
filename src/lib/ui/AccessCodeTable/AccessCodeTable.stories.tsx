@@ -1,7 +1,7 @@
 import { Container as MuiContainer, Dialog, DialogContent } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { AccessCodeTable } from 'lib/ui/AccessCodeTable/index.js'
+import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 
 /**
  * These stories showcase the device manager.
