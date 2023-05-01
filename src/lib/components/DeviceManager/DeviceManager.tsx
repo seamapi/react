@@ -17,7 +17,10 @@ export const DeviceManager = (props: DeviceManagerProps): ReactElement => {
   return (
     <ul>
       {devices
-        ?.sort((a, b) => (a.device_id > b.device_id ? 1 : -1))
+        ?.sort(
+          (a, b) =>
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        )
         ?.map((device) => (
           <DeviceManagerItem key={device.device_id} {...device} />
         ))}
