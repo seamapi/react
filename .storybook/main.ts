@@ -1,5 +1,3 @@
-import { readdirSync } from 'node:fs'
-
 import type { StorybookConfig } from '@storybook/react-webpack5'
 import CopyPlugin from 'copy-webpack-plugin'
 
@@ -21,25 +19,15 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  webpackFinal: async (config) => {
+  webpackFinal: async (config, { configType }) => {
     webpackTsconfigpaths(config)
 
     if (config?.plugins == null) config.plugins = []
 
-    const examples = readdirSync('examples', { withFileTypes: true })
-      .filter((f) => f.isDirectory())
-      .map((f) => f.name)
-
-    if (examples.length === 0) {
-      throw new Error('Expected at least one example.')
-    }
-
-    for (const example of examples) {
+    if (configType === 'PRODUCTION') {
       config.plugins.push(
         new CopyPlugin({
-          patterns: [
-            { from: `examples/${example}/dist`, to: 'examples/basic' },
-          ],
+          patterns: [{ from: `examples/dist`, to: 'examples' }],
         })
       )
     }
