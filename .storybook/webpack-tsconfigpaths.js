@@ -40,7 +40,7 @@ export default (config) => {
   )
 
   config.plugins.push(
-    new NormalModuleReplacementPlugin(/^index\.js$/, (resource) => {
+    new NormalModuleReplacementPlugin(/^@seamapi\/react$/, (resource) => {
       resource.request = 'src/index.ts'
     })
   )
