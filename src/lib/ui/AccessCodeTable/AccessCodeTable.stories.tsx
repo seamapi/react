@@ -1,4 +1,4 @@
-import { Container as MuiContainer, Dialog, DialogContent } from '@mui/material'
+import { Container as MuiContainer, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
@@ -89,11 +89,9 @@ export const InsideModal: Story = {
   render: (props) => {
     return (
       <Dialog open fullWidth maxWidth='sm'>
-        <DialogContent>
-          <div className='seam-css'>
-            <AccessCodeTable {...props} />
-          </div>
-        </DialogContent>
+        <div className='seam-css'>
+          <AccessCodeTable {...props} />
+        </div>
       </Dialog>
     )
   },
