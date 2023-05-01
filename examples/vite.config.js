@@ -5,11 +5,12 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-/** @type {(url: string) => import('vite').ResolvedConfig} */
+/** @type {ResolvedConfig} */
 export default defineConfig(async ({ command }) => {
   const target = 'https://connect.getseam.com'
-  const endpoint = command === 'build' ? target : '/api'
-  await setupEnv(endpoint)
+  const isBuild = command === 'build'
+  const endpoint = isBuild ? target : '/api'
+  await setupEnv(endpoint, isBuild)
   return {
     envPrefix: 'SEAM_',
     plugins: [tsconfigPaths(), react()],
@@ -26,19 +27,22 @@ export default defineConfig(async ({ command }) => {
   }
 })
 
-/** @type {(endpoint: string) => Promise<void>} */
-const setupEnv = async (endpoint) => {
+/** @type {(endpoint: string, isBuild: boolean) => Promise<void>} */
+const setupEnv = async (endpoint, isBuild) => {
   env.SEAM_ENDPOINT ??= endpoint
 
   if (env.SEAM_PUBLISHABLE_KEY == null) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `> Using the default publishable key.
+    if (!isBuild) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `> Using the default publishable key.
 > Use your own by setting SEAM_PUBLISHABLE_KEY in your environment.
 > Get one for free at https://console.seam.co/
 `
-    )
-    await setTimeout(2000)
+      )
+      await setTimeout(2000)
+    }
+
     env.SEAM_PUBLISHABLE_KEY = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
   }
 }
