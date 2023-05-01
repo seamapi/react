@@ -5,7 +5,6 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-/** @type {ResolvedConfig} */
 export default defineConfig(async ({ command }) => {
   const target = 'https://connect.getseam.com'
   const isBuild = command === 'build'
@@ -13,7 +12,11 @@ export default defineConfig(async ({ command }) => {
   await setupEnv(endpoint, isBuild)
   return {
     envPrefix: 'SEAM_',
-    plugins: [tsconfigPaths(), react()],
+    plugins: [
+      tsconfigPaths(),
+      // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
+      react(),
+    ],
     server: {
       port: 8080,
       proxy: {
@@ -27,11 +30,10 @@ export default defineConfig(async ({ command }) => {
   }
 })
 
-/** @type {(endpoint: string, isBuild: boolean) => Promise<void>} */
-const setupEnv = async (endpoint, isBuild) => {
-  env.SEAM_ENDPOINT ??= endpoint
+const setupEnv = async (endpoint: string, isBuild: boolean): Promise<void> => {
+  env['SEAM_ENDPOINT'] ??= endpoint
 
-  if (env.SEAM_PUBLISHABLE_KEY == null) {
+  if (env['SEAM_PUBLISHABLE_KEY'] == null) {
     if (!isBuild) {
       // eslint-disable-next-line no-console
       console.warn(
@@ -43,6 +45,6 @@ const setupEnv = async (endpoint, isBuild) => {
       await setTimeout(2000)
     }
 
-    env.SEAM_PUBLISHABLE_KEY = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
+    env['SEAM_PUBLISHABLE_KEY'] = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
   }
 }
