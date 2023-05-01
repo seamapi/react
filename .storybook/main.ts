@@ -1,9 +1,9 @@
-import { existsSync } from 'node:fs'
-import { join, parse, resolve } from 'node:path'
+import { readdirSync } from 'node:fs'
 
 import type { StorybookConfig } from '@storybook/react-webpack5'
-import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
-import { NormalModuleReplacementPlugin } from 'webpack'
+import CopyPlugin from 'copy-webpack-plugin'
+
+import webpackTsconfigpaths from './webpack-tsconfigpaths.js'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -21,50 +21,28 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  // UPSTREAM: https://github.com/storybookjs/storybook/issues/14274
-  // Workaround from https://github.com/vercel/next.js/issues/41961#issuecomment-1311091390
   webpackFinal: async (config) => {
+    webpackTsconfigpaths(config)
+
     if (config?.plugins == null) config.plugins = []
 
-    config.plugins.push(
-      new NormalModuleReplacementPlugin(/\.js$/, (resource) => {
-        if (resource.request.startsWith('.')) {
-          const path = resolve(resource.context, resource.request)
+    const examples = readdirSync('examples', { withFileTypes: true })
+      .filter((f) => f.isDirectory())
+      .map((f) => f.name)
 
-          if (!path.includes('node_modules') && !existsSync(path)) {
-            const { dir, name } = parse(path)
-            const extensionlessPath = join(dir, name)
+    if (examples.length === 0) {
+      throw new Error('Expected at least one example.')
+    }
 
-            for (const fallbackExtension of ['.tsx', '.ts', '.js']) {
-              const fallback = `${extensionlessPath}${fallbackExtension}`
-              if (existsSync(fallback)) {
-                resource.request = resource.request.replace(
-                  /\.js$/,
-                  fallbackExtension
-                )
-                break
-              }
-            }
-          }
-        }
-      })
-    )
-
-    config.plugins.push(
-      new NormalModuleReplacementPlugin(/^lib\/.*js$/, (resource) => {
-        resource.request = resource.request.replace(/\.js$/, '')
-      })
-    )
-
-    config.plugins.push(
-      new NormalModuleReplacementPlugin(/^index\.js$/, (resource) => {
-        resource.request = 'src/index.ts'
-      })
-    )
-
-    if (config?.resolve == null) config.resolve = {}
-    if (config?.resolve?.plugins == null) config.resolve.plugins = []
-    config.resolve.plugins.push(new TsconfigPathsPlugin({ baseUrl: '.' }))
+    for (const example of examples) {
+      config.plugins.push(
+        new CopyPlugin({
+          patterns: [
+            { from: `examples/${example}/dist`, to: 'examples/basic' },
+          ],
+        })
+      )
+    }
 
     return config
   },

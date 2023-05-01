@@ -11,7 +11,8 @@
 *.js.map
 !src/**/*.d.ts
 !examples/**/*.d.ts
-!.storybook/middleware.js
+!.storybook/**/*.js
+!.storybook/**/*.d.ts
 
 # Vite
 *.timestamp-*
