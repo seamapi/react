@@ -8,12 +8,15 @@ import glob from 'fast-glob'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+const base = 'examples'
+const target = 'https://connect.getseam.com'
+
 export default defineConfig(async ({ command }) => {
-  const target = 'https://connect.getseam.com'
   const isBuild = command === 'build'
   const endpoint = isBuild ? target : '/api'
   await setupEnv(endpoint, isBuild)
   return {
+    base: `/${base}`,
     envPrefix: 'SEAM_',
     plugins: [
       tsconfigPaths(),
@@ -25,7 +28,7 @@ export default defineConfig(async ({ command }) => {
         // UPSTREAM: https://github.com/vitejs/vite/issues/3429
         input: Object.fromEntries(
           glob
-            .sync(['./examples/**/*.html'], {
+            .sync([`./${base}/**/*.html`], {
               ignore: ['**/dist/**'],
               absolute: true,
             })
@@ -33,7 +36,7 @@ export default defineConfig(async ({ command }) => {
               basename(dirname(file)),
               fileURLToPath(new URL(file, import.meta.url)),
             ])
-            .map(([k, v]) => [k === 'examples' ? 'main' : k, v])
+            .map(([k, v]) => [k === base ? 'main' : k, v])
         ),
       },
     },

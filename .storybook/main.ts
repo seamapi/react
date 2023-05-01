@@ -19,16 +19,18 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  webpackFinal: async (config) => {
+  webpackFinal: async (config, { configType }) => {
     webpackTsconfigpaths(config)
 
     if (config?.plugins == null) config.plugins = []
 
-    config.plugins.push(
-      new CopyPlugin({
-        patterns: [{ from: `examples/dist`, to: 'examples' }],
-      })
-    )
+    if (configType === 'PRODUCTION') {
+      config.plugins.push(
+        new CopyPlugin({
+          patterns: [{ from: `examples/dist`, to: 'examples' }],
+        })
+      )
+    }
 
     return config
   },
