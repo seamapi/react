@@ -27,7 +27,7 @@ $ npm install @seamapi/react
 
 ## Usage
 
-> Check out the [full example app](./examples/basic)!
+> Check out the [full example apps](./examples)!
 
 1. Obtain a publishable key from the [Seam Console].
 2. Wrap your app with the `SeamProvider`.
@@ -151,10 +151,10 @@ Write tests with [Jest].
 Find fully working examples apps under `examples/`.
 Each example app is built and deployed along with the Storybook documentation.
 
-Run and develop an example with, e.g.,
+Run and develop the examples with,
 
 ```
-$ npm run example:basic
+$ npm run examples
 ```
 
 ### Publishing

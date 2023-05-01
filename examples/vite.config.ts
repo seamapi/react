@@ -1,7 +1,10 @@
+import { basename, dirname } from 'node:path'
 import { env } from 'node:process'
 import { setTimeout } from 'node:timers/promises'
+import { fileURLToPath } from 'node:url'
 
 import react from '@vitejs/plugin-react'
+import glob from 'fast-glob'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
@@ -17,6 +20,23 @@ export default defineConfig(async ({ command }) => {
       // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
       react(),
     ],
+    build: {
+      rollupOptions: {
+        // UPSTREAM: https://github.com/vitejs/vite/issues/3429
+        input: Object.fromEntries(
+          glob
+            .sync(['./examples/**/*.html'], {
+              ignore: ['**/dist/**'],
+              absolute: true,
+            })
+            .map((file) => [
+              basename(dirname(file)),
+              fileURLToPath(new URL(file, import.meta.url)),
+            ])
+            .map(([k, v]) => [k === 'examples' ? 'main' : k, v])
+        ),
+      },
+    },
     server: {
       port: 8080,
       proxy: {
