@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import type { ChangeEvent, InputHTMLAttributes } from 'react'
 
 export type TextFieldProps = {
@@ -6,10 +7,10 @@ export type TextFieldProps = {
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
 
 export function TextField(props: TextFieldProps) {
-  const { value, onChange, ...inputProps } = props
+  const { value, onChange, className, ...inputProps } = props
   return (
     <input
-      className='seam--text-field'
+      className={classNames('seam--text-field', className)}
       value={value}
       onChange={handleString(onChange)}
       type='text'

@@ -1,5 +1,5 @@
-.access-code-table {
-   .icon-cell {
+.seam--access-code-table {
+   .seam--icon-cell {
     flex: 0;
     margin-left: 8px;
     display: flex;
@@ -15,11 +15,11 @@
     }
   }
 
-  .name-cell {
+  .seam--name-cell {
     flex:1;
   }
 
-  .action-cell {
+  .seam--action-cell {
     margin-right: 12px;
     display: flex;
     align-items: center;
