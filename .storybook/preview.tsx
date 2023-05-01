@@ -1,6 +1,5 @@
+import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
-
-import { SeamProvider } from 'index.js'
 
 // UPSTREAM: Use toolbar input when it lands.
 // https://github.com/storybookjs/storybook/pull/21959
