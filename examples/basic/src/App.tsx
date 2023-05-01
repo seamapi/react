@@ -1,6 +1,5 @@
+import { DeviceManager, SeamProvider } from '@seamapi/react'
 import type { ReactElement } from 'react'
-
-import { DeviceManager, SeamProvider } from 'index.js'
 
 export const App = (): ReactElement => {
   return (
