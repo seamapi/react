@@ -31,7 +31,7 @@ const config: StorybookConfig = {
       .map((f) => f.name)
 
     if (examples.length === 0) {
-      throw new Error('Excepted at least one example')
+      throw new Error('Expected at least one example.')
     }
 
     for (const example of examples) {
