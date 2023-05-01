@@ -1,11 +1,10 @@
 .seam--access-code-table {
-
-   .seam--table-header {
+  .seam--table-header {
     margin-bottom: 16px;
     padding: 0 16px;
-   }
+  }
 
-   .seam--icon-cell {
+  .seam--icon-cell {
     flex: 0;
     margin-left: 8px;
     display: flex;
@@ -22,7 +21,7 @@
   }
 
   .seam--name-cell {
-    flex:1;
+    flex: 1;
   }
 
   .seam--action-cell {
