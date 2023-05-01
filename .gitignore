@@ -10,7 +10,6 @@
 *.js
 *.js.map
 !src/**/*.d.ts
-!examples/**/*.js
 !examples/**/*.d.ts
 !.storybook/**/*.js
 !.storybook/**/*.d.ts

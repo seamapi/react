@@ -3,7 +3,10 @@ import type { ReactElement } from 'react'
 
 export const App = (): ReactElement => {
   return (
-    <SeamProvider>
+    <SeamProvider
+      endpoint={import.meta.env.SEAM_ENDPOINT}
+      publishableKey={import.meta.env.SEAM_PUBLISHABLE_KEY}
+    >
       <main>
         <h1>Seam Components</h1>
         <DeviceManager />
