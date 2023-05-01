@@ -7,8 +7,13 @@
   --text-gray: #9da1a9;
   --input-border: #d5d8dc;
 
+  // Globals
   @import './reset.scss';
   @import './typography.scss';
   @import './tables.scss';
   @import './inputs.scss';
+  @import './buttons.scss';
+
+  // Components
+  @import './access-code-table.scss'
 }

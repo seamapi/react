@@ -22,7 +22,7 @@ export function AccessCodeTable(props: { accessCodes: AccessCode[] }) {
   const [searchTerm, setSearchTerm] = useState('')
 
   return (
-    <div>
+    <div className='access-code-table'>
       <TableHeader>
         <TableTitle>
           Access Codes <Caption>(29)</Caption>
@@ -36,13 +36,15 @@ export function AccessCodeTable(props: { accessCodes: AccessCode[] }) {
       <TableBody>
         {accessCodes.map((code) => (
           <TableRow key={code.access_code_id}>
-            <TableCell style={{ flex: 0 }}>
-              <SvgImage src={accessCodeKey} alt='key' />
+            <TableCell className='icon-cell'>
+              <div>
+                <SvgImage src={accessCodeKey} alt='key' />
+              </div>
             </TableCell>
-            <TableCell style={{ flex: 1 }}>
+            <TableCell className='name-cell'>
               <Title>{code.name}</Title>
             </TableCell>
-            <TableCell>
+            <TableCell className='action-cell'>
               <IconButton>
                 <SvgImage src={dotsEllipsis} />
               </IconButton>

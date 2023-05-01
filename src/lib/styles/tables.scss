@@ -16,7 +16,12 @@
 
 .seam--table-row {
   display: flex;
-  padding: 12px 16px;
+  padding: 4px;
+  height: 72px;
+
+  &:hover {
+    background: rgba(244, 246, 248, 1);
+  }
 
   .seam--title {
     font-weight: 600;
@@ -27,5 +32,5 @@
 .seam--table-cell {
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 4px;
 }
