@@ -54,6 +54,7 @@
     "prelint": "prettier --check --ignore-path .gitignore .",
     "postversion": "git push --follow-tags",
     "storybook:build": "storybook build",
+    "prestorybook:build": "npm run example:basic:build",
     "example:basic": "vite --config examples/basic/vite.config.js",
     "example:basic:build": "vite build --config examples/basic/vite.config.js",
     "example:basic:preview": "vite preview --config examples/basic/vite.config.js",
