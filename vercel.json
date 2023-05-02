@@ -45,6 +45,15 @@
       ]
     },
     {
+      "source": "/iframe.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'self'; connect-src https://connect.getseam.com; font-src https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"
+        }
+      ]
+    },
+    {
       "source": "/examples/(.*)",
       "headers": [
         {
