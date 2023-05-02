@@ -8,8 +8,8 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "Content-Security-Policy-Report-Only",
-          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com; font-src https://fonts.gstatic.com; style-src 'self' 'nonce-storybook' http://fonts.googleapis.com"
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com; font-src https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' 'nonce-storybook' http://fonts.googleapis.com"
         },
         {
           "key": "X-DNS-Prefetch-Control",
@@ -38,15 +38,6 @@
         {
           "key": "Permissions-Policy",
           "value": "geolocation=(), camera=(), microphone=(), payment=()"
-        }
-      ]
-    },
-    {
-      "source": "/iframe.html",
-      "headers": [
-        {
-          "key": "Content-Security-Policy-Report-Only",
-          "value": "default-src 'self'; connect-src https://connect.getseam.com; font-src https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"
         }
       ]
     },
