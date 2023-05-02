@@ -6,7 +6,12 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "exports": {
-    "import": "./index.js"
+    ".": {
+      "import": "./index.js"
+    },
+    "./index.css": {
+      "import": "./index.css"
+    }
   },
   "module": "index.js",
   "sideEffects": false,
