@@ -9,7 +9,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy-Report-Only",
-          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; style-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com"
+          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com; font-src https://fonts.gstatic.com; style-src 'self' 'nonce-storybook' http://fonts.googleapis.com"
         },
         {
           "key": "X-DNS-Prefetch-Control",
@@ -46,7 +46,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src https://connect.getseam.com"
+          "value": "default-src 'self'; connect-src https://connect.getseam.com; font-src https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"
         }
       ]
     }
