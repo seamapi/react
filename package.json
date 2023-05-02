@@ -86,7 +86,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.28.0",
-    "seamapi": "^5.18.0",
+    "seamapi": "^5.19.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
