@@ -69,22 +69,22 @@ Load the font from Google Fonts by placing the following in the `<head>` tag:
 ### Content Security Policy (CSP)
 
 By self hosting the recommended fonts (or choosing not to use them),
-and proxying the Seam endpoint, the components are compatible with the strictest CSP:
+and proxying the Seam API endpoint, the components are compatible with the strictest CSP:
 
 ```
 default-src 'self'
 ```
 
-When using the default endpoint:
+When using the default endpoint, include `connect-src` with
 
 ```
-default-src 'self'; connect-src 'self' https://connect.getseam.com
+connect-src 'self' https://connect.getseam.com
 ```
 
-When serving the fonts from Google Fonts:
+When serving the fonts from Google Fonts, include `font-src` and `style-src` with
 
 ```
-default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
+font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
 ```
 
 ## Development and Testing
