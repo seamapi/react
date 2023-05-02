@@ -89,7 +89,7 @@ export const InsideModal: Story = {
   render: (props) => {
     return (
       <Dialog open fullWidth maxWidth='sm'>
-        <div className='seam-css'>
+        <div className='seam-components'>
           <AccessCodeTable {...props} />
         </div>
       </Dialog>
