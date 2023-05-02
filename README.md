@@ -84,7 +84,7 @@ default-src 'self'; connect-src https://connect.getseam.com
 When serving the fonts from Google Fonts:
 
 ```
-default-src 'self'; font-src https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
+default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
 ```
 
 ## Development and Testing
