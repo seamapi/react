@@ -1,3 +1,5 @@
+import '@seamapi/react/index.css'
+
 import { DeviceManager, SeamProvider } from '@seamapi/react'
 import type { ReactElement } from 'react'
 

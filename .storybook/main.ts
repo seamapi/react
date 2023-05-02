@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-webpack5'
 import CopyPlugin from 'copy-webpack-plugin'
+import sass from 'sass'
 
 import webpackTsconfigpaths from './webpack-tsconfigpaths.js'
 
@@ -11,6 +12,15 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     'storybook-addon-designs',
+    {
+      name: '@storybook/addon-styling',
+      options: {
+        sass: {
+          implementation: sass,
+          includePaths: ['node_modules'],
+        },
+      },
+    },
   ],
   framework: {
     name: '@storybook/react-webpack5',

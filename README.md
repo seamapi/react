@@ -36,6 +36,8 @@ $ npm install @seamapi/react
 ```ts
 import { SeamProvider, DeviceManager } from '@seamapi/react'
 
+import '@seamapi/react/index.css'
+
 export const App = () => {
   return (
     <SeamProvider publishableKey='your_publishable_key'>
@@ -49,6 +51,20 @@ export const App = () => {
 ```
 
 [Seam Console]: https://console.seam.co/
+
+### Fonts
+
+The components are optimized for use with [Source Sans Pro], but will fallback to other system sans-serif fonts.
+Load the font from Google Fonts by placing the following in the `<head>` tag:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
+/>
+```
+
+[Source Sans Pro]: https://fonts.google.com/specimen/Source+Sans+Pro
 
 ## Development and Testing
 

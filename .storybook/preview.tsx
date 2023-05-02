@@ -1,3 +1,5 @@
+import '../src/index.scss'
+
 import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 

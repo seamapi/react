@@ -23,6 +23,13 @@ export default defineConfig(async ({ command }) => {
       // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
       react(),
     ],
+    resolve: {
+      alias: {
+        '@seamapi/react/index.css': fileURLToPath(
+          new URL('../src/index.scss', import.meta.url)
+        ),
+      },
+    },
     build: {
       rollupOptions: {
         // UPSTREAM: https://github.com/vitejs/vite/issues/3429
