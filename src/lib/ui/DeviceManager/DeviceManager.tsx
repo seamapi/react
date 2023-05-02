@@ -19,9 +19,14 @@ export function DeviceManager(props: DeviceManagerProps) {
 
   return (
     <ul>
-      {devices?.map((device) => (
-        <DeviceManagerItem key={device.device_id} {...device} />
-      ))}
+      {devices
+        ?.sort(
+          (a, b) =>
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        )
+        ?.map((device) => (
+          <DeviceManagerItem key={device.device_id} {...device} />
+        ))}
     </ul>
   )
 }

@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import React from 'react'
 import {
   createContext,
   type ReactElement,
@@ -52,11 +53,11 @@ export function SeamProvider({
   }
 
   return (
-    <QueryClientProvider client={queryClientRef.current}>
-      <Provider value={{ ...contextRef.current }}>
-        <div className='seam-css'>{children}</div>
-      </Provider>
-    </QueryClientProvider>
+    <div className='seam-components'>
+      <QueryClientProvider client={queryClientRef.current}>
+        <Provider value={{ ...contextRef.current }}>{children}</Provider>
+      </QueryClientProvider>
+    </div>
   )
 }
 

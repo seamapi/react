@@ -10,9 +10,13 @@
 *.js
 *.js.map
 !src/**/*.d.ts
-!examples/**/*.js
 !examples/**/*.d.ts
-!.storybook/middleware.js
+!.storybook/**/*.js
+!.storybook/**/*.d.ts
+
+# Sass build output
+*.css
+*.css.map
 
 # Vite
 *.timestamp-*
