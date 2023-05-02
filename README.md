@@ -78,7 +78,7 @@ default-src 'self'
 When using the default endpoint:
 
 ```
-default-src 'self'; connect-src https://connect.getseam.com
+default-src 'self'; connect-src 'self' https://connect.getseam.com
 ```
 
 When serving the fonts from Google Fonts:
