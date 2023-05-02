@@ -46,9 +46,11 @@ export function SeamProvider({
   }
 
   return (
-    <QueryClientProvider client={queryClientRef.current}>
-      <Provider value={{ ...contextRef.current }}>{children}</Provider>
-    </QueryClientProvider>
+    <div className='seam-components'>
+      <QueryClientProvider client={queryClientRef.current}>
+        <Provider value={{ ...contextRef.current }}>{children}</Provider>
+      </QueryClientProvider>
+    </div>
   )
 }
 
