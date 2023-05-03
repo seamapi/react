@@ -1,3 +1,5 @@
-export function Title(props: { children: React.ReactNode }) {
+import type { ReactNode } from 'react'
+
+export function Title(props: { children: ReactNode }) {
   return <span className='seam--title'>{props.children}</span>
 }
