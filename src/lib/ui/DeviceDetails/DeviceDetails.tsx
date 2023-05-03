@@ -97,5 +97,5 @@ const t = {
   accessCodes: 'access codes',
   codeLength: 'Code length',
   digits: 'digits',
-  lockStatus: 'lockStatus',
+  lockStatus: 'Lock status',
 }
