@@ -18,14 +18,13 @@ const Providers = ({
 }: {
   children: React.ReactNode
 }): JSX.Element => {
-  return (
-    <SeamProvider
-      endpoint={globalThis.JEST_SEAM_ENDPOINT}
-      publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
-    >
-      {children}
-    </SeamProvider>
-  )
+  return <>{children}</>
+  // <SeamProvider
+  //   endpoint={globalThis.JEST_SEAM_ENDPOINT}
+  //   publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
+  // >
+  //   {children}
+  // </SeamProvider>
 }
 
 type Render = typeof render
