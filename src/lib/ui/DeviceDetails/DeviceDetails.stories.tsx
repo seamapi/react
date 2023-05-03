@@ -16,12 +16,11 @@ const fakeDevice: LockDevice = {
     battery_level: 0.2,
     locked: true,
     online: true,
-    august_metadata: {
-      model: 'August Wi-Fi Smart Lock',
-      lock_id: uuidv4(),
-      lock_name: 'Lock',
-      house_name: 'Some house',
-      has_keypad: true,
+    schlage_metadata: {
+      model: 'Schlage Lock',
+      device_id: uuidv4(),
+      device_name: 'Lock',
+      access_code_length: 6,
     },
   },
   errors: [],

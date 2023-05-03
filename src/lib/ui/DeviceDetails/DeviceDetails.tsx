@@ -11,8 +11,11 @@ export function DeviceDetails(props: { device: LockDevice }) {
 
   const lockStatus = device.properties.locked ? 'Locked' : 'Unlocked'
 
+  const accessCodeLength =
+    device.properties?.schlage_metadata?.access_code_length ?? null
+
   return (
-    <div className='seam--details'>
+    <div className='seam--device-details'>
       <div className='seam--header'>
         <div className='seam--content'>
           <div className='seam--image'>
@@ -37,15 +40,26 @@ export function DeviceDetails(props: { device: LockDevice }) {
       </div>
 
       <div className='seam--box'>
-        <div className='seam--content seam--lock-status'>
+        <div className='seam--content'>
           <span className='seam--label'>Lock status</span>
           <span className='seam--value'>{lockStatus}</span>
         </div>
-        <div className='seam--content'>
-          <span className='seam--label'>Code length</span>
-          <span className='seam--value'>4 digits</span>
-        </div>
+        <AccessCodeLength accessCodeLength={accessCodeLength} />
       </div>
+    </div>
+  )
+}
+
+function AccessCodeLength(props: { accessCodeLength: number | null }) {
+  const { accessCodeLength } = props
+  if (accessCodeLength === null) {
+    return null
+  }
+
+  return (
+    <div className='seam--content seam--access-code-length'>
+      <span className='seam--label'>Code length</span>
+      <span className='seam--value'>{accessCodeLength} digits</span>
     </div>
   )
 }

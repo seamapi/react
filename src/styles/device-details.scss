@@ -76,10 +76,15 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        cursor: pointer;
+
+        &:hover {
+          background: var(--item-hover-bg);
+        }
       }
 
-      &.seam--lock-status {
-        border-bottom: 1px solid var(--input-border);
+      &.seam--access-code-length {
+        border-top: 1px solid var(--input-border);
       }
 
       .seam--label {
