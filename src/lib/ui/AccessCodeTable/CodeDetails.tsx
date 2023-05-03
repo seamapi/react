@@ -20,7 +20,11 @@ export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
 function Duration(props: { accessCode: AccessCode }): JSX.Element {
   const { accessCode } = props
   if (accessCode.type === 'ongoing') {
-    return <span>{t.ends}: Never</span>
+    return (
+      <span>
+        {t.ends}: {t.never}
+      </span>
+    )
   }
 
   const hasStarted = new Date(accessCode.starts_at).valueOf() < Date.now()
@@ -32,7 +36,6 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
     )
   }
 
-  // is in future
   return (
     <span>
       {t.starts}: {formatDate(accessCode.starts_at)}
@@ -51,4 +54,5 @@ const t = {
   code: 'Code',
   starts: 'Starts',
   ends: 'Ends',
+  never: 'Never',
 }
