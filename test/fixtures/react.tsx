@@ -1,5 +1,6 @@
 import { SeamProvider } from '@seamapi/react'
 import { render } from '@testing-library/react'
+import type React = require('react')
 
 declare global {
   // eslint-disable-next-line no-var
@@ -12,7 +13,11 @@ declare global {
   var JEST_SEAM_CLIENT_SESSION_TOKEN_2: string
 }
 
-const Providers = ({ children }: { children: ReactNode }): JSX.Element => {
+const Providers = ({
+  children,
+}: {
+  children: React.ReactNode
+}): JSX.Element => {
   return (
     <SeamProvider
       endpoint={globalThis.JEST_SEAM_ENDPOINT}
