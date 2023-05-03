@@ -13,7 +13,7 @@ export function ContentHeader(props: {
 }
 
 function BackIcon(props: { onClick?: () => void }): JSX.Element | null {
-  if (props.onClick === undefined) {
+  if (props.onClick == null) {
     return null
   }
 

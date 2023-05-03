@@ -22,7 +22,7 @@ export function BatteryStatus(props: {
     },
   } = props
 
-  if (batteryLevel === undefined) {
+  if (batteryLevel == null) {
     return null
   }
 
