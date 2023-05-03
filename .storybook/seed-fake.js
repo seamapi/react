@@ -1,6 +1,6 @@
 export const seedFake = (db) => {
-  const ws1 = db.addWorkspace({ name: "Seed Workspace 1 (starts empty)" })
-  const ws2 = db.addWorkspace({ name: "Seed Workspace 2 (starts populated)" })
+  const ws1 = db.addWorkspace({ name: "Seed Workspace 1 (starts empty)", publishable_key: "seam_pk1ws1_0000" })
+  const ws2 = db.addWorkspace({ name: "Seed Workspace 2 (starts populated)", publishable_key: "seam_pk1ws2_0000" })
 
   const cw = db.addConnectWebview({
     workspace_id: ws2.workspace_id,

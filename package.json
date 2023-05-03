@@ -91,14 +91,14 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.28.0",
-    "seamapi": "^5.19.0",
+    "seamapi": "^5.19.0-alpha.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.21.4",
-    "@seamapi/fake-seam-connect": "^0.3.0-alpha.2",
+    "@seamapi/fake-seam-connect": "^0.3.0-alpha.5",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-interactions": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
