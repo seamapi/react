@@ -44,7 +44,7 @@ export default meta
 
 type Story = StoryObj<typeof DeviceDetails>
 
-export const Default: Story = {}
+export const Content: Story = {}
 
 export const InsideModal: Story = {
   render: (props) => {

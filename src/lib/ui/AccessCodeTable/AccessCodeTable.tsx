@@ -10,6 +10,7 @@ import {
 
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { DotsEllipsisMoreIcon } from 'lib/icons/DotsEllipsisMore.js'
+import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
@@ -39,6 +40,7 @@ export function AccessCodeTable(props: {
             </TableCell>
             <TableCell className='seam--name-cell'>
               <Title>{code.name}</Title>
+              <CodeDetails accessCode={code} />
             </TableCell>
             <TableCell className='seam--action-cell'>
               <IconButton>

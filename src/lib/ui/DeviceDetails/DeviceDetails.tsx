@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { type AccessCode, type LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
@@ -8,6 +7,7 @@ import { DeviceImage } from 'lib/ui/DeviceDetails/DeviceImage.js'
 import { ModelStatus } from 'lib/ui/DeviceDetails/ModelStatus.js'
 import { OnlineStatus } from 'lib/ui/DeviceDetails/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import useToggle from 'lib/use-toggle.js'
 
 export function DeviceDetails(props: { device: LockDevice }) {
   const { device } = props
@@ -20,15 +20,13 @@ export function DeviceDetails(props: { device: LockDevice }) {
   // TODO : Fetch access codes
   const accessCodes: AccessCode[] = []
 
-  const [showingAccessCodes, setShowingAccessCodes] = useState(false)
+  const [showingAccessCodes, toggleAccessCodes] = useToggle()
 
   if (showingAccessCodes) {
     return (
       <AccessCodeTable
         accessCodes={accessCodes}
-        onClickBack={() => {
-          setShowingAccessCodes(false)
-        }}
+        onClickBack={toggleAccessCodes}
       />
     )
   }
@@ -56,9 +54,7 @@ export function DeviceDetails(props: { device: LockDevice }) {
         <div className='seam--box'>
           <div
             className='seam--content seam--access-codes'
-            onClick={() => {
-              setShowingAccessCodes(true)
-            }}
+            onClick={toggleAccessCodes}
           >
             <span className='seam--value'>49 access codes</span>
             <ChevronRightIcon />

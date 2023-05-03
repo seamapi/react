@@ -1,5 +1,6 @@
-import { Container as MuiContainer, Dialog } from '@mui/material'
+import { Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
+import ms from 'ms'
 import { v4 as uuid } from 'uuid'
 
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
@@ -14,21 +15,25 @@ const meta: Meta<typeof AccessCodeTable> = {
     accessCodes: [
       {
         access_code_id: uuid(),
-        type: 'ongoing',
+        type: 'time_bound',
         code: '1234',
         created_at: Date.now().toString(),
         device_id: 'some_device_id',
         status: 'set',
         name: 'Guest - Gonzalez',
+        starts_at: new Date(Date.now() - ms('1d')).toISOString(),
+        ends_at: new Date(Date.now() + ms('2d')).toISOString(),
       },
       {
         access_code_id: uuid(),
-        type: 'ongoing',
+        type: 'time_bound',
         code: '1234',
         created_at: Date.now().toString(),
         device_id: 'some_device_id',
         status: 'set',
         name: 'Guest - Thompson',
+        starts_at: new Date(Date.now() + ms('1d')).toISOString(),
+        ends_at: new Date(Date.now() + ms('3d')).toISOString(),
       },
       {
         access_code_id: uuid(),
@@ -74,17 +79,7 @@ export default meta
 
 type Story = StoryObj<typeof AccessCodeTable>
 
-export const Default: Story = {}
-
-export const Container: Story = {
-  render: (props) => {
-    return (
-      <MuiContainer maxWidth='sm'>
-        <AccessCodeTable {...props} />
-      </MuiContainer>
-    )
-  },
-}
+export const Content: Story = {}
 
 export const InsideModal: Story = {
   render: (props) => {
