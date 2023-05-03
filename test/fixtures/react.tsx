@@ -6,14 +6,18 @@ declare global {
   // eslint-disable-next-line no-var
   var JEST_SEAM_ENDPOINT: string
   // eslint-disable-next-line no-var
-  var JEST_SEAM_PUBLISHABLE_KEY: string
+  var JEST_SEAM_PUBLISHABLE_KEY_1: string
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_PUBLISHABLE_KEY_2: string
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_CLIENT_SESSION_TOKEN_2: string
 }
 
 const Providers = ({ children }: { children: ReactNode }): ReactElement => {
   return (
     <SeamProvider
       endpoint={globalThis.JEST_SEAM_ENDPOINT}
-      publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY}
+      publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
     >
       {children}
     </SeamProvider>
