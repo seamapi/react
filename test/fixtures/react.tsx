@@ -1,4 +1,3 @@
-import { SeamProvider } from '@seamapi/react'
 import { render } from '@testing-library/react'
 import type React = require('react')
 
