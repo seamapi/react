@@ -1,6 +1,5 @@
 import { SeamProvider } from '@seamapi/react'
 import { render } from '@testing-library/react'
-import type { PropsWithChildren } from 'react'
 
 declare global {
   // eslint-disable-next-line no-var
