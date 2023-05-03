@@ -1,10 +1,10 @@
 import { SeamProvider } from '@seamapi/react'
 import { render } from '@testing-library/react'
-import type { ReactElement, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 const publishableKey = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
 
-const Providers = ({ children }: { children: ReactNode }): ReactElement => {
+const Providers = ({ children }: { children: ReactNode }): JSX.Element => {
   return <SeamProvider publishableKey={publishableKey}>{children}</SeamProvider>
 }
 
