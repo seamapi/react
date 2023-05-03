@@ -5,14 +5,6 @@ import { BatteryLevelFullIcon } from 'lib/icons/BatteryLevelFull.js'
 import { BatteryLevelHighIcon } from 'lib/icons/BatteryLevelHigh.js'
 import { BatteryLevelLowIcon } from 'lib/icons/BatteryLevelLow.js'
 
-/**
- * Thresholds to determine the battery status
- */
-const BATTERY_LEVEL = {
-  FULL: 0.85,
-  HIGH: 0.6,
-  LOW: 0.3,
-}
 export function BatteryStatus(props: {
   device: LockDevice
 }): JSX.Element | null {
@@ -39,7 +31,7 @@ export function BatteryStatus(props: {
 function Status(props: { batteryLevel: number }): JSX.Element {
   const { batteryLevel } = props
 
-  if (batteryLevel > BATTERY_LEVEL.FULL) {
+  if (batteryLevel > batteryThreshold.full) {
     return (
       <>
         <BatteryLevelFullIcon />
@@ -48,7 +40,7 @@ function Status(props: { batteryLevel: number }): JSX.Element {
     )
   }
 
-  if (batteryLevel > BATTERY_LEVEL.HIGH) {
+  if (batteryLevel > batteryThreshold.high) {
     return (
       <>
         <BatteryLevelHighIcon />
@@ -57,7 +49,7 @@ function Status(props: { batteryLevel: number }): JSX.Element {
     )
   }
 
-  if (batteryLevel > BATTERY_LEVEL.LOW) {
+  if (batteryLevel > batteryThreshold.low) {
     return (
       <>
         <BatteryLevelLowIcon />
@@ -72,6 +64,12 @@ function Status(props: { batteryLevel: number }): JSX.Element {
       <span className='seam-text-danger'>{t.critical}</span>
     </>
   )
+}
+
+const batteryThreshold = {
+  full: 0.85,
+  high: 0.6,
+  low: 0.3,
 }
 
 const t = {
