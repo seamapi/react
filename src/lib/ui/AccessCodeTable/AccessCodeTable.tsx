@@ -10,10 +10,9 @@ import {
 } from 'lib/ui/Table/index.js'
 import { SearchTextField } from 'lib/ui/TextField/index.js'
 
-import { accessCodeKey } from 'lib/icons/access-code-key.js'
-import { dotsEllipsis } from 'lib/icons/dots-ellipsis.js'
+import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey'
+import { DotsEllipsisMoreIcon } from 'lib/icons/DotsEllipsisMore'
 import { IconButton } from 'lib/ui/IconButton.js'
-import { SvgImage } from 'lib/ui/SVGimage.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
@@ -38,7 +37,7 @@ export function AccessCodeTable(props: { accessCodes: AccessCode[] }) {
           <TableRow key={code.access_code_id}>
             <TableCell className='seam--icon-cell'>
               <div>
-                <SvgImage src={accessCodeKey} alt='key' />
+                <AccessCodeKeyIcon />
               </div>
             </TableCell>
             <TableCell className='seam--name-cell'>
@@ -46,7 +45,7 @@ export function AccessCodeTable(props: { accessCodes: AccessCode[] }) {
             </TableCell>
             <TableCell className='seam--action-cell'>
               <IconButton>
-                <SvgImage src={dotsEllipsis} />
+                <DotsEllipsisMoreIcon />
               </IconButton>
             </TableCell>
           </TableRow>
