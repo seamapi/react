@@ -1,7 +1,7 @@
 'use client'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createContext, type PropsWithChildren,useRef } from 'react'
+import { createContext, type PropsWithChildren, useRef } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
 declare global {
