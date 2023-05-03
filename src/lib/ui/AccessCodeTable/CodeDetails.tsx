@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import { DateTime } from 'luxon'
 import type { AccessCode } from 'seamapi'
 
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
@@ -41,7 +41,10 @@ function Duration(props: { accessCode: AccessCode }) {
 }
 
 function formatDate(date: string) {
-  return dayjs(date).format('MMM D')
+  return DateTime.fromISO(date).toLocaleString({
+    month: 'long',
+    day: 'numeric',
+  })
 }
 
 const t = {

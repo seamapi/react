@@ -1,6 +1,6 @@
 import { Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import ms from 'ms'
+import { DateTime } from 'luxon'
 import { v4 as uuid } from 'uuid'
 
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
@@ -21,25 +21,25 @@ const meta: Meta<typeof AccessCodeTable> = {
         device_id: 'some_device_id',
         status: 'set',
         name: 'Guest - Gonzalez',
-        starts_at: new Date(Date.now() - ms('1d')).toISOString(),
-        ends_at: new Date(Date.now() + ms('2d')).toISOString(),
+        starts_at: DateTime.now().minus({ day: 2 }).toISO() ?? '',
+        ends_at: DateTime.now().plus({ day: 2 }).toISO() ?? '',
       },
       {
         access_code_id: uuid(),
         type: 'time_bound',
         code: '1234',
-        created_at: Date.now().toString(),
+        created_at: DateTime.now().toISO() ?? '',
         device_id: 'some_device_id',
         status: 'set',
         name: 'Guest - Thompson',
-        starts_at: new Date(Date.now() + ms('1d')).toISOString(),
-        ends_at: new Date(Date.now() + ms('3d')).toISOString(),
+        starts_at: DateTime.now().plus({ day: 1 }).toISO() ?? '',
+        ends_at: DateTime.now().plus({ day: 3 }).toISO() ?? '',
       },
       {
         access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
-        created_at: Date.now().toString(),
+        created_at: DateTime.now().toISO() ?? '',
         device_id: 'some_device_id',
         status: 'set',
         name: 'Guest - Kranz',
@@ -48,7 +48,7 @@ const meta: Meta<typeof AccessCodeTable> = {
         access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
-        created_at: Date.now().toString(),
+        created_at: DateTime.now().toISO() ?? '',
         device_id: 'some_device_id',
         status: 'set',
         name: 'Sparkle Cleaners',
@@ -57,7 +57,7 @@ const meta: Meta<typeof AccessCodeTable> = {
         access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
-        created_at: Date.now().toString(),
+        created_at: DateTime.now().toISO() ?? '',
         device_id: 'some_device_id',
         status: 'set',
         name: 'Guest - yang',
@@ -66,7 +66,7 @@ const meta: Meta<typeof AccessCodeTable> = {
         access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
-        created_at: Date.now().toString(),
+        created_at: DateTime.now().toISO() ?? '',
         device_id: 'some_device_id',
         status: 'set',
         name: 'Astro Plumbing',
