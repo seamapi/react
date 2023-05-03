@@ -10,8 +10,8 @@ import {
 } from 'lib/ui/Table/index.js'
 import { SearchTextField } from 'lib/ui/TextField/index.js'
 
-import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey'
-import { DotsEllipsisMoreIcon } from 'lib/icons/DotsEllipsisMore'
+import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
+import { DotsEllipsisMoreIcon } from 'lib/icons/DotsEllipsisMore.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
