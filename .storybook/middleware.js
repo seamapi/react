@@ -7,11 +7,18 @@ export default async (app) => {
   const fake = await create()
   await fake.startServer()
   app.use(
-    '/api',
-    createProxyMiddleware({
+    '/',
+    createProxyMiddleware('/api', {
       target: fake.server.serverUrl,
       pathRewrite: { '^/api': '' },
       changeOrigin: true,
+    })
+  )
+
+  app.use(
+    '/',
+    createProxyMiddleware('/examples', {
+      target: 'http://localhost:8080',
     })
   )
 }

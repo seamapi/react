@@ -12,6 +12,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": ["!.storybook"],
   "overrides": [
     {
       "files": ["**/*.test.tsx?", "test/jest/setup-*.tsx?"],

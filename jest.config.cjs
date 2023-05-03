@@ -16,7 +16,7 @@ module.exports = async () => {
       '^(\\.{1,2}/.*)\\.js$': '$1',
       '^fixtures/(.*).js$': '<rootDir>/test/fixtures/$1',
       '^lib/(.*).js$': '<rootDir>/src/lib/$1',
-      '^index.js$': '<rootDir>/src/lib',
+      '^@seamapi/react$': '<rootDir>/src/lib',
     },
     transform: {
       '^.+\\.tsx?$': [

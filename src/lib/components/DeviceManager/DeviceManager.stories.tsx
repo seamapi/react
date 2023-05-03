@@ -20,4 +20,11 @@ type Story = StoryObj<typeof DeviceManager>
  * # List of devices
  * This is a list of devices.
  */
-export const Devices: Story = {}
+export const Devices: Story = {
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/Su3VO6yupz4yxe88fv0Uqa/Out-of-the-box-Components?node-id=358-43308&t=nQzUZZTb5FddESkl-4',
+    },
+  },
+}

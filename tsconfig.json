@@ -25,8 +25,8 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "paths": {
+      "@seamapi/react": ["./src/index.ts"],
       "fixtures/*": ["./test/fixtures/*"],
-      "index.js": ["./src/index.ts"],
       "lib/*": ["./src/lib/*"]
     }
   },

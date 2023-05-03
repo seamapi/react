@@ -1,7 +1,6 @@
+import { SeamProvider } from '@seamapi/react'
 import { render } from '@testing-library/react'
 import type { ReactElement, ReactNode } from 'react'
-
-import { SeamProvider } from 'index.js'
 
 declare global {
   // eslint-disable-next-line no-var

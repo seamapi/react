@@ -27,7 +27,7 @@ $ npm install @seamapi/react
 
 ## Usage
 
-> Check out the [full example app](./examples/basic)!
+> Check out the [full example apps](./examples)!
 
 1. Obtain a publishable key from the [Seam Console].
 2. Wrap your app with the `SeamProvider`.
@@ -35,6 +35,8 @@ $ npm install @seamapi/react
 
 ```ts
 import { SeamProvider, DeviceManager } from '@seamapi/react'
+
+import '@seamapi/react/index.css'
 
 export const App = () => {
   return (
@@ -49,6 +51,20 @@ export const App = () => {
 ```
 
 [Seam Console]: https://console.seam.co/
+
+### Fonts
+
+The components are optimized for use with [Source Sans Pro], but will fallback to other system sans-serif fonts.
+Load the font from Google Fonts by placing the following in the `<head>` tag:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
+/>
+```
+
+[Source Sans Pro]: https://fonts.google.com/specimen/Source+Sans+Pro
 
 ## Development and Testing
 
@@ -151,10 +167,23 @@ Write tests with [Jest].
 Find fully working examples apps under `examples/`.
 Each example app is built and deployed along with the Storybook documentation.
 
-Run and develop an example with, e.g.,
+Run and develop the examples with,
 
 ```
-$ npm run example:basic
+$ npm run examples
+```
+
+### SVG Icon Components
+
+The React components under `src/lib/icons` are generated from `src/icons`.
+To add a new icon:
+
+1. Place or update the SVG icon in `src/icons`.
+2. Run `npm run generate`.
+3. Import with
+
+```ts
+import { SeamIcon } from 'lib/icons/index.js'
 ```
 
 ### Publishing
@@ -195,9 +224,25 @@ The following repository secrets must be set on [GitHub Actions]:
 - `GIT_USER_EMAIL`: The GitHub bot user's email.
 - `GPG_PRIVATE_KEY`: The GitHub bot user's [GPG private key].
 - `GPG_PASSPHRASE`: The GitHub bot user's GPG passphrase.
+- `CHROMATIC_PROJECT_TOKEN`: The Chromatic project token.
+
+The following repository variables must be set on [GitHub Actions]:
+
+- `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 
 [GitHub Actions]: https://github.com/features/actions
 [GPG private key]: https://github.com/marketplace/actions/import-gpg#prerequisites
+
+## Vercel
+
+_Vercel should already be configured: this section is for reference only._
+
+The following environment variables must be set on [Vercel]:
+
+- `SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with the examples.
+- `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
+
+[Vercel]: https://vercel.com/seamapi/react
 
 ## Contributing
 

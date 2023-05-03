@@ -1,6 +1,7 @@
-import type { Preview } from '@storybook/react'
+import '../src/index.scss'
 
-import { SeamProvider } from 'index.js'
+import { SeamProvider } from '@seamapi/react'
+import type { Preview } from '@storybook/react'
 
 // UPSTREAM: Use toolbar input when it lands.
 // https://github.com/storybookjs/storybook/pull/21959
@@ -21,7 +22,12 @@ const preview: Preview = {
   decorators: [
     (Story) => {
       return (
-        <SeamProvider publishableKey={defaultPublishableKey} endpoint='/api'>
+        <SeamProvider
+          publishableKey={defaultPublishableKey}
+          {...(process.env['NODE_ENV'] === 'production'
+            ? {}
+            : { endpoint: '/api' })}
+        >
           <Story />
         </SeamProvider>
       )
