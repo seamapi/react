@@ -12,7 +12,7 @@ import useToggle from 'lib/use-toggle.js'
 export function DeviceDetails(props: { device: LockDevice }) {
   const { device } = props
 
-  const lockStatus = device.properties.locked ? 'Locked' : 'Unlocked'
+  const lockStatus = device.properties.locked ? t.locked : t.unlocked
 
   const accessCodeLength =
     device.properties?.schlage_metadata?.access_code_length ?? null
@@ -56,14 +56,14 @@ export function DeviceDetails(props: { device: LockDevice }) {
             className='seam--content seam--access-codes'
             onClick={toggleAccessCodes}
           >
-            <span className='seam--value'>49 access codes</span>
+            <span className='seam--value'>49 {t.accessCodes}</span>
             <ChevronRightIcon />
           </div>
         </div>
 
         <div className='seam--box'>
           <div className='seam--content'>
-            <span className='seam--label'>Lock status</span>
+            <span className='seam--label'>{t.lockStatus}</span>
             <span className='seam--value'>{lockStatus}</span>
           </div>
           <AccessCodeLength accessCodeLength={accessCodeLength} />
@@ -81,8 +81,19 @@ function AccessCodeLength(props: { accessCodeLength: number | null }) {
 
   return (
     <div className='seam--content seam--access-code-length'>
-      <span className='seam--label'>Code length</span>
-      <span className='seam--value'>{accessCodeLength} digits</span>
+      <span className='seam--label'>{t.codeLength}</span>
+      <span className='seam--value'>
+        {accessCodeLength} {t.digits}
+      </span>
     </div>
   )
+}
+
+const t = {
+  locked: 'Locked',
+  unlocked: 'Unlocked',
+  accessCodes: 'access codes',
+  codeLength: 'Code length',
+  digits: 'digits',
+  lockStatus: 'lockStatus',
 }

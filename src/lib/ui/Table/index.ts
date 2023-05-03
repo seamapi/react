@@ -1,4 +1,3 @@
-export * from './Table.js'
 export * from './TableBody.js'
 export * from './TableCell.js'
 export * from './TableHeader.js'

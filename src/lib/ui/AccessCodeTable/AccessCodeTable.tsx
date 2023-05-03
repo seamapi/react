@@ -25,7 +25,7 @@ export function AccessCodeTable(props: {
       <ContentHeader onClickBack={onClickBack} />
       <TableHeader>
         <TableTitle>
-          Access Codes <Caption>({accessCodes.length})</Caption>
+          {t.accessCodes} <Caption>({accessCodes.length})</Caption>
         </TableTitle>
       </TableHeader>
       <TableBody>
@@ -50,4 +50,8 @@ export function AccessCodeTable(props: {
       </TableBody>
     </div>
   )
+}
+
+const t = {
+  accessCodes: 'Access Codes',
 }

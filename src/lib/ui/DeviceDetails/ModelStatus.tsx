@@ -16,8 +16,12 @@ export function ModelStatus(props: { device: LockDevice }) {
 
   return (
     <>
-      <span className='seam--label'>Model:</span>{' '}
+      <span className='seam--label'>{t.model}:</span>{' '}
       <div className='seam--device-model'>{model}</div>
     </>
   )
+}
+
+const t = {
+  model: 'Model',
 }

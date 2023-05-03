@@ -12,7 +12,7 @@ export function CodeDetails(props: { accessCode: AccessCode }) {
       <DotDivider />
       <Duration accessCode={accessCode} />
       <DotDivider />
-      Code: {accessCode.code}
+      {t.code}: {accessCode.code}
     </div>
   )
 }
@@ -20,18 +20,32 @@ export function CodeDetails(props: { accessCode: AccessCode }) {
 function Duration(props: { accessCode: AccessCode }) {
   const { accessCode } = props
   if (accessCode.type === 'ongoing') {
-    return <span>Ends: Never</span>
+    return <span>{t.ends}: Never</span>
   }
 
   const hasStarted = new Date(accessCode.starts_at).valueOf() < Date.now()
   if (hasStarted) {
-    return <span>Ends: {formatDate(accessCode.ends_at)} </span>
+    return (
+      <span>
+        {t.ends}: {formatDate(accessCode.ends_at)}{' '}
+      </span>
+    )
   }
 
   // is in future
-  return <span>Starts: {formatDate(accessCode.starts_at)}</span>
+  return (
+    <span>
+      {t.starts}: {formatDate(accessCode.starts_at)}
+    </span>
+  )
 }
 
 function formatDate(date: string) {
   return dayjs(date).format('MMM D')
+}
+
+const t = {
+  code: 'Code',
+  starts: 'Starts',
+  ends: 'Ends',
 }

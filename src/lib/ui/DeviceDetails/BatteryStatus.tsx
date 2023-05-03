@@ -26,7 +26,7 @@ export function BatteryStatus(props: { device: LockDevice }) {
 
   return (
     <>
-      <span className='seam--label'>Power:</span>{' '}
+      <span className='seam--label'>{t.power}:</span>{' '}
       <div className='seam--battery-status'>
         <Status batteryLevel={batteryLevel} />
       </div>
@@ -41,7 +41,7 @@ function Status(props: { batteryLevel: number }) {
     return (
       <>
         <BatteryLevelFullIcon />
-        <span className='seam--status-text'>Good</span>
+        <span className='seam--status-text'>{t.full}</span>
       </>
     )
   }
@@ -50,7 +50,7 @@ function Status(props: { batteryLevel: number }) {
     return (
       <>
         <BatteryLevelHighIcon />
-        <span className='seam--status-text'>Good</span>
+        <span className='seam--status-text'>{t.high}</span>
       </>
     )
   }
@@ -59,7 +59,7 @@ function Status(props: { batteryLevel: number }) {
     return (
       <>
         <BatteryLevelLowIcon />
-        <span className='seam--status-text'>Low</span>
+        <span className='seam--status-text'>{t.low}</span>
       </>
     )
   }
@@ -67,11 +67,15 @@ function Status(props: { batteryLevel: number }) {
   return (
     <>
       <BatteryLevelCriticalIcon />
-      <span className='seam--text-danger'>Low!</span>
+      <span className='seam--text-danger'>{t.critical}</span>
     </>
   )
 }
 
-function isFull(batteryLevel: number) {
-  return batteryLevel > 0.9
+const t = {
+  power: 'Power',
+  full: 'Good',
+  high: 'Good',
+  low: 'Low',
+  critical: 'Low!',
 }
