@@ -21,7 +21,6 @@ export function AccessCodeTable(props: {
 }) {
   const { accessCodes, onClickBack } = props
 
-  console.log('on back: ', onClickBack)
   return (
     <div className='seam--access-code-table'>
       <ContentHeader onClickBack={onClickBack} />
