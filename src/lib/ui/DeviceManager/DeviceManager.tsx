@@ -1,6 +1,9 @@
 import type { CommonDeviceProperties, Device } from 'seamapi'
 
-import { useDevices, type UseDevicesParams } from 'lib/hooks/use-devices.js'
+import {
+  useDevices,
+  type UseDevicesParams,
+} from 'lib/seam/devices/use-devices.js'
 
 export type DeviceManagerProps = UseDevicesParams
 
