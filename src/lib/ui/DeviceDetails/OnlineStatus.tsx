@@ -5,12 +5,24 @@ import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
 export function OnlineStatus(props: { device: LockDevice }) {
   const { device } = props
+  return (
+    <>
+      <span className='seam--label'>Status:</span>{' '}
+      <div className='seam--online-status'>
+        <Status isOnline={device.properties.online} />
+      </div>
+    </>
+  )
+}
 
-  if (device.properties.online) {
+function Status(props: { isOnline: boolean }) {
+  const { isOnline } = props
+
+  if (isOnline) {
     return (
       <>
         <OnlineStatusOnlineIcon />
-        Online
+        <span className='seam--status-text'>Online</span>
       </>
     )
   }

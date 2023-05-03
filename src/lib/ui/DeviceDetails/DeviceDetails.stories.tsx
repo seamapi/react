@@ -13,9 +13,16 @@ const fakeDevice: LockDevice = {
   created_at: '2022-12-18T04:35:20.737Z',
   properties: {
     name: 'Room 101 Front Door',
-    battery_level: 0.9,
+    battery_level: 0.2,
     locked: true,
-    online: false,
+    online: true,
+    august_metadata: {
+      model: 'August Wi-Fi Smart Lock',
+      lock_id: uuidv4(),
+      lock_name: 'Lock',
+      house_name: 'Some house',
+      has_keypad: true,
+    },
   },
   errors: [],
   warnings: [],

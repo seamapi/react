@@ -2,7 +2,7 @@ import { type LockDevice } from 'seamapi'
 
 import { BatteryStatus } from 'lib/ui/DeviceDetails/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/DeviceDetails/DeviceImage.js'
-import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
+import { ModelStatus } from 'lib/ui/DeviceDetails/ModelStatus.js'
 import { OnlineStatus } from 'lib/ui/DeviceDetails/OnlineStatus.js'
 
 export function DeviceDetails(props: { device: LockDevice }) {
@@ -27,18 +27,9 @@ export function DeviceDetails(props: { device: LockDevice }) {
           <div className='seam--info'>
             <h4 className='seam--device-name'>{device.properties.name}</h4>
             <div className='seam--properties'>
-              <span className='seam--label'>Status:</span>{' '}
-              <div className='seam--online-status'>
-                <OnlineStatus device={device} />
-              </div>
-              <span className='seam--label'>Power:</span>{' '}
-              <div className='seam--online-status'>
-                <BatteryStatus device={device} />
-              </div>
-              <span className='seam--label'>Model:</span>{' '}
-              <div className='seam--device-model'>
-                <DeviceModel device={device} />
-              </div>
+              <OnlineStatus device={device} />
+              <BatteryStatus device={device} />
+              <ModelStatus device={device} />
             </div>
           </div>
         </div>
