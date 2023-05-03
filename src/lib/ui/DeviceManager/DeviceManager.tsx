@@ -1,4 +1,3 @@
-import type { ReactElement } from 'react'
 import type { CommonDeviceProperties, Device } from 'seamapi'
 
 import {
@@ -11,7 +10,7 @@ export type DeviceManagerProps = UseDevicesParams
 /**
  * Fetch, list, and manage devices.
  */
-export function DeviceManager(props: DeviceManagerProps) {
+export const DeviceManager = (props: DeviceManagerProps): JSX.Element => {
   const { devices, isLoading, isError, error } = useDevices(props)
 
   if (isLoading) return <p role='loading'>{t.loading}</p>
@@ -33,7 +32,7 @@ export function DeviceManager(props: DeviceManagerProps) {
 
 const DeviceManagerItem = (
   props: Device<CommonDeviceProperties>
-): ReactElement => {
+): JSX.Element => {
   return (
     <li>
       <p>

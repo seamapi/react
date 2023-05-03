@@ -3,8 +3,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
   createContext,
-  type ReactElement,
-  type ReactNode,
+  type PropsWithChildren,
   useContext,
   useRef,
 } from 'react'
@@ -27,13 +26,12 @@ export interface SeamProviderProps {
   publishableKey?: string
   userIdentifierKey?: string
   endpoint?: string
-  children?: ReactNode
 }
 
 export function SeamProvider({
   children,
   ...props
-}: SeamProviderProps): ReactElement {
+}: PropsWithChildren<SeamProviderProps>): JSX.Element {
   const { Provider } = seamContext
 
   const queryClientRef = useRef(new QueryClient())
