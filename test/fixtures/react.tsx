@@ -4,8 +4,22 @@ import type { ReactElement, ReactNode } from 'react'
 
 const publishableKey = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
 
+declare global {
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_ENDPOINT: string
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_PUBLISHABLE_KEY: string
+}
+
 const Providers = ({ children }: { children: ReactNode }): ReactElement => {
-  return <SeamProvider publishableKey={publishableKey}>{children}</SeamProvider>
+  return (
+    <SeamProvider
+      endpoint={globalThis.JEST_SEAM_ENDPOINT}
+      publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY}
+    >
+      {children}
+    </SeamProvider>
+  )
 }
 
 type Render = typeof render
