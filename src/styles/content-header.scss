@@ -1,4 +1,4 @@
-.seam--content-header {
+.seam-content-header {
   height: 56px;
   display: flex;
   align-items: center;
@@ -6,7 +6,7 @@
   justify-content: center;
   width: 100%;
 
-  .seam--back-icon {
+  .seam-back-icon {
     position: absolute;
     top: 50%;
     transform: translate(0, -25%);
@@ -14,7 +14,7 @@
     cursor: pointer;
   }
 
-  .seam--title {
+  .seam-title {
     font-size: 16px;
     line-height: 134%;
   }

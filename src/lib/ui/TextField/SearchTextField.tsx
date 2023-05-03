@@ -6,7 +6,7 @@ export function SearchTextField({ className, ...otherProps }: TextFieldProps) {
   return (
     <TextField
       {...otherProps}
-      className={classNames(className, 'seam--search-text-field')}
+      className={classNames(className, 'seam-search-text-field')}
     />
   )
 }

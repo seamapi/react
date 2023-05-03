@@ -7,7 +7,7 @@ export function CodeDetails(props: { accessCode: AccessCode }) {
   const { accessCode } = props
 
   return (
-    <div className='seam--access-code-details'>
+    <div className='seam-access-code-details'>
       Unit 110
       <DotDivider />
       <Duration accessCode={accessCode} />

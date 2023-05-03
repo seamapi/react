@@ -5,9 +5,9 @@ export function ContentHeader(props: {
   onClickBack?: () => void
 }) {
   return (
-    <div className='seam--content-header'>
+    <div className='seam-content-header'>
       <BackIcon onClick={props.onClickBack} />
-      <span className='seam--title'>{props.title}</span>
+      <span className='seam-title'>{props.title}</span>
     </div>
   )
 }
@@ -17,5 +17,5 @@ function BackIcon(props: { onClick?: () => void }) {
     return null
   }
 
-  return <ArrowBackIcon className='seam--back-icon' onClick={props.onClick} />
+  return <ArrowBackIcon className='seam-back-icon' onClick={props.onClick} />
 }

@@ -10,7 +10,7 @@ export function TextField(props: TextFieldProps) {
   const { value, onChange, className, ...inputProps } = props
   return (
     <input
-      className={classNames('seam--text-field', className)}
+      className={classNames('seam-text-field', className)}
       value={value}
       onChange={handleString(onChange)}
       type='text'

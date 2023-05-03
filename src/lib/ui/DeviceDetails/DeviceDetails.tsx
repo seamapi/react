@@ -32,18 +32,18 @@ export function DeviceDetails(props: { device: LockDevice }) {
   }
 
   return (
-    <div className='seam--device-details'>
+    <div className='seam-device-details'>
       <ContentHeader title='Device' />
-      <div className='seam--body'>
-        <div className='seam--summary'>
-          <div className='seam--content'>
-            <div className='seam--image'>
+      <div className='seam-body'>
+        <div className='seam-summary'>
+          <div className='seam-content'>
+            <div className='seam-image'>
               <DeviceImage device={device} />
             </div>
 
-            <div className='seam--info'>
-              <h4 className='seam--device-name'>{device.properties.name}</h4>
-              <div className='seam--properties'>
+            <div className='seam-info'>
+              <h4 className='seam-device-name'>{device.properties.name}</h4>
+              <div className='seam-properties'>
                 <OnlineStatus device={device} />
                 <BatteryStatus device={device} />
                 <ModelStatus device={device} />
@@ -51,20 +51,20 @@ export function DeviceDetails(props: { device: LockDevice }) {
             </div>
           </div>
         </div>
-        <div className='seam--box'>
+        <div className='seam-box'>
           <div
-            className='seam--content seam--access-codes'
+            className='seam-content seam-access-codes'
             onClick={toggleAccessCodes}
           >
-            <span className='seam--value'>49 {t.accessCodes}</span>
+            <span className='seam-value'>49 {t.accessCodes}</span>
             <ChevronRightIcon />
           </div>
         </div>
 
-        <div className='seam--box'>
-          <div className='seam--content'>
-            <span className='seam--label'>{t.lockStatus}</span>
-            <span className='seam--value'>{lockStatus}</span>
+        <div className='seam-box'>
+          <div className='seam-content'>
+            <span className='seam-label'>{t.lockStatus}</span>
+            <span className='seam-value'>{lockStatus}</span>
           </div>
           <AccessCodeLength accessCodeLength={accessCodeLength} />
         </div>
@@ -80,9 +80,9 @@ function AccessCodeLength(props: { accessCodeLength: number | null }) {
   }
 
   return (
-    <div className='seam--content seam--access-code-length'>
-      <span className='seam--label'>{t.codeLength}</span>
-      <span className='seam--value'>
+    <div className='seam-content seam-access-code-length'>
+      <span className='seam-label'>{t.codeLength}</span>
+      <span className='seam-value'>
         {accessCodeLength} {t.digits}
       </span>
     </div>

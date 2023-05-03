@@ -7,8 +7,8 @@ export function OnlineStatus(props: { device: LockDevice }) {
   const { device } = props
   return (
     <>
-      <span className='seam--label'>{t.status}:</span>{' '}
-      <div className='seam--online-status'>
+      <span className='seam-label'>{t.status}:</span>{' '}
+      <div className='seam-online-status'>
         <Status isOnline={device.properties.online} />
       </div>
     </>
@@ -22,7 +22,7 @@ function Status(props: { isOnline: boolean }) {
     return (
       <>
         <OnlineStatusOnlineIcon />
-        <span className='seam--status-text'>{t.online}</span>
+        <span className='seam-status-text'>{t.online}</span>
       </>
     )
   }
@@ -32,7 +32,7 @@ function Status(props: { isOnline: boolean }) {
   return (
     <>
       <OnlineStatusDeviceOfflineIcon />
-      <span className='seam--text-danger'>{t.deviceOffline}</span>
+      <span className='seam-text-danger'>{t.deviceOffline}</span>
     </>
   )
 }

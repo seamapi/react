@@ -16,8 +16,8 @@ export function ModelStatus(props: { device: LockDevice }) {
 
   return (
     <>
-      <span className='seam--label'>{t.model}:</span>{' '}
-      <div className='seam--device-model'>{model}</div>
+      <span className='seam-label'>{t.model}:</span>{' '}
+      <div className='seam-device-model'>{model}</div>
     </>
   )
 }

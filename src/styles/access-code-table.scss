@@ -1,15 +1,15 @@
-.seam--access-code-table {
-  .seam--content-header {
+.seam-access-code-table {
+  .seam-content-header {
     margin: 0 16px;
   }
 
-  .seam--table-header {
+  .seam-table-header {
     margin-bottom: 16px;
     height: 56px;
     padding: 0 16px;
   }
 
-  .seam--icon-cell {
+  .seam-icon-cell {
     flex: 0;
     display: flex;
     align-items: center;
@@ -24,26 +24,26 @@
     }
   }
 
-  .seam--name-cell {
+  .seam-name-cell {
     flex: 1;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     gap: 2px;
 
-    .seam--access-code-details {
+    .seam-access-code-details {
       font-size: 14px;
       line-height: 134%;
       color: var(--text-gray-1);
 
-      .seam--dot-divider {
+      .seam-dot-divider {
         margin: 0 4px;
         color: var(--text-gray-3);
       }
     }
   }
 
-  .seam--action-cell {
+  .seam-action-cell {
     margin-right: 12px;
     display: flex;
     align-items: center;

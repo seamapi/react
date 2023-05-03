@@ -21,7 +21,7 @@ export function AccessCodeTable(props: {
   const { accessCodes, onClickBack } = props
 
   return (
-    <div className='seam--access-code-table'>
+    <div className='seam-access-code-table'>
       <ContentHeader onClickBack={onClickBack} />
       <TableHeader>
         <TableTitle>
@@ -31,16 +31,16 @@ export function AccessCodeTable(props: {
       <TableBody>
         {accessCodes.map((code) => (
           <TableRow key={code.access_code_id}>
-            <TableCell className='seam--icon-cell'>
+            <TableCell className='seam-icon-cell'>
               <div>
                 <AccessCodeKeyIcon />
               </div>
             </TableCell>
-            <TableCell className='seam--name-cell'>
+            <TableCell className='seam-name-cell'>
               <Title>{code.name}</Title>
               <CodeDetails accessCode={code} />
             </TableCell>
-            <TableCell className='seam--action-cell'>
+            <TableCell className='seam-action-cell'>
               {/* <IconButton>
                 <DotsEllipsisMoreIcon />
               </IconButton> */}
