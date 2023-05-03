@@ -6,8 +6,7 @@ import type { Preview } from '@storybook/react'
 // UPSTREAM: Use toolbar input when it lands.
 // https://github.com/storybookjs/storybook/pull/21959
 const defaultPublishableKey =
-  process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ??
-  'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
+  process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ?? 'seam_pk1ws2_0000'
 
 const preview: Preview = {
   parameters: {
@@ -21,9 +20,13 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => {
+      // TODO: This should be given by the story, some stories will want
+      // to use different publishable keys, user identifiers etc. to simulate
+      // different scenarios
       return (
         <SeamProvider
           publishableKey={defaultPublishableKey}
+          userIdentifierKey='seed_client_session_user_2'
           {...(process.env['NODE_ENV'] === 'production'
             ? {}
             : { endpoint: '/api' })}
