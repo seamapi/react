@@ -1,30 +1,29 @@
-.seam-components{
+.seam-components {
   font-family: 'Source Sans Pro', system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
     sans-serif;
 
   --primary: #007afc;
-  --text-gray-1: #6E7179;
+  --text-gray-1: #6e7179;
   --text-gray-2: #9da1a9;
-  --text-gray-3: #D5D8DC;
+  --text-gray-3: #d5d8dc;
   --input-border: #d5d8dc;
-  --bg-a: #F1F3F4;
-  --status-red-alert: #E36857;
-  --item-hover-bg: #F4F6F8;
-
+  --bg-a: #f1f3f4;
+  --status-red-alert: #e36857;
+  --item-hover-bg: #f4f6f8;
 
   // Reset
   @import 'the-new-css-reset/css/reset.css';
 
   // Globals
-  @import './reset.scss';
-  @import './typography.scss';
-  @import './tables.scss';
-  @import './inputs.scss';
-  @import './buttons.scss';
-  @import './content-header.scss';
+  @import './reset';
+  @import './typography';
+  @import './tables';
+  @import './inputs';
+  @import './buttons';
+  @import './content-header';
 
   // Components
-  @import './access-code-table.scss';
-  @import './device-details.scss'
+  @import './access-code-table';
+  @import './device-details';
 }
