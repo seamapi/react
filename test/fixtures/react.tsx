@@ -21,6 +21,7 @@ const Providers = ({
     <SeamProvider
       endpoint={globalThis.JEST_SEAM_ENDPOINT}
       publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
+      userIdentifierKey='seed_client_session_user_2'
     >
       {children}
     </SeamProvider>
