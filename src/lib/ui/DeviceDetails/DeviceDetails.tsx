@@ -1,5 +1,6 @@
 import { type LockDevice } from 'seamapi'
 
+import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { BatteryStatus } from 'lib/ui/DeviceDetails/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/DeviceDetails/DeviceImage.js'
 import { ModelStatus } from 'lib/ui/DeviceDetails/ModelStatus.js'
@@ -8,16 +9,10 @@ import { OnlineStatus } from 'lib/ui/DeviceDetails/OnlineStatus.js'
 export function DeviceDetails(props: { device: LockDevice }) {
   const { device } = props
 
-  // image properties
-  // device.properties.august_metadata?.model
-  // device.properties.online
-  // device.properties.battery_level
-  // device.properties.locked
-  // device.properties.supported_code_lengths
-  // device.properties.schlage_metadata?.access_code_length
+  const lockStatus = device.properties.locked ? 'Locked' : 'Unlocked'
 
   return (
-    <div className='seam--device-details'>
+    <div className='seam--details'>
       <div className='seam--header'>
         <div className='seam--content'>
           <div className='seam--image'>
@@ -35,15 +30,16 @@ export function DeviceDetails(props: { device: LockDevice }) {
         </div>
       </div>
       <div className='seam--box'>
-        <div className='seam--content'>
+        <div className='seam--content seam--access-codes'>
           <span className='seam--value'>49 access codes</span>
+          <ChevronRightIcon />
         </div>
       </div>
 
       <div className='seam--box'>
         <div className='seam--content seam--lock-status'>
           <span className='seam--label'>Lock status</span>
-          <span className='seam--value'>Locked</span>
+          <span className='seam--value'>{lockStatus}</span>
         </div>
         <div className='seam--content'>
           <span className='seam--label'>Code length</span>
