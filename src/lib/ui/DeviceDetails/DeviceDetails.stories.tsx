@@ -1,4 +1,4 @@
-import CloseIcon from '@mui/icons-material/Close.js'
+import { Close as CloseIcon } from '@mui/icons-material'
 import { Button, Dialog, DialogActions, IconButton } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { LockDevice } from 'seamapi'
