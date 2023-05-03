@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
 import {
@@ -8,29 +7,28 @@ import {
   TableRow,
   TableTitle,
 } from 'lib/ui/Table/index.js'
-import { SearchTextField } from 'lib/ui/TextField/index.js'
 
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { DotsEllipsisMoreIcon } from 'lib/icons/DotsEllipsisMore.js'
 import { IconButton } from 'lib/ui/IconButton.js'
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-export function AccessCodeTable(props: { accessCodes: AccessCode[] }) {
-  const { accessCodes } = props
-  const [searchTerm, setSearchTerm] = useState('')
+export function AccessCodeTable(props: {
+  accessCodes: AccessCode[]
+  onClickBack?: () => void
+}) {
+  const { accessCodes, onClickBack } = props
 
+  console.log('on back: ', onClickBack)
   return (
     <div className='seam--access-code-table'>
+      <ContentHeader onClickBack={onClickBack} />
       <TableHeader>
         <TableTitle>
-          Access Codes <Caption>(29)</Caption>
+          Access Codes <Caption>({accessCodes.length})</Caption>
         </TableTitle>
-        <SearchTextField
-          placeholder='search codes'
-          value={searchTerm}
-          onChange={setSearchTerm}
-        />
       </TableHeader>
       <TableBody>
         {accessCodes.map((code) => (

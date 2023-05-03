@@ -1,5 +1,6 @@
 import { Container as MuiContainer, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
+import { v4 as uuid } from 'uuid'
 
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 
@@ -12,7 +13,7 @@ const meta: Meta<typeof AccessCodeTable> = {
   args: {
     accessCodes: [
       {
-        access_code_id: 'someeid',
+        access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
         created_at: Date.now().toString(),
@@ -21,7 +22,7 @@ const meta: Meta<typeof AccessCodeTable> = {
         name: 'Guest - Gonzalez',
       },
       {
-        access_code_id: 'someeid',
+        access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
         created_at: Date.now().toString(),
@@ -30,7 +31,7 @@ const meta: Meta<typeof AccessCodeTable> = {
         name: 'Guest - Thompson',
       },
       {
-        access_code_id: 'someeid',
+        access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
         created_at: Date.now().toString(),
@@ -39,7 +40,7 @@ const meta: Meta<typeof AccessCodeTable> = {
         name: 'Guest - Kranz',
       },
       {
-        access_code_id: 'someeid',
+        access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
         created_at: Date.now().toString(),
@@ -48,7 +49,7 @@ const meta: Meta<typeof AccessCodeTable> = {
         name: 'Sparkle Cleaners',
       },
       {
-        access_code_id: 'someeid',
+        access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
         created_at: Date.now().toString(),
@@ -57,7 +58,7 @@ const meta: Meta<typeof AccessCodeTable> = {
         name: 'Guest - yang',
       },
       {
-        access_code_id: 'someeid',
+        access_code_id: uuid(),
         type: 'ongoing',
         code: '1234',
         created_at: Date.now().toString(),

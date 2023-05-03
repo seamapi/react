@@ -1,4 +1,5 @@
 export { AccessCodeKeyIcon } from './AccessCodeKey.js'
+export { ArrowBackIcon } from './ArrowBack.js'
 export { BatteryLevelCriticalIcon } from './BatteryLevelCritical.js'
 export { BatteryLevelFullIcon } from './BatteryLevelFull.js'
 export { BatteryLevelHighIcon } from './BatteryLevelHigh.js'

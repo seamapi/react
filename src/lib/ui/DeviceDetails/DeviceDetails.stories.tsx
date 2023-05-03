@@ -1,14 +1,15 @@
-import { Dialog } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import { Button, Dialog, DialogActions, IconButton } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { LockDevice } from 'seamapi'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuid } from 'uuid'
 
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 
 const fakeDevice: LockDevice = {
-  workspace_id: uuidv4(),
-  device_id: uuidv4(),
-  connected_account_id: uuidv4(),
+  workspace_id: uuid(),
+  device_id: uuid(),
+  connected_account_id: uuid(),
   device_type: 'august_lock',
   created_at: '2022-12-18T04:35:20.737Z',
   properties: {
@@ -18,7 +19,7 @@ const fakeDevice: LockDevice = {
     online: true,
     schlage_metadata: {
       model: 'Schlage Lock',
-      device_id: uuidv4(),
+      device_id: uuid(),
       device_name: 'Lock',
       access_code_length: 6,
     },
@@ -49,9 +50,21 @@ export const InsideModal: Story = {
   render: (props) => {
     return (
       <Dialog open fullWidth maxWidth='sm'>
+        <IconButton
+          sx={{
+            position: 'absolute',
+            top: '4px',
+            right: '8px',
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
         <div className='seam-components'>
           <DeviceDetails {...props} />
         </div>
+        <DialogActions sx={{ justifyContent: 'center', marginBottom: '16px' }}>
+          <Button variant='outlined'>Done</Button>
+        </DialogActions>
       </Dialog>
     )
   },
