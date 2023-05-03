@@ -87,6 +87,9 @@ export const Container: Story = {
 
 export const InsideModal: Story = {
   render: (props) => {
+    // Wrap modal/dialog contents in `seam-components` class
+    // to apply styles when rendered in a portal,
+    // which is the the default MUI behavio.
     return (
       <Dialog open fullWidth maxWidth='sm'>
         <div className='seam-components'>

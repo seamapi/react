@@ -8,5 +8,9 @@ h6 {
 }
 
 .seam--caption {
-  color: var(--text-gray);
+  color: var(--text-gray-2);
+}
+
+.seam--text-danger {
+  color: var(--status-red-alert);
 }

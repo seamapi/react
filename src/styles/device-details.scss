@@ -1,0 +1,94 @@
+.seam--device-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .seam--header {
+    padding: 24px 16px;
+    border-radius: 16px;
+    background: var(--bg-a);
+
+    .seam--content {
+      display: flex;
+      align-items:center;
+      gap: 20px;
+
+      .seam--image {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items:center;
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      .seam--info {
+        .seam--device-name {
+          margin-bottom: 16px;
+          font-weight: 600;
+          font-size: 21px;
+          line-height: 132%;
+        }
+
+        .seam--properties {
+          display: grid;
+          grid-template-columns: min-content 1fr;
+          grid-auto-rows: 1fr;
+          font-size: 14px;
+          line-height: 134%;
+          row-gap: 4px;
+          column-gap: 28px;
+
+          .seam--label {
+            color: var(--text-gray-2);
+          }
+
+          svg {
+            scale: 0.75;
+            margin-right: 8px;
+          }
+
+          > * {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+    }
+
+    .seam--box {
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+    }
+
+  }
+
+  .seam--icon-cell {
+    flex: 0;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .seam--name-cell {
+    flex: 1;
+  }
+
+  .seam--action-cell {
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

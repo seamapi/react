@@ -4,8 +4,11 @@
     sans-serif;
 
   --primary: #007afc;
-  --text-gray: #9da1a9;
+  --text-gray-1: #6E7179;
+  --text-gray-2: #9da1a9;
   --input-border: #d5d8dc;
+  --bg-a: #F1F3F4;
+  --status-red-alert: #E36857;
 
 
   // Reset
@@ -20,4 +23,5 @@
 
   // Components
   @import './access-code-table.scss';
+  @import './device-details.scss'
 }
