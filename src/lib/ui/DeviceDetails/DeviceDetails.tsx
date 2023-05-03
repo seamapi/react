@@ -15,7 +15,7 @@ export function DeviceDetails(props: { device: LockDevice }): JSX.Element {
   const lockStatus = device.properties.locked ? t.locked : t.unlocked
 
   const accessCodeLength =
-    device.properties?.schlage_metadata?.access_code_length ?? null
+    device.properties?.schlage_metadata?.access_code_length
 
   // TODO : Fetch access codes
   const accessCodes: AccessCode[] = []
@@ -74,10 +74,10 @@ export function DeviceDetails(props: { device: LockDevice }): JSX.Element {
 }
 
 function AccessCodeLength(props: {
-  accessCodeLength: number | null
+  accessCodeLength: number | null | undefined
 }): JSX.Element | null {
   const { accessCodeLength } = props
-  if (accessCodeLength === null) {
+  if (accessCodeLength == null) {
     return null
   }
 
