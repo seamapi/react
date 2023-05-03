@@ -1,5 +1,5 @@
-import type { ReactNode, SVGProps } from 'react'
-export const SeamIcon = (props: SVGProps<SVGSVGElement>): ReactNode => (
+import type { SVGProps } from 'react'
+export const SeamIcon = (props: SVGProps<SVGSVGElement>): JSX.Element => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width={167}
