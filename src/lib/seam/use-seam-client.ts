@@ -1,18 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
-import { useContext } from 'react'
 import { type ClientSession, Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
-import { seamContext } from 'lib/provider.js'
+import { useSeamContext } from 'lib/SeamProvider.js'
 
-export function useSeam(): {
+export function useSeamClient(): {
   client: Seam | null
   isLoading: boolean
   isError: boolean
   error: unknown
 } {
-  const { client, clientOptions, publishableKey, ...context } =
-    useContext(seamContext)
+  const { client, clientOptions, publishableKey, ...context } = useSeamContext()
   const [clientSession, setClientSession] = useClientSession()
   const userIdentifierKey = useUserIdentifierKey(context.userIdentifierKey)
 

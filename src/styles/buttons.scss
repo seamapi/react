@@ -1,0 +1,15 @@
+.seam-button {
+  border-radius: 6px;
+  border: 1px solid rgb(0 122 252 / 50%);
+  cursor: pointer;
+
+  &.seam-icon-button {
+    background: #fff;
+    padding: 6px;
+    line-height: 0;
+
+    &:hover {
+      background: rgb(0 122 252 / 8%);
+    }
+  }
+}

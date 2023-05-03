@@ -1,0 +1,51 @@
+import dayjs from 'dayjs'
+import type { AccessCode } from 'seamapi'
+
+import { DotDivider } from 'lib/ui/layout/DotDivider.js'
+
+export function CodeDetails(props: { accessCode: AccessCode }) {
+  const { accessCode } = props
+
+  return (
+    <div className='seam-access-code-details'>
+      Unit 110
+      <DotDivider />
+      <Duration accessCode={accessCode} />
+      <DotDivider />
+      {t.code}: {accessCode.code}
+    </div>
+  )
+}
+
+function Duration(props: { accessCode: AccessCode }) {
+  const { accessCode } = props
+  if (accessCode.type === 'ongoing') {
+    return <span>{t.ends}: Never</span>
+  }
+
+  const hasStarted = new Date(accessCode.starts_at).valueOf() < Date.now()
+  if (hasStarted) {
+    return (
+      <span>
+        {t.ends}: {formatDate(accessCode.ends_at)}{' '}
+      </span>
+    )
+  }
+
+  // is in future
+  return (
+    <span>
+      {t.starts}: {formatDate(accessCode.starts_at)}
+    </span>
+  )
+}
+
+function formatDate(date: string) {
+  return dayjs(date).format('MMM D')
+}
+
+const t = {
+  code: 'Code',
+  starts: 'Starts',
+  ends: 'Ends',
+}
