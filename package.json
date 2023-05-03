@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/react",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Seam React component library.",
   "type": "module",
   "main": "index.js",
