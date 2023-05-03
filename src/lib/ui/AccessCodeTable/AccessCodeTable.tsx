@@ -8,6 +8,7 @@ import {
   TableTitle,
 } from 'lib/ui/Table/index.js'
 
+import { useAccessCodes } from 'lib/hooks/use-access-codes.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -15,10 +16,15 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
 export function AccessCodeTable(props: {
-  accessCodes: AccessCode[]
+  deviceId: string
   onClickBack?: () => void
 }) {
-  const { accessCodes, onClickBack } = props
+  const { accessCodes } = useAccessCodes({
+    device_id: props.deviceId,
+  })
+  const { onClickBack } = props
+
+  if (!accessCodes) return null
 
   return (
     <div className='seam-access-code-table'>

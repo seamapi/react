@@ -23,14 +23,28 @@ export const seedFake = (db) => {
     status: 'authorized',
   })
 
-  db.addDevice({
+  const device1 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: 'august_lock',
     name: 'Front Door',
     workspace_id: ws2.workspace_id,
   })
 
-  db.addDevice({
+  db.addAccessCode({
+    code: "1234",
+    device_id: device1.device_id,
+    name: "John's Front Door Code",
+    workspace_id: ws2.workspace_id,
+  })
+
+  db.addAccessCode({
+    code: "1111",
+    device_id: device1.device_id,
+    name: "Mary's Front Door Code",
+    workspace_id: ws2.workspace_id,
+  })
+
+  const device2 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: 'august_lock',
     name: 'Back Door',
@@ -42,6 +56,8 @@ export const seedFake = (db) => {
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: [ca.connected_account_id],
     user_identifier_key: 'seed_client_session_user_2',
+    device1,
+    device2
   })
 
   return { ws1, ws2, clientSession2 }
