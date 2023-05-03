@@ -1,9 +1,8 @@
 import '@seamapi/react/index.css'
 
 import { DeviceManager, SeamProvider } from '@seamapi/react'
-import type { ReactElement } from 'react'
 
-export const App = (): ReactElement => {
+export const App = (): JSX.Element => {
   return (
     <SeamProvider
       endpoint={import.meta.env.SEAM_ENDPOINT}

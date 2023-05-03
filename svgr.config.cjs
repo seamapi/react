@@ -7,13 +7,13 @@ module.exports = {
   expandProps: 'none',
   template: (variables, { tpl }) => {
     return tpl`
-import type { ReactNode, SVGProps } from 'react'
+import type { SVGProps } from 'react'
 
 ${variables.interfaces};
 
 export const ${variables.componentName.replace('Svg', '') + 'Icon'} = (${
       variables.props
-    }): ReactNode => (
+    }): JSX.Element => (
   ${variables.jsx}
 );
 `
