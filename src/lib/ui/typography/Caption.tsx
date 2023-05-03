@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 
-export function Caption(props: { children: ReactNode }) {
-  return <span className='seam-caption'>{props.children}</span>
+export function Caption({ children }: PropsWithChildren) {
+  return <span className='seam-caption'>{children}</span>
 }

@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 
-export function TableBody(props: { children: ReactNode }) {
-  return <div className='seam-table-body'>{props.children}</div>
+export function TableBody({ children }: PropsWithChildren) {
+  return <div className='seam-table-body'>{children}</div>
 }

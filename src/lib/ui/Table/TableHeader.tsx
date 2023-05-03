@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 
-export function TableHeader(props: { children: ReactNode }) {
-  return <div className='seam-table-header'>{props.children}</div>
+export function TableHeader({ children }: PropsWithChildren) {
+  return <div className='seam-table-header'>{children}</div>
 }
