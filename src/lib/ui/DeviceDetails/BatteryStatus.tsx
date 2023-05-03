@@ -13,7 +13,9 @@ const BATTERY_LEVEL = {
   HIGH: 0.6,
   LOW: 0.3,
 }
-export function BatteryStatus(props: { device: LockDevice }) {
+export function BatteryStatus(props: {
+  device: LockDevice
+}): JSX.Element | null {
   const {
     device: {
       properties: { battery_level: batteryLevel },
@@ -34,7 +36,7 @@ export function BatteryStatus(props: { device: LockDevice }) {
   )
 }
 
-function Status(props: { batteryLevel: number }) {
+function Status(props: { batteryLevel: number }): JSX.Element {
   const { batteryLevel } = props
 
   if (batteryLevel > BATTERY_LEVEL.FULL) {

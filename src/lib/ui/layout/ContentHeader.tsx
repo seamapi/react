@@ -3,7 +3,7 @@ import { ArrowBackIcon } from 'lib/icons/ArrowBack.js'
 export function ContentHeader(props: {
   title?: string
   onClickBack?: () => void
-}) {
+}): JSX.Element {
   return (
     <div className='seam-content-header'>
       <BackIcon onClick={props.onClickBack} />
@@ -12,7 +12,7 @@ export function ContentHeader(props: {
   )
 }
 
-function BackIcon(props: { onClick?: () => void }) {
+function BackIcon(props: { onClick?: () => void }): JSX.Element | null {
   if (props.onClick === undefined) {
     return null
   }

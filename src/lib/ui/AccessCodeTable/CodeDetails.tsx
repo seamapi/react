@@ -3,7 +3,7 @@ import type { AccessCode } from 'seamapi'
 
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 
-export function CodeDetails(props: { accessCode: AccessCode }) {
+export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
   const { accessCode } = props
 
   return (
@@ -17,7 +17,7 @@ export function CodeDetails(props: { accessCode: AccessCode }) {
   )
 }
 
-function Duration(props: { accessCode: AccessCode }) {
+function Duration(props: { accessCode: AccessCode }): JSX.Element {
   const { accessCode } = props
   if (accessCode.type === 'ongoing') {
     return <span>{t.ends}: Never</span>
@@ -40,7 +40,7 @@ function Duration(props: { accessCode: AccessCode }) {
   )
 }
 
-function formatDate(date: string) {
+function formatDate(date: string): string {
   return DateTime.fromISO(date).toLocaleString({
     month: 'long',
     day: 'numeric',

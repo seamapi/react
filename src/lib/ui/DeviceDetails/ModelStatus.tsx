@@ -1,6 +1,6 @@
 import type { LockDevice } from 'seamapi'
 
-export function ModelStatus(props: { device: LockDevice }) {
+export function ModelStatus(props: { device: LockDevice }): JSX.Element | null {
   const {
     device: { properties },
   } = props
