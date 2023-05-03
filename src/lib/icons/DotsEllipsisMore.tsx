@@ -1,7 +1,7 @@
-import type { ReactNode, SVGProps } from 'react'
+import type { SVGProps } from 'react'
 export const DotsEllipsisMoreIcon = (
   props: SVGProps<SVGSVGElement>
-): ReactNode => (
+): JSX.Element => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width={18}
