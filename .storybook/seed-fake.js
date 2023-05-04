@@ -31,14 +31,14 @@ export const seedFake = (db) => {
   })
 
   db.addAccessCode({
-    code: "1234",
+    code: '1234',
     device_id: device1.device_id,
     name: "John's Front Door Code",
     workspace_id: ws2.workspace_id,
   })
 
   db.addAccessCode({
-    code: "1111",
+    code: '1111',
     device_id: device1.device_id,
     name: "Mary's Front Door Code",
     workspace_id: ws2.workspace_id,
@@ -57,7 +57,7 @@ export const seedFake = (db) => {
     connected_account_ids: [ca.connected_account_id],
     user_identifier_key: 'seed_client_session_user_2',
     device1,
-    device2
+    device2,
   })
 
   return { ws1, ws2, clientSession2 }

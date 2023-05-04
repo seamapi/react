@@ -1,4 +1,3 @@
-import type { AccessCode } from 'seamapi'
 
 import {
   TableBody,
