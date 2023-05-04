@@ -1,13 +1,12 @@
 /** @type {() => Promise<import('ts-jest').JestConfigWithTsJest>} */
 module.exports = async () => {
-  const getPort = await import('get-port')
-  const port = await getPort.default()
   return {
+    // Any empty globals are set in global-setup.cjs.
     globals: {
-      JEST_SEAM_ENDPOINT: `http://localhost:${port}`,
-      JEST_SEAM_PUBLISHABLE_KEY_1: '', // set in global-setup.cjs
-      JEST_SEAM_PUBLISHABLE_KEY_2: '', // set in global-setup.cjs
-      JEST_SEAM_CLIENT_SESSION_TOKEN_2: '', // set in global-setup.cjs
+      JEST_SEAM_ENDPOINT: '',
+      JEST_SEAM_PUBLISHABLE_KEY_1: '',
+      JEST_SEAM_PUBLISHABLE_KEY_2: '',
+      JEST_SEAM_CLIENT_SESSION_TOKEN_2: '',
     },
     globalSetup: '<rootDir>/test/jest/global-setup.cjs',
     globalTeardown: '<rootDir>/test/jest/global-teardown.cjs',
