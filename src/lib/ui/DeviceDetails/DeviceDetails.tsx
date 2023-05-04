@@ -1,4 +1,4 @@
-import { type AccessCode, type LockDevice } from 'seamapi'
+import { type LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
@@ -17,15 +17,12 @@ export function DeviceDetails(props: { device: LockDevice }): JSX.Element {
   const accessCodeLength =
     device.properties?.schlage_metadata?.access_code_length
 
-  // TODO : Fetch access codes
-  const accessCodes: AccessCode[] = []
-
   const [showingAccessCodes, toggleAccessCodes] = useToggle()
 
   if (showingAccessCodes) {
     return (
       <AccessCodeTable
-        accessCodes={accessCodes}
+        deviceId={device.device_id}
         onClickBack={toggleAccessCodes}
       />
     )
