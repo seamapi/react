@@ -13,6 +13,12 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": ["!.storybook"],
+  "overrides": [
+    {
+      "files": ["**/*.test.tsx?", "test/jest/setup-*.tsx?"],
+      "env": { "jest": true }
+    }
+  ],
   "rules": {
     "no-console": "warn",
     "@typescript-eslint/consistent-type-imports": [

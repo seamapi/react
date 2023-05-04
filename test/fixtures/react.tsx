@@ -1,11 +1,31 @@
 import { SeamProvider } from '@seamapi/react'
 import { render } from '@testing-library/react'
-import type { PropsWithChildren } from 'react'
+import type React = require('react')
 
-const publishableKey = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
+declare global {
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_ENDPOINT: string
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_PUBLISHABLE_KEY_1: string
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_PUBLISHABLE_KEY_2: string
+  // eslint-disable-next-line no-var
+  var JEST_SEAM_CLIENT_SESSION_TOKEN_2: string
+}
 
-const Providers = ({ children }: PropsWithChildren): JSX.Element => {
-  return <SeamProvider publishableKey={publishableKey}>{children}</SeamProvider>
+const Providers = ({
+  children,
+}: {
+  children: React.ReactNode
+}): JSX.Element => {
+  return (
+    <SeamProvider
+      endpoint={globalThis.JEST_SEAM_ENDPOINT}
+      publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
+    >
+      {children}
+    </SeamProvider>
+  )
 }
 
 type Render = typeof render
