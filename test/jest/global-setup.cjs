@@ -1,7 +1,6 @@
 /** @type {(globalConfig: import('@jest/types').Config.GlobalConfig, globalConfig: import('@jest/types').Config.ProjectConfig) => Promise<void>} */
 module.exports = async function (_globalConfig, projectConfig) {
   const { create } = await import('@seamapi/fake-seam-connect')
-  const url = new URL(projectConfig.globals.JEST_SEAM_ENDPOINT)
   const fake = await create()
 
   const db = fake.database.getState()
@@ -45,7 +44,8 @@ module.exports = async function (_globalConfig, projectConfig) {
     user_identifier_key: 'seed_client_session_user_2',
   })
 
-  await fake.startServer(url.port)
+  await fake.startServer()
+  projectConfig.globals.JEST_SEAM_ENDPOINT = fake.server.serverUrl
   projectConfig.globals.JEST_SEAM_PUBLISHABLE_KEY_1 = ws1.publishable_key
   projectConfig.globals.JEST_SEAM_PUBLISHABLE_KEY_2 = ws2.publishable_key
   projectConfig.globals.JEST_SEAM_CLIENT_SESSION_TOKEN_2 = clientSession2.token

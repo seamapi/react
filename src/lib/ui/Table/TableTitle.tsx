@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 
-export function TableTitle(props: { children: ReactNode }) {
-  return <h5 className='seam-table-title'>{props.children}</h5>
+export function TableTitle({ children }: PropsWithChildren): JSX.Element {
+  return <h5 className='seam-table-title'>{children}</h5>
 }

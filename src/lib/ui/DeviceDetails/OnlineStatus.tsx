@@ -3,7 +3,7 @@ import type { LockDevice } from 'seamapi'
 import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
-export function OnlineStatus(props: { device: LockDevice }) {
+export function OnlineStatus(props: { device: LockDevice }): JSX.Element {
   const { device } = props
   return (
     <>
@@ -15,7 +15,7 @@ export function OnlineStatus(props: { device: LockDevice }) {
   )
 }
 
-function Status(props: { isOnline: boolean }) {
+function Status(props: { isOnline: boolean }): JSX.Element {
   const { isOnline } = props
 
   if (isOnline) {

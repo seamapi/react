@@ -1,5 +1,3 @@
-const { basename, extname } = require('node:path')
-
 /** @type {import('@svgr/core').Config} */
 module.exports = {
   typescript: true,
@@ -18,11 +16,7 @@ export const ${variables.componentName.replace('Svg', '') + 'Icon'} = (${
 );
 `
   },
-  indexTemplate: (filePaths) => {
-    const exportEntries = filePaths.map((filePath) => {
-      const name = basename(filePath, extname(filePath))
-      return `export { ${name}Icon } from './${name}.js'`
-    })
-    return exportEntries.join('\n')
+  indexTemplate: () => {
+    return 'export default null'
   },
 }

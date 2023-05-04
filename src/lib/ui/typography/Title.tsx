@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 
-export function Title(props: { children: ReactNode }) {
-  return <span className='seam-title'>{props.children}</span>
+export function Title({ children }: PropsWithChildren): JSX.Element {
+  return <span className='seam-title'>{children}</span>
 }

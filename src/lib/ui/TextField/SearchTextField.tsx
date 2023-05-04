@@ -2,7 +2,10 @@ import classNames from 'classnames'
 
 import { TextField, type TextFieldProps } from 'lib/ui/TextField/index.js'
 
-export function SearchTextField({ className, ...otherProps }: TextFieldProps) {
+export function SearchTextField({
+  className,
+  ...otherProps
+}: TextFieldProps): JSX.Element {
   return (
     <TextField
       {...otherProps}
