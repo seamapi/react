@@ -2,7 +2,6 @@ import type { StorybookConfig } from '@storybook/react-webpack5'
 import CopyPlugin from 'copy-webpack-plugin'
 import sass from 'sass'
 
-import CspPlugin from './webpack-csp.js'
 import webpackTsconfigpaths from './webpack-tsconfigpaths.js'
 
 const config: StorybookConfig = {
@@ -41,8 +40,6 @@ const config: StorybookConfig = {
           patterns: [{ from: `examples/dist`, to: 'examples' }],
         })
       )
-
-      config.plugins.push(new CspPlugin())
     }
 
     return config
