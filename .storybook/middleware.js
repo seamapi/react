@@ -7,13 +7,12 @@ import { seedFake } from './seed-fake.js'
 export default async (app) => {
   const { create } = await import('@seamapi/fake-seam-connect')
   const fake = await create()
-
   seedFake(fake.database.getState())
-
   await fake.startServer()
+
   app.use(
-    '/api',
-    createProxyMiddleware({
+    '/',
+    createProxyMiddleware('/api', {
       target: fake.server.serverUrl,
       pathRewrite: { '^/api': '' },
       changeOrigin: true,

@@ -18,6 +18,10 @@
 *.css
 *.css.map
 
+# Yalc
+.yalc
+yalc.lock
+
 # Vite
 *.timestamp-*
 
@@ -36,7 +40,7 @@ package
 .tern-port
 
 # npm config
-.npmrc
+# .npmrc
 
 # Temporary development files
 tmp
@@ -210,8 +214,7 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
-
+Icon
 
 # Thumbnails
 ._*
@@ -231,7 +234,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-.yalc
-yalc.lock
-*.css

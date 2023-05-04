@@ -34,9 +34,9 @@ $ npm install @seamapi/react
 3. Drop in Seam components.
 
 ```ts
-import { SeamProvider, DeviceManager } from '@seamapi/react'
-
 import '@seamapi/react/index.css'
+
+import { SeamProvider, DeviceManager } from '@seamapi/react'
 
 export const App = () => {
   return (

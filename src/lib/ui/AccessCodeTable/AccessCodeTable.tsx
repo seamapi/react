@@ -17,7 +17,7 @@ import { Title } from 'lib/ui/typography/Title.js'
 export function AccessCodeTable(props: {
   accessCodes: AccessCode[]
   onClickBack?: () => void
-}) {
+}): JSX.Element {
   const { accessCodes, onClickBack } = props
 
   return (

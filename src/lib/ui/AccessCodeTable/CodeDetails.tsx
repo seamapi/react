@@ -1,9 +1,9 @@
-import dayjs from 'dayjs'
+import { DateTime } from 'luxon'
 import type { AccessCode } from 'seamapi'
 
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 
-export function CodeDetails(props: { accessCode: AccessCode }) {
+export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
   const { accessCode } = props
 
   return (
@@ -17,10 +17,14 @@ export function CodeDetails(props: { accessCode: AccessCode }) {
   )
 }
 
-function Duration(props: { accessCode: AccessCode }) {
+function Duration(props: { accessCode: AccessCode }): JSX.Element {
   const { accessCode } = props
   if (accessCode.type === 'ongoing') {
-    return <span>{t.ends}: Never</span>
+    return (
+      <span>
+        {t.ends}: {t.never}
+      </span>
+    )
   }
 
   const hasStarted = new Date(accessCode.starts_at).valueOf() < Date.now()
@@ -32,7 +36,6 @@ function Duration(props: { accessCode: AccessCode }) {
     )
   }
 
-  // is in future
   return (
     <span>
       {t.starts}: {formatDate(accessCode.starts_at)}
@@ -40,12 +43,16 @@ function Duration(props: { accessCode: AccessCode }) {
   )
 }
 
-function formatDate(date: string) {
-  return dayjs(date).format('MMM D')
+function formatDate(date: string): string {
+  return DateTime.fromISO(date).toLocaleString({
+    month: 'long',
+    day: 'numeric',
+  })
 }
 
 const t = {
   code: 'Code',
   starts: 'Starts',
   ends: 'Ends',
+  never: 'Never',
 }

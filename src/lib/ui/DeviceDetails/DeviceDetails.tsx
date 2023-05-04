@@ -9,13 +9,13 @@ import { OnlineStatus } from 'lib/ui/DeviceDetails/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import useToggle from 'lib/use-toggle.js'
 
-export function DeviceDetails(props: { device: LockDevice }) {
+export function DeviceDetails(props: { device: LockDevice }): JSX.Element {
   const { device } = props
 
   const lockStatus = device.properties.locked ? t.locked : t.unlocked
 
   const accessCodeLength =
-    device.properties?.schlage_metadata?.access_code_length ?? null
+    device.properties?.schlage_metadata?.access_code_length
 
   // TODO : Fetch access codes
   const accessCodes: AccessCode[] = []
@@ -73,9 +73,11 @@ export function DeviceDetails(props: { device: LockDevice }) {
   )
 }
 
-function AccessCodeLength(props: { accessCodeLength: number | null }) {
+function AccessCodeLength(props: {
+  accessCodeLength: number | null | undefined
+}): JSX.Element | null {
   const { accessCodeLength } = props
-  if (accessCodeLength === null) {
+  if (accessCodeLength == null) {
     return null
   }
 
@@ -95,5 +97,5 @@ const t = {
   accessCodes: 'access codes',
   codeLength: 'Code length',
   digits: 'digits',
-  lockStatus: 'lockStatus',
+  lockStatus: 'Lock status',
 }
