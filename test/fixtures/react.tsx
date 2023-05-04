@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import { SeamProvider } from 'lib/SeamProvider.js'
 import type React = require('react')
 
 declare global {
