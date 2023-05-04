@@ -1,3 +1,5 @@
+import 'isomorphic-fetch'
+
 import { render } from '@testing-library/react'
 
 import { SeamProvider } from 'lib/SeamProvider.js'
