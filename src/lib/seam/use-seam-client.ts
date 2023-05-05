@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 import { type ClientSession, Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -11,8 +12,10 @@ export function useSeamClient(): {
   error: unknown
 } {
   const { client, clientOptions, publishableKey, ...context } = useSeamContext()
-  const [clientSession, setClientSession] = useClientSession()
-  const userIdentifierKey = useUserIdentifierKey(context.userIdentifierKey)
+  const [clientSession, setClientSession] = useState<ClientSession | null>(null)
+  const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
+    context.userIdentifierKey
+  )
 
   const { isLoading, isError, error, data } = useQuery<Seam>({
     queryKey: ['client', { client, clientSession, userIdentifierKey }],
@@ -52,34 +55,24 @@ export function useSeamClient(): {
   return { client: data ?? null, isLoading, isError, error }
 }
 
-function useClientSession(): [
-  clientSession: ClientSession | null,
-  setClientSession: (clientSession: ClientSession) => void
-] {
-  const localStorageKey = 'seam_client_session'
-
-  const setClientSession = (clientSession: ClientSession): void => {
-    globalThis?.localStorage?.setItem(
-      localStorageKey,
-      JSON.stringify(clientSession)
-    )
-  }
-
-  const cachedClientSession = globalThis?.localStorage?.getItem(localStorageKey)
-
-  return [
-    cachedClientSession != null ? JSON.parse(cachedClientSession) : null,
-    setClientSession,
-  ]
-}
-
-function useUserIdentifierKey(userIdentifierKey: string | undefined): string {
+/**
+ * You'll almost always want to supply a user identifier key, but if you don't
+ * we'll automatically pick a fingerprint for this user. The user interface
+ * will show warnings when you use a fingerprint because this client session
+ * is bound to this machine, and is effectively ephemeral.
+ */
+function useUserIdentifierKeyOrFingerprint(
+  userIdentifierKey: string | undefined
+): string {
   if (userIdentifierKey != null) {
     return userIdentifierKey
   }
 
-  const localStorageKey = 'seam_user_identifier_key'
-  const key = globalThis?.localStorage?.getItem(localStorageKey) ?? uuidv4()
-  globalThis?.localStorage?.setItem(localStorageKey, key)
-  return key
+  const fingerprintValue =
+    globalThis?.localStorage?.getItem('seam_user_fingerprint') ??
+    `fingerprint_${uuidv4()}`
+
+  globalThis?.localStorage?.setItem('seam_user_fingerprint', fingerprintValue)
+
+  return fingerprintValue
 }
