@@ -87,6 +87,6 @@ const setupEnv = async (
       await setTimeout(2000)
     }
 
-    env['SEAM_PUBLISHABLE_KEY'] = 'seam_pk1fGd41X_zKs0ZELRWEc8nWxiBsrTFC98'
+    env['SEAM_PUBLISHABLE_KEY'] = 'seam_pk1J0Bgui_oYEuzDhOqUzSBkrPmrNsUuKL'
   }
 }
