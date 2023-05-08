@@ -4,7 +4,7 @@ import type { Device, SeamError } from 'seamapi'
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/types/use-seam-query-result.js'
 
-export function useAccessCodes(
+export function useDevice(
   params:
     | {
         device_id: string
