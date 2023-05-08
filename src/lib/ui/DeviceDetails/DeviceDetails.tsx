@@ -9,7 +9,11 @@ import { OnlineStatus } from 'lib/ui/DeviceDetails/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import useToggle from 'lib/use-toggle.js'
 
-export function DeviceDetails(props: { device: LockDevice }): JSX.Element {
+export interface DeviceDetailsProps {
+  device: LockDevice
+}
+
+export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
   const { device } = props
 
   const lockStatus = device.properties.locked ? t.locked : t.unlocked

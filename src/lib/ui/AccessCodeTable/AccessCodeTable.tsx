@@ -14,10 +14,12 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-export function AccessCodeTable(props: {
+export interface AccessCodeTableProps {
   accessCodes: AccessCode[]
   onClickBack?: () => void
-}): JSX.Element {
+}
+
+export function AccessCodeTable(props: AccessCodeTableProps): JSX.Element {
   const { accessCodes, onClickBack } = props
 
   return (
