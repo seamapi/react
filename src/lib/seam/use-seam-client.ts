@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { type ClientSession, Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -55,15 +55,17 @@ export function useSeamClient(): {
   return { client: data ?? null, isLoading, isError, error }
 }
 
-/**
- * You'll almost always want to supply a user identifier key, but if you don't
- * we'll automatically pick a fingerprint for this user. The user interface
- * will show warnings when you use a fingerprint because this client session
- * is bound to this machine, and is effectively ephemeral.
- */
 function useUserIdentifierKeyOrFingerprint(
   userIdentifierKey: string | undefined
 ): string {
+  useEffect(() => {
+    if (userIdentifierKey != null) return
+    // eslint-disable-next-line no-console
+    console.warn(`Using an automatically generated fingerprint for the SeamProvider userIdentifierKey!
+The user interface will show warnings when using a fingerprint.
+This is not recommended because the client session is now bound to this machine and is effectively ephemeral.`)
+  }, [userIdentifierKey])
+
   if (userIdentifierKey != null) {
     return userIdentifierKey
   }
