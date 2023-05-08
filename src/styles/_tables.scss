@@ -1,0 +1,48 @@
+@mixin header {
+  .seam-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .seam-table-title {
+    font-size: 21px;
+    line-height: 132%;
+
+    .seam-caption {
+      font-size: 16px;
+      line-height: 134%;
+    }
+  }
+}
+
+@mixin row {
+  .seam-table-row {
+    display: flex;
+    padding: 4px;
+    height: 72px;
+
+    &:hover {
+      background: rgb(244 246 248 / 100%);
+    }
+
+    .seam-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+  }
+}
+
+@mixin cell {
+  .seam-table-cell {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+  }
+}
+
+@mixin all {
+  @include header;
+  @include row;
+  @include cell;
+}

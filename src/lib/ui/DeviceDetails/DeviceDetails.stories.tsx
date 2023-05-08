@@ -4,7 +4,11 @@ import type { Meta, StoryObj } from '@storybook/react'
 import type { LockDevice } from 'seamapi'
 import { v4 as uuid } from 'uuid'
 
-import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
+import {
+  DeviceDetails,
+  type DeviceDetailsProps,
+} from 'lib/ui/DeviceDetails/DeviceDetails.js'
+import useToggle from 'lib/use-toggle.js'
 
 const fakeDevice: LockDevice = {
   workspace_id: uuid(),
@@ -38,6 +42,7 @@ const meta: Meta<typeof DeviceDetails> = {
   args: {
     device: fakeDevice,
   },
+  tags: ['autodocs'],
 }
 
 export default meta
@@ -47,12 +52,18 @@ type Story = StoryObj<typeof DeviceDetails>
 export const Content: Story = {}
 
 export const InsideModal: Story = {
-  render: (props) => {
-    // Wrap modal/dialog contents in `seam-components` class
-    // to apply styles when rendered in a portal,
-    // which is the default MUI behavior.
-    return (
-      <Dialog open fullWidth maxWidth='sm'>
+  render: InsideModalComponent,
+}
+
+function InsideModalComponent(props: DeviceDetailsProps) {
+  const [showing, toggleShowing] = useToggle()
+  // Wrap modal/dialog contents in `seam-components` class
+  // to apply styles when rendered in a portal,
+  // which is the default MUI behavior.
+  return (
+    <>
+      <Button onClick={toggleShowing}>Show Modal</Button>
+      <Dialog open={showing} fullWidth maxWidth='sm' onClose={toggleShowing}>
         <IconButton
           sx={{
             position: 'absolute',
@@ -69,6 +80,6 @@ export const InsideModal: Story = {
           <Button variant='outlined'>Done</Button>
         </DialogActions>
       </Dialog>
-    )
-  },
+    </>
+  )
 }

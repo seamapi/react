@@ -1,7 +1,9 @@
-import { Dialog } from '@mui/material'
+import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
+import useToggle from 'lib/use-toggle.js'
+import type { ComponentProps } from 'react'
 
 /**
  * These stories showcase the device manager.
@@ -9,6 +11,7 @@ import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 const meta: Meta<typeof AccessCodeTable> = {
   title: 'Example/AccessCodeTable',
   component: AccessCodeTable,
+  tags: ['autodocs'],
   args: {
     deviceId: 'device1',
   },
@@ -21,16 +24,22 @@ type Story = StoryObj<typeof AccessCodeTable>
 export const Content: Story = {}
 
 export const InsideModal: Story = {
-  render: (props) => {
-    // Wrap modal/dialog contents in `seam-components` class
-    // to apply styles when rendered in a portal,
-    // which is the default MUI behavior.
-    return (
-      <Dialog open fullWidth maxWidth='sm'>
+  render: InsideModalComponent,
+}
+
+function InsideModalComponent(props: ComponentProps<typeof AccessCodeTabkle>) {
+  const [showing, toggleShowing] = useToggle()
+  // Wrap modal/dialog contents in `seam-components` class
+  // to apply styles when rendered in a portal,
+  // which is the default MUI behavior.
+  return (
+    <>
+      <Button onClick={toggleShowing}>Show Modal</Button>
+      <Dialog open={showing} fullWidth maxWidth='sm' onClose={toggleShowing}>
         <div className='seam-components'>
           <AccessCodeTable {...props} />
         </div>
       </Dialog>
-    )
-  },
+    </>
+  )
 }

@@ -1,0 +1,27 @@
+@mixin header {
+  .seam-content-header {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    width: 100%;
+
+    .seam-back-icon {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -25%);
+      left: 0;
+      cursor: pointer;
+    }
+
+    .seam-title {
+      font-size: 16px;
+      line-height: 134%;
+    }
+  }
+}
+
+@mixin all {
+  @include header;
+}
