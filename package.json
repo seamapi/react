@@ -71,7 +71,7 @@
     "storybook:build": "storybook build",
     "prestorybook:build": "vite build examples",
     "examples": "vite examples --host --clearScreen false",
-    "examples:docs": "SEAM_PUBLISHABLE_KEY=seam_pk1ws2_0000 vite examples --host --clearScreen false",
+    "examples:docs": "SEAM_PUBLISHABLE_KEY=seam_pk1ws2_0000 SEAM_USER_IDENTIFIER_KEY=seed_client_session_user_2 vite examples --host --clearScreen false",
     "examples:build": "vite build examples",
     "examples:preview": "vite preview examples",
     "preexamples:preview": "npm run examples:build",
