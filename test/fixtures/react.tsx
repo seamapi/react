@@ -1,6 +1,9 @@
-import { SeamProvider } from '@seamapi/react'
+import 'isomorphic-fetch'
+
 import { render } from '@testing-library/react'
 import type { PropsWithChildren } from 'react'
+
+import { SeamProvider } from 'lib/SeamProvider.js'
 
 declare global {
   // eslint-disable-next-line no-var
@@ -18,6 +21,7 @@ const Providers = ({ children }: PropsWithChildren): JSX.Element => {
     <SeamProvider
       endpoint={globalThis.JEST_SEAM_ENDPOINT}
       publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
+      userIdentifierKey='seed_client_session_user_2'
     >
       {children}
     </SeamProvider>

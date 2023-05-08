@@ -1,5 +1,3 @@
-import type { AccessCode } from 'seamapi'
-
 import {
   TableBody,
   TableCell,
@@ -8,19 +6,23 @@ import {
   TableTitle,
 } from 'lib/ui/Table/index.js'
 
+import { useAccessCodes } from 'lib/hooks/use-access-codes.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-export interface AccessCodeTableProps {
-  accessCodes: AccessCode[]
+export function AccessCodeTable(props: {
+  deviceId: string
   onClickBack?: () => void
-}
+}): JSX.Element {
+  const { accessCodes } = useAccessCodes({
+    device_id: props.deviceId,
+  })
+  const { onClickBack } = props
 
-export function AccessCodeTable(props: AccessCodeTableProps): JSX.Element {
-  const { accessCodes, onClickBack } = props
+  if (!accessCodes) return <>{null}</>
 
   return (
     <div className='seam-access-code-table'>

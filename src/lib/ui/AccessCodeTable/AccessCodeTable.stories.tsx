@@ -1,75 +1,9 @@
 import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import { DateTime } from 'luxon'
-import type { AccessCode } from 'seamapi'
-import { v4 as uuid } from 'uuid'
+import type { ComponentProps } from 'react'
 
-import {
-  AccessCodeTable,
-  type AccessCodeTableProps,
-} from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
+import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 import useToggle from 'lib/use-toggle.js'
-
-const accessCodes: AccessCode[] = [
-  {
-    access_code_id: uuid(),
-    type: 'time_bound',
-    code: '1234',
-    created_at: Date.now().toString(),
-    device_id: 'some_device_id',
-    status: 'set',
-    name: 'Guest - Gonzalez',
-    starts_at: DateTime.now().minus({ day: 2 }).toISO() ?? '',
-    ends_at: DateTime.now().plus({ day: 2 }).toISO() ?? '',
-  },
-  {
-    access_code_id: uuid(),
-    type: 'time_bound',
-    code: '1234',
-    created_at: DateTime.now().toISO() ?? '',
-    device_id: 'some_device_id',
-    status: 'set',
-    name: 'Guest - Thompson',
-    starts_at: DateTime.now().plus({ day: 1 }).toISO() ?? '',
-    ends_at: DateTime.now().plus({ day: 3 }).toISO() ?? '',
-  },
-  {
-    access_code_id: uuid(),
-    type: 'ongoing',
-    code: '1234',
-    created_at: DateTime.now().toISO() ?? '',
-    device_id: 'some_device_id',
-    status: 'set',
-    name: 'Guest - Kranz',
-  },
-  {
-    access_code_id: uuid(),
-    type: 'ongoing',
-    code: '1234',
-    created_at: DateTime.now().toISO() ?? '',
-    device_id: 'some_device_id',
-    status: 'set',
-    name: 'Sparkle Cleaners',
-  },
-  {
-    access_code_id: uuid(),
-    type: 'ongoing',
-    code: '1234',
-    created_at: DateTime.now().toISO() ?? '',
-    device_id: 'some_device_id',
-    status: 'set',
-    name: 'Guest - yang',
-  },
-  {
-    access_code_id: uuid(),
-    type: 'ongoing',
-    code: '1234',
-    created_at: DateTime.now().toISO() ?? '',
-    device_id: 'some_device_id',
-    status: 'set',
-    name: 'Astro Plumbing',
-  },
-]
 
 /**
  * These stories showcase the device manager.
@@ -79,7 +13,7 @@ const meta: Meta<typeof AccessCodeTable> = {
   component: AccessCodeTable,
   tags: ['autodocs'],
   args: {
-    accessCodes,
+    deviceId: 'device1',
   },
 }
 
@@ -93,7 +27,7 @@ export const InsideModal: Story = {
   render: InsideModalComponent,
 }
 
-function InsideModalComponent(props: AccessCodeTableProps) {
+function InsideModalComponent(props: ComponentProps<typeof AccessCodeTable>) {
   const [showing, toggleShowing] = useToggle()
   // Wrap modal/dialog contents in `seam-components` class
   // to apply styles when rendered in a portal,
