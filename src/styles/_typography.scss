@@ -1,0 +1,28 @@
+@mixin headers {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+}
+
+@mixin caption {
+  .seam-caption {
+    color: var(--text-gray-2);
+  }
+}
+
+@mixin danger-text {
+  .seam-text-danger {
+    color: var(--status-red-alert);
+  }
+}
+
+@mixin all {
+  @include headers;
+  @include caption;
+  @include danger-text;
+}

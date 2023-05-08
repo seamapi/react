@@ -1,0 +1,54 @@
+@mixin all {
+  .seam-access-code-table {
+    .seam-content-header {
+      margin: 0 16px;
+    }
+
+    .seam-table-header {
+      margin-bottom: 16px;
+      height: 56px;
+      padding: 0 16px;
+    }
+
+    .seam-icon-cell {
+      flex: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      > div {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .seam-name-cell {
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 2px;
+
+      .seam-access-code-details {
+        font-size: 14px;
+        line-height: 134%;
+        color: var(--text-gray-1);
+
+        .seam-dot-divider {
+          margin: 0 4px;
+          color: var(--text-gray-3);
+        }
+      }
+    }
+
+    .seam-action-cell {
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

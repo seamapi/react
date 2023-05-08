@@ -1,0 +1,12 @@
+@mixin text-field {
+  .seam-text-field {
+    padding: 0 8px;
+    height: 40px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+  }
+}
+
+@mixin all {
+  @include text-field;
+}
