@@ -13,7 +13,7 @@ export default async (app) => {
   app.use(
     '/',
     createProxyMiddleware('/api', {
-      target: fake.server.serverUrl,
+      target: process.env.STORYBOOK_SEAM_ENDPOINT ?? fake.server.serverUrl,
       pathRewrite: { '^/api': '' },
       changeOrigin: true,
     })
