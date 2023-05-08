@@ -11,10 +11,11 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 const base = 'examples'
 const target = 'https://connect.getseam.com'
 
-export default defineConfig(async ({ command }) => {
+export default defineConfig(async ({ command, mode }) => {
   const isBuild = command === 'build'
+  const useFake = mode === 'storybook'
   const endpoint = isBuild ? target : '/api'
-  await setupEnv(endpoint, isBuild)
+  await setupEnv(endpoint, isBuild, useFake)
   return {
     base: `/${base}`,
     envPrefix: 'SEAM_',
@@ -60,7 +61,18 @@ export default defineConfig(async ({ command }) => {
   }
 })
 
-const setupEnv = async (endpoint: string, isBuild: boolean): Promise<void> => {
+const setupEnv = async (
+  endpoint: string,
+  isBuild: boolean,
+  useFake: boolean
+): Promise<void> => {
+  if (useFake) {
+    env['SEAM_ENDPOINT'] = endpoint
+    env['SEAM_PUBLISHABLE_KEY'] = 'seam_pk1ws2_0000'
+    env['SEAM_USER_IDENTIFIER_KEY'] = 'seed_client_session_user_2'
+    return
+  }
+
   env['SEAM_ENDPOINT'] ??= endpoint
 
   if (env['SEAM_PUBLISHABLE_KEY'] == null) {
