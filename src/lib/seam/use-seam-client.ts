@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
-import { type ClientSession, Seam } from 'seamapi'
+import { Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useSeamContext } from 'lib/SeamProvider.js'
@@ -12,25 +11,17 @@ export function useSeamClient(): {
   error: unknown
 } {
   const { client, clientOptions, publishableKey, ...context } = useSeamContext()
-  const [clientSession, setClientSession] = useState<ClientSession | null>(null)
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
     context.userIdentifierKey
   )
 
   const { isLoading, isError, error, data } = useQuery<Seam>({
-    queryKey: ['client', { client, clientSession, userIdentifierKey }],
+    queryKey: ['client', { client, userIdentifierKey }],
     queryFn: async () => {
       if (client != null) return client
 
       if (publishableKey == null) {
         throw new Error('Missing publishableKey')
-      }
-
-      if (clientSession != null) {
-        return new Seam({
-          ...clientOptions,
-          clientSessionToken: clientSession.token,
-        })
       }
 
       const res = await Seam.getClientSessionToken({
@@ -42,8 +33,6 @@ export function useSeamClient(): {
       if (!res.ok || res.client_session?.token == null) {
         throw new Error('Failed to get client access token')
       }
-
-      setClientSession(res.client_session)
 
       return new Seam({
         ...clientOptions,
