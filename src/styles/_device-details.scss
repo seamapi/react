@@ -67,6 +67,15 @@
           }
 
           .seam-info {
+
+            > .seam-label {
+              color: var(--text-gray-1);
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 134%;
+              margin-bottom: 4px;
+            }
+
             .seam-device-name {
               margin-bottom: 16px;
               font-weight: 600;
