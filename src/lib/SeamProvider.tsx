@@ -16,14 +16,14 @@ declare global {
 
 export interface SeamContext {
   client: Seam | null
-  clientOptions?: SeamClientOptions | undefined
+  clientOptions?: AllowedSeamClientOptions | undefined
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
 }
 
 type SeamProviderProps =
   | SeamProviderPropsWithClient
-  | (SeamProviderPropsWithPublishableKey & SeamClientOptions)
+  | (SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions)
 
 interface SeamProviderPropsWithClient {
   client: Seam
@@ -33,6 +33,8 @@ interface SeamProviderPropsWithPublishableKey {
   publishableKey: string
   userIdentifierKey?: string
 }
+
+type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 export function SeamProvider({
   children,
@@ -126,13 +128,19 @@ const isSeamProviderPropsWithClient = (
 
 const isSeamProviderPropsWithPublishableKey = (
   props: SeamProviderProps
-): props is SeamProviderPropsWithPublishableKey & SeamClientOptions => {
+): props is SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions => {
   if ('publishableKey' in props) {
     const { publishableKey } = props
     if (publishableKey == null) return false
 
     if ('client' in props && props.client != null) {
       throw new Error('Cannot provide a Seam client along with other options.')
+    }
+
+    if ('clientSessionToken' in props && props.clientSessionToken != null) {
+      throw new Error(
+        'Cannot provide both a publishableKey and a clientSessionToken.'
+      )
     }
 
     return true
