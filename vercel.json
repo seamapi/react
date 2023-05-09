@@ -2,6 +2,9 @@
   "buildCommand": "npm run docs:build",
   "installCommand": "npm ci",
   "outputDirectory": "docs",
+  "github": {
+    "silent": true
+  },
   "cleanUrls": true,
   "headers": [
     {
