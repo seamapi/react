@@ -11,7 +11,7 @@ import type { Seam, SeamClientOptions } from 'seamapi'
 
 declare global {
   // eslint-disable-next-line no-var
-  var seam: Omit<SeamProviderProps, 'children'> | undefined
+  var seam: SeamProviderProps | undefined
 }
 
 export interface SeamContext {
@@ -21,11 +21,17 @@ export interface SeamContext {
   userIdentifierKey?: string | undefined
 }
 
-export interface SeamProviderProps {
-  client?: Seam
-  publishableKey?: string
+type SeamProviderProps =
+  | SeamProviderPropsWithClient
+  | (SeamProviderPropsWithPublishableKey & SeamClientOptions)
+
+interface SeamProviderPropsWithClient {
+  client: Seam
+}
+
+interface SeamProviderPropsWithPublishableKey {
+  publishableKey: string
   userIdentifierKey?: string
-  endpoint?: string
 }
 
 export function SeamProvider({
@@ -61,10 +67,7 @@ export function SeamProvider({
 }
 
 const createDefaultSeamContextValue = (): SeamContext => {
-  if (
-    globalThis.seam?.client == null &&
-    globalThis.seam?.publishableKey == null
-  ) {
+  if (globalThis.seam == null) {
     return { client: null }
   }
 
@@ -77,32 +80,19 @@ const createDefaultSeamContextValue = (): SeamContext => {
   }
 }
 
-const createSeamContextValue = ({
-  client,
-  ...options
-}: Omit<SeamProviderProps, 'children'>): SeamContext => {
-  if (client == null && Object.keys(options).length === 0) {
-    return { client: null }
+const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
+  if (isSeamProviderPropsWithClient(options)) {
+    return options
   }
 
-  if (client != null && Object.values(options).some((v) => v == null)) {
-    throw new Error(
-      'Cannot provide both a Seam client along with other options.'
-    )
+  if (isSeamProviderPropsWithPublishableKey(options)) {
+    return {
+      ...options,
+      client: null,
+    }
   }
 
-  const { publishableKey, userIdentifierKey, ...clientOptions } = options
-
-  if (client != null) {
-    return { client }
-  }
-
-  return {
-    client: null,
-    publishableKey,
-    userIdentifierKey,
-    clientOptions,
-  }
+  throw new Error('Invalid SeamProvider options')
 }
 
 const defaultSeamContextValue = createDefaultSeamContextValue()
@@ -117,4 +107,35 @@ export function useSeamContext(): SeamContext {
   }
 
   return context
+}
+
+const isSeamProviderPropsWithClient = (
+  props: SeamProviderProps
+): props is SeamProviderPropsWithClient => {
+  if (!('client' in props)) return false
+
+  const { client } = props
+  if (client == null) return false
+
+  if (Object.values(props).some((v) => v == null)) {
+    throw new Error('Cannot provide a Seam client along with other options.')
+  }
+
+  return true
+}
+
+const isSeamProviderPropsWithPublishableKey = (
+  props: SeamProviderProps
+): props is SeamProviderPropsWithPublishableKey & SeamClientOptions => {
+  if ('publishableKey' in props) {
+    const { publishableKey } = props
+    if (publishableKey == null) return false
+
+    if ('client' in props && props.client != null) {
+      throw new Error('Cannot provide a Seam client along with other options.')
+    }
+
+    return true
+  }
+  return false
 }
