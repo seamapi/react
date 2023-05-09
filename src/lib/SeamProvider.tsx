@@ -93,12 +93,21 @@ const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
     return options
   }
 
-  if (
-    isSeamProviderPropsWithPublishableKey(options) ||
-    isSeamProviderPropsWithClientSessionToken(options)
-  ) {
+  if (isSeamProviderPropsWithClientSessionToken(options)) {
+    const { clientSessionToken, ...clientOptions } = options
     return {
-      ...options,
+      clientSessionToken,
+      clientOptions,
+      client: null,
+    }
+  }
+
+  if (isSeamProviderPropsWithPublishableKey(options)) {
+    const { publishableKey, userIdentifierKey, ...clientOptions } = options
+    return {
+      publishableKey,
+      userIdentifierKey,
+      clientOptions,
       client: null,
     }
   }
