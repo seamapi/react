@@ -18,7 +18,7 @@ export function useSeamClient(): {
     ...context
   } = useSeamContext()
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
-    clientSessionToken ? '' : context.userIdentifierKey
+    clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
   const { isLoading, isError, error, data } = useQuery<Seam>({
