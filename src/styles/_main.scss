@@ -1,3 +1,4 @@
+@use './reset';
 @use './typography';
 @use './tables';
 @use './inputs';
@@ -21,8 +22,7 @@
   --item-hover-bg: #f4f6f8;
 
   // Reset
-  /* stylelint-disable */
-  @import 'the-new-css-reset/css/reset.css';
+  @include reset.all;
 
   // Globals
   @include typography.all;
