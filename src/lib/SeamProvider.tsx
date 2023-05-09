@@ -19,11 +19,13 @@ export interface SeamContext {
   clientOptions?: AllowedSeamClientOptions | undefined
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
+  clientSessionToken?: string | undefined
 }
 
 type SeamProviderProps =
   | SeamProviderPropsWithClient
   | (SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions)
+  | (SeamProviderPropsWithClientSessionToken & AllowedSeamClientOptions)
 
 interface SeamProviderPropsWithClient {
   client: Seam
@@ -32,6 +34,10 @@ interface SeamProviderPropsWithClient {
 interface SeamProviderPropsWithPublishableKey {
   publishableKey: string
   userIdentifierKey?: string
+}
+
+interface SeamProviderPropsWithClientSessionToken {
+  clientSessionToken: string
 }
 
 type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
@@ -87,7 +93,10 @@ const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
     return options
   }
 
-  if (isSeamProviderPropsWithPublishableKey(options)) {
+  if (
+    isSeamProviderPropsWithPublishableKey(options) ||
+    isSeamProviderPropsWithClientSessionToken(options)
+  ) {
     return {
       ...options,
       client: null,
@@ -140,6 +149,35 @@ const isSeamProviderPropsWithPublishableKey = (
     if ('clientSessionToken' in props && props.clientSessionToken != null) {
       throw new Error(
         'Cannot provide both a publishableKey and a clientSessionToken.'
+      )
+    }
+
+    return true
+  }
+  return false
+}
+
+const isSeamProviderPropsWithClientSessionToken = (
+  props: SeamProviderProps
+): props is SeamProviderPropsWithClientSessionToken &
+  AllowedSeamClientOptions => {
+  if ('clientSessionToken' in props) {
+    const { clientSessionToken } = props
+    if (clientSessionToken == null) return false
+
+    if ('client' in props && props.client != null) {
+      throw new Error('Cannot provide a Seam client along with other options.')
+    }
+
+    if ('publishableKey' in props && props.publishableKey != null) {
+      throw new Error(
+        'Cannot provide both a clientSessionToken and a publishableKey .'
+      )
+    }
+
+    if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
+      throw new Error(
+        'Cannot use a userIdentifierKey with a clientSessionToken.'
       )
     }
 
