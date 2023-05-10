@@ -10,14 +10,6 @@
 
 
 .seam-components {
-  --text-gray-1: #6e7179;
-  --text-gray-2: #9da1a9;
-  --text-gray-3: #d5d8dc;
-  --input-border: #d5d8dc;
-  --bg-a: #f1f3f4;
-  --status-red-alert: #e36857;
-  --item-hover-bg: #f4f6f8;
-
   // Reset
   @include reset.all;
 
