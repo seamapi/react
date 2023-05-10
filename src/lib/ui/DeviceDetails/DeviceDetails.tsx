@@ -2,6 +2,7 @@ import { type LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
+import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/DeviceDetails/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/DeviceDetails/DeviceImage.js'
 import { ModelStatus } from 'lib/ui/DeviceDetails/ModelStatus.js'
@@ -63,9 +64,14 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
         </div>
 
         <div className='seam-box'>
-          <div className='seam-content'>
-            <span className='seam-label'>{t.lockStatus}</span>
-            <span className='seam-value'>{lockStatus}</span>
+          <div className='seam-content seam-lock-status'>
+            <div>
+              <span className='seam-label'>{t.lockStatus}</span>
+              <span className='seam-value'>{lockStatus}</span>
+            </div>
+            <div className='seam-right'>
+              <Button size='small'>Unlock</Button>
+            </div>
           </div>
           <AccessCodeLength accessCodeLength={accessCodeLength} />
         </div>

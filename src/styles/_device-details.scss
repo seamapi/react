@@ -30,6 +30,16 @@
             border-top: 1px solid var(--input-border);
           }
 
+          &.seam-lock-status {
+            display: flex;
+            justify-content: space-between;
+
+            > .seam-right {
+              display: flex;
+              align-items: center;
+            }
+          }
+
           .seam-label {
             font-size: 14px;
             line-height: 134%;
