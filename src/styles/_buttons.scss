@@ -1,8 +1,6 @@
 @use './typography';
 @use './colors';
 
-
-
 @mixin icon-button {
   .seam-icon-btn {
     border-radius: 6px;
@@ -44,7 +42,7 @@
 @mixin button-variant {
   &.seam-btn-solid {
     background: colors.$primary;
-    color: #FFFFFF;
+    color: #fff;
     border: 1px solid colors.$primary;
 
     &:hover {
@@ -52,14 +50,15 @@
       border-color: colors.$primary-dark;
     }
 
-    &.seam-btn-disabled, &:disabled {
+    &.seam-btn-disabled,
+    &:disabled {
       background: colors.$primary-dim;
       border-color: colors.$primary-dim;
     }
   }
 
   &.seam-btn-outline {
-    background: #FFFFFF;
+    background: #fff;
     color: colors.$primary;
     border: 1px solid colors.$primary-50;
 
@@ -67,8 +66,9 @@
       background: colors.$primary-5;
     }
 
-    &.seam-btn-disabled, &:disabled {
-      background: #FFFFFF;
+    &.seam-btn-disabled,
+    &:disabled {
+      background: #fff;
       color: colors.$primary-50;
     }
   }
@@ -82,10 +82,11 @@
       border-color: colors.$text-gray-2-5;
     }
 
-    &.seam-btn-disabled, &:disabled {
+    &.seam-btn-disabled,
+    &:disabled {
       color: colors.$text-gray-2-5;
       border-color: colors.$text-gray-3;
-      background: #FFFFFF;
+      background: #fff;
     }
   }
 }
@@ -99,7 +100,8 @@
     font-weight: 600;
     cursor: pointer;
 
-    &.seam-btn-disabled, &:disabled {
+    &.seam-btn-disabled,
+    &:disabled {
       cursor: not-allowed;
     }
   }

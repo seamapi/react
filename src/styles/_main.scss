@@ -8,7 +8,6 @@
 @use './device-details';
 @use './colors';
 
-
 .seam-components {
   // Reset
   @include reset.all;

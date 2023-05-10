@@ -8,31 +8,23 @@ $primary-8: color.scale($primary, $lightness: 92%);
 $primary-5: color.scale($primary, $lightness: 95%);
 $primary-dark: color.scale($primary, $lightness: -10%);
 $primary-dim: color.scale($primary-15, $lightness: -5%);
-
-$text-default: #232B3A;
-$text-gray-1: #6E7179;
-$text-gray-2: #9DA1A9;
-$text-gray-2-5: #B9BEC5;
-$text-gray-3: #D5D8DC;
-
-$divider-stroke-light: #EEEEEE;
-
-$bg-d: #CBD0D3;
-$bg-c: #DDE0E2;
-$bg-b: #E9EDEF;
-$bg-a: #F1F3F4;
-
-$status-red: #E36857;
-$status-orange: #F3980F;
-$status-green: #27AE60;
-
-$alert-error-dark: #CB7D7D;
-$alert-error-line: #F1D4D4;
-$alert-error-fill: #FFEFEF;
-
-$alert-warn-dark: #CA8852;
-$alert-warn-line: #F8D8BE;
-$alert-warn-fill: #FFF2E0 ;
-
-$item-hover-bg: #F4F6F8;
-
+$text-default: #232b3a;
+$text-gray-1: #6e7179;
+$text-gray-2: #9da1a9;
+$text-gray-2-5: #b9bec5;
+$text-gray-3: #d5d8dc;
+$divider-stroke-light: #eee;
+$bg-d: #cbd0d3;
+$bg-c: #dde0e2;
+$bg-b: #e9edef;
+$bg-a: #f1f3f4;
+$status-red: #e36857;
+$status-orange: #f3980f;
+$status-green: #27ae60;
+$alert-error-dark: #cb7d7d;
+$alert-error-line: #f1d4d4;
+$alert-error-fill: #ffefef;
+$alert-warn-dark: #ca8852;
+$alert-warn-line: #f8d8be;
+$alert-warn-fill: #fff2e0;
+$item-hover-bg: #f4f6f8;
