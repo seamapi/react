@@ -11,18 +11,42 @@ export function useSeamClient(): {
   isError: boolean
   error: unknown
 } {
-  const { client, clientOptions, publishableKey, ...context } = useSeamContext()
+  const {
+    client,
+    clientOptions,
+    publishableKey,
+    clientSessionToken,
+    ...context
+  } = useSeamContext()
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
-    context.userIdentifierKey
+    clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
   const { isLoading, isError, error, data } = useQuery<Seam>({
-    queryKey: ['client', { client, userIdentifierKey }],
+    queryKey: [
+      'client',
+      {
+        client,
+        clientOptions,
+        publishableKey,
+        userIdentifierKey,
+        clientSessionToken,
+      },
+    ],
     queryFn: async () => {
       if (client != null) return client
 
+      if (clientSessionToken != null) {
+        return new Seam({
+          ...clientOptions,
+          clientSessionToken,
+        })
+      }
+
       if (publishableKey == null) {
-        throw new Error('Missing publishableKey')
+        throw new Error(
+          'Missing either a client, publishableKey, or clientSessionToken'
+        )
       }
 
       const res = await Seam.getClientSessionToken({

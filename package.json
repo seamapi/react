@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/react",
-  "version": "0.15.1",
+  "version": "0.16.0",
   "description": "Seam React component library.",
   "type": "module",
   "main": "index.js",
@@ -45,6 +45,7 @@
   ],
   "scripts": {
     "start": "concurrently --raw --kill-others npm:examples:storybook npm:storybook",
+    "dev": "npm run start",
     "build": "npm run build:js",
     "prebuild": "del 'index.*' lib",
     "postbuild": "node ./index.js",
@@ -148,7 +149,6 @@
     "storybook-addon-designs": "^7.0.0-beta.2",
     "stylelint": "^15.6.0",
     "stylelint-config-standard-scss": "^9.0.0",
-    "the-new-css-reset": "^1.8.4",
     "ts-jest": "^29.1.0",
     "tsc-alias": "^1.8.5",
     "tsconfig-paths-webpack-plugin": "^4.0.1",

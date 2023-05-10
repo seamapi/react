@@ -41,8 +41,8 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
             <div className='seam-image'>
               <DeviceImage device={device} />
             </div>
-
             <div className='seam-info'>
+              <span className='seam-label'>{t.device}</span>
               <h4 className='seam-device-name'>{device.properties.name}</h4>
               <div className='seam-properties'>
                 <OnlineStatus device={device} />
@@ -93,6 +93,7 @@ function AccessCodeLength(props: {
 }
 
 const t = {
+  device: 'Device',
   locked: 'Locked',
   unlocked: 'Unlocked',
   accessCodes: 'access codes',

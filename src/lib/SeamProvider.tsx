@@ -11,22 +11,36 @@ import type { Seam, SeamClientOptions } from 'seamapi'
 
 declare global {
   // eslint-disable-next-line no-var
-  var seam: Omit<SeamProviderProps, 'children'> | undefined
+  var seam: SeamProviderProps | undefined
 }
 
 export interface SeamContext {
   client: Seam | null
-  clientOptions?: SeamClientOptions | undefined
+  clientOptions?: AllowedSeamClientOptions | undefined
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
+  clientSessionToken?: string | undefined
 }
 
-export interface SeamProviderProps {
-  client?: Seam
-  publishableKey?: string
-  userIdentifierKey?: string
-  endpoint?: string
+type SeamProviderProps =
+  | SeamProviderPropsWithClient
+  | (SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions)
+  | (SeamProviderPropsWithClientSessionToken & AllowedSeamClientOptions)
+
+interface SeamProviderPropsWithClient {
+  client: Seam
 }
+
+interface SeamProviderPropsWithPublishableKey {
+  publishableKey: string
+  userIdentifierKey?: string
+}
+
+interface SeamProviderPropsWithClientSessionToken {
+  clientSessionToken: string
+}
+
+type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 export function SeamProvider({
   children,
@@ -61,10 +75,7 @@ export function SeamProvider({
 }
 
 const createDefaultSeamContextValue = (): SeamContext => {
-  if (
-    globalThis.seam?.client == null &&
-    globalThis.seam?.publishableKey == null
-  ) {
+  if (globalThis.seam == null) {
     return { client: null }
   }
 
@@ -77,32 +88,31 @@ const createDefaultSeamContextValue = (): SeamContext => {
   }
 }
 
-const createSeamContextValue = ({
-  client,
-  ...options
-}: Omit<SeamProviderProps, 'children'>): SeamContext => {
-  if (client == null && Object.keys(options).length === 0) {
-    return { client: null }
+const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
+  if (isSeamProviderPropsWithClient(options)) {
+    return options
   }
 
-  if (client != null && Object.values(options).some((v) => v == null)) {
-    throw new Error(
-      'Cannot provide both a Seam client along with other options.'
-    )
+  if (isSeamProviderPropsWithClientSessionToken(options)) {
+    const { clientSessionToken, ...clientOptions } = options
+    return {
+      clientSessionToken,
+      clientOptions,
+      client: null,
+    }
   }
 
-  const { publishableKey, userIdentifierKey, ...clientOptions } = options
-
-  if (client != null) {
-    return { client }
+  if (isSeamProviderPropsWithPublishableKey(options)) {
+    const { publishableKey, userIdentifierKey, ...clientOptions } = options
+    return {
+      publishableKey,
+      userIdentifierKey,
+      clientOptions,
+      client: null,
+    }
   }
 
-  return {
-    client: null,
-    publishableKey,
-    userIdentifierKey,
-    clientOptions,
-  }
+  throw new Error('Invalid SeamProvider options')
 }
 
 const defaultSeamContextValue = createDefaultSeamContextValue()
@@ -117,4 +127,66 @@ export function useSeamContext(): SeamContext {
   }
 
   return context
+}
+
+const isSeamProviderPropsWithClient = (
+  props: SeamProviderProps
+): props is SeamProviderPropsWithClient => {
+  if (!('client' in props)) return false
+
+  const { client } = props
+  if (client == null) return false
+
+  if (Object.values(props).some((v) => v == null)) {
+    throw new Error('Cannot provide a Seam client along with other options.')
+  }
+
+  return true
+}
+
+const isSeamProviderPropsWithPublishableKey = (
+  props: SeamProviderProps
+): props is SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions => {
+  if (!('publishableKey' in props)) return false
+
+  const { publishableKey } = props
+  if (publishableKey == null) return false
+
+  if ('client' in props && props.client != null) {
+    throw new Error('Cannot provide a Seam client along with other options.')
+  }
+
+  if ('clientSessionToken' in props && props.clientSessionToken != null) {
+    throw new Error(
+      'Cannot provide both a publishableKey and a clientSessionToken.'
+    )
+  }
+
+  return true
+}
+
+const isSeamProviderPropsWithClientSessionToken = (
+  props: SeamProviderProps
+): props is SeamProviderPropsWithClientSessionToken &
+  AllowedSeamClientOptions => {
+  if (!('clientSessionToken' in props)) return false
+
+  const { clientSessionToken } = props
+  if (clientSessionToken == null) return false
+
+  if ('client' in props && props.client != null) {
+    throw new Error('Cannot provide a Seam client along with other options.')
+  }
+
+  if ('publishableKey' in props && props.publishableKey != null) {
+    throw new Error(
+      'Cannot provide both a clientSessionToken and a publishableKey .'
+    )
+  }
+
+  if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
+    throw new Error('Cannot use a userIdentifierKey with a clientSessionToken.')
+  }
+
+  return true
 }
