@@ -70,7 +70,7 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
               <span className='seam-value'>{lockStatus}</span>
             </div>
             <div className='seam-right'>
-              <Button size='small'>Unlock</Button>
+              <Button size='small'>{t.unlock}</Button>
             </div>
           </div>
           <AccessCodeLength accessCodeLength={accessCodeLength} />
