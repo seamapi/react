@@ -1,3 +1,5 @@
+@use './colors';
+
 @mixin all {
   .seam-access-code-table {
     .seam-content-header {
@@ -35,11 +37,11 @@
       .seam-access-code-details {
         font-size: 14px;
         line-height: 134%;
-        color: var(--text-gray-1);
+        color: colors.$text-gray-1;
 
         .seam-dot-divider {
           margin: 0 4px;
-          color: var(--text-gray-3);
+          color: colors.$text-gray-3;
         }
       }
     }

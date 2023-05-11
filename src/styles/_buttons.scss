@@ -1,17 +1,113 @@
-@mixin all {
-  .seam-button {
+@use './typography';
+@use './colors';
+
+@mixin icon-button {
+  .seam-icon-btn {
     border-radius: 6px;
     border: 1px solid rgb(0 122 252 / 50%);
     cursor: pointer;
+    background: #fff;
+    padding: 6px;
+    line-height: 0;
 
-    &.seam-icon-button {
-      background: #fff;
-      padding: 6px;
-      line-height: 0;
-
-      &:hover {
-        background: rgb(0 122 252 / 8%);
-      }
+    &:hover {
+      background: rgb(0 122 252 / 8%);
     }
   }
+}
+
+@mixin button-size {
+  &.seam-btn-small {
+    font-size: 14px;
+    line-height: 22px;
+    border-radius: 6px;
+    padding: 4px 10px;
+  }
+
+  &.seam-btn-medium {
+    font-size: 16px;
+    line-height: 26px;
+    border-radius: 7px;
+    padding: 6px 16px;
+  }
+
+  &.seam-btn-large {
+    font-size: 19px;
+    line-height: 30px;
+    border-radius: 8px;
+    padding: 8px 22px;
+  }
+}
+
+@mixin button-variant {
+  &.seam-btn-solid {
+    background: colors.$primary;
+    color: #fff;
+    border: 1px solid colors.$primary;
+
+    &:hover {
+      background: colors.$primary-dark;
+      border-color: colors.$primary-dark;
+    }
+
+    &.seam-btn-disabled,
+    &:disabled {
+      background: colors.$primary-dim;
+      border-color: colors.$primary-dim;
+    }
+  }
+
+  &.seam-btn-outline {
+    background: #fff;
+    color: colors.$primary;
+    border: 1px solid colors.$primary-50;
+
+    &:hover {
+      background: colors.$primary-5;
+    }
+
+    &.seam-btn-disabled,
+    &:disabled {
+      background: #fff;
+      color: colors.$primary-50;
+    }
+  }
+
+  &.seam-btn-neutral {
+    color: colors.$text-gray-1;
+    border: 1px solid colors.$text-gray-2-5;
+
+    &:hover {
+      background: colors.$bg-a;
+      border-color: colors.$text-gray-2-5;
+    }
+
+    &.seam-btn-disabled,
+    &:disabled {
+      color: colors.$text-gray-2-5;
+      border-color: colors.$text-gray-3;
+      background: #fff;
+    }
+  }
+}
+
+@mixin button {
+  .seam-btn {
+    @include typography.font-family;
+    @include button-size;
+    @include button-variant;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    &.seam-btn-disabled,
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+
+@mixin all {
+  @include icon-button;
+  @include button;
 }
