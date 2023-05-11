@@ -1,5 +1,5 @@
 export * from '../device/BatteryStatus.js'
-export * from './DeviceDetails.js'
 export * from '../device/DeviceImage.js'
-export * from './DeviceModel.js'
 export * from '../device/OnlineStatus.js'
+export * from './DeviceDetails.js'
+export * from './DeviceModel.js'
