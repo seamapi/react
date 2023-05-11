@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-$primary: #007afc;
+$primary: #007afc !default;
 $primary-50: color.scale($primary, $lightness: 50%);
 $primary-30: color.scale($primary, $lightness: 70%);
 $primary-15: color.scale($primary, $lightness: 85%);
