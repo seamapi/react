@@ -69,11 +69,13 @@ Load the font from Google Fonts by placing the following in the `<head>` tag:
 ### Content Security Policy (CSP)
 
 By self hosting the recommended fonts (or choosing not to use them),
-and proxying the Seam API endpoint, the components are compatible with the strictest CSP:
+and proxying the Seam API endpoint, the components are compatible with this strict CSP:
 
 ```
-default-src 'self'
+default-src 'self'; img-src 'self' https://connect.getseam.com
 ```
+
+The `img-src` is required as some components display device images from the Seam API.
 
 When using the default endpoint, include `connect-src` with
 
