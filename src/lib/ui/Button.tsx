@@ -7,9 +7,12 @@ interface ButtonProps {
   disabled?: boolean
 }
 
-export function Button(props: ButtonProps) {
-  const { variant = 'outline', children, size = 'medium', disabled } = props
-
+export function Button({
+  variant = 'outline',
+  children,
+  size = 'medium',
+  disabled,
+}: ButtonProps) {
   return (
     <button
       className={classNames(`seam-btn seam-btn-${variant} seam-btn-${size}`, {
