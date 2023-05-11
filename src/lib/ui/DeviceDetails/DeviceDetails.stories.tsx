@@ -62,7 +62,7 @@ function InsideModalComponent(props: DeviceDetailsProps) {
   // which is the default MUI behavior.
   return (
     <>
-      <Button onClick={toggleShowing}>Show Modal</Button>
+      <Button onClick={toggleShowing}>Open Modal</Button>
       <Dialog open={showing} fullWidth maxWidth='sm' onClose={toggleShowing}>
         <IconButton
           sx={{

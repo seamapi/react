@@ -15,18 +15,18 @@ import { Title } from 'lib/ui/typography/Title.js'
 
 export function AccessCodeTable(props: {
   deviceId: string
-  onClickBack?: () => void
+  onBack?: () => void
 }): JSX.Element {
   const { accessCodes } = useAccessCodes({
     device_id: props.deviceId,
   })
-  const { onClickBack } = props
+  const { onBack } = props
 
   if (!accessCodes) return <>{null}</>
 
   return (
     <div className='seam-access-code-table'>
-      <ContentHeader onClickBack={onClickBack} />
+      <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
           {t.accessCodes} <Caption>({accessCodes.length})</Caption>

@@ -16,17 +16,17 @@ import { Title } from 'lib/ui/typography/Title.js'
 
 export interface AccessCodeTableContentProps {
   accessCodes: AccessCode[]
-  onClickBack?: () => void
+  onBack?: () => void
 }
 
 export function AccessCodeTableContent(
   props: AccessCodeTableContentProps
 ): JSX.Element {
-  const { accessCodes, onClickBack } = props
+  const { accessCodes, onBack } = props
 
   return (
     <div className='seam-access-code-table'>
-      <ContentHeader onClickBack={onClickBack} />
+      <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
           {t.accessCodes} <Caption>({accessCodes.length})</Caption>

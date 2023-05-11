@@ -3,10 +3,10 @@ import { type LockDevice } from 'seamapi'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 import { Button } from 'lib/ui/Button.js'
-import { BatteryStatus } from 'lib/ui/DeviceDetails/BatteryStatus.js'
-import { DeviceImage } from 'lib/ui/DeviceDetails/DeviceImage.js'
-import { ModelStatus } from 'lib/ui/DeviceDetails/ModelStatus.js'
-import { OnlineStatus } from 'lib/ui/DeviceDetails/OnlineStatus.js'
+import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
+import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
+import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
+import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import useToggle from 'lib/use-toggle.js'
 
@@ -26,10 +26,7 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
 
   if (showingAccessCodes) {
     return (
-      <AccessCodeTable
-        deviceId={device.device_id}
-        onClickBack={toggleAccessCodes}
-      />
+      <AccessCodeTable deviceId={device.device_id} onBack={toggleAccessCodes} />
     )
   }
 
@@ -46,9 +43,11 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
               <span className='seam-label'>{t.device}</span>
               <h4 className='seam-device-name'>{device.properties.name}</h4>
               <div className='seam-properties'>
+                <span className='seam-label'>{t.status}:</span>{' '}
                 <OnlineStatus device={device} />
+                <span className='seam-label'>{t.power}:</span>{' '}
                 <BatteryStatus device={device} />
-                <ModelStatus device={device} />
+                <DeviceModel device={device} />
               </div>
             </div>
           </div>
@@ -107,4 +106,6 @@ const t = {
   codeLength: 'Code length',
   digits: 'digits',
   lockStatus: 'Lock status',
+  status: 'Status',
+  power: 'Power',
 }

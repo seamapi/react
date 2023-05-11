@@ -4,20 +4,21 @@ import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffli
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
 export function OnlineStatus(props: { device: LockDevice }): JSX.Element {
-  const { device } = props
+  const {
+    device: {
+      properties: { online },
+    },
+  } = props
+
   return (
-    <>
-      <span className='seam-label'>{t.status}:</span>{' '}
-      <div className='seam-online-status'>
-        <Status isOnline={device.properties.online} />
-      </div>
-    </>
+    <div className='seam-online-status'>
+      <Content isOnline={online} />
+    </div>
   )
 }
 
-function Status(props: { isOnline: boolean }): JSX.Element {
+function Content(props: { isOnline: boolean }) {
   const { isOnline } = props
-
   if (isOnline) {
     return (
       <>
@@ -38,7 +39,6 @@ function Status(props: { isOnline: boolean }): JSX.Element {
 }
 
 const t = {
-  status: 'Status',
   online: 'Online',
   deviceOffline: 'Device Offline',
 }
