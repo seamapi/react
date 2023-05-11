@@ -100,6 +100,7 @@ function AccessCodeLength(props: {
 
 const t = {
   device: 'Device',
+  unlock: 'Unlock',
   locked: 'Locked',
   unlocked: 'Unlocked',
   accessCodes: 'access codes',
