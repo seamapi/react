@@ -7,7 +7,6 @@ import { TextButton } from 'lib/ui/TextButton.js'
 
 export default function AccessCodeDevice({ deviceId }: { deviceId: string }) {
   const { isLoading, device } = useDevice({ device_id: deviceId })
-  //  TODO: Replace with `useDevice()` once ready
   // TODO: Do we want to return a skeleton loader here instead?
   if (isLoading || !device || !isLockDevice(device)) {
     return null
