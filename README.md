@@ -66,6 +66,29 @@ Load the font from Google Fonts by placing the following in the `<head>` tag:
 
 [Source Sans Pro]: https://fonts.google.com/specimen/Source+Sans+Pro
 
+### Content Security Policy (CSP)
+
+By self hosting the recommended fonts (or choosing not to use them),
+and proxying the Seam API endpoint, the components are compatible with this strict CSP:
+
+```
+default-src 'self'; img-src 'self' https://connect.getseam.com
+```
+
+The `img-src` is required as some components display device images from the Seam API.
+
+When using the default endpoint, include `connect-src` with
+
+```
+connect-src 'self' https://connect.getseam.com
+```
+
+When serving the fonts from Google Fonts, include `font-src` and `style-src` with
+
+```
+font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
+```
+
 ## Development and Testing
 
 ### Quickstart
