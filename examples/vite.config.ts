@@ -92,6 +92,6 @@ const setupEnv = async (
   }
 
   if (env['SEAM_USER_IDENTIFIER_KEY'] == null) {
-    env['SEAM_USER_IDENTIFIER_KEY'] = '64e429b6-8fcd-42d0-a17f-136854e450be'
+    env['SEAM_USER_IDENTIFIER_KEY'] = 'f61731b1-48a3-4b61-8767-e6268c17269c'
   }
 }
