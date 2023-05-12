@@ -1,8 +1,8 @@
-import { useAccessCodes, useFakeDevice } from 'lib/index.js'
-
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useNavigation } from 'lib/NavigationProvider.js'
+import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
+import { useFakeDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
