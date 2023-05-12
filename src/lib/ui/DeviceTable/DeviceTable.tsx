@@ -21,7 +21,7 @@ export interface DeviceTableProps {
 }
 
 export function DeviceTable({ devices, onBack }: DeviceTableProps) {
-  const numDevices = devices.length
+  const deviceCount = devices.length
 
   return (
     <div className='seam-device-table'>
