@@ -1,5 +1,7 @@
 import { type CommonDeviceProperties, type Device } from 'seamapi'
 
+import { useAccessCodes } from 'lib/index.js'
+
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
@@ -21,6 +23,14 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
 
   const [showingAccessCodes, toggleAccessCodes] = useToggle()
 
+  const { isLoading, accessCodes } = useAccessCodes({
+    device_id: device.device_id,
+  })
+
+  if (isLoading) {
+    return null
+  }
+
   if (showingAccessCodes) {
     return (
       <AccessCodeTable deviceId={device.device_id} onBack={toggleAccessCodes} />
@@ -32,6 +42,8 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
   }
 
   const lockStatus = device.properties.locked ? t.locked : t.unlocked
+
+  const accessCodeCount = accessCodes?.length
 
   const accessCodeLength =
     device.properties?.schlage_metadata?.access_code_length
@@ -64,7 +76,7 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
             onClick={toggleAccessCodes}
           >
             <span className='seam-value'>
-              {accessCodeLength} {t.accessCodes}
+              {accessCodeCount} {t.accessCodes}
             </span>
             <ChevronRightIcon />
           </div>

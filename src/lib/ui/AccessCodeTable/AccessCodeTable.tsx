@@ -30,7 +30,7 @@ export function AccessCodeTable(props: {
   if (selectedAccessCode) {
     return (
       <AccessCodeDetails
-        accessCode={selectAccessCode}
+        accessCode={selectedAccessCode}
         onBack={() => {
           selectAccessCode(null)
         }}
