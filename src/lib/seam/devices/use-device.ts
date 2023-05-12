@@ -10,9 +10,12 @@ import type {
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
+export type UseDeviceParams = DeviceGetRequest | string
+export type UseDeviceData = Device<CommonDeviceProperties> | null
+
 export function useDevice(
-  params: DeviceGetRequest | string
-): UseSeamQueryResult<'device', Device<CommonDeviceProperties> | null> {
+  params: DeviceGetRequest
+): UseSeamQueryResult<'device', UseDeviceData> {
   const normalizedParams =
     typeof params === 'string' ? { device_id: params } : params
 
