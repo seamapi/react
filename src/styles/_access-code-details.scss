@@ -2,11 +2,9 @@
 
 @mixin all {
   .seam-access-code-details {
-
     > .seam-summary {
       background: colors.$bg-a;
       border-radius: 16px;
-      margin-bottom: 16px;
       margin: 0 24px 16px;
 
       > .seam-top {
