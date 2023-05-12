@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import type { AccessCode, SeamError } from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
-import type { UseSeamQueryResult } from 'lib/types/use-seam-query-result.js'
+import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export function useAccessCodes(params: {
   device_id: string
