@@ -9,6 +9,7 @@
 @use './icons';
 @use './device-details';
 @use './device-table';
+@use './access-code-details';
 
 .seam-components {
   // Reset
@@ -23,7 +24,8 @@
   @include icons.all;
 
   // Components
-  @include access-code-table.all;
   @include device-details.all;
   @include device-table.all;
+  @include access-code-table.all;
+  @include access-code-details.all;
 }
