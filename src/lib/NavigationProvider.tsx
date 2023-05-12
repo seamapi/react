@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
 
-import { AccessCodeTable, DeviceDetails, DeviceTable } from 'lib/index.js'
-
-import AccessCodeDetails from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
-
 interface DeviceTableView {
   name: 'device_table'
 }
@@ -23,7 +19,7 @@ interface AccessCodeDetailView {
   accessCodeId: string
 }
 
-type View =
+export type View =
   | DeviceTableView
   | DeviceDetailView
   | AccessCodeTableView
@@ -34,6 +30,7 @@ export interface NavigationStackProps {
 }
 
 interface NavigationContextProps {
+  views: View[]
   show: (view: View) => void
   goBack?: () => void
 }
@@ -65,28 +62,14 @@ export default function NavigationProvider({ children }: NavigationStackProps) {
   return (
     <NavigationContext.Provider
       value={{
+        views,
         show: pushView,
         goBack: hasViews ? popView : undefined,
       }}
     >
-      <Content views={views} rootView={children} />
+      {children}
     </NavigationContext.Provider>
   )
-}
-
-function Content({
-  views,
-  rootView,
-}: {
-  views: View[]
-  rootView: JSX.Element
-}) {
-  const firstView = views[0]
-  if (firstView != null) {
-    return <Subview view={firstView} />
-  }
-
-  return rootView
 }
 
 export function useNavigation(): NavigationContextProps {
@@ -95,21 +78,9 @@ export function useNavigation(): NavigationContextProps {
     return {
       show: () => {},
       goBack: undefined,
+      views: [],
     }
   }
 
   return context
-}
-
-function Subview({ view }: { view: View }) {
-  switch (view.name) {
-    case 'device_detail':
-      return <DeviceDetails deviceId={view.deviceId} />
-    case 'access_code_detail':
-      return <AccessCodeDetails accessCodeId={view.accessCodeId} />
-    case 'device_table':
-      return <DeviceTable />
-    case 'access_code_table':
-      return <AccessCodeTable deviceId={view.deviceId} />
-  }
 }
