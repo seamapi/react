@@ -41,11 +41,7 @@ export function AccessCodeTableContent(
               <Title>{code.name}</Title>
               <CodeDetails accessCode={code} />
             </TableCell>
-            <TableCell className='seam-action-cell'>
-              {/* <IconButton>
-                <DotsEllipsisMoreIcon />
-              </IconButton> */}
-            </TableCell>
+            <TableCell className='seam-action-cell' />
           </TableRow>
         ))}
       </TableBody>
