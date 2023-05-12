@@ -1,5 +1,9 @@
-import type { LockDevice } from 'seamapi'
-
+import { isLockDevice } from 'lib/seam/devices/types.js'
+import {
+  useDevices,
+  type UseDevicesData,
+  type UseDevicesParams,
+} from 'lib/seam/devices/use-devices.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { LockStatus } from 'lib/ui/device/LockStatus.js'
@@ -14,12 +18,19 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-export interface DeviceTableProps {
-  devices: LockDevice[]
+export type DeviceTableProps = Props & UseDevicesParams
+
+interface Props {
   onBack?: () => void
 }
 
-export function DeviceTable({ devices, onBack }: DeviceTableProps) {
+export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
+  const { devices, isLoading, isError, error } = useDevices(props)
+
+  if (isLoading) return <p>...</p>
+  if (isError) return <p>{error?.message}</p>
+  if (devices == null) return null
+
   const deviceCount = devices.length
 
   return (
@@ -39,8 +50,11 @@ export function DeviceTable({ devices, onBack }: DeviceTableProps) {
   )
 }
 
-function DeviceRow(props: { device: LockDevice }) {
+function DeviceRow(props: { device: UseDevicesData[number] }) {
   const { device } = props
+
+  if (!isLockDevice(device)) return null
+
   const deviceModel = getDeviceModel(device) ?? t.unknownLock
 
   return (

@@ -23,7 +23,11 @@ export function useDevices(
       queryKey: ['devices', 'list', params],
       queryFn: async () => {
         if (client == null) return []
-        return await client?.devices.list(params)
+        const devices = await client?.devices.list(params)
+        return devices.sort(
+          (a, b) =>
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        )
       },
     }
   )

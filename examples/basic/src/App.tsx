@@ -1,6 +1,6 @@
 import '@seamapi/react/index.css'
 
-import { DeviceManager, SeamProvider } from '@seamapi/react'
+import { DeviceTable, SeamProvider } from '@seamapi/react'
 
 export const App = (): JSX.Element => {
   return (
@@ -11,7 +11,7 @@ export const App = (): JSX.Element => {
     >
       <main>
         <h1>Seam Components</h1>
-        <DeviceManager />
+        <DeviceTable />
       </main>
     </SeamProvider>
   )
