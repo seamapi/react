@@ -28,7 +28,7 @@
         }
 
         > .seam-code {
-          background: #FFFFFF;
+          background: #fff;
           border: 1px solid colors.$text-gray-2;
           border-radius: 8px;
           padding: 10px 16px;
@@ -38,14 +38,14 @@
           margin-bottom: 8px;
         }
 
-         .seam-duration {
+        .seam-duration {
           color: colors.$text-gray-1;
           font-size: 14px;
           line-height: 134%;
 
-           .seam-label {
+          .seam-label {
             font-weight: 600;
-            color: colors.$text-default
+            color: colors.$text-default;
           }
         }
       }
@@ -80,12 +80,12 @@
     .seam-details {
       font-size: 16px;
       line-height: 134%;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      border-bottom: 1px solid rgb(0 0 0 / 12%);
 
       .seam-row {
         padding: 16px;
         display: flex;
-        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        border-top: 1px solid rgb(0 0 0 / 12%);
 
         .seam-heading {
           width: 112px;
@@ -105,13 +105,13 @@
               color: colors.$text-gray-2;
             }
 
-            > div:first-child {
-              flex: 0 1 160px;
-            }
-
             > div {
               div {
                 margin-bottom: 4px;
+              }
+
+              &:first-child {
+                flex: 0 1 160px;
               }
             }
           }
