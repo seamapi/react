@@ -16,6 +16,12 @@
   }
 }
 
+@mixin text-button {
+  .seam-txt-btn {
+
+  }
+}
+
 @mixin button-size {
   &.seam-btn-small {
     font-size: 14px;
@@ -108,6 +114,7 @@
 }
 
 @mixin all {
-  @include icon-button;
   @include button;
+  @include icon-button;
+  @include text-button;
 }
