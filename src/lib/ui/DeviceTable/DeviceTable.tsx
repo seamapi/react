@@ -2,6 +2,7 @@ import type { CommonDeviceProperties, Device, LockDevice } from 'seamapi'
 
 import {
   useDevices,
+  type UseDevicesData,
   type UseDevicesParams,
 } from 'lib/seam/devices/use-devices.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
@@ -50,7 +51,7 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
   )
 }
 
-function DeviceRow(props: { device: Device<CommonDeviceProperties, string> }) {
+function DeviceRow(props: { device: UseDevicesData[number] }) {
   const { device } = props
 
   if (!isLockDevice(device)) return null
