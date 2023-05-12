@@ -38,6 +38,33 @@ export default function AccessCodeDetails({
             {formatDate(accessCode.created_at)}
           </div>
         </div>
+
+        <div className='seam-row seam-schedule'>
+          <div className='seam-heading'>{t.timing}:</div>
+          <div className='seam-content'>
+            <ScheduleInfo accessCode={accessCode} />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ScheduleInfo({ accessCode }: { accessCode: AccessCode }) {
+  if (accessCode.type === 'ongoing') {
+    return <span>{t.ongoing}</span>
+  }
+  return (
+    <div className='seam-times'>
+      <div>
+        <div className='seam-label'>{t.start}</div>
+        <div className='seam-date'>{formatDate(accessCode.starts_at)}</div>
+        <div className='seam-time'>{formatTime(accessCode.starts_at)}</div>
+      </div>
+      <div>
+        <div className='seam-label'>{t.end}</div>
+        <div className='seam-date'>{formatDate(accessCode.ends_at)}</div>
+        <div className='seam-time'>{formatTime(accessCode.ends_at)}</div>
       </div>
     </div>
   )
@@ -59,7 +86,7 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
       <span>
         <span className='seam-label'>Active</span> until{' '}
         {formatDurationDate(accessCode.ends_at)} at{' '}
-        {formatDurationTime(accessCode.ends_at)}
+        {formatTime(accessCode.ends_at)}
       </span>
     )
   }
@@ -67,7 +94,7 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
   return (
     <span>
       Starts {formatDurationDate(accessCode.starts_at)} as{' '}
-      {formatDurationTime(accessCode.starts_at)}
+      {formatTime(accessCode.starts_at)}
     </span>
   )
 }
@@ -79,7 +106,7 @@ function formatDurationDate(date: string): string {
   })
 }
 
-function formatDurationTime(date: string): string {
+function formatTime(date: string): string {
   return DateTime.fromISO(date).toLocaleString({
     hour: 'numeric',
     minute: '2-digit',
@@ -100,4 +127,8 @@ const t = {
   fallbackName: 'Code',
   id: 'ID',
   created: 'Created',
+  timing: 'Timing',
+  ongoing: 'Ongoing',
+  start: 'Start',
+  end: 'End',
 }

@@ -1,5 +1,15 @@
 import type { ButtonProps } from 'lib/ui/types.js'
 
-export function TextButton(props: ButtonProps): JSX.Element {
-  return <button {...props} className='seam-text-btn' />
+interface TextButtonProps extends ButtonProps {
+  color?: 'primary' | 'inherit'
+  disabled?: boolean
+}
+
+export function TextButton({
+  color = 'primary',
+  ...buttonProps
+}: TextButtonProps): JSX.Element {
+  return (
+    <button className={`seam-text-btn seam-color-${color}`} {...buttonProps} />
+  )
 }
