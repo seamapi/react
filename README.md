@@ -229,6 +229,7 @@ The following repository secrets must be set on [GitHub Actions]:
 The following repository variables must be set on [GitHub Actions]:
 
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
+- `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
 
 [GitHub Actions]: https://github.com/features/actions
 [GPG private key]: https://github.com/marketplace/actions/import-gpg#prerequisites
@@ -240,7 +241,9 @@ _Vercel should already be configured: this section is for reference only._
 The following environment variables must be set on [Vercel]:
 
 - `SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with the examples.
+- `SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with the examples..
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
+- `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
 
 [Vercel]: https://vercel.com/seamapi/react
 
