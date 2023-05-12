@@ -1,3 +1,4 @@
+import { useNavigation } from 'lib/NavigationProvider.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
   useDevices,
@@ -17,7 +18,6 @@ import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
-import { useNavigation } from 'lib/use-navigation.js'
 
 export type DeviceTableProps = Props & UseDevicesParams
 
