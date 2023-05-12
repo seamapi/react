@@ -1,8 +1,7 @@
 import { type CommonDeviceProperties, type Device } from 'seamapi'
 
-import { useAccessCodes } from 'lib/index.js'
-
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
+import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 import { Button } from 'lib/ui/Button.js'

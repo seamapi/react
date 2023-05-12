@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import type { CommonDeviceProperties, Device } from 'seamapi'
 
-import { DeviceDetails } from 'lib/index.js'
-
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
   useDevices,
@@ -13,6 +11,7 @@ import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { LockStatus } from 'lib/ui/device/LockStatus.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
+import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
