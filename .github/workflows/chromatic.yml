@@ -25,3 +25,4 @@ jobs:
           buildScriptName: storybook:build
         env:
           STORYBOOK_SEAM_PUBLISHABLE_KEY: ${{ vars.STORYBOOK_SEAM_PUBLISHABLE_KEY }}
+          STORYBOOK_USER_IDENTIFIER_KEY: ${{ vars.STORYBOOK_USER_IDENTIFIER_KEY }}
