@@ -33,12 +33,12 @@ export interface NavigationStackProps {
   children: JSX.Element
 }
 
-export interface NavigationContextProps {
+interface NavigationContextProps {
   show: (view: View) => void
   goBack?: () => void
 }
 
-export const NavigationContext = React.createContext<
+const NavigationContext = React.createContext<
   NavigationContextProps | undefined
 >(undefined)
 
@@ -87,6 +87,18 @@ function Content({
   }
 
   return rootView
+}
+
+export function useNavigation(): NavigationContextProps {
+  const context = React.useContext(NavigationContext)
+  if (context === undefined) {
+    return {
+      show: () => {},
+      goBack: undefined,
+    }
+  }
+
+  return context
 }
 
 function Subview({ view }: { view: View }) {
