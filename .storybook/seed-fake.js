@@ -1,8 +1,10 @@
+/** @type {(db: import('@seamapi/fake-seam-connect').Database) => void} */
 export const seedFake = (db) => {
   db.addWorkspace({
     name: 'Seed Workspace 1 (starts empty)',
     publishable_key: 'seam_pk1ws1_0000',
   })
+
   const ws2 = db.addWorkspace({
     name: 'Seed Workspace 2 (starts populated)',
     publishable_key: fakePublishableKey,
