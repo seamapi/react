@@ -36,14 +36,14 @@ $ npm install @seamapi/react
 ```ts
 import '@seamapi/react/index.css'
 
-import { SeamProvider, DeviceManager } from '@seamapi/react'
+import { SeamProvider, DeviceTable } from '@seamapi/react'
 
 export const App = () => {
   return (
     <SeamProvider publishableKey='your_publishable_key'>
       <main>
         <h1>My App</h1>
-        <DeviceManager />
+        <DeviceTable />
       </main>
     </SeamProvider>
   )
