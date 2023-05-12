@@ -1,16 +1,26 @@
 import { DateTime } from 'luxon'
 import type { AccessCode } from 'seamapi'
 
+import { useFakeAccessCode } from 'lib/index.js'
+
 import AccessCodeDevice from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 export interface AccessCodeDetailsProps {
-  accessCode: AccessCode
+  accessCodeId: string
 }
 
 export default function AccessCodeDetails({
-  accessCode,
+  accessCodeId,
 }: AccessCodeDetailsProps) {
+  const { isLoading, data: accessCode } = useFakeAccessCode({
+    access_code_id: accessCodeId,
+  })
+
+  if (isLoading || !accessCode) {
+    return null
+  }
+
   const name = accessCode.name ?? t.fallbackName
 
   return (

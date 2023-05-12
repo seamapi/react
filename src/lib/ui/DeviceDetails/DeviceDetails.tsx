@@ -1,34 +1,48 @@
-import { type LockDevice } from 'seamapi'
-
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
-import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
+import { useNavigation } from 'lib/NavigationProvider.js'
+import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
+import { isLockDevice } from 'lib/seam/devices/types.js'
+import { useFakeDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import useToggle from 'lib/use-toggle.js'
 
 export interface DeviceDetailsProps {
-  device: LockDevice
+  deviceId: string
 }
 
-export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
-  const { device } = props
+export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
+  const { deviceId } = props
+
+  const { isLoading: isLoadingDevice, device } = useFakeDevice({
+    device_id: deviceId,
+  })
+
+  const { isLoading: isLoadingAccessCodes, accessCodes } = useAccessCodes({
+    device_id: deviceId,
+  })
+
+  const isLoading = isLoadingDevice || isLoadingAccessCodes
+
+  const { show } = useNavigation()
+
+  if (isLoading || !device) {
+    return null
+  }
+
+  if (!isLockDevice(device)) {
+    return null
+  }
 
   const lockStatus = device.properties.locked ? t.locked : t.unlocked
 
+  const accessCodeCount = accessCodes?.length
+
   const accessCodeLength =
     device.properties?.schlage_metadata?.access_code_length
-
-  const [showingAccessCodes, toggleAccessCodes] = useToggle()
-
-  if (showingAccessCodes) {
-    return (
-      <AccessCodeTable deviceId={device.device_id} onBack={toggleAccessCodes} />
-    )
-  }
 
   return (
     <div className='seam-device-details'>
@@ -55,9 +69,13 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
         <div className='seam-box'>
           <div
             className='seam-content seam-access-codes'
-            onClick={toggleAccessCodes}
+            onClick={() => {
+              show({ name: 'access_code_table', deviceId: device.device_id })
+            }}
           >
-            <span className='seam-value'>49 {t.accessCodes}</span>
+            <span className='seam-value'>
+              {accessCodeCount} {t.accessCodes}
+            </span>
             <ChevronRightIcon />
           </div>
         </div>

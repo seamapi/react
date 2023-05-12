@@ -2,12 +2,10 @@
 
 @mixin all {
   .seam-access-code-details {
-    padding: 0 24px 24px;
-
     > .seam-summary {
       background: colors.$bg-a;
       border-radius: 16px;
-      margin-bottom: 16px;
+      margin: 0 24px 16px;
 
       > .seam-top {
         padding: 24px 16px;
@@ -81,6 +79,7 @@
       font-size: 16px;
       line-height: 134%;
       border-bottom: 1px solid rgb(0 0 0 / 12%);
+      padding: 0 24px;
 
       .seam-row {
         padding: 16px;

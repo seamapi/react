@@ -1,6 +1,8 @@
 import { Button, Dialog, DialogActions } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
+import NavigationProvider from 'lib/NavigationProvider.js'
+import { NavigationView } from 'lib/NavigationView.js'
 import {
   DeviceTable,
   type DeviceTableProps,
@@ -17,13 +19,15 @@ export default meta
 
 type Story = StoryObj<typeof DeviceTable>
 
-export const Content: Story = {}
+export const Content: Story = {
+  render: ({ onBack, ...otherProps }) => <DeviceTable {...otherProps} />,
+}
 
 export const InsideModal: Story = {
   render: InsideModalComponent,
 }
 
-function InsideModalComponent(props: DeviceTableProps) {
+function InsideModalComponent({ onBack, ...otherProps }: DeviceTableProps) {
   const [open, toggleOpen] = useToggle()
   // Wrap modal/dialog contents in `seam-components` class
   // to apply styles when rendered in a portal,
@@ -33,7 +37,39 @@ function InsideModalComponent(props: DeviceTableProps) {
       <Button onClick={toggleOpen}>Open Modal</Button>
       <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
         <div className='seam-components'>
-          <DeviceTable {...props} />
+          <DeviceTable {...otherProps} />
+        </div>
+        <DialogActions
+          sx={{
+            justifyContent: 'center',
+          }}
+        >
+          <Button onClick={toggleOpen}>Done</Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
+}
+
+export const WithNavigation: Story = {
+  render: WithNavigationComponent,
+}
+
+function WithNavigationComponent(props: DeviceTableProps) {
+  const [open, toggleOpen] = useToggle()
+  // Wrap modal/dialog contents in `seam-components` class
+  // to apply styles when rendered in a portal,
+  // which is the default MUI behavior.
+  return (
+    <>
+      <Button onClick={toggleOpen}>Open Modal</Button>
+      <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
+        <div className='seam-components'>
+          <NavigationProvider>
+            <NavigationView>
+              <DeviceTable {...props} />
+            </NavigationView>
+          </NavigationProvider>
         </div>
         <DialogActions
           sx={{

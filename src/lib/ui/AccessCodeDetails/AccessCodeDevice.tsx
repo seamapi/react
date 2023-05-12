@@ -1,3 +1,4 @@
+import { useNavigation } from 'lib/NavigationProvider.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { useFakeDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -8,6 +9,7 @@ import { TextButton } from 'lib/ui/TextButton.js'
 export default function AccessCodeDevice({ deviceId }: { deviceId: string }) {
   //  TODO: Replace with `useDevice()` once ready
   const { isLoading, device } = useFakeDevice({ device_id: deviceId })
+  const { show } = useNavigation()
 
   // TODO: Do we want to return a skeleton loader here instead?
   if (isLoading || !device || !isLockDevice(device)) {
@@ -23,7 +25,13 @@ export default function AccessCodeDevice({ deviceId }: { deviceId: string }) {
       </div>
       <div className='seam-body'>
         <div className='seam-model'>{model}</div>
-        <TextButton>{t.deviceDetails}</TextButton>
+        <TextButton
+          onClick={() => {
+            show({ name: 'device_detail', deviceId: device.device_id })
+          }}
+        >
+          {t.deviceDetails}
+        </TextButton>
       </div>
       <Button>Unlock</Button>
     </div>
