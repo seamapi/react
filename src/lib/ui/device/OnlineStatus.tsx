@@ -3,7 +3,11 @@ import type { LockDevice } from 'seamapi'
 import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
-export function OnlineStatus(props: { device: LockDevice }): JSX.Element {
+export interface OnlineStatusProps {
+  device: LockDevice
+}
+
+export function OnlineStatus(props: OnlineStatusProps): JSX.Element {
   const {
     device: {
       properties: { online },
