@@ -25,7 +25,10 @@ export function useAccessCode(params: UseAccessCodeParams) {
   })
 }
 
-export function useFakeAccessCode(_params: UseAccessCodeParams) {
+export function useFakeAccessCode(_params: UseAccessCodeParams): {
+  isLoading: boolean
+  data: AccessCode
+} {
   const accessCode: AccessCode = {
     access_code_id: uuid(),
     type: 'time_bound',
