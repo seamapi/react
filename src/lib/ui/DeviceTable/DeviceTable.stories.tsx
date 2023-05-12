@@ -17,13 +17,15 @@ export default meta
 
 type Story = StoryObj<typeof DeviceTable>
 
-export const Content: Story = {}
+export const Content: Story = {
+  render: ({ onBack, ...otherProps }) => <DeviceTable {...otherProps} />,
+}
 
 export const InsideModal: Story = {
   render: InsideModalComponent,
 }
 
-function InsideModalComponent(props: DeviceTableProps) {
+function InsideModalComponent({ onBack, ...otherProps }: DeviceTableProps) {
   const [open, toggleOpen] = useToggle()
   // Wrap modal/dialog contents in `seam-components` class
   // to apply styles when rendered in a portal,
@@ -33,7 +35,7 @@ function InsideModalComponent(props: DeviceTableProps) {
       <Button onClick={toggleOpen}>Open Modal</Button>
       <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
         <div className='seam-components'>
-          <DeviceTable {...props} />
+          <DeviceTable {...otherProps} />
         </div>
         <DialogActions
           sx={{
