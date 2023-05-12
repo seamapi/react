@@ -136,8 +136,8 @@ function InsideModalComponent(props: DeviceTableProps) {
   // which is the default MUI behavior.
   return (
     <>
-      <Button onClick={toggleShowing}>Open Modal</Button>
-      <Dialog open={showing} fullWidth maxWidth='sm' onClose={toggleShowing}>
+      <Button onClick={toggleOpen}>Open Modal</Button>
+      <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
         <div className='seam-components'>
           <DeviceTable {...props} />
         </div>
@@ -146,7 +146,7 @@ function InsideModalComponent(props: DeviceTableProps) {
             justifyContent: 'center',
           }}
         >
-          <Button onClick={toggleShowing}>Done</Button>
+          <Button onClick={toggleOpen}>Done</Button>
         </DialogActions>
       </Dialog>
     </>

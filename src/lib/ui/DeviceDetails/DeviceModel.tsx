@@ -1,13 +1,13 @@
 import type { LockDevice } from 'seamapi'
 
-import { getLockModel } from 'lib/index.js'
+import { getDeviceModel } from 'lib/index.js'
 
 interface ModelStatusProps {
   device: LockDevice
 }
 
 export function DeviceModel({ device }: ModelStatusProps): JSX.Element | null {
-  const model = getLockModel(device)
+  const model = getDeviceModel(device)
   if (!model) {
     return null
   }
