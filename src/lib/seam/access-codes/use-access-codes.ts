@@ -1,5 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import type { AccessCode, AccessCodesListResponse, SeamError } from 'seamapi'
+import type {
+  AccessCode,
+  AccessCodesListRequest,
+  AccessCodesListResponse,
+  SeamError,
+} from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
@@ -31,9 +36,4 @@ export function useAccessCodes(
   })
 
   return { ...rest, accessCodes: data }
-}
-
-// UPSTREAM: https://github.com/seamapi/javascript/pull/200
-interface AccessCodesListRequest {
-  device_id: string
 }
