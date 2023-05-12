@@ -1,7 +1,7 @@
 import type { CommonDeviceProperties, Device } from 'seamapi'
 
 import { isLockDevice } from 'lib/seam/devices/types.js'
-import { useFakeDevice } from 'lib/seam/devices/use-device.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
@@ -14,8 +14,7 @@ export function AccessCodeDevice({
   deviceId: string
   onSelectDevice: (device: Device<CommonDeviceProperties>) => void
 }) {
-  //  TODO: Replace with `useDevice()` once ready
-  const { isLoading, device } = useFakeDevice({ device_id: deviceId })
+  const { isLoading, device } = useDevice({ device_id: deviceId })
 
   // TODO: Do we want to return a skeleton loader here instead?
   if (isLoading || !device || !isLockDevice(device)) {
