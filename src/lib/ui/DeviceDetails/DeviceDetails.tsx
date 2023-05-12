@@ -1,6 +1,7 @@
-import { type LockDevice } from 'seamapi'
+import { type CommonDeviceProperties, type Device } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
+import { isLockDevice } from 'lib/seam/devices/types.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
@@ -11,16 +12,12 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import useToggle from 'lib/use-toggle.js'
 
 export interface DeviceDetailsProps {
-  device: LockDevice
+  device: Device<CommonDeviceProperties>
+  onBack?: () => void
 }
 
-export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
-  const { device } = props
-
-  const lockStatus = device.properties.locked ? t.locked : t.unlocked
-
-  const accessCodeLength =
-    device.properties?.schlage_metadata?.access_code_length
+export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
+  const { device, onBack } = props
 
   const [showingAccessCodes, toggleAccessCodes] = useToggle()
 
@@ -30,9 +27,18 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
     )
   }
 
+  if (!isLockDevice(device)) {
+    return null
+  }
+
+  const lockStatus = device.properties.locked ? t.locked : t.unlocked
+
+  const accessCodeLength =
+    device.properties?.schlage_metadata?.access_code_length
+
   return (
     <div className='seam-device-details'>
-      <ContentHeader title='Device' />
+      <ContentHeader title='Device' onBack={onBack} />
       <div className='seam-body'>
         <div className='seam-summary'>
           <div className='seam-content'>
@@ -57,7 +63,9 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
             className='seam-content seam-access-codes'
             onClick={toggleAccessCodes}
           >
-            <span className='seam-value'>49 {t.accessCodes}</span>
+            <span className='seam-value'>
+              {accessCodeLength} {t.accessCodes}
+            </span>
             <ChevronRightIcon />
           </div>
         </div>

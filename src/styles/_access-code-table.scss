@@ -2,6 +2,11 @@
 
 @mixin all {
   .seam-access-code-table {
+
+    .seam-table-row {
+
+      cursor: pointer;
+
     .seam-icon-cell {
       flex: 0;
       display: flex;
@@ -43,4 +48,5 @@
       justify-content: center;
     }
   }
+    }
 }

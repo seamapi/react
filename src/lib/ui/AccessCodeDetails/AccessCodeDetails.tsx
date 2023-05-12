@@ -1,21 +1,38 @@
 import { DateTime } from 'luxon'
-import type { AccessCode } from 'seamapi'
+import { useState } from 'react'
+import type { AccessCode, CommonDeviceProperties, Device } from 'seamapi'
 
 import AccessCodeDevice from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
+import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 export interface AccessCodeDetailsProps {
   accessCode: AccessCode
+  onBack?: () => void
 }
 
 export default function AccessCodeDetails({
   accessCode,
+  onBack,
 }: AccessCodeDetailsProps) {
   const name = accessCode.name ?? t.fallbackName
+  const [selectedDevice, selectDevice] =
+    useState<Device<CommonDeviceProperties> | null>(null)
+
+  if (selectedDevice) {
+    return (
+      <DeviceDetails
+        device={selectedDevice}
+        onBack={() => {
+          selectDevice(null)
+        }}
+      />
+    )
+  }
 
   return (
     <div className='seam-access-code-details'>
-      <ContentHeader title='Access code' />
+      <ContentHeader title='Access code' onBack={onBack} />
       <div className='seam-summary'>
         <div className='seam-top'>
           <span className='seam-label'>{t.accessCode}</span>
@@ -25,7 +42,10 @@ export default function AccessCodeDetails({
             <Duration accessCode={accessCode} />
           </div>
         </div>
-        <AccessCodeDevice deviceId={accessCode.device_id} />
+        <AccessCodeDevice
+          deviceId={accessCode.device_id}
+          onSelectDevice={selectDevice}
+        />
       </div>
       <div className='seam-details'>
         <div className='seam-row'>
