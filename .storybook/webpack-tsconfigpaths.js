@@ -4,7 +4,8 @@ import { join, parse, resolve } from 'node:path'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 import { NormalModuleReplacementPlugin } from 'webpack'
 
-// UPSTREAM: https://github.com/storybookjs/storybook/issues/14274
+// UPSTREAM: Handle imports with .js file extensions.
+// https://github.com/storybookjs/storybook/issues/14274
 // Workaround from https://github.com/vercel/next.js/issues/41961#issuecomment-1311091390
 /** @type {(config: import('webpack').Configuration) => void} */
 export default (config) => {
@@ -33,12 +34,14 @@ export default (config) => {
     })
   )
 
+  // UPSTREAM: Handle imports with .js file extensions resolved with TSConfig paths.
+  // Must be used in conjunction with TsconfigPathsPlugin.
+  // These be updated in sync with the paths defined in tsconfig.json.
   config.plugins.push(
     new NormalModuleReplacementPlugin(/^lib\/.*js$/, (resource) => {
       resource.request = resource.request.replace(/\.js$/, '')
     })
   )
-
   config.plugins.push(
     new NormalModuleReplacementPlugin(/^@seamapi\/react$/, (resource) => {
       resource.request = 'src/index.ts'
