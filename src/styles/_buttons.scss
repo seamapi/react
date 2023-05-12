@@ -80,6 +80,7 @@
   &.seam-btn-outline {
     color: colors.$primary;
     border: 1px solid colors.$primary-50;
+    background: transparent;
 
     &:hover {
       background: colors.$primary-5;
@@ -87,7 +88,7 @@
 
     &.seam-btn-disabled,
     &:disabled {
-      background: #fff;
+      background: transparent;
       color: colors.$primary-50;
     }
   }
