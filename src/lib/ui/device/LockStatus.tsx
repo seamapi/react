@@ -3,7 +3,11 @@ import type { LockDevice } from 'seamapi'
 import { LockLockedIcon } from 'lib/icons/LockLocked.js'
 import { LockUnlockedIcon } from 'lib/icons/LockUnlocked.js'
 
-export function LockStatus(props: { device: LockDevice }): JSX.Element {
+export interface LockStatusProps {
+  device: LockDevice
+}
+
+export function LockStatus(props: LockStatusProps): JSX.Element {
   const {
     device: {
       properties: { locked },

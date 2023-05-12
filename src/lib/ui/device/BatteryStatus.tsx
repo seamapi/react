@@ -5,7 +5,11 @@ import { BatteryLevelFullIcon } from 'lib/icons/BatteryLevelFull.js'
 import { BatteryLevelHighIcon } from 'lib/icons/BatteryLevelHigh.js'
 import { BatteryLevelLowIcon } from 'lib/icons/BatteryLevelLow.js'
 
-export function BatteryStatus(props: { device: LockDevice }) {
+export interface BatteryStatusProps {
+  device: LockDevice
+}
+
+export function BatteryStatus(props: BatteryStatusProps) {
   const {
     device: {
       properties: { battery_level: batteryLevel },
