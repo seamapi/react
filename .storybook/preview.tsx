@@ -3,10 +3,13 @@ import '../src/index.scss'
 import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
-// UPSTREAM: Use toolbar input when it lands.
-// https://github.com/storybookjs/storybook/pull/21959
-const defaultPublishableKey =
-  process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ?? 'seam_pk1ws2_0000'
+import { fakePublishableKey, fakeUserIdentifierKey } from './seed-fake.js'
+
+const publishableKey =
+  process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ?? fakePublishableKey
+
+const userIdentifierKey =
+  process.env['STORYBOOK_USER_IDENTIFIER_KEY'] ?? fakeUserIdentifierKey
 
 const preview: Preview = {
   parameters: {
@@ -25,8 +28,8 @@ const preview: Preview = {
       // different scenarios
       return (
         <SeamProvider
-          publishableKey={defaultPublishableKey}
-          userIdentifierKey='seed_client_session_user_2'
+          publishableKey={publishableKey}
+          userIdentifierKey={userIdentifierKey}
           {...(process.env['NODE_ENV'] === 'production'
             ? {}
             : { endpoint: '/api' })}

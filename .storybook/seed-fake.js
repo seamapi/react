@@ -1,11 +1,11 @@
 export const seedFake = (db) => {
-  const ws1 = db.addWorkspace({
+  db.addWorkspace({
     name: 'Seed Workspace 1 (starts empty)',
     publishable_key: 'seam_pk1ws1_0000',
   })
   const ws2 = db.addWorkspace({
     name: 'Seed Workspace 2 (starts populated)',
-    publishable_key: 'seam_pk1ws2_0000',
+    publishable_key: fakePublishableKey,
   })
 
   const cw = db.addConnectWebview({
@@ -51,14 +51,15 @@ export const seedFake = (db) => {
     workspace_id: ws2.workspace_id,
   })
 
-  const clientSession2 = db.addClientSession({
+  db.addClientSession({
     workspace_id: ws2.workspace_id,
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: [ca.connected_account_id],
-    user_identifier_key: 'seed_client_session_user_2',
+    user_identifier_key: fakeUserIdentifierKey,
     device1,
     device2,
   })
-
-  return { ws1, ws2, clientSession2 }
 }
+
+export const fakePublishableKey = 'seam_pk1ws2_0000'
+export const fakeUserIdentifierKey = 'seed_client_session_user_2'
