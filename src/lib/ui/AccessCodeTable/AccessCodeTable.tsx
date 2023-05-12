@@ -17,7 +17,7 @@ import { Title } from 'lib/ui/typography/Title.js'
 export function AccessCodeTable(props: {
   deviceId: string
   onBack?: () => void
-}): JSX.Element {
+}): JSX.Element | null {
   const { accessCodes } = useAccessCodes({
     device_id: props.deviceId,
   })
@@ -38,7 +38,7 @@ export function AccessCodeTable(props: {
     )
   }
 
-  if (accessCodes == null) return <>{null}</>
+  if (accessCodes == null) return null
 
   return (
     <div className='seam-access-code-table'>
