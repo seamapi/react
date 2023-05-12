@@ -25,9 +25,11 @@ interface Props {
 }
 
 export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
-  const { devices, isLoading, isError } = useDevices(props)
+  const { devices, isLoading, isError, error } = useDevices(props)
 
-  if (isLoading || isError || devices == null) return null
+  if (isLoading) return <p>...</p>
+  if (isError) return <p>{error?.message}</p>
+  if (devices == null) return null
 
   const deviceCount = devices.length
 
