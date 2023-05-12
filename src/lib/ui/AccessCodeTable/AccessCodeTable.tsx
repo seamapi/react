@@ -38,7 +38,9 @@ export function AccessCodeTable(props: {
     )
   }
 
-  if (accessCodes == null) return null
+  if (accessCodes == null) {
+    return null
+  }
 
   return (
     <div className='seam-access-code-table'>

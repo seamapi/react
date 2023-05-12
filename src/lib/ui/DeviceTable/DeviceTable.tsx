@@ -45,9 +45,17 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
     )
   }
 
-  if (isLoading) return <p>...</p>
-  if (isError) return <p>{error?.message}</p>
-  if (devices == null) return null
+  if (isLoading) {
+    return <p>...</p>
+  }
+
+  if (isError) {
+    return <p>{error?.message}</p>
+  }
+
+  if (devices == null) {
+    return null
+  }
 
   const deviceCount = devices.length
 
@@ -80,7 +88,9 @@ function DeviceRow(props: {
 }) {
   const { device, onClick } = props
 
-  if (!isLockDevice(device)) return null
+  if (!isLockDevice(device)) {
+    return null
+  }
 
   const deviceModel = getDeviceModel(device) ?? t.unknownLock
 
