@@ -1,41 +1,55 @@
-import { type LockDevice } from 'seamapi'
+import { type CommonDeviceProperties, type Device } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
+import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
+import { isLockDevice } from 'lib/seam/devices/types.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 import { Button } from 'lib/ui/Button.js'
-import { BatteryStatus } from 'lib/ui/DeviceDetails/BatteryStatus.js'
-import { DeviceImage } from 'lib/ui/DeviceDetails/DeviceImage.js'
-import { ModelStatus } from 'lib/ui/DeviceDetails/ModelStatus.js'
-import { OnlineStatus } from 'lib/ui/DeviceDetails/OnlineStatus.js'
+import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
+import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
+import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
+import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import useToggle from 'lib/use-toggle.js'
 
 export interface DeviceDetailsProps {
-  device: LockDevice
+  device: Device<CommonDeviceProperties>
+  onBack?: () => void
 }
 
-export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
-  const { device } = props
+export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
+  const { device, onBack } = props
+
+  const [showingAccessCodes, toggleAccessCodes] = useToggle()
+
+  const { isLoading, accessCodes } = useAccessCodes({
+    device_id: device.device_id,
+  })
+
+  if (isLoading) {
+    return null
+  }
+
+  if (showingAccessCodes) {
+    return (
+      <AccessCodeTable deviceId={device.device_id} onBack={toggleAccessCodes} />
+    )
+  }
+
+  if (!isLockDevice(device)) {
+    return null
+  }
 
   const lockStatus = device.properties.locked ? t.locked : t.unlocked
+
+  const accessCodeCount = accessCodes?.length
 
   const accessCodeLength =
     device.properties?.schlage_metadata?.access_code_length
 
-  const [showingAccessCodes, toggleAccessCodes] = useToggle()
-
-  if (showingAccessCodes) {
-    return (
-      <AccessCodeTable
-        deviceId={device.device_id}
-        onClickBack={toggleAccessCodes}
-      />
-    )
-  }
-
   return (
     <div className='seam-device-details'>
-      <ContentHeader title='Device' />
+      <ContentHeader title='Device' onBack={onBack} />
       <div className='seam-body'>
         <div className='seam-summary'>
           <div className='seam-content'>
@@ -46,9 +60,11 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
               <span className='seam-label'>{t.device}</span>
               <h4 className='seam-device-name'>{device.properties.name}</h4>
               <div className='seam-properties'>
+                <span className='seam-label'>{t.status}:</span>{' '}
                 <OnlineStatus device={device} />
+                <span className='seam-label'>{t.power}:</span>{' '}
                 <BatteryStatus device={device} />
-                <ModelStatus device={device} />
+                <DeviceModel device={device} />
               </div>
             </div>
           </div>
@@ -58,7 +74,9 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element {
             className='seam-content seam-access-codes'
             onClick={toggleAccessCodes}
           >
-            <span className='seam-value'>49 {t.accessCodes}</span>
+            <span className='seam-value'>
+              {accessCodeCount} {t.accessCodes}
+            </span>
             <ChevronRightIcon />
           </div>
         </div>
@@ -107,4 +125,6 @@ const t = {
   codeLength: 'Code length',
   digits: 'digits',
   lockStatus: 'Lock status',
+  status: 'Status',
+  power: 'Power',
 }

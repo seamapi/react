@@ -56,14 +56,14 @@ export const InsideModal: Story = {
 }
 
 function InsideModalComponent(props: DeviceDetailsProps) {
-  const [showing, toggleShowing] = useToggle()
+  const [open, toggleOpen] = useToggle()
   // Wrap modal/dialog contents in `seam-components` class
   // to apply styles when rendered in a portal,
   // which is the default MUI behavior.
   return (
     <>
-      <Button onClick={toggleShowing}>Show Modal</Button>
-      <Dialog open={showing} fullWidth maxWidth='sm' onClose={toggleShowing}>
+      <Button onClick={toggleOpen}>Open Modal</Button>
+      <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
         <IconButton
           sx={{
             position: 'absolute',

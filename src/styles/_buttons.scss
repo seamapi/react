@@ -16,6 +16,26 @@
   }
 }
 
+@mixin text-button {
+  .seam-text-btn {
+    color: colors.$primary;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.seam-btn-disabled,
+    &:disabled {
+      cursor: not-allowed;
+      text-decoration: none;
+    }
+  }
+}
+
 @mixin button-size {
   &.seam-btn-small {
     font-size: 14px;
@@ -58,9 +78,9 @@
   }
 
   &.seam-btn-outline {
-    background: #fff;
     color: colors.$primary;
     border: 1px solid colors.$primary-50;
+    background: transparent;
 
     &:hover {
       background: colors.$primary-5;
@@ -68,7 +88,7 @@
 
     &.seam-btn-disabled,
     &:disabled {
-      background: #fff;
+      background: transparent;
       color: colors.$primary-50;
     }
   }
@@ -108,6 +128,7 @@
 }
 
 @mixin all {
-  @include icon-button;
   @include button;
+  @include icon-button;
+  @include text-button;
 }

@@ -1,0 +1,63 @@
+@use './colors';
+
+@mixin all {
+  .seam-device-table {
+    .seam-table-row {
+      cursor: pointer;
+
+      .seam-image-cell {
+        width: 64px;
+        height: 64px;
+        padding: 4px;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .seam-body-cell {
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2px;
+
+        .seam-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+
+          .seam-device-model {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 134%;
+            color: colors.$text-gray-1;
+            flex: 0 1 190px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .seam-device-statuses {
+            display: flex;
+            align-items: center;
+            color: colors.$text-gray-1;
+            font-size: 14px;
+            line-height: 134%;
+
+            > div {
+              display: flex;
+              align-items: center;
+              margin-right: 16px;
+
+              svg {
+                scale: 0.75;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

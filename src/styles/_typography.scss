@@ -29,9 +29,16 @@
   }
 }
 
+@mixin defaults {
+  html {
+    color: colors.$text-default;
+  }
+}
+
 @mixin all {
   @include headers;
   @include caption;
   @include danger-text;
   @include font-family;
+  @include defaults;
 }

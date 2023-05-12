@@ -84,11 +84,11 @@ This is not recommended because the client session is now bound to this machine 
     return userIdentifierKey
   }
 
-  const fingerprintValue =
+  const fingerprint =
     globalThis?.localStorage?.getItem('seam_user_fingerprint') ??
     `fingerprint_${uuidv4()}`
 
-  globalThis?.localStorage?.setItem('seam_user_fingerprint', fingerprintValue)
+  globalThis?.localStorage?.setItem('seam_user_fingerprint', fingerprint)
 
-  return fingerprintValue
+  return fingerprint
 }

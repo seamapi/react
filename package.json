@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/react",
-  "version": "0.16.1",
+  "version": "0.17.0",
   "description": "Seam React component library.",
   "type": "module",
   "main": "index.js",
@@ -58,7 +58,6 @@
     "docs:build": "storybook build --docs --output-dir docs",
     "predocs:build": "npm run examples:build",
     "typecheck": "tsc",
-    "dependencies": "dpdm --exit-code circular:1 src/index.ts",
     "test": "jest --collect-coverage",
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
@@ -95,7 +94,7 @@
     "@tanstack/react-query": "^4.28.0",
     "classnames": "^2.3.2",
     "luxon": "^3.3.0",
-    "seamapi": "^5.19.0-alpha.3",
+    "seamapi": "^5.21.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -126,7 +125,6 @@
     "concurrently": "^8.0.1",
     "copy-webpack-plugin": "^11.0.0",
     "del-cli": "^5.0.0",
-    "dpdm": "^3.13.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-config-standard-jsx": "^11.0.0",
@@ -154,6 +152,7 @@
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "typescript": "^5.0.2",
     "vite": "^4.2.1",
-    "vite-tsconfig-paths": "^4.0.8"
+    "vite-tsconfig-paths": "^4.0.8",
+    "zustand-hoist": "^1.0.0"
   }
 }

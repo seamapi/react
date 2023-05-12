@@ -1,8 +1,12 @@
+@use './colors';
+
 @mixin header {
   .seam-table-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 56px;
+    padding: 0 16px;
   }
 
   .seam-table-title {
@@ -21,6 +25,7 @@
     display: flex;
     padding: 4px;
     height: 72px;
+    border-bottom: 1px solid colors.$divider-stroke-light;
 
     &:hover {
       background: rgb(244 246 248 / 100%);
@@ -29,6 +34,7 @@
     .seam-title {
       font-weight: 600;
       font-size: 18px;
+      line-height: 132%;
     }
   }
 }
