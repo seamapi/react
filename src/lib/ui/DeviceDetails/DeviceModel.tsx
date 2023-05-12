@@ -1,6 +1,6 @@
 import type { LockDevice } from 'seamapi'
 
-interface ModelStatusProps {
+interface DeviceModelProps {
   device: LockDevice
 }
 
