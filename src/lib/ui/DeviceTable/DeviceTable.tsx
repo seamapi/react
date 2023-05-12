@@ -1,5 +1,4 @@
-import type { CommonDeviceProperties, Device, LockDevice } from 'seamapi'
-
+import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
   useDevices,
   type UseDevicesData,
@@ -82,7 +81,3 @@ const t = {
   devices: 'Devices',
   unknownLock: 'Unknown Lock',
 }
-
-const isLockDevice = (
-  device: Device<CommonDeviceProperties, string> | LockDevice
-): device is LockDevice => 'locked' in device.properties
