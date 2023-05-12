@@ -1,6 +1,6 @@
 import { render, screen } from 'fixtures/react.js'
 
-test('render', () => {
+test('render', async () => {
   render(<p>Foo</p>)
-  expect(screen.findByText('Foo')).toBeTruthy()
+  await screen.findByText('Foo')
 })
