@@ -19,7 +19,11 @@ export function useAccessCodes(
     queryKey: ['access_codes', 'list', normalizedParams],
     queryFn: async () => {
       if (client == null) return []
-      return await client?.accessCodes.list(normalizedParams)
+      const accessCodes = await client?.accessCodes.list(normalizedParams)
+      return accessCodes.sort(
+        (a, b) =>
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      )
     },
   })
 
