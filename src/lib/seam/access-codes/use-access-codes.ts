@@ -4,8 +4,13 @@ import type { AccessCode, AccessCodesListResponse, SeamError } from 'seamapi'
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
+// UPSTREAM: https://github.com/seamapi/javascript/pull/200
+interface AccessCodesListRequest {
+  device_id: string
+}
+
 export function useAccessCodes(
-  params: { device_id: string } | string
+  params: AccessCodesListRequest | string
 ): UseSeamQueryResult<'accessCodes', AccessCode[]> {
   const normalizedParams =
     typeof params === 'string' ? { device_id: params } : params
