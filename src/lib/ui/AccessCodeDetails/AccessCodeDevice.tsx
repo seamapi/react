@@ -45,6 +45,7 @@ const device: LockDevice = {
 const isLoading = false
 
 export default function AccessCodeDevice({ deviceId }: { deviceId: string }) {
+  console.log(deviceId)
   //  TODO: Replace with `useDevice()` once ready
   // TODO: Do we want to return a skeleton loader here instead?
   if (isLoading || !device) {
