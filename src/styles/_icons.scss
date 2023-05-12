@@ -1,0 +1,9 @@
+@use './colors';
+
+@mixin all {
+  .seam-lock-icon {
+    * {
+      fill: colors.$text-gray-1;
+    }
+  }
+}

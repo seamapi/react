@@ -5,8 +5,10 @@
 @use './buttons';
 @use './layout';
 @use './access-code-table';
-@use './device-details';
 @use './colors';
+@use './icons';
+@use './device-details';
+@use './device-table';
 
 .seam-components {
   // Reset
@@ -18,8 +20,10 @@
   @include inputs.all;
   @include buttons.all;
   @include layout.all;
+  @include icons.all;
 
   // Components
   @include access-code-table.all;
   @include device-details.all;
+  @include device-table.all;
 }

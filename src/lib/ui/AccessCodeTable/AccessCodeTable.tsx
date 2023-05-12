@@ -1,32 +1,29 @@
-import {
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-  TableTitle,
-} from 'lib/ui/Table/index.js'
-
 import { useAccessCodes } from 'lib/hooks/use-access-codes.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { TableBody } from 'lib/ui/Table/TableBody.js'
+import { TableCell } from 'lib/ui/Table/TableCell.js'
+import { TableHeader } from 'lib/ui/Table/TableHeader.js'
+import { TableRow } from 'lib/ui/Table/TableRow.js'
+import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
 export function AccessCodeTable(props: {
   deviceId: string
-  onClickBack?: () => void
+  onBack?: () => void
 }): JSX.Element {
   const { accessCodes } = useAccessCodes({
     device_id: props.deviceId,
   })
-  const { onClickBack } = props
+  const { onBack } = props
 
   if (!accessCodes) return <>{null}</>
 
   return (
     <div className='seam-access-code-table'>
-      <ContentHeader onClickBack={onClickBack} />
+      <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
           {t.accessCodes} <Caption>({accessCodes.length})</Caption>
