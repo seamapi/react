@@ -1,9 +1,8 @@
 import 'isomorphic-fetch'
 
+import { SeamProvider } from '@seamapi/react'
 import { render } from '@testing-library/react'
 import type { PropsWithChildren } from 'react'
-
-import { SeamProvider } from 'lib/SeamProvider.js'
 
 declare global {
   // eslint-disable-next-line no-var
