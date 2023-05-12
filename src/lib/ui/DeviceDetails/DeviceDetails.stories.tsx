@@ -40,7 +40,7 @@ const meta: Meta<typeof DeviceDetails> = {
   title: 'Example/DeviceDetails',
   component: DeviceDetails,
   args: {
-    device: fakeDevice,
+    deviceId: fakeDevice.device_id,
   },
   tags: ['autodocs'],
 }

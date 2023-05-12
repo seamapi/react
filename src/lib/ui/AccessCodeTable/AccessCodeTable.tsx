@@ -1,9 +1,6 @@
-import { useState } from 'react'
-import type { AccessCode } from 'seamapi'
-
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
+import { useNavigation } from 'lib/NavigationProvider.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
-import AccessCodeDetails from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
@@ -14,35 +11,18 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-export function AccessCodeTable(props: {
-  deviceId: string
-  onBack?: () => void
-}): JSX.Element {
+export function AccessCodeTable(props: { deviceId: string }): JSX.Element {
   const { accessCodes } = useAccessCodes({
     device_id: props.deviceId,
   })
-  const { onBack } = props
 
-  const [selectedAccessCode, selectAccessCode] = useState<AccessCode | null>(
-    null
-  )
-
-  if (selectedAccessCode) {
-    return (
-      <AccessCodeDetails
-        accessCode={selectedAccessCode}
-        onBack={() => {
-          selectAccessCode(null)
-        }}
-      />
-    )
-  }
+  const { show } = useNavigation()
 
   if (!accessCodes) return <>{null}</>
 
   return (
     <div className='seam-access-code-table'>
-      <ContentHeader onBack={onBack} />
+      <ContentHeader />
       <TableHeader>
         <TableTitle>
           {t.accessCodes} <Caption>({accessCodes.length})</Caption>
@@ -53,7 +33,10 @@ export function AccessCodeTable(props: {
           <TableRow
             key={code.access_code_id}
             onClick={() => {
-              selectAccessCode(code)
+              show({
+                name: 'access_code_detail',
+                accessCodeId: code.access_code_id,
+              })
             }}
           >
             <TableCell className='seam-icon-cell'>

@@ -1,38 +1,31 @@
 import { DateTime } from 'luxon'
-import { useState } from 'react'
-import type { AccessCode, CommonDeviceProperties, Device } from 'seamapi'
+import type { AccessCode } from 'seamapi'
+
+import { useFakeAccessCode } from 'lib/index.js'
 
 import AccessCodeDevice from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
-import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 export interface AccessCodeDetailsProps {
-  accessCode: AccessCode
-  onBack?: () => void
+  accessCodeId: string
 }
 
 export default function AccessCodeDetails({
-  accessCode,
-  onBack,
+  accessCodeId,
 }: AccessCodeDetailsProps) {
-  const name = accessCode.name ?? t.fallbackName
-  const [selectedDevice, selectDevice] =
-    useState<Device<CommonDeviceProperties> | null>(null)
+  const { isLoading, data: accessCode } = useFakeAccessCode({
+    access_code_id: accessCodeId,
+  })
 
-  if (selectedDevice) {
-    return (
-      <DeviceDetails
-        device={selectedDevice}
-        onBack={() => {
-          selectDevice(null)
-        }}
-      />
-    )
+  if (isLoading || !accessCode) {
+    return null
   }
+
+  const name = accessCode.name ?? t.fallbackName
 
   return (
     <div className='seam-access-code-details'>
-      <ContentHeader title='Access code' onBack={onBack} />
+      <ContentHeader title='Access code' />
       <div className='seam-summary'>
         <div className='seam-top'>
           <span className='seam-label'>{t.accessCode}</span>
@@ -42,10 +35,7 @@ export default function AccessCodeDetails({
             <Duration accessCode={accessCode} />
           </div>
         </div>
-        <AccessCodeDevice
-          deviceId={accessCode.device_id}
-          onSelectDevice={selectDevice}
-        />
+        <AccessCodeDevice deviceId={accessCode.device_id} />
       </div>
       <div className='seam-details'>
         <div className='seam-row'>

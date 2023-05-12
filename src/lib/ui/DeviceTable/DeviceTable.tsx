@@ -1,8 +1,4 @@
-import { useState } from 'react'
-import type { CommonDeviceProperties, Device } from 'seamapi'
-
-import { DeviceDetails } from 'lib/index.js'
-
+import { useNavigation } from 'lib/NavigationProvider.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
   useDevices,
@@ -31,20 +27,7 @@ interface Props {
 
 export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
   const { devices, isLoading, isError, error } = useDevices(props)
-
-  const [selectedDevice, selectDevice] =
-    useState<Device<CommonDeviceProperties> | null>(null)
-
-  if (selectedDevice) {
-    return (
-      <DeviceDetails
-        device={selectedDevice}
-        onBack={() => {
-          selectDevice(null)
-        }}
-      />
-    )
-  }
+  const { show } = useNavigation()
 
   if (isLoading) return <p>...</p>
   if (isError) return <p>{error?.message}</p>
@@ -54,7 +37,7 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
 
   return (
     <div className='seam-device-table'>
-      <ContentHeader onBack={onBack} />
+      <ContentHeader />
       <TableHeader>
         <TableTitle>
           {t.devices} <Caption>({deviceCount})</Caption>
@@ -66,7 +49,7 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
             device={device}
             key={device.device_id}
             onClick={() => {
-              selectDevice(device)
+              show({ name: 'device_detail', deviceId: device.device_id })
             }}
           />
         ))}
