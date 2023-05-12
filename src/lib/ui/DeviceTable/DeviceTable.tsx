@@ -1,4 +1,3 @@
-import { useNavigation } from 'lib/NavigationProvider.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
   useDevices,
@@ -27,7 +26,6 @@ interface Props {
 
 export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
   const { devices, isLoading, isError, error } = useDevices(props)
-  const { show } = useNavigation()
 
   if (isLoading) return <p>...</p>
   if (isError) return <p>{error?.message}</p>
@@ -37,7 +35,7 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
 
   return (
     <div className='seam-device-table'>
-      <ContentHeader />
+      <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
           {t.devices} <Caption>({deviceCount})</Caption>
@@ -45,31 +43,22 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
       </TableHeader>
       <TableBody>
         {devices.map((device) => (
-          <DeviceRow
-            device={device}
-            key={device.device_id}
-            onClick={() => {
-              show({ name: 'device_detail', deviceId: device.device_id })
-            }}
-          />
+          <DeviceRow device={device} key={device.device_id} />
         ))}
       </TableBody>
     </div>
   )
 }
 
-function DeviceRow(props: {
-  device: UseDevicesData[number]
-  onClick: () => void
-}) {
-  const { device, onClick } = props
+function DeviceRow(props: { device: UseDevicesData[number] }) {
+  const { device } = props
 
   if (!isLockDevice(device)) return null
 
   const deviceModel = getDeviceModel(device) ?? t.unknownLock
 
   return (
-    <TableRow key={device.device_id} onClick={onClick}>
+    <TableRow key={device.device_id}>
       <TableCell className='seam-image-cell'>
         <DeviceImage device={device} />
       </TableCell>
