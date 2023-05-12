@@ -45,6 +45,7 @@ module.exports = async function (_globalConfig, projectConfig) {
   })
 
   await fake.startServer()
+  projectConfig.testEnvironmentOptions.url = fake.server.serverUrl
   projectConfig.globals.JEST_SEAM_ENDPOINT = fake.server.serverUrl
   projectConfig.globals.JEST_SEAM_PUBLISHABLE_KEY_1 = ws1.publishable_key
   projectConfig.globals.JEST_SEAM_PUBLISHABLE_KEY_2 = ws2.publishable_key
