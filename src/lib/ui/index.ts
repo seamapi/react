@@ -1,1 +1,1 @@
-export * from './DeviceManager/DeviceManager.js'
+export * from './DeviceTable/DeviceTable.js'
