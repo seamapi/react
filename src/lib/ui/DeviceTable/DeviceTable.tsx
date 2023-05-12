@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import type { CommonDeviceProperties, Device } from 'seamapi'
+
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
   useDevices,
@@ -8,6 +11,7 @@ import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { LockStatus } from 'lib/ui/device/LockStatus.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
+import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
@@ -27,6 +31,20 @@ interface Props {
 export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
   const { devices, isLoading, isError, error } = useDevices(props)
 
+  const [selectedDevice, selectDevice] =
+    useState<Device<CommonDeviceProperties> | null>(null)
+
+  if (selectedDevice) {
+    return (
+      <DeviceDetails
+        device={selectedDevice}
+        onBack={() => {
+          selectDevice(null)
+        }}
+      />
+    )
+  }
+
   if (isLoading) return <p>...</p>
   if (isError) return <p>{error?.message}</p>
   if (devices == null) return null
@@ -43,22 +61,31 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
       </TableHeader>
       <TableBody>
         {devices.map((device) => (
-          <DeviceRow device={device} key={device.device_id} />
+          <DeviceRow
+            device={device}
+            key={device.device_id}
+            onClick={() => {
+              selectDevice(device)
+            }}
+          />
         ))}
       </TableBody>
     </div>
   )
 }
 
-function DeviceRow(props: { device: UseDevicesData[number] }) {
-  const { device } = props
+function DeviceRow(props: {
+  device: UseDevicesData[number]
+  onClick: () => void
+}) {
+  const { device, onClick } = props
 
   if (!isLockDevice(device)) return null
 
   const deviceModel = getDeviceModel(device) ?? t.unknownLock
 
   return (
-    <TableRow key={device.device_id}>
+    <TableRow key={device.device_id} onClick={onClick}>
       <TableCell className='seam-image-cell'>
         <DeviceImage device={device} />
       </TableCell>

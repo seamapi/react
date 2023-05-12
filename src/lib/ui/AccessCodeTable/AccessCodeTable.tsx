@@ -1,5 +1,9 @@
+import { useState } from 'react'
+import type { AccessCode } from 'seamapi'
+
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
+import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
@@ -19,6 +23,21 @@ export function AccessCodeTable(props: {
   })
   const { onBack } = props
 
+  const [selectedAccessCode, selectAccessCode] = useState<AccessCode | null>(
+    null
+  )
+
+  if (selectedAccessCode) {
+    return (
+      <AccessCodeDetails
+        accessCode={selectedAccessCode}
+        onBack={() => {
+          selectAccessCode(null)
+        }}
+      />
+    )
+  }
+
   if (!accessCodes) return <>{null}</>
 
   return (
@@ -31,7 +50,12 @@ export function AccessCodeTable(props: {
       </TableHeader>
       <TableBody>
         {accessCodes.map((code) => (
-          <TableRow key={code.access_code_id}>
+          <TableRow
+            key={code.access_code_id}
+            onClick={() => {
+              selectAccessCode(code)
+            }}
+          >
             <TableCell className='seam-icon-cell'>
               <div>
                 <AccessCodeKeyIcon />

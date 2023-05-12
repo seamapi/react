@@ -2,12 +2,11 @@
 
 @mixin all {
   .seam-device-details {
-    padding: 0 24px 24px;
-
     .seam-body {
       display: flex;
       flex-direction: column;
       gap: 16px;
+      margin: 0 24px 24px;
 
       .seam-box {
         border: 1px solid colors.$text-gray-3;

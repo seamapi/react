@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { DateTime } from 'luxon'
 import { v4 as uuid } from 'uuid'
 
-import AccessCodeDetails, {
+import {
+  AccessCodeDetails,
   type AccessCodeDetailsProps,
 } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import useToggle from 'lib/use-toggle.js'
