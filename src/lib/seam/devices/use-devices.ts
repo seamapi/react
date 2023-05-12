@@ -14,7 +14,7 @@ export type UseDevicesParams = DevicesListRequest
 export type UseDevicesData = Array<Device<CommonDeviceProperties>>
 
 export function useDevices(
-  params: UseDevicesParams
+  params?: UseDevicesParams
 ): UseSeamQueryResult<'devices', UseDevicesData> {
   const { client } = useSeamClient()
   const { data, ...rest } = useQuery<DevicesListResponse['devices'], SeamError>(
