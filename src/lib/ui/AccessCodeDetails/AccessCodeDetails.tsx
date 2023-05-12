@@ -19,7 +19,7 @@ export function AccessCodeDetails({
   const [selectedDevice, selectDevice] =
     useState<Device<CommonDeviceProperties> | null>(null)
 
-  if (selectedDevice) {
+  if (selectedDevice != null) {
     return (
       <DeviceDetails
         device={selectedDevice}

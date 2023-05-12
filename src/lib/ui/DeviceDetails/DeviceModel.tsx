@@ -6,7 +6,7 @@ interface DeviceModelProps {
 
 export function DeviceModel({ device }: DeviceModelProps): JSX.Element | null {
   const model = getDeviceModel(device)
-  if (!model) {
+  if (model == null) {
     return null
   }
 
