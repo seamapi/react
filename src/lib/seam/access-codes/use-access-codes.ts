@@ -1,19 +1,25 @@
 import { useQuery } from '@tanstack/react-query'
-import type { AccessCode, SeamError } from 'seamapi'
+import type { AccessCode, AccessCodesListResponse, SeamError } from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
-export function useAccessCodes(params: {
-  device_id: string
-}): UseSeamQueryResult<'accessCodes', AccessCode[]> {
+export function useAccessCodes(
+  params: { device_id: string } | string
+): UseSeamQueryResult<'accessCodes', AccessCode[]> {
+  const normalizedParams =
+    typeof params === 'string' ? { device_id: params } : params
+
   const { client } = useSeamClient()
-  const { data, ...rest } = useQuery<any, SeamError>({
+  const { data, ...rest } = useQuery<
+    AccessCodesListResponse['access_codes'],
+    SeamError
+  >({
     enabled: client != null,
-    queryKey: ['access_codes', 'list', params],
+    queryKey: ['access_codes', 'list', normalizedParams],
     queryFn: async () => {
       if (client == null) return []
-      return await client?.accessCodes.list(params)
+      return await client?.accessCodes.list(normalizedParams)
     },
   })
 
