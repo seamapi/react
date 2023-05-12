@@ -4,7 +4,7 @@ interface DeviceModelProps {
   device: LockDevice
 }
 
-export function DeviceModel({ device }: ModelStatusProps): JSX.Element | null {
+export function DeviceModel({ device }: DeviceModelProps): JSX.Element | null {
   const model = getDeviceModel(device)
   if (!model) {
     return null

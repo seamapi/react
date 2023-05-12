@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { TextField, type TextFieldProps } from 'lib/ui/TextField/index.js'
+import { TextField, type TextFieldProps } from 'lib/ui/TextField/TextField.js'
 
 export function SearchTextField({
   className,
