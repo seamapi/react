@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DeviceManager } from 'lib/ui/DeviceManager/index.js'
+import { DeviceManager } from 'lib/ui/DeviceManager/DeviceManager.js'
 
 /**
  * # DeviceManager stories

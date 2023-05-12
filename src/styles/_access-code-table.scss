@@ -2,16 +2,6 @@
 
 @mixin all {
   .seam-access-code-table {
-    .seam-content-header {
-      margin: 0 16px;
-    }
-
-    .seam-table-header {
-      margin-bottom: 16px;
-      height: 56px;
-      padding: 0 16px;
-    }
-
     .seam-icon-cell {
       flex: 0;
       display: flex;

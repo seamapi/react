@@ -100,7 +100,7 @@ function InsideModalComponent(props: AccessCodeTableContentProps) {
   // which is the default MUI behavior.
   return (
     <>
-      <Button onClick={toggleShowing}>Show Modal</Button>
+      <Button onClick={toggleShowing}>Open Modal</Button>
       <Dialog open={showing} fullWidth maxWidth='sm' onClose={toggleShowing}>
         <div className='seam-components'>
           <AccessCodeTableContent {...props} />

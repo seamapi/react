@@ -2,11 +2,11 @@ import { ArrowBackIcon } from 'lib/icons/ArrowBack.js'
 
 export function ContentHeader(props: {
   title?: string
-  onClickBack?: () => void
+  onBack?: () => void
 }): JSX.Element {
   return (
     <div className='seam-content-header'>
-      <BackIcon onClick={props.onClickBack} />
+      <BackIcon onClick={props.onBack} />
       <span className='seam-title'>{props.title}</span>
     </div>
   )
