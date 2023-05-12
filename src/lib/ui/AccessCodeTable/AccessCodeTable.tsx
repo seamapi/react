@@ -1,5 +1,5 @@
-import { useAccessCodes } from 'lib/hooks/use-access-codes.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
+import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
