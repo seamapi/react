@@ -1,12 +1,11 @@
 import { TableCell, TableRow } from '@mui/material'
 import type { LockDevice } from 'seamapi'
 
-import { getDeviceModel } from 'lib/index.js'
-
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { LockStatus } from 'lib/ui/device/LockStatus.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
+import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
