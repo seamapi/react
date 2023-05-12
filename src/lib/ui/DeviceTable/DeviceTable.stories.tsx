@@ -130,7 +130,7 @@ export const InsideModal: Story = {
 }
 
 function InsideModalComponent(props: DeviceTableProps) {
-  const [showing, toggleShowing] = useToggle()
+  const [open, toggleOpen] = useToggle()
   // Wrap modal/dialog contents in `seam-components` class
   // to apply styles when rendered in a portal,
   // which is the default MUI behavior.
