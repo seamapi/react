@@ -37,7 +37,7 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
 
   return (
     <div className='seam-device-table'>
-      <ContentHeader />
+      <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
           {t.devices} <Caption>({deviceCount})</Caption>

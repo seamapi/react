@@ -11,9 +11,17 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-export function AccessCodeTable(props: { deviceId: string }): JSX.Element {
+interface AccessCodeTableProps {
+  deviceId: string
+  onBack?: () => void
+}
+
+export function AccessCodeTable({
+  deviceId,
+  onBack,
+}: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
-    device_id: props.deviceId,
+    device_id: deviceId,
   })
 
   const { show } = useNavigation()
@@ -22,7 +30,7 @@ export function AccessCodeTable(props: { deviceId: string }): JSX.Element {
 
   return (
     <div className='seam-access-code-table'>
-      <ContentHeader />
+      <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
           {t.accessCodes} <Caption>({accessCodes.length})</Caption>

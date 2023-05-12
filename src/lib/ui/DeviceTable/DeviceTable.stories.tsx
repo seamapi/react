@@ -1,8 +1,6 @@
 import { Button, Dialog, DialogActions } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import NavigationProvider from 'lib/NavigationProvider.js'
-import { NavigationView } from 'lib/NavigationView.js'
 import {
   DeviceTable,
   type DeviceTableProps,
@@ -65,11 +63,7 @@ function WithNavigationComponent(props: DeviceTableProps) {
       <Button onClick={toggleOpen}>Open Modal</Button>
       <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
         <div className='seam-components'>
-          <NavigationProvider>
-            <NavigationView>
-              <DeviceTable {...props} />
-            </NavigationView>
-          </NavigationProvider>
+          <DeviceTable {...props} />
         </div>
         <DialogActions
           sx={{

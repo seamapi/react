@@ -12,10 +12,11 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 export interface DeviceDetailsProps {
   deviceId: string
+  onBack?: () => void
 }
 
 export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
-  const { deviceId } = props
+  const { deviceId, onBack } = props
 
   const { isLoading: isLoadingDevice, device } = useFakeDevice({
     device_id: deviceId,
@@ -46,7 +47,7 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
 
   return (
     <div className='seam-device-details'>
-      <ContentHeader title='Device' />
+      <ContentHeader title='Device' onBack={onBack} />
       <div className='seam-body'>
         <div className='seam-summary'>
           <div className='seam-content'>

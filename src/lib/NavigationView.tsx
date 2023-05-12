@@ -4,7 +4,7 @@ import { useNavigation, type View } from 'lib/NavigationProvider.js'
 import AccessCodeDetails from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 
 interface NavigationViewProps {
-  children: JSX.Element
+  children: React.ReactNode
 }
 
 export function NavigationView({ children: rootView }: NavigationViewProps) {
@@ -19,14 +19,18 @@ export function NavigationView({ children: rootView }: NavigationViewProps) {
 }
 
 function Subview({ view }: { view: View }) {
+  const { goBack } = useNavigation()
+
   switch (view.name) {
     case 'device_detail':
-      return <DeviceDetails deviceId={view.deviceId} />
+      return <DeviceDetails deviceId={view.deviceId} onBack={goBack} />
     case 'access_code_detail':
-      return <AccessCodeDetails accessCodeId={view.accessCodeId} />
+      return (
+        <AccessCodeDetails accessCodeId={view.accessCodeId} onBack={goBack} />
+      )
     case 'device_table':
-      return <DeviceTable />
+      return <DeviceTable onBack={goBack} />
     case 'access_code_table':
-      return <AccessCodeTable deviceId={view.deviceId} />
+      return <AccessCodeTable deviceId={view.deviceId} onBack={goBack} />
   }
 }

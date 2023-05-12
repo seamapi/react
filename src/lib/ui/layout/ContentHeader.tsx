@@ -1,17 +1,18 @@
 import { ArrowBackIcon } from 'lib/icons/ArrowBack.js'
-import { useNavigation } from 'lib/NavigationProvider.js'
 
-export function ContentHeader(props: { title?: string }): JSX.Element | null {
-  const { title } = props
+export function ContentHeader(props: {
+  title?: string
+  onBack?: () => void
+}): JSX.Element | null {
+  const { title, onBack } = props
 
-  const { goBack } = useNavigation()
-  if (!title && !goBack) {
+  if (!title && !onBack) {
     return null
   }
 
   return (
     <div className='seam-content-header'>
-      {goBack && <BackIcon onClick={goBack} />}
+      {onBack && <BackIcon onClick={onBack} />}
       <span className='seam-title'>{title}</span>
     </div>
   )

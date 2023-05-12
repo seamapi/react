@@ -9,6 +9,9 @@ import {
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
+import NavigationProvider from 'lib/NavigationProvider.js'
+import { NavigationView } from 'lib/NavigationView.js'
+
 declare global {
   // eslint-disable-next-line no-var
   var seam: SeamProviderProps | undefined
@@ -68,7 +71,11 @@ export function SeamProvider({
   return (
     <div className='seam-components'>
       <QueryClientProvider client={queryClientRef.current}>
-        <Provider value={{ ...contextRef.current }}>{children}</Provider>
+        <NavigationProvider>
+          <Provider value={{ ...contextRef.current }}>
+            <NavigationView>{children}</NavigationView>
+          </Provider>
+        </NavigationProvider>
       </QueryClientProvider>
     </div>
   )

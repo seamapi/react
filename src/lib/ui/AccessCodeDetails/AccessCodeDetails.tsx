@@ -8,10 +8,12 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 export interface AccessCodeDetailsProps {
   accessCodeId: string
+  onBack?: () => void
 }
 
 export default function AccessCodeDetails({
   accessCodeId,
+  onBack,
 }: AccessCodeDetailsProps) {
   const { isLoading, data: accessCode } = useFakeAccessCode({
     access_code_id: accessCodeId,
@@ -25,7 +27,7 @@ export default function AccessCodeDetails({
 
   return (
     <div className='seam-access-code-details'>
-      <ContentHeader title='Access code' />
+      <ContentHeader title='Access code' onBack={onBack} />
       <div className='seam-summary'>
         <div className='seam-top'>
           <span className='seam-label'>{t.accessCode}</span>
