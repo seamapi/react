@@ -9,7 +9,7 @@ const publishableKey =
   process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ?? fakePublishableKey
 
 const userIdentifierKey =
-  process.env['STORYBOOK_USER_IDENTIFIER_KEY'] ?? fakeUserIdentifierKey
+  process.env['STORYBOOK_SEAM_USER_IDENTIFIER_KEY'] ?? fakeUserIdentifierKey
 
 const preview: Preview = {
   parameters: {
