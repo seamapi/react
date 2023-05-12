@@ -1,5 +1,4 @@
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
-import { useNavigation } from 'lib/NavigationProvider.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -10,6 +9,7 @@ import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
+import { useNavigation } from 'lib/use-navigation.js'
 
 export function AccessCodeTable(props: { deviceId: string }): JSX.Element {
   const { accessCodes } = useAccessCodes({

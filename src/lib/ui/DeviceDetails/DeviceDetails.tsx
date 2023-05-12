@@ -1,7 +1,6 @@
 import { useAccessCodes, useFakeDevice } from 'lib/index.js'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
-import { useNavigation } from 'lib/NavigationProvider.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
@@ -9,6 +8,7 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { useNavigation } from 'lib/use-navigation.js'
 
 export interface DeviceDetailsProps {
   deviceId: string

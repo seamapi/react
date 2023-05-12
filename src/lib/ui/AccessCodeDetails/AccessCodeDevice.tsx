@@ -1,10 +1,10 @@
-import { useNavigation } from 'lib/NavigationProvider.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { useFakeDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { TextButton } from 'lib/ui/TextButton.js'
+import { useNavigation } from 'lib/use-navigation.js'
 
 export default function AccessCodeDevice({ deviceId }: { deviceId: string }) {
   //  TODO: Replace with `useDevice()` once ready
