@@ -3,7 +3,7 @@ import type { AccessCode } from 'seamapi'
 
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
-import AccessCodeDetails from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
+import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'

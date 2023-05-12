@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { useState } from 'react'
 import type { AccessCode, CommonDeviceProperties, Device } from 'seamapi'
 
-import AccessCodeDevice from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
+import { AccessCodeDevice } from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
@@ -11,7 +11,7 @@ export interface AccessCodeDetailsProps {
   onBack?: () => void
 }
 
-export default function AccessCodeDetails({
+export function AccessCodeDetails({
   accessCode,
   onBack,
 }: AccessCodeDetailsProps) {

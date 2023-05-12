@@ -7,7 +7,7 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { TextButton } from 'lib/ui/TextButton.js'
 
-export default function AccessCodeDevice({
+export function AccessCodeDevice({
   deviceId,
   onSelectDevice,
 }: {
