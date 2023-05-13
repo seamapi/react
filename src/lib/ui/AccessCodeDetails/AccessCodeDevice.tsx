@@ -13,7 +13,7 @@ export function AccessCodeDevice({
 }: {
   deviceId: string
   onSelectDevice: (device: Device<CommonDeviceProperties>) => void
-}) {
+}): JSX.Element | null {
   //  TODO: Replace with `useDevice()` once ready
   const { isLoading, device } = useFakeDevice({ device_id: deviceId })
 

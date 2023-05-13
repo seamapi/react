@@ -55,7 +55,7 @@ export const InsideModal: Story = {
   render: InsideModalComponent,
 }
 
-function InsideModalComponent(props: DeviceDetailsProps) {
+function InsideModalComponent(props: DeviceDetailsProps): JSX.Element {
   const [open, toggleOpen] = useToggle()
   // Wrap modal/dialog contents in `seam-components` class
   // to apply styles when rendered in a portal,

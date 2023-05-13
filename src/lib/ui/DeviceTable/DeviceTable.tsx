@@ -28,7 +28,10 @@ interface Props {
   onBack?: () => void
 }
 
-export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
+export function DeviceTable({
+  onBack,
+  ...props
+}: DeviceTableProps): JSX.Element | null {
   const { devices, isLoading, isError, error } = useDevices(props)
 
   const [selectedDevice, selectDevice] =
@@ -85,7 +88,7 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
 function DeviceRow(props: {
   device: UseDevicesData[number]
   onClick: () => void
-}) {
+}): JSX.Element | null {
   const { device, onClick } = props
 
   if (!isLockDevice(device)) {

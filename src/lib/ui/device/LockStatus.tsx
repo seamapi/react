@@ -21,7 +21,7 @@ export function LockStatus(props: LockStatusProps): JSX.Element {
   )
 }
 
-function Content(props: { isLocked: boolean }) {
+function Content(props: { isLocked: boolean }): JSX.Element {
   const { isLocked } = props
   if (isLocked) {
     return (

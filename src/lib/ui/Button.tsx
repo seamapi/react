@@ -12,7 +12,7 @@ export function Button({
   children,
   size = 'medium',
   disabled,
-}: ButtonProps) {
+}: ButtonProps): JSX.Element {
   return (
     <button
       className={classNames(`seam-btn seam-btn-${variant} seam-btn-${size}`, {

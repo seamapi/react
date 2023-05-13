@@ -36,7 +36,10 @@ export function useDevice(
   return { ...rest, device: data }
 }
 
-export function useFakeDevice(_params: DeviceGetRequest) {
+export function useFakeDevice(_params: DeviceGetRequest): {
+  isLoading: boolean
+  device: UseDeviceData
+} {
   const device: LockDevice = {
     device_id: 'f9a9ab36-9e14-4390-a88c-b4c78304c6aa',
     device_type: 'august_lock',
