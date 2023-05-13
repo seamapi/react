@@ -17,7 +17,6 @@ export function AccessCodeDevice({
   //  TODO: Replace with `useDevice()` once ready
   const { isLoading, device } = useFakeDevice({ device_id: deviceId })
 
-  // TODO: Do we want to return a skeleton loader here instead?
   if (isLoading || device == null || !isLockDevice(device)) {
     return null
   }
