@@ -4,11 +4,11 @@ import { TextField, type TextFieldProps } from 'lib/ui/TextField/TextField.js'
 
 export function SearchTextField({
   className,
-  ...otherProps
+  ...props
 }: TextFieldProps): JSX.Element {
   return (
     <TextField
-      {...otherProps}
+      {...props}
       className={classNames(className, 'seam-search-text-field')}
     />
   )

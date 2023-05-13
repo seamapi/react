@@ -18,7 +18,7 @@ export default meta
 type Story = StoryObj<typeof DeviceTable>
 
 export const Content: Story = {
-  render: ({ onBack, ...otherProps }) => <DeviceTable {...otherProps} />,
+  render: ({ onBack, ...props }) => <DeviceTable {...props} />,
 }
 
 export const InsideModal: Story = {
@@ -27,7 +27,7 @@ export const InsideModal: Story = {
 
 function InsideModalComponent({
   onBack,
-  ...otherProps
+  ...props
 }: DeviceTableProps): JSX.Element {
   const [open, toggleOpen] = useToggle()
   return (
@@ -35,7 +35,7 @@ function InsideModalComponent({
       <Button onClick={toggleOpen}>Open Modal</Button>
       <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
         <div className='seam-components'>
-          <DeviceTable {...otherProps} />
+          <DeviceTable {...props} />
         </div>
         <DialogActions
           sx={{
