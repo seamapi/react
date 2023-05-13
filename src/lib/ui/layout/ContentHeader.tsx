@@ -5,7 +5,7 @@ export function ContentHeader(props: {
   onBack?: () => void
 }): JSX.Element | null {
   const { title, onBack } = props
-  if (title != null && onBack == null) {
+  if (title == null && onBack == null) {
     return null
   }
 
