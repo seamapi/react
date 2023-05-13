@@ -198,15 +198,15 @@ $ npm run examples
 
 ### SVG Icon Components
 
-The React components under `src/lib/icons` are generated from `src/icons`.
+The React components under `src/lib/icons` are generated from `assets/icons`.
 To add a new icon:
 
-1. Place or update the SVG icon in `src/icons`.
+1. Place or update the SVG icon in `assets/icons`.
 2. Run `npm run generate`.
 3. Import with
 
 ```ts
-import { SeamIcon } from 'lib/icons/index.js'
+import { SeamIcon } from 'lib/icons/SeamIcon.js'
 ```
 
 ### Publishing
