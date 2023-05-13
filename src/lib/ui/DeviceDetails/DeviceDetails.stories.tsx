@@ -2,7 +2,6 @@ import { Close as CloseIcon } from '@mui/icons-material'
 import { Button, Dialog, DialogActions, IconButton } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { LockDevice } from 'seamapi'
-import { v4 as uuid } from 'uuid'
 
 import {
   DeviceDetails,
@@ -11,9 +10,9 @@ import {
 import useToggle from 'lib/use-toggle.js'
 
 const fakeDevice: LockDevice = {
-  workspace_id: uuid(),
-  device_id: uuid(),
-  connected_account_id: uuid(),
+  workspace_id: '0f272652-7bdd-4abc-9fb0-616f25c2213e',
+  device_id: 'fc4eef92-951f-4954-8358-742ca90516e0',
+  connected_account_id: '4de4e249-17c2-4bbc-8828-08aaac6fd098',
   device_type: 'august_lock',
   created_at: '2022-12-18T04:35:20.737Z',
   properties: {
@@ -23,7 +22,7 @@ const fakeDevice: LockDevice = {
     online: true,
     schlage_metadata: {
       model: 'Schlage Lock',
-      device_id: uuid(),
+      device_id: '95b0c8fd-ab40-4dcb-9f73-3c20f89cea19',
       device_name: 'Lock',
       access_code_length: 6,
     },
