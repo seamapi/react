@@ -8,6 +8,7 @@ import type {
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
+import { byCreatedAt } from 'lib/sort-by.js'
 
 export type UseAccessCodesParams = AccessCodesListRequest | string
 export type UseAccessCodesData = AccessCode[]
@@ -28,10 +29,7 @@ export function useAccessCodes(
     queryFn: async () => {
       if (client == null) return []
       const accessCodes = await client?.accessCodes.list(normalizedParams)
-      return accessCodes.sort(
-        (a, b) =>
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-      )
+      return accessCodes.sort(byCreatedAt)
     },
   })
 
