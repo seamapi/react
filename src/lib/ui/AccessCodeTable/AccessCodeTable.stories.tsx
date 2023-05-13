@@ -93,9 +93,6 @@ export const InsideModal: Story = {
 
 function InsideModalComponent(props: AccessCodeTableContentProps): JSX.Element {
   const [open, toggleOpen] = useToggle()
-  // Wrap modal/dialog contents in `seam-components` class
-  // to apply styles when rendered in a portal,
-  // which is the default MUI behavior.
   return (
     <>
       <Button onClick={toggleOpen}>Open Modal</Button>
