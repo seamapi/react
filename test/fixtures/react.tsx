@@ -1,5 +1,3 @@
-import 'isomorphic-fetch'
-
 import { SeamProvider } from '@seamapi/react'
 import { render } from '@testing-library/react'
 import type { PropsWithChildren } from 'react'
@@ -15,7 +13,7 @@ declare global {
   var JEST_SEAM_CLIENT_SESSION_TOKEN_2: string
 }
 
-const Providers = ({ children }: PropsWithChildren): JSX.Element => {
+function Providers({ children }: PropsWithChildren): JSX.Element {
   return (
     <SeamProvider
       endpoint={globalThis.JEST_SEAM_ENDPOINT}

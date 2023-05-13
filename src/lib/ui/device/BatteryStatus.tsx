@@ -9,7 +9,7 @@ export interface BatteryStatusProps {
   device: LockDevice
 }
 
-export function BatteryStatus(props: BatteryStatusProps) {
+export function BatteryStatus(props: BatteryStatusProps): JSX.Element {
   const {
     device: {
       properties: { battery_level: batteryLevel },
@@ -23,7 +23,7 @@ export function BatteryStatus(props: BatteryStatusProps) {
   )
 }
 
-function Content(props: { batteryLevel?: number }) {
+function Content(props: { batteryLevel?: number }): JSX.Element | null {
   const { batteryLevel } = props
 
   if (batteryLevel == null) {

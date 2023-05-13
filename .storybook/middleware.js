@@ -2,7 +2,8 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 
 import { seedFake } from './seed-fake.js'
 
-// UPSTREAM: https://github.com/storybookjs/storybook/issues/208#issuecomment-1485081586
+// UPSTREAM: This file must use the .js extension.
+// https://github.com/storybookjs/storybook/issues/208#issuecomment-1485081586
 /** @type {(app: import('express').Router) => void} */
 export default async (app) => {
   const { create } = await import('@seamapi/fake-seam-connect')

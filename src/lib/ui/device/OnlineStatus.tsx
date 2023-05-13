@@ -21,7 +21,7 @@ export function OnlineStatus(props: OnlineStatusProps): JSX.Element {
   )
 }
 
-function Content(props: { isOnline: boolean }) {
+function Content(props: { isOnline: boolean }): JSX.Element {
   const { isOnline } = props
   if (isOnline) {
     return (

@@ -14,12 +14,12 @@ export interface AccessCodeDetailsProps {
 export function AccessCodeDetails({
   accessCode,
   onBack,
-}: AccessCodeDetailsProps) {
+}: AccessCodeDetailsProps): JSX.Element {
   const name = accessCode.name ?? t.fallbackName
   const [selectedDevice, selectDevice] =
     useState<Device<CommonDeviceProperties> | null>(null)
 
-  if (selectedDevice) {
+  if (selectedDevice != null) {
     return (
       <DeviceDetails
         device={selectedDevice}
@@ -70,7 +70,7 @@ export function AccessCodeDetails({
   )
 }
 
-function ScheduleInfo({ accessCode }: { accessCode: AccessCode }) {
+function ScheduleInfo({ accessCode }: { accessCode: AccessCode }): JSX.Element {
   if (accessCode.type === 'ongoing') {
     return <span>{t.ongoing}</span>
   }

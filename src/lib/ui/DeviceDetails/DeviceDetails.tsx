@@ -20,7 +20,7 @@ export interface DeviceDetailsProps {
 export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
   const { device, onBack } = props
 
-  const [showingAccessCodes, toggleAccessCodes] = useToggle()
+  const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
 
   const { isLoading, accessCodes } = useAccessCodes({
     device_id: device.device_id,
@@ -30,9 +30,12 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
     return null
   }
 
-  if (showingAccessCodes) {
+  if (accessCodesOpen) {
     return (
-      <AccessCodeTable deviceId={device.device_id} onBack={toggleAccessCodes} />
+      <AccessCodeTable
+        deviceId={device.device_id}
+        onBack={toggleAccessCodesOpen}
+      />
     )
   }
 
@@ -72,7 +75,7 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
         <div className='seam-box'>
           <div
             className='seam-content seam-access-codes'
-            onClick={toggleAccessCodes}
+            onClick={toggleAccessCodesOpen}
           >
             <span className='seam-value'>
               {accessCodeCount} {t.accessCodes}

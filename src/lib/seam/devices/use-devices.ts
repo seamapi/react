@@ -9,6 +9,7 @@ import type {
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
+import { byCreatedAt } from 'lib/sort-by.js'
 
 export type UseDevicesParams = DevicesListRequest
 export type UseDevicesData = Array<Device<CommonDeviceProperties>>
@@ -24,10 +25,7 @@ export function useDevices(
       queryFn: async () => {
         if (client == null) return []
         const devices = await client?.devices.list(params)
-        return devices.sort(
-          (a, b) =>
-            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-        )
+        return devices.sort(byCreatedAt)
       },
     }
   )

@@ -28,13 +28,16 @@ interface Props {
   onBack?: () => void
 }
 
-export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
+export function DeviceTable({
+  onBack,
+  ...props
+}: DeviceTableProps): JSX.Element | null {
   const { devices, isLoading, isError, error } = useDevices(props)
 
   const [selectedDevice, selectDevice] =
     useState<Device<CommonDeviceProperties> | null>(null)
 
-  if (selectedDevice) {
+  if (selectedDevice != null) {
     return (
       <DeviceDetails
         device={selectedDevice}
@@ -45,9 +48,17 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
     )
   }
 
-  if (isLoading) return <p>...</p>
-  if (isError) return <p>{error?.message}</p>
-  if (devices == null) return null
+  if (isLoading) {
+    return <p>...</p>
+  }
+
+  if (isError) {
+    return <p>{error?.message}</p>
+  }
+
+  if (devices == null) {
+    return null
+  }
 
   const deviceCount = devices.length
 
@@ -77,10 +88,12 @@ export function DeviceTable({ onBack, ...props }: DeviceTableProps) {
 function DeviceRow(props: {
   device: UseDevicesData[number]
   onClick: () => void
-}) {
+}): JSX.Element | null {
   const { device, onClick } = props
 
-  if (!isLockDevice(device)) return null
+  if (!isLockDevice(device)) {
+    return null
+  }
 
   const deviceModel = getDeviceModel(device) ?? t.unknownLock
 

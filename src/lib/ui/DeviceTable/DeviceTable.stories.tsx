@@ -18,24 +18,24 @@ export default meta
 type Story = StoryObj<typeof DeviceTable>
 
 export const Content: Story = {
-  render: ({ onBack, ...otherProps }) => <DeviceTable {...otherProps} />,
+  render: ({ onBack, ...props }) => <DeviceTable {...props} />,
 }
 
 export const InsideModal: Story = {
   render: InsideModalComponent,
 }
 
-function InsideModalComponent({ onBack, ...otherProps }: DeviceTableProps) {
+function InsideModalComponent({
+  onBack,
+  ...props
+}: DeviceTableProps): JSX.Element {
   const [open, toggleOpen] = useToggle()
-  // Wrap modal/dialog contents in `seam-components` class
-  // to apply styles when rendered in a portal,
-  // which is the default MUI behavior.
   return (
     <>
       <Button onClick={toggleOpen}>Open Modal</Button>
       <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
         <div className='seam-components'>
-          <DeviceTable {...otherProps} />
+          <DeviceTable {...props} />
         </div>
         <DialogActions
           sx={{
