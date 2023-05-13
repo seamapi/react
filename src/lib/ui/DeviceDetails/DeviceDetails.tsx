@@ -75,7 +75,7 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
         <div className='seam-box'>
           <div
             className='seam-content seam-access-codes'
-            onClick={toggleAccessCodes}
+            onClick={toggleAccessCodesOpen}
           >
             <span className='seam-value'>
               {accessCodeCount} {t.accessCodes}
