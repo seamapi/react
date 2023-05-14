@@ -5,6 +5,7 @@ import type { AccessCode, CommonDeviceProperties, Device } from 'seamapi'
 import { AccessCodeDevice } from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { useIsDateInPast } from 'lib/use-is-date-in-past.js'
 
 export interface AccessCodeDetailsProps {
   accessCode: AccessCode
@@ -92,6 +93,11 @@ function ScheduleInfo({ accessCode }: { accessCode: AccessCode }): JSX.Element {
 
 function Duration(props: { accessCode: AccessCode }): JSX.Element {
   const { accessCode } = props
+
+  const hasStarted =
+    useIsDateInPast('starts_at' in accessCode ? accessCode?.starts_at : null) ??
+    false
+
   if (accessCode.type === 'ongoing') {
     return (
       <span>
@@ -100,7 +106,6 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
     )
   }
 
-  const hasStarted = new Date(accessCode.starts_at).valueOf() < Date.now()
   if (hasStarted) {
     return (
       <span>
