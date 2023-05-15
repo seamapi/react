@@ -2,6 +2,7 @@
 @use './typography';
 @use './tables';
 @use './inputs';
+@use './alert';
 @use './buttons';
 @use './layout';
 @use './access-code-table';
@@ -28,4 +29,5 @@
   @include device-table.all;
   @include access-code-table.all;
   @include access-code-details.all;
+  @include alert.all;
 }

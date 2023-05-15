@@ -11,6 +11,7 @@ import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import useToggle from 'lib/use-toggle.js'
+import { Alert } from 'lib/ui/Alert.js'
 
 export interface DeviceDetailsProps {
   device: Device<CommonDeviceProperties>
@@ -71,6 +72,15 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
               </div>
             </div>
           </div>
+          <Alert
+            variant='warning'
+            message='Lock is in Privacy Mode. Access Codes will not unlock doors.'
+            action={{
+              label: 'View setting',
+              onClick: () => {},
+            }}
+            className='seam-alert-space-top'
+          />
         </div>
         <div className='seam-box'>
           <div

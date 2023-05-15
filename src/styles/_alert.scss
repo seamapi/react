@@ -1,0 +1,76 @@
+@use './colors';
+
+@mixin all {
+	.seam-alert {
+		width: 100%;
+		height: 70px;
+		padding: 8px 16px;
+		border-radius: 8px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row;
+		gap: 16px;
+
+		&.seam-warning-alert {
+			background-color: colors.$alert-warn-fill;
+			border: 1px solid colors.$alert-warn-line;
+
+			& .seam-alert-action {
+				border: 1px solid colors.$alert-warn-dark;
+				color: colors.$alert-warn-dark;
+			}
+		}
+
+		&.seam-error-alert {
+			background-color: colors.$alert-error-fill;
+			border: 1px solid colors.$alert-error-line;
+
+			& .seam-alert-action {
+				border: 1px solid colors.$alert-error-dark;
+				color: colors.$alert-error-dark;
+			}
+		}
+
+		&.seam-alert-space-top {
+			margin-top: 16px;
+		}
+
+		& .seam-alert-content {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			flex-direction: row;
+			gap: 8px;
+		}
+
+		& .seam-alert-message-wrap {
+			max-width: 280px;
+
+			& .seam-alert-message {
+				font-size: 14px;
+				font-weight: 400;
+				line-height: 134%;
+				color: colors.$text-default;
+			}
+		}
+
+		& .seam-alert-action-wrap {}
+
+		& .seam-alert-action {
+			appearance: none;
+			height: 32px;
+			padding: 0 10px;
+			border-radius: 6px;
+			background-color: transparent;
+			font-size: 14px;
+			line-height: 1;
+			font-weight: 600;
+			cursor: pointer;
+
+			&:hover {
+				background-color: colors.$item-hover-bg;
+			}
+		}
+	}
+}
