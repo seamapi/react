@@ -30,6 +30,7 @@ export function useDevices(
         return devices.sort(byCreatedAt)
       },
       onSuccess(devices) {
+        // Pre-load device data in cache to avoid load times
         for (const device of devices) {
           qc.setQueryData(
             ['devices', 'get', { device_id: device.device_id }],
