@@ -3,7 +3,7 @@
 @mixin all {
 	.seam-alert {
 		width: 100%;
-		height: 70px;
+		min-height: 70px;
 		padding: 8px 16px;
 		border-radius: 8px;
 		display: flex;
@@ -16,7 +16,7 @@
 			background-color: colors.$alert-warn-fill;
 			border: 1px solid colors.$alert-warn-line;
 
-			& .seam-alert-action {
+			.seam-alert-action {
 				border: 1px solid colors.$alert-warn-dark;
 				color: colors.$alert-warn-dark;
 			}
@@ -26,7 +26,7 @@
 			background-color: colors.$alert-error-fill;
 			border: 1px solid colors.$alert-error-line;
 
-			& .seam-alert-action {
+			.seam-alert-action {
 				border: 1px solid colors.$alert-error-dark;
 				color: colors.$alert-error-dark;
 			}
@@ -36,18 +36,18 @@
 			margin-top: 16px;
 		}
 
-		& .seam-alert-content {
+		.seam-alert-content {
 			display: flex;
 			justify-content: flex-start;
-			align-items: center;
+			align-items: flex-start;
 			flex-direction: row;
 			gap: 8px;
 		}
 
-		& .seam-alert-message-wrap {
-			max-width: 280px;
+		.seam-alert-message-wrap {
+			// max-width: 280px;
 
-			& .seam-alert-message {
+			.seam-alert-message {
 				font-size: 14px;
 				font-weight: 400;
 				line-height: 134%;
@@ -55,9 +55,9 @@
 			}
 		}
 
-		& .seam-alert-action-wrap {}
+		.seam-alert-action-wrap {}
 
-		& .seam-alert-action {
+		.seam-alert-action {
 			appearance: none;
 			height: 32px;
 			padding: 0 10px;
@@ -66,10 +66,32 @@
 			font-size: 14px;
 			line-height: 1;
 			font-weight: 600;
+			white-space: nowrap;
 			cursor: pointer;
 
 			&:hover {
 				background-color: colors.$item-hover-bg;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 500px) {
+		.seam-alert {
+			justify-content: flex-start;
+			flex-direction: column;
+
+			.seam-alert-content {
+				width: 100%;
+				flex-direction: column;
+				gap: 4px;
+			}
+
+			.seam-alert-action-wrap {
+				width: 100%;
+
+				.seam-alert-action {
+					width: 100%;
+				}
 			}
 		}
 	}
