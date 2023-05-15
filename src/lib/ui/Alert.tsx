@@ -1,8 +1,8 @@
-import type { MouseEventHandler } from 'react'
 import classNames from 'classnames'
+import type { MouseEventHandler } from 'react'
 
-import { WarningIcon } from 'lib/icons/Warning.js'
 import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
+import { WarningIcon } from 'lib/icons/Warning.js'
 
 export interface AlertProps {
   variant: 'warning' | 'error'
@@ -21,7 +21,7 @@ export function Alert(props: AlertProps): JSX.Element {
     throw new Error('Alert must have a variant')
   }
 
-  if (action) {
+  if (action != null) {
     if (!action.label) {
       throw new Error('Alert action must have a label')
     }
@@ -46,7 +46,7 @@ export function Alert(props: AlertProps): JSX.Element {
         </div>
       </div>
 
-      {action && (
+      {(action != null) && (
         <div className='seam-alert-action-wrap'>
           <button onClick={action.onClick} className='seam-alert-action'>
             {action.label}
