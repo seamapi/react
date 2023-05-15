@@ -24,7 +24,7 @@ export function useAccessCodes(
     AccessCodesListResponse['access_codes'],
     SeamError
   >({
-    enabled: client != null && normalizedParams.device_id != null,
+    enabled: client != null,
     queryKey: ['access_codes', 'list', normalizedParams],
     queryFn: async () => {
       if (client == null) return []
