@@ -75,7 +75,7 @@
     "examples:preview": "vite preview examples",
     "examples:storybook": "vite examples --host --clearScreen false --mode storybook",
     "preexamples:preview": "npm run examples:build",
-    "generate": "svgr --out-dir src/lib/icons -- src/icons",
+    "generate": "svgr --out-dir src/lib/icons -- assets/icons",
     "pregenerate": "del src/lib/icons",
     "postgenerate": "eslint --fix src/lib/icons",
     "format": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.mjs,.ts,.tsx .",
