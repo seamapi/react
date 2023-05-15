@@ -1,94 +1,94 @@
 @use './colors';
 
 @mixin all {
-	.seam-alert {
-		width: 100%;
-		min-height: 70px;
-		padding: 8px 16px;
-		border-radius: 8px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		flex-direction: row;
-		gap: 16px;
+  .seam-alert {
+    width: 100%;
+    min-height: 70px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 16px;
 
-		&.seam-warning-alert {
-			background-color: colors.$alert-warn-fill;
-			border: 1px solid colors.$alert-warn-line;
+    &.seam-warning-alert {
+      background-color: colors.$alert-warn-fill;
+      border: 1px solid colors.$alert-warn-line;
 
-			.seam-alert-action {
-				border: 1px solid colors.$alert-warn-dark;
-				color: colors.$alert-warn-dark;
-			}
-		}
+      .seam-alert-action {
+        border: 1px solid colors.$alert-warn-dark;
+        color: colors.$alert-warn-dark;
+      }
+    }
 
-		&.seam-error-alert {
-			background-color: colors.$alert-error-fill;
-			border: 1px solid colors.$alert-error-line;
+    &.seam-error-alert {
+      background-color: colors.$alert-error-fill;
+      border: 1px solid colors.$alert-error-line;
 
-			.seam-alert-action {
-				border: 1px solid colors.$alert-error-dark;
-				color: colors.$alert-error-dark;
-			}
-		}
+      .seam-alert-action {
+        border: 1px solid colors.$alert-error-dark;
+        color: colors.$alert-error-dark;
+      }
+    }
 
-		&.seam-alert-space-top {
-			margin-top: 16px;
-		}
+    &.seam-alert-space-top {
+      margin-top: 16px;
+    }
 
-		.seam-alert-content {
-			display: flex;
-			justify-content: flex-start;
-			align-items: flex-start;
-			flex-direction: row;
-			gap: 8px;
-		}
+    .seam-alert-content {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: row;
+      gap: 8px;
+    }
 
-		.seam-alert-message-wrap {
-			.seam-alert-message {
-				font-size: 14px;
-				font-weight: 400;
-				line-height: 134%;
-				color: colors.$text-default;
-			}
-		}
+    .seam-alert-message-wrap {
+      .seam-alert-message {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 134%;
+        color: colors.$text-default;
+      }
+    }
 
-		.seam-alert-action {
-			appearance: none;
-			height: 32px;
-			padding: 0 10px;
-			border-radius: 6px;
-			background-color: transparent;
-			font-size: 14px;
-			line-height: 1;
-			font-weight: 600;
-			white-space: nowrap;
-			cursor: pointer;
+    .seam-alert-action {
+      appearance: none;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 6px;
+      background-color: transparent;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
 
-			&:hover {
-				background-color: colors.$item-hover-bg;
-			}
-		}
-	}
+      &:hover {
+        background-color: colors.$item-hover-bg;
+      }
+    }
+  }
 
-	@media only screen and (max-width: 500px) {
-		.seam-alert {
-			justify-content: flex-start;
-			flex-direction: column;
+  @media only screen and (max-width: 500px) {
+    .seam-alert {
+      justify-content: flex-start;
+      flex-direction: column;
 
-			.seam-alert-content {
-				width: 100%;
-				flex-direction: column;
-				gap: 4px;
-			}
+      .seam-alert-content {
+        width: 100%;
+        flex-direction: column;
+        gap: 4px;
+      }
 
-			.seam-alert-action-wrap {
-				width: 100%;
+      .seam-alert-action-wrap {
+        width: 100%;
 
-				.seam-alert-action {
-					width: 100%;
-				}
-			}
-		}
-	}
+        .seam-alert-action {
+          width: 100%;
+        }
+      }
+    }
+  }
 }

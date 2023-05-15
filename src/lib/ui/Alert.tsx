@@ -46,7 +46,7 @@ export function Alert(props: AlertProps): JSX.Element {
         </div>
       </div>
 
-      {(action != null) && (
+      {action != null && (
         <div className='seam-alert-action-wrap'>
           <button onClick={action.onClick} className='seam-alert-action'>
             {action.label}
