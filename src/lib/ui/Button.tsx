@@ -5,6 +5,7 @@ interface ButtonProps {
   variant?: 'solid' | 'outline' | 'neutral'
   size?: 'small' | 'medium' | 'large'
   disabled?: boolean
+  onClick?: () => void
 }
 
 export function Button({
@@ -12,6 +13,7 @@ export function Button({
   children,
   size = 'medium',
   disabled,
+  onClick,
 }: ButtonProps): JSX.Element {
   return (
     <button
@@ -19,6 +21,7 @@ export function Button({
         'seam-btn-disabled': disabled,
       })}
       disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </button>

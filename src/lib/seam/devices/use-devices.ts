@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type {
   CommonDeviceProperties,
   Device,
@@ -18,6 +18,8 @@ export function useDevices(
   params?: UseDevicesParams
 ): UseSeamQueryResult<'devices', UseDevicesData> {
   const { client } = useSeamClient()
+  const qc = useQueryClient()
+
   const { data, ...rest } = useQuery<DevicesListResponse['devices'], SeamError>(
     {
       enabled: client != null,
@@ -26,6 +28,14 @@ export function useDevices(
         if (client == null) return []
         const devices = await client?.devices.list(params)
         return devices.sort(byCreatedAt)
+      },
+      onSuccess(devices) {
+        for (const device of devices) {
+          qc.setQueryData(
+            ['devices', 'get', { device_id: device.device_id }],
+            device
+          )
+        }
       },
     }
   )

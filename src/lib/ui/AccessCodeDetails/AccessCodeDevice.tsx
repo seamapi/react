@@ -1,7 +1,8 @@
-import type { CommonDeviceProperties, Device } from 'seamapi'
+import type { LockDevice } from 'seamapi'
 
 import { isLockDevice } from 'lib/seam/devices/types.js'
-import { useFakeDevice } from 'lib/seam/devices/use-device.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
+import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Button } from 'lib/ui/Button.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
@@ -12,16 +13,26 @@ export function AccessCodeDevice({
   onSelectDevice,
 }: {
   deviceId: string
-  onSelectDevice: (device: Device<CommonDeviceProperties>) => void
+  onSelectDevice: (deviceId: string) => void
 }): JSX.Element | null {
-  //  TODO: Replace with `useDevice()` once ready
-  const { isLoading, device } = useFakeDevice({ device_id: deviceId })
+  const { isLoading, device } = useDevice({ device_id: deviceId })
 
   if (isLoading || device == null || !isLockDevice(device)) {
     return null
   }
 
+  return <LockDeviceDetails device={device} onSelectDevice={onSelectDevice} />
+}
+
+function LockDeviceDetails(props: {
+  device: LockDevice
+  onSelectDevice: (deviceId: string) => void
+}) {
+  const { device, onSelectDevice } = props
+  const toggleLock = useToggleLock(device)
   const model = getDeviceModel(device)
+
+  const toggleLockLabel = device.properties.locked ? t.unlock : t.lock
 
   return (
     <div className='seam-access-code-device'>
@@ -32,17 +43,25 @@ export function AccessCodeDevice({
         <div className='seam-model'>{model}</div>
         <TextButton
           onClick={() => {
-            onSelectDevice(device)
+            onSelectDevice(device.device_id)
           }}
         >
           {t.deviceDetails}
         </TextButton>
       </div>
-      <Button>Unlock</Button>
+      <Button
+        onClick={() => {
+          toggleLock.mutate()
+        }}
+      >
+        {toggleLockLabel}
+      </Button>
     </div>
   )
 }
 
 const t = {
   deviceDetails: 'Device details',
+  unlock: 'Unlock',
+  lock: 'Lock',
 }
