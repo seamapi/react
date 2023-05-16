@@ -1,4 +1,4 @@
-import { type LockDevice } from 'seamapi'
+import type { LockDevice } from 'seamapi'
 
 import { useDevice } from 'lib/index.js'
 
