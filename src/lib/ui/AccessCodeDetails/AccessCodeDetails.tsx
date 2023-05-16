@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type { AccessCode, CommonDeviceProperties, Device } from 'seamapi'
+import type { AccessCode } from 'seamapi'
 
 import { AccessCodeDevice } from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
@@ -17,13 +17,12 @@ export function AccessCodeDetails({
   onBack,
 }: AccessCodeDetailsProps): JSX.Element {
   const name = accessCode.name ?? t.fallbackName
-  const [selectedDevice, selectDevice] =
-    useState<Device<CommonDeviceProperties> | null>(null)
+  const [selectedDeviceId, selectDevice] = useState<string | null>(null)
 
-  if (selectedDevice != null) {
+  if (selectedDeviceId != null) {
     return (
       <DeviceDetails
-        device={selectedDevice}
+        deviceId={selectedDeviceId}
         onBack={() => {
           selectDevice(null)
         }}

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import type { CommonDeviceProperties, Device } from 'seamapi'
 
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
@@ -34,13 +33,12 @@ export function DeviceTable({
 }: DeviceTableProps): JSX.Element | null {
   const { devices, isLoading, isError, error } = useDevices(props)
 
-  const [selectedDevice, selectDevice] =
-    useState<Device<CommonDeviceProperties> | null>(null)
+  const [selectedDeviceId, selectDevice] = useState<string | null>(null)
 
-  if (selectedDevice != null) {
+  if (selectedDeviceId != null) {
     return (
       <DeviceDetails
-        device={selectedDevice}
+        deviceId={selectedDeviceId}
         onBack={() => {
           selectDevice(null)
         }}
@@ -76,7 +74,7 @@ export function DeviceTable({
             device={device}
             key={device.device_id}
             onClick={() => {
-              selectDevice(device)
+              selectDevice(device.device_id)
             }}
           />
         ))}
