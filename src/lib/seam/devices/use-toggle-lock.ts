@@ -60,7 +60,7 @@ export function useToggleLock({
         }
       )
 
-      qc.setQueryData<LockDevice>(
+      queryClient.setQueryData<LockDevice>(
         ['devices', 'get', { device_id: deviceId }],
         (device) => {
           if (device == null) {
