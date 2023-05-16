@@ -24,8 +24,7 @@ export function useToggleLock({
   void
 > {
   const { client } = useSeamClient()
-
-  const qc = useQueryClient()
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async () => {
