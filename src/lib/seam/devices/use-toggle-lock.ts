@@ -43,9 +43,9 @@ export function useToggleLock({
             return
           }
 
-          return devices.map((d) => {
+          return devices.map((device) => {
             const isTarget = device.device_id === deviceId
-            if (isTarget && isLockDevice(d)) {
+            if (isTarget && isLockDevice(device)) {
               return {
                 ...device,
                 properties: {
@@ -78,10 +78,10 @@ export function useToggleLock({
       )
     },
     onSettled: async () => {
-      await qc.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ['devices', 'list'],
       })
-      await qc.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ['devices', 'get', { device_id: deviceId }],
       })
     },
