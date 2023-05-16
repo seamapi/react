@@ -7,6 +7,7 @@ import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
+import { Alert } from 'lib/ui/Alert.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
@@ -88,6 +89,15 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
               </div>
             </div>
           </div>
+          <Alert
+            variant='warning'
+            message='Lock is in Privacy Mode. Access Codes will not unlock doors.'
+            action={{
+              label: 'View setting',
+              onClick: () => {},
+            }}
+            className='seam-alert-space-top'
+          />
         </div>
         <div className='seam-box'>
           <div
