@@ -14,10 +14,14 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-export function AccessCodeTable(props: {
+export interface AccessCodeTableProps {
   deviceId: string
   onBack?: () => void
-}): JSX.Element | null {
+}
+
+export function AccessCodeTable(
+  props: AccessCodeTableProps
+): JSX.Element | null {
   const { accessCodes } = useAccessCodes({
     device_id: props.deviceId,
   })
