@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import type { MouseEventHandler } from 'react'
 
 import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
-import { WarningIcon } from 'lib/icons/Warning.js'
+import { TriangleWarningIcon } from 'lib/icons/TriangleWarning.js'
 
 export interface AlertProps {
   variant: 'warning' | 'error'
@@ -17,20 +17,6 @@ export interface AlertProps {
 export function Alert(props: AlertProps): JSX.Element {
   const { variant, message, action, className, ...rest } = props
 
-  if (!variant) {
-    throw new Error('Alert must have a variant')
-  }
-
-  if (action != null) {
-    if (!action.label) {
-      throw new Error('Alert action must have a label')
-    }
-
-    if (!action.onClick) {
-      throw new Error('Alert action must have an onClick handler')
-    }
-  }
-
   return (
     <div
       className={classNames('seam-alert', `seam-${variant}-alert`, className)}
@@ -38,7 +24,7 @@ export function Alert(props: AlertProps): JSX.Element {
     >
       <div className='seam-alert-content'>
         <div className='seam-alert-icon'>
-          {variant === 'warning' ? <WarningIcon /> : <ExclamationCircleIcon />}
+          {variant === 'warning' ? <TriangleWarningIcon /> : <ExclamationCircleIcon />}
         </div>
 
         <div className='seam-alert-message-wrap'>
