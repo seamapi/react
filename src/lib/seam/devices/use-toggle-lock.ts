@@ -44,19 +44,18 @@ export function useToggleLock({
           }
 
           return devices.map((d) => {
-            const isTarget = d.device_id === deviceId
-
+            const isTarget = device.device_id === deviceId
             if (isTarget && isLockDevice(d)) {
               return {
-                ...d,
+                ...device,
                 properties: {
-                  ...d.properties,
-                  locked: !d.properties.locked,
+                  ...device.properties,
+                  locked: !device.properties.locked,
                 },
               }
             }
 
-            return d
+            return device
           })
         }
       )
