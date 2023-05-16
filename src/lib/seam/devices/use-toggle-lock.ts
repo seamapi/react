@@ -36,7 +36,7 @@ export function useToggleLock({
       return await toggle(deviceId)
     },
     onMutate: () => {
-      qc.setQueryData<Array<Device<CommonDeviceProperties>>>(
+      queryClient.setQueryData<Array<Device<CommonDeviceProperties>>>(
         ['devices', 'list', {}],
         (devices) => {
           if (devices == null) {
