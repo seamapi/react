@@ -39,8 +39,8 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
 }
 
 function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
-  const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const { device, onBack } = props
+  const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
   const { accessCodes } = useAccessCodes({
     device_id: device.device_id,
