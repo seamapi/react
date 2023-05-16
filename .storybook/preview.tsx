@@ -23,9 +23,6 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => {
-      // TODO: This should be given by the story, some stories will want
-      // to use different publishable keys, user identifiers etc. to simulate
-      // different scenarios
       return (
         <SeamProvider
           publishableKey={publishableKey}
