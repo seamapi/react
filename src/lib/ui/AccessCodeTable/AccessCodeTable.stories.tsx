@@ -8,7 +8,7 @@ import {
 import useToggle from 'lib/use-toggle.js'
 
 /**
- * These stories showcase the device manager.
+ * These stories showcase the access code table.
  */
 const meta: Meta<typeof AccessCodeTable> = {
   title: 'Example/AccessCodeTable',

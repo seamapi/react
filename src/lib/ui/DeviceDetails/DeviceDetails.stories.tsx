@@ -9,7 +9,7 @@ import {
 import useToggle from 'lib/use-toggle.js'
 
 /**
- * These stories showcase the device manager.
+ * These stories showcase the device details.
  */
 const meta: Meta<typeof DeviceDetails> = {
   title: 'Example/DeviceDetails',
