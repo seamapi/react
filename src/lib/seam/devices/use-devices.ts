@@ -18,7 +18,7 @@ export function useDevices(
   params?: UseDevicesParams
 ): UseSeamQueryResult<'devices', UseDevicesData> {
   const { client } = useSeamClient()
-  const qc = useQueryClient()
+  const queryClient = useQueryClient()
 
   const { data, ...rest } = useQuery<DevicesListResponse['devices'], SeamError>(
     {
