@@ -32,8 +32,6 @@ function Content(props: { isOnline: boolean }): JSX.Element {
     )
   }
 
-  // TODO: Check for Account Offline status
-
   return (
     <>
       <OnlineStatusDeviceOfflineIcon />
