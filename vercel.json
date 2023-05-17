@@ -6,6 +6,12 @@
     "silent": true
   },
   "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/:fakepath*",
+      "destination": "/api/fakepath"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
