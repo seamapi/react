@@ -3,25 +3,24 @@ import '../src/index.scss'
 import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
-import { fakePublishableKey, fakeUserIdentifierKey } from './seed-fake.js'
-
-const isProd = process.env['NODE_ENV'] === 'production'
-const useFake = process.env['STORYBOOK_SEAM_ENDPOINT'] == null
+// process.env['STORYBOOK_SEAM_ENDPOINT'] == null
+const useFake = true
 
 const preview: Preview = {
   globalTypes: {
     /** @deprecated use "seam_pk1ws2_0000" **/
     publishableKey: {
       description: 'Seam publishable key',
-      defaultValue:
-        process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ?? fakePublishableKey,
+      defaultValue: useFake
+        ? 'seam_pk1ws2_0000'
+        : process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'],
     },
     /** @deprecated use "seed_client_session_user_2" **/
     userIdentifierKey: {
       description: 'Seam user identifier key',
-      defaultValue:
-        process.env['STORYBOOK_SEAM_USER_IDENTIFIER_KEY'] ??
-        fakeUserIdentifierKey,
+      defaultValue: useFake
+        ? 'seed_client_session_user_2'
+        : process.env['STORYBOOK_SEAM_USER_IDENTIFIER_KEY'],
     },
     /** @deprecated use "device1" **/
     deviceId: {
@@ -37,6 +36,10 @@ const preview: Preview = {
         ? 'access_code1'
         : 'a4d00b36-09e2-467f-a9f3-bb73cea1351c',
     },
+    seamEndpoint: {
+      description: 'Seam Endpoint',
+      defaultValue: useFake ? '/api' : process.env['STORYBOOK_SEAM_ENDPOINT'],
+    },
   },
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -48,12 +51,15 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story, { globals: { publishableKey, userIdentifierKey } }) => {
+    (
+      Story,
+      { globals: { publishableKey, userIdentifierKey, seamEndpoint } }
+    ) => {
       return (
         <SeamProvider
           publishableKey={publishableKey}
           userIdentifierKey={userIdentifierKey}
-          endpoint='/api'
+          endpoint={seamEndpoint}
         >
           <Story />
         </SeamProvider>
