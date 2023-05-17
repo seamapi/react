@@ -10,23 +10,27 @@ const useFake = process.env['STORYBOOK_SEAM_ENDPOINT'] == null
 
 const preview: Preview = {
   globalTypes: {
+    /** @deprecated use "seam_pk1ws2_0000" **/
     publishableKey: {
       description: 'Seam publishable key',
       defaultValue:
         process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'] ?? fakePublishableKey,
     },
+    /** @deprecated use "seed_client_session_user_2" **/
     userIdentifierKey: {
       description: 'Seam user identifier key',
       defaultValue:
         process.env['STORYBOOK_SEAM_USER_IDENTIFIER_KEY'] ??
         fakeUserIdentifierKey,
     },
+    /** @deprecated use "device1" **/
     deviceId: {
       description: 'Device id',
       defaultValue: useFake
         ? 'device1'
         : 'f9a9ab36-9e14-4390-a88c-b4c78304c6aa',
     },
+    /** @deprecated use "access_code1" **/
     accessCodeId: {
       description: 'Access code id',
       defaultValue: useFake
@@ -49,7 +53,7 @@ const preview: Preview = {
         <SeamProvider
           publishableKey={publishableKey}
           userIdentifierKey={userIdentifierKey}
-          {...(isProd ? {} : { endpoint: '/api' })}
+          endpoint='/api'
         >
           <Story />
         </SeamProvider>
