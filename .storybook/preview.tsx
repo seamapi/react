@@ -3,23 +3,24 @@ import '../src/index.scss'
 import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
-// process.env['STORYBOOK_SEAM_ENDPOINT'] == null
-const useFake = true
+const useFake =
+  process.env['DONT_USE_FAKE'] === '1' &&
+  process.env['STORYBOOK_SEAM_ENDPOINT'] == null
 
 const preview: Preview = {
   globalTypes: {
-    /** @deprecated use "seam_pk1ws2_0000" **/
+    /** @deprecated use "some_publishable_key" **/
     publishableKey: {
       description: 'Seam publishable key',
       defaultValue: useFake
-        ? 'seam_pk1ws2_0000'
+        ? 'some_publishable_key'
         : process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'],
     },
-    /** @deprecated use "seed_client_session_user_2" **/
+    /** @deprecated use "some_user_identifier_key" **/
     userIdentifierKey: {
       description: 'Seam user identifier key',
       defaultValue: useFake
-        ? 'seed_client_session_user_2'
+        ? 'some_user_identifier_key'
         : process.env['STORYBOOK_SEAM_USER_IDENTIFIER_KEY'],
     },
     /** @deprecated use "device1" **/

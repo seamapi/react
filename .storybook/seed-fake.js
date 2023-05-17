@@ -160,5 +160,5 @@ export const seedFake = (db) => {
   })
 }
 
-export const fakePublishableKey = 'seam_pk1ws2_0000'
-export const fakeUserIdentifierKey = 'seed_client_session_user_2'
+export const fakePublishableKey = 'some_publishable_key'
+export const fakeUserIdentifierKey = 'some_user_identifier_key'
