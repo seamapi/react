@@ -24,5 +24,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: storybook:build
         env:
+          STORYBOOK_SEAM_ENDPOINT: ${{ vars.STORYBOOK_SEAM_ENDPOINT }}
           STORYBOOK_SEAM_PUBLISHABLE_KEY: ${{ vars.STORYBOOK_SEAM_PUBLISHABLE_KEY }}
           STORYBOOK_SEAM_USER_IDENTIFIER_KEY: ${{ vars.STORYBOOK_SEAM_USER_IDENTIFIER_KEY }}

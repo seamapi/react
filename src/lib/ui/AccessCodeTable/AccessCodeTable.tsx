@@ -34,7 +34,7 @@ export function AccessCodeTable(
   if (selectedAccessCode != null) {
     return (
       <AccessCodeDetails
-        accessCode={selectedAccessCode}
+        accessCodeId={selectedAccessCode.access_code_id}
         onBack={() => {
           selectAccessCode(null)
         }}
