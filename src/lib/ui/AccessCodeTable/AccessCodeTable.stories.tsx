@@ -26,7 +26,9 @@ const meta: Meta<typeof AccessCodeTable> = {
       })
       const devices = await client.devices.list()
       return {
-        deviceId: devices[0]?.device_id,
+        deviceId: devices?.find(
+          ({ properties }) => properties?.name.toLowerCase() === 'front door'
+        )?.device_id,
       }
     },
   ],
