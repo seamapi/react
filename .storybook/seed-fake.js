@@ -58,7 +58,7 @@ export const seedFake = (db) => {
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: [ca.connected_account_id],
     user_identifier_key: fakeUserIdentifierKey,
-    token: "seam_cst1_0000",
+    token: 'seam_cst1_0000',
     device1,
     device2,
   })
