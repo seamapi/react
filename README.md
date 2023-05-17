@@ -251,6 +251,7 @@ The following repository secrets must be set on [GitHub Actions]:
 
 The following repository variables must be set on [GitHub Actions]:
 
+- `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
 
@@ -265,6 +266,7 @@ The following environment variables must be set on [Vercel]:
 
 - `SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with the examples.
 - `SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with the examples..
+- `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
 
