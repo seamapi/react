@@ -2,22 +2,30 @@ import { DateTime } from 'luxon'
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
+import { useAccessCode } from 'lib/index.js'
+
 import { AccessCodeDevice } from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/use-is-date-in-past.js'
 
 export interface AccessCodeDetailsProps {
-  accessCode: AccessCode
+  accessCodeId: string
   onBack?: () => void
 }
 
 export function AccessCodeDetails({
-  accessCode,
+  accessCodeId,
   onBack,
-}: AccessCodeDetailsProps): JSX.Element {
-  const name = accessCode.name ?? t.fallbackName
+}: AccessCodeDetailsProps): JSX.Element | null {
+  const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
+
+  if (accessCode == null) {
+    return null
+  }
+
+  const name = accessCode.name ?? t.fallbackName
 
   if (selectedDeviceId != null) {
     return (
