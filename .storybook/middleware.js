@@ -11,14 +11,14 @@ export default async (app) => {
   seedFake(fake.database.getState())
   await fake.startServer()
 
-  app.use(
-    '/',
-    createProxyMiddleware('/api', {
-      target: process.env.STORYBOOK_SEAM_ENDPOINT ?? fake.server.serverUrl,
-      pathRewrite: { '^/api': '' },
-      changeOrigin: true,
-    })
-  )
+  // app.use(
+  //   '/',
+  //   createProxyMiddleware('/api', {
+  //     target: process.env.STORYBOOK_SEAM_ENDPOINT ?? fake.server.serverUrl,
+  //     pathRewrite: { '^/api': '' },
+  //     changeOrigin: true,
+  //   })
+  // )
 
   app.use(
     '/',

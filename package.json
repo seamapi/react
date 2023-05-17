@@ -98,6 +98,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "raw-body": "^2.5.2",
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.21.4",
@@ -122,6 +123,7 @@
     "@types/react-dom": "^18.0.11",
     "@types/uuid": "^9.0.1",
     "@vitejs/plugin-react": "^4.0.0",
+    "axios": "^1.4.0",
     "concurrently": "^8.0.1",
     "copy-webpack-plugin": "^11.0.0",
     "del-cli": "^5.0.0",
