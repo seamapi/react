@@ -6,7 +6,7 @@ import type { Preview } from '@storybook/react'
 import { fakePublishableKey, fakeUserIdentifierKey } from './seed-fake.js'
 
 const isProd = process.env['NODE_ENV'] === 'production'
-const useFake = process.env[']STORYBOOK_SEAM_ENDPOINT'] == null
+const useFake = process.env['STORYBOOK_SEAM_ENDPOINT'] == null
 
 const preview: Preview = {
   globalTypes: {
