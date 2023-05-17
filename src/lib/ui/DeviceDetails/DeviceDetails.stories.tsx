@@ -3,6 +3,7 @@ import { Button, Dialog, DialogActions, IconButton } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Seam } from 'seamapi'
 
+import { byCreatedAt } from 'lib/sort-by.js'
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import useToggle from 'lib/use-toggle.js'
 
@@ -25,7 +26,7 @@ const meta: Meta<typeof DeviceDetails> = {
       const client = new Seam({
         clientSessionToken: res.client_session.token,
       })
-      const devices = await client.devices.list()
+      const devices = (await client.devices.list())?.sort(byCreatedAt) ?? []
       return {
         deviceId: devices[0]?.device_id,
       }

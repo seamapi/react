@@ -2,6 +2,7 @@ import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Seam } from 'seamapi'
 
+import { byCreatedAt } from 'lib/sort-by.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 import useToggle from 'lib/use-toggle.js'
 
@@ -24,11 +25,12 @@ const meta: Meta<typeof AccessCodeTable> = {
       const client = new Seam({
         clientSessionToken: res.client_session.token,
       })
-      const devices = await client.devices.list()
+      const devices = (await client.devices.list())?.sort(byCreatedAt) ?? []
+      const deviceWithCodes = devices.find(
+        ({ properties }) => properties?.name.toLowerCase() === 'front door'
+      )
       return {
-        deviceId: devices?.find(
-          ({ properties }) => properties?.name.toLowerCase() === 'front door'
-        )?.device_id,
+        deviceId: deviceWithCodes?.device_id,
       }
     },
   ],
