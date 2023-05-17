@@ -98,14 +98,13 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "raw-body": "^2.5.2",
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.21.4",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
-    "@seamapi/fake-seam-connect": "^0.3.0-alpha.5",
+    "@seamapi/fake-seam-connect": "^0.3.0-alpha.8",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-interactions": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
@@ -141,6 +140,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "prettier": "^2.3.0",
     "prop-types": "^15.8.1",
+    "raw-body": "^2.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.62.1",
