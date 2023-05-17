@@ -4,8 +4,9 @@ import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
 const useFake =
-  ['1','true'].includes(process.env['STORYBOOK_DISABLE_FAKE']?.toLowerCase()) &&
-  process.env['STORYBOOK_SEAM_ENDPOINT'] == null
+  ['1', 'true'].includes(
+    process.env['STORYBOOK_DISABLE_FAKE']?.toLowerCase()
+  ) && process.env['STORYBOOK_SEAM_ENDPOINT'] == null
 
 const preview: Preview = {
   globalTypes: {
