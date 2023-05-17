@@ -4,7 +4,7 @@ import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
 const useFake =
-  process.env['DONT_USE_FAKE'] === '1' &&
+  ['1','true'].includes(process.env['STORYBOOK_DISABLE_FAKE']?.toLowerCase()) &&
   process.env['STORYBOOK_SEAM_ENDPOINT'] == null
 
 const preview: Preview = {
