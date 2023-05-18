@@ -41,7 +41,7 @@ module.exports = async function (_globalConfig, projectConfig) {
     workspace_id: ws2.workspace_id,
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: [ca.connected_account_id],
-    user_identifier_key: 'some_user_identifier_key',
+    user_identifier_key: 'some_user',
   })
 
   await fake.startServer()

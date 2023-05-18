@@ -9,28 +9,28 @@ const useFake = !['1', 'true'].includes(
 
 const preview: Preview = {
   globalTypes: {
-    /** @deprecated use "some_publishable_key" **/
+    /** @deprecated use "seam_pk_1" directly in your story **/
     publishableKey: {
       description: 'Seam publishable key',
       defaultValue: useFake
-        ? 'some_publishable_key'
+        ? 'seam_pk_1'
         : process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'],
     },
-    /** @deprecated use "some_user_identifier_key" **/
+    /** @deprecated use "some_user" directly in your story **/
     userIdentifierKey: {
       description: 'Seam user identifier key',
       defaultValue: useFake
-        ? 'some_user_identifier_key'
+        ? 'some_user'
         : process.env['STORYBOOK_SEAM_USER_IDENTIFIER_KEY'],
     },
-    /** @deprecated use "device1" **/
+    /** @deprecated use "device1" directly in your story **/
     deviceId: {
       description: 'Device id',
       defaultValue: useFake
         ? 'device1'
         : 'f9a9ab36-9e14-4390-a88c-b4c78304c6aa',
     },
-    /** @deprecated use "access_code1" **/
+    /** @deprecated use "access_code1" directly in your story **/
     accessCodeId: {
       description: 'Access code id',
       defaultValue: useFake
@@ -39,7 +39,12 @@ const preview: Preview = {
     },
     seamEndpoint: {
       description: 'Seam Endpoint',
-      defaultValue: useFake ? '/api' : process.env['STORYBOOK_SEAM_ENDPOINT'],
+      defaultValue: useFake
+        ? // special hack for chromatic ui reviews that don't run the fake
+          window?.location?.href.includes('chromatic')
+          ? 'https://seam-react.vercel.app/api'
+          : '/api'
+        : process.env['STORYBOOK_SEAM_ENDPOINT'],
     },
   },
   parameters: {

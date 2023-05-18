@@ -69,8 +69,8 @@ const setupEnv = async (
 ): Promise<void> => {
   if (useFake) {
     env['SEAM_ENDPOINT'] = endpoint
-    env['SEAM_PUBLISHABLE_KEY'] = 'some_publishable_key'
-    env['SEAM_USER_IDENTIFIER_KEY'] = 'some_user_identifier_key'
+    env['SEAM_PUBLISHABLE_KEY'] = 'seam_pk_1'
+    env['SEAM_USER_IDENTIFIER_KEY'] = 'some_user'
     return
   }
 
