@@ -62,7 +62,6 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
     device.properties?.schlage_metadata?.access_code_length
 
   function generateDeviceAlerts() {
-    console.log('device', device)
     if (!device.errors && !device.warnings) {
       return []
     }
