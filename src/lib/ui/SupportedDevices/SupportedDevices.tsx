@@ -3,7 +3,7 @@ import SupportedDevicesHeader from './SupportedDevicesHeader.js'
 
 export const SupportedDevices = () => {
   return (
-    <table>
+    <div className='seam-supported-devices-table'>
       <SupportedDevicesHeader />
       <tbody>
         <SupportedDeviceRow />
@@ -12,6 +12,6 @@ export const SupportedDevices = () => {
         <SupportedDeviceRow />
         <SupportedDeviceRow />
       </tbody>
-    </table>
+    </div>
   )
 }

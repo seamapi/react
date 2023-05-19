@@ -1,11 +1,15 @@
+import { TableCell } from '../Table/TableCell.js'
+import { TableHeader } from '../Table/TableHeader.js'
+import { TableRow } from '../Table/TableRow.js'
+
 export default () => (
-  <thead>
-    <tr>
-      <td>{/* Device Image */}</td>
-      <td>Model Name</td>
-      <td>Manufacturer Model ID</td>
-      <td>Connection Type</td>
-      <td>Supported?</td>
-    </tr>
-  </thead>
+  <TableHeader>
+    <TableRow>
+      <TableCell>{/* Device Image */}</TableCell>
+      <TableCell>Model Name</TableCell>
+      <TableCell>Manufacturer Model ID</TableCell>
+      <TableCell>Connection Type</TableCell>
+      <TableCell>Supported?</TableCell>
+    </TableRow>
+  </TableHeader>
 )
