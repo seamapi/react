@@ -17,6 +17,10 @@ export interface AlertProps {
 export function Alert(props: AlertProps): JSX.Element {
   const { variant, message, action, className, ...rest } = props
 
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
+    action?.onClick(ev)
+  }
+
   return (
     <div
       className={classNames('seam-alert', `seam-${variant}-alert`, className)}
@@ -38,7 +42,7 @@ export function Alert(props: AlertProps): JSX.Element {
 
       {action != null && (
         <div className='seam-alert-action-wrap'>
-          <button onClick={action.onClick} className='seam-alert-action'>
+          <button onClick={handleClick} className='seam-alert-action'>
             {action.label}
           </button>
         </div>

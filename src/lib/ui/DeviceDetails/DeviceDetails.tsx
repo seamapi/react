@@ -122,7 +122,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
             </div>
           </div>
 
-          {alerts && (
+          {alerts.length > 0 && (
             <Alerts alerts={alerts} className='seam-alerts-space-top' />
           )}
         </div>

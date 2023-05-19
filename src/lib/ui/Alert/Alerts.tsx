@@ -13,8 +13,10 @@ export function Alerts(props: AlertsProps): JSX.Element {
 
   return (
     <div className={classNames('seam-alerts', className)} {...rest}>
-      {alerts != null &&
-        alerts.map((alert) => <Alert key={alert.message} {...alert} />)}
+      {alerts &&
+        alerts.map((alert, index) => (
+          <Alert key={`${index}:${alert.message}`} {...alert} />
+        ))}
       {children}
     </div>
   )
