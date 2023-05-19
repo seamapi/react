@@ -45,7 +45,16 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
 }
 
 function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
-  const { device, onBack } = props
+  const { device: _device, onBack } = props
+  const device = {
+    ..._device,
+    errors: [
+      {
+        error_code: 'account_disconnected',
+        message: 'Account disconnected',
+      },
+    ]
+  }
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
   const { accessCodes } = useAccessCodes({
