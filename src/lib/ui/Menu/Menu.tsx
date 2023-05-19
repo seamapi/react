@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import {
   createContext,
   useCallback,
@@ -8,13 +9,16 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 
-interface MenuProps {
+export interface MenuProps {
   children: JSX.Element | JSX.Element[]
   verticalOffset?: number
   horizontalOffset?: number
   button: (props: {
     open: (event: React.MouseEvent<HTMLElement>) => void
   }) => React.ReactElement
+  BackgroundProps?: Partial<{
+    className?: string
+  }>
 }
 
 interface MenuContextProps {
@@ -28,6 +32,7 @@ const Menu = ({
   horizontalOffset = 0,
   children,
   button,
+  BackgroundProps,
 }: MenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [documentEl, setDocumentEl] = useState<null | Element>(null)
@@ -117,7 +122,7 @@ const Menu = ({
       {button({ open })}
       {createPortal(
         <div
-          className='seam-menu-bg'
+          className={classNames('seam-menu-bg', BackgroundProps?.className)}
           style={{
             display: visible ? 'flex' : 'none',
           }}

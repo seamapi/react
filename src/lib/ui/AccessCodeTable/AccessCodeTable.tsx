@@ -3,6 +3,7 @@ import type { AccessCode } from 'seamapi'
 
 import { copy } from 'lib/copy.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
+import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
@@ -75,13 +76,24 @@ export function AccessCodeTable(
               <CodeDetails accessCode={code} />
             </TableCell>
             <TableCell className='seam-action-cell'>
-              <MoreActionsMenu>
+              <MoreActionsMenu
+                MenuProps={{
+                  BackgroundProps: {
+                    className: 'seam-access-code-table-action-menu',
+                  },
+                }}
+              >
                 <MenuItem
                   onClick={() => {
                     void copy(code.code ?? '')
                   }}
                 >
-                  {t.copyCode} - {code.code}
+                  <div className='menu-item-copy'>
+                    <span>
+                      {t.copyCode} - {code.code}
+                    </span>
+                    <CopyIcon />
+                  </div>
                 </MenuItem>
               </MoreActionsMenu>
             </TableCell>

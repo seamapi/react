@@ -1,11 +1,12 @@
 import { DotsEllipsisMoreIcon } from 'lib/icons/DotsEllipsisMore.js'
 import { IconButton } from 'lib/ui/IconButton.js'
-import Menu from 'lib/ui/Menu/Menu.js'
+import Menu, { type MenuProps } from 'lib/ui/Menu/Menu.js'
 
 export interface MoreActionsMenuProps {
   children: JSX.Element | JSX.Element[]
+  MenuProps?: Partial<MenuProps>
 }
-export function MoreActionsMenu({ children }: MoreActionsMenuProps) {
+export function MoreActionsMenu({ children, MenuProps }: MoreActionsMenuProps) {
   return (
     <Menu
       button={({ open }) => (
@@ -18,6 +19,7 @@ export function MoreActionsMenu({ children }: MoreActionsMenuProps) {
           <DotsEllipsisMoreIcon />
         </IconButton>
       )}
+      {...MenuProps}
     >
       {children}
     </Menu>
