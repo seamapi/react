@@ -9,10 +9,6 @@ import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 import { type AlertProps } from 'lib/ui/Alert/Alert.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
-import {
-  errorCodeToMessageMapping,
-  warningCodeToMessageMapping,
-} from 'lib/ui/Alert/mappings.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
@@ -62,13 +58,13 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
     device.properties?.schlage_metadata?.access_code_length
 
   function generateDeviceAlerts() {
-    if (!device.errors && !device.warnings) {
+    if (device.errors.length === 0 && device.warnings.length === 0) {
       return []
     }
 
     const alerts: AlertProps[] = []
 
-    if (device.errors) {
+    if (device.errors.length) {
       alerts.push(
         ...device.errors.map((error) => ({
           variant: 'error' as const,
@@ -77,7 +73,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
       )
     }
 
-    if (device.warnings) {
+    if (device.warnings.length) {
       alerts.push(
         ...device.warnings.map((warning) => ({
           variant: 'warning' as const,
