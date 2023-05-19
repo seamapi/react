@@ -13,6 +13,7 @@ export interface MenuProps {
   children: JSX.Element | JSX.Element[]
   verticalOffset?: number
   horizontalOffset?: number
+  edgeOffset?: number
   button: (props: {
     open: (event: React.MouseEvent<HTMLElement>) => void
   }) => React.ReactElement
@@ -30,6 +31,7 @@ const MenuContext = createContext<MenuContextProps | undefined>(undefined)
 const Menu = ({
   verticalOffset = 5,
   horizontalOffset = 0,
+  edgeOffset = 5,
   children,
   button,
   BackgroundProps,
@@ -41,7 +43,8 @@ const Menu = ({
   const [left, setLeft] = useState(0)
 
   useEffect(() => {
-    const el = document.querySelector('.seam-components')
+    const containers = document.querySelectorAll('.seam-components')
+    const el = containers[containers.length - 1]
     if (el != null) {
       setDocumentEl(el)
     }
@@ -81,7 +84,7 @@ const Menu = ({
     // to the right of the container.
     const isOverflowingRight = right > containerRight
     const visibleLeft = isOverflowingRight
-      ? containerRight - contentWidth - horizontalOffset
+      ? containerRight - contentWidth - horizontalOffset - edgeOffset
       : left
     setLeft(visibleLeft)
 
@@ -92,7 +95,14 @@ const Menu = ({
       ? anchorTop - contentHeight - verticalOffset
       : top
     setTop(visibleTop)
-  }, [anchorEl, horizontalOffset, verticalOffset, contentEl, documentEl])
+  }, [
+    anchorEl,
+    horizontalOffset,
+    verticalOffset,
+    contentEl,
+    documentEl,
+    edgeOffset,
+  ])
 
   const isOpen = Boolean(anchorEl)
 
