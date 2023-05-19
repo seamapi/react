@@ -10,6 +10,7 @@
 @use './device-details';
 @use './device-table';
 @use './access-code-details';
+@use './supported-devices';
 
 .seam-components {
   // Reset
@@ -28,4 +29,5 @@
   @include device-table.all;
   @include access-code-table.all;
   @include access-code-details.all;
+  @include supported-devices.all;
 }
