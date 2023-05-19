@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+
 import { Alert, type AlertProps } from 'lib/ui/Alert/Alert.js'
 
 export interface AlertsProps {
@@ -12,7 +13,7 @@ export function Alerts(props: AlertsProps): JSX.Element {
 
   return (
     <div className={classNames('seam-alerts', className)} {...rest}>
-      {alerts &&
+      {alerts != null &&
         alerts.map((alert) => <Alert key={alert.message} {...alert} />)}
       {children}
     </div>
