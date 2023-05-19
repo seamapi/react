@@ -53,16 +53,20 @@ export function SeamProvider({
   const contextRef = useRef(createSeamContextValue(props))
   if (
     contextRef.current.client == null &&
-    contextRef.current.publishableKey == null
+    contextRef.current.publishableKey == null &&
+    contextRef.current.clientSessionToken == null
   ) {
     contextRef.current = defaultSeamContextValue
   }
 
   if (
     contextRef.current.client == null &&
-    contextRef.current.publishableKey == null
+    contextRef.current.publishableKey == null &&
+    contextRef.current.clientSessionToken == null
   ) {
-    throw new Error('Must provide either a Seam client or a publishableKey.')
+    throw new Error(
+      `Must provide either a Seam client, clientSessionToken or a publishableKey.`
+    )
   }
 
   return (
@@ -178,11 +182,12 @@ const isSeamProviderPropsWithClientSessionToken = (
     throw new Error('Cannot provide a Seam client along with other options.')
   }
 
-  if ('publishableKey' in props && props.publishableKey != null) {
-    throw new Error(
-      'Cannot provide both a clientSessionToken and a publishableKey .'
-    )
-  }
+  // No reason to ban this behavior, but it's unnecessary.
+  // if ('publishableKey' in props && props.publishableKey != null) {
+  //   throw new Error(
+  //     'Cannot provide both a clientSessionToken and a publishableKey .'
+  //   )
+  // }
 
   if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
     throw new Error('Cannot use a userIdentifierKey with a clientSessionToken.')
