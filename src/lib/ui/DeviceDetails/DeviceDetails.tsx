@@ -7,7 +7,7 @@ import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
-import { Alert } from 'lib/ui/Alert.js'
+import { Alert, type AlertProps } from 'lib/ui/Alert/Alert.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
@@ -15,6 +15,11 @@ import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import useToggle from 'lib/use-toggle.js'
+import { Alerts } from 'lib/ui/Alert/Alerts.js'
+import {
+  errorCodeToMessageMapping,
+  warningCodeToMessageMapping,
+} from 'lib/ui/Alert/mappings.js'
 
 export interface DeviceDetailsProps {
   deviceId: string
@@ -55,6 +60,39 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
   const accessCodeLength =
     device.properties?.schlage_metadata?.access_code_length
 
+  function generateDeviceAlerts() {
+    console.log("device", device)
+    if (!device.errors && !device.warnings) {
+      return []
+    }
+
+    const alerts: AlertProps[] = []
+
+    if (device.errors) {
+      alerts.push(
+        ...device.errors.map((error) => ({
+          variant: 'error' as AlertProps['variant'],
+          message: errorCodeToMessageMapping[error.error_code] ?? error.message,
+        }))
+      )
+    }
+
+    if (device.warnings) {
+      alerts.push(
+        ...device.warnings.map((warning) => ({
+          variant: 'warning' as AlertProps['variant'],
+          message:
+            warningCodeToMessageMapping[warning.warning_code] ??
+            warning.message,
+        }))
+      )
+    }
+
+    return alerts
+  }
+
+  const alerts = generateDeviceAlerts()
+
   if (accessCodes == null) {
     return null
   }
@@ -89,15 +127,8 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
               </div>
             </div>
           </div>
-          <Alert
-            variant='warning'
-            message='Lock is in Privacy Mode. Access Codes will not unlock doors.'
-            action={{
-              label: 'View setting',
-              onClick: () => {},
-            }}
-            className='seam-alert-space-top'
-          />
+
+          {alerts && <Alerts alerts={alerts} />}
         </div>
         <div className='seam-box'>
           <div

@@ -56,6 +56,12 @@ export const seedFake = (db) => {
       image_alt_text: 'August Wifi Smart Lock 3rd Gen, Silver, Front',
       code_constraints: [],
     },
+    errors: [
+      {
+        error_code: 'account_disconnected',
+        message: '',
+      },
+    ],
   })
 
   db.addAccessCode({
