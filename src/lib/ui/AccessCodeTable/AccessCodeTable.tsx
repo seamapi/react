@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
+import { copy } from 'lib/copy.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
@@ -75,7 +76,13 @@ export function AccessCodeTable(
             </TableCell>
             <TableCell className='seam-action-cell'>
               <MoreActionsMenu>
-                <MenuItem>Copy</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    void copy(code.code ?? '')
+                  }}
+                >
+                  {t.copyCode} - {code.code}
+                </MenuItem>
               </MoreActionsMenu>
             </TableCell>
           </TableRow>
@@ -87,4 +94,5 @@ export function AccessCodeTable(
 
 const t = {
   accessCodes: 'Access Codes',
+  copyCode: 'Copy code',
 }

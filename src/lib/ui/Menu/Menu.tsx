@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react'
 import { createPortal } from 'react-dom'
 
 interface MenuProps {
@@ -9,6 +16,12 @@ interface MenuProps {
     open: (event: React.MouseEvent<HTMLElement>) => void
   }) => React.ReactElement
 }
+
+interface MenuContextProps {
+  close: () => void
+}
+
+const MenuContext = createContext<MenuContextProps | undefined>(undefined)
 
 const Menu = ({
   verticalOffset = 5,
@@ -96,7 +109,11 @@ const Menu = ({
   }
 
   return (
-    <>
+    <MenuContext.Provider
+      value={{
+        close: handleClose,
+      }}
+    >
       {button({ open })}
       {createPortal(
         <div
@@ -131,8 +148,17 @@ const Menu = ({
           {children}
         </div>
       </div>
-    </>
+    </MenuContext.Provider>
   )
+}
+
+export function useMenu() {
+  const context = useContext(MenuContext)
+  if (context === undefined) {
+    throw new Error('useMenu must be used within a Menu.')
+  }
+
+  return context
 }
 
 export default Menu
