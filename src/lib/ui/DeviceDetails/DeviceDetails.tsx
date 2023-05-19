@@ -53,7 +53,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
         error_code: 'account_disconnected',
         message: 'Account disconnected',
       },
-    ]
+    ],
   }
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
