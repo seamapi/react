@@ -72,7 +72,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
       alerts.push(
         ...device.errors.map((error) => ({
           variant: 'error' as const,
-          message: errorCodeToMessageMapping[error.error_code] ?? error.message,
+          message: error.message,
         }))
       )
     }
@@ -81,9 +81,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
       alerts.push(
         ...device.warnings.map((warning) => ({
           variant: 'warning' as const,
-          message:
-            warningCodeToMessageMapping[warning.warning_code] ??
-            warning.message,
+          message: warning.message,
         }))
       )
     }
