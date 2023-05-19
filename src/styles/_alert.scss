@@ -8,7 +8,11 @@
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
+
+    &.seam-alerts-space-top {
+      margin-top: 16px;
+    }
   }
 
   // Alert
@@ -47,10 +51,15 @@
       margin-top: 16px;
     }
 
+    .seam-alert-icon {
+      width: 24px;
+      height: 24px;
+    }
+
     .seam-alert-content {
       display: flex;
       justify-content: flex-start;
-      align-items: flex-start;
+      align-items: center;
       flex-direction: row;
       gap: 8px;
     }
@@ -89,6 +98,7 @@
 
       .seam-alert-content {
         width: 100%;
+        align-items: flex-start;
         flex-direction: column;
         gap: 4px;
       }

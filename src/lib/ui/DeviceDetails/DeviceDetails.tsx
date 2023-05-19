@@ -45,16 +45,8 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
 }
 
 function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
-  const { device: _device, onBack } = props
-  const device = {
-    ..._device,
-    errors: [
-      {
-        error_code: 'account_disconnected',
-        message: 'Account disconnected',
-      },
-    ],
-  }
+  const { device, onBack } = props
+
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
   const { accessCodes } = useAccessCodes({
@@ -137,7 +129,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
             </div>
           </div>
 
-          {alerts && <Alerts alerts={alerts} />}
+          {alerts && <Alerts alerts={alerts} className='seam-alerts-space-top' />}
         </div>
         <div className='seam-box'>
           <div
