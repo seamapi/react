@@ -11,6 +11,8 @@ export default async (app) => {
   seedFake(fake.database.getState())
   await fake.startServer()
 
+  console.log(`Fake server running at: "${fake.server.serverUrl}"`)
+
   app.use(
     '/',
     createProxyMiddleware('/api', {
