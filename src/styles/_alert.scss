@@ -27,6 +27,23 @@
     flex-direction: row;
     gap: 16px;
 
+    .seam-alert-action {
+      appearance: none;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 6px;
+      background-color: transparent;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+
+      &:hover {
+        background-color: colors.$item-hover-bg;
+      }
+    }
+
     &.seam-warning-alert {
       background-color: colors.$alert-warn-fill;
       border: 1px solid colors.$alert-warn-line;
@@ -72,26 +89,9 @@
         color: colors.$text-default;
       }
     }
-
-    .seam-alert-action {
-      appearance: none;
-      height: 32px;
-      padding: 0 10px;
-      border-radius: 6px;
-      background-color: transparent;
-      font-size: 14px;
-      line-height: 1;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-
-      &:hover {
-        background-color: colors.$item-hover-bg;
-      }
-    }
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     .seam-alert {
       justify-content: flex-start;
       flex-direction: column;
