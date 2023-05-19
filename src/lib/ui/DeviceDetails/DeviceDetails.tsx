@@ -71,7 +71,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
     if (device.errors) {
       alerts.push(
         ...device.errors.map((error) => ({
-          variant: 'error' as AlertProps['variant'],
+          variant: 'error' as const,
           message: errorCodeToMessageMapping[error.error_code] ?? error.message,
         }))
       )
@@ -80,7 +80,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
     if (device.warnings) {
       alerts.push(
         ...device.warnings.map((warning) => ({
-          variant: 'warning' as AlertProps['variant'],
+          variant: 'warning' as const,
           message:
             warningCodeToMessageMapping[warning.warning_code] ??
             warning.message,
@@ -128,7 +128,9 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
             </div>
           </div>
 
-          {alerts && <Alerts alerts={alerts} className='seam-alerts-space-top' />}
+          {alerts && (
+            <Alerts alerts={alerts} className='seam-alerts-space-top' />
+          )}
         </div>
         <div className='seam-box'>
           <div
