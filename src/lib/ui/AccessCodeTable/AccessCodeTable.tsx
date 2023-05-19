@@ -6,6 +6,8 @@ import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
+import { MoreActionsMenu } from 'lib/ui/Menu/MoreActionsMenu.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -71,7 +73,11 @@ export function AccessCodeTable(
               <Title>{code.name}</Title>
               <CodeDetails accessCode={code} />
             </TableCell>
-            <TableCell className='seam-action-cell' />
+            <TableCell className='seam-action-cell'>
+              <MoreActionsMenu>
+                <MenuItem>Copy</MenuItem>
+              </MoreActionsMenu>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
