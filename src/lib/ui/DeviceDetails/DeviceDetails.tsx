@@ -64,7 +64,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
 
     const alerts: AlertProps[] = []
 
-    if (device.errors.length) {
+    if (device.errors.length > 0) {
       alerts.push(
         ...device.errors.map((error) => ({
           variant: 'error' as const,
@@ -73,7 +73,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
       )
     }
 
-    if (device.warnings.length) {
+    if (device.warnings.length > 0) {
       alerts.push(
         ...device.warnings.map((warning) => ({
           variant: 'warning' as const,
