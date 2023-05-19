@@ -9,10 +9,6 @@ import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
 import { type AlertProps } from 'lib/ui/Alert/Alert.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
-import {
-  errorCodeToMessageMapping,
-  warningCodeToMessageMapping,
-} from 'lib/ui/Alert/mappings.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
