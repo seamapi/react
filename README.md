@@ -170,6 +170,13 @@ $ npm run docs:start
 
 [Storybook]: https://storybook.js.org/
 
+### Fake Seam Connect
+
+This project uses a [fake version of Seam Connect](https://github.com/seamapi/fake-seam-connect)
+to have deterministic responses for rendering views. You can edit the seed data
+for the fake, or find ids that could be useful for testing components in
+[seed-fake.js](.storybook/seed-fake.js).
+
 ### Previews
 
 Every pull request deploys the Storybook with the examples

@@ -2,7 +2,7 @@
 export const seedFake = (db) => {
   db.addWorkspace({
     name: 'Seed Workspace 1 (starts empty)',
-    publishable_key: 'seam_pk1ws1_0000',
+    publishable_key: 'seam_pk_1',
   })
 
   const ws2 = db.addWorkspace({
@@ -160,5 +160,5 @@ export const seedFake = (db) => {
   })
 }
 
-export const fakePublishableKey = 'seam_pk1ws2_0000'
-export const fakeUserIdentifierKey = 'seed_client_session_user_2'
+export const fakePublishableKey = 'seam_pk_1'
+export const fakeUserIdentifierKey = 'some_user'
