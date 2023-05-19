@@ -66,8 +66,8 @@ export const seedFake = (db) => {
       {
         warning_code: 'salto_office_mode',
         message: '',
-      }
-    ]
+      },
+    ],
   })
 
   db.addAccessCode({
