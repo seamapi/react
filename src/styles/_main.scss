@@ -7,6 +7,7 @@
 @use './access-code-table';
 @use './colors';
 @use './icons';
+@use './menus';
 @use './device-details';
 @use './device-table';
 @use './access-code-details';
@@ -22,6 +23,7 @@
   @include buttons.all;
   @include layout.all;
   @include icons.all;
+  @include menus.all;
 
   // Components
   @include device-details.all;

@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
+import { copy } from 'lib/copy.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
+import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
+import { MoreActionsMenu } from 'lib/ui/Menu/MoreActionsMenu.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -71,7 +75,28 @@ export function AccessCodeTable(
               <Title>{code.name}</Title>
               <CodeDetails accessCode={code} />
             </TableCell>
-            <TableCell className='seam-action-cell' />
+            <TableCell className='seam-action-cell'>
+              <MoreActionsMenu
+                MenuProps={{
+                  BackgroundProps: {
+                    className: 'seam-access-code-table-action-menu',
+                  },
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    void copy(code.code ?? '')
+                  }}
+                >
+                  <div className='menu-item-copy'>
+                    <span>
+                      {t.copyCode} - {code.code}
+                    </span>
+                    <CopyIcon />
+                  </div>
+                </MenuItem>
+              </MoreActionsMenu>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -81,4 +106,5 @@ export function AccessCodeTable(
 
 const t = {
   accessCodes: 'Access Codes',
+  copyCode: 'Copy code',
 }
