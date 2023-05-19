@@ -18,7 +18,7 @@ function Providers({ children }: PropsWithChildren): JSX.Element {
     <SeamProvider
       endpoint={globalThis.JEST_SEAM_ENDPOINT}
       publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
-      userIdentifierKey='seed_client_session_user_2'
+      userIdentifierKey='some_user'
     >
       {children}
     </SeamProvider>

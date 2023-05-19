@@ -170,6 +170,13 @@ $ npm run docs:start
 
 [Storybook]: https://storybook.js.org/
 
+### Fake Seam Connect
+
+This project uses a [fake version of Seam Connect](https://github.com/seamapi/fake-seam-connect)
+to have deterministic responses for rendering views. You can edit the seed data
+for the fake, or find ids that could be useful for testing components in
+[seed-fake.js](.storybook/seed-fake.js).
+
 ### Previews
 
 Every pull request deploys the Storybook with the examples
@@ -251,6 +258,7 @@ The following repository secrets must be set on [GitHub Actions]:
 
 The following repository variables must be set on [GitHub Actions]:
 
+- `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
 
@@ -265,6 +273,7 @@ The following environment variables must be set on [Vercel]:
 
 - `SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with the examples.
 - `SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with the examples..
+- `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
 
