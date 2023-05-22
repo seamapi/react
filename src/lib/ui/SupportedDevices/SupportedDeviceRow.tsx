@@ -7,11 +7,15 @@ export default () => {
           src='https://www.seam.co/_next/image?url=%2Fimg%2Fdevice-db%2Faugust%2Fsmartlocks%2Faugust_wifi-smart-lock_silver_front.png&w=96&q=75'
         />
       </td>
-      <td>smartlocks</td>
+      <td>Smart Lock</td>
       <td>Wi-Fi Smart Lock</td>
       <td>AUG-SL05-M01-S01</td>
       <td>Wi-Fi</td>
-      <td>Live</td>
+      <td>
+        <div className="seam-status-pill status-green">
+          <span>Supported</span>
+        </div>
+      </td>
     </tr>
   )
 }

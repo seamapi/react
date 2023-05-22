@@ -7,7 +7,7 @@ export default function SupportedDevicesHeader() {
         <th>Model Name</th>
         <th>Manufacturer Model ID</th>
         <th>Connection Type</th>
-        <th>Supported?</th>
+        <th>Status</th>
       </tr>
     </thead>
   )

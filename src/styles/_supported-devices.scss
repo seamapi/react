@@ -15,6 +15,7 @@ $row-padding: 8px;
     }
 
     tr {
+
       th:first-of-type,
       td:first-of-type {
         padding-left: $row-padding;
@@ -52,6 +53,32 @@ $row-padding: 8px;
 
       td {
         vertical-align: middle;
+      }
+    }
+
+    .seam-status-pill {
+      display: inline-flex;
+      padding: 4px 8px;
+      border-radius: 90px;
+      background-color: colors.$status-green;
+
+      & span {
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+      }
+
+      &.status-green {
+        background-color: colors.$status-green;
+      }
+
+      &.status-orange {
+        background-color: colors.$status-orange;
+      }
+
+      &.status-red {
+        background-color: colors.$status-red;
       }
     }
   }
