@@ -1,14 +1,16 @@
-export default () => (
-  <thead>
-    <tr>
-      <th>
-        <div className='seam-supported-devices-table-header-gap'></div>
-      </th>
-      <th>Category</th>
-      <th>Model Name</th>
-      <th>Manufacturer Model ID</th>
-      <th>Connection Type</th>
-      <th>Supported?</th>
-    </tr>
-  </thead>
-)
+export default function SupportedDevicesHeader() {
+  return (
+    <thead>
+      <tr>
+        <th>
+          <div className='seam-supported-devices-table-header-gap'></div>
+        </th>
+        <th>Category</th>
+        <th>Model Name</th>
+        <th>Manufacturer Model ID</th>
+        <th>Connection Type</th>
+        <th>Supported?</th>
+      </tr>
+    </thead>
+  )
+}
