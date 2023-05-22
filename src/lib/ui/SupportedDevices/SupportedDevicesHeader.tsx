@@ -2,7 +2,7 @@ export default function SupportedDevicesHeader() {
   return (
     <thead>
       <tr>
-        <th></th>
+        <th />
         <th>Category</th>
         <th>Model Name</th>
         <th>Manufacturer Model ID</th>
