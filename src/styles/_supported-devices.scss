@@ -1,0 +1,113 @@
+@use './colors';
+
+$row-padding: 8px;
+
+@mixin all {
+  .seam-supported-devices-table {
+    width: 100%;
+    overflow-x: auto;
+    table-layout: auto;
+    border-collapse: collapse;
+
+    th, td {
+      white-space: nowrap;
+      // padding: 0 $row-padding;
+    }
+
+    tr {
+      th:first-of-type,
+      td:first-of-type {
+        padding-left: $row-padding;
+      }
+
+      th:last-of-type,
+      td:last-of-type {
+        // width: 100%;
+        padding-right: $row-padding;
+      }
+    }
+
+    thead {
+      width: 100%;
+      height: 50px !important;
+      background: colors.$bg-a;
+      overflow: hidden;
+
+      tr {
+        border-radius: 8px;
+      }
+
+      th {
+        vertical-align: middle;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    .seam-supported-devices-table-header-gap {
+      width: 40px;
+    }
+
+    tbody {
+      tr {
+        height: 60px;
+        border-bottom: 1px solid colors.$bg-b;
+      }
+
+      td {
+        vertical-align: middle !important;
+      }
+    }
+
+    //   .seam-table-row {
+    //     width: 100%;
+    //     cursor: pointer;
+
+    //     .seam-table-cell {
+    //       padding: 0 16px;
+    //     }
+
+    //     .seam-icon-cell {
+    //       flex: 0;
+    //       display: flex;
+    //       align-items: center;
+    //       justify-content: center;
+
+    //       >div {
+    //         width: 30px;
+    //         height: 30px;
+    //         display: flex;
+    //         align-items: center;
+    //         justify-content: center;
+    //       }
+    //     }
+
+    //     .seam-name-cell {
+    //       flex: 1;
+    //       flex-direction: column;
+    //       justify-content: center;
+    //       align-items: flex-start;
+    //       gap: 2px;
+
+    //       .seam-code-details {
+    //         font-size: 14px;
+    //         line-height: 134%;
+    //         color: colors.$text-gray-1;
+
+    //         .seam-dot-divider {
+    //           margin: 0 4px;
+    //           color: colors.$text-gray-3;
+    //         }
+    //       }
+    //     }
+
+    //     .seam-action-cell {
+    //       margin-right: 12px;
+    //       display: flex;
+    //       align-items: center;
+    //       justify-content: center;
+    //     }
+    //   }
+  }
+}
