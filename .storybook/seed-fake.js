@@ -61,25 +61,12 @@ export const seedFake = (db) => {
         error_code: 'account_disconnected',
         message: 'Device account has been disconnected.',
       },
-      {
-        error_code: 'device_removed',
-        message: 'Device has been removed from its connected account.',
-      },
-      {
-        error_code: 'hub_disconnected',
-        message: 'Device hub has been disconnected.',
-      },
     ],
     warnings: [
       {
         warning_code: 'salto_office_mode',
         message:
           'Salto office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
-      },
-      {
-        warning_code: 'salto_privacy_mode',
-        message:
-          'Salto privacy mode is enabled. Access codes will not unlock doors. You can disable privacy mode by pressing the back of the lock.',
       },
     ],
   })
