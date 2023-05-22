@@ -2,9 +2,7 @@ export default function SupportedDevicesHeader() {
   return (
     <thead>
       <tr>
-        <th>
-          <div className='seam-supported-devices-table-header-gap'></div>
-        </th>
+        <th></th>
         <th>Category</th>
         <th>Model Name</th>
         <th>Manufacturer Model ID</th>

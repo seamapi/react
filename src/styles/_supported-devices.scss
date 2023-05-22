@@ -11,7 +11,6 @@ $row-padding: 8px;
 
     th, td {
       white-space: nowrap;
-      // padding: 0 $row-padding;
     }
 
     tr {
@@ -22,7 +21,6 @@ $row-padding: 8px;
 
       th:last-of-type,
       td:last-of-type {
-        // width: 100%;
         padding-right: $row-padding;
       }
     }
@@ -45,10 +43,6 @@ $row-padding: 8px;
       }
     }
 
-    .seam-supported-devices-table-header-gap {
-      width: 40px;
-    }
-
     tbody {
       tr {
         height: 60px;
@@ -59,55 +53,5 @@ $row-padding: 8px;
         vertical-align: middle !important;
       }
     }
-
-    //   .seam-table-row {
-    //     width: 100%;
-    //     cursor: pointer;
-
-    //     .seam-table-cell {
-    //       padding: 0 16px;
-    //     }
-
-    //     .seam-icon-cell {
-    //       flex: 0;
-    //       display: flex;
-    //       align-items: center;
-    //       justify-content: center;
-
-    //       >div {
-    //         width: 30px;
-    //         height: 30px;
-    //         display: flex;
-    //         align-items: center;
-    //         justify-content: center;
-    //       }
-    //     }
-
-    //     .seam-name-cell {
-    //       flex: 1;
-    //       flex-direction: column;
-    //       justify-content: center;
-    //       align-items: flex-start;
-    //       gap: 2px;
-
-    //       .seam-code-details {
-    //         font-size: 14px;
-    //         line-height: 134%;
-    //         color: colors.$text-gray-1;
-
-    //         .seam-dot-divider {
-    //           margin: 0 4px;
-    //           color: colors.$text-gray-3;
-    //         }
-    //       }
-    //     }
-
-    //     .seam-action-cell {
-    //       margin-right: 12px;
-    //       display: flex;
-    //       align-items: center;
-    //       justify-content: center;
-    //     }
-    //   }
   }
 }
