@@ -1,0 +1,50 @@
+@use './colors';
+
+@mixin all {
+  .seam-supported-devices-table {
+    .seam-table-row {
+      cursor: pointer;
+
+      .seam-icon-cell {
+        flex: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > div {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .seam-name-cell {
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2px;
+
+        .seam-code-details {
+          font-size: 14px;
+          line-height: 134%;
+          color: colors.$text-gray-1;
+
+          .seam-dot-divider {
+            margin: 0 4px;
+            color: colors.$text-gray-3;
+          }
+        }
+      }
+
+      .seam-action-cell {
+        margin-right: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
