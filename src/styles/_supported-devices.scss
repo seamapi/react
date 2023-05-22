@@ -9,8 +9,10 @@ $row-padding: 8px;
     table-layout: auto;
     border-collapse: collapse;
 
-    th, td {
+    th,
+    td {
       white-space: nowrap;
+
       // padding: 0 $row-padding;
     }
 
