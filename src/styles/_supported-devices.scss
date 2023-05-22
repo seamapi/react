@@ -12,10 +12,10 @@ $row-padding: 8px;
     th,
     td {
       white-space: nowrap;
+      padding: 0 8px;
     }
 
     tr {
-
       th:first-of-type,
       td:first-of-type {
         padding-left: $row-padding;

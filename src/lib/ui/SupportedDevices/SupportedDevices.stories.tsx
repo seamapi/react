@@ -1,4 +1,4 @@
-import { Button, Dialog } from '@mui/material'
+import { Button, Dialog, DialogActions } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import useToggle from 'lib/use-toggle.js'
@@ -33,6 +33,12 @@ export const InsideModal: Story = {
           <div className='seam-components'>
             <SupportedDevices {...props} />
           </div>
+
+          <DialogActions
+            sx={{ justifyContent: 'center', marginBottom: '16px' }}
+          >
+            <Button variant='outlined' onClick={toggleOpen}>Done</Button>
+          </DialogActions>
         </Dialog>
       </>
     )
