@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import useToggle from 'lib/use-toggle.js'
 
-import { SupportedDevices } from './SupportedDevices.js'
+import SupportedDevices from './SupportedDevices.js'
 
 /**
  * These stories showcase the access code table.

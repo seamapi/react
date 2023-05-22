@@ -1,9 +1,9 @@
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
 
-export const SupportedDevices = () => {
+export default function SupportedDevices() {
   return (
-    <div className='seam-supported-devices-table'>
+    <table className='seam-supported-devices-table'>
       <SupportedDevicesHeader />
       <tbody>
         <SupportedDeviceRow />
@@ -12,6 +12,6 @@ export const SupportedDevices = () => {
         <SupportedDeviceRow />
         <SupportedDeviceRow />
       </tbody>
-    </div>
+    </table>
   )
 }
