@@ -12,7 +12,7 @@ export default () => {
       <td>AUG-SL05-M01-S01</td>
       <td>Wi-Fi</td>
       <td>
-        <div className="seam-status-pill status-green">
+        <div className='seam-status-pill status-green'>
           <span>Supported</span>
         </div>
       </td>
