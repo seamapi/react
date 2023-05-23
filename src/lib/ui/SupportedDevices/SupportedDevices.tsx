@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 import { Button } from 'lib/ui/Button.js'
+import SupportedDevicesFilterArea from 'lib/ui/SupportedDevices/SupportedDevicesFilterArea.js'
 import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
 
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
-import SupportedDevicesFilterArea from 'lib/ui/SupportedDevices/SupportedDevicesFilterArea.js'
 
 export interface SupportedDevicesProps {
   // If true, show the filter area and search bar
