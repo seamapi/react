@@ -37,7 +37,9 @@ export const InsideModal: Story = {
           <DialogActions
             sx={{ justifyContent: 'center', marginBottom: '16px' }}
           >
-            <Button variant='outlined' onClick={toggleOpen}>Done</Button>
+            <Button variant='outlined' onClick={toggleOpen}>
+              Done
+            </Button>
           </DialogActions>
         </Dialog>
       </>
