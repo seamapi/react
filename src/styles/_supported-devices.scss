@@ -26,18 +26,6 @@ $row-padding: 8px;
       padding: 0 8px;
     }
 
-    tr {
-      th:first-of-type,
-      td:first-of-type {
-        padding-left: $row-padding;
-      }
-
-      th:last-of-type,
-      td:last-of-type {
-        padding-right: $row-padding;
-      }
-    }
-
     thead {
       width: 100%;
       height: 50px;
@@ -64,6 +52,19 @@ $row-padding: 8px;
 
       td {
         vertical-align: middle;
+      }
+    }
+
+    // stylelint-disable-next-line no-descending-specificity
+    tr {
+      th:first-of-type,
+      td:first-of-type {
+        padding-left: $row-padding;
+      }
+
+      th:last-of-type,
+      td:last-of-type {
+        padding-right: $row-padding;
       }
     }
 
