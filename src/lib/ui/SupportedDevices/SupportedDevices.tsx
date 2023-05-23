@@ -6,13 +6,16 @@ import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
 
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
+import SupportedDevicesFilterArea from 'lib/ui/SupportedDevices/SupportedDevicesFilterArea.js'
 
 export interface SupportedDevicesProps {
   // If true, show the filter area and search bar
   showFilterArea?: boolean
 }
 
-export default function SupportedDevices({ showFilterArea }: SupportedDevicesProps) {
+export default function SupportedDevices({
+  showFilterArea,
+}: SupportedDevicesProps) {
   const { data, isLoading, isError, refetch } = useQuery<{
     data: {
       device_models?: DeviceModel[]
@@ -27,6 +30,8 @@ export default function SupportedDevices({ showFilterArea }: SupportedDevicesPro
   return (
     <>
       <div className='seam-supported-devices-table-wrap'>
+        {showFilterArea && <SupportedDevicesFilterArea />}
+
         {isLoading && (
           <div className='seam-supported-devices-table-state-block'>
             <p>Loading device models...</p>
@@ -67,4 +72,8 @@ export default function SupportedDevices({ showFilterArea }: SupportedDevicesPro
       </div>
     </>
   )
+}
+
+SupportedDevices.defaultProps = {
+  showFilterArea: true,
 }
