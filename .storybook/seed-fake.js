@@ -56,6 +56,19 @@ export const seedFake = (db) => {
       image_alt_text: 'August Wifi Smart Lock 3rd Gen, Silver, Front',
       code_constraints: [],
     },
+    errors: [
+      {
+        error_code: 'account_disconnected',
+        message: 'Device account has been disconnected.',
+      },
+    ],
+    warnings: [
+      {
+        warning_code: 'salto_office_mode',
+        message:
+          'Salto office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
+      },
+    ],
   })
 
   db.addAccessCode({
