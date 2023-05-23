@@ -41,9 +41,7 @@ const config: StorybookConfig = {
         })
       )
 
-      // Disabled because for some reason this was blocking requests to
-      // https://devicedb.seam.co/...
-      // config.plugins.push(new CspPlugin())
+      config.plugins.push(new CspPlugin())
     }
 
     return config
