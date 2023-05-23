@@ -34,9 +34,23 @@ export default function SupportedDevices({
     },
   })
 
-  const filteredDeviceModels = useMemo(() => {
+  // filter device models by `filters`
+  const prefilteredDeviceModels = useMemo(() => {
     return (
       data?.data?.device_models?.filter((deviceModel) => {
+        if (filters.supportedOnly) {
+          return deviceModel.support_level === 'Live'
+        }
+
+        return true
+      }) ?? []
+    )
+  }, [data?.data?.device_models, filters])
+
+  // filter device models by `filterStr`
+  const filteredDeviceModels = useMemo(() => {
+    return (
+      prefilteredDeviceModels.filter((deviceModel) => {
         if (filterStr === '') {
           return true
         }
@@ -61,7 +75,7 @@ export default function SupportedDevices({
         })
       }) ?? []
     )
-  }, [data?.data?.device_models, filterStr])
+  }, [prefilteredDeviceModels, filterStr])
 
   return (
     <>
