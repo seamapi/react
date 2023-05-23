@@ -17,6 +17,45 @@ $row-padding: 8px;
       align-items: center;
       flex-direction: row;
     }
+
+    .seam-supported-devices-filter-area-search-bar-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+
+      & input {
+        min-width: 250px;
+        padding-left: 32px;
+      }
+
+      & .adornment {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        &.seam-icon-adornment {
+          left: 8px;
+          pointer-events: none;
+        }
+
+        &.seam-clear-button-adornment {
+          right: 8px;
+
+          & button {
+            appearance: none;
+            background-color: transparent;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            box-shadow: none;
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 
   .seam-supported-devices-table-state-block {
@@ -96,6 +135,7 @@ $row-padding: 8px;
     }
 
     tr {
+
       th:first-of-type,
       td:first-of-type {
         padding-left: $row-padding;

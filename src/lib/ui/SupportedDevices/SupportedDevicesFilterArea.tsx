@@ -1,3 +1,5 @@
+import { CloseIcon } from 'lib/icons/Close.js'
+import { SearchIcon } from 'lib/icons/Search.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 
 interface SupportedDevicesFilterAreaProps {
@@ -13,11 +15,26 @@ export default function SupportedDevicesFilterArea({
     <div className='seam-supported-devices-filter-area'>
       <div className='seam-deliberate-block' />
       <div className='seam-filters-wrap'>
-        <TextField
-          placeholder='Search...'
-          value={filterStr}
-          onChange={(value) => setFilterStr(value)}
-        />
+        <div className='seam-supported-devices-filter-area-search-bar-wrap'>
+          <div className='adornment seam-icon-adornment'>
+            <SearchIcon />
+          </div>
+
+          <TextField
+            placeholder='Search...'
+            value={filterStr}
+            onChange={(value) => setFilterStr(value)}
+            className='seam-supported-devices-filter-area-search-bar'
+          />
+
+          {filterStr.trim() !== '' && (
+            <div className='adornment seam-clear-button-adornment'>
+              <button onClick={() => setFilterStr('')}>
+                <CloseIcon />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
