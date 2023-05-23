@@ -12,7 +12,9 @@ export interface SupportedDevicesProps {
   showFilterArea?: boolean
 }
 
-export default function SupportedDevices({ showFilterArea }: SupportedDevicesProps) {
+export default function SupportedDevices({
+  showFilterArea,
+}: SupportedDevicesProps) {
   const { data, isLoading, isError, refetch } = useQuery<{
     data: {
       device_models?: DeviceModel[]
