@@ -7,7 +7,7 @@ import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
 
-export default function SupportedDevices() {
+export function SupportedDevices() {
   const { data, isLoading, isError, refetch } = useQuery<{
     data: {
       device_models?: DeviceModel[]
