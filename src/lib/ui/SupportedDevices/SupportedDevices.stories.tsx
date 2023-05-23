@@ -6,7 +6,7 @@ import useToggle from 'lib/use-toggle.js'
 import SupportedDevices from './SupportedDevices.js'
 
 /**
- * These stories showcase the access code table.
+ * These stories showcase the supported devices table.
  */
 const meta: Meta<typeof SupportedDevices> = {
   title: 'Example/SupportedDevices',
