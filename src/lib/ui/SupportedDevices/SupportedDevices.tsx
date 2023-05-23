@@ -13,12 +13,7 @@ export interface SupportedDevicesProps {
 }
 
 export default function SupportedDevices({}: SupportedDevicesProps) {
-  const {
-    data,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery<{
+  const { data, isLoading, isError, refetch } = useQuery<{
     data: {
       device_models: DeviceModel[]
     }
