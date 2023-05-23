@@ -2,7 +2,6 @@ import type { StorybookConfig } from '@storybook/react-webpack5'
 import CopyPlugin from 'copy-webpack-plugin'
 import sass from 'sass'
 
-import CspPlugin from './webpack-csp.js'
 import webpackTsconfigpaths from './webpack-tsconfigpaths.js'
 
 const config: StorybookConfig = {
@@ -42,7 +41,9 @@ const config: StorybookConfig = {
         })
       )
 
-      config.plugins.push(new CspPlugin())
+      // Disabled because for some reason this was blocking requests to
+      // https://devicedb.seam.co/...
+      // config.plugins.push(new CspPlugin())
     }
 
     return config
