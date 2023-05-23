@@ -7,6 +7,8 @@ import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
 
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
+import { useMemo, useState } from 'react'
+import { Link } from '@mui/material'
 
 export interface SupportedDevicesProps {
   // If true, show the filter area and search bar
@@ -16,6 +18,8 @@ export interface SupportedDevicesProps {
 export default function SupportedDevices({
   showFilterArea,
 }: SupportedDevicesProps) {
+  const [filterStr, setFilterStr] = useState('')
+
   const { data, isLoading, isError, refetch } = useQuery<{
     data: {
       device_models?: DeviceModel[]
@@ -27,10 +31,44 @@ export default function SupportedDevices({
     },
   })
 
+  const filteredDeviceModels = useMemo(() => {
+    return (
+      data?.data?.device_models?.filter((deviceModel) => {
+        if (filterStr === '') {
+          return true
+        }
+
+        const filterStrLower = filterStr.toLowerCase()
+
+        const filterableProperties = [
+          deviceModel.main_category,
+          deviceModel.model_name,
+          deviceModel.manufacturer_model_id,
+          deviceModel.connection_type,
+          deviceModel.support_level,
+          deviceModel.brand,
+        ]
+
+        return filterableProperties.some((property) => {
+          if (property === null) {
+            return false
+          }
+
+          return property.toLowerCase().includes(filterStrLower)
+        })
+      }) ?? []
+    )
+  }, [data?.data?.device_models, filterStr])
+
   return (
     <>
       <div className='seam-supported-devices-table-wrap'>
-        {showFilterArea && <SupportedDevicesFilterArea />}
+        {showFilterArea && (
+          <SupportedDevicesFilterArea
+            filterStr={filterStr}
+            setFilterStr={setFilterStr}
+          />
+        )}
 
         {isLoading && (
           <div className='seam-supported-devices-table-state-block'>
@@ -53,22 +91,39 @@ export default function SupportedDevices({
           </div>
         )}
 
-        {!isLoading &&
-          !isError &&
-          data?.data?.device_models !== null &&
-          Array.isArray(data?.data?.device_models) && (
-            <table className='seam-supported-devices-table'>
-              <SupportedDevicesHeader />
-              <tbody>
-                {data.data.device_models.map((deviceModel) => (
+        {!isLoading && !isError && data?.data?.device_models !== null && (
+          <table className='seam-supported-devices-table'>
+            <SupportedDevicesHeader />
+            <tbody>
+              {filteredDeviceModels.length !== 0 &&
+                filteredDeviceModels.map((deviceModel, index) => (
                   <SupportedDeviceRow
-                    key={deviceModel.manufacturer_model_id}
+                    key={`${index}:${deviceModel.manufacturer_model_id}`}
                     deviceModel={deviceModel}
                   />
                 ))}
-              </tbody>
-            </table>
-          )}
+
+              {filteredDeviceModels.length === 0 && (
+                <tr className='seam-supported-devices-table-message-row'>
+                  <td colSpan={6}>
+                    <div className='seam-supported-devices-table-message'>
+                      {filterStr.length === 0 ? (
+                        <p>No device models found.</p>
+                      ) : (
+                        <>
+                          <p>No device models matched your search.</p>
+                          <Link onClick={() => setFilterStr('')}>
+                            Clear search terms
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </>
   )
