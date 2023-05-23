@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+
 import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
 
 export interface SupportedDeviceRowProps {

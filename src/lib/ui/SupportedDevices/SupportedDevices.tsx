@@ -1,4 +1,5 @@
 import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
+
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
 
