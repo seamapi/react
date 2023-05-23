@@ -37,7 +37,11 @@ export default function SupportedDevices({}: SupportedDevicesProps) {
         {isError && (
           <div className='seam-supported-devices-table-state-block'>
             <p>There was an error fetching device models.</p>
-            <Button variant='solid' size='small' onClick={async () => await refetch()}>
+            <Button
+              variant='solid'
+              size='small'
+              onClick={async () => await refetch()}
+            >
               Retry
             </Button>
           </div>
