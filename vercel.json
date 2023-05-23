@@ -18,7 +18,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com https://seam.co https://seam.cohttps://www.deviced b.seam.co ; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://devicedb.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com"
+          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com https://seam.co https://devicedb.seam.co ; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://devicedb.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com"
         },
         {
           "key": "X-DNS-Prefetch-Control",
@@ -55,7 +55,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src 'self' https://connect.getseam.com https://seam.co https://seam.cohttps://www.deviced b.seam.co; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://devicedb.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"
+          "value": "default-src 'self'; connect-src 'self' https://connect.getseam.com https://seam.co https://devicedb.seam.co; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://devicedb.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"
         }
       ]
     }
