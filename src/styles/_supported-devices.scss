@@ -80,6 +80,14 @@ $row-padding: 8px;
       &.status-red {
         background-color: colors.$status-red;
       }
+
+      &.status-blue {
+        background-color: colors.$primary;
+      }
+
+      &.status-gray {
+        background-color: colors.$bg-d;
+      }
     }
   }
 }
