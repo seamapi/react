@@ -1,10 +1,11 @@
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+
+import { Button } from 'lib/ui/Button.js'
 import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
 
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import { Button } from 'lib/ui/Button.js'
 
 export interface SupportedDevicesProps {
   // If true, only show devices that are actively
@@ -36,7 +37,11 @@ export default function SupportedDevices({}: SupportedDevicesProps) {
         {isError && (
           <div className='seam-supported-devices-table-state-block'>
             <p>There was an error fetching device models.</p>
-            <Button variant='solid' size='small' onClick={() => refetch()}>
+            <Button
+              variant='solid'
+              size='small'
+              onClick={async () => await refetch()}
+            >
               Retry
             </Button>
           </div>
