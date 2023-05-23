@@ -16,6 +16,7 @@ $row-padding: 8px;
       justify-content: flex-start;
       align-items: center;
       flex-direction: row;
+      gap: 8px;
     }
 
     .seam-supported-devices-filter-area-search-bar-wrap {
@@ -64,6 +65,31 @@ $row-padding: 8px;
             }
           }
         }
+      }
+    }
+  }
+
+  .seam-supported-devices-filter-menu {
+    width: 100%;
+    padding: 8px 16px;
+
+    .seam-filter-menu-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+
+      .seam-filter-checkbox-label {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+      }
+
+      .seam-filter-checkbox {
+        appearance: checkbox;
       }
     }
   }

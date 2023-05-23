@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { Button } from 'lib/ui/Button.js'
 import SupportedDevicesFilterArea from 'lib/ui/SupportedDevices/SupportedDevicesFilterArea.js'
-import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
+import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
 
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
@@ -19,6 +19,9 @@ export default function SupportedDevices({
   showFilterArea,
 }: SupportedDevicesProps) {
   const [filterStr, setFilterStr] = useState('')
+  const [filters, setFilters] = useState<Filters>({
+    supportedOnly: false,
+  })
 
   const { data, isLoading, isError, refetch } = useQuery<{
     data: {
@@ -67,6 +70,8 @@ export default function SupportedDevices({
           <SupportedDevicesFilterArea
             filterStr={filterStr}
             setFilterStr={setFilterStr}
+            filters={filters}
+            setFilters={setFilters}
           />
         )}
 
