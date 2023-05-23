@@ -3,6 +3,17 @@
 $row-padding: 8px;
 
 @mixin all {
+  .seam-supported-devices-table-state-block {
+    width: 100%;
+    background-color: colors.$bg-a;
+    padding: 32px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .seam-supported-devices-table {
     width: 100%;
     overflow-x: auto;
@@ -16,6 +27,7 @@ $row-padding: 8px;
     }
 
     tr {
+
       th:first-of-type,
       td:first-of-type {
         padding-left: $row-padding;

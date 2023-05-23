@@ -1,6 +1,9 @@
 import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { Button } from 'lib/ui/Button.js'
 
 export interface SupportedDevicesProps {
   // If true, only show devices that are actively
@@ -9,56 +12,54 @@ export interface SupportedDevicesProps {
 }
 
 export default function SupportedDevices({}: SupportedDevicesProps) {
-  const TEMP_supportedDevices: DeviceModel[] = [
-    {
-      main_category: 'Smart Lock',
-      model_name: 'Wi-Fi Smart Lock',
-      manufacturer_model_id: 'AUG-SL05-M01-S01',
-      connection_type: 'Wi-Fi',
-      support_level: 'Live',
-      brand: 'August',
-      icon_url:
-        'https://www.seam.co/_next/image?url=%2Fimg%2Fdevice-db%2Faugust%2Fsmartlocks%2Faugust_wifi-smart-lock_silver_front.png&w=96&q=75',
-      seam_device_model_page_url:
-        'https://www.seam.co/device-db/august/smartlocks',
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery<{
+    data: {
+      device_models: DeviceModel[]
+    }
+  }>({
+    queryKey: ['supported_devices'],
+    queryFn: async () => {
+      return await axios.get('https://devicedb.seam.co/api/device_models/list')
     },
-    {
-      main_category: 'Smart Lock',
-      model_name: 'Wi-Fi Smart Lock',
-      manufacturer_model_id: 'AUG-SL05-M01-S01',
-      connection_type: 'Wi-Fi',
-      support_level: 'Beta',
-      brand: 'August',
-      icon_url:
-        'https://www.seam.co/_next/image?url=%2Fimg%2Fdevice-db%2Faugust%2Fsmartlocks%2Faugust_wifi-smart-lock_silver_front.png&w=96&q=75',
-      seam_device_model_page_url:
-        'https://www.seam.co/device-db/august/smartlocks',
-    },
-    {
-      main_category: 'Smart Lock',
-      model_name: 'Wi-Fi Smart Lock',
-      manufacturer_model_id: 'AUG-SL05-M01-S01',
-      connection_type: 'Wi-Fi',
-      support_level: 'Unsupported',
-      brand: 'August',
-      icon_url:
-        'https://www.seam.co/_next/image?url=%2Fimg%2Fdevice-db%2Faugust%2Fsmartlocks%2Faugust_wifi-smart-lock_silver_front.png&w=96&q=75',
-      seam_device_model_page_url:
-        'https://www.seam.co/device-db/august/smartlocks',
-    },
-  ]
+  })
 
   return (
-    <table className='seam-supported-devices-table'>
-      <SupportedDevicesHeader />
-      <tbody>
-        {TEMP_supportedDevices.map((deviceModel) => (
-          <SupportedDeviceRow
-            key={deviceModel.manufacturer_model_id}
-            deviceModel={deviceModel}
-          />
-        ))}
-      </tbody>
-    </table>
+    <>
+      <div className='seam-supported-devices-table-wrap'>
+        {isLoading && (
+          <div className='seam-supported-devices-table-state-block'>
+            <p>Loading device models...</p>
+          </div>
+        )}
+
+        {isError && (
+          <div className='seam-supported-devices-table-state-block'>
+            <p>There was an error fetching device models.</p>
+            <Button variant='solid' size='small' onClick={() => refetch()}>
+              Retry
+            </Button>
+          </div>
+        )}
+
+        {!isLoading && !isError && data?.data?.device_models && (
+          <table className='seam-supported-devices-table'>
+            <SupportedDevicesHeader />
+            <tbody>
+              {data.data.device_models.map((deviceModel) => (
+                <SupportedDeviceRow
+                  key={deviceModel.manufacturer_model_id}
+                  deviceModel={deviceModel}
+                />
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </>
   )
 }
