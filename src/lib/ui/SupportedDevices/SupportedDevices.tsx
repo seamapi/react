@@ -1,4 +1,6 @@
+import { useCallback, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { Link } from '@mui/material'
 import axios from 'axios'
 
 import { Button } from 'lib/ui/Button.js'
@@ -7,8 +9,8 @@ import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
 
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
-import { useMemo, useState } from 'react'
-import { Link } from '@mui/material'
+
+const BASE_URL = "https://devicedb.seam.co/api/device_models/list"
 
 export interface SupportedDevicesProps {
   // If true, show the filter area and search bar
@@ -23,59 +25,31 @@ export default function SupportedDevices({
     supportedOnly: false,
   })
 
+  const fetchDeviceModels = useCallback(async () => {
+    const queries = []
+
+    if (filterStr.trim() !== '') {
+      queries.push(`text_search=${encodeURIComponent(filterStr.trim())}`)
+    }
+
+    if (filters.supportedOnly) {
+      queries.push('support_level=live')
+    }
+
+    const url = `${BASE_URL}?${queries.join('&')}`
+    return await axios.get(url)
+  }, [filterStr, filters])
+
   const { data, isLoading, isError, refetch } = useQuery<{
     data: {
       device_models?: DeviceModel[]
     }
   }>({
-    queryKey: ['supported_devices'],
-    queryFn: async () => {
-      return await axios.get('https://devicedb.seam.co/api/device_models/list')
-    },
+    queryKey: ['supported_devices', filterStr, filters],
+    queryFn: fetchDeviceModels,
   })
 
-  // filter device models by `filters`
-  const prefilteredDeviceModels = useMemo(() => {
-    return (
-      data?.data?.device_models?.filter((deviceModel) => {
-        if (filters.supportedOnly) {
-          return deviceModel.support_level === 'Live'
-        }
-
-        return true
-      }) ?? []
-    )
-  }, [data?.data?.device_models, filters])
-
-  // filter device models by `filterStr`
-  const filteredDeviceModels = useMemo(() => {
-    return (
-      prefilteredDeviceModels.filter((deviceModel) => {
-        if (filterStr === '') {
-          return true
-        }
-
-        const filterStrLower = filterStr.toLowerCase()
-
-        const filterableProperties = [
-          deviceModel.main_category,
-          deviceModel.model_name,
-          deviceModel.manufacturer_model_id,
-          deviceModel.connection_type,
-          deviceModel.support_level,
-          deviceModel.brand,
-        ]
-
-        return filterableProperties.some((property) => {
-          if (property === null) {
-            return false
-          }
-
-          return property.toLowerCase().includes(filterStrLower)
-        })
-      }) ?? []
-    )
-  }, [prefilteredDeviceModels, filterStr])
+  const deviceModels  = data?.data?.device_models ?? []
 
   return (
     <>
@@ -114,15 +88,15 @@ export default function SupportedDevices({
           <table className='seam-supported-devices-table'>
             <SupportedDevicesHeader />
             <tbody>
-              {filteredDeviceModels.length !== 0 &&
-                filteredDeviceModels.map((deviceModel, index) => (
+              {deviceModels.length !== 0 &&
+                deviceModels.map((deviceModel, index) => (
                   <SupportedDeviceRow
                     key={`${index}:${deviceModel.manufacturer_model_id}`}
                     deviceModel={deviceModel}
                   />
                 ))}
 
-              {filteredDeviceModels.length === 0 && (
+              {deviceModels.length === 0 && (
                 <tr className='seam-supported-devices-table-message-row'>
                   <td colSpan={6}>
                     <div className='seam-supported-devices-table-message'>
