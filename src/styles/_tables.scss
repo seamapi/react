@@ -47,8 +47,20 @@
   }
 }
 
+@mixin empty-placeholder {
+  .seam-table-empty-placeholder {
+    height: 300px;
+    font-size: 18px;
+    line-height: 132%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 @mixin all {
   @include header;
   @include row;
   @include cell;
+  @include empty-placeholder;
 }
