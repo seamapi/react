@@ -76,13 +76,12 @@ export function DeviceTable({
   )
 }
 
-function Body({
-  devices,
-  selectDevice,
-}: {
+function Body(props: {
   devices: Array<UseDevicesData[number]>
   selectDevice: (id: string) => void
 }) {
+  const { devices, selectDevice } = props
+
   if (devices.length === 0) {
     return <EmptyPlaceholder>{t.noDevicesMessage}</EmptyPlaceholder>
   }

@@ -4,12 +4,16 @@ import type { AccessCode } from 'seamapi'
 import { copy } from 'lib/copy.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
-import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
+import {
+  useAccessCodes,
+  type UseAccessCodesData,
+} from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 import { MoreActionsMenu } from 'lib/ui/Menu/MoreActionsMenu.js'
+import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -59,52 +63,70 @@ export function AccessCodeTable(
         </TableTitle>
       </TableHeader>
       <TableBody>
-        {accessCodes.map((code) => (
-          <TableRow
-            key={code.access_code_id}
-            onClick={() => {
-              selectAccessCode(code)
-            }}
-          >
-            <TableCell className='seam-icon-cell'>
-              <div>
-                <AccessCodeKeyIcon />
-              </div>
-            </TableCell>
-            <TableCell className='seam-name-cell'>
-              <Title>{code.name}</Title>
-              <CodeDetails accessCode={code} />
-            </TableCell>
-            <TableCell className='seam-action-cell'>
-              <MoreActionsMenu
-                MenuProps={{
-                  BackgroundProps: {
-                    className: 'seam-access-code-table-action-menu',
-                  },
-                }}
-              >
-                <MenuItem
-                  onClick={() => {
-                    void copy(code.code ?? '')
-                  }}
-                >
-                  <div className='menu-item-copy'>
-                    <span>
-                      {t.copyCode} - {code.code}
-                    </span>
-                    <CopyIcon />
-                  </div>
-                </MenuItem>
-              </MoreActionsMenu>
-            </TableCell>
-          </TableRow>
-        ))}
+        <Body accessCodes={accessCodes} selectAccessCode={selectAccessCode} />
       </TableBody>
     </div>
+  )
+}
+
+function Body(props: {
+  accessCodes: Array<UseAccessCodesData[number]>
+  selectAccessCode: (accessCode: AccessCode) => void
+}) {
+  const { accessCodes, selectAccessCode } = props
+
+  if (accessCodes.length === 0) {
+    return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
+  }
+
+  return (
+    <>
+      {accessCodes.map((code) => (
+        <TableRow
+          key={code.access_code_id}
+          onClick={() => {
+            selectAccessCode(code)
+          }}
+        >
+          <TableCell className='seam-icon-cell'>
+            <div>
+              <AccessCodeKeyIcon />
+            </div>
+          </TableCell>
+          <TableCell className='seam-name-cell'>
+            <Title>{code.name}</Title>
+            <CodeDetails accessCode={code} />
+          </TableCell>
+          <TableCell className='seam-action-cell'>
+            <MoreActionsMenu
+              MenuProps={{
+                BackgroundProps: {
+                  className: 'seam-access-code-table-action-menu',
+                },
+              }}
+            >
+              <MenuItem
+                onClick={() => {
+                  void copy(code.code ?? '')
+                }}
+              >
+                <div className='menu-item-copy'>
+                  <span>
+                    {t.copyCode} - {code.code}
+                  </span>
+                  <CopyIcon />
+                </div>
+              </MenuItem>
+            </MoreActionsMenu>
+          </TableCell>
+        </TableRow>
+      ))}
+    </>
   )
 }
 
 const t = {
   accessCodes: 'Access Codes',
   copyCode: 'Copy code',
+  noAccessCodesMessage: 'Sorry, no access codes were found',
 }
