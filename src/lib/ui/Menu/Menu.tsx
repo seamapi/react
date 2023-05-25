@@ -107,8 +107,6 @@ export const Menu = ({
     edgeOffset,
   ])
 
-  const isOpen = Boolean(anchorEl)
-
   useLayoutEffect(() => {
     setPositions()
     globalThis?.addEventListener('scroll', setPositions)
@@ -119,6 +117,7 @@ export const Menu = ({
     }
   }, [setPositions])
 
+  const isOpen = anchorEl != null
   const hasSetPosition = top !== 0 && left !== 0
   const visible = isOpen && hasSetPosition
 
