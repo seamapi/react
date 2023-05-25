@@ -1,5 +1,3 @@
-import pluralize from 'pluralize'
-
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import type { UseDevicesData } from 'lib/seam/devices/use-devices.js'
@@ -27,6 +25,11 @@ export function DeviceHealthBar({
     onSelectFilter(newFilter)
   }
 
+  const isPlural = numIssues === 0 || numIssues > 1
+  const label = isPlural
+    ? `${numIssues} ${t.deviceIssues}`
+    : `${numIssues} ${t.deviceIssue}`
+
   if (numIssues === 0) {
     return (
       <TableFilterBar>
@@ -50,7 +53,7 @@ export function DeviceHealthBar({
         selected={filter === 'device_issues'}
       >
         <ExclamationCircleOutlineIcon />
-        {pluralize(t.deviceIssue, numIssues, true)}
+        {label}
       </TableFilterItem>
     </TableFilterBar>
   )
@@ -59,4 +62,5 @@ export function DeviceHealthBar({
 const t = {
   devicesOk: 'Devices OK',
   deviceIssue: 'device issue',
+  deviceIssues: 'device issues',
 }
