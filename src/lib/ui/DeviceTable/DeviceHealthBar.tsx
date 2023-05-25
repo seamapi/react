@@ -3,8 +3,8 @@ import pluralize from 'pluralize'
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import type { UseDevicesData } from 'lib/seam/devices/use-devices.js'
-import { TableFilterItem } from 'lib/ui/Table/TableFilters/TableFilterItem.js'
-import { TableFilters } from 'lib/ui/Table/TableFilters/TableFilters.js'
+import { TableFilterBar } from 'lib/ui/Table/TableFilterBar/TableFilterBar.js'
+import { TableFilterItem } from 'lib/ui/Table/TableFilterBar/TableFilterItem.js'
 
 export type DeviceFilter = 'device_issues'
 
@@ -29,17 +29,22 @@ export function DeviceHealthBar({
 
   if (numIssues === 0) {
     return (
-      <TableFilters>
+      <TableFilterBar>
         <TableFilterItem>
           <CheckIcon />
           {t.devicesOk}
         </TableFilterItem>
-      </TableFilters>
+      </TableFilterBar>
     )
   }
 
   return (
-    <TableFilters>
+    <TableFilterBar
+      hasSelectedFilter={filter !== null}
+      onClearFilters={() => {
+        onSelectFilter(null)
+      }}
+    >
       <TableFilterItem
         onClick={toggle('device_issues')}
         selected={filter === 'device_issues'}
@@ -47,7 +52,7 @@ export function DeviceHealthBar({
         <ExclamationCircleOutlineIcon />
         {pluralize(t.deviceIssue, numIssues, true)}
       </TableFilterItem>
-    </TableFilters>
+    </TableFilterBar>
   )
 }
 
