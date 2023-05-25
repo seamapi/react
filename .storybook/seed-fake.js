@@ -74,7 +74,7 @@ export const seedFake = (db) => {
   db.addAccessCode({
     device_id: device1.device_id,
     workspace_id: ws2.workspace_id,
-    name: "John's House main Front Door Code Version Two",
+    name: "John's Front Door Code",
     code: '1234',
     common_code_key: null,
     type: 'ongoing',
