@@ -81,47 +81,58 @@ function Body(props: {
 
   return (
     <>
-      {accessCodes.map((code) => (
-        <TableRow
-          key={code.access_code_id}
+      {accessCodes.map((accessCode) => (
+        <AccessCodeRow
+          key={accessCode.access_code_id}
+          accessCode={accessCode}
           onClick={() => {
-            selectAccessCode(code)
+            selectAccessCode(accessCode)
           }}
-        >
-          <TableCell className='seam-icon-cell'>
-            <div>
-              <AccessCodeKeyIcon />
-            </div>
-          </TableCell>
-          <TableCell className='seam-name-cell'>
-            <Title>{code.name}</Title>
-            <CodeDetails accessCode={code} />
-          </TableCell>
-          <TableCell className='seam-action-cell'>
-            <MoreActionsMenu
-              MenuProps={{
-                BackgroundProps: {
-                  className: 'seam-access-code-table-action-menu',
-                },
-              }}
-            >
-              <MenuItem
-                onClick={() => {
-                  void copy(code.code ?? '')
-                }}
-              >
-                <div className='menu-item-copy'>
-                  <span>
-                    {t.copyCode} - {code.code}
-                  </span>
-                  <CopyIcon />
-                </div>
-              </MenuItem>
-            </MoreActionsMenu>
-          </TableCell>
-        </TableRow>
+        />
       ))}
     </>
+  )
+}
+
+function AccessCodeRow(props: {
+  accessCode: UseAccessCodesData[number]
+  onClick: () => void
+}) {
+  const { onClick, accessCode } = props
+  return (
+    <TableRow key={accessCode.access_code_id} onClick={onClick}>
+      <TableCell className='seam-icon-cell'>
+        <div>
+          <AccessCodeKeyIcon />
+        </div>
+      </TableCell>
+      <TableCell className='seam-name-cell'>
+        <Title>{accessCode.name}</Title>
+        <CodeDetails accessCode={accessCode} />
+      </TableCell>
+      <TableCell className='seam-action-cell'>
+        <MoreActionsMenu
+          MenuProps={{
+            BackgroundProps: {
+              className: 'seam-access-code-table-action-menu',
+            },
+          }}
+        >
+          <MenuItem
+            onClick={() => {
+              void copy(accessCode.code ?? '')
+            }}
+          >
+            <div className='menu-item-copy'>
+              <span>
+                {t.copyCode} - {accessCode.code}
+              </span>
+              <CopyIcon />
+            </div>
+          </MenuItem>
+        </MoreActionsMenu>
+      </TableCell>
+    </TableRow>
   )
 }
 
