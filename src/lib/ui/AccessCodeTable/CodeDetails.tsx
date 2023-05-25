@@ -9,7 +9,7 @@ export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
 
   return (
     <div className='seam-code-details'>
-      Unit 110
+      <span className='seam-device-name seam-truncated-text'>Unit 110</span>
       <DotDivider />
       <Duration accessCode={accessCode} />
       <DotDivider />

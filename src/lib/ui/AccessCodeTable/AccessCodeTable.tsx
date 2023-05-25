@@ -107,7 +107,7 @@ function AccessCodeRow(props: {
         </div>
       </TableCell>
       <TableCell className='seam-name-cell'>
-        <Title>{accessCode.name}</Title>
+        <Title className='seam-truncated-text'>{accessCode.name}</Title>
         <CodeDetails accessCode={accessCode} />
       </TableCell>
       <TableCell className='seam-action-cell'>
