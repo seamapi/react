@@ -29,7 +29,7 @@ interface MenuContextProps {
 
 const MenuContext = createContext<MenuContextProps | undefined>(undefined)
 
-const Menu = ({
+export const Menu = ({
   verticalOffset = 5,
   horizontalOffset = 0,
   edgeOffset = 5,
@@ -178,5 +178,3 @@ export function useMenu() {
 
   return context
 }
-
-export default Menu

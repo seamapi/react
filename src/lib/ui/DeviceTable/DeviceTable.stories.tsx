@@ -5,7 +5,7 @@ import {
   DeviceTable,
   type DeviceTableProps,
 } from 'lib/ui/DeviceTable/DeviceTable.js'
-import useToggle from 'lib/use-toggle.js'
+import { useToggle } from 'lib/use-toggle.js'
 
 const meta: Meta<typeof DeviceTable> = {
   title: 'Example/DeviceTable',

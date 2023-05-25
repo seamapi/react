@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import useToggle from 'lib/use-toggle.js'
+import { useToggle } from 'lib/use-toggle.js'
 
 import { SupportedDevices } from './SupportedDevices.js'
 

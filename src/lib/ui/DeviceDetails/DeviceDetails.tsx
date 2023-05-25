@@ -15,7 +15,7 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import useToggle from 'lib/use-toggle.js'
+import { useToggle } from 'lib/use-toggle.js'
 
 export interface DeviceDetailsProps {
   deviceId: string
