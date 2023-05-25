@@ -23,11 +23,13 @@ export interface MenuProps {
   }>
 }
 
-interface MenuContextProps {
+interface MenuContextValue {
   close: () => void
 }
 
-const MenuContext = createContext<MenuContextProps | undefined>(undefined)
+const menuContext = createContext<MenuContextValue>({
+  close: () => {},
+})
 
 export const Menu = ({
   verticalOffset = 5,
@@ -37,6 +39,7 @@ export const Menu = ({
   button,
   BackgroundProps,
 }: MenuProps) => {
+  const { Provider } = menuContext
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [documentEl, setDocumentEl] = useState<null | Element>(null)
   const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null)
@@ -124,7 +127,7 @@ export const Menu = ({
   }
 
   return (
-    <MenuContext.Provider
+    <Provider
       value={{
         close: handleClose,
       }}
@@ -163,15 +166,14 @@ export const Menu = ({
           {children}
         </div>
       </div>
-    </MenuContext.Provider>
+    </Provider>
   )
 }
 
 export function useMenu() {
-  const context = useContext(MenuContext)
-  if (context === undefined) {
+  const context = useContext(menuContext)
+  if (context == null) {
     throw new Error('useMenu must be used within a Menu.')
   }
-
   return context
 }
