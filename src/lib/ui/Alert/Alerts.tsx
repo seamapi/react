@@ -8,8 +8,10 @@ export interface AlertsProps {
   className?: string
 }
 
-export function Alerts(props: AlertsProps): JSX.Element {
+export function Alerts(props: AlertsProps): JSX.Element | null {
   const { alerts, children, className } = props
+
+  if (alerts?.length === 0) return null
 
   return (
     <div className={classNames('seam-alerts', className)}>
