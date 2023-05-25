@@ -4,12 +4,12 @@ import type { ButtonProps, DivProps } from 'lib/ui/types.js'
 
 export interface TableFiltersProps extends DivProps {
   hasSelectedFilter?: boolean
-  onClearFilters?: () => void
+  onClearFilter?: () => void
 }
 
 export function TableFilterBar({
   hasSelectedFilter,
-  onClearFilters,
+  onClearFilter,
   children,
   ...props
 }: TableFiltersProps) {
@@ -17,7 +17,7 @@ export function TableFilterBar({
     <div className='seam-table-filter-bar' {...props}>
       {children}{' '}
       {hasSelectedFilter === true && (
-        <ClearFiltersButton onClick={onClearFilters} />
+        <ClearFiltersButton onClick={onClearFilter} />
       )}
     </div>
   )
