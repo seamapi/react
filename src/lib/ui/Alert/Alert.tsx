@@ -17,8 +17,8 @@ export interface AlertProps {
 export function Alert(props: AlertProps): JSX.Element {
   const { variant, message, action, className, ...rest } = props
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
-    action?.onClick(ev)
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    action?.onClick(event)
   }
 
   return (

@@ -139,8 +139,8 @@ export const Menu = ({
           style={{
             display: visible ? 'flex' : 'none',
           }}
-          onClick={(e) => {
-            e.stopPropagation()
+          onClick={(event) => {
+            event.stopPropagation()
             handleClose()
           }}
         >

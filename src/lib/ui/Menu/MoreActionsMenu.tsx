@@ -11,9 +11,9 @@ export function MoreActionsMenu({ children, MenuProps }: MoreActionsMenuProps) {
     <Menu
       button={({ open }) => (
         <IconButton
-          onClick={(e) => {
-            e.stopPropagation()
-            open(e)
+          onClick={(event) => {
+            event.stopPropagation()
+            open(event)
           }}
         >
           <DotsEllipsisMoreIcon />
