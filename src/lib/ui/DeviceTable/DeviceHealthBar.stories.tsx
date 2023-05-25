@@ -23,11 +23,11 @@ export const Content: Story = {
     const [filter, setFilter] = useState<DeviceFilter | null>(null)
     return (
       <Box display='grid' gap={3} gridTemplateColumns='1fr'>
-        <DeviceHealthBar filter={null} onSelectFilter={() => {}} devices={[]} />
+        <DeviceHealthBar filter={null} onFilterSelect={() => {}} devices={[]} />
 
         <DeviceHealthBar
           filter={filter}
-          onSelectFilter={setFilter}
+          onFilterSelect={setFilter}
           devices={[
             {
               connected_account_id: 'account_1',

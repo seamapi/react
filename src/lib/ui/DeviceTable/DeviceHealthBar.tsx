@@ -9,20 +9,20 @@ export type DeviceFilter = 'device_issues'
 interface DeviceHealthBarProps {
   devices: Array<UseDevicesData[number]>
   filter: DeviceFilter | null
-  onSelectFilter: (filter: DeviceFilter | null) => void
+  onFilterSelect: (filter: DeviceFilter | null) => void
 }
 
 export function DeviceHealthBar({
   devices,
   filter,
-  onSelectFilter,
+  onFilterSelect,
 }: DeviceHealthBarProps) {
   const errorDevices = devices.filter((device) => device.errors.length > 0)
   const numIssues = errorDevices.length
 
   const toggle = (target: DeviceFilter) => () => {
     const newFilter = target === filter ? null : target
-    onSelectFilter(newFilter)
+    onFilterSelect(newFilter)
   }
 
   const isPlural = numIssues === 0 || numIssues > 1
@@ -44,8 +44,8 @@ export function DeviceHealthBar({
   return (
     <TableFilterBar
       hasSelectedFilter={filter !== null}
-      onClearFilter={() => {
-        onSelectFilter(null)
+      onFilterClear={() => {
+        onFilterSelect(null)
       }}
     >
       <TableFilterItem

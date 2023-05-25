@@ -100,7 +100,7 @@ function Body(props: {
       <DeviceHealthBar
         devices={devices}
         filter={filter}
-        onSelectFilter={setFilter}
+        onFilterSelect={setFilter}
       />
       {filteredDevices.map((device) => (
         <DeviceRow
