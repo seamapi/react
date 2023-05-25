@@ -9,10 +9,10 @@ export interface AlertsProps {
 }
 
 export function Alerts(props: AlertsProps): JSX.Element {
-  const { alerts, children, className, ...rest } = props
+  const { alerts, children, className } = props
 
   return (
-    <div className={classNames('seam-alerts', className)} {...rest}>
+    <div className={classNames('seam-alerts', className)}>
       {alerts?.map((alert, index) => (
         <Alert key={`${index}:${alert.message}`} {...alert} />
       ))}
