@@ -15,7 +15,7 @@ export function TableFilterItem({
     <div
       onClick={onClick}
       className={classNames('seam-table-filter-item', {
-        'seam-clickable': onClick !== undefined,
+        'seam-clickable': onClick != null,
         'seam-selected': selected,
       })}
       {...props}
