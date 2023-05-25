@@ -83,16 +83,14 @@ export const Menu = ({
     const right = left + contentWidth
     const bottom = top + contentHeight
 
-    // If the content would overflow right, we'll need to set it relative
-    // to the right of the container.
+    // If the content would overflow right, set it relative to the right of the container.
     const isOverflowingRight = right > containerRight
     const visibleLeft = isOverflowingRight
       ? containerRight - contentWidth - horizontalOffset - edgeOffset
       : left
     setLeft(visibleLeft)
 
-    // If the content would overflow bottom, we'll position it to be
-    // above the anchor.
+    // If the content would overflow bottom, position it above the anchor.
     const isOverFlowingBottom = bottom > containerBottom
     const visibleTop = isOverFlowingBottom
       ? anchorTop - contentHeight - verticalOffset
