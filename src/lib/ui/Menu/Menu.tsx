@@ -31,14 +31,14 @@ const menuContext = createContext<MenuContextValue>({
   close: () => {},
 })
 
-export const Menu = ({
+export function Menu({
   verticalOffset = 5,
   horizontalOffset = 0,
   edgeOffset = 5,
   children,
   button,
   BackgroundProps,
-}: MenuProps) => {
+}: MenuProps) {
   const { Provider } = menuContext
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [documentEl, setDocumentEl] = useState<null | Element>(null)
