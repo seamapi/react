@@ -12,7 +12,9 @@ export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
 
   return (
     <div className='seam-code-details'>
-      <span className='seam-device-name seam-truncated-text'>{device?.properties.name}</span>
+      <span className='seam-device-name seam-truncated-text'>
+        {device?.properties.name}
+      </span>
       <DotDivider />
       <Duration accessCode={accessCode} />
       <DotDivider />
