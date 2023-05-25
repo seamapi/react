@@ -34,7 +34,7 @@ export const Content: Story = {
               device_type: 'august_lock',
               device_id: 'dev_1',
               capabilities_supported: [],
-              created_at: Date.now().valueOf().toString(),
+              created_at: '2023-05-08T22:38:30.963Z',
               workspace_id: 'workspace_1',
               properties: {
                 name: 'mydevice',
@@ -60,7 +60,7 @@ export const Content: Story = {
               device_type: 'august_lock',
               device_id: 'dev_2',
               capabilities_supported: [],
-              created_at: Date.now().valueOf().toString(),
+              created_at: '2023-05-08T22:38:30.963Z',
               workspace_id: 'workspace_1',
               properties: {
                 name: 'mydevice',
