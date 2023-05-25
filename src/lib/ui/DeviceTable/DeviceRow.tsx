@@ -1,7 +1,7 @@
 import { isLockDevice } from 'lib/seam/devices/types.js'
-import {
-  type UseDevicesData,
-  type UseDevicesParams,
+import type {
+  UseDevicesData,
+  UseDevicesParams,
 } from 'lib/seam/devices/use-devices.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
