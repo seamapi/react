@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import type { MouseEvent } from 'react'
 import {
   createContext,
   useCallback,
@@ -15,7 +16,7 @@ export interface MenuProps {
   horizontalOffset?: number
   edgeOffset?: number
   button: (props: {
-    open: (event: React.MouseEvent<HTMLElement>) => void
+    open: (event: MouseEvent<HTMLElement>) => void
   }) => JSX.Element
   BackgroundProps?: Partial<{
     className?: string
@@ -56,7 +57,7 @@ const Menu = ({
     setAnchorEl(null)
   }
 
-  const open = (event: React.MouseEvent<HTMLElement>) => {
+  const open = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
