@@ -17,7 +17,9 @@ export function TableFilterBar({
   return (
     <div className='seam-table-filter-bar' {...props}>
       {children}{' '}
-      {showClearFilterButton && <ClearFiltersButton onClick={onFilterClear} />}
+      {showClearFilterButton ? (
+        <ClearFiltersButton onClick={onFilterClear} />
+      ) : null}
     </div>
   )
 }
