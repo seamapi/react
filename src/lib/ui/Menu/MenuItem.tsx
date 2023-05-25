@@ -1,9 +1,7 @@
-import type { ReactNode } from 'react'
-
 import { useMenu } from 'lib/ui/Menu/Menu.js'
 
 export interface MenuItemProps {
-  children: ReactNode
+  children: JSX.Element
   onClick: () => void
 }
 

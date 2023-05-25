@@ -16,7 +16,7 @@ export interface MenuProps {
   edgeOffset?: number
   button: (props: {
     open: (event: React.MouseEvent<HTMLElement>) => void
-  }) => React.ReactElement
+  }) => JSX.Element
   BackgroundProps?: Partial<{
     className?: string
   }>

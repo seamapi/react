@@ -4,7 +4,7 @@ import { Alert, type AlertProps } from 'lib/ui/Alert/Alert.js'
 
 export interface AlertsProps {
   alerts?: AlertProps[]
-  children?: React.ReactNode
+  children?: JSX.Element
   className?: string
 }
 
