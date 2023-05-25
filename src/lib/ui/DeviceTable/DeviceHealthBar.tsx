@@ -43,7 +43,7 @@ export function DeviceHealthBar({
 
   return (
     <TableFilterBar
-      hasSelectedFilter={filter !== null}
+      isFilterCleared={filter == null}
       onFilterClear={() => {
         onFilterSelect(null)
       }}
