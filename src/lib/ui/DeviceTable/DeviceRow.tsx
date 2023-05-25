@@ -39,7 +39,7 @@ export function DeviceRow({
         <DeviceImage device={device} />
       </TableCell>
       <TableCell className='seam-body-cell'>
-        <Title>{device.properties.name}</Title>
+        <Title className='seam-truncated-text'>{device.properties.name}</Title>
         <div className='seam-bottom'>
           <span className='seam-device-model'>{deviceModel}</span>
           <div className='seam-device-statuses'>

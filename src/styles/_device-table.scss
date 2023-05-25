@@ -21,6 +21,11 @@
         justify-content: center;
         align-items: flex-start;
         gap: 2px;
+        overflow: hidden;
+
+        .seam-title {
+          max-width: 380px;
+        }
 
         .seam-bottom {
           display: flex;

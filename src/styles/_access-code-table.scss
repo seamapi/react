@@ -26,11 +26,22 @@
         justify-content: center;
         align-items: flex-start;
         gap: 2px;
+        overflow: hidden;
+
+        .seam-title {
+          max-width: 380px;
+        }
 
         .seam-code-details {
           font-size: 14px;
           line-height: 134%;
           color: colors.$text-gray-1;
+          display: flex;
+
+          .seam-device-name {
+            max-width: 190px;
+            width: auto;
+          }
 
           .seam-dot-divider {
             margin: 0 4px;
