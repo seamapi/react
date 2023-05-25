@@ -1,26 +1,22 @@
 import { useState } from 'react'
 
-import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
   useDevices,
   type UseDevicesData,
   type UseDevicesParams,
 } from 'lib/seam/devices/use-devices.js'
-import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
-import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
-import { LockStatus } from 'lib/ui/device/LockStatus.js'
-import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
-import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
+import {
+  type DeviceFilter,
+  DeviceHealthBar,
+} from 'lib/ui/DeviceTable/DeviceHealthBar.js'
+import { DeviceRow } from 'lib/ui/DeviceTable/DeviceRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
-import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
-import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-import { Title } from 'lib/ui/typography/Title.js'
 
 export type DeviceTableProps = Props & UseDevicesParams
 
@@ -81,14 +77,32 @@ function Body(props: {
   selectDevice: (id: string) => void
 }) {
   const { devices, selectDevice } = props
+  const [filter, setFilter] = useState<DeviceFilter | null>(null)
 
   if (devices.length === 0) {
     return <EmptyPlaceholder>{t.noDevicesMessage}</EmptyPlaceholder>
   }
 
+  const filteredDevices = devices.filter((device) => {
+    if (filter === null) {
+      return true
+    }
+
+    if (filter === 'device_issues') {
+      return device.errors.length > 0
+    }
+
+    return true
+  })
+
   return (
     <>
-      {devices.map((device) => (
+      <DeviceHealthBar
+        devices={devices}
+        filter={filter}
+        onFilterSelect={setFilter}
+      />
+      {filteredDevices.map((device) => (
         <DeviceRow
           device={device}
           key={device.device_id}
@@ -98,38 +112,6 @@ function Body(props: {
         />
       ))}
     </>
-  )
-}
-
-function DeviceRow(props: {
-  device: UseDevicesData[number]
-  onClick: () => void
-}): JSX.Element | null {
-  const { device, onClick } = props
-
-  if (!isLockDevice(device)) {
-    return null
-  }
-
-  const deviceModel = getDeviceModel(device) ?? t.unknownLock
-
-  return (
-    <TableRow key={device.device_id} onClick={onClick}>
-      <TableCell className='seam-image-cell'>
-        <DeviceImage device={device} />
-      </TableCell>
-      <TableCell className='seam-body-cell'>
-        <Title>{device.properties.name}</Title>
-        <div className='seam-bottom'>
-          <span className='seam-device-model'>{deviceModel}</span>
-          <div className='seam-device-statuses'>
-            <OnlineStatus device={device} />
-            <BatteryStatus device={device} />
-            <LockStatus device={device} />
-          </div>
-        </div>
-      </TableCell>
-    </TableRow>
   )
 }
 

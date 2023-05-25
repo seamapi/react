@@ -26,7 +26,7 @@ const meta: Meta<typeof Button> = {
 
 type Story = StoryObj<typeof Button>
 
-export const Outline: Story = {
+export const Content: Story = {
   render: (props) => {
     return (
       <Box display='grid' gap={3} gridTemplateColumns='repeat(3, min-content)'>

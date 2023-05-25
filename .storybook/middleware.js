@@ -11,6 +11,7 @@ export default async (app) => {
   seedFake(fake.database.getState())
   await fake.startServer()
 
+  // eslint-disable-next-line no-console
   console.log(`Fake server running at: "${fake.server.serverUrl}"`)
 
   app.use(
