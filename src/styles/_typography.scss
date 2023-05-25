@@ -35,10 +35,21 @@
   }
 }
 
+@mixin truncated-text {
+  .seam-truncated-text {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 @mixin all {
   @include headers;
   @include caption;
   @include danger-text;
   @include font-family;
   @include defaults;
+  @include truncated-text;
 }
