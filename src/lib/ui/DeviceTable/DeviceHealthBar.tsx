@@ -17,20 +17,20 @@ export function DeviceHealthBar({
   filter,
   onFilterSelect,
 }: DeviceHealthBarProps) {
-  const errorDevices = devices.filter((device) => device.errors.length > 0)
-  const numIssues = errorDevices.length
+  const erroredDevices = devices.filter((device) => device.errors.length > 0)
+  const issueCount = erroredDevices.length
 
   const toggle = (target: DeviceFilter) => () => {
     const newFilter = target === filter ? null : target
     onFilterSelect(newFilter)
   }
 
-  const isPlural = numIssues === 0 || numIssues > 1
+  const isPlural = issueCount === 0 || issueCount > 1
   const label = isPlural
-    ? `${numIssues} ${t.deviceIssues}`
-    : `${numIssues} ${t.deviceIssue}`
+    ? `${issueCount} ${t.deviceIssues}`
+    : `${issueCount} ${t.deviceIssue}`
 
-  if (numIssues === 0) {
+  if (issueCount === 0) {
     return (
       <TableFilterBar>
         <TableFilterItem>
