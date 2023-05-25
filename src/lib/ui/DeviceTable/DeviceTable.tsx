@@ -13,6 +13,7 @@ import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -69,17 +70,34 @@ export function DeviceTable({
         </TableTitle>
       </TableHeader>
       <TableBody>
-        {devices.map((device) => (
-          <DeviceRow
-            device={device}
-            key={device.device_id}
-            onClick={() => {
-              selectDevice(device.device_id)
-            }}
-          />
-        ))}
+        <Body devices={devices} selectDevice={selectDevice} />
       </TableBody>
     </div>
+  )
+}
+
+function Body(props: {
+  devices: Array<UseDevicesData[number]>
+  selectDevice: (id: string) => void
+}) {
+  const { devices, selectDevice } = props
+
+  if (devices.length === 0) {
+    return <EmptyPlaceholder>{t.noDevicesMessage}</EmptyPlaceholder>
+  }
+
+  return (
+    <>
+      {devices.map((device) => (
+        <DeviceRow
+          device={device}
+          key={device.device_id}
+          onClick={() => {
+            selectDevice(device.device_id)
+          }}
+        />
+      ))}
+    </>
   )
 }
 
@@ -118,4 +136,5 @@ function DeviceRow(props: {
 const t = {
   devices: 'Devices',
   unknownLock: 'Unknown Lock',
+  noDevicesMessage: 'Sorry, no devices were found',
 }
