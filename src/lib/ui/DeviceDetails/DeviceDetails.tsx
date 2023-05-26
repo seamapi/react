@@ -7,7 +7,7 @@ import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
-import { type AlertProps } from 'lib/ui/Alert/Alert.js'
+import type { AlertProps } from 'lib/ui/Alert/Alert.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
@@ -15,7 +15,7 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import useToggle from 'lib/use-toggle.js'
+import { useToggle } from 'lib/use-toggle.js'
 
 export interface DeviceDetailsProps {
   deviceId: string
@@ -121,10 +121,7 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
               </div>
             </div>
           </div>
-
-          {alerts.length > 0 && (
-            <Alerts alerts={alerts} className='seam-alerts-space-top' />
-          )}
+          <Alerts alerts={alerts} className='seam-alerts-space-top' />
         </div>
         <div className='seam-box'>
           <div

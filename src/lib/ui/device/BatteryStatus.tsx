@@ -5,7 +5,7 @@ import { BatteryLevelFullIcon } from 'lib/icons/BatteryLevelFull.js'
 import { BatteryLevelHighIcon } from 'lib/icons/BatteryLevelHigh.js'
 import { BatteryLevelLowIcon } from 'lib/icons/BatteryLevelLow.js'
 
-export interface BatteryStatusProps {
+interface BatteryStatusProps {
   device: LockDevice
 }
 

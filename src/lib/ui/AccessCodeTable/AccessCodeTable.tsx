@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
-import { copy } from 'lib/copy.js'
+import { copyToClipboard } from 'lib/copy-to-clipboard.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import {
@@ -112,15 +112,15 @@ function AccessCodeRow(props: {
       </TableCell>
       <TableCell className='seam-action-cell'>
         <MoreActionsMenu
-          MenuProps={{
-            BackgroundProps: {
+          menuProps={{
+            backgroundProps: {
               className: 'seam-access-code-table-action-menu',
             },
           }}
         >
           <MenuItem
             onClick={() => {
-              void copy(accessCode.code ?? '')
+              void copyToClipboard(accessCode.code ?? '')
             }}
           >
             <div className='menu-item-copy'>

@@ -1,25 +1,30 @@
+import type { PropsWithChildren } from 'react'
+
 import { DotsEllipsisMoreIcon } from 'lib/icons/DotsEllipsisMore.js'
 import { IconButton } from 'lib/ui/IconButton.js'
-import Menu, { type MenuProps } from 'lib/ui/Menu/Menu.js'
+import { Menu, type MenuProps } from 'lib/ui/Menu/Menu.js'
 
-export interface MoreActionsMenuProps {
-  children: JSX.Element | JSX.Element[]
-  MenuProps?: Partial<MenuProps>
+interface MoreActionsMenuProps {
+  menuProps?: Partial<MenuProps>
 }
-export function MoreActionsMenu({ children, MenuProps }: MoreActionsMenuProps) {
+
+export function MoreActionsMenu({
+  children,
+  menuProps,
+}: PropsWithChildren<MoreActionsMenuProps>) {
   return (
     <Menu
-      button={({ open }) => (
+      renderButton={({ onOpen }) => (
         <IconButton
-          onClick={(e) => {
-            e.stopPropagation()
-            open(e)
+          onClick={(event) => {
+            event.stopPropagation()
+            onOpen(event)
           }}
         >
           <DotsEllipsisMoreIcon />
         </IconButton>
       )}
-      {...MenuProps}
+      {...menuProps}
     >
       {children}
     </Menu>

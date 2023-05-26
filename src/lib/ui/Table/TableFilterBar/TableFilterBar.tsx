@@ -2,7 +2,7 @@ import { ArrowRestartIcon } from 'lib/icons/ArrowRestart.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import type { ButtonProps, DivProps } from 'lib/ui/types.js'
 
-export interface TableFiltersProps extends DivProps {
+interface TableFilterBarProps extends DivProps {
   isFilterCleared?: boolean
   onFilterClear?: () => void
 }
@@ -12,12 +12,14 @@ export function TableFilterBar({
   onFilterClear,
   children,
   ...props
-}: TableFiltersProps) {
+}: TableFilterBarProps) {
   const showClearFilterButton = isFilterCleared === false
   return (
     <div className='seam-table-filter-bar' {...props}>
       {children}{' '}
-      {showClearFilterButton && <ClearFiltersButton onClick={onFilterClear} />}
+      {showClearFilterButton ? (
+        <ClearFiltersButton onClick={onFilterClear} />
+      ) : null}
     </div>
   )
 }

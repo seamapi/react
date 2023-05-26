@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import {
   createContext,
+  type MouseEvent,
+  type PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
@@ -10,32 +12,34 @@ import {
 import { createPortal } from 'react-dom'
 
 export interface MenuProps {
-  children: JSX.Element | JSX.Element[]
   verticalOffset?: number
   horizontalOffset?: number
   edgeOffset?: number
-  button: (props: {
-    open: (event: React.MouseEvent<HTMLElement>) => void
-  }) => React.ReactElement
-  BackgroundProps?: Partial<{
+  renderButton: (props: {
+    onOpen: (event: MouseEvent<HTMLElement>) => void
+  }) => JSX.Element
+  backgroundProps?: Partial<{
     className?: string
   }>
 }
 
-interface MenuContextProps {
+interface MenuContextValue {
   close: () => void
 }
 
-const MenuContext = createContext<MenuContextProps | undefined>(undefined)
+const menuContext = createContext<MenuContextValue>({
+  close: () => {},
+})
 
-const Menu = ({
+export function Menu({
   verticalOffset = 5,
   horizontalOffset = 0,
   edgeOffset = 5,
   children,
-  button,
-  BackgroundProps,
-}: MenuProps) => {
+  renderButton,
+  backgroundProps,
+}: PropsWithChildren<MenuProps>) {
+  const { Provider } = menuContext
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [documentEl, setDocumentEl] = useState<null | Element>(null)
   const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null)
@@ -43,7 +47,9 @@ const Menu = ({
   const [left, setLeft] = useState(0)
 
   useEffect(() => {
-    const containers = document.querySelectorAll('.seam-components')
+    const containers =
+      globalThis?.document?.querySelectorAll('.seam-components')
+    if (containers == null) return
     const el = containers[containers.length - 1]
     if (el != null) {
       setDocumentEl(el)
@@ -54,7 +60,7 @@ const Menu = ({
     setAnchorEl(null)
   }
 
-  const open = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -80,16 +86,14 @@ const Menu = ({
     const right = left + contentWidth
     const bottom = top + contentHeight
 
-    // If the content would overflow right, we'll need to set it relative
-    // to the right of the container.
+    // If the content would overflow right, set it relative to the right of the container.
     const isOverflowingRight = right > containerRight
     const visibleLeft = isOverflowingRight
       ? containerRight - contentWidth - horizontalOffset - edgeOffset
       : left
     setLeft(visibleLeft)
 
-    // If the content would overflow bottom, we'll position it to be
-    // above the anchor.
+    // If the content would overflow bottom, position it above the anchor.
     const isOverFlowingBottom = bottom > containerBottom
     const visibleTop = isOverFlowingBottom
       ? anchorTop - contentHeight - verticalOffset
@@ -104,18 +108,17 @@ const Menu = ({
     edgeOffset,
   ])
 
-  const isOpen = Boolean(anchorEl)
-
   useLayoutEffect(() => {
     setPositions()
-    window.addEventListener('scroll', setPositions)
-    window.addEventListener('resize', setPositions)
+    globalThis?.addEventListener('scroll', setPositions)
+    globalThis?.addEventListener('resize', setPositions)
     return () => {
-      window.removeEventListener('scroll', setPositions)
-      window.removeEventListener('resize', setPositions)
+      globalThis?.removeEventListener('scroll', setPositions)
+      globalThis?.removeEventListener('resize', setPositions)
     }
   }, [setPositions])
 
+  const isOpen = anchorEl != null
   const hasSetPosition = top !== 0 && left !== 0
   const visible = isOpen && hasSetPosition
 
@@ -124,20 +127,20 @@ const Menu = ({
   }
 
   return (
-    <MenuContext.Provider
+    <Provider
       value={{
         close: handleClose,
       }}
     >
-      {button({ open })}
+      {renderButton({ onOpen: handleOpen })}
       {createPortal(
         <div
-          className={classNames('seam-menu-bg', BackgroundProps?.className)}
+          className={classNames('seam-menu-bg', backgroundProps?.className)}
           style={{
             display: visible ? 'flex' : 'none',
           }}
-          onClick={(e) => {
-            e.stopPropagation()
+          onClick={(event) => {
+            event.stopPropagation()
             handleClose()
           }}
         >
@@ -163,17 +166,14 @@ const Menu = ({
           {children}
         </div>
       </div>
-    </MenuContext.Provider>
+    </Provider>
   )
 }
 
 export function useMenu() {
-  const context = useContext(MenuContext)
-  if (context === undefined) {
+  const context = useContext(menuContext)
+  if (context == null) {
     throw new Error('useMenu must be used within a Menu.')
   }
-
   return context
 }
-
-export default Menu

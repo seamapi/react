@@ -7,24 +7,21 @@ import { TriangleWarningIcon } from 'lib/icons/TriangleWarning.js'
 export interface AlertProps {
   variant: 'warning' | 'error'
   message: string
-  action?: {
-    label: string
-    onClick: MouseEventHandler
-  }
+  action?: ActionProps
   className?: string
 }
 
-export function Alert(props: AlertProps): JSX.Element {
-  const { variant, message, action, className, ...rest } = props
+interface ActionProps {
+  label: string
+  onClick: MouseEventHandler
+}
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
-    action?.onClick(ev)
-  }
+export function Alert(props: AlertProps): JSX.Element {
+  const { variant, message, className } = props
 
   return (
     <div
       className={classNames('seam-alert', `seam-${variant}-alert`, className)}
-      {...rest}
     >
       <div className='seam-alert-content'>
         <div className='seam-alert-icon'>
@@ -34,19 +31,25 @@ export function Alert(props: AlertProps): JSX.Element {
             <ExclamationCircleIcon />
           )}
         </div>
-
         <div className='seam-alert-message-wrap'>
           <p className='seam-alert-message'>{message}</p>
         </div>
       </div>
+      {props.action == null ? null : <Action {...props.action} />}
+    </div>
+  )
+}
 
-      {action != null && (
-        <div className='seam-alert-action-wrap'>
-          <button onClick={handleClick} className='seam-alert-action'>
-            {action.label}
-          </button>
-        </div>
-      )}
+function Action(props: ActionProps): JSX.Element | null {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    props.onClick(event)
+  }
+
+  return (
+    <div className='seam-alert-action-wrap'>
+      <button onClick={handleClick} className='seam-alert-action'>
+        {props.label}
+      </button>
     </div>
   )
 }

@@ -6,6 +6,7 @@ export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
 }
 
+<<<<<<< HEAD
 export function SupportedDeviceRow({
   deviceModel,
 }: SupportedDeviceRowProps) {
@@ -22,6 +23,10 @@ export function SupportedDeviceRow({
     }
   }
 
+=======
+export function SupportedDeviceRow({ deviceModel }: SupportedDeviceRowProps) {
+  const statusColor = supportLevelColors[deviceModel.support_level] ?? 'gray'
+>>>>>>> main
   return (
     <tr>
       <td>
@@ -33,14 +38,17 @@ export function SupportedDeviceRow({
       <td>{deviceModel.connection_type}</td>
       <td>
         <div
-          className={classNames(
-            'seam-status-pill',
-            `status-${getColorFromSupportLevel()}`
-          )}
+          className={classNames('seam-status-pill', `status-${statusColor}`)}
         >
           <span>{deviceModel.support_level}</span>
         </div>
       </td>
     </tr>
   )
+}
+
+const supportLevelColors = {
+  Live: 'green',
+  Beta: 'blue',
+  Unsupported: 'orange',
 }

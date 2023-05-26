@@ -3,7 +3,7 @@ import type { LockDevice } from 'seamapi'
 import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
-export interface OnlineStatusProps {
+interface OnlineStatusProps {
   device: LockDevice
 }
 

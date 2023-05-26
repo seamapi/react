@@ -4,9 +4,16 @@
   .seam-table-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     height: 56px;
     padding: 0 16px;
+
+    .seam-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
   }
 
   .seam-table-title {
