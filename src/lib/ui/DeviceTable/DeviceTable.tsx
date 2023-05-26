@@ -16,6 +16,7 @@ import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
+import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
 export type DeviceTableProps = Props & UseDevicesParams
@@ -31,6 +32,7 @@ export function DeviceTable({
   const { devices, isLoading, isError, error } = useDevices(props)
 
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   if (selectedDeviceId != null) {
     return (
@@ -57,6 +59,14 @@ export function DeviceTable({
 
   const deviceCount = devices.length
 
+  const filteredDevices = devices.filter((device) => {
+    if (searchTerm === '') {
+      return true
+    }
+
+    return new RegExp(searchTerm, 'i').test(device.properties.name)
+  })
+
   return (
     <div className='seam-device-table'>
       <ContentHeader onBack={onBack} />
@@ -64,9 +74,14 @@ export function DeviceTable({
         <TableTitle>
           {t.devices} <Caption>({deviceCount})</Caption>
         </TableTitle>
+        <SearchTextField
+          value={searchTerm}
+          onChange={setSearchTerm}
+          disabled={deviceCount === 0}
+        />
       </TableHeader>
       <TableBody>
-        <Body devices={devices} selectDevice={selectDevice} />
+        <Body devices={filteredDevices} selectDevice={selectDevice} />
       </TableBody>
     </div>
   )

@@ -2,10 +2,82 @@
 
 @mixin text-field {
   .seam-text-field {
-    padding: 0 8px;
-    height: 40px;
     border: 1px solid colors.$text-gray-3;
     border-radius: 8px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      border-color: colors.$text-default;
+    }
+
+    &:focus-within {
+      border-color: colors.$primary;
+    }
+
+    &.seam-disabled {
+      border-color: colors.$text-gray-3;
+      background: colors.$bg-gray;
+      cursor: not-allowed;
+
+      .seam-text-field-input {
+        cursor: not-allowed;
+      }
+    }
+
+    .seam-text-field-input {
+      height: 40px;
+      border: 0;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .seam-adornment {
+      display: flex;
+      align-items: center;
+
+      svg {
+        scale: 0.8333;
+      }
+
+      &.seam-start {
+        margin-right: 4px;
+      }
+
+      button {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        appearance: none;
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: colors.$bg-b;
+        }
+
+        &.seam-hidden {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+    }
+
+    &.seam-search-text-field {
+      .seam-text-field-input {
+        width: 100%;
+      }
+    }
   }
 }
 
