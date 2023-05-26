@@ -6,7 +6,6 @@ const seamCssUrl = 'https://www.unpkg.com/@seamapi/react@1.1.0/index.min.css'
 export const useSeamStyles = ({ enabled }: { enabled: boolean }) => {
   useEffect(() => {
     if (typeof window === 'undefined') return
-    console.log('USE SEAM STYLES', { enabled })
     if (!enabled) return
     const linkElement = document.querySelector(`link[href="${seamCssUrl}"]`)
 
