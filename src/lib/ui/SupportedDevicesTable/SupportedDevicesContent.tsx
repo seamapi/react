@@ -19,7 +19,7 @@ export interface SupportedDevicesContentProps {
 }
 
 export function SupportedDevicesContent({
-  cannotFilter,
+  cannotFilter = false,
 }: SupportedDevicesContentProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterValue, setFilterValue] = useState('')
@@ -72,11 +72,9 @@ export function SupportedDevicesContent({
 
   const deviceModels = data?.data?.device_models ?? []
 
-  const showFilterArea = cannotFilter == null ? true : !cannotFilter
-
   return (
     <div className='seam-supported-devices-table-wrap'>
-      {showFilterArea && (
+      {!cannotFilter && (
         <SupportedDevicesFilterArea
           deviceModels={allDeviceModels}
           filterValue={filterValue}
