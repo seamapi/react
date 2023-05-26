@@ -66,8 +66,8 @@ export function SupportedDevicesFilterArea({
         >
           <div
             className='seam-supported-devices-filter-menu'
-            onClick={(ev) => {
-              ev.stopPropagation()
+            onClick={(event) => {
+              event.stopPropagation()
             }}
           >
             {/* <div className='seam-filter-menu-row'>
@@ -119,10 +119,10 @@ export function SupportedDevicesFilterArea({
                   type='checkbox'
                   className='seam-filter-checkbox'
                   checked={filters.supportedOnly}
-                  onChange={(ev) => {
+                  onChange={(event) => {
                     setFilters((filters) => ({
                       ...filters,
-                      supportedOnly: ev.target.checked,
+                      supportedOnly: event.target.checked,
                     }))
                   }}
                 />
