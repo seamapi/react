@@ -1,4 +1,6 @@
 import { capitalize } from '@mui/material'
+import type { Dispatch, SetStateAction } from 'react'
+
 import { CloseIcon } from 'lib/icons/Close.js'
 import { SearchIcon } from 'lib/icons/Search.js'
 import { Button } from 'lib/ui/Button.js'
@@ -6,7 +8,6 @@ import Menu from 'lib/ui/Menu/Menu.js'
 import FilterCategoryMenu from 'lib/ui/SupportedDevices/FilterCategoryMenu.js'
 import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
-import type { Dispatch, SetStateAction } from 'react'
 
 interface SupportedDevicesFilterAreaProps {
   deviceModels: DeviceModel[]
@@ -65,7 +66,7 @@ export default function SupportedDevicesFilterArea({
         >
           <div
             className='seam-supported-devices-filter-menu'
-            onClick={(ev) => ev.stopPropagation()}
+            onClick={(ev) => { ev.stopPropagation(); }}
           >
             {/* <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
@@ -98,7 +99,7 @@ export default function SupportedDevicesFilterArea({
                   }))
                 }}
                 buttonLabel={filters.brand ?? 'All'}
-                onAllOptionSelect={() => resetFilter('brand')}
+                onAllOptionSelect={() => { resetFilter('brand'); }}
               />
             </div>
 
@@ -115,10 +116,10 @@ export default function SupportedDevicesFilterArea({
                   className='seam-filter-checkbox'
                   checked={filters.supportedOnly}
                   onChange={(ev) =>
-                    setFilters((filters) => ({
+                    { setFilters((filters) => ({
                       ...filters,
                       supportedOnly: ev.target.checked,
-                    }))
+                    })); }
                   }
                 />
               </label>
@@ -134,13 +135,13 @@ export default function SupportedDevicesFilterArea({
           <TextField
             placeholder='Search...'
             value={filterStr}
-            onChange={(value) => setFilterStr(value)}
+            onChange={(value) => { setFilterStr(value); }}
             className='seam-supported-devices-filter-area-search-bar'
           />
 
           {filterStr.trim() !== '' && (
             <div className='adornment seam-clear-button-adornment'>
-              <button onClick={() => setFilterStr('')}>
+              <button onClick={() => { setFilterStr(''); }}>
                 <CloseIcon />
               </button>
             </div>
