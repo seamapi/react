@@ -9,7 +9,15 @@
     position: fixed;
     inset: 0;
     z-index: 999999;
-    display: none; // Toggled in JS (component)
+    display: none;
+  }
+
+  .seam-menu-hidden {
+    display: none;
+  }
+
+  .seam-menu-visible {
+    display: flex;
   }
 
   .seam-menu-content {
