@@ -38,8 +38,9 @@ export default function FilterCategoryMenu({
           </button>
         )}
       >
-        {usableOptions.map((option) => (
+        {usableOptions.map((option, index) => (
           <MenuItem
+            key={`${index}:${option}`}
             onClick={() => {
               if (option === 'All') {
                 onAllOptionSelect?.()
