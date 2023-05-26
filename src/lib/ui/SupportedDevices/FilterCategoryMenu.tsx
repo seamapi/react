@@ -5,33 +5,58 @@ import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 interface FilterCategoryMenuProps {
   label: string
   options: string[]
+  addAllOption?: boolean
   onSelect: (option: string) => void
+  onAllOptionSelect?: () => void
   buttonLabel?: string
 }
 
 export default function FilterCategoryMenu({
   label,
   options,
+  addAllOption,
   onSelect,
+  onAllOptionSelect,
   buttonLabel,
 }: FilterCategoryMenuProps) {
+  const usableOptions = addAllOption ? ['All', ...options] : options
+
+  if (addAllOption && !onAllOptionSelect) {
+    throw new Error(
+      'onAllOptionSelect must be provided if addAllOption is true'
+    )
+  }
+
   return (
     <div className='seam-supported-devices-filter-menu-wrap'>
       <p>{label}</p>
       <Menu
         button={({ open }) => (
           <button onClick={open}>
-            <span>{buttonLabel ?? 'Filter'}</span>
+            <span>{buttonLabel}</span>
             <ChevronDownIcon />
           </button>
         )}
       >
-        {options.map((option) => (
-          <MenuItem onClick={() => onSelect(option)}>
+        {usableOptions.map((option) => (
+          <MenuItem
+            onClick={() => {
+              if (option === 'All') {
+                onAllOptionSelect?.()
+              } else {
+                onSelect(option)
+              }
+            }}
+          >
             <span>{option}</span>
           </MenuItem>
         ))}
       </Menu>
     </div>
   )
+}
+
+FilterCategoryMenu.defaultProps = {
+  addAllOption: true,
+  buttonLabel: 'Filter',
 }

@@ -40,6 +40,13 @@ export default function SupportedDevicesFilterArea({
     return Array.from(properties)
   }
 
+  function resetFilter(filterType: keyof Filters) {
+    setFilters((filters) => ({
+      ...filters,
+      [filterType]: null,
+    }))
+  }
+
   return (
     <div className='seam-supported-devices-filter-area'>
       <div className='seam-deliberate-block' />
@@ -91,6 +98,7 @@ export default function SupportedDevicesFilterArea({
                   }))
                 }}
                 buttonLabel={filters.brand ?? 'All'}
+                onAllOptionSelect={() => resetFilter('brand')}
               />
             </div>
 
