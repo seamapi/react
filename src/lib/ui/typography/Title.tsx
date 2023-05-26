@@ -1,5 +1,15 @@
-import type { PropsWithChildren } from 'react'
+import classNames from 'classnames'
 
-export function Title({ children }: PropsWithChildren): JSX.Element {
-  return <span className='seam-title'>{children}</span>
+import type { SpanProps } from 'lib/ui/types.js'
+
+export function Title({
+  children,
+  className,
+  ...props
+}: SpanProps): JSX.Element {
+  return (
+    <span className={classNames('seam-title', className)} {...props}>
+      {children}
+    </span>
+  )
 }

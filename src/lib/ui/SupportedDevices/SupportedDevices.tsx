@@ -17,7 +17,7 @@ export interface SupportedDevicesProps {
   showFilterArea?: boolean
 }
 
-export default function SupportedDevices({
+export function SupportedDevices({
   showFilterArea,
 }: SupportedDevicesProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
