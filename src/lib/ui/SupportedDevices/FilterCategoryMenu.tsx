@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
-import Menu from 'lib/ui/Menu/Menu.js'
+import { Menu } from 'lib/ui/Menu/Menu.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 
 interface FilterCategoryMenuBaseProps {
@@ -33,8 +33,8 @@ export function FilterCategoryMenu({
     <div className='seam-supported-devices-filter-menu-wrap'>
       <p>{label}</p>
       <Menu
-        button={({ open }) => (
-          <button onClick={open}>
+        renderButton={({ onOpen }) => (
+          <button onClick={onOpen}>
             <span>{buttonLabel}</span>
             <ChevronDownIcon />
           </button>
