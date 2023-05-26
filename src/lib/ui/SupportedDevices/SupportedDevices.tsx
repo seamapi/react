@@ -1,4 +1,3 @@
-import { Link } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
@@ -126,13 +125,16 @@ export function SupportedDevices({
                       ) : (
                         <>
                           <p>No device models matched your search.</p>
-                          <Link
+                          <Button
+                            variant='outline'
+                            size='small'
                             onClick={() => {
                               setFilterValue('')
                             }}
+                            className='seam-supported-devices-table-message-clear-search'
                           >
                             Clear search terms
-                          </Link>
+                          </Button>
                         </>
                       )}
                     </div>

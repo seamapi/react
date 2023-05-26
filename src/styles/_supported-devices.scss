@@ -122,8 +122,9 @@ $row-padding: 8px;
       margin: 0;
     }
 
-    & a {
+    & button {
       cursor: pointer;
+      margin-top: 8px;
     }
   }
 
@@ -169,6 +170,7 @@ $row-padding: 8px;
     }
 
     tr {
+
       th:first-of-type,
       td:first-of-type {
         padding-left: $row-padding;
