@@ -12,12 +12,10 @@ import { SupportedDevicesHeader } from './SupportedDevicesHeader.js'
 const BASE_URL = 'https://devicedb.seam.co/api/device_models/list'
 
 export interface SupportedDevicesProps {
-  showFilterArea?: boolean
+  cannotFilter?: boolean
 }
 
-export function SupportedDevices({
-  showFilterArea = true,
-}: SupportedDevicesProps) {
+export function SupportedDevices({ cannotFilter }: SupportedDevicesProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<Filters>({
@@ -72,7 +70,7 @@ export function SupportedDevices({
   return (
     <>
       <div className='seam-supported-devices-table-wrap'>
-        {Boolean(showFilterArea) && (
+        {!cannotFilter && (
           <SupportedDevicesFilterArea
             deviceModels={allDeviceModels}
             filterValue={filterValue}
