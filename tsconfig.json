@@ -35,7 +35,8 @@
     "src/**/*",
     "test/**/*",
     "examples/**/*",
+    "api/**/*",
     ".storybook/**/*",
-    "api/**/*"
+    "vite.config.ts"
   ]
 }

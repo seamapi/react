@@ -26,6 +26,9 @@ export default defineConfig(async ({ command, mode }) => {
     ],
     resolve: {
       alias: {
+        '@seamapi/react/elements.js': fileURLToPath(
+          new URL('../src/elements.js', import.meta.url)
+        ),
         '@seamapi/react/index.css': fileURLToPath(
           new URL('../src/index.scss', import.meta.url)
         ),

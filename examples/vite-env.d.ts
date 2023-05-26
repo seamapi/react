@@ -5,3 +5,5 @@ interface ImportMeta {
     SEAM_USER_IDENTIFIER_KEY: string
   }
 }
+
+declare module '@seamapi/react/elements.js' {}
