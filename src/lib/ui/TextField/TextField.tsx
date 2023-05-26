@@ -21,6 +21,6 @@ export function TextField(props: TextFieldProps): JSX.Element {
 
 export const handleString =
   (setter: (v: string) => void) =>
-  (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setter(e.currentTarget.value)
+  (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setter(event.currentTarget.value)
   }

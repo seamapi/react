@@ -2,7 +2,7 @@ import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
-import useToggle from 'lib/use-toggle.js'
+import { useToggle } from 'lib/use-toggle.js'
 
 /**
  * These stories showcase access code details.

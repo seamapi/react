@@ -4,8 +4,8 @@ import axios from 'axios'
 import { Button } from 'lib/ui/Button.js'
 import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
 
-import SupportedDeviceRow from './SupportedDeviceRow.js'
-import SupportedDevicesHeader from './SupportedDevicesHeader.js'
+import { SupportedDeviceRow } from './SupportedDeviceRow.js'
+import { SupportedDevicesHeader } from './SupportedDevicesHeader.js'
 
 export function SupportedDevices() {
   const { data, isLoading, isError, refetch } = useQuery<{
