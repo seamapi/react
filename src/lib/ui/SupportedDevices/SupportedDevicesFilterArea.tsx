@@ -25,10 +25,11 @@ export function SupportedDevicesFilterArea({
   setFilters,
 }: SupportedDevicesFilterAreaProps) {
   const appliedFilters = Object.keys(filters).filter((key) => {
+    const filterProperty = filters[key as keyof Filters]
     return (
-      filters[key as keyof Filters] !== undefined &&
-      filters[key as keyof Filters] !== null &&
-      filters[key as keyof Filters] !== false
+      filterProperty !== undefined &&
+      filterProperty !== null &&
+      filterProperty !== false
     )
   })
   const appliedFiltersCount = appliedFilters.length
