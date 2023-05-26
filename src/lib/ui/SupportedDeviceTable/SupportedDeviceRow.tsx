@@ -11,7 +11,7 @@ export function SupportedDeviceRow({ deviceModel }: SupportedDeviceRowProps) {
   return (
     <tr>
       <td>
-        <img style={{ width: 40 }} src={deviceModel.icon_url} />
+        <img width={40} src={deviceModel.icon_url} />
       </td>
       <td>{deviceModel.main_category}</td>
       <td>{deviceModel.model_name}</td>
