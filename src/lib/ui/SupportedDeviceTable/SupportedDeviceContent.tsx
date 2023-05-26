@@ -3,24 +3,21 @@ import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 
 import { Button } from 'lib/ui/Button.js'
-import { SupportedDevicesFilterArea } from 'lib/ui/SupportedDevicesTable/SupportedDevicesFilterArea.js'
-import type {
-  DeviceModel,
-  Filters,
-} from 'lib/ui/SupportedDevicesTable/types.js'
+import { SupportedDeviceFilterArea } from 'lib/ui/SupportedDeviceTable/SupportedDeviceFilterArea.js'
+import type { DeviceModel, Filters } from 'lib/ui/SupportedDeviceTable/types.js'
 
+import { SupportedDeviceHeader } from './SupportedDeviceHeader.js'
 import { SupportedDeviceRow } from './SupportedDeviceRow.js'
-import { SupportedDevicesHeader } from './SupportedDevicesHeader.js'
 
 const BASE_URL = 'https://devicedb.seam.co/api/device_models/list'
 
-export interface SupportedDevicesContentProps {
+export interface SupportedDeviceContentProps {
   cannotFilter?: boolean
 }
 
-export function SupportedDevicesContent({
+export function SupportedDeviceContent({
   cannotFilter = false,
-}: SupportedDevicesContentProps) {
+}: SupportedDeviceContentProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<Filters>({
@@ -75,7 +72,7 @@ export function SupportedDevicesContent({
   return (
     <div className='seam-supported-devices-table-wrap'>
       {!cannotFilter && (
-        <SupportedDevicesFilterArea
+        <SupportedDeviceFilterArea
           deviceModels={allDeviceModels}
           filterValue={filterValue}
           setFilterValue={setFilterValue}
@@ -107,7 +104,7 @@ export function SupportedDevicesContent({
 
       {!isLoading && !isError && data?.data?.device_models !== null && (
         <table className='seam-supported-devices-table'>
-          <SupportedDevicesHeader />
+          <SupportedDeviceHeader />
           <tbody>
             {deviceModels.length !== 0 &&
               deviceModels.map((deviceModel, index) => (
