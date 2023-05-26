@@ -4,6 +4,7 @@ import type { SupportedDeviceContentProps } from 'lib/ui/SupportedDeviceTable/Su
 import { SupportedDeviceContent } from 'lib/ui/SupportedDeviceTable/SupportedDeviceContent.js'
 
 const client = new QueryClient()
+
 export type SupportedDeviceTableProps = SupportedDeviceContentProps
 
 export function SupportedDeviceTable(props: SupportedDeviceContentProps) {
