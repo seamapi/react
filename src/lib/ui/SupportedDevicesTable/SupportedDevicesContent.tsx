@@ -4,7 +4,10 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { Button } from 'lib/ui/Button.js'
 import { SupportedDevicesFilterArea } from 'lib/ui/SupportedDevicesTable/SupportedDevicesFilterArea.js'
-import type { DeviceModel, Filters } from 'lib/ui/SupportedDevicesTable/types.js'
+import type {
+  DeviceModel,
+  Filters,
+} from 'lib/ui/SupportedDevicesTable/types.js'
 
 import { SupportedDeviceRow } from './SupportedDeviceRow.js'
 import { SupportedDevicesHeader } from './SupportedDevicesHeader.js'
