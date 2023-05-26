@@ -1,14 +1,13 @@
 import type { Dispatch, SetStateAction } from 'react'
 
+import { capitalize } from 'lib/capitalize.js'
 import { CloseIcon } from 'lib/icons/Close.js'
 import { SearchIcon } from 'lib/icons/Search.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { FilterCategoryMenu } from 'lib/ui/SupportedDevices/FilterCategoryMenu.js'
-import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
-import { TextField } from 'lib/ui/TextField/TextField.js'
-import { capitalize } from 'lib/capitalize.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
+import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
 
 interface SupportedDevicesFilterAreaProps {
   deviceModels: DeviceModel[]
