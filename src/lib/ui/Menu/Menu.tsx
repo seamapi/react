@@ -1,7 +1,8 @@
 import classNames from 'classnames'
-import type { MouseEvent } from 'react'
 import {
   createContext,
+  type MouseEvent,
+  type PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
@@ -11,7 +12,6 @@ import {
 import { createPortal } from 'react-dom'
 
 export interface MenuProps {
-  children: JSX.Element | JSX.Element[]
   verticalOffset?: number
   horizontalOffset?: number
   edgeOffset?: number
@@ -38,7 +38,7 @@ export function Menu({
   children,
   button,
   BackgroundProps,
-}: MenuProps) {
+}: PropsWithChildren<MenuProps>) {
   const { Provider } = menuContext
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [documentEl, setDocumentEl] = useState<null | Element>(null)
