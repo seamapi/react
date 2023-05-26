@@ -17,7 +17,9 @@ export interface SupportedDevicesProps {
   showFilterArea?: boolean
 }
 
-export function SupportedDevices({ showFilterArea }: SupportedDevicesProps) {
+export function SupportedDevices({
+  showFilterArea = true,
+}: SupportedDevicesProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterStr, setFilterStr] = useState('')
   const [filters, setFilters] = useState<Filters>({
@@ -143,8 +145,4 @@ export function SupportedDevices({ showFilterArea }: SupportedDevicesProps) {
       </div>
     </>
   )
-}
-
-SupportedDevices.defaultProps = {
-  showFilterArea: true,
 }
