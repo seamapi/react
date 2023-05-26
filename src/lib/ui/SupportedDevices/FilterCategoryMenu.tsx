@@ -19,7 +19,7 @@ export default function FilterCategoryMenu({
   onAllOptionSelect,
   buttonLabel,
 }: FilterCategoryMenuProps) {
-  const usableOptions = addAllOption ? ['All', ...options] : options
+  const usableOptions = Boolean(addAllOption) ? ['All', ...options] : options
 
   if (addAllOption && onAllOptionSelect == null) {
     throw new Error(
