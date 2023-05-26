@@ -21,7 +21,7 @@ export default function FilterCategoryMenu({
 }: FilterCategoryMenuProps) {
   const usableOptions = addAllOption ? ['All', ...options] : options
 
-  if (addAllOption && (onAllOptionSelect == null)) {
+  if (addAllOption && onAllOptionSelect == null) {
     throw new Error(
       'onAllOptionSelect must be provided if addAllOption is true'
     )

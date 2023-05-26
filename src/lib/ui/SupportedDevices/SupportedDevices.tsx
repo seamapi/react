@@ -124,7 +124,11 @@ export function SupportedDevices({ showFilterArea }: SupportedDevicesProps) {
                       ) : (
                         <>
                           <p>No device models matched your search.</p>
-                          <Link onClick={() => { setFilterStr(''); }}>
+                          <Link
+                            onClick={() => {
+                              setFilterStr('')
+                            }}
+                          >
                             Clear search terms
                           </Link>
                         </>

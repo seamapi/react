@@ -66,7 +66,9 @@ export default function SupportedDevicesFilterArea({
         >
           <div
             className='seam-supported-devices-filter-menu'
-            onClick={(ev) => { ev.stopPropagation(); }}
+            onClick={(ev) => {
+              ev.stopPropagation()
+            }}
           >
             {/* <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
@@ -99,7 +101,9 @@ export default function SupportedDevicesFilterArea({
                   }))
                 }}
                 buttonLabel={filters.brand ?? 'All'}
-                onAllOptionSelect={() => { resetFilter('brand'); }}
+                onAllOptionSelect={() => {
+                  resetFilter('brand')
+                }}
               />
             </div>
 
@@ -115,12 +119,12 @@ export default function SupportedDevicesFilterArea({
                   type='checkbox'
                   className='seam-filter-checkbox'
                   checked={filters.supportedOnly}
-                  onChange={(ev) =>
-                    { setFilters((filters) => ({
+                  onChange={(ev) => {
+                    setFilters((filters) => ({
                       ...filters,
                       supportedOnly: ev.target.checked,
-                    })); }
-                  }
+                    }))
+                  }}
                 />
               </label>
             </div>
@@ -135,13 +139,19 @@ export default function SupportedDevicesFilterArea({
           <TextField
             placeholder='Search...'
             value={filterStr}
-            onChange={(value) => { setFilterStr(value); }}
+            onChange={(value) => {
+              setFilterStr(value)
+            }}
             className='seam-supported-devices-filter-area-search-bar'
           />
 
           {filterStr.trim() !== '' && (
             <div className='adornment seam-clear-button-adornment'>
-              <button onClick={() => { setFilterStr(''); }}>
+              <button
+                onClick={() => {
+                  setFilterStr('')
+                }}
+              >
                 <CloseIcon />
               </button>
             </div>
