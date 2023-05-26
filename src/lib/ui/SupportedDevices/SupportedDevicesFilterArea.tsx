@@ -119,10 +119,6 @@ export function SupportedDevicesFilterArea({
         </Menu>
 
         <div className='seam-supported-devices-filter-area-search-bar-wrap'>
-          <div className='adornment seam-icon-adornment'>
-            <SearchIcon />
-          </div>
-
           <SearchTextField
             value={filterValue}
             onChange={(value) => {
@@ -130,18 +126,6 @@ export function SupportedDevicesFilterArea({
             }}
             className='seam-supported-devices-filter-area-search-bar'
           />
-
-          {filterValue.trim() !== '' && (
-            <div className='adornment seam-clear-button-adornment'>
-              <button
-                onClick={() => {
-                  setFilterValue('')
-                }}
-              >
-                <CloseIcon />
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div>
