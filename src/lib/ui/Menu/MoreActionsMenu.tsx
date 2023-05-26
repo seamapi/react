@@ -14,11 +14,11 @@ export function MoreActionsMenu({
 }: PropsWithChildren<MoreActionsMenuProps>) {
   return (
     <Menu
-      renderButton={({ open }) => (
+      renderButton={({ onOpen }) => (
         <IconButton
           onClick={(event) => {
             event.stopPropagation()
-            open(event)
+            onOpen(event)
           }}
         >
           <DotsEllipsisMoreIcon />
