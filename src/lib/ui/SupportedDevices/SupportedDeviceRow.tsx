@@ -6,9 +6,7 @@ export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
 }
 
-export function SupportedDeviceRow({
-  deviceModel,
-}: SupportedDeviceRowProps) {
+export function SupportedDeviceRow({ deviceModel }: SupportedDeviceRowProps) {
   function getColorFromSupportLevel() {
     switch (deviceModel.support_level) {
       case 'Live':
