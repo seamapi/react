@@ -48,7 +48,6 @@ export function SupportedDevices({
     }
 
     const url = `${BASE_URL}?${queries.join('&')}`
-    console.log(url)
     return await axios.get(url)
   }, [filterStr, filters])
 
