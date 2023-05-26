@@ -8,16 +8,15 @@ interface TableFilterBarProps extends DivProps {
 }
 
 export function TableFilterBar({
-  isFilterCleared,
+  isFilterCleared = false,
   onFilterClear,
   children,
   ...props
 }: TableFilterBarProps) {
-  const showClearFilterButton = isFilterCleared === false
   return (
     <div className='seam-table-filter-bar' {...props}>
       {children}{' '}
-      {showClearFilterButton && <ClearFiltersButton onClick={onFilterClear} />}
+      {!isFilterCleared && <ClearFiltersButton onClick={onFilterClear} />}
     </div>
   )
 }
