@@ -6,27 +6,8 @@ export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
 }
 
-<<<<<<< HEAD
-export function SupportedDeviceRow({
-  deviceModel,
-}: SupportedDeviceRowProps) {
-  function getColorFromSupportLevel() {
-    switch (deviceModel.support_level) {
-      case 'Live':
-        return 'green'
-      case 'Beta':
-        return 'blue'
-      case 'Unsupported':
-        return 'orange'
-      default:
-        return 'gray'
-    }
-  }
-
-=======
 export function SupportedDeviceRow({ deviceModel }: SupportedDeviceRowProps) {
   const statusColor = supportLevelColors[deviceModel.support_level] ?? 'gray'
->>>>>>> main
   return (
     <tr>
       <td>
