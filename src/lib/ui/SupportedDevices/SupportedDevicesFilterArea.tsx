@@ -70,26 +70,6 @@ export function SupportedDevicesFilterArea({
               event.stopPropagation()
             }}
           >
-            {/* <div className='seam-filter-menu-row'>
-              <FilterCategoryMenu
-                label='Category'
-                options={getAvailablePropertiesFromDeviceModels(
-                  'main_category'
-                )}
-                buttonLabel={filters.category ?? 'All'}
-
-                // TODO: Uncomment this when the filter is implemented—not
-                // hard coded—on the backend
-                //
-                // onSelect={(category: string) => {
-                //   setFilters((filters) => ({
-                //     ...filters,
-                //     category,
-                //   }))
-                // }}
-              />
-            </div> */}
-
             <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
                 label='Brand'
