@@ -1,11 +1,12 @@
 import classNames from 'classnames'
+import type { MouseEventHandler, PropsWithChildren } from 'react'
 
 interface ButtonProps {
-  children?: string
   variant?: 'solid' | 'outline' | 'neutral'
   size?: 'small' | 'medium' | 'large'
   disabled?: boolean
-  onClick?: () => void
+  onClick?: MouseEventHandler<HTMLButtonElement>
+  className?: string
 }
 
 export function Button({
@@ -14,12 +15,17 @@ export function Button({
   size = 'medium',
   disabled,
   onClick,
-}: ButtonProps): JSX.Element {
+  className,
+}: PropsWithChildren<ButtonProps>): JSX.Element {
   return (
     <button
-      className={classNames(`seam-btn seam-btn-${variant} seam-btn-${size}`, {
-        'seam-btn-disabled': disabled,
-      })}
+      className={classNames(
+        `seam-btn seam-btn-${variant} seam-btn-${size}`,
+        {
+          'seam-btn-disabled': disabled,
+        },
+        className
+      )}
       disabled={disabled}
       onClick={onClick}
     >

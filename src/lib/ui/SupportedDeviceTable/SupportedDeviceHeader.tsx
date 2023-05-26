@@ -1,4 +1,4 @@
-export function SupportedDevicesHeader() {
+export function SupportedDeviceHeader() {
   return (
     <thead>
       <tr>

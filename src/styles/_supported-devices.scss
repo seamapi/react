@@ -3,6 +3,95 @@
 $row-padding: 8px;
 
 @mixin all {
+  .seam-supported-devices-filter-area {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 16px;
+
+    .seam-filters-wrap {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: row;
+      gap: 8px;
+    }
+
+    .seam-supported-devices-filter-area-search-bar-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  .seam-supported-devices-filter-menu {
+    width: 100%;
+    padding: 8px 16px;
+
+    .seam-filter-menu-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+
+      &:not(:last-of-type) {
+        margin-bottom: 8px;
+      }
+
+      .seam-filter-checkbox-label {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+      }
+
+      .seam-filter-checkbox {
+        appearance: checkbox;
+      }
+    }
+
+    .seam-supported-devices-filter-menu-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+
+      & button {
+        appearance: none;
+        padding: 4px 8px;
+        padding-right: 24px;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+        border-radius: 4px;
+        background-color: colors.$bg-b;
+        position: relative;
+        cursor: pointer;
+
+        &:hover {
+          background-color: colors.$bg-c;
+        }
+
+        & span {
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        & svg {
+          position: absolute;
+          top: 2px;
+        }
+      }
+    }
+  }
+
   .seam-supported-devices-table-state-block {
     width: 100%;
     background-color: colors.$bg-a;
@@ -12,6 +101,31 @@ $row-padding: 8px;
     align-items: center;
     flex-direction: column;
     gap: 8px;
+  }
+
+  .seam-supported-devices-table-message-row {
+    height: auto !important;
+  }
+
+  .seam-supported-devices-table-message {
+    width: 100%;
+    padding: 32px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+
+    & p {
+      line-height: 1;
+      margin: 0;
+    }
+
+    & button {
+      cursor: pointer;
+      margin-top: 8px;
+    }
   }
 
   .seam-supported-devices-table {

@@ -8,3 +8,9 @@ export interface DeviceModel {
   icon_url: string
   seam_device_model_page_url: string
 }
+
+export interface Filters {
+  supportedOnly: boolean
+  category: string | null
+  brand: string | null
+}
