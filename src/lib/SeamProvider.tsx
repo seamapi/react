@@ -8,8 +8,9 @@ import {
   useRef,
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
-import { useSeamStyles } from './seam/use-seam-styles.js'
+
 import { useSeamFont } from './seam/use-seam-font.js'
+import { useSeamStyles } from './seam/use-seam-styles.js'
 
 declare global {
   // eslint-disable-next-line no-var
