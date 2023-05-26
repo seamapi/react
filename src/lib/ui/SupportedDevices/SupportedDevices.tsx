@@ -21,7 +21,7 @@ export function SupportedDevices({
   showFilterArea = true,
 }: SupportedDevicesProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
-  const [filterStr, setFilterStr] = useState('')
+  const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<Filters>({
     supportedOnly: false,
     category: null,
@@ -31,8 +31,8 @@ export function SupportedDevices({
   const fetchDeviceModels = useCallback(async () => {
     const queries = []
 
-    if (filterStr.trim() !== '') {
-      queries.push(`text_search=${encodeURIComponent(filterStr.trim())}`)
+    if (filterValue.trim() !== '') {
+      queries.push(`text_search=${encodeURIComponent(filterValue.trim())}`)
     }
 
     if (filters.supportedOnly) {
@@ -49,14 +49,14 @@ export function SupportedDevices({
 
     const url = `${BASE_URL}?${queries.join('&')}`
     return await axios.get(url)
-  }, [filterStr, filters])
+  }, [filterValue, filters])
 
   const { data, isLoading, isError, refetch } = useQuery<{
     data: {
       device_models?: DeviceModel[]
     }
   }>({
-    queryKey: ['supported_devices', filterStr, filters],
+    queryKey: ['supported_devices', filterValue, filters],
     queryFn: fetchDeviceModels,
   })
 
@@ -77,8 +77,8 @@ export function SupportedDevices({
         {Boolean(showFilterArea) && (
           <SupportedDevicesFilterArea
             deviceModels={allDeviceModels}
-            filterStr={filterStr}
-            setFilterStr={setFilterStr}
+            filterValue={filterValue}
+            setFilterValue={setFilterValue}
             filters={filters}
             setFilters={setFilters}
           />
@@ -121,14 +121,14 @@ export function SupportedDevices({
                 <tr className='seam-supported-devices-table-message-row'>
                   <td colSpan={6}>
                     <div className='seam-supported-devices-table-message'>
-                      {filterStr.length === 0 ? (
+                      {filterValue.length === 0 ? (
                         <p>No device models found.</p>
                       ) : (
                         <>
                           <p>No device models matched your search.</p>
                           <Link
                             onClick={() => {
-                              setFilterStr('')
+                              setFilterValue('')
                             }}
                           >
                             Clear search terms

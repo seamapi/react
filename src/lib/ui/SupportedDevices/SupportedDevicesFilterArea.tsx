@@ -11,16 +11,16 @@ import { TextField } from 'lib/ui/TextField/TextField.js'
 
 interface SupportedDevicesFilterAreaProps {
   deviceModels: DeviceModel[]
-  filterStr: string
-  setFilterStr: (filterStr: string) => void
+  filterValue: string
+  setFilterValue: (filter: string) => void
   filters: Filters
   setFilters: Dispatch<SetStateAction<Filters>>
 }
 
 export function SupportedDevicesFilterArea({
   deviceModels,
-  filterStr,
-  setFilterStr,
+  filterValue,
+  setFilterValue,
   filters,
   setFilters,
 }: SupportedDevicesFilterAreaProps) {
@@ -33,7 +33,9 @@ export function SupportedDevicesFilterArea({
   })
   const appliedFiltersCount = appliedFilters.length
 
-  const getAvailablePropertiesFromDeviceModels = (property: keyof DeviceModel) => {
+  const getAvailablePropertiesFromDeviceModels = (
+    property: keyof DeviceModel
+  ) => {
     const properties = new Set<string>()
     deviceModels.forEach((deviceModel) => {
       properties.add(capitalize(deviceModel[property]))
@@ -122,18 +124,18 @@ export function SupportedDevicesFilterArea({
 
           <TextField
             placeholder='Search...'
-            value={filterStr}
+            value={filterValue}
             onChange={(value) => {
-              setFilterStr(value)
+              setFilterValue(value)
             }}
             className='seam-supported-devices-filter-area-search-bar'
           />
 
-          {filterStr.trim() !== '' && (
+          {filterValue.trim() !== '' && (
             <div className='adornment seam-clear-button-adornment'>
               <button
                 onClick={() => {
-                  setFilterStr('')
+                  setFilterValue('')
                 }}
               >
                 <CloseIcon />
