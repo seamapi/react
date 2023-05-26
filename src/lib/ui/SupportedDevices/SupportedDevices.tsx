@@ -70,7 +70,7 @@ export function SupportedDevices({ cannotFilter }: SupportedDevicesProps) {
   return (
     <>
       <div className='seam-supported-devices-table-wrap'>
-        {!cannotFilter && (
+        {Boolean(!cannotFilter) && (
           <SupportedDevicesFilterArea
             deviceModels={allDeviceModels}
             filterValue={filterValue}
