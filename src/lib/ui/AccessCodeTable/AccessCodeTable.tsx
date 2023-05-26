@@ -113,7 +113,7 @@ function AccessCodeRow(props: {
       <TableCell className='seam-action-cell'>
         <MoreActionsMenu
           menuProps={{
-            BackgroundProps: {
+            backgroundProps: {
               className: 'seam-access-code-table-action-menu',
             },
           }}

@@ -18,7 +18,7 @@ export interface MenuProps {
   button: (props: {
     open: (event: MouseEvent<HTMLElement>) => void
   }) => JSX.Element
-  BackgroundProps?: Partial<{
+  backgroundProps?: Partial<{
     className?: string
   }>
 }
@@ -37,7 +37,7 @@ export function Menu({
   edgeOffset = 5,
   children,
   button,
-  BackgroundProps,
+  backgroundProps,
 }: PropsWithChildren<MenuProps>) {
   const { Provider } = menuContext
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -135,7 +135,7 @@ export function Menu({
       {button({ open })}
       {createPortal(
         <div
-          className={classNames('seam-menu-bg', BackgroundProps?.className)}
+          className={classNames('seam-menu-bg', backgroundProps?.className)}
           style={{
             display: visible ? 'flex' : 'none',
           }}
