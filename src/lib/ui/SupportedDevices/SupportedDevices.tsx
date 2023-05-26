@@ -72,7 +72,7 @@ export function SupportedDevices({ showFilterArea }: SupportedDevicesProps) {
   return (
     <>
       <div className='seam-supported-devices-table-wrap'>
-        {showFilterArea && (
+        {Boolean(showFilterArea) && (
           <SupportedDevicesFilterArea
             deviceModels={allDeviceModels}
             filterStr={filterStr}
