@@ -11,13 +11,13 @@ import { SupportedDevicesHeader } from './SupportedDevicesHeader.js'
 
 const BASE_URL = 'https://devicedb.seam.co/api/device_models/list'
 
-export interface SupportedDevicesTableProps {
+export interface SupportedDevicesContentProps {
   cannotFilter?: boolean
 }
 
-export function SupportedDevicesTable({
+export function SupportedDevicesContent({
   cannotFilter,
-}: SupportedDevicesTableProps) {
+}: SupportedDevicesContentProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<Filters>({

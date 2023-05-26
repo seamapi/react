@@ -1,14 +1,14 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import type { SupportedDevicesTableProps } from 'lib/ui/SupportedDevices/SupportedDevicesTable.js'
-import { SupportedDevicesTable } from 'lib/ui/SupportedDevices/SupportedDevicesTable.js'
+import type { SupportedDevicesContentProps } from 'lib/ui/SupportedDevices/SupportedDevicesContent.js'
+import { SupportedDevicesContent } from 'lib/ui/SupportedDevices/SupportedDevicesContent.js'
 
 const client = new QueryClient()
 
-export function SupportedDevices(props: SupportedDevicesTableProps) {
+export function SupportedDevices(props: SupportedDevicesContentProps) {
   return (
     <QueryClientProvider client={client}>
-      <SupportedDevicesTable {...props} />
+      <SupportedDevicesContent {...props} />
     </QueryClientProvider>
   )
 }
