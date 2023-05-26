@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { Link } from '@mui/material'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import { useCallback, useEffect, useState } from 'react'
 
 import { Button } from 'lib/ui/Button.js'
 import SupportedDevicesFilterArea from 'lib/ui/SupportedDevices/SupportedDevicesFilterArea.js'
@@ -17,9 +17,7 @@ export interface SupportedDevicesProps {
   showFilterArea?: boolean
 }
 
-export function SupportedDevices({
-  showFilterArea,
-}: SupportedDevicesProps) {
+export function SupportedDevices({ showFilterArea }: SupportedDevicesProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterStr, setFilterStr] = useState('')
   const [filters, setFilters] = useState<Filters>({
@@ -126,7 +124,7 @@ export function SupportedDevices({
                       ) : (
                         <>
                           <p>No device models matched your search.</p>
-                          <Link onClick={() => setFilterStr('')}>
+                          <Link onClick={() => { setFilterStr(''); }}>
                             Clear search terms
                           </Link>
                         </>
