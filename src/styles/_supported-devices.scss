@@ -103,6 +103,34 @@ $row-padding: 8px;
       justify-content: space-between;
       align-items: center;
       flex-direction: row;
+
+      & button {
+        appearance: none;
+        background-color: transparent;
+        padding: 4px 8px;
+        padding-right: 24px;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+        border-radius: 4px;
+        background-color: colors.$bg-b;
+        position: relative;
+        cursor: pointer;
+
+        &:hover {
+          background-color: colors.$bg-c;
+        }
+
+        & span {
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        & svg {
+          position: absolute;
+          top: 2px;
+        }
+      }
     }
   }
 

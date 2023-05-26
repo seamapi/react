@@ -60,13 +60,13 @@ export default function SupportedDevicesFilterArea({
             className='seam-supported-devices-filter-menu'
             onClick={(ev) => ev.stopPropagation()}
           >
-            <div className='seam-filter-menu-row'>
+            {/* <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
                 label='Category'
                 options={getAvailablePropertiesFromDeviceModels(
                   'main_category'
                 )}
-                onSelect={() => {}}
+                buttonLabel={filters.category ?? 'All'}
 
                 // TODO: Uncomment this when the filter is implemented—not
                 // hard coded—on the backend
@@ -78,7 +78,7 @@ export default function SupportedDevicesFilterArea({
                 //   }))
                 // }}
               />
-            </div>
+            </div> */}
 
             <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
@@ -90,6 +90,7 @@ export default function SupportedDevicesFilterArea({
                     brand,
                   }))
                 }}
+                buttonLabel={filters.brand ?? 'All'}
               />
             </div>
 
