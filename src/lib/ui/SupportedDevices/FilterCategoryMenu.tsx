@@ -27,7 +27,7 @@ export function FilterCategoryMenu({
   onAllOptionSelect,
   buttonLabel,
 }: FilterCategoryMenuProps) {
-  const usableOptions = addAllOption ? ['All', ...options] : options
+  const usableOptions = addAllOption !== null ? ['All', ...options] : options
 
   return (
     <div className='seam-supported-devices-filter-menu-wrap'>
