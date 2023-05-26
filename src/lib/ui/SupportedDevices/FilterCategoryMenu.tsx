@@ -2,14 +2,22 @@ import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import Menu from 'lib/ui/Menu/Menu.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 
-interface FilterCategoryMenuProps {
+interface FilterCategoryMenuBaseProps {
   label: string
   options: string[]
-  addAllOption?: boolean
   onSelect: (option: string) => void
-  onAllOptionSelect?: () => void
   buttonLabel?: string
 }
+
+export type FilterCategoryMenuProps =
+  | (FilterCategoryMenuBaseProps & {
+      addAllOption: true
+      onAllOptionSelect: () => void
+    })
+  | (FilterCategoryMenuBaseProps & {
+      addAllOption?: false
+      onAllOptionSelect?: never
+    })
 
 export function FilterCategoryMenu({
   label,
@@ -20,12 +28,6 @@ export function FilterCategoryMenu({
   buttonLabel,
 }: FilterCategoryMenuProps) {
   const usableOptions = addAllOption ? ['All', ...options] : options
-
-  if (Boolean(addAllOption) && onAllOptionSelect == null) {
-    throw new Error(
-      'onAllOptionSelect must be provided if addAllOption is true'
-    )
-  }
 
   return (
     <div className='seam-supported-devices-filter-menu-wrap'>
