@@ -1,21 +1,21 @@
 import { useEffect } from 'react'
 
 // TODO figure out the version automatically
-const seamCssUrl = 'https://www.unpkg.com/@seamapi/react@1.1.0/index.min.css'
+const cssUrl = 'https://www.unpkg.com/@seamapi/react@1.1.0/index.min.css'
 
 export const useSeamStyles = ({ enabled }: { enabled: boolean }) => {
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    if (globalThis.document == null) return
     if (!enabled) return
-    const linkElement = document.querySelector(`link[href="${seamCssUrl}"]`)
+    const linkEl = globalThis.document.querySelector(`link[href="${cssUrl}"]`)
 
-    if (linkElement === null) {
-      const link = document.createElement('link')
+    if (linkEl === null) {
+      const link = globalThis.document.createElement('link')
       link.rel = 'stylesheet'
       link.type = 'text/css'
-      link.href = seamCssUrl
+      link.href = cssUrl
 
-      document.head.appendChild(link)
+      globalThis.document.head.appendChild(link)
     }
   }, [enabled])
 }

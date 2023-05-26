@@ -19,6 +19,8 @@ function Providers({ children }: PropsWithChildren): JSX.Element {
       endpoint={globalThis.JEST_SEAM_ENDPOINT}
       publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
       userIdentifierKey='some_user'
+      disableCssInjection
+      disableFontInjection
     >
       {children}
     </SeamProvider>

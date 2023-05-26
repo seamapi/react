@@ -5,17 +5,17 @@ const fontUrl =
 
 export const useSeamFont = ({ enabled }: { enabled: boolean }) => {
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    if (globalThis.document == null) return
     if (!enabled) return
-    const linkElement = document.querySelector(`link[href="${fontUrl}"]`)
+    const linkEl = globalThis.document.querySelector(`link[href="${fontUrl}"]`)
 
-    if (linkElement === null) {
-      const link = document.createElement('link')
+    if (linkEl === null) {
+      const link = globalThis.document.createElement('link')
       link.rel = 'stylesheet'
       link.type = 'text/css'
       link.href = fontUrl
 
-      document.head.appendChild(link)
+      globalThis.document.head.appendChild(link)
     }
   }, [enabled])
 }
