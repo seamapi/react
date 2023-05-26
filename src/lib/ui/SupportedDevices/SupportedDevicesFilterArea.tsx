@@ -41,7 +41,7 @@ export function SupportedDevicesFilterArea({
     return Array.from(properties)
   }
 
-  function resetFilter(filterType: keyof Filters) {
+  const resetFilter = (filterType: keyof Filters) => {
     setFilters((filters) => ({
       ...filters,
       [filterType]: null,
