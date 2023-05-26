@@ -33,7 +33,9 @@ export function SupportedDevicesFilterArea({
   })
   const appliedFiltersCount = appliedFilters.length
 
-  const getAvailablePropertiesFromDeviceModels = (property: keyof DeviceModel) => {
+  const getAvailablePropertiesFromDeviceModels = (
+    property: keyof DeviceModel
+  ) => {
     const properties = new Set<string>()
     deviceModels.forEach((deviceModel) => {
       properties.add(capitalize(deviceModel[property]))
