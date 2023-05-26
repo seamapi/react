@@ -2,8 +2,6 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 
-import type { SupportedDevicesProps } from 'lib/index.js'
-
 import { Button } from 'lib/ui/Button.js'
 import { SupportedDevicesFilterArea } from 'lib/ui/SupportedDevices/SupportedDevicesFilterArea.js'
 import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
@@ -17,7 +15,9 @@ export interface SupportedDevicesTableProps {
   cannotFilter?: boolean
 }
 
-export function SupportedDevicesTable({ cannotFilter }: SupportedDevicesTableProps) {
+export function SupportedDevicesTable({
+  cannotFilter,
+}: SupportedDevicesTableProps) {
   const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<Filters>({
