@@ -12,7 +12,6 @@ import { SupportedDevicesHeader } from './SupportedDevicesHeader.js'
 const BASE_URL = 'https://devicedb.seam.co/api/device_models/list'
 
 export interface SupportedDevicesProps {
-  // If true, show the filter area and search bar
   showFilterArea?: boolean
 }
 
