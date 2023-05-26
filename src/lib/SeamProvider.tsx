@@ -9,6 +9,9 @@ import {
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
+import { useSeamFont } from './seam/use-seam-font.js'
+import { useSeamStyles } from './seam/use-seam-styles.js'
+
 declare global {
   // eslint-disable-next-line no-var
   var seam: SeamProviderProps | undefined
@@ -22,10 +25,14 @@ export interface SeamContext {
   clientSessionToken?: string | undefined
 }
 
-type SeamProviderProps =
+type SeamProviderProps = {
+  disableCssInjection?: boolean | undefined
+  disableFontInjection?: boolean | undefined
+} & (
   | SeamProviderPropsWithClient
   | (SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions)
   | (SeamProviderPropsWithClientSessionToken & AllowedSeamClientOptions)
+)
 
 interface SeamProviderPropsWithClient {
   client: Seam
@@ -68,6 +75,9 @@ export function SeamProvider({
       `Must provide either a Seam client, clientSessionToken or a publishableKey.`
     )
   }
+
+  useSeamStyles({ enabled: !(props.disableCssInjection ?? false) })
+  useSeamFont({ enabled: !(props.disableFontInjection ?? false) })
 
   return (
     <div className='seam-components'>

@@ -1,5 +1,3 @@
-import '@seamapi/react/index.css'
-
 import { DeviceTable, SeamProvider } from '@seamapi/react'
 
 export const App = (): JSX.Element => {
