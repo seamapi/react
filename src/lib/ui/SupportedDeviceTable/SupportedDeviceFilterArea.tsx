@@ -55,7 +55,7 @@ export function SupportedDeviceFilterArea({
     : 'Filter'
 
   return (
-    <div className='seam-supported-devices-filter-area'>
+    <div className='seam-supported-device-table-filter-area'>
       <div className='seam-deliberate-block' />
       <div className='seam-filters-wrap'>
         <Menu
@@ -70,7 +70,7 @@ export function SupportedDeviceFilterArea({
           )}
         >
           <div
-            className='seam-supported-devices-filter-menu'
+            className='seam-supported-device-table-filter-menu'
             onClick={(event) => {
               event.stopPropagation()
             }}
@@ -116,13 +116,13 @@ export function SupportedDeviceFilterArea({
           </div>
         </Menu>
 
-        <div className='seam-supported-devices-filter-area-search-bar-wrap'>
+        <div className='seam-supported-device-table-filter-area-search-bar-wrap'>
           <SearchTextField
             value={filterValue}
             onChange={(value) => {
               setFilterValue(value)
             }}
-            className='seam-supported-devices-filter-area-search-bar'
+            className='seam-supported-device-table-filter-area-search-bar'
           />
         </div>
       </div>

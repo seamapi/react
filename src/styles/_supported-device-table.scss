@@ -3,7 +3,7 @@
 $row-padding: 8px;
 
 @mixin all {
-  .seam-supported-devices-filter-area {
+  .seam-supported-device-table-filter-area {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -19,7 +19,7 @@ $row-padding: 8px;
       gap: 8px;
     }
 
-    .seam-supported-devices-filter-area-search-bar-wrap {
+    .seam-supported-device-table-filter-area-search-bar-wrap {
       position: relative;
       display: flex;
       justify-content: center;
@@ -28,7 +28,7 @@ $row-padding: 8px;
     }
   }
 
-  .seam-supported-devices-filter-menu {
+  .seam-supported-device-table-filter-menu {
     width: 100%;
     padding: 8px 16px;
 
@@ -56,7 +56,7 @@ $row-padding: 8px;
       }
     }
 
-    .seam-supported-devices-filter-menu-wrap {
+    .seam-supported-device-table-filter-menu-wrap {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -92,7 +92,7 @@ $row-padding: 8px;
     }
   }
 
-  .seam-supported-devices-table-state-block {
+  .seam-supported-device-table-table-state-block {
     width: 100%;
     background-color: colors.$bg-a;
     padding: 32px 8px;
@@ -103,11 +103,11 @@ $row-padding: 8px;
     gap: 8px;
   }
 
-  .seam-supported-devices-table-message-row {
+  .seam-supported-device-table-table-message-row {
     height: auto !important;
   }
 
-  .seam-supported-devices-table-message {
+  .seam-supported-device-table-table-message {
     width: 100%;
     padding: 32px 0;
     display: flex;
@@ -128,7 +128,7 @@ $row-padding: 8px;
     }
   }
 
-  .seam-supported-devices-table {
+  .seam-supported-device-table-table {
     width: 100%;
     overflow-x: auto;
     table-layout: auto;

@@ -30,7 +30,7 @@ export function FilterCategoryMenu({
   const usableOptions = addAllOption !== null ? ['All', ...options] : options
 
   return (
-    <div className='seam-supported-devices-filter-menu-wrap'>
+    <div className='seam-supported-device-table-filter-menu-wrap'>
       <p>{label}</p>
       <Menu
         renderButton={({ onOpen }) => (

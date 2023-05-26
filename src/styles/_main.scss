@@ -12,7 +12,7 @@
 @use './device-details';
 @use './device-table';
 @use './access-code-details';
-@use './supported-devices';
+@use './supported-device-table';
 
 .seam-components {
   // Reset
@@ -33,5 +33,5 @@
   @include access-code-table.all;
   @include access-code-details.all;
   @include alert.all;
-  @include supported-devices.all;
+  @include supported-device-table.all;
 }
