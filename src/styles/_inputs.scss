@@ -16,6 +16,16 @@
       border-color: colors.$primary;
     }
 
+    &.seam-disabled {
+      border-color: colors.$text-gray-3;
+      background: colors.$bg-gray;
+      cursor: not-allowed;
+
+      .seam-text-field-input {
+        cursor: not-allowed;
+      }
+    }
+
     .seam-text-field-input {
       height: 40px;
       border: 0;

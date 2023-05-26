@@ -59,6 +59,14 @@ export function DeviceTable({
 
   const deviceCount = devices.length
 
+  const filteredDevices = devices.filter((device) => {
+    if (searchTerm === '') {
+      return true
+    }
+
+    return new RegExp(searchTerm, 'i').test(device.properties.name)
+  })
+
   return (
     <div className='seam-device-table'>
       <ContentHeader onBack={onBack} />
@@ -66,10 +74,14 @@ export function DeviceTable({
         <TableTitle>
           {t.devices} <Caption>({deviceCount})</Caption>
         </TableTitle>
-        <SearchTextField value={searchTerm} onChange={setSearchTerm} />
+        <SearchTextField
+          value={searchTerm}
+          onChange={setSearchTerm}
+          disabled={deviceCount === 0}
+        />
       </TableHeader>
       <TableBody>
-        <Body devices={devices} selectDevice={selectDevice} />
+        <Body devices={filteredDevices} selectDevice={selectDevice} />
       </TableBody>
     </div>
   )

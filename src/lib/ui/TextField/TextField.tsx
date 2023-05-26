@@ -6,6 +6,7 @@ export interface TextFieldProps {
   onChange?: (value: string) => void
   startAdornment?: JSX.Element
   endAdornment?: JSX.Element
+  disabled?: boolean
   className?: string
   inputProps?: {
     ref?:
@@ -22,10 +23,15 @@ export function TextField(props: TextFieldProps): JSX.Element {
     startAdornment,
     endAdornment,
     inputProps,
+    disabled,
   } = props
 
   return (
-    <div className={classNames('seam-text-field', className)}>
+    <div
+      className={classNames('seam-text-field', className, {
+        'seam-disabled': disabled,
+      })}
+    >
       {startAdornment != null && (
         <div className='seam-adornment seam-start'>{startAdornment}</div>
       )}
@@ -34,6 +40,7 @@ export function TextField(props: TextFieldProps): JSX.Element {
         value={value}
         onChange={onChange == null ? undefined : handleString(onChange)}
         type='text'
+        disabled={disabled}
         {...inputProps}
       />
       {endAdornment != null && (
