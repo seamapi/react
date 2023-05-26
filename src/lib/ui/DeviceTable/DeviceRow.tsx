@@ -18,7 +18,7 @@ interface Props {
   onBack?: () => void
 }
 
-export interface DeviceRowProps {
+interface DeviceRowProps {
   device: UseDevicesData[number]
   onClick: () => void
 }

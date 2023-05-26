@@ -3,7 +3,7 @@ import type { LockDevice } from 'seamapi'
 import { LockLockedIcon } from 'lib/icons/LockLocked.js'
 import { LockUnlockedIcon } from 'lib/icons/LockUnlocked.js'
 
-export interface LockStatusProps {
+interface LockStatusProps {
   device: LockDevice
 }
 

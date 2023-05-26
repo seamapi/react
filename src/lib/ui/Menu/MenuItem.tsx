@@ -1,6 +1,6 @@
 import { useMenu } from 'lib/ui/Menu/Menu.js'
 
-export interface MenuItemProps {
+interface MenuItemProps {
   children: JSX.Element
   onClick: () => void
 }

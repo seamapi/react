@@ -2,7 +2,7 @@ import classNames from 'classnames'
 
 import type { DivProps } from 'lib/ui/types.js'
 
-export interface TableFilterItemProps extends DivProps {
+interface TableFilterItemProps extends DivProps {
   selected?: boolean
 }
 

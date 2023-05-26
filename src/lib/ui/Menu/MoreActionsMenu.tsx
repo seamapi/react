@@ -2,7 +2,7 @@ import { DotsEllipsisMoreIcon } from 'lib/icons/DotsEllipsisMore.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { Menu, type MenuProps } from 'lib/ui/Menu/Menu.js'
 
-export interface MoreActionsMenuProps {
+interface MoreActionsMenuProps {
   children: JSX.Element | JSX.Element[]
   MenuProps?: Partial<MenuProps>
 }

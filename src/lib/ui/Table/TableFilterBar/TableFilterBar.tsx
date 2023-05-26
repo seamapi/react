@@ -2,7 +2,7 @@ import { ArrowRestartIcon } from 'lib/icons/ArrowRestart.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import type { ButtonProps, DivProps } from 'lib/ui/types.js'
 
-export interface TableFilterBarProps extends DivProps {
+interface TableFilterBarProps extends DivProps {
   isFilterCleared?: boolean
   onFilterClear?: () => void
 }

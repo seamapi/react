@@ -2,7 +2,7 @@ import classNames from 'classnames'
 
 import { Alert, type AlertProps } from 'lib/ui/Alert/Alert.js'
 
-export interface AlertsProps {
+interface AlertsProps {
   alerts?: AlertProps[]
   children?: JSX.Element
   className?: string
