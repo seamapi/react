@@ -35,7 +35,7 @@ export function Alert(props: AlertProps): JSX.Element {
           <p className='seam-alert-message'>{message}</p>
         </div>
       </div>
-      {props.action == null ? null : <Action {...props.action} />}
+      {props.action != null && <Action {...props.action} />}
     </div>
   )
 }
