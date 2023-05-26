@@ -5,7 +5,7 @@ import { CloseIcon } from 'lib/icons/Close.js'
 import { SearchIcon } from 'lib/icons/Search.js'
 import { Button } from 'lib/ui/Button.js'
 import Menu from 'lib/ui/Menu/Menu.js'
-import FilterCategoryMenu from 'lib/ui/SupportedDevices/FilterCategoryMenu.js'
+import { FilterCategoryMenu } from 'lib/ui/SupportedDevices/FilterCategoryMenu.js'
 import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 
@@ -17,7 +17,7 @@ interface SupportedDevicesFilterAreaProps {
   setFilters: Dispatch<SetStateAction<Filters>>
 }
 
-export default function SupportedDevicesFilterArea({
+export function SupportedDevicesFilterArea({
   deviceModels,
   filterStr,
   setFilterStr,

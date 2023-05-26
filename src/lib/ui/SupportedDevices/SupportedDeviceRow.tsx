@@ -6,7 +6,7 @@ export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
 }
 
-export default function SupportedDeviceRow({
+export function SupportedDeviceRow({
   deviceModel,
 }: SupportedDeviceRowProps) {
   function getColorFromSupportLevel() {

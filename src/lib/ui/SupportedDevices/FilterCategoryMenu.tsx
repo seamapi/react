@@ -11,7 +11,7 @@ interface FilterCategoryMenuProps {
   buttonLabel?: string
 }
 
-export default function FilterCategoryMenu({
+export function FilterCategoryMenu({
   label,
   options,
   addAllOption,
