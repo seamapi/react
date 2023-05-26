@@ -1,12 +1,15 @@
+import { capitalize } from '@mui/material'
 import { CloseIcon } from 'lib/icons/Close.js'
 import { SearchIcon } from 'lib/icons/Search.js'
 import { Button } from 'lib/ui/Button.js'
 import Menu from 'lib/ui/Menu/Menu.js'
-import type { Filters } from 'lib/ui/SupportedDevices/types.js'
+import FilterCategoryMenu from 'lib/ui/SupportedDevices/FilterCategoryMenu.js'
+import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 import type { Dispatch, SetStateAction } from 'react'
 
 interface SupportedDevicesFilterAreaProps {
+  deviceModels: DeviceModel[]
   filterStr: string
   setFilterStr: (filterStr: string) => void
   filters: Filters
@@ -14,6 +17,7 @@ interface SupportedDevicesFilterAreaProps {
 }
 
 export default function SupportedDevicesFilterArea({
+  deviceModels,
   filterStr,
   setFilterStr,
   filters,
@@ -27,6 +31,14 @@ export default function SupportedDevicesFilterArea({
     )
   })
   const appliedFiltersCount = appliedFilters.length
+
+  function getAvailablePropertiesFromDeviceModels(property: keyof DeviceModel) {
+    const properties = new Set<string>()
+    deviceModels.forEach((deviceModel) => {
+      properties.add(capitalize(deviceModel[property]))
+    })
+    return Array.from(properties)
+  }
 
   return (
     <div className='seam-supported-devices-filter-area'>
@@ -49,6 +61,39 @@ export default function SupportedDevicesFilterArea({
             onClick={(ev) => ev.stopPropagation()}
           >
             <div className='seam-filter-menu-row'>
+              <FilterCategoryMenu
+                label='Category'
+                options={getAvailablePropertiesFromDeviceModels(
+                  'main_category'
+                )}
+                onSelect={() => {}}
+
+                // TODO: Uncomment this when the filter is implemented—not
+                // hard coded—on the backend
+                //
+                // onSelect={(category: string) => {
+                //   setFilters((filters) => ({
+                //     ...filters,
+                //     category,
+                //   }))
+                // }}
+              />
+            </div>
+
+            <div className='seam-filter-menu-row'>
+              <FilterCategoryMenu
+                label='Brand'
+                options={getAvailablePropertiesFromDeviceModels('brand')}
+                onSelect={(brand: string) => {
+                  setFilters((filters) => ({
+                    ...filters,
+                    brand,
+                  }))
+                }}
+              />
+            </div>
+
+            <div className='seam-filter-menu-row'>
               <label
                 htmlFor='supportedOnly'
                 className='seam-filter-checkbox-label'
@@ -61,8 +106,8 @@ export default function SupportedDevicesFilterArea({
                   className='seam-filter-checkbox'
                   checked={filters.supportedOnly}
                   onChange={(ev) =>
-                    setFilters((f) => ({
-                      ...f,
+                    setFilters((filters) => ({
+                      ...filters,
                       supportedOnly: ev.target.checked,
                     }))
                   }

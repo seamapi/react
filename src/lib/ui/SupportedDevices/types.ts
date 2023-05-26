@@ -11,4 +11,6 @@ export interface DeviceModel {
 
 export interface Filters {
   supportedOnly: boolean
+  category: string | null
+  brand: string | null
 }

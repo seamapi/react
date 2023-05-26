@@ -80,6 +80,10 @@ $row-padding: 8px;
       align-items: center;
       flex-direction: row;
 
+      &:not(:last-of-type) {
+        margin-bottom: 8px;
+      }
+
       .seam-filter-checkbox-label {
         width: 100%;
         display: flex;
@@ -91,6 +95,14 @@ $row-padding: 8px;
       .seam-filter-checkbox {
         appearance: checkbox;
       }
+    }
+
+    .seam-supported-devices-filter-menu-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
     }
   }
 

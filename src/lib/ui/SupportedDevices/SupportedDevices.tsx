@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@mui/material'
 import axios from 'axios'
@@ -10,7 +10,7 @@ import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
 import SupportedDeviceRow from './SupportedDeviceRow.js'
 import SupportedDevicesHeader from './SupportedDevicesHeader.js'
 
-const BASE_URL = "https://devicedb.seam.co/api/device_models/list"
+const BASE_URL = 'https://devicedb.seam.co/api/device_models/list'
 
 export interface SupportedDevicesProps {
   // If true, show the filter area and search bar
@@ -20,9 +20,12 @@ export interface SupportedDevicesProps {
 export default function SupportedDevices({
   showFilterArea,
 }: SupportedDevicesProps) {
+  const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterStr, setFilterStr] = useState('')
   const [filters, setFilters] = useState<Filters>({
     supportedOnly: false,
+    category: null,
+    brand: null,
   })
 
   const fetchDeviceModels = useCallback(async () => {
@@ -36,7 +39,16 @@ export default function SupportedDevices({
       queries.push('support_level=live')
     }
 
+    if (filters.category !== null) {
+      queries.push(`main_category=${encodeURIComponent(filters.category)}`)
+    }
+
+    if (filters.brand !== null) {
+      queries.push(`brand=${encodeURIComponent(filters.brand)}`)
+    }
+
     const url = `${BASE_URL}?${queries.join('&')}`
+    console.log(url)
     return await axios.get(url)
   }, [filterStr, filters])
 
@@ -49,13 +61,23 @@ export default function SupportedDevices({
     queryFn: fetchDeviceModels,
   })
 
-  const deviceModels  = data?.data?.device_models ?? []
+  useEffect(() => {
+    if (
+      data?.data?.device_models !== undefined &&
+      allDeviceModels.length === 0
+    ) {
+      setAllDeviceModels(data.data.device_models)
+    }
+  }, [data, allDeviceModels.length])
+
+  const deviceModels = data?.data?.device_models ?? []
 
   return (
     <>
       <div className='seam-supported-devices-table-wrap'>
         {showFilterArea && (
           <SupportedDevicesFilterArea
+            deviceModels={allDeviceModels}
             filterStr={filterStr}
             setFilterStr={setFilterStr}
             filters={filters}
