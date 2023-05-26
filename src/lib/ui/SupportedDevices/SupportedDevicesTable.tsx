@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 
+import type { SupportedDevicesProps } from 'lib/index.js'
+
 import { Button } from 'lib/ui/Button.js'
 import { SupportedDevicesFilterArea } from 'lib/ui/SupportedDevices/SupportedDevicesFilterArea.js'
 import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
