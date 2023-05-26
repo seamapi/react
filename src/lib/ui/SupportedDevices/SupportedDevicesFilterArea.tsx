@@ -48,6 +48,11 @@ export function SupportedDevicesFilterArea({
     }))
   }
 
+  const isPlural = appliedFiltersCount > 1
+  const filterButtonLabel = isPlural
+    ? `Filters (${appliedFiltersCount})`
+    : 'Filter'
+
   return (
     <div className='seam-supported-devices-filter-area'>
       <div className='seam-deliberate-block' />
@@ -59,8 +64,7 @@ export function SupportedDevicesFilterArea({
               className='seam-filters-button'
               onClick={open}
             >
-              Filter
-              {appliedFiltersCount !== 0 ? `s (${appliedFiltersCount})` : ''}
+              {filterButtonLabel}
             </Button>
           )}
         >
