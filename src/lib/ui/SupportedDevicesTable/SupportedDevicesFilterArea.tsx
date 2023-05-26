@@ -3,8 +3,8 @@ import type { Dispatch, SetStateAction } from 'react'
 import { capitalize } from 'lib/capitalize.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
-import { FilterCategoryMenu } from 'lib/ui/SupportedDevices/FilterCategoryMenu.js'
-import type { DeviceModel, Filters } from 'lib/ui/SupportedDevices/types.js'
+import { FilterCategoryMenu } from 'lib/ui/SupportedDevicesTable/FilterCategoryMenu.js'
+import type { DeviceModel, Filters } from 'lib/ui/SupportedDevicesTable/types.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 
 interface SupportedDevicesFilterAreaProps {

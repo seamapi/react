@@ -3,23 +3,23 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { useToggle } from 'lib/use-toggle.js'
 
-import { SupportedDevices } from './SupportedDevices.js'
+import { SupportedDevicesTable } from './SupportedDevicesTable.js'
 
 /**
  * These stories showcase the supported devices table.
  */
-const meta: Meta<typeof SupportedDevices> = {
-  title: 'Example/SupportedDevices',
-  component: SupportedDevices,
+const meta: Meta<typeof SupportedDevicesTable> = {
+  title: 'Example/SupportedDevicesTable',
+  component: SupportedDevicesTable,
   tags: ['autodocs'],
 }
 
 export default meta
 
-type Story = StoryObj<typeof SupportedDevices>
+type Story = StoryObj<typeof SupportedDevicesTable>
 
 export const Content: Story = {
-  render: (props: any) => <SupportedDevices {...props} />,
+  render: (props: any) => <SupportedDevicesTable {...props} />,
 }
 
 export const InsideModal: Story = {
@@ -31,7 +31,7 @@ export const InsideModal: Story = {
         <Button onClick={toggleOpen}>Open Modal</Button>
         <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
           <div className='seam-components'>
-            <SupportedDevices {...props} />
+            <SupportedDevicesTable {...props} />
           </div>
 
           <DialogActions

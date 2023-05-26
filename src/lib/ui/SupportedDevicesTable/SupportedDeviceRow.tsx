@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import type { DeviceModel } from 'lib/ui/SupportedDevices/types.js'
+import type { DeviceModel } from 'lib/ui/SupportedDevicesTable/types.js'
 
 export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
