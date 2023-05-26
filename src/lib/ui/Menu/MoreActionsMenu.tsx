@@ -14,7 +14,7 @@ export function MoreActionsMenu({
 }: PropsWithChildren<MoreActionsMenuProps>) {
   return (
     <Menu
-      button={({ open }) => (
+      renderButton={({ open }) => (
         <IconButton
           onClick={(event) => {
             event.stopPropagation()
