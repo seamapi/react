@@ -7,15 +7,14 @@ export const useSeamFont = ({ disabled = false }: { disabled?: boolean }) => {
   useEffect(() => {
     if (disabled) return
     if (globalThis.document == null) return
+
     const linkEl = globalThis.document.querySelector(`link[href="${fontUrl}"]`)
+    if (linkEl != null) return
 
-    if (linkEl === null) {
-      const link = globalThis.document.createElement('link')
-      link.rel = 'stylesheet'
-      link.type = 'text/css'
-      link.href = fontUrl
-
-      globalThis.document.head.appendChild(link)
-    }
+    const link = globalThis.document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = fontUrl
+    globalThis.document.head.appendChild(link)
   }, [disabled])
 }
