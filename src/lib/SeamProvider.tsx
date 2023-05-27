@@ -48,6 +48,7 @@ interface SeamProviderPropsWithClientSessionToken {
 interface SeamProviderBaseProps {
   disableCssInjection?: boolean | undefined
   disableFontInjection?: boolean | undefined
+  useUnminifiedCss?: boolean | undefined
 }
 
 type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
@@ -56,6 +57,7 @@ export function SeamProvider({
   children,
   disableCssInjection = false,
   disableFontInjection = false,
+  useUnminifiedCss = false,
   ...props
 }: PropsWithChildren<SeamProviderProps>): JSX.Element {
   const { Provider } = seamContext
@@ -81,7 +83,7 @@ export function SeamProvider({
     )
   }
 
-  useSeamStyles({ disabled: disableCssInjection })
+  useSeamStyles({ disabled: disableCssInjection, unminified: useUnminifiedCss })
   useSeamFont({ disabled: disableFontInjection })
 
   return (

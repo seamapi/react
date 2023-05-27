@@ -6,10 +6,12 @@ const version = '1.1.0'
 
 export const useSeamStyles = ({
   disabled = false,
+  unminified = false,
 }: {
+  unminified?: boolean
   disabled?: boolean
 }) => {
-  const cssUrl = `${origin}/v/${version}/index.css`
+  const cssUrl = `${origin}/v/${version}/index${unminified ? '' : '.min'}.css`
 
   useEffect(() => {
     if (version === null) return
