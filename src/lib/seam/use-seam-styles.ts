@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-const origin = 'https://react.seam.co'
+import version from 'lib/version.js'
 
-const version = '1.1.0'
+const origin = 'https://react.seam.co'
 
 export const useSeamStyles = ({
   disabled = false,
@@ -11,7 +11,8 @@ export const useSeamStyles = ({
   unminified?: boolean
   disabled?: boolean
 }) => {
-  const cssUrl = `${origin}/v/${version}/index${unminified ? '' : '.min'}.css`
+  const ext = `${unminified ? '' : 'min.'}css`
+  const cssUrl = `${origin}/v/${version ?? ''}/index.${ext}`
 
   useEffect(() => {
     if (version === null) return
