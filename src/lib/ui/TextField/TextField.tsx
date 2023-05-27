@@ -23,7 +23,7 @@ export function TextField(props: TextFieldProps): JSX.Element {
     startAdornment,
     endAdornment,
     inputProps,
-    disabled,
+    disabled = false,
   } = props
 
   return (

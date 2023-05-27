@@ -7,7 +7,6 @@ import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { AccessCodeTable } from 'lib/ui/AccessCodeTable/AccessCodeTable.js'
-import type { AlertProps } from 'lib/ui/Alert/Alert.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
@@ -57,36 +56,6 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
   const accessCodeLength =
     device.properties?.schlage_metadata?.access_code_length
 
-  function generateDeviceAlerts() {
-    if (device.errors.length === 0 && device.warnings.length === 0) {
-      return []
-    }
-
-    const alerts: AlertProps[] = []
-
-    if (device.errors.length > 0) {
-      alerts.push(
-        ...device.errors.map((error) => ({
-          variant: 'error' as const,
-          message: error.message,
-        }))
-      )
-    }
-
-    if (device.warnings.length > 0) {
-      alerts.push(
-        ...device.warnings.map((warning) => ({
-          variant: 'warning' as const,
-          message: warning.message,
-        }))
-      )
-    }
-
-    return alerts
-  }
-
-  const alerts = generateDeviceAlerts()
-
   if (accessCodes == null) {
     return null
   }
@@ -99,6 +68,17 @@ function LockDeviceDetails(props: { device: LockDevice; onBack?: () => void }) {
       />
     )
   }
+
+  const alerts = [
+    ...device.errors.map((error) => ({
+      variant: 'error' as const,
+      message: error.message,
+    })),
+    ...device.warnings.map((warning) => ({
+      variant: 'warning' as const,
+      message: warning.message,
+    })),
+  ]
 
   return (
     <div className='seam-device-details'>

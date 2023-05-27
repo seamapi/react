@@ -11,26 +11,26 @@ interface FilterCategoryMenuBaseProps {
 
 export type FilterCategoryMenuProps =
   | (FilterCategoryMenuBaseProps & {
-      addAllOption: true
+      hideAllOption?: false
       onAllOptionSelect: () => void
     })
   | (FilterCategoryMenuBaseProps & {
-      addAllOption?: false
+      hideAllOption: true
       onAllOptionSelect?: never
     })
 
 export function FilterCategoryMenu({
-  label,
+  label = 'Filter',
   options,
-  addAllOption,
+  hideAllOption = false,
   onSelect,
   onAllOptionSelect,
   buttonLabel,
 }: FilterCategoryMenuProps) {
-  const usableOptions = addAllOption !== null ? ['All', ...options] : options
+  const usableOptions = hideAllOption ? options : ['All', ...options]
 
   return (
-    <div className='seam-supported-devices-filter-menu-wrap'>
+    <div className='seam-supported-device-table-filter-menu-wrap'>
       <p>{label}</p>
       <Menu
         renderButton={({ onOpen }) => (
@@ -57,9 +57,4 @@ export function FilterCategoryMenu({
       </Menu>
     </div>
   )
-}
-
-FilterCategoryMenu.defaultProps = {
-  addAllOption: true,
-  buttonLabel: 'Filter',
 }

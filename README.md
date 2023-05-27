@@ -96,7 +96,19 @@ Then, load it from Google Fonts by placing the following in the `<head>` tag:
 
 ### Content Security Policy (CSP)
 
-By self hosting the recommended fonts (or choosing not to use them),
+#### Default CSP
+
+When using the default provider settings, the components are compatible with this CSP:
+
+```
+default-src 'self'; connect-src 'self' https://connect.getseam.com https://devicedb.seam.co; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://devicedb.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
+```
+
+#### Granular CSP
+
+Depending on how which assets you choose to host yourself, the CSP may be made stricter.
+
+By self hosting the styles and recommended fonts (or choosing not to use them),
 and proxying the Seam API endpoint, the components are compatible with this strict CSP:
 
 ```
@@ -116,6 +128,12 @@ When serving the fonts from Google Fonts, include `font-src` and `style-src` wit
 
 ```
 font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
+```
+
+When serving the CSS styles from the default CDN, extend `style-src` with
+
+```
+style-src https://react.seam.co
 ```
 
 ## Development and Testing
@@ -202,9 +220,12 @@ $ npm run docs:start
 ### Fake Seam Connect
 
 This project uses a [fake version of Seam Connect](https://github.com/seamapi/fake-seam-connect)
-to have deterministic responses for rendering views. You can edit the seed data
-for the fake, or find ids that could be useful for testing components in
-[seed-fake.js](.storybook/seed-fake.js).
+to have deterministic responses for rendering views and running tests.
+
+Edit the seed data for the fake or find relevant ids for testing components here:
+
+- [Storybook fake seed](./.storybook/seed-fake.js).
+- [Jest test fake seed](./test/jest/global-setup.cjs).
 
 ### Previews
 

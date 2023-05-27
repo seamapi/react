@@ -32,7 +32,7 @@ export function DeviceHealthBar({
 
   if (issueCount === 0) {
     return (
-      <TableFilterBar>
+      <TableFilterBar filterCleared>
         <TableFilterItem>
           <CheckIcon />
           {t.devicesOk}
@@ -43,7 +43,7 @@ export function DeviceHealthBar({
 
   return (
     <TableFilterBar
-      isFilterCleared={filter == null}
+      filterCleared={filter == null}
       onFilterClear={() => {
         onFilterSelect(null)
       }}

@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Button } from 'lib/ui/Button.js'
 import { SupportedDeviceFilterArea } from 'lib/ui/SupportedDeviceTable/SupportedDeviceFilterArea.js'
@@ -9,8 +8,6 @@ import type { DeviceModel, Filters } from 'lib/ui/SupportedDeviceTable/types.js'
 import { SupportedDeviceHeader } from './SupportedDeviceHeader.js'
 import { SupportedDeviceRow } from './SupportedDeviceRow.js'
 
-const BASE_URL = 'https://devicedb.seam.co/api/device_models/list'
-
 export interface SupportedDeviceContentProps {
   cannotFilter?: boolean
 }
@@ -18,7 +15,6 @@ export interface SupportedDeviceContentProps {
 export function SupportedDeviceContent({
   cannotFilter = false,
 }: SupportedDeviceContentProps) {
-  const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<Filters>({
     supportedOnly: false,
@@ -26,54 +22,46 @@ export function SupportedDeviceContent({
     brand: null,
   })
 
-  const fetchDeviceModels = useCallback(async () => {
-    const queries = []
-
-    if (filterValue.trim() !== '') {
-      queries.push(`text_search=${encodeURIComponent(filterValue.trim())}`)
-    }
-
-    if (filters.supportedOnly) {
-      queries.push('support_level=live')
-    }
-
-    if (filters.category !== null) {
-      queries.push(`main_category=${encodeURIComponent(filters.category)}`)
-    }
-
-    if (filters.brand !== null) {
-      queries.push(`brand=${encodeURIComponent(filters.brand)}`)
-    }
-
-    const url = `${BASE_URL}?${queries.join('&')}`
-    return await axios.get(url)
-  }, [filterValue, filters])
-
-  const { data, isLoading, isError, refetch } = useQuery<{
-    data: {
-      device_models?: DeviceModel[]
-    }
-  }>({
+  const {
+    data: deviceModels,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery<DeviceModel[]>({
     queryKey: ['supported_devices', filterValue, filters],
-    queryFn: fetchDeviceModels,
+    queryFn: async () => {
+      const url = new URL('https://devicedb.seam.co/api/device_models/list')
+
+      if (filterValue.trim() !== '') {
+        url.searchParams.set('text_search', filterValue.trim())
+      }
+
+      if (filters.supportedOnly) {
+        url.searchParams.set('support_level', 'live')
+      }
+
+      if (filters.category !== null) {
+        url.searchParams.set('main_category', filters.category)
+      }
+
+      if (filters.brand !== null) {
+        url.searchParams.set('brand', filters.brand)
+      }
+
+      const res = await fetch(url)
+      if (!res.ok) {
+        throw new Error('Failed to load device models')
+      }
+      const data = await res.json()
+      return data?.device_models ?? []
+    },
   })
 
-  useEffect(() => {
-    if (
-      data?.data?.device_models !== undefined &&
-      allDeviceModels.length === 0
-    ) {
-      setAllDeviceModels(data.data.device_models)
-    }
-  }, [data, allDeviceModels.length])
-
-  const deviceModels = data?.data?.device_models ?? []
-
   return (
-    <div className='seam-supported-devices-table-wrap'>
+    <div className='seam-supported-device-table-content-wrap'>
       {!cannotFilter && (
         <SupportedDeviceFilterArea
-          deviceModels={allDeviceModels}
+          deviceModels={deviceModels ?? []}
           filterValue={filterValue}
           setFilterValue={setFilterValue}
           filters={filters}
@@ -82,13 +70,13 @@ export function SupportedDeviceContent({
       )}
 
       {isLoading && (
-        <div className='seam-supported-devices-table-state-block'>
+        <div className='seam-supported-device-table-content-state-block'>
           <p>Loading device models...</p>
         </div>
       )}
 
       {isError && (
-        <div className='seam-supported-devices-table-state-block'>
+        <div className='seam-supported-device-table-content-state-block'>
           <p>There was an error fetching device models.</p>
           <Button
             variant='solid'
@@ -102,8 +90,8 @@ export function SupportedDeviceContent({
         </div>
       )}
 
-      {!isLoading && !isError && data?.data?.device_models !== null && (
-        <table className='seam-supported-devices-table'>
+      {!isLoading && !isError && deviceModels !== null && (
+        <table className='seam-supported-device-table-content'>
           <SupportedDeviceHeader />
           <tbody>
             {deviceModels.length !== 0 &&
@@ -115,9 +103,9 @@ export function SupportedDeviceContent({
               ))}
 
             {deviceModels.length === 0 && (
-              <tr className='seam-supported-devices-table-message-row'>
+              <tr className='seam-supported-device-table-content-message-row'>
                 <td colSpan={6}>
-                  <div className='seam-supported-devices-table-message'>
+                  <div className='seam-supported-device-table-content-message'>
                     {filterValue.length === 0 ? (
                       <p>No device models found.</p>
                     ) : (
@@ -129,7 +117,7 @@ export function SupportedDeviceContent({
                           onClick={() => {
                             setFilterValue('')
                           }}
-                          className='seam-supported-devices-table-message-clear-search'
+                          className='seam-supported-device-table-content-message-clear-search'
                         >
                           Clear search terms
                         </Button>

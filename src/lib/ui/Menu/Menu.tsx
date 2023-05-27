@@ -135,10 +135,11 @@ export function Menu({
       {renderButton({ onOpen: handleOpen })}
       {createPortal(
         <div
-          className={classNames('seam-menu-bg', backgroundProps?.className)}
-          style={{
-            display: visible ? 'flex' : 'none',
-          }}
+          className={classNames(
+            'seam-menu-bg',
+            backgroundProps?.className,
+            visible ? 'seam-menu-visible' : 'seam-menu-hidden'
+          )}
           onClick={(event) => {
             event.stopPropagation()
             handleClose()

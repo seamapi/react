@@ -13,7 +13,7 @@ export function Button({
   variant = 'outline',
   children,
   size = 'medium',
-  disabled,
+  disabled = false,
   onClick,
   className,
 }: PropsWithChildren<ButtonProps>): JSX.Element {
