@@ -15,7 +15,7 @@ export type FilterCategoryMenuProps =
       onAllOptionSelect: () => void
     })
   | (FilterCategoryMenuBaseProps & {
-      hideAllOption?: true
+      hideAllOption: true
       onAllOptionSelect?: never
     })
 
