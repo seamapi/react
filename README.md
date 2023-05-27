@@ -58,8 +58,9 @@ Components are styled with plain Cascading Style Sheets (CSS).
 All styles are prefixed with `seam-` to avoid name collisions.
 
 By default, the `SeamProvider` will inject a link tag into the document head to load the CSS.
-This may be disabled with the `disableCssInjection` prop.
-If you prefer to manually load the CSS, either import it using a supported bundler with
+If you prefer to manually load the CSS,
+this behavior may be disabled with the `disableCssInjection` prop.
+Then, either import the CSS using a supported bundler with
 
 ```ts
 import '@seamapi/react/index.css'
@@ -83,8 +84,9 @@ or place the following in the `<head>` tag:
 The components are optimized for use with [Source Sans Pro], but will fallback to other system sans-serif fonts.
 
 By default, the `SeamProvider` will inject a link tag into the document head to load the font.
-This may be disabled with the `disableFontInjection` prop.
-If you prefer to manually provide the font, load it from Google Fonts by placing the following in the `<head>` tag:
+If you prefer to manually provide the font,
+this behavior may be disabled with the `disableFontInjection` prop.
+Then, load it from Google Fonts by placing the following in the `<head>` tag:
 
 ```html
 <link
