@@ -8,8 +8,6 @@ import type { DeviceModel, Filters } from 'lib/ui/SupportedDeviceTable/types.js'
 import { SupportedDeviceHeader } from './SupportedDeviceHeader.js'
 import { SupportedDeviceRow } from './SupportedDeviceRow.js'
 
-const BASE_URL = 'https://devicedb.seam.co/api/device_models/list'
-
 export interface SupportedDeviceContentProps {
   cannotFilter?: boolean
 }
@@ -32,25 +30,24 @@ export function SupportedDeviceContent({
   } = useQuery<DeviceModel[]>({
     queryKey: ['supported_devices', filterValue, filters],
     queryFn: async () => {
-      const queries = []
+      const url = new URL('https://devicedb.seam.co/api/device_models/list')
 
       if (filterValue.trim() !== '') {
-        queries.push(`text_search=${encodeURIComponent(filterValue.trim())}`)
+        url.searchParams.set('text_search', filterValue.trim())
       }
 
       if (filters.supportedOnly) {
-        queries.push('support_level=live')
+        url.searchParams.set('support_level', 'live')
       }
 
       if (filters.category !== null) {
-        queries.push(`main_category=${encodeURIComponent(filters.category)}`)
+        url.searchParams.set('main_category', filters.category)
       }
 
       if (filters.brand !== null) {
-        queries.push(`brand=${encodeURIComponent(filters.brand)}`)
+        url.searchParams.set('brand', filters.brand)
       }
 
-      const url = `${BASE_URL}?${queries.join('&')}`
       const res = await fetch(url)
       if (!res.ok) {
         throw new Error('Failed to load device models')
