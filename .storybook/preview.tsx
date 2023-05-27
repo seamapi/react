@@ -42,7 +42,7 @@ const preview: Preview = {
       defaultValue: useFake
         ? // special hack for chromatic ui reviews that don't run the fake
           window?.location?.href.includes('chromatic')
-          ? 'https://seam-react.vercel.app/api'
+          ? 'https://react.seam.co/api'
           : '/api'
         : process.env['STORYBOOK_SEAM_ENDPOINT'],
     },

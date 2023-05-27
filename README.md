@@ -13,7 +13,7 @@ with everything you need to get started with [Seam].
 Play with them live in the [Storybook]!
 
 [Seam]: https://www.seam.co/
-[Storybook]: https://seam-react.vercel.app/
+[Storybook]: https://react.seam.co/
 
 ## Installation
 
@@ -50,12 +50,40 @@ export const App = () => {
 
 [Seam Console]: https://console.seam.co/
 
+### Styles
+
+> CSS is automatically included unless using `<SeamProvider disableCssInjection />`.
+
+Components are styled with plain Cascading Style Sheets (CSS).
+All styles are prefixed with `seam-` to avoid name collisions.
+
+By default, the `SeamProvider` will inject a link tag into the document head to load the CSS.
+If you prefer to manually load the CSS,
+this behavior may be disabled with the `disableCssInjection` prop.
+Then, either import the CSS using a supported bundler with
+
+```ts
+import '@seamapi/react/index.css'
+```
+
+or place the following in the `<head>` tag:
+
+> You must match the version string below with the exact version of this package used by your application.
+
+```html
+<link rel="stylesheet" href="https://react.seam.co/v/1.0.0/index.min.css" />
+```
+
 ### Fonts
 
-> The font is automatically included unless you specify `disableFontInjection` in `<SeamProvider />`
+> Fonts are automatically included unless using `<SeamProvider disableFontInjection />`.
 
 The components are optimized for use with [Source Sans Pro], but will fallback to other system sans-serif fonts.
-Load the font from Google Fonts by placing the following in the `<head>` tag:
+
+By default, the `SeamProvider` will inject a link tag into the document head to load the font.
+If you prefer to manually provide the font,
+this behavior may be disabled with the `disableFontInjection` prop.
+Then, load it from Google Fonts by placing the following in the `<head>` tag:
 
 ```html
 <link
