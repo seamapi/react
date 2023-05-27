@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Button } from 'lib/ui/Button.js'
 import { SupportedDeviceFilterArea } from 'lib/ui/SupportedDeviceTable/SupportedDeviceFilterArea.js'
@@ -17,7 +17,6 @@ export interface SupportedDeviceContentProps {
 export function SupportedDeviceContent({
   cannotFilter = false,
 }: SupportedDeviceContentProps) {
-  const [allDeviceModels, setAllDeviceModels] = useState<DeviceModel[]>([])
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<Filters>({
     supportedOnly: false,
@@ -25,58 +24,47 @@ export function SupportedDeviceContent({
     brand: null,
   })
 
-  const fetchDeviceModels = useCallback(async () => {
-    const queries = []
-
-    if (filterValue.trim() !== '') {
-      queries.push(`text_search=${encodeURIComponent(filterValue.trim())}`)
-    }
-
-    if (filters.supportedOnly) {
-      queries.push('support_level=live')
-    }
-
-    if (filters.category !== null) {
-      queries.push(`main_category=${encodeURIComponent(filters.category)}`)
-    }
-
-    if (filters.brand !== null) {
-      queries.push(`brand=${encodeURIComponent(filters.brand)}`)
-    }
-
-    const url = `${BASE_URL}?${queries.join('&')}`
-    const res = await fetch(url)
-    if (!res.ok) {
-      throw new Error('Failed to load device models')
-    }
-    return await res.json()
-  }, [filterValue, filters])
-
-  const { data, isLoading, isError, refetch } = useQuery<{
-    data: {
-      device_models?: DeviceModel[]
-    }
-  }>({
+  const {
+    data: deviceModels,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery<DeviceModel[]>({
     queryKey: ['supported_devices', filterValue, filters],
-    queryFn: fetchDeviceModels,
+    queryFn: async () => {
+      const queries = []
+
+      if (filterValue.trim() !== '') {
+        queries.push(`text_search=${encodeURIComponent(filterValue.trim())}`)
+      }
+
+      if (filters.supportedOnly) {
+        queries.push('support_level=live')
+      }
+
+      if (filters.category !== null) {
+        queries.push(`main_category=${encodeURIComponent(filters.category)}`)
+      }
+
+      if (filters.brand !== null) {
+        queries.push(`brand=${encodeURIComponent(filters.brand)}`)
+      }
+
+      const url = `${BASE_URL}?${queries.join('&')}`
+      const res = await fetch(url)
+      if (!res.ok) {
+        throw new Error('Failed to load device models')
+      }
+      const data = await res.json()
+      return data?.device_models ?? []
+    },
   })
-
-  useEffect(() => {
-    if (
-      data?.data?.device_models !== undefined &&
-      allDeviceModels.length === 0
-    ) {
-      setAllDeviceModels(data.data.device_models)
-    }
-  }, [data, allDeviceModels.length])
-
-  const deviceModels = data?.data?.device_models ?? []
 
   return (
     <div className='seam-supported-device-table-content-wrap'>
       {!cannotFilter && (
         <SupportedDeviceFilterArea
-          deviceModels={allDeviceModels}
+          deviceModels={deviceModels ?? []}
           filterValue={filterValue}
           setFilterValue={setFilterValue}
           filters={filters}
@@ -105,7 +93,7 @@ export function SupportedDeviceContent({
         </div>
       )}
 
-      {!isLoading && !isError && data?.data?.device_models !== null && (
+      {!isLoading && !isError && deviceModels !== null && (
         <table className='seam-supported-device-table-content'>
           <SupportedDeviceHeader />
           <tbody>
