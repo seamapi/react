@@ -68,11 +68,11 @@ import '@seamapi/react/index.css'
 
 or place the following in the `<head>` tag:
 
+> You should replace the version string below with the exact version of this package used by your application.
+
 ```html
 <link rel="stylesheet" href="https://react.seam.co/v/^1.0.0/index.min.css" />
 ```
-
-> You can replace the version string above with the exact version of this package used by your application.
 
 ### Fonts
 
