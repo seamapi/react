@@ -1,21 +1,31 @@
 import { useEffect } from 'react'
 
-// TODO figure out the version automatically
-const cssUrl = 'https://www.unpkg.com/@seamapi/react@1.1.0/index.min.css'
+import version from 'lib/version.js'
 
-export const useSeamStyles = ({ enabled }: { enabled: boolean }) => {
+const origin = 'https://react.seam.co'
+
+export const useSeamStyles = ({
+  disabled = false,
+  unminified = false,
+}: {
+  unminified?: boolean
+  disabled?: boolean
+}) => {
+  const ext = `${unminified ? '' : 'min.'}css`
+  const cssUrl = `${origin}/v/${version ?? ''}/index.${ext}`
+
   useEffect(() => {
+    if (version === null) return
+    if (disabled) return
     if (globalThis.document == null) return
-    if (!enabled) return
+
     const linkEl = globalThis.document.querySelector(`link[href="${cssUrl}"]`)
+    if (linkEl != null) return
 
-    if (linkEl === null) {
-      const link = globalThis.document.createElement('link')
-      link.rel = 'stylesheet'
-      link.type = 'text/css'
-      link.href = cssUrl
-
-      globalThis.document.head.appendChild(link)
-    }
-  }, [enabled])
+    const link = globalThis.document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = cssUrl
+    globalThis.document.head.appendChild(link)
+  }, [disabled, cssUrl])
 }
