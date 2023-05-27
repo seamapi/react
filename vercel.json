@@ -8,6 +8,9 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/dist/:version/:asset*",
+      "destination": "https://www.unpkg.com/@seamapi/react@:version/:asset"
+    }, {
       "source": "/api/:fakepath*",
       "destination": "/api/fakepath"
     }

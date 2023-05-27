@@ -50,12 +50,41 @@ export const App = () => {
 
 [Seam Console]: https://console.seam.co/
 
+### Styles
+
+> CSS is automatically included unless using `<SeamProvider disableCssInjection />`.
+
+Components are styled with plain Cascading Style Sheets (CSS).
+All styles are prefixed with `seam-` to avoid name collisions.
+
+By default, the `SeamProvider` will inject a link tag into the document head to load the CSS.
+This may be disabled with the `disableCssInjection` prop.
+If you prefer to manually load the CSS, either import it using a supported bundler with
+
+```ts
+import '@seamapi/react/index.css'
+```
+
+or place the following in the `<head>` tag:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://react.seam.co/dist/^1.0.0/index.min.css"
+/>
+```
+
+> You can replace the version string above with the exact version of this package used by your application.
+
 ### Fonts
 
-> The font is automatically included unless you specify `disableFontInjection` in `<SeamProvider />`
+> Fonts are automatically included unless using `<SeamProvider disableFontInjection />`.
 
 The components are optimized for use with [Source Sans Pro], but will fallback to other system sans-serif fonts.
-Load the font from Google Fonts by placing the following in the `<head>` tag:
+
+By default, the `SeamProvider` will inject a link tag into the document head to load the font.
+This may be disabled with the `disableFontInjection` prop.
+If you prefer to manually provide the font, load it from Google Fonts by placing the following in the `<head>` tag:
 
 ```html
 <link
