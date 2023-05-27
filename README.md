@@ -71,7 +71,7 @@ or place the following in the `<head>` tag:
 ```html
 <link
   rel="stylesheet"
-  href="https://react.seam.co/dist/^1.0.0/index.min.css"
+  href="https://react.seam.co/v/^1.0.0/index.min.css"
 />
 ```
 
