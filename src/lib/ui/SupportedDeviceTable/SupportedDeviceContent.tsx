@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 
 import { Button } from 'lib/ui/Button.js'
@@ -46,7 +45,11 @@ export function SupportedDeviceContent({
     }
 
     const url = `${BASE_URL}?${queries.join('&')}`
-    return await axios.get(url)
+    const res = await fetch(url)
+    if (!res.ok) {
+      throw new Error('Failed to load device models')
+    }
+    return await res.json()
   }, [filterValue, filters])
 
   const { data, isLoading, isError, refetch } = useQuery<{
