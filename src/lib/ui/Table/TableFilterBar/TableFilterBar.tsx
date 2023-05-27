@@ -3,12 +3,12 @@ import { IconButton } from 'lib/ui/IconButton.js'
 import type { ButtonProps, DivProps } from 'lib/ui/types.js'
 
 interface TableFilterBarProps extends DivProps {
-  isFilterCleared?: boolean
+  filterCleared?: boolean
   onFilterClear?: () => void
 }
 
 export function TableFilterBar({
-  isFilterCleared = false,
+  filterCleared = false,
   onFilterClear,
   children,
   ...props
@@ -16,7 +16,7 @@ export function TableFilterBar({
   return (
     <div className='seam-table-filter-bar' {...props}>
       {children}{' '}
-      {!isFilterCleared && <ClearFiltersButton onClick={onFilterClear} />}
+      {!filterCleared && <ClearFiltersButton onClick={onFilterClear} />}
     </div>
   )
 }
