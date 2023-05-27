@@ -13,7 +13,7 @@ with everything you need to get started with [Seam].
 Play with them live in the [Storybook]!
 
 [Seam]: https://www.seam.co/
-[Storybook]: https://seam-react.vercel.app/
+[Storybook]: https://react.seam.co/
 
 ## Installation
 
