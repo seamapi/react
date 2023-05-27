@@ -220,9 +220,12 @@ $ npm run docs:start
 ### Fake Seam Connect
 
 This project uses a [fake version of Seam Connect](https://github.com/seamapi/fake-seam-connect)
-to have deterministic responses for rendering views. You can edit the seed data
-for the fake, or find ids that could be useful for testing components in
-[seed-fake.js](.storybook/seed-fake.js).
+to have deterministic responses for rendering views and running tests.
+
+Edit the seed data for the fake or find relevant ids for testing components here:
+
+- [Storybook fake seed](./.storybook/seed-fake.js).
+- [Jest test fake seed](./test/jest/global-setup.cjs).
 
 ### Previews
 
