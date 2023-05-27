@@ -3,10 +3,10 @@ import { useEffect } from 'react'
 // TODO figure out the version automatically
 const cssUrl = 'https://www.unpkg.com/@seamapi/react@1.1.0/index.min.css'
 
-export const useSeamStyles = ({ enabled }: { enabled: boolean }) => {
+export const useSeamStyles = ({ disabled = false }: { disabled?: boolean }) => {
   useEffect(() => {
+    if (disabled) return
     if (globalThis.document == null) return
-    if (!enabled) return
     const linkEl = globalThis.document.querySelector(`link[href="${cssUrl}"]`)
 
     if (linkEl === null) {
@@ -17,5 +17,5 @@ export const useSeamStyles = ({ enabled }: { enabled: boolean }) => {
 
       globalThis.document.head.appendChild(link)
     }
-  }, [enabled])
+  }, [disabled])
 }

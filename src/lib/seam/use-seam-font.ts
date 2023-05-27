@@ -3,10 +3,10 @@ import { useEffect } from 'react'
 const fontUrl =
   'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap'
 
-export const useSeamFont = ({ enabled }: { enabled: boolean }) => {
+export const useSeamFont = ({ disabled = false }: { disabled?: boolean }) => {
   useEffect(() => {
+    if (disabled) return
     if (globalThis.document == null) return
-    if (!enabled) return
     const linkEl = globalThis.document.querySelector(`link[href="${fontUrl}"]`)
 
     if (linkEl === null) {
@@ -17,5 +17,5 @@ export const useSeamFont = ({ enabled }: { enabled: boolean }) => {
 
       globalThis.document.head.appendChild(link)
     }
-  }, [enabled])
+  }, [disabled])
 }
