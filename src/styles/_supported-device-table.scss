@@ -92,7 +92,7 @@ $row-padding: 8px;
     }
   }
 
-  .seam-supported-device-table-table-state-block {
+  .seam-supported-device-table-content-state-block {
     width: 100%;
     background-color: colors.$bg-a;
     padding: 32px 8px;
@@ -103,11 +103,11 @@ $row-padding: 8px;
     gap: 8px;
   }
 
-  .seam-supported-device-table-table-message-row {
+  .seam-supported-device-table-content-message-row {
     height: auto !important;
   }
 
-  .seam-supported-device-table-table-message {
+  .seam-supported-device-table-content-message {
     width: 100%;
     padding: 32px 0;
     display: flex;
@@ -128,7 +128,7 @@ $row-padding: 8px;
     }
   }
 
-  .seam-supported-device-table-table {
+  .seam-supported-device-table-content {
     width: 100%;
     overflow-x: auto;
     table-layout: auto;

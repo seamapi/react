@@ -70,7 +70,7 @@ export function SupportedDeviceContent({
   const deviceModels = data?.data?.device_models ?? []
 
   return (
-    <div className='seam-supported-device-table-table-wrap'>
+    <div className='seam-supported-device-table-content-wrap'>
       {!cannotFilter && (
         <SupportedDeviceFilterArea
           deviceModels={allDeviceModels}
@@ -82,13 +82,13 @@ export function SupportedDeviceContent({
       )}
 
       {isLoading && (
-        <div className='seam-supported-device-table-table-state-block'>
+        <div className='seam-supported-device-table-content-state-block'>
           <p>Loading device models...</p>
         </div>
       )}
 
       {isError && (
-        <div className='seam-supported-device-table-table-state-block'>
+        <div className='seam-supported-device-table-content-state-block'>
           <p>There was an error fetching device models.</p>
           <Button
             variant='solid'
@@ -103,7 +103,7 @@ export function SupportedDeviceContent({
       )}
 
       {!isLoading && !isError && data?.data?.device_models !== null && (
-        <table className='seam-supported-device-table-table'>
+        <table className='seam-supported-device-table-content'>
           <SupportedDeviceHeader />
           <tbody>
             {deviceModels.length !== 0 &&
@@ -115,9 +115,9 @@ export function SupportedDeviceContent({
               ))}
 
             {deviceModels.length === 0 && (
-              <tr className='seam-supported-device-table-table-message-row'>
+              <tr className='seam-supported-device-table-content-message-row'>
                 <td colSpan={6}>
-                  <div className='seam-supported-device-table-table-message'>
+                  <div className='seam-supported-device-table-content-message'>
                     {filterValue.length === 0 ? (
                       <p>No device models found.</p>
                     ) : (
@@ -129,7 +129,7 @@ export function SupportedDeviceContent({
                           onClick={() => {
                             setFilterValue('')
                           }}
-                          className='seam-supported-device-table-table-message-clear-search'
+                          className='seam-supported-device-table-content-message-clear-search'
                         >
                           Clear search terms
                         </Button>
