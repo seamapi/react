@@ -1,5 +1,5 @@
 'use client'
-import '../../index.css'
+import '@seamapi/react/index.css'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
