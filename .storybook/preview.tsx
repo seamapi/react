@@ -66,7 +66,6 @@ const preview: Preview = {
           publishableKey={publishableKey}
           userIdentifierKey={userIdentifierKey}
           endpoint={seamEndpoint}
-          disableCssInjection
           disableFontInjection
         >
           <Story />

@@ -1,4 +1,5 @@
 'use client'
+import '../../index.css'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
@@ -10,7 +11,6 @@ import {
 import type { Seam, SeamClientOptions } from 'seamapi'
 
 import { useSeamFont } from './seam/use-seam-font.js'
-import { useSeamStyles } from './seam/use-seam-styles.js'
 
 declare global {
   // eslint-disable-next-line no-var
@@ -46,18 +46,17 @@ interface SeamProviderPropsWithClientSessionToken {
 }
 
 interface SeamProviderBaseProps {
-  disableCssInjection?: boolean | undefined
   disableFontInjection?: boolean | undefined
   useUnminifiedCss?: boolean | undefined
+  disableStyles?: boolean | undefined
 }
 
 type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 export function SeamProvider({
   children,
-  disableCssInjection = false,
   disableFontInjection = false,
-  useUnminifiedCss = false,
+  disableStyles = false,
   ...props
 }: PropsWithChildren<SeamProviderProps>): JSX.Element {
   const { Provider } = seamContext
@@ -83,11 +82,12 @@ export function SeamProvider({
     )
   }
 
-  useSeamStyles({ disabled: disableCssInjection, unminified: useUnminifiedCss })
   useSeamFont({ disabled: disableFontInjection })
 
+  const className = disableStyles ? '' : 'seam-components'
+
   return (
-    <div className='seam-components'>
+    <div className={className}>
       <QueryClientProvider client={queryClientRef.current}>
         <Provider value={{ ...contextRef.current }}>{children}</Provider>
       </QueryClientProvider>
