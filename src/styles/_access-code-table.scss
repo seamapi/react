@@ -2,6 +2,10 @@
 
 @mixin all {
   .seam-access-code-table {
+    .seam-search-text-field {
+      width: 170px;
+    }
+
     .seam-table-row {
       cursor: pointer;
 
