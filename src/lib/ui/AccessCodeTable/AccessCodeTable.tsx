@@ -19,6 +19,7 @@ import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
+import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
@@ -38,6 +39,7 @@ export function AccessCodeTable(
   const [selectedAccessCode, selectAccessCode] = useState<AccessCode | null>(
     null
   )
+  const [searchTerm, setSearchTerm] = useState('')
 
   if (selectedAccessCode != null) {
     return (
@@ -54,16 +56,31 @@ export function AccessCodeTable(
     return null
   }
 
+  const filteredCodes = accessCodes.filter((accessCode) => {
+    if (searchTerm === '') {
+      return true
+    }
+
+    return new RegExp(searchTerm, 'i').test(accessCode.name ?? '')
+  })
+
+  const accessCodeCount = accessCodes.length
+
   return (
     <div className='seam-access-code-table'>
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
-          {t.accessCodes} <Caption>({accessCodes.length})</Caption>
+          {t.accessCodes} <Caption>({accessCodeCount})</Caption>
         </TableTitle>
+        <SearchTextField
+          value={searchTerm}
+          onChange={setSearchTerm}
+          disabled={accessCodeCount === 0}
+        />
       </TableHeader>
       <TableBody>
-        <Body accessCodes={accessCodes} selectAccessCode={selectAccessCode} />
+        <Body accessCodes={filteredCodes} selectAccessCode={selectAccessCode} />
       </TableBody>
     </div>
   )
