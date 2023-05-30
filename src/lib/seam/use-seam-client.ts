@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
-import { useSeamContext } from 'lib/SeamProvider.js'
+import { useSeamContext } from 'lib/seam/SeamProvider.js'
 
 export function useSeamClient(): {
   client: Seam | null
