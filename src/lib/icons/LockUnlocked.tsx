@@ -22,11 +22,11 @@ export const LockUnlockedIcon = (
     >
       <path fill='#D9D9D9' d='M.461.839h24v24h-24z' />
     </mask>
-    <g fill='#232B3A' mask='url(#lock-unlocked_svg__a)'>
-      <rect width={12} height={8.152} x={6.461} y={12.839} rx={1.259} />
+    <g mask='url(#lock-unlocked_svg__a)'>
       <path
+        fill='#232B3A'
         fillRule='evenodd'
-        d='M7.94 10.359a4.52 4.52 0 0 1 9.04 0v5.692a1 1 0 1 1-2 0v-5.692a2.52 2.52 0 0 0-5.04 0v3.531a1 1 0 1 1-2 0V10.36Z'
+        d='M5.924 3.893a4.463 4.463 0 0 0-4.463 4.464v3.345a1 1 0 1 0 2 0V8.357a2.463 2.463 0 0 1 4.926 0v4.482H7.72a1.26 1.26 0 0 0-1.26 1.259v5.481c0 .696.565 1.26 1.26 1.26h9.481a1.26 1.26 0 0 0 1.26-1.26v-5.481a1.26 1.26 0 0 0-1.26-1.26h-6.814V8.357a4.463 4.463 0 0 0-4.463-4.464Z'
         clipRule='evenodd'
       />
     </g>
