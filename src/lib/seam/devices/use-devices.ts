@@ -7,9 +7,9 @@ import type {
   SeamError,
 } from 'seamapi'
 
+import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
-import { byCreatedAt } from 'lib/sort-by.js'
 
 export type UseDevicesParams = DevicesListRequest
 export type UseDevicesData = Array<Device<CommonDeviceProperties>>
@@ -27,7 +27,7 @@ export function useDevices(
       queryFn: async () => {
         if (client == null) return []
         const devices = await client?.devices.list(params)
-        return devices.sort(byCreatedAt)
+        return devices.sort(compareByCreatedAtDesc)
       },
       onSuccess(devices) {
         // Prime cache for each device.

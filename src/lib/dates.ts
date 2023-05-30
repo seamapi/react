@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-export const byCreatedAt = (
+export const compareByCreatedAtDesc = (
   a: { created_at: string },
   b: { created_at: string }
 ): number => {
