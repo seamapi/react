@@ -1,12 +1,11 @@
 import type { LockDevice } from 'seamapi'
 
-import { useDevice } from 'lib/index.js'
-
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { isLockDevice } from 'lib/seam/devices/types.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'

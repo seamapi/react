@@ -2,8 +2,7 @@ import { DateTime } from 'luxon'
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
-import { useAccessCode } from 'lib/index.js'
-
+import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
