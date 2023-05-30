@@ -120,7 +120,9 @@ function AccessCodeRow(props: {
 
   const errorCount = accessCode.errors?.length ?? 0
   const isPlural = errorCount === 0 || errorCount > 1
-  const issueIconTitle = `${t.errorIconTitle}${isPlural && 's'}`
+  const issueIconTitle = isPlural
+    ? `${errorCount} ${t.codeIssues}`
+    : `${errorCount} ${t.codeIssue}`
 
   return (
     <TableRow key={accessCode.access_code_id} onClick={onClick}>
@@ -168,5 +170,6 @@ const t = {
   accessCodes: 'Access Codes',
   copyCode: 'Copy code',
   noAccessCodesMessage: 'Sorry, no access codes were found',
-  errorIconTitle: 'code issue',
+  codeIssue: 'code issue',
+  codeIssues: 'code issues',
 }
