@@ -4,6 +4,7 @@ import type { AccessCode } from 'seamapi'
 import { copyToClipboard } from 'lib/copy-to-clipboard.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
+import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import {
   useAccessCodes,
   type UseAccessCodesData,
@@ -116,6 +117,13 @@ function AccessCodeRow(props: {
   onClick: () => void
 }) {
   const { onClick, accessCode } = props
+
+  const errorCount = accessCode.errors?.length ?? 0
+  const isPlural = errorCount === 0 || errorCount > 1
+  const issueIconTitle = isPlural
+    ? `${errorCount} ${t.codeIssues}`
+    : `${errorCount} ${t.codeIssue}`
+
   return (
     <TableRow key={accessCode.access_code_id} onClick={onClick}>
       <TableCell className='seam-icon-cell'>
@@ -128,6 +136,11 @@ function AccessCodeRow(props: {
         <CodeDetails accessCode={accessCode} />
       </TableCell>
       <TableCell className='seam-action-cell'>
+        {errorCount > 0 && (
+          <div className='seam-code-issue-icon-wrap' title={issueIconTitle}>
+            <ExclamationCircleOutlineIcon />
+          </div>
+        )}
         <MoreActionsMenu
           menuProps={{
             backgroundProps: {
@@ -157,4 +170,6 @@ const t = {
   accessCodes: 'Access Codes',
   copyCode: 'Copy code',
   noAccessCodesMessage: 'Sorry, no access codes were found',
+  codeIssue: 'code issue',
+  codeIssues: 'code issues',
 }
