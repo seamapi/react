@@ -5,7 +5,7 @@ import { useDevice } from 'lib/seam/devices/use-device.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Button } from 'lib/ui/Button.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
-import { getDeviceModel } from 'lib/ui/DeviceDetails/DeviceModel.js'
+import { getDeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { TextButton } from 'lib/ui/TextButton.js'
 
 export function AccessCodeDevice({

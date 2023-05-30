@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import {
   DeviceTable,
   type DeviceTableProps,
-} from 'lib/ui/DeviceTable/DeviceTable.js'
+} from 'lib/seam/components/DeviceTable/DeviceTable.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const meta: Meta<typeof DeviceTable> = {

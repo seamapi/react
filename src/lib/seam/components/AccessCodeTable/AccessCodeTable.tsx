@@ -8,8 +8,8 @@ import {
   useAccessCodes,
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
-import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
-import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
+import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'

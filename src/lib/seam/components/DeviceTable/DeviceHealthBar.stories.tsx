@@ -5,7 +5,7 @@ import { useState } from 'react'
 import {
   type DeviceFilter,
   DeviceHealthBar,
-} from 'lib/ui/DeviceTable/DeviceHealthBar.js'
+} from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 
 const meta: Meta<typeof DeviceHealthBar> = {
   title: 'Library/DeviceHealthBar',
