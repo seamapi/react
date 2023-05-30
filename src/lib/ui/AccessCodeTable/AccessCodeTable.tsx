@@ -22,6 +22,7 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
+import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 
 export interface AccessCodeTableProps {
   deviceId: string
@@ -116,6 +117,13 @@ function AccessCodeRow(props: {
   onClick: () => void
 }) {
   const { onClick, accessCode } = props
+
+  const errorCount = accessCode.errors?.length ?? 0
+  const isPlural = errorCount === 0 || errorCount > 1
+  const issueIconTitle = isPlural
+    ? `${errorCount} code issues`
+    : `${errorCount} code issue`
+
   return (
     <TableRow key={accessCode.access_code_id} onClick={onClick}>
       <TableCell className='seam-icon-cell'>
@@ -128,6 +136,11 @@ function AccessCodeRow(props: {
         <CodeDetails accessCode={accessCode} />
       </TableCell>
       <TableCell className='seam-action-cell'>
+        {errorCount > 0 && (
+          <div className='seam-code-issue-icon-wrap' title={issueIconTitle}>
+            <ExclamationCircleOutlineIcon />
+          </div>
+        )}
         <MoreActionsMenu
           menuProps={{
             backgroundProps: {
