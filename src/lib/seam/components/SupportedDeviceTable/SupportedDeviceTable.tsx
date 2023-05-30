@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import type { SupportedDeviceContentProps } from 'lib/ui/SupportedDeviceTable/SupportedDeviceContent.js'
-import { SupportedDeviceContent } from 'lib/ui/SupportedDeviceTable/SupportedDeviceContent.js'
+import type { SupportedDeviceContentProps } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceContent.js'
+import { SupportedDeviceContent } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceContent.js'
 
 const client = new QueryClient()
 

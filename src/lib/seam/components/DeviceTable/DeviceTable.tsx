@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
+import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import {
+  type DeviceFilter,
+  DeviceHealthBar,
+} from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
+import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
 import {
   useDevices,
   type UseDevicesData,
   type UseDevicesParams,
 } from 'lib/seam/devices/use-devices.js'
-import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
-import {
-  type DeviceFilter,
-  DeviceHealthBar,
-} from 'lib/ui/DeviceTable/DeviceHealthBar.js'
-import { DeviceRow } from 'lib/ui/DeviceTable/DeviceRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'

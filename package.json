@@ -9,6 +9,9 @@
     ".": {
       "import": "./index.js"
     },
+    "./hooks.js": {
+      "import": "./hooks.js"
+    },
     "./index.css": {
       "import": "./index.css"
     }
@@ -30,6 +33,9 @@
     "index.js",
     "index.js.map",
     "index.d.ts",
+    "hooks.js",
+    "hooks.js.map",
+    "hooks.d.ts",
     "index.css",
     "index.css.map",
     "index.min.css",
@@ -47,8 +53,8 @@
     "start": "concurrently --raw --kill-others npm:examples:storybook npm:storybook",
     "dev": "npm run start",
     "build": "npm run build:js",
-    "prebuild": "del 'index.*' lib",
-    "postbuild": "node ./index.js",
+    "prebuild": "del 'index.*' 'hooks.*' lib",
+    "postbuild": "concurrently 'node ./index.js' 'node ./hooks.js'",
     "build:js": "tsc --project tsconfig.build.json",
     "prebuild:js": "npm run build:css",
     "postbuild:js": "tsc-alias --project tsconfig.build.json",

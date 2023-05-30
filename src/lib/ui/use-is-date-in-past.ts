@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { useCallback, useEffect, useState } from 'react'
 
-import { useInterval } from './use-interval.js'
+import { useInterval } from 'lib/ui/use-interval.js'
 
 export function useIsDateInPast(
   date: string | null | undefined

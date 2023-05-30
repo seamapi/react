@@ -1,27 +1,27 @@
 import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
-import { useToggle } from 'lib/use-toggle.js'
+import { AccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
+import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
- * These stories showcase access code details.
+ * These stories showcase the access code table.
  */
-const meta: Meta<typeof AccessCodeDetails> = {
-  title: 'Example/AccessCodeDetails',
-  component: AccessCodeDetails,
+const meta: Meta<typeof AccessCodeTable> = {
+  title: 'Example/AccessCodeTable',
+  component: AccessCodeTable,
   tags: ['autodocs'],
 }
 
 export default meta
 
-type Story = StoryObj<typeof AccessCodeDetails>
+type Story = StoryObj<typeof AccessCodeTable>
 
 export const Content: Story = {
   render: (props, { globals }) => (
-    <AccessCodeDetails
+    <AccessCodeTable
       {...props}
-      accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+      deviceId={props.deviceId ?? globals['deviceId']}
     />
   ),
 }
@@ -35,9 +35,9 @@ export const InsideModal: Story = {
         <Button onClick={toggleOpen}>Open Modal</Button>
         <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
           <div className='seam-components'>
-            <AccessCodeDetails
+            <AccessCodeTable
               {...props}
-              accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+              deviceId={props.deviceId ?? globals['deviceId']}
             />
           </div>
         </Dialog>

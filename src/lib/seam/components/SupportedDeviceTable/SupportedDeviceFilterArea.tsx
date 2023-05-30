@@ -1,10 +1,13 @@
 import type { Dispatch, SetStateAction } from 'react'
 
-import { capitalize } from 'lib/capitalize.js'
+import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
+import type {
+  DeviceModel,
+  Filters,
+} from 'lib/seam/components/SupportedDeviceTable/types.js'
+import { capitalize } from 'lib/strings.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
-import { FilterCategoryMenu } from 'lib/ui/SupportedDeviceTable/FilterCategoryMenu.js'
-import type { DeviceModel, Filters } from 'lib/ui/SupportedDeviceTable/types.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 
 interface SupportedDeviceFilterAreaProps {

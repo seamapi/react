@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import type { DeviceModel } from 'lib/ui/SupportedDeviceTable/types.js'
+import type { DeviceModel } from 'lib/seam/components/SupportedDeviceTable/types.js'
 
 export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel

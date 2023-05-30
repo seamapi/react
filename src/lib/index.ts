@@ -1,3 +1,3 @@
+export * from './seam/components/index.js'
 export * from './seam/index.js'
-export * from './SeamProvider.js'
-export * from './ui/index.js'
+export * from './seam/SeamProvider.js'
