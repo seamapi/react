@@ -3,20 +3,24 @@ export const seedFake = (db) => {
   db.addWorkspace({
     name: 'Seed Workspace 1 (starts empty)',
     publishable_key: 'seam_pk_1',
+    created_at: '2023-04-03T02:14:18.000',
   })
 
   const ws2 = db.addWorkspace({
     name: 'Seed Workspace 2 (starts populated)',
     publishable_key: fakePublishableKey,
+    created_at: '2023-05-15T14:07:48.000',
   })
 
   const cw = db.addConnectWebview({
     workspace_id: ws2.workspace_id,
+    created_at: '2023-05-15T15:08:49.000',
   })
 
   const ca = db.addConnectedAccount({
     provider: 'august',
     workspace_id: ws2.workspace_id,
+    created_at: '2023-05-15T15:08:50.000',
   })
 
   db.updateConnectWebview({
@@ -30,6 +34,7 @@ export const seedFake = (db) => {
     device_type: 'august_lock',
     name: 'Front Door',
     workspace_id: ws2.workspace_id,
+    created_at: '2023-05-16T10:17:18.000',
     properties: {
       locked: false,
       online: true,
@@ -74,12 +79,12 @@ export const seedFake = (db) => {
   db.addAccessCode({
     device_id: device1.device_id,
     workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
     name: "John's Front Door Code",
     code: '1234',
     common_code_key: null,
     type: 'ongoing',
     status: 'set',
-    created_at: '2023-05-08T22:38:19.029Z',
     errors: [],
     warnings: [],
     is_managed: true,
@@ -88,12 +93,12 @@ export const seedFake = (db) => {
   db.addAccessCode({
     device_id: device1.device_id,
     workspace_id: ws2.workspace_id,
+    created_at: '2023-05-19T03:11:10.000',
     name: "Mary's Front Door Code",
     code: '1111',
     common_code_key: null,
     type: 'ongoing',
     status: 'set',
-    created_at: '2023-05-08T22:38:30.963Z',
     errors: [],
     warnings: [],
     is_managed: true,
@@ -104,6 +109,7 @@ export const seedFake = (db) => {
     device_type: 'august_lock',
     name: 'Back Door',
     workspace_id: ws2.workspace_id,
+    created_at: '2023-05-24T22:15:14.000',
     properties: {
       locked: false,
       online: true,
@@ -136,6 +142,7 @@ export const seedFake = (db) => {
     device_type: 'schlage_lock',
     name: 'Garage',
     workspace_id: ws2.workspace_id,
+    created_at: '2023-05-25T02:05:04.000',
     properties: {
       locked: false,
       online: true,
@@ -163,6 +170,7 @@ export const seedFake = (db) => {
 
   db.addClientSession({
     workspace_id: ws2.workspace_id,
+    created_at: '2023-05-29T01:02:02.000',
     connect_webview_ids: [cw.connect_webview_id],
     connected_account_ids: [ca.connected_account_id],
     user_identifier_key: fakeUserIdentifierKey,
