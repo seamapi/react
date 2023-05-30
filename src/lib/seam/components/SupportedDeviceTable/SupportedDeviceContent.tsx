@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
-import { Button } from 'lib/ui/Button.js'
 import { SupportedDeviceFilterArea } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterArea.js'
-import type { DeviceModel, Filters } from 'lib/seam/components/SupportedDeviceTable/types.js'
+import type {
+  DeviceModel,
+  Filters,
+} from 'lib/seam/components/SupportedDeviceTable/types.js'
+import { Button } from 'lib/ui/Button.js'
 
 import { SupportedDeviceHeader } from './SupportedDeviceHeader.js'
 import { SupportedDeviceRow } from './SupportedDeviceRow.js'
