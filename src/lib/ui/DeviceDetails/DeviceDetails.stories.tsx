@@ -3,7 +3,7 @@ import { Button, Dialog, DialogActions, IconButton } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
-import { useToggle } from 'lib/use-toggle.js'
+import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
  * These stories showcase the device details.

@@ -4,7 +4,7 @@ import type { AccessCode } from 'seamapi'
 import { useDevice } from 'lib/index.js'
 
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
-import { useIsDateInPast } from 'lib/use-is-date-in-past.js'
+import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
   const { accessCode } = props

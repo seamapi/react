@@ -7,7 +7,7 @@ import { useAccessCode } from 'lib/index.js'
 import { AccessCodeDevice } from 'lib/ui/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/ui/DeviceDetails/DeviceDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { useIsDateInPast } from 'lib/use-is-date-in-past.js'
+import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 export interface AccessCodeDetailsProps {
   accessCodeId: string

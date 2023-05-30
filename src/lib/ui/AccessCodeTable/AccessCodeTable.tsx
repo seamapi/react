@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
-import { copyToClipboard } from 'lib/copy-to-clipboard.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
@@ -11,6 +10,7 @@ import {
 } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/ui/AccessCodeDetails/AccessCodeDetails.js'
 import { CodeDetails } from 'lib/ui/AccessCodeTable/CodeDetails.js'
+import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 import { MoreActionsMenu } from 'lib/ui/Menu/MoreActionsMenu.js'
