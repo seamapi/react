@@ -4,6 +4,7 @@ import type { AccessCode } from 'seamapi'
 import { copyToClipboard } from 'lib/copy-to-clipboard.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
+import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import {
   useAccessCodes,
   type UseAccessCodesData,
@@ -22,7 +23,6 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
-import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 
 export interface AccessCodeTableProps {
   deviceId: string
