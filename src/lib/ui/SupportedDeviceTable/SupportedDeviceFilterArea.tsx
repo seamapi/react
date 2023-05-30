@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react'
 
-import { capitalize } from 'lib/capitalize.js'
+import { capitalize } from 'lib/strings.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { FilterCategoryMenu } from 'lib/ui/SupportedDeviceTable/FilterCategoryMenu.js'
