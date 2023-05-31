@@ -104,7 +104,6 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@r2wc/react-to-web-component": "^2.0.2",
     "@tanstack/react-query": "^4.28.0",
     "classnames": "^2.3.2",
     "luxon": "^3.3.0",
@@ -119,6 +118,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
     "@seamapi/fake-seam-connect": "^0.7.2",
+    "@r2wc/react-to-web-component": "^2.0.2",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-interactions": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
