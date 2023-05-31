@@ -1,10 +1,15 @@
 import { fileURLToPath } from 'node:url'
 
+import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  plugins: [
+    tsconfigPaths(),
+    // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
+    react(),
+  ],
   define: {
     'process.env.NODE_ENV': "'production'",
   },
