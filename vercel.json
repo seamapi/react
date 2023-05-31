@@ -12,8 +12,8 @@
       "destination": "https://www.unpkg.com/@seamapi/react@:version/:asset"
     },
     {
-      "source": "/api/:fakepath*",
-      "destination": "/api/fakepath"
+      "source": "/api/:apipath*",
+      "destination": "/api/fake-seam-connect"
     }
   ],
   "headers": [

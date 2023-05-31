@@ -39,7 +39,7 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const { fakepath, ...getParams } = req.query
+  const { apipath, ...getParams } = req.query
 
   const fake = await FakeSC.create()
 
@@ -49,8 +49,12 @@ export default async (
 
   const requestBuffer = await getRawBody(req)
 
+  if (typeof apipath !== 'string') {
+    throw new Error('Expected apipath to be a string')
+  }
+
   const proxyRes = await axios.request({
-    url: `${server.serverUrl}/${fakepath as string}`,
+    url: `${server.serverUrl}/${apipath}`,
     params: getParams,
     method: req.method,
     headers: { ...req.headers },
