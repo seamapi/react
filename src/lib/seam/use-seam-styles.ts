@@ -10,7 +10,7 @@ export const useSeamStyles = ({
 }: {
   unminified?: boolean
   disabled?: boolean
-}) => {
+}): void => {
   const ext = `${unminified ? '' : 'min.'}css`
   const cssUrl = `${origin}/v/${version ?? ''}/index.${ext}`
 

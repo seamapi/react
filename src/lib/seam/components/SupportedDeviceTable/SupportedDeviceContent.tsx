@@ -17,7 +17,7 @@ export interface SupportedDeviceContentProps {
 
 export function SupportedDeviceContent({
   cannotFilter = false,
-}: SupportedDeviceContentProps) {
+}: SupportedDeviceContentProps): JSX.Element {
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<Filters>({
     supportedOnly: false,

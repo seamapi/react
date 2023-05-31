@@ -16,7 +16,7 @@ export function DeviceHealthBar({
   devices,
   filter,
   onFilterSelect,
-}: DeviceHealthBarProps) {
+}: DeviceHealthBarProps): JSX.Element {
   const erroredDevices = devices.filter((device) => device.errors.length > 0)
   const issueCount = erroredDevices.length
 

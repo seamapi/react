@@ -3,7 +3,11 @@ import { useEffect } from 'react'
 const fontUrl =
   'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap'
 
-export const useSeamFont = ({ disabled = false }: { disabled?: boolean }) => {
+export const useSeamFont = ({
+  disabled = false,
+}: {
+  disabled?: boolean
+}): void => {
   useEffect(() => {
     if (disabled) return
     if (globalThis.document == null) return

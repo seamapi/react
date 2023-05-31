@@ -90,7 +90,7 @@ export function AccessCodeTable(
 function Body(props: {
   accessCodes: Array<UseAccessCodesData[number]>
   selectAccessCode: (accessCode: AccessCode) => void
-}) {
+}): JSX.Element {
   const { accessCodes, selectAccessCode } = props
 
   if (accessCodes.length === 0) {
@@ -115,7 +115,7 @@ function Body(props: {
 function AccessCodeRow(props: {
   accessCode: UseAccessCodesData[number]
   onClick: () => void
-}) {
+}): JSX.Element {
   const { onClick, accessCode } = props
 
   const errorCount = accessCode.errors?.length ?? 0

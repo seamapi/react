@@ -1,8 +1,7 @@
 import { DateTime } from 'luxon'
 import type { AccessCode } from 'seamapi'
 
-import { useDevice } from 'lib/index.js'
-
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 

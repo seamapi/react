@@ -11,9 +11,8 @@ import type {
   SeamError,
 } from 'seamapi'
 
-import { useSeamClient } from 'lib/index.js'
-
 import { isLockDevice } from 'lib/seam/devices/types.js'
+import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export function useToggleLock({
   device_id: deviceId,

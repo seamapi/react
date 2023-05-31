@@ -1,4 +1,4 @@
-export function SupportedDeviceHeader() {
+export function SupportedDeviceHeader(): JSX.Element {
   return (
     <thead>
       <tr>
