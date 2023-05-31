@@ -1,14 +1,16 @@
-import { Readable } from 'node:stream'
+import type { ServerResponse } from 'node:http'
+import { Readable, type Stream } from 'node:stream'
 
 import * as FakeSC from '@seamapi/fake-seam-connect'
 import axios from 'axios'
+import type { IncomingMessage } from 'http'
 import getRawBody from 'raw-body'
 
 import { seedFake } from '../.storybook/seed-fake.js'
 
 // Taken from seam-connect
 // Based on: https://stackoverflow.com/a/44091532/559475
-export const getRequestStreamFromBuffer = (requestBuffer: Buffer) => {
+export const getRequestStreamFromBuffer = (requestBuffer: Buffer): Stream => {
   const requestStream = new Readable()
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   requestStream._read = () => {}
@@ -24,14 +26,26 @@ const dontProxyHeaders = new Set([
   'connection',
 ])
 
-export default async (req: any, res: any) => {
+interface NextApiRequest extends IncomingMessage {
+  query: Partial<Record<string, string | string[]>>
+}
+
+interface NextApiResponse extends ServerResponse {
+  json: (body: object) => void
+  status: (statusCode: number) => NextApiResponse
+}
+
+export default async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   const { fakepath, ...getParams } = req.query
 
   const fake = await FakeSC.create()
 
   const server = await fake.startServer()
 
-  seedFake((fake.database as any).getState())
+  seedFake(fake.database)
 
   const requestBuffer = await getRawBody(req)
 
