@@ -1,4 +1,4 @@
-import type { IncomingMessage,ServerResponse } from 'node:http'
+import type { IncomingMessage, ServerResponse } from 'node:http'
 import { Readable, type Stream } from 'node:stream'
 
 import { create as createFake } from '@seamapi/fake-seam-connect'
