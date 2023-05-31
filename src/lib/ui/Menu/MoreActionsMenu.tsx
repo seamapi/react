@@ -11,7 +11,7 @@ interface MoreActionsMenuProps {
 export function MoreActionsMenu({
   children,
   menuProps,
-}: PropsWithChildren<MoreActionsMenuProps>) {
+}: PropsWithChildren<MoreActionsMenuProps>): JSX.Element {
   return (
     <Menu
       renderButton={({ onOpen }) => (

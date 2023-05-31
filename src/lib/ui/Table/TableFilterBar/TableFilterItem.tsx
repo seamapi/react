@@ -10,7 +10,7 @@ export function TableFilterItem({
   onClick,
   selected,
   ...props
-}: TableFilterItemProps) {
+}: TableFilterItemProps): JSX.Element {
   return (
     <div
       onClick={onClick}

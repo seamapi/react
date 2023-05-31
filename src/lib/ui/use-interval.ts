@@ -6,7 +6,7 @@ const defaultDelay = Duration.fromObject({ minutes: 1 }).as('milliseconds')
 export function useInterval(
   callback: () => void,
   delay: number = defaultDelay
-) {
+): void {
   const update = useCallback(() => {
     callback()
   }, [callback])

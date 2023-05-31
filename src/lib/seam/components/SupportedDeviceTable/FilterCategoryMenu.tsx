@@ -26,7 +26,7 @@ export function FilterCategoryMenu({
   onSelect,
   onAllOptionSelect,
   buttonLabel,
-}: FilterCategoryMenuProps) {
+}: FilterCategoryMenuProps): JSX.Element {
   const usableOptions = hideAllOption ? options : ['All', ...options]
 
   return (

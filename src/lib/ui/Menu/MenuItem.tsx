@@ -9,7 +9,7 @@ interface MenuItemProps {
 export function MenuItem({
   onClick,
   children,
-}: PropsWithChildren<MenuItemProps>) {
+}: PropsWithChildren<MenuItemProps>): JSX.Element {
   const { close: closeMenu } = useMenu()
 
   return (

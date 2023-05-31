@@ -12,7 +12,7 @@ export function TableFilterBar({
   onFilterClear,
   children,
   ...props
-}: TableFilterBarProps) {
+}: TableFilterBarProps): JSX.Element {
   return (
     <div className='seam-table-filter-bar' {...props}>
       {children}{' '}
@@ -21,7 +21,7 @@ export function TableFilterBar({
   )
 }
 
-function ClearFiltersButton(props: ButtonProps) {
+function ClearFiltersButton(props: ButtonProps): JSX.Element {
   return (
     <IconButton {...props} className='seam-clear-filters-button'>
       <ArrowRestartIcon />

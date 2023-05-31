@@ -24,7 +24,7 @@ export function SupportedDeviceFilterArea({
   setFilterValue,
   filters,
   setFilters,
-}: SupportedDeviceFilterAreaProps) {
+}: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFilters = Object.keys(filters).filter((key) => {
     const filterProperty = filters[key as keyof Filters]
     return (
@@ -37,7 +37,7 @@ export function SupportedDeviceFilterArea({
 
   const getAvailablePropertiesFromDeviceModels = (
     property: keyof DeviceModel
-  ) => {
+  ): string[] => {
     const properties = new Set<string>()
     deviceModels.forEach((deviceModel) => {
       properties.add(capitalize(deviceModel[property]))
@@ -45,7 +45,7 @@ export function SupportedDeviceFilterArea({
     return Array.from(properties)
   }
 
-  const resetFilter = (filterType: keyof Filters) => {
+  const resetFilter = (filterType: keyof Filters): void => {
     setFilters((filters) => ({
       ...filters,
       [filterType]: null,

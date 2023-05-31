@@ -27,7 +27,7 @@ export function AccessCodeDevice({
 function LockDeviceDetails(props: {
   device: LockDevice
   onSelectDevice: (deviceId: string) => void
-}) {
+}): JSX.Element {
   const { device, onSelectDevice } = props
   const toggleLock = useToggleLock(device)
   const model = getDeviceModel(device)

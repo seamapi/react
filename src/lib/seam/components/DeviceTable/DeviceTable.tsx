@@ -90,7 +90,7 @@ export function DeviceTable({
 function Body(props: {
   devices: Array<UseDevicesData[number]>
   selectDevice: (id: string) => void
-}) {
+}): JSX.Element {
   const { devices, selectDevice } = props
   const [filter, setFilter] = useState<DeviceFilter | null>(null)
 

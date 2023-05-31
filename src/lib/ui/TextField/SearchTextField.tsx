@@ -14,7 +14,7 @@ export function SearchTextField({
   const [inputEl, setInputEl] = useState<HTMLInputElement | null>(null)
 
   const valueIsEmpty = useValueIsEmpty(value, inputEl)
-  const clearInput = () => {
+  const clearInput = (): void => {
     if (onChange != null) {
       onChange('')
       return
@@ -53,7 +53,7 @@ export function SearchTextField({
 function useValueIsEmpty(
   value: string | undefined,
   inputEl: HTMLInputElement | null
-) {
+): boolean {
   const [valueIsEmpty, setValueIsEmpty] = useState(true)
 
   // If this is a controlled element, we'll just look at `value`
@@ -68,7 +68,7 @@ function useValueIsEmpty(
       return
     }
 
-    const handler = (event: Event) => {
+    const handler = (event: Event): void => {
       if (value !== undefined) {
         return
       }

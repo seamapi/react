@@ -38,7 +38,7 @@ export function Menu({
   children,
   renderButton,
   backgroundProps,
-}: PropsWithChildren<MenuProps>) {
+}: PropsWithChildren<MenuProps>): JSX.Element | null {
   const { Provider } = menuContext
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [documentEl, setDocumentEl] = useState<null | Element>(null)
@@ -56,11 +56,11 @@ export function Menu({
     }
   }, [setDocumentEl])
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null)
   }
 
-  const handleOpen = (event: MouseEvent<HTMLElement>) => {
+  const handleOpen = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -171,7 +171,7 @@ export function Menu({
   )
 }
 
-export function useMenu() {
+export function useMenu(): MenuContextValue {
   const context = useContext(menuContext)
   if (context == null) {
     throw new Error('useMenu must be used within a Menu.')

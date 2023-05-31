@@ -7,7 +7,9 @@ const client = new QueryClient()
 
 export type SupportedDeviceTableProps = SupportedDeviceContentProps
 
-export function SupportedDeviceTable(props: SupportedDeviceContentProps) {
+export function SupportedDeviceTable(
+  props: SupportedDeviceContentProps
+): JSX.Element {
   return (
     <QueryClientProvider client={client}>
       <SupportedDeviceContent {...props} />
