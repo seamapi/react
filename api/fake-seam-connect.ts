@@ -1,9 +1,8 @@
-import type { ServerResponse } from 'node:http'
+import type { IncomingMessage,ServerResponse } from 'node:http'
 import { Readable, type Stream } from 'node:stream'
 
-import * as FakeSC from '@seamapi/fake-seam-connect'
+import { create as createFake } from '@seamapi/fake-seam-connect'
 import axios from 'axios'
-import type { IncomingMessage } from 'http'
 import getRawBody from 'raw-body'
 
 import { seedFake } from '../.storybook/seed-fake.js'
@@ -41,7 +40,7 @@ export default async (
 ): Promise<void> => {
   const { apipath, ...getParams } = req.query
 
-  const fake = await FakeSC.create()
+  const fake = await createFake()
 
   const server = await fake.startServer()
 
