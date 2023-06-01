@@ -7,7 +7,10 @@
   </head>
   <body>
     <main class="seam-components">
-      <seam-supported-device-table></seam-supported-device-table>
+      <seam-supported-device-table
+        publishable-key="%SEAM_PUBLISHABLE_KEY%"
+        user-identifier-key="%SEAM_USER_IDENTIFIER_KEY%"
+      ></seam-supported-device-table>
     </main>
     <script type="module" src="/web-components/src/main.ts"></script>
   </body>
