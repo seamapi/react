@@ -18,12 +18,14 @@ export default meta
 
 type Story = StoryObj<typeof SupportedDeviceTable>
 
-export const Content: Story = {
-  render: (props: any) => <SupportedDeviceTable {...props} />,
+export const Content: Story = {}
+
+export const NoFilter: Story = {
+  render: (props) => <SupportedDeviceTable {...props} cannotFilter />,
 }
 
 export const InsideModal: Story = {
-  render: (props: any) => {
+  render: (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [open, toggleOpen] = useToggle()
     return (
