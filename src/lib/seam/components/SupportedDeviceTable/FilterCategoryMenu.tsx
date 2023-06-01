@@ -17,16 +17,19 @@ interface FilterCategoryMenuBaseProps {
 
 interface FilterCategoryMenuPropsWithAllOption {
   hideAllOption?: false
+  allLabel: string
   onAllOptionSelect: () => void
 }
 
 interface FilterCategoryMenuPropsWithoutAllOption {
   hideAllOption: true
+  allLabel: never
   onAllOptionSelect?: never
 }
 
 export function FilterCategoryMenu({
   label = t.filter,
+  allLabel,
   options,
   hideAllOption = false,
   onSelect,
@@ -50,7 +53,7 @@ export function FilterCategoryMenu({
           <MenuItem
             key={`${index}:${option}`}
             onClick={() => {
-              if (option === 'All') {
+              if (option === allLabel) {
                 onAllOptionSelect?.()
               } else {
                 onSelect(option)

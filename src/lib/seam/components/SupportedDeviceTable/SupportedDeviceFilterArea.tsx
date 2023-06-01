@@ -22,21 +22,12 @@ export function SupportedDeviceFilterArea({
   filters,
   setFilters,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
-  const { deviceModels } = useDeviceModels()
   const appliedFiltersCount = Object.values(filters).filter(
     (v) => v != null && v !== false
   ).length
 
-  const getAvailablePropertiesFromDeviceModels = (
-    property: keyof DeviceModel
-  ): string[] => {
-    if (deviceModels == null) return []
-    const properties = new Set<string>()
-    deviceModels.forEach((deviceModel) => {
-      properties.add(capitalize(deviceModel[property]))
-    })
-    return Array.from(properties)
-  }
+  const filterProperty = 'brand'
+  const availableProperties = useAvailableProperties(filterProperty)
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -47,6 +38,8 @@ export function SupportedDeviceFilterArea({
 
   const filterButtonLabel =
     appliedFiltersCount > 0 ? `${t.filters} (${appliedFiltersCount})` : t.filter
+
+  const allLabel = t.all
 
   return (
     <div className='seam-supported-device-table-filter-area'>
@@ -72,16 +65,17 @@ export function SupportedDeviceFilterArea({
             <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
                 label={t.brand}
-                options={getAvailablePropertiesFromDeviceModels('brand')}
+                allLabel={allLabel}
+                options={availableProperties}
                 onSelect={(brand: string) => {
                   setFilters((filters) => ({
                     ...filters,
                     brand,
                   }))
                 }}
-                buttonLabel={filters.brand ?? t.all}
+                buttonLabel={filters.brand ?? allLabel}
                 onAllOptionSelect={() => {
-                  resetFilter('brand')
+                  resetFilter(filterProperty)
                 }}
               />
             </div>
@@ -120,6 +114,16 @@ export function SupportedDeviceFilterArea({
       </div>
     </div>
   )
+}
+
+const useAvailableProperties = (property: keyof DeviceModel): string[] => {
+  const { deviceModels } = useDeviceModels()
+  if (deviceModels == null) return []
+  const properties = new Set<string>()
+  for (const deviceModel of deviceModels) {
+    properties.add(capitalize(deviceModel[property]))
+  }
+  return Array.from(properties)
 }
 
 const t = {
