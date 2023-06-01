@@ -57,7 +57,12 @@ export function SupportedDeviceContent({
       <tbody>
         {deviceModels.map((deviceModel) => (
           <SupportedDeviceRow
-            key={deviceModel.manufacturer_model_id}
+            key={[
+              deviceModel.manufacturer_model_id,
+              deviceModel.brand,
+              deviceModel.model_name,
+              deviceModel.main_category,
+            ].join(':')}
             deviceModel={deviceModel}
           />
         ))}
