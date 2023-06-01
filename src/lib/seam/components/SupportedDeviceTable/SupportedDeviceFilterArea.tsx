@@ -1,61 +1,45 @@
 import type { Dispatch, SetStateAction } from 'react'
+import type { DeviceModel } from 'seamapi'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
-import type {
-  DeviceModel,
-  Filters,
-} from 'lib/seam/components/SupportedDeviceTable/types.js'
+import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
+import { useDeviceModels } from 'lib/seam/device-models/use-device-models.js'
 import { capitalize } from 'lib/strings.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 
-interface SupportedDeviceFilterAreaProps {
-  deviceModels: DeviceModel[]
+export interface SupportedDeviceFilterAreaProps {
   filterValue: string
   setFilterValue: (filter: string) => void
-  filters: Filters
-  setFilters: Dispatch<SetStateAction<Filters>>
+  filters: DeviceModelFilters
+  setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
 }
 
 export function SupportedDeviceFilterArea({
-  deviceModels,
   filterValue,
   setFilterValue,
   filters,
   setFilters,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
-  const appliedFilters = Object.keys(filters).filter((key) => {
-    const filterProperty = filters[key as keyof Filters]
-    return (
-      filterProperty !== undefined &&
-      filterProperty !== null &&
-      filterProperty !== false
-    )
-  })
-  const appliedFiltersCount = appliedFilters.length
+  const appliedFiltersCount = Object.values(filters).filter(
+    (v) => v != null && v !== false
+  ).length
 
-  const getAvailablePropertiesFromDeviceModels = (
-    property: keyof DeviceModel
-  ): string[] => {
-    const properties = new Set<string>()
-    deviceModels.forEach((deviceModel) => {
-      properties.add(capitalize(deviceModel[property]))
-    })
-    return Array.from(properties)
-  }
+  const filterProperty = 'brand'
+  const availableProperties = useAvailableProperties(filterProperty)
 
-  const resetFilter = (filterType: keyof Filters): void => {
+  const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
       ...filters,
       [filterType]: null,
     }))
   }
 
-  const isPlural = appliedFiltersCount > 1
-  const filterButtonLabel = isPlural
-    ? `Filters (${appliedFiltersCount})`
-    : 'Filter'
+  const filterButtonLabel =
+    appliedFiltersCount > 0 ? `${t.filters} (${appliedFiltersCount})` : t.filter
+
+  const allLabel = t.all
 
   return (
     <div className='seam-supported-device-table-filter-area'>
@@ -80,27 +64,27 @@ export function SupportedDeviceFilterArea({
           >
             <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
-                label='Brand'
-                options={getAvailablePropertiesFromDeviceModels('brand')}
+                label={t.brand}
+                allLabel={allLabel}
+                options={availableProperties}
                 onSelect={(brand: string) => {
                   setFilters((filters) => ({
                     ...filters,
                     brand,
                   }))
                 }}
-                buttonLabel={filters.brand ?? 'All'}
+                buttonLabel={filters.brand ?? allLabel}
                 onAllOptionSelect={() => {
-                  resetFilter('brand')
+                  resetFilter(filterProperty)
                 }}
               />
             </div>
-
             <div className='seam-filter-menu-row'>
               <label
                 htmlFor='supportedOnly'
                 className='seam-filter-checkbox-label'
               >
-                <p>Supported</p>
+                <p>{t.supported}</p>
                 <input
                   id='supportedOnly'
                   name='supportedOnly'
@@ -118,7 +102,6 @@ export function SupportedDeviceFilterArea({
             </div>
           </div>
         </Menu>
-
         <div className='seam-supported-device-table-filter-area-search-bar-wrap'>
           <SearchTextField
             value={filterValue}
@@ -131,4 +114,22 @@ export function SupportedDeviceFilterArea({
       </div>
     </div>
   )
+}
+
+const useAvailableProperties = (property: keyof DeviceModel): string[] => {
+  const { deviceModels } = useDeviceModels()
+  if (deviceModels == null) return []
+  const properties = new Set<string>()
+  for (const deviceModel of deviceModels) {
+    properties.add(capitalize(deviceModel[property]))
+  }
+  return Array.from(properties)
+}
+
+const t = {
+  all: 'All',
+  brand: 'Brand',
+  supported: 'Supported',
+  filter: 'Filter',
+  filters: 'Filters',
 }

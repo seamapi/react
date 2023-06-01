@@ -3,12 +3,20 @@ export function SupportedDeviceHeader(): JSX.Element {
     <thead>
       <tr>
         <th />
-        <th>Category</th>
-        <th>Model Name</th>
-        <th>Manufacturer Model ID</th>
-        <th>Connection Type</th>
-        <th>Status</th>
+        <th>{t.category}</th>
+        <th>{t.modelName}</th>
+        <th>{t.manufacturerModelId}</th>
+        <th>{t.connectionType}</th>
+        <th>{t.status}</th>
       </tr>
     </thead>
   )
+}
+
+const t = {
+  category: 'Category',
+  modelName: 'Model Name',
+  manufacturerModelId: 'Manufacturer Model ID',
+  connectionType: 'Connection Type',
+  status: 'Status',
 }

@@ -2,6 +2,12 @@ import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 
+export type FilterCategoryMenuProps = FilterCategoryMenuBaseProps &
+  (
+    | FilterCategoryMenuPropsWithAllOption
+    | FilterCategoryMenuPropsWithoutAllOption
+  )
+
 interface FilterCategoryMenuBaseProps {
   label: string
   options: string[]
@@ -9,18 +15,21 @@ interface FilterCategoryMenuBaseProps {
   buttonLabel?: string
 }
 
-export type FilterCategoryMenuProps =
-  | (FilterCategoryMenuBaseProps & {
-      hideAllOption?: false
-      onAllOptionSelect: () => void
-    })
-  | (FilterCategoryMenuBaseProps & {
-      hideAllOption: true
-      onAllOptionSelect?: never
-    })
+interface FilterCategoryMenuPropsWithAllOption {
+  hideAllOption?: false
+  allLabel: string
+  onAllOptionSelect: () => void
+}
+
+interface FilterCategoryMenuPropsWithoutAllOption {
+  hideAllOption: true
+  allLabel: never
+  onAllOptionSelect?: never
+}
 
 export function FilterCategoryMenu({
-  label = 'Filter',
+  label = t.filter,
+  allLabel,
   options,
   hideAllOption = false,
   onSelect,
@@ -44,7 +53,7 @@ export function FilterCategoryMenu({
           <MenuItem
             key={`${index}:${option}`}
             onClick={() => {
-              if (option === 'All') {
+              if (option === allLabel) {
                 onAllOptionSelect?.()
               } else {
                 onSelect(option)
@@ -57,4 +66,8 @@ export function FilterCategoryMenu({
       </Menu>
     </div>
   )
+}
+
+const t = {
+  filter: 'Filter',
 }

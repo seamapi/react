@@ -29,7 +29,7 @@ export function useDevices(
         const devices = await client?.devices.list(params)
         return devices.sort(compareByCreatedAtDesc)
       },
-      onSuccess(devices) {
+      onSuccess: (devices) => {
         // Prime cache for each device.
         for (const device of devices) {
           queryClient.setQueryData(

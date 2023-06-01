@@ -1,18 +1,40 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useState } from 'react'
 
-import type { SupportedDeviceContentProps } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceContent.js'
 import { SupportedDeviceContent } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceContent.js'
+import { SupportedDeviceFilterArea } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterArea.js'
+import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 
-const client = new QueryClient()
+export interface SupportedDeviceTableProps {
+  cannotFilter?: boolean
+}
 
-export type SupportedDeviceTableProps = SupportedDeviceContentProps
+export function SupportedDeviceTable({
+  cannotFilter = false,
+}: SupportedDeviceTableProps): JSX.Element {
+  const [filterValue, setFilterValue] = useState('')
+  const [filters, setFilters] = useState<DeviceModelFilters>({
+    supportedOnly: false,
+    category: null,
+    brand: null,
+  })
 
-export function SupportedDeviceTable(
-  props: SupportedDeviceContentProps
-): JSX.Element {
   return (
-    <QueryClientProvider client={client}>
-      <SupportedDeviceContent {...props} />
-    </QueryClientProvider>
+    <div className='seam-supported-device-table-content-wrap'>
+      {!cannotFilter && (
+        <SupportedDeviceFilterArea
+          filterValue={filterValue}
+          setFilterValue={setFilterValue}
+          filters={filters}
+          setFilters={setFilters}
+        />
+      )}
+      <SupportedDeviceContent
+        resetFilterValue={() => {
+          setFilterValue('')
+        }}
+        filterValue={filterValue}
+        filters={filters}
+      />
+    </div>
   )
 }
