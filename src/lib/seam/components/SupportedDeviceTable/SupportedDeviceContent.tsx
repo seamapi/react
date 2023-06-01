@@ -55,13 +55,14 @@ export function SupportedDeviceContent({
     <table className='seam-supported-device-table-content'>
       <SupportedDeviceHeader />
       <tbody>
-        {deviceModels.map((deviceModel) => (
+        {deviceModels.map((deviceModel, index) => (
           <SupportedDeviceRow
             key={[
-              deviceModel.manufacturer_model_id,
+              deviceModel.main_category,
               deviceModel.brand,
               deviceModel.model_name,
-              deviceModel.main_category,
+              deviceModel.manufacturer_model_id,
+              index,
             ].join(':')}
             deviceModel={deviceModel}
           />
