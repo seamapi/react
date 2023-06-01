@@ -1,6 +1,5 @@
 import classNames from 'classnames'
-
-import type { DeviceModel } from 'lib/seam/components/SupportedDeviceTable/types.js'
+import type { DeviceModel } from 'seamapi'
 
 export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
@@ -30,8 +29,11 @@ export function SupportedDeviceRow({
   )
 }
 
-const supportLevelColors = {
-  Live: 'green',
-  Beta: 'blue',
-  Unsupported: 'orange',
+const supportLevelColors: Record<
+  DeviceModel['support_level'],
+  'green' | 'blue' | 'orange'
+> = {
+  live: 'green',
+  beta: 'blue',
+  unsupported: 'orange',
 }

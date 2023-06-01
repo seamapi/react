@@ -1,20 +1,20 @@
 import type { Dispatch, SetStateAction } from 'react'
+import type { DeviceModel } from 'seamapi'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
-import type {
-  DeviceModel,
-  Filters,
-} from 'lib/seam/components/SupportedDeviceTable/types.js'
+import type { Filters } from 'lib/seam/components/SupportedDeviceTable/types.js'
 import { capitalize } from 'lib/strings.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 
+import type { DeviceModelFilters } from './use-filtered-device-models.js'
+
 interface SupportedDeviceFilterAreaProps {
   deviceModels: DeviceModel[]
   filterValue: string
   setFilterValue: (filter: string) => void
-  filters: Filters
+  filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<Filters>>
 }
 
