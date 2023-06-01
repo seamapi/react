@@ -25,15 +25,9 @@ export function SupportedDeviceFilterArea({
   filters,
   setFilters,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
-  const appliedFilters = Object.keys(filters).filter((key) => {
-    const filterProperty = filters[key as keyof Filters]
-    return (
-      filterProperty !== undefined &&
-      filterProperty !== null &&
-      filterProperty !== false
-    )
-  })
-  const appliedFiltersCount = appliedFilters.length
+  const appliedFiltersCount = Object.values(filters).filter(
+    (v) => v != null && v !== false
+  ).length
 
   const getAvailablePropertiesFromDeviceModels = (
     property: keyof DeviceModel
@@ -52,10 +46,8 @@ export function SupportedDeviceFilterArea({
     }))
   }
 
-  const isPlural = appliedFiltersCount > 1
-  const filterButtonLabel = isPlural
-    ? `${t.filters} (${appliedFiltersCount})`
-    : t.filter
+  const filterButtonLabel =
+    appliedFiltersCount > 0 ? `${t.filters} (${appliedFiltersCount})` : t.filter
 
   return (
     <div className='seam-supported-device-table-filter-area'>
