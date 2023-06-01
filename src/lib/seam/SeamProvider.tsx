@@ -1,11 +1,9 @@
-'use client'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
   createContext,
   type PropsWithChildren,
   useContext,
-  useRef,
+  useMemo,
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
@@ -15,6 +13,8 @@ import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
 declare global {
   // eslint-disable-next-line no-var
   var seam: SeamProviderProps | undefined
+  // eslint-disable-next-line no-var
+  var seamQueryClient: QueryClient | undefined
 }
 
 export interface SeamContext {
@@ -25,82 +25,90 @@ export interface SeamContext {
   clientSessionToken?: string | undefined
 }
 
-type SeamProviderProps = SeamProviderBaseProps &
-  (
-    | SeamProviderPropsWithClient
-    | (SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions)
-    | (SeamProviderPropsWithClientSessionToken & AllowedSeamClientOptions)
-  )
+export type SeamProviderProps =
+  | SeamProviderPropsWithClient
+  | SeamProviderPropsWithPublishableKey
+  | SeamProviderPropsWithClientSessionToken
 
-interface SeamProviderPropsWithClient {
+export interface SeamProviderPropsWithClient extends SeamProviderBaseProps {
   client: Seam
 }
 
-interface SeamProviderPropsWithPublishableKey {
+export interface SeamProviderPropsWithPublishableKey
+  extends SeamProviderBaseProps,
+    AllowedSeamClientOptions {
   publishableKey: string
   userIdentifierKey?: string
 }
 
-interface SeamProviderPropsWithClientSessionToken {
+export interface SeamProviderPropsWithClientSessionToken
+  extends SeamProviderBaseProps,
+    AllowedSeamClientOptions {
   clientSessionToken: string
 }
 
 interface SeamProviderBaseProps {
   disableCssInjection?: boolean | undefined
   disableFontInjection?: boolean | undefined
-  useUnminifiedCss?: boolean | undefined
+  unminifiyCss?: boolean | undefined
+  queryClient?: QueryClient | undefined
 }
 
 type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
+
+const defaultQueryClient = new QueryClient()
 
 export function SeamProvider({
   children,
   disableCssInjection = false,
   disableFontInjection = false,
-  useUnminifiedCss = false,
+  unminifiyCss = false,
+  queryClient,
   ...props
 }: PropsWithChildren<SeamProviderProps>): JSX.Element {
-  const { Provider } = seamContext
+  useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
+  useSeamFont({ disabled: disableFontInjection })
 
-  const queryClientRef = useRef(new QueryClient())
+  const value = useMemo(() => {
+    const context = createSeamContextValue(props)
+    if (
+      context.client == null &&
+      context.publishableKey == null &&
+      context.clientSessionToken == null
+    ) {
+      return defaultSeamContextValue
+    }
+    return context
+  }, [props])
 
-  const contextRef = useRef(createSeamContextValue(props))
   if (
-    contextRef.current.client == null &&
-    contextRef.current.publishableKey == null &&
-    contextRef.current.clientSessionToken == null
-  ) {
-    contextRef.current = defaultSeamContextValue
-  }
-
-  if (
-    contextRef.current.client == null &&
-    contextRef.current.publishableKey == null &&
-    contextRef.current.clientSessionToken == null
+    value.client == null &&
+    value.publishableKey == null &&
+    value.clientSessionToken == null
   ) {
     throw new Error(
-      `Must provide either a Seam client, clientSessionToken or a publishableKey.`
+      `Must provide either a Seam client, clientSessionToken, or a publishableKey.`
     )
   }
 
-  useSeamStyles({ disabled: disableCssInjection, unminified: useUnminifiedCss })
-  useSeamFont({ disabled: disableFontInjection })
+  const { Provider } = seamContext
 
   return (
     <div className='seam-components'>
-      <QueryClientProvider client={queryClientRef.current}>
-        <Provider value={{ ...contextRef.current }}>{children}</Provider>
+      <QueryClientProvider
+        client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
+      >
+        <Provider value={value}>{children}</Provider>
       </QueryClientProvider>
     </div>
   )
 }
 
 const createDefaultSeamContextValue = (): SeamContext => {
-  if (globalThis.seam == null) {
-    return { client: null }
-  }
-
   try {
+    if (globalThis.seam == null) {
+      return { client: null }
+    }
     return createSeamContextValue(globalThis.seam)
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -133,7 +141,7 @@ const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
     }
   }
 
-  throw new Error('Invalid SeamProvider options')
+  return { client: null }
 }
 
 const defaultSeamContextValue = createDefaultSeamContextValue()
@@ -199,12 +207,11 @@ const isSeamProviderPropsWithClientSessionToken = (
     throw new Error('Cannot provide a Seam client along with other options.')
   }
 
-  // No reason to ban this behavior, but it's unnecessary.
-  // if ('publishableKey' in props && props.publishableKey != null) {
-  //   throw new Error(
-  //     'Cannot provide both a clientSessionToken and a publishableKey .'
-  //   )
-  // }
+  if ('publishableKey' in props && props.publishableKey != null) {
+    throw new Error(
+      'Cannot provide both a clientSessionToken and a publishableKey.'
+    )
+  }
 
   if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
     throw new Error('Cannot use a userIdentifierKey with a clientSessionToken.')
