@@ -226,6 +226,9 @@ Edit the seed data for the fake or find relevant ids for testing components here
 - [Storybook fake seed](./.storybook/seed-fake.js).
 - [Jest test fake seed](./test/jest/global-setup.cjs).
 
+> Note that the Chromatic tests use the fake seed data on the main branch, not the Vercel Preview Deployment.
+> To review UI changes with new seed data, update the seed data on the main branch first.
+
 ### Previews
 
 Every pull request deploys the Storybook with the examples
