@@ -2,13 +2,12 @@ import type { Dispatch, SetStateAction } from 'react'
 import type { DeviceModel } from 'seamapi'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
+import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 import { useDeviceModels } from 'lib/seam/device-models/use-device-models.js'
 import { capitalize } from 'lib/strings.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
-
-import type { DeviceModelFilters } from './use-filtered-device-models.js'
 
 export interface SupportedDeviceFilterAreaProps {
   filterValue: string

@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
 import { SupportedDeviceContent } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceContent.js'
-
-import { SupportedDeviceFilterArea } from './SupportedDeviceFilterArea.js'
-import { type DeviceModelFilters } from './use-filtered-device-models.js'
+import { SupportedDeviceFilterArea } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterArea.js'
+import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 
 export interface SupportedDeviceTableProps {
   cannotFilter?: boolean

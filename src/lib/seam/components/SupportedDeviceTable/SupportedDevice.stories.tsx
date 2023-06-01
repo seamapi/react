@@ -1,9 +1,8 @@
 import { Button, Dialog, DialogActions } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { SupportedDeviceTable } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceTable.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
-
-import { SupportedDeviceTable } from './SupportedDeviceTable.js'
 
 /**
  * These stories showcase the supported devices table.

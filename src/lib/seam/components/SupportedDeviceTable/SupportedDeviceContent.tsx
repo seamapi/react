@@ -1,11 +1,10 @@
-import { Button } from 'lib/ui/Button.js'
-
-import { SupportedDeviceHeader } from './SupportedDeviceHeader.js'
-import { SupportedDeviceRow } from './SupportedDeviceRow.js'
+import { SupportedDeviceHeader } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceHeader.js'
+import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
 import {
   type DeviceModelFilters,
   useFilteredDeviceModels,
-} from './use-filtered-device-models.js'
+} from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
+import { Button } from 'lib/ui/Button.js'
 
 interface SupportedDeviceContentProps {
   filterValue: string
