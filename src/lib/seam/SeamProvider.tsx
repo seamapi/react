@@ -13,6 +13,8 @@ import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
 declare global {
   // eslint-disable-next-line no-var
   var seam: SeamProviderProps | undefined
+  // eslint-disable-next-line no-var
+  var seamQueryClient: QueryClient | undefined
 }
 
 export interface SeamContext {
@@ -47,23 +49,25 @@ interface SeamProviderBaseProps {
   disableCssInjection?: boolean | undefined
   disableFontInjection?: boolean | undefined
   unminifiyCss?: boolean | undefined
+  queryClient?: QueryClient | undefined
 }
 
 type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
+
+const defaultQueryClient = new QueryClient()
 
 export function SeamProvider({
   children,
   disableCssInjection = false,
   disableFontInjection = false,
   unminifiyCss = false,
+  queryClient,
   ...props
 }: PropsWithChildren<SeamProviderProps>): JSX.Element {
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
   useSeamFont({ disabled: disableFontInjection })
 
   const { Provider } = seamContext
-
-  const queryClientRef = useRef(new QueryClient())
 
   const contextRef = useRef(createSeamContextValue(props))
   if (
@@ -86,7 +90,9 @@ export function SeamProvider({
 
   return (
     <div className='seam-components'>
-      <QueryClientProvider client={queryClientRef.current}>
+      <QueryClientProvider
+        client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
+      >
         <Provider value={{ ...contextRef.current }}>{children}</Provider>
       </QueryClientProvider>
     </div>
