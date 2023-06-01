@@ -26,7 +26,7 @@ interface FilterCategoryMenuPropsWithoutAllOption {
 }
 
 export function FilterCategoryMenu({
-  label = 'Filter',
+  label = t.filter,
   options,
   hideAllOption = false,
   onSelect,
@@ -63,4 +63,8 @@ export function FilterCategoryMenu({
       </Menu>
     </div>
   )
+}
+
+const t = {
+  filter: 'Filter',
 }
