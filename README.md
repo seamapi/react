@@ -101,7 +101,7 @@ Then, load it from Google Fonts by placing the following in the `<head>` tag:
 When using the default provider settings, the components are compatible with this CSP:
 
 ```
-default-src 'self'; connect-src 'self' https://connect.getseam.com https://devicedb.seam.co; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://devicedb.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
+default-src 'self'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com
 ```
 
 #### Granular CSP
@@ -112,16 +112,15 @@ By self hosting the styles and recommended fonts (or choosing not to use them),
 and proxying the Seam API endpoint, the components are compatible with this strict CSP:
 
 ```
-default-src 'self'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://devicedb.seam.co
+default-src 'self'; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co
 ```
 
-The `img-src` is required as some components display device images from the Seam API,
-and `connect-src` is required to use components that query the Seam Device Database.
+The `img-src` is required as some components display device images from the Seam API.
 
 When using the default endpoint, extend `connect-src` with
 
 ```
-connect-src 'self' https://connect.getseam.com https://devicedb.seam.co
+connect-src 'self' https://connect.getseam.com
 ```
 
 When serving the fonts from Google Fonts, include `font-src` and `style-src` with
