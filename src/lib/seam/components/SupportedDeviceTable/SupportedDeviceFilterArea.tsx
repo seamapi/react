@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react'
 import type { DeviceModel } from 'seamapi'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
-import type { Filters } from 'lib/seam/components/SupportedDeviceTable/types.js'
+import { useDeviceModels } from 'lib/seam/device-models/use-device-models.js'
 import { capitalize } from 'lib/strings.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
@@ -10,21 +10,20 @@ import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 
 import type { DeviceModelFilters } from './use-filtered-device-models.js'
 
-interface SupportedDeviceFilterAreaProps {
-  deviceModels: DeviceModel[]
+export interface SupportedDeviceFilterAreaProps {
   filterValue: string
   setFilterValue: (filter: string) => void
   filters: DeviceModelFilters
-  setFilters: Dispatch<SetStateAction<Filters>>
+  setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
 }
 
 export function SupportedDeviceFilterArea({
-  deviceModels,
   filterValue,
   setFilterValue,
   filters,
   setFilters,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
+  const { deviceModels } = useDeviceModels()
   const appliedFiltersCount = Object.values(filters).filter(
     (v) => v != null && v !== false
   ).length
@@ -32,6 +31,7 @@ export function SupportedDeviceFilterArea({
   const getAvailablePropertiesFromDeviceModels = (
     property: keyof DeviceModel
   ): string[] => {
+    if (deviceModels == null) return []
     const properties = new Set<string>()
     deviceModels.forEach((deviceModel) => {
       properties.add(capitalize(deviceModel[property]))
@@ -39,7 +39,7 @@ export function SupportedDeviceFilterArea({
     return Array.from(properties)
   }
 
-  const resetFilter = (filterType: keyof Filters): void => {
+  const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
       ...filters,
       [filterType]: null,
