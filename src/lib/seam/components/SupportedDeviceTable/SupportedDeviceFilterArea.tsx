@@ -54,8 +54,8 @@ export function SupportedDeviceFilterArea({
 
   const isPlural = appliedFiltersCount > 1
   const filterButtonLabel = isPlural
-    ? `Filters (${appliedFiltersCount})`
-    : 'Filter'
+    ? `${t.filters} (${appliedFiltersCount})`
+    : t.filter
 
   return (
     <div className='seam-supported-device-table-filter-area'>
@@ -80,7 +80,7 @@ export function SupportedDeviceFilterArea({
           >
             <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
-                label='Brand'
+                label={t.brand}
                 options={getAvailablePropertiesFromDeviceModels('brand')}
                 onSelect={(brand: string) => {
                   setFilters((filters) => ({
@@ -88,19 +88,18 @@ export function SupportedDeviceFilterArea({
                     brand,
                   }))
                 }}
-                buttonLabel={filters.brand ?? 'All'}
+                buttonLabel={filters.brand ?? t.all}
                 onAllOptionSelect={() => {
                   resetFilter('brand')
                 }}
               />
             </div>
-
             <div className='seam-filter-menu-row'>
               <label
                 htmlFor='supportedOnly'
                 className='seam-filter-checkbox-label'
               >
-                <p>Supported</p>
+                <p>{t.supported}</p>
                 <input
                   id='supportedOnly'
                   name='supportedOnly'
@@ -118,7 +117,6 @@ export function SupportedDeviceFilterArea({
             </div>
           </div>
         </Menu>
-
         <div className='seam-supported-device-table-filter-area-search-bar-wrap'>
           <SearchTextField
             value={filterValue}
@@ -131,4 +129,12 @@ export function SupportedDeviceFilterArea({
       </div>
     </div>
   )
+}
+
+const t = {
+  all: 'All',
+  brand: 'Brand',
+  supported: 'Supported',
+  filter: 'Filter',
+  filters: 'Filters',
 }
