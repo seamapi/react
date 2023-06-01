@@ -3,7 +3,7 @@ import {
   createContext,
   type PropsWithChildren,
   useContext,
-  useRef,
+  useMemo,
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
@@ -67,33 +67,36 @@ export function SeamProvider({
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
   useSeamFont({ disabled: disableFontInjection })
 
-  const { Provider } = seamContext
+  const value = useMemo(() => {
+    const context = createSeamContextValue(props)
+    if (
+      context.client == null &&
+      context.publishableKey == null &&
+      context.clientSessionToken == null
+    ) {
+      return defaultSeamContextValue
+    }
+    return context
+  }, [props])
 
-  const contextRef = useRef(createSeamContextValue(props))
   if (
-    contextRef.current.client == null &&
-    contextRef.current.publishableKey == null &&
-    contextRef.current.clientSessionToken == null
-  ) {
-    contextRef.current = defaultSeamContextValue
-  }
-
-  if (
-    contextRef.current.client == null &&
-    contextRef.current.publishableKey == null &&
-    contextRef.current.clientSessionToken == null
+    value.client == null &&
+    value.publishableKey == null &&
+    value.clientSessionToken == null
   ) {
     throw new Error(
       `Must provide either a Seam client, clientSessionToken or a publishableKey.`
     )
   }
 
+  const { Provider } = seamContext
+
   return (
     <div className='seam-components'>
       <QueryClientProvider
         client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
       >
-        <Provider value={{ ...contextRef.current }}>{children}</Provider>
+        <Provider value={value}>{children}</Provider>
       </QueryClientProvider>
     </div>
   )
