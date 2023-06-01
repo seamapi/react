@@ -87,7 +87,7 @@ export function SeamProvider({
     value.clientSessionToken == null
   ) {
     throw new Error(
-      `Must provide either a Seam client, clientSessionToken or a publishableKey.`
+      `Must provide either a Seam client, clientSessionToken, or a publishableKey.`
     )
   }
 
@@ -105,11 +105,10 @@ export function SeamProvider({
 }
 
 const createDefaultSeamContextValue = (): SeamContext => {
-  if (globalThis.seam == null) {
-    return { client: null }
-  }
-
   try {
+    if (globalThis.seam == null) {
+      return { client: null }
+    }
     return createSeamContextValue(globalThis.seam)
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -142,7 +141,7 @@ const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
     }
   }
 
-  throw new Error('Invalid SeamProvider options')
+  return { client: null }
 }
 
 const defaultSeamContextValue = createDefaultSeamContextValue()
