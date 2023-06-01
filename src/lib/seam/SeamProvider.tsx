@@ -197,12 +197,11 @@ const isSeamProviderPropsWithClientSessionToken = (
     throw new Error('Cannot provide a Seam client along with other options.')
   }
 
-  // No reason to ban this behavior, but it's unnecessary.
-  // if ('publishableKey' in props && props.publishableKey != null) {
-  //   throw new Error(
-  //     'Cannot provide both a clientSessionToken and a publishableKey .'
-  //   )
-  // }
+  if ('publishableKey' in props && props.publishableKey != null) {
+    throw new Error(
+      'Cannot provide both a clientSessionToken and a publishableKey.'
+    )
+  }
 
   if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
     throw new Error('Cannot use a userIdentifierKey with a clientSessionToken.')
