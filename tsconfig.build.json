@@ -12,7 +12,7 @@
   "include": ["src/**/*"],
   "exclude": [
     "src/elements.ts",
-    "src/lib/element.ts",
+    "src/lib/element.tsx",
     "src/lib/seam/components/elements.ts",
     "**/*.element.ts",
     "**/*.test.ts",
