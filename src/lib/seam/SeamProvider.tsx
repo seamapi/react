@@ -25,23 +25,25 @@ export interface SeamContext {
   clientSessionToken?: string | undefined
 }
 
-type SeamProviderProps = SeamProviderBaseProps &
-  (
-    | SeamProviderPropsWithClient
-    | (SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions)
-    | (SeamProviderPropsWithClientSessionToken & AllowedSeamClientOptions)
-  )
+export type SeamProviderProps =
+  | SeamProviderPropsWithClient
+  | SeamProviderPropsWithPublishableKey
+  | SeamProviderPropsWithClientSessionToken
 
-interface SeamProviderPropsWithClient {
+export interface SeamProviderPropsWithClient extends SeamProviderBaseProps {
   client: Seam
 }
 
-interface SeamProviderPropsWithPublishableKey {
+export interface SeamProviderPropsWithPublishableKey
+  extends SeamProviderBaseProps,
+    AllowedSeamClientOptions {
   publishableKey: string
   userIdentifierKey?: string
 }
 
-interface SeamProviderPropsWithClientSessionToken {
+export interface SeamProviderPropsWithClientSessionToken
+  extends SeamProviderBaseProps,
+    AllowedSeamClientOptions {
   clientSessionToken: string
 }
 
