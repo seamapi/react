@@ -58,6 +58,9 @@ export function SeamProvider({
   useUnminifiedCss = false,
   ...props
 }: PropsWithChildren<SeamProviderProps>): JSX.Element {
+  useSeamStyles({ disabled: disableCssInjection, unminified: useUnminifiedCss })
+  useSeamFont({ disabled: disableFontInjection })
+
   const { Provider } = seamContext
 
   const queryClientRef = useRef(new QueryClient())
@@ -80,9 +83,6 @@ export function SeamProvider({
       `Must provide either a Seam client, clientSessionToken or a publishableKey.`
     )
   }
-
-  useSeamStyles({ disabled: disableCssInjection, unminified: useUnminifiedCss })
-  useSeamFont({ disabled: disableFontInjection })
 
   return (
     <div className='seam-components'>
