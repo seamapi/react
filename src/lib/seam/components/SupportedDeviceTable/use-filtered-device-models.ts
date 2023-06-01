@@ -1,7 +1,7 @@
 import {
   useDeviceModels,
   type UseDeviceModelsParams,
-} from '../../../../hooks.js'
+} from 'lib/seam/device-models/use-device-models.js'
 
 export interface DeviceModelFilters {
   supportedOnly: boolean
