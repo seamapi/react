@@ -2,29 +2,29 @@ import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 
-export type FilterCategoryMenuProps = FilterCategoryMenuBaseProps &
-  (
-    | FilterCategoryMenuPropsWithAllOption
-    | FilterCategoryMenuPropsWithoutAllOption
-  )
+export type FilterCategoryMenuProps =
+  | FilterCategoryMenuPropsWithAllOption
+  | FilterCategoryMenuPropsWithoutAllOption
+
+interface FilterCategoryMenuPropsWithAllOption
+  extends FilterCategoryMenuBaseProps {
+  hideAllOption?: false
+  allLabel: string
+  onAllOptionSelect: () => void
+}
+
+interface FilterCategoryMenuPropsWithoutAllOption
+  extends FilterCategoryMenuBaseProps {
+  hideAllOption: true
+  allLabel: never
+  onAllOptionSelect?: never
+}
 
 interface FilterCategoryMenuBaseProps {
   label: string
   options: string[]
   onSelect: (option: string) => void
   buttonLabel?: string
-}
-
-interface FilterCategoryMenuPropsWithAllOption {
-  hideAllOption?: false
-  allLabel: string
-  onAllOptionSelect: () => void
-}
-
-interface FilterCategoryMenuPropsWithoutAllOption {
-  hideAllOption: true
-  allLabel: never
-  onAllOptionSelect?: never
 }
 
 export function FilterCategoryMenu({
