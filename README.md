@@ -74,6 +74,17 @@ or place the following in the `<head>` tag:
 <link rel="stylesheet" href="https://react.seam.co/v/1.0.0/index.min.css" />
 ```
 
+#### Customizing Styles
+
+> The `seam-` prefixed CSS class names are not part of the stable API and may change unexpectedly.
+
+Each component accepts a `className` prop.
+The class name will be set on the top level container, or if a sub-component is rendered, passed though.
+This makes them compatible with native CSS and most CSS-in-JS systems, e.g., [Emotion] and [styled-components].
+
+[Emotion]: https://emotion.sh/
+[styled-components]: https://styled-components.com/
+
 ### Fonts
 
 > Fonts are automatically included unless using `<SeamProvider disableFontInjection />`.

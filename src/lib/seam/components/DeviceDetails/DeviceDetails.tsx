@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import type { LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
@@ -18,11 +19,14 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 export interface DeviceDetailsProps {
   deviceId: string
   onBack?: () => void
+  className?: string
 }
 
-export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
-  const { deviceId, onBack } = props
-
+export function DeviceDetails({
+  deviceId,
+  onBack,
+  className,
+}: DeviceDetailsProps): JSX.Element | null {
   const { device } = useDevice({
     device_id: deviceId,
   })
@@ -35,14 +39,17 @@ export function DeviceDetails(props: DeviceDetailsProps): JSX.Element | null {
     return null
   }
 
-  return <LockDeviceDetails device={device} onBack={onBack} />
+  return (
+    <LockDeviceDetails className={className} device={device} onBack={onBack} />
+  )
 }
 
 function LockDeviceDetails(props: {
   device: LockDevice
   onBack?: () => void
+  className?: string
 }): JSX.Element | null {
-  const { device, onBack } = props
+  const { device, onBack, className } = props
 
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
@@ -65,6 +72,7 @@ function LockDeviceDetails(props: {
   if (accessCodesOpen) {
     return (
       <AccessCodeTable
+        className={className}
         deviceId={device.device_id}
         onBack={toggleAccessCodesOpen}
       />
@@ -83,7 +91,7 @@ function LockDeviceDetails(props: {
   ]
 
   return (
-    <div className='seam-device-details'>
+    <div className={classNames('seam-device-details', className)}>
       <ContentHeader title='Device' onBack={onBack} />
       <div className='seam-body'>
         <div className='seam-summary'>

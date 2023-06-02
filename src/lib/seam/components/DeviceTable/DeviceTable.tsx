@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useState } from 'react'
 
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -23,13 +24,14 @@ export type DeviceTableProps = Props & UseDevicesParams
 
 interface Props {
   onBack?: () => void
+  className?: string
 }
 
 export function DeviceTable({
   onBack,
-  ...props
+  className,
 }: DeviceTableProps): JSX.Element | null {
-  const { devices, isLoading, isError, error } = useDevices(props)
+  const { devices, isLoading, isError, error } = useDevices()
 
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -37,6 +39,7 @@ export function DeviceTable({
   if (selectedDeviceId != null) {
     return (
       <DeviceDetails
+        className={className}
         deviceId={selectedDeviceId}
         onBack={() => {
           selectDevice(null)
@@ -46,11 +49,11 @@ export function DeviceTable({
   }
 
   if (isLoading) {
-    return <p>...</p>
+    return <p className={className}>...</p>
   }
 
   if (isError) {
-    return <p>{error?.message}</p>
+    return <p className={className}>{error?.message}</p>
   }
 
   if (devices == null) {
@@ -68,7 +71,7 @@ export function DeviceTable({
   })
 
   return (
-    <div className='seam-device-table'>
+    <div className={classNames('seam-device-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
