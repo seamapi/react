@@ -62,7 +62,7 @@ export const App = () => {
 
 ### With Native Web Components
 
-> Check out the [web component example app](./web-components)!
+> Check out the [web component example app](./examples/web-components)!
 
 1. Obtain a publishable key from the [Seam Console].
 2. Add the `<script>` tag to your page and drop in Seam Components.
@@ -80,6 +80,8 @@ export const App = () => {
   ></script>
 </body>
 ```
+
+> Update the version in the script tag above with the exact version of this package you would like to use.
 
 [Seam Console]: https://console.seam.co/
 
@@ -104,7 +106,7 @@ or place the following in the `<head>` tag:
 > You must match the version string below with the exact version of this package used by your application.
 
 ```html
-<link rel="stylesheet" href="https://react.seam.co/v/1.0.0/index.min.css" />
+<link rel="stylesheet" href="https://react.seam.co/v/1.7.0/index.min.css" />
 ```
 
 #### Customizing Styles
