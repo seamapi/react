@@ -8,6 +8,15 @@ import {
   type SeamProviderPropsWithPublishableKey,
 } from 'lib/seam/SeamProvider.js'
 
+declare global {
+  // eslint-disable-next-line no-var
+  var disableSeamCssInjection: boolean | undefined
+  // eslint-disable-next-line no-var
+  var disableSeamFontInjection: boolean | undefined
+  // eslint-disable-next-line no-var
+  var unminifiySeamCss: boolean | undefined
+}
+
 export interface ElementDefinition {
   name: string
   Component: Parameters<typeof r2wc>[0]
@@ -62,9 +71,13 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
         publishableKey={publishableKey}
         userIdentifierKey={userIdentifierKey}
         clientSessionToken={clientSessionToken}
-        disableCssInjection={disableCssInjection}
-        disableFontInjection={disableFontInjection}
-        unminifiyCss={unminifiyCss}
+        disableCssInjection={
+          disableCssInjection ?? globalThis.disableSeamCssInjection
+        }
+        disableFontInjection={
+          disableFontInjection ?? globalThis.disableSeamFontInjection
+        }
+        unminifiyCss={unminifiyCss ?? globalThis?.unminifiySeamCss}
       >
         <Component {...(props as P)} />
       </SeamProvider>
