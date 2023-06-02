@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/@seamapi/react.svg)](https://www.npmjs.com/package/@seamapi/react)
 [![GitHub Actions](https://github.com/seamapi/react/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/react/actions/workflows/check.yml)
 
-> Seam Components are implemented in React, but may be used in **any** web application as **[native ⚡ Web Components ⚡](https://github.com/seamapi/react#with-native-web-components)**
+> Seam Components are implemented in React, but may be used in **any** web application as **[native ⚡ Web Components ⚡](#with-native-web-components)**
 
 ## Description
 
