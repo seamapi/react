@@ -1,5 +1,4 @@
 import r2wc from '@r2wc/react-to-web-component'
-import type { QueryClient } from '@tanstack/react-query'
 import type { ComponentType } from 'react'
 import type { Container } from 'react-dom'
 
