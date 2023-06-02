@@ -71,9 +71,13 @@ export const App = () => {
 <body>
   <seam-device-table
     publishable-key="%SEAM_PUBLISHABLE_KEY%"
-    user-identifier-key="%SEAM_USER_IDENTIFIER_KEY%">
+    user-identifier-key="%SEAM_USER_IDENTIFIER_KEY%"
+  >
   </seam-device-table>
-  <script type="module" src="https://react.seam.co/v/1.7.0/dist/elements.js"></script>
+  <script
+    type="module"
+    src="https://react.seam.co/v/1.7.0/dist/elements.js"
+  ></script>
 </body>
 ```
 
