@@ -1,1 +1,3 @@
-export default null
+const seamapiReactVersion = null
+
+export default seamapiReactVersion

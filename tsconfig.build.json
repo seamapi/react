@@ -11,6 +11,10 @@
   "files": ["src/index.ts", "src/hooks.ts"],
   "include": ["src/**/*"],
   "exclude": [
+    "src/elements.ts",
+    "src/lib/element.tsx",
+    "src/lib/seam/components/elements.ts",
+    "**/*.element.ts",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/*.stories.ts",

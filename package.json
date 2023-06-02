@@ -12,6 +12,9 @@
     "./hooks.js": {
       "import": "./hooks.js"
     },
+    "./elements.js": {
+      "import": "./dist/elements.js"
+    },
     "./index.css": {
       "import": "./index.css"
     }
@@ -42,6 +45,7 @@
     "index.min.css.map",
     "lib",
     "src",
+    "dist",
     "!test",
     "!**/*.test.ts",
     "!**/*.test.tsx",
@@ -52,11 +56,13 @@
   "scripts": {
     "start": "concurrently --raw --kill-others npm:examples:storybook npm:storybook",
     "dev": "npm run start",
-    "build": "npm run build:js",
+    "build": "npm run build:entrypoints",
     "prebuild": "del 'index.*' 'hooks.*' lib",
-    "postbuild": "concurrently 'node ./index.js' 'node ./hooks.js'",
+    "postbuild": "concurrently --raw --group 'node ./index.js' 'node ./hooks.js'",
+    "build:entrypoints": "npm run build:js",
+    "prebuild:entrypoints": "npm run build:css",
+    "postbuild:entrypoints": "vite build",
     "build:js": "tsc --project tsconfig.build.json",
-    "prebuild:js": "npm run build:css",
     "postbuild:js": "tsc-alias --project tsconfig.build.json",
     "build:css": "sass --load-path=node_modules src/index.scss:index.css",
     "postbuild:css": "sass --style=compressed --load-path=node_modules src/index.scss:index.min.css",
@@ -71,7 +77,7 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.mjs,.ts,.tsx .",
     "prelint": "prettier --check --ignore-path .gitignore .",
     "postlint": "stylelint '**/*.scss'",
-    "prepack": "echo \"export default '$(jq -r .version < package.json)'\" > lib/version.js",
+    "prepack": "echo \"const seamapiReactVersion = '$(jq -r .version < package.json)'\n\nexport default seamapiReactVersion\" > src/lib/version.ts && echo \"declare const seamapiReactVersion = \\\"$(jq -r .version < package.json)\\\";\nexport default seamapiReactVersion;\" > lib/version.d.ts && echo -n \"const seamapiReactVersion = '$(jq -r .version < package.json)';\nexport default seamapiReactVersion;\n//# sourceMappingURL=version.js.map\" > lib/version.js",
     "postversion": "git push --follow-tags",
     "storybook": "storybook dev --port 6006",
     "storybook:docs": "storybook dev --docs --port 6007",
@@ -112,6 +118,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
     "@seamapi/fake-seam-connect": "^0.7.2",
+    "@r2wc/react-to-web-component": "^2.0.2",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-interactions": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
