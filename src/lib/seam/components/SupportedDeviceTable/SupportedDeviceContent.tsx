@@ -81,7 +81,10 @@ export function SupportedDeviceContent({
 function EmptyResult({
   filterValue,
   resetFilterValue,
-}: Pick<SupportedDeviceContentProps, 'filterValue' | 'resetFilterValue'>) {
+}: Pick<
+  SupportedDeviceContentProps,
+  'filterValue' | 'resetFilterValue'
+>): JSX.Element {
   const noMatchingRows = (
     <>
       <p>{t.noMatch}</p>
