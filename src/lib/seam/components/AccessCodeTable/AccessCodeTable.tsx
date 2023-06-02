@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
@@ -27,15 +28,17 @@ import { Title } from 'lib/ui/typography/Title.js'
 export interface AccessCodeTableProps {
   deviceId: string
   onBack?: () => void
+  className?: string
 }
 
-export function AccessCodeTable(
-  props: AccessCodeTableProps
-): JSX.Element | null {
+export function AccessCodeTable({
+  deviceId,
+  onBack,
+  className,
+}: AccessCodeTableProps): JSX.Element | null {
   const { accessCodes } = useAccessCodes({
-    device_id: props.deviceId,
+    device_id: deviceId,
   })
-  const { onBack } = props
 
   const [selectedAccessCode, selectAccessCode] = useState<AccessCode | null>(
     null
@@ -45,6 +48,7 @@ export function AccessCodeTable(
   if (selectedAccessCode != null) {
     return (
       <AccessCodeDetails
+        className={className}
         accessCodeId={selectedAccessCode.access_code_id}
         onBack={() => {
           selectAccessCode(null)
@@ -68,7 +72,7 @@ export function AccessCodeTable(
   const accessCodeCount = accessCodes.length
 
   return (
-    <div className='seam-access-code-table'>
+    <div className={classNames('seam-access-code-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>

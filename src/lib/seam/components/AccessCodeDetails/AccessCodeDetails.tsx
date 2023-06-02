@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
@@ -11,11 +12,13 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 export interface AccessCodeDetailsProps {
   accessCodeId: string
   onBack?: () => void
+  className?: string
 }
 
 export function AccessCodeDetails({
   accessCodeId,
   onBack,
+  className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
@@ -29,6 +32,7 @@ export function AccessCodeDetails({
   if (selectedDeviceId != null) {
     return (
       <DeviceDetails
+        className={className}
         deviceId={selectedDeviceId}
         onBack={() => {
           selectDevice(null)
@@ -38,7 +42,7 @@ export function AccessCodeDetails({
   }
 
   return (
-    <div className='seam-access-code-details'>
+    <div className={classNames('seam-access-code-details', className)}>
       <ContentHeader title='Access code' onBack={onBack} />
       <div className='seam-summary'>
         <div className='seam-top'>
