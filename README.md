@@ -20,11 +20,8 @@ Seam Components are implemented in React, but may be used in **any** web applica
 - [Make a Supported Devices Page with React](https://docs.seam.co/latest/seam-components/make-a-supported-devices-page-with-react).
 - Reference the [Component API](https://docs.seam.co/latest/seam-components/react-components).
 - Find developer specific technical documentation in the [README](https://github.com/seamapi/react/).
-- Play with the components live in the interactive [Storybook]!
+- Play with the components live in the interactive [Storybook](https://react.seam.co/)!
 - See how the components work with a real Seam sandbox workspace in this [live example app](https://react.seam.co/examples/basic/).
-
-[Seam]: https://www.seam.co/
-[Storybook]: https://react.seam.co/
 
 ## Installation
 
