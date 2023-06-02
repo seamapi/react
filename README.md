@@ -11,7 +11,7 @@
 With these components, you can offer advanced device management features to your users without needing to develop complex logic for managing device state,
 refreshing data, and performing actions.
 
-Seam Components are implemented in React, but may be used in **any** web application as **[native Web Components](#web-components)!**
+Seam Components are implemented in React, but may be used in **any** web application as **[native Web Components](#with-native-web-components)!**
 
 ### Resources to Get Started
 
@@ -38,11 +38,13 @@ $ npm install @seamapi/react
 
 ## Usage
 
-> Check out the [full example apps](./examples)!
+### With React
+
+> Check out the [basic example app](./examples/basic)!
 
 1. Obtain a publishable key from the [Seam Console].
-2. Wrap your app with the `SeamProvider`.
-3. Drop in Seam components.
+2. Wrap your React app with the `SeamProvider`.
+3. Drop in Seam Components.
 
 ```ts
 import { SeamProvider, DeviceTable } from '@seamapi/react'
@@ -57,6 +59,25 @@ export const App = () => {
     </SeamProvider>
   )
 }
+```
+
+[Seam Console]: https://console.seam.co/
+
+### With Native Web Components
+
+> Check out the [web component example app](./web-components)!
+
+1. Obtain a publishable key from the [Seam Console].
+2. Add the `<script>` tag to your page and drop in Seam Components.
+
+```html
+<body>
+  <seam-device-table
+    publishable-key="%SEAM_PUBLISHABLE_KEY%"
+    user-identifier-key="%SEAM_USER_IDENTIFIER_KEY%">
+  </seam-device-table>
+  <script type="module" src="https://react.seam.co/v/1.7.0/dist/elements.js"></script>
+</body>
 ```
 
 [Seam Console]: https://console.seam.co/
