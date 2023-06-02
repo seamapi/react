@@ -29,6 +29,9 @@ yalc.lock
 docs
 storybook-static
 
+# Examples
+examples/angular/.angular
+
 # Build directories
 package
 
