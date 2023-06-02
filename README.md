@@ -9,7 +9,7 @@
 
 > [See our official announcement!](https://www.seam.co/blog/Introducing-Seam-Components_ce7e8985-2fe6-4780-8c60-055b34daee55) 🎉
 
-[Seam Components] are a set of white-labeled UI elements that can be added to your applications in seconds.
+Seam Components are a set of white-labeled UI elements that can be added to your applications in seconds.
 With these components, you can offer advanced device management features to your users without needing to develop complex logic for managing device state,
 refreshing data, and performing actions.
 
