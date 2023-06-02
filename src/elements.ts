@@ -8,9 +8,11 @@ const elementDefinitions = components as unknown as Record<
 
 for (const key of Object.keys(elementDefinitions)) {
   const elementDefinition = elementDefinitions[key]
+
   if (elementDefinition == null) {
     throw new Error(`Missing element element definition for ${key}`)
   }
+
   const { name, Component, props } = elementDefinition
 
   if (name == null) {
