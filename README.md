@@ -1,16 +1,27 @@
-# Seam React Components
+# Seam Components
 
 [![npm](https://img.shields.io/npm/v/@seamapi/react.svg)](https://www.npmjs.com/package/@seamapi/react)
 [![GitHub Actions](https://github.com/seamapi/react/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/react/actions/workflows/check.yml)
 
-Seam React component library.
+> 🚀 [See our official announcement!](https://www.seam.co/blog/Introducing-Seam-Components_ce7e8985-2fe6-4780-8c60-055b34daee55)
 
 ## Description
 
-Zero-backend beautiful drop-in pre-built components
-with everything you need to get started with [Seam].
+[Seam Components] are a set of white-labeled UI elements that can be added to your applications in seconds.
+With these components, you can offer advanced device management features to your users without needing to develop complex logic for managing device state,
+refreshing data, and performing actions.
 
-Play with them live in the [Storybook]!
+Seam Components are implemented in React, but may be used in **any** web application as **[native Web Components](#web-components)!**
+
+### Resources to Get Started
+
+- [Get started with Seam](https://www.seam.co/).
+- [Get started with React and Client Session Tokens](https://docs.seam.co/latest/seam-components/get-started-with-react-components-and-client-session-tokens).
+- [Make a Supported Devices Page with React](https://docs.seam.co/latest/seam-components/make-a-supported-devices-page-with-react).
+- Reference the [Component API](https://docs.seam.co/latest/seam-components/react-components).
+- Find developer specific technical documentation in the [README](https://github.com/seamapi/react/).
+- Play with the components live in the interactive [Storybook]!
+- See how the components work with a real Seam sandbox workspace in this [live example app](https://react.seam.co/examples/basic/).
 
 [Seam]: https://www.seam.co/
 [Storybook]: https://react.seam.co/
