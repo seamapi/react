@@ -1,19 +1,27 @@
-# Seam React Components
+# Seam Components
 
 [![npm](https://img.shields.io/npm/v/@seamapi/react.svg)](https://www.npmjs.com/package/@seamapi/react)
 [![GitHub Actions](https://github.com/seamapi/react/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/react/actions/workflows/check.yml)
 
-Seam React component library.
+> Seam Components are implemented in React, but may be used in **any** web application as native **[⚡Web Components ⚡](#with-native-web-components)**
 
 ## Description
 
-Zero-backend beautiful drop-in pre-built components
-with everything you need to get started with [Seam].
+> [See our official announcement!](https://www.seam.co/blog/Introducing-Seam-Components_ce7e8985-2fe6-4780-8c60-055b34daee55) 🎉
 
-Play with them live in the [Storybook]!
+Seam Components are a set of white-labeled UI elements that can be added to your applications in seconds.
+With these components, you can offer advanced device management features to your users without needing to develop complex logic for managing device state,
+refreshing data, and performing actions.
 
-[Seam]: https://www.seam.co/
-[Storybook]: https://react.seam.co/
+### Resources to Get Started
+
+- [Get started with Seam](https://www.seam.co/).
+- [Get started with React and Client Session Tokens](https://docs.seam.co/latest/seam-components/get-started-with-react-components-and-client-session-tokens).
+- [Make a Supported Devices Page with React](https://docs.seam.co/latest/seam-components/make-a-supported-devices-page-with-react).
+- Reference the [Component API](https://docs.seam.co/latest/seam-components/react-components).
+- Find developer specific technical documentation in the [README](https://github.com/seamapi/react/).
+- Play with the components live in the interactive [Storybook](https://react.seam.co/)!
+- See how the components work with a real Seam sandbox workspace in this [live example app](https://react.seam.co/examples/basic/).
 
 ## Installation
 
@@ -27,11 +35,13 @@ $ npm install @seamapi/react
 
 ## Usage
 
-> Check out the [full example apps](./examples)!
+### With React
+
+> Check out the [basic example app](./examples/basic)!
 
 1. Obtain a publishable key from the [Seam Console].
-2. Wrap your app with the `SeamProvider`.
-3. Drop in Seam components.
+2. Wrap your React app with the `SeamProvider`.
+3. Drop in Seam Components.
 
 ```ts
 import { SeamProvider, DeviceTable } from '@seamapi/react'
@@ -47,6 +57,27 @@ export const App = () => {
   )
 }
 ```
+
+[Seam Console]: https://console.seam.co/
+
+### With Native Web Components
+
+> Check out the [web component example app](./examples/web-components)!
+
+1. Obtain a publishable key from the [Seam Console].
+2. Add the `<script>` tag to your page and drop in Seam Components.
+
+```html
+<body>
+  <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
+  <script
+    type="module"
+    src="https://react.seam.co/v/1.7.0/dist/elements.js"
+  ></script>
+</body>
+```
+
+> Update the version in the script tag above with the exact version of this package you would like to use.
 
 [Seam Console]: https://console.seam.co/
 
@@ -71,7 +102,7 @@ or place the following in the `<head>` tag:
 > You must match the version string below with the exact version of this package used by your application.
 
 ```html
-<link rel="stylesheet" href="https://react.seam.co/v/1.0.0/index.min.css" />
+<link rel="stylesheet" href="https://react.seam.co/v/1.7.0/index.min.css" />
 ```
 
 #### Customizing Styles
