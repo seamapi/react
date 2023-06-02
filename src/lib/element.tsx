@@ -9,11 +9,6 @@ import {
   type SeamProviderPropsWithPublishableKey,
 } from 'lib/seam/SeamProvider.js'
 
-declare global {
-  // eslint-disable-next-line no-var
-  var seamQueryClient: QueryClient | undefined
-}
-
 export interface ElementDefinition {
   name: string
   Component: Parameters<typeof r2wc>[0]
