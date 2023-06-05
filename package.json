@@ -76,7 +76,7 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.mjs,.ts,.tsx .",
     "prelint": "prettier --check --ignore-path .gitignore .",
     "postlint": "stylelint '**/*.scss'",
-    "prepack": "echo \"const seamapiReactVersion = '$(jq -r .version < package.json)'\n\nexport default seamapiReactVersion\" > src/lib/version.ts && echo \"declare const seamapiReactVersion = \\\"$(jq -r .version < package.json)\\\";\nexport default seamapiReactVersion;\" > lib/version.d.ts && echo -n \"const seamapiReactVersion = '$(jq -r .version < package.json)';\nexport default seamapiReactVersion;\n//# sourceMappingURL=version.js.map\" > lib/version.js",
+    "prepack": "echo \"const seamapiReactVersion = '$(jq -r .version < package.json)'\n\nexport default seamapiReactVersion\" > src/lib/version.ts && tsc --project tsconfig.version.json",
     "postversion": "git push --follow-tags",
     "storybook": "storybook dev --port 6006",
     "storybook:docs": "storybook dev --docs --port 6007",
