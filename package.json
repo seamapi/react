@@ -20,7 +20,10 @@
     }
   },
   "module": "index.js",
-  "sideEffects": false,
+  "sideEffects": [
+    "dist/elements.js",
+    "dist/*.css"
+  ],
   "keywords": [
     "node"
   ],
