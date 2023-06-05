@@ -12,7 +12,7 @@ export const useSeamStyles = ({
   disabled?: boolean
 }): void => {
   const ext = `${unminified ? '' : 'min.'}css`
-  const cssUrl = `${origin}/v/${version ?? ''}/index.${ext}`
+  const cssUrl = `${origin}/v/dist/${version ?? ''}/index.${ext}`
 
   useEffect(() => {
     if (version === null) return
