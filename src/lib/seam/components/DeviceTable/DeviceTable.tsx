@@ -1,6 +1,7 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
+import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
   type DeviceFilter,
@@ -19,23 +20,44 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
+type Device = UseDevicesData[number]
+
 export interface DeviceTableProps {
   deviceIds?: string[]
+  deviceFilter?: (device: Device, searchInputValue: string) => boolean
+  deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onBack?: () => void
   className?: string
+}
+
+const defaultDeviceFilter = (device: Device, searchInputValue: string) => {
+  if (searchInputValue === '') return true
+  return new RegExp(searchInputValue, 'i').test(device.properties.name ?? '')
 }
 
 export function DeviceTable({
   deviceIds,
   onBack,
+  deviceFilter = defaultDeviceFilter,
+  deviceComparator = compareByCreatedAtDesc,
   className,
-}: DeviceTableProps = {}): JSX.Element | null {
+}: DeviceTableProps = {}): JSX.Element {
   const { devices, isLoading, isError, error } = useDevices({
     device_ids: deviceIds,
   })
 
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchInputValue, setSearchInputValue] = useState('')
+
+  const filteredDevices = useMemo(
+    () =>
+      devices
+        ?.filter((device) => deviceFilter(device, searchInputValue))
+        ?.sort(deviceComparator) ?? [],
+    [devices, searchInputValue, deviceFilter, deviceComparator]
+  )
+
+  const deviceCount = devices?.length ?? 0
 
   if (selectedDeviceId != null) {
     return (
@@ -57,20 +79,6 @@ export function DeviceTable({
     return <p className={className}>{error?.message}</p>
   }
 
-  if (devices == null) {
-    return null
-  }
-
-  const deviceCount = devices.length
-
-  const filteredDevices = devices.filter((device) => {
-    if (searchTerm === '') {
-      return true
-    }
-
-    return new RegExp(searchTerm, 'i').test(device.properties.name)
-  })
-
   return (
     <div className={classNames('seam-device-table', className)}>
       <ContentHeader onBack={onBack} />
@@ -79,8 +87,8 @@ export function DeviceTable({
           {t.devices} <Caption>({deviceCount})</Caption>
         </TableTitle>
         <SearchTextField
-          value={searchTerm}
-          onChange={setSearchTerm}
+          value={searchInputValue}
+          onChange={setSearchInputValue}
           disabled={deviceCount === 0}
         />
       </TableHeader>
