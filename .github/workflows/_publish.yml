@@ -29,7 +29,6 @@ jobs:
         uses: ./.github/actions/setup
         with:
           install_dependencies: 'false'
-          registry_url: ${{ inputs.registry_url }}
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
