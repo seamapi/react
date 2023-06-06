@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
@@ -22,13 +22,15 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 export interface DeviceTableProps {
   deviceIds?: string[]
   onDeviceClick?: (deviceId: string) => void
+  preventDefaultOnDeviceClick?: boolean
   onBack?: () => void
   className?: string
 }
 
 export function DeviceTable({
   deviceIds,
-  onDeviceClick,
+  onDeviceClick = () => {},
+  preventDefaultOnDeviceClick = false,
   onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element | null {
@@ -39,6 +41,15 @@ export function DeviceTable({
   const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
 
   const [searchTerm, setSearchTerm] = useState('')
+
+  const handleDeviceClick = useCallback(
+    (deviceId: string): void => {
+      onDeviceClick(deviceId)
+      if (preventDefaultOnDeviceClick) return
+      setSelectedDeviceId(deviceId)
+    },
+    [onDeviceClick, preventDefaultOnDeviceClick, setSelectedDeviceId]
+  )
 
   if (selectedDeviceId != null) {
     return (
@@ -88,10 +99,7 @@ export function DeviceTable({
         />
       </TableHeader>
       <TableBody>
-        <Body
-          devices={filteredDevices}
-          onDeviceClick={onDeviceClick ?? setSelectedDeviceId}
-        />
+        <Body devices={filteredDevices} onDeviceClick={handleDeviceClick} />
       </TableBody>
     </div>
   )
