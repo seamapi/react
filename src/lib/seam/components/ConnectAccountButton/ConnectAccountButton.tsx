@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
 
+import { useCreateConnectWebview } from 'lib/seam/connect-webviews/use-create-connect-webview.js'
 import { Button } from 'lib/ui/Button.js'
-
-import { useCreateConnectWebview } from '../../../../hooks.js'
 
 export interface ConnectAccountButtonProps {
   className?: string
