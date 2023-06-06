@@ -31,8 +31,9 @@ export interface DeviceTableProps {
 }
 
 const defaultDeviceFilter = (device: Device, searchInputValue: string) => {
-  if (searchInputValue === '') return true
-  return new RegExp(searchInputValue, 'i').test(device.properties.name ?? '')
+  const value = searchInputValue.trim()
+  if (value === '') return true
+  return new RegExp(value, 'i').test(device.properties.name ?? '')
 }
 
 export function DeviceTable({

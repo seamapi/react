@@ -45,8 +45,9 @@ const defaultAccessCodeFilter = (
   accessCode: AccessCode,
   searchInputValue: string
 ) => {
-  if (searchInputValue === '') return true
-  return new RegExp(searchInputValue, 'i').test(accessCode.name ?? '')
+  const value = searchInputValue.trim()
+  if (value === '') return true
+  return new RegExp(value, 'i').test(accessCode.name ?? '')
 }
 
 export function AccessCodeTable({
