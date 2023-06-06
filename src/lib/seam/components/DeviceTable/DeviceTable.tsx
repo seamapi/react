@@ -21,12 +21,14 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 
 export interface DeviceTableProps {
   deviceIds?: string[]
+  onDeviceClick?: (deviceId: string) => void
   onBack?: () => void
   className?: string
 }
 
 export function DeviceTable({
   deviceIds,
+  onDeviceClick,
   onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element | null {
@@ -85,7 +87,10 @@ export function DeviceTable({
         />
       </TableHeader>
       <TableBody>
-        <Body devices={filteredDevices} selectDevice={selectDevice} />
+        <Body
+          devices={filteredDevices}
+          onDeviceClick={onDeviceClick ?? selectDevice}
+        />
       </TableBody>
     </div>
   )
@@ -93,9 +98,9 @@ export function DeviceTable({
 
 function Body(props: {
   devices: Array<UseDevicesData[number]>
-  selectDevice: (id: string) => void
+  onDeviceClick: (deviceId: string) => void
 }): JSX.Element {
-  const { devices, selectDevice } = props
+  const { devices, onDeviceClick } = props
   const [filter, setFilter] = useState<DeviceFilter | null>(null)
 
   if (devices.length === 0) {
@@ -126,7 +131,7 @@ function Body(props: {
           device={device}
           key={device.device_id}
           onClick={() => {
-            selectDevice(device.device_id)
+            onDeviceClick(device.device_id)
           }}
         />
       ))}
