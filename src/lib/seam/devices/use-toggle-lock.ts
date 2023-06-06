@@ -25,7 +25,7 @@ export function useToggleLock({
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  return useMutation({
+  return useMutation<{ actionAttempt: ActionAttempt }, SeamError>({
     mutationFn: async () => {
       if (client == null) {
         throw new Error('Missing seam client')
