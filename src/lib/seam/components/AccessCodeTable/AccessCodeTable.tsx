@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
@@ -27,13 +27,15 @@ import { Title } from 'lib/ui/typography/Title.js'
 export interface AccessCodeTableProps {
   deviceId: string
   onAccessCodeClick?: (accessCodeId: string) => void
+  preventDefaultOnAccessCodeClick?: boolean
   onBack?: () => void
   className?: string
 }
 
 export function AccessCodeTable({
   deviceId,
-  onAccessCodeClick,
+  onAccessCodeClick = () => {},
+  preventDefaultOnAccessCodeClick = false,
   onBack,
   className,
 }: AccessCodeTableProps): JSX.Element | null {
@@ -46,6 +48,19 @@ export function AccessCodeTable({
   >(null)
 
   const [searchTerm, setSearchTerm] = useState('')
+
+  const handleAccessCodeClick = useCallback(
+    (accessCodeId: string): void => {
+      onAccessCodeClick(accessCodeId)
+      if (preventDefaultOnAccessCodeClick) return
+      setSelectedAccessCodeId(accessCodeId)
+    },
+    [
+      onAccessCodeClick,
+      preventDefaultOnAccessCodeClick,
+      setSelectedAccessCodeId,
+    ]
+  )
 
   if (selectedAccessCodeId != null) {
     return (
@@ -89,7 +104,7 @@ export function AccessCodeTable({
       <TableBody>
         <Body
           accessCodes={filteredCodes}
-          onAccessCodeClick={onAccessCodeClick ?? setSelectedAccessCodeId}
+          onAccessCodeClick={handleAccessCodeClick}
         />
       </TableBody>
     </div>
