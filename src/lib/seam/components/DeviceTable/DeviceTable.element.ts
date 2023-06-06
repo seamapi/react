@@ -5,8 +5,9 @@ import type { DeviceTableProps } from './DeviceTable.js'
 export const name = 'seam-device-table'
 
 export const props: ElementProps<DeviceTableProps> = {
-  onBack: 'function',
+  deviceIds: 'json',
   onDeviceClick: 'function',
+  onBack: 'function',
   className: 'string',
 }
 
