@@ -7,10 +7,12 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
-      "import": "./index.js"
+      "import": "./index.js",
+      "types": "./index.d.ts"
     },
     "./hooks.js": {
-      "import": "./hooks.js"
+      "import": "./hooks.js",
+      "types": "./hooks.d.ts"
     },
     "./elements.js": {
       "import": "./dist/elements.js"
