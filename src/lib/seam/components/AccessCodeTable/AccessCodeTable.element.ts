@@ -7,6 +7,7 @@ export const name = 'seam-access-code-table'
 export const props: ElementProps<AccessCodeTableProps> = {
   deviceId: 'string',
   onBack: 'function',
+  className: 'string',
 }
 
 export { AccessCodeTable as Component } from './AccessCodeTable.js'
