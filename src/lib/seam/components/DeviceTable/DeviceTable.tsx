@@ -30,7 +30,7 @@ interface Props {
 export function DeviceTable({
   onBack,
   className,
-}: DeviceTableProps): JSX.Element | null {
+}: DeviceTableProps = {}): JSX.Element | null {
   const { devices, isLoading, isError, error } = useDevices()
 
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
