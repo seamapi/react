@@ -15,7 +15,8 @@
       "types": "./hooks.d.ts"
     },
     "./elements.js": {
-      "import": "./dist/elements.js"
+      "import": "./dist/elements.js",
+      "types": "./src/elements.d.ts"
     },
     "./index.css": {
       "import": "./dist/index.css"
