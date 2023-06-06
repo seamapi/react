@@ -3,13 +3,13 @@
 [![npm](https://img.shields.io/npm/v/@seamapi/react.svg)](https://www.npmjs.com/package/@seamapi/react)
 [![GitHub Actions](https://github.com/seamapi/react/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/react/actions/workflows/check.yml)
 
-> Seam Components are implemented in React, but may be used in **any** web application as native **[⚡Web Components ⚡](#with-native-web-components)**
+> Seam Components may be used in **any** web application as native **[⚡Web Components ⚡](#with-native-web-components)**
 
 ## Description
 
 > [See our official announcement!](https://www.seam.co/blog/Introducing-Seam-Components_ce7e8985-2fe6-4780-8c60-055b34daee55) 🎉
 
-Seam Components are a set of white-labeled UI elements that can be added to your applications in seconds.
+Seam Components are a set of white-labeled UI elements that can be added to your application in seconds.
 With these components, you can offer advanced device management features to your users without needing to develop complex logic for managing device state,
 refreshing data, and performing actions.
 
