@@ -36,7 +36,8 @@ export function DeviceTable({
     device_ids: deviceIds,
   })
 
-  const [selectedDeviceId, selectDevice] = useState<string | null>(null)
+  const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
+
   const [searchTerm, setSearchTerm] = useState('')
 
   if (selectedDeviceId != null) {
@@ -45,7 +46,7 @@ export function DeviceTable({
         className={className}
         deviceId={selectedDeviceId}
         onBack={() => {
-          selectDevice(null)
+          setSelectedDeviceId(null)
         }}
       />
     )
@@ -89,7 +90,7 @@ export function DeviceTable({
       <TableBody>
         <Body
           devices={filteredDevices}
-          onDeviceClick={onDeviceClick ?? selectDevice}
+          onDeviceClick={onDeviceClick ?? setSelectedDeviceId}
         />
       </TableBody>
     </div>
