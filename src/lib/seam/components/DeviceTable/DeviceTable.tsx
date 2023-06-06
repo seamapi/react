@@ -10,7 +10,6 @@ import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
 import {
   useDevices,
   type UseDevicesData,
-  type UseDevicesParams,
 } from 'lib/seam/devices/use-devices.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
@@ -20,18 +19,20 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
-export type DeviceTableProps = Props & UseDevicesParams
-
-interface Props {
+export interface DeviceTableProps {
+  deviceIds?: string[]
   onBack?: () => void
   className?: string
 }
 
 export function DeviceTable({
+  deviceIds,
   onBack,
   className,
 }: DeviceTableProps): JSX.Element | null {
-  const { devices, isLoading, isError, error } = useDevices()
+  const { devices, isLoading, isError, error } = useDevices({
+    device_ids: deviceIds,
+  })
 
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
