@@ -6,6 +6,10 @@ const elementDefinitions = components as unknown as Record<
   Partial<ElementDefinition>
 >
 
+const elementNames: string[] = []
+
+export default elementNames
+
 for (const key of Object.keys(elementDefinitions)) {
   const elementDefinition = elementDefinitions[key]
 
@@ -23,5 +27,6 @@ for (const key of Object.keys(elementDefinitions)) {
     throw new Error(`Missing element Component for ${key}`)
   }
 
+  elementNames.push(name)
   defineCustomElement({ name, Component, props })
 }

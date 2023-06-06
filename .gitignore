@@ -14,10 +14,6 @@
 !.storybook/**/*.js
 !.storybook/**/*.d.ts
 
-# Sass build output
-*.css
-*.css.map
-
 # Yalc
 .yalc
 yalc.lock

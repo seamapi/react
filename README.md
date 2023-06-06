@@ -72,7 +72,7 @@ export const App = () => {
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/1.7.0/dist/elements.js"
+    src="https://react.seam.co/v/1.8.0/dist/elements.js"
   ></script>
 </body>
 ```
@@ -102,7 +102,10 @@ or place the following in the `<head>` tag:
 > You must match the version string below with the exact version of this package used by your application.
 
 ```html
-<link rel="stylesheet" href="https://react.seam.co/v/1.7.0/index.min.css" />
+<link
+  rel="stylesheet"
+  href="https://react.seam.co/v/1.8.0/dist/index.min.css"
+/>
 ```
 
 #### Customizing Styles
