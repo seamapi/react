@@ -35,7 +35,7 @@ export function useCreateConnectWebview(
       return await client.connectWebviews.create(mutationParams)
     },
     onSuccess: ({ url }) => {
-      if (willNavigateToWebview) {
+      if (willNavigateToWebview && url != null) {
         globalThis.location.href = url
       }
     },
