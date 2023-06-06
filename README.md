@@ -70,6 +70,9 @@ export const App = () => {
 
 ```html
 <body>
+  <seam-connect-account-button
+    publishable-key="your_publishable_key"
+  ></seam-connect-account-button>
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
