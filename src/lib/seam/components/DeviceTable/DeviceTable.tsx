@@ -58,8 +58,6 @@ export function DeviceTable({
     [devices, searchInputValue, deviceFilter, deviceComparator]
   )
 
-  const deviceCount = devices?.length ?? 0
-
   if (selectedDeviceId != null) {
     return (
       <DeviceDetails
@@ -85,12 +83,12 @@ export function DeviceTable({
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
-          {t.devices} <Caption>({deviceCount})</Caption>
+          {t.devices} <Caption>({filteredDevices.length})</Caption>
         </TableTitle>
         <SearchTextField
           value={searchInputValue}
           onChange={setSearchInputValue}
-          disabled={deviceCount === 0}
+          disabled={(devices?.length ?? 0) === 0}
         />
       </TableHeader>
       <TableBody>

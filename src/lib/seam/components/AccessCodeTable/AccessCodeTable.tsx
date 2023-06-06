@@ -74,8 +74,6 @@ export function AccessCodeTable({
     [accessCodes, searchInputValue, accessCodeFilter, accessCodeComparator]
   )
 
-  const accessCodeCount = accessCodes?.length ?? 0
-
   if (selectedAccessCode != null) {
     return (
       <AccessCodeDetails
@@ -93,12 +91,12 @@ export function AccessCodeTable({
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
-          {t.accessCodes} <Caption>({accessCodeCount})</Caption>
+          {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>
         </TableTitle>
         <SearchTextField
           value={searchInputValue}
           onChange={setSearchInputValue}
-          disabled={accessCodeCount === 0}
+          disabled={(accessCodes?.length ?? 0) === 0}
         />
       </TableHeader>
       <TableBody>
