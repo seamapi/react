@@ -1,6 +1,7 @@
 import classNames from 'classnames'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
+import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
   type DeviceFilter,
@@ -19,12 +20,22 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
+type Device = UseDevicesData[number]
+
 export interface DeviceTableProps {
   deviceIds?: string[]
+  deviceFilter?: (device: Device, searchInputValue: string) => boolean
+  deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
   onBack?: () => void
   className?: string
+}
+
+const defaultDeviceFilter = (device: Device, searchInputValue: string) => {
+  const value = searchInputValue.trim()
+  if (value === '') return true
+  return new RegExp(value, 'i').test(device.properties.name ?? '')
 }
 
 export function DeviceTable({
@@ -32,15 +43,24 @@ export function DeviceTable({
   onDeviceClick = () => {},
   preventDefaultOnDeviceClick = false,
   onBack,
+  deviceFilter = defaultDeviceFilter,
+  deviceComparator = compareByCreatedAtDesc,
   className,
-}: DeviceTableProps = {}): JSX.Element | null {
+}: DeviceTableProps = {}): JSX.Element {
   const { devices, isLoading, isError, error } = useDevices({
     device_ids: deviceIds,
   })
 
   const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
+  const [searchInputValue, setSearchInputValue] = useState('')
 
-  const [searchTerm, setSearchTerm] = useState('')
+  const filteredDevices = useMemo(
+    () =>
+      devices
+        ?.filter((device) => deviceFilter(device, searchInputValue))
+        ?.sort(deviceComparator) ?? [],
+    [devices, searchInputValue, deviceFilter, deviceComparator]
+  )
 
   const handleDeviceClick = useCallback(
     (deviceId: string): void => {
@@ -71,31 +91,17 @@ export function DeviceTable({
     return <p className={className}>{error?.message}</p>
   }
 
-  if (devices == null) {
-    return null
-  }
-
-  const deviceCount = devices.length
-
-  const filteredDevices = devices.filter((device) => {
-    if (searchTerm === '') {
-      return true
-    }
-
-    return new RegExp(searchTerm, 'i').test(device.properties.name)
-  })
-
   return (
     <div className={classNames('seam-device-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
-          {t.devices} <Caption>({deviceCount})</Caption>
+          {t.devices} <Caption>({filteredDevices.length})</Caption>
         </TableTitle>
         <SearchTextField
-          value={searchTerm}
-          onChange={setSearchTerm}
-          disabled={deviceCount === 0}
+          value={searchInputValue}
+          onChange={setSearchInputValue}
+          disabled={(devices?.length ?? 0) === 0}
         />
       </TableHeader>
       <TableBody>

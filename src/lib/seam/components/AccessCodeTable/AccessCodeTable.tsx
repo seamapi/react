@@ -1,6 +1,7 @@
 import classNames from 'classnames'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
+import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
@@ -26,10 +27,29 @@ import { Title } from 'lib/ui/typography/Title.js'
 
 export interface AccessCodeTableProps {
   deviceId: string
+  accessCodeFilter?: (
+    accessCode: AccessCode,
+    searchInputValue: string
+  ) => boolean
+  accessCodeComparator?: (
+    accessCodeA: AccessCode,
+    accessCodeB: AccessCode
+  ) => number
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
   onBack?: () => void
   className?: string
+}
+
+type AccessCode = UseAccessCodesData[number]
+
+const defaultAccessCodeFilter = (
+  accessCode: AccessCode,
+  searchInputValue: string
+) => {
+  const value = searchInputValue.trim()
+  if (value === '') return true
+  return new RegExp(value, 'i').test(accessCode.name ?? '')
 }
 
 export function AccessCodeTable({
@@ -37,8 +57,10 @@ export function AccessCodeTable({
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
   onBack,
+  accessCodeFilter = defaultAccessCodeFilter,
+  accessCodeComparator = compareByCreatedAtDesc,
   className,
-}: AccessCodeTableProps): JSX.Element | null {
+}: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
     device_id: deviceId,
   })
@@ -47,7 +69,15 @@ export function AccessCodeTable({
     string | null
   >(null)
 
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchInputValue, setSearchInputValue] = useState('')
+
+  const filteredAccessCodes = useMemo(
+    () =>
+      accessCodes
+        ?.filter((accessCode) => accessCodeFilter(accessCode, searchInputValue))
+        ?.sort(accessCodeComparator) ?? [],
+    [accessCodes, searchInputValue, accessCodeFilter, accessCodeComparator]
+  )
 
   const handleAccessCodeClick = useCallback(
     (accessCodeId: string): void => {
@@ -74,36 +104,22 @@ export function AccessCodeTable({
     )
   }
 
-  if (accessCodes == null) {
-    return null
-  }
-
-  const filteredCodes = accessCodes.filter((accessCode) => {
-    if (searchTerm === '') {
-      return true
-    }
-
-    return new RegExp(searchTerm, 'i').test(accessCode.name ?? '')
-  })
-
-  const accessCodeCount = accessCodes.length
-
   return (
     <div className={classNames('seam-access-code-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
-          {t.accessCodes} <Caption>({accessCodeCount})</Caption>
+          {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>
         </TableTitle>
         <SearchTextField
-          value={searchTerm}
-          onChange={setSearchTerm}
-          disabled={accessCodeCount === 0}
+          value={searchInputValue}
+          onChange={setSearchInputValue}
+          disabled={(accessCodes?.length ?? 0) === 0}
         />
       </TableHeader>
       <TableBody>
         <Body
-          accessCodes={filteredCodes}
+          accessCodes={filteredAccessCodes}
           onAccessCodeClick={handleAccessCodeClick}
         />
       </TableBody>
