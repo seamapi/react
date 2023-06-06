@@ -29,7 +29,7 @@ export function DeviceTable({
   deviceIds,
   onBack,
   className,
-}: DeviceTableProps): JSX.Element | null {
+}: DeviceTableProps = {}): JSX.Element | null {
   const { devices, isLoading, isError, error } = useDevices({
     device_ids: deviceIds,
   })
