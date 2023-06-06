@@ -6,6 +6,7 @@ export const name = 'seam-device-table'
 
 export const props: ElementProps<DeviceTableProps> = {
   onBack: 'function',
+  onDeviceClick: 'function',
   className: 'string',
 }
 
