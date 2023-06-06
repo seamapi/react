@@ -6,7 +6,6 @@ import type {
   SeamError,
 } from 'seamapi'
 
-import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
@@ -28,8 +27,7 @@ export function useAccessCodes(
     queryKey: ['access_codes', 'list', normalizedParams],
     queryFn: async () => {
       if (client == null) return []
-      const accessCodes = await client?.accessCodes.list(normalizedParams)
-      return accessCodes.sort(compareByCreatedAtDesc)
+      return await client?.accessCodes.list(normalizedParams)
     },
   })
 

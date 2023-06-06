@@ -1,7 +1,7 @@
 import classNames from 'classnames'
-import { useState } from 'react'
-import type { AccessCode } from 'seamapi'
+import { useMemo, useState } from 'react'
 
+import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
@@ -27,15 +27,35 @@ import { Title } from 'lib/ui/typography/Title.js'
 
 export interface AccessCodeTableProps {
   deviceId: string
+  accessCodeFilter?: (
+    accessCode: AccessCode,
+    searchInputValue: string
+  ) => boolean
+  accessCodeComparator?: (
+    accessCodeA: AccessCode,
+    accessCodeB: AccessCode
+  ) => number
   onBack?: () => void
   className?: string
+}
+
+type AccessCode = UseAccessCodesData[number]
+
+const defaultAccessCodeFilter = (
+  accessCode: AccessCode,
+  searchInputValue: string
+) => {
+  if (searchInputValue === '') return true
+  return new RegExp(searchInputValue, 'i').test(accessCode.name ?? '')
 }
 
 export function AccessCodeTable({
   deviceId,
   onBack,
+  accessCodeFilter = defaultAccessCodeFilter,
+  accessCodeComparator = compareByCreatedAtDesc,
   className,
-}: AccessCodeTableProps): JSX.Element | null {
+}: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
     device_id: deviceId,
   })
@@ -43,7 +63,17 @@ export function AccessCodeTable({
   const [selectedAccessCode, selectAccessCode] = useState<AccessCode | null>(
     null
   )
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchInputValue, setSearchInputValue] = useState('')
+
+  const filteredAccessCodes = useMemo(
+    () =>
+      accessCodes
+        ?.filter((accessCode) => accessCodeFilter(accessCode, searchInputValue))
+        ?.sort(accessCodeComparator) ?? [],
+    [accessCodes, searchInputValue, accessCodeFilter, accessCodeComparator]
+  )
+
+  const accessCodeCount = accessCodes?.length ?? 0
 
   if (selectedAccessCode != null) {
     return (
@@ -57,20 +87,6 @@ export function AccessCodeTable({
     )
   }
 
-  if (accessCodes == null) {
-    return null
-  }
-
-  const filteredCodes = accessCodes.filter((accessCode) => {
-    if (searchTerm === '') {
-      return true
-    }
-
-    return new RegExp(searchTerm, 'i').test(accessCode.name ?? '')
-  })
-
-  const accessCodeCount = accessCodes.length
-
   return (
     <div className={classNames('seam-access-code-table', className)}>
       <ContentHeader onBack={onBack} />
@@ -79,13 +95,16 @@ export function AccessCodeTable({
           {t.accessCodes} <Caption>({accessCodeCount})</Caption>
         </TableTitle>
         <SearchTextField
-          value={searchTerm}
-          onChange={setSearchTerm}
+          value={searchInputValue}
+          onChange={setSearchInputValue}
           disabled={accessCodeCount === 0}
         />
       </TableHeader>
       <TableBody>
-        <Body accessCodes={filteredCodes} selectAccessCode={selectAccessCode} />
+        <Body
+          accessCodes={filteredAccessCodes}
+          selectAccessCode={selectAccessCode}
+        />
       </TableBody>
     </div>
   )
