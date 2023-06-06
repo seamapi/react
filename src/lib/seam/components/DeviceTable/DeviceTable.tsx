@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -26,6 +26,8 @@ export interface DeviceTableProps {
   deviceIds?: string[]
   deviceFilter?: (device: Device, searchInputValue: string) => boolean
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
+  onDeviceClick?: (deviceId: string) => void
+  preventDefaultOnDeviceClick?: boolean
   onBack?: () => void
   className?: string
 }
@@ -38,6 +40,8 @@ const defaultDeviceFilter = (device: Device, searchInputValue: string) => {
 
 export function DeviceTable({
   deviceIds,
+  onDeviceClick = () => {},
+  preventDefaultOnDeviceClick = false,
   onBack,
   deviceFilter = defaultDeviceFilter,
   deviceComparator = compareByCreatedAtDesc,
@@ -47,7 +51,7 @@ export function DeviceTable({
     device_ids: deviceIds,
   })
 
-  const [selectedDeviceId, selectDevice] = useState<string | null>(null)
+  const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
   const [searchInputValue, setSearchInputValue] = useState('')
 
   const filteredDevices = useMemo(
@@ -58,13 +62,22 @@ export function DeviceTable({
     [devices, searchInputValue, deviceFilter, deviceComparator]
   )
 
+  const handleDeviceClick = useCallback(
+    (deviceId: string): void => {
+      onDeviceClick(deviceId)
+      if (preventDefaultOnDeviceClick) return
+      setSelectedDeviceId(deviceId)
+    },
+    [onDeviceClick, preventDefaultOnDeviceClick, setSelectedDeviceId]
+  )
+
   if (selectedDeviceId != null) {
     return (
       <DeviceDetails
         className={className}
         deviceId={selectedDeviceId}
         onBack={() => {
-          selectDevice(null)
+          setSelectedDeviceId(null)
         }}
       />
     )
@@ -92,7 +105,7 @@ export function DeviceTable({
         />
       </TableHeader>
       <TableBody>
-        <Body devices={filteredDevices} selectDevice={selectDevice} />
+        <Body devices={filteredDevices} onDeviceClick={handleDeviceClick} />
       </TableBody>
     </div>
   )
@@ -100,9 +113,9 @@ export function DeviceTable({
 
 function Body(props: {
   devices: Array<UseDevicesData[number]>
-  selectDevice: (id: string) => void
+  onDeviceClick: (deviceId: string) => void
 }): JSX.Element {
-  const { devices, selectDevice } = props
+  const { devices, onDeviceClick } = props
   const [filter, setFilter] = useState<DeviceFilter | null>(null)
 
   if (devices.length === 0) {
@@ -133,7 +146,7 @@ function Body(props: {
           device={device}
           key={device.device_id}
           onClick={() => {
-            selectDevice(device.device_id)
+            onDeviceClick(device.device_id)
           }}
         />
       ))}

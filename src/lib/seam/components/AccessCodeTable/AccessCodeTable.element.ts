@@ -8,6 +8,8 @@ export const props: ElementProps<AccessCodeTableProps> = {
   deviceId: 'string',
   accessCodeFilter: 'function',
   accessCodeComparator: 'function',
+  onAccessCodeClick: 'function',
+  preventDefaultOnAccessCodeClick: 'boolean',
   onBack: 'function',
   className: 'string',
 }

@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
@@ -35,6 +35,8 @@ export interface AccessCodeTableProps {
     accessCodeA: AccessCode,
     accessCodeB: AccessCode
   ) => number
+  onAccessCodeClick?: (accessCodeId: string) => void
+  preventDefaultOnAccessCodeClick?: boolean
   onBack?: () => void
   className?: string
 }
@@ -52,6 +54,8 @@ const defaultAccessCodeFilter = (
 
 export function AccessCodeTable({
   deviceId,
+  onAccessCodeClick = () => {},
+  preventDefaultOnAccessCodeClick = false,
   onBack,
   accessCodeFilter = defaultAccessCodeFilter,
   accessCodeComparator = compareByCreatedAtDesc,
@@ -61,9 +65,10 @@ export function AccessCodeTable({
     device_id: deviceId,
   })
 
-  const [selectedAccessCode, selectAccessCode] = useState<AccessCode | null>(
-    null
-  )
+  const [selectedAccessCodeId, setSelectedAccessCodeId] = useState<
+    string | null
+  >(null)
+
   const [searchInputValue, setSearchInputValue] = useState('')
 
   const filteredAccessCodes = useMemo(
@@ -74,13 +79,26 @@ export function AccessCodeTable({
     [accessCodes, searchInputValue, accessCodeFilter, accessCodeComparator]
   )
 
-  if (selectedAccessCode != null) {
+  const handleAccessCodeClick = useCallback(
+    (accessCodeId: string): void => {
+      onAccessCodeClick(accessCodeId)
+      if (preventDefaultOnAccessCodeClick) return
+      setSelectedAccessCodeId(accessCodeId)
+    },
+    [
+      onAccessCodeClick,
+      preventDefaultOnAccessCodeClick,
+      setSelectedAccessCodeId,
+    ]
+  )
+
+  if (selectedAccessCodeId != null) {
     return (
       <AccessCodeDetails
         className={className}
-        accessCodeId={selectedAccessCode.access_code_id}
+        accessCodeId={selectedAccessCodeId}
         onBack={() => {
-          selectAccessCode(null)
+          setSelectedAccessCodeId(null)
         }}
       />
     )
@@ -102,7 +120,7 @@ export function AccessCodeTable({
       <TableBody>
         <Body
           accessCodes={filteredAccessCodes}
-          selectAccessCode={selectAccessCode}
+          onAccessCodeClick={handleAccessCodeClick}
         />
       </TableBody>
     </div>
@@ -111,9 +129,9 @@ export function AccessCodeTable({
 
 function Body(props: {
   accessCodes: Array<UseAccessCodesData[number]>
-  selectAccessCode: (accessCode: AccessCode) => void
+  onAccessCodeClick: (accessCodeId: string) => void
 }): JSX.Element {
-  const { accessCodes, selectAccessCode } = props
+  const { accessCodes, onAccessCodeClick } = props
 
   if (accessCodes.length === 0) {
     return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
@@ -126,7 +144,7 @@ function Body(props: {
           key={accessCode.access_code_id}
           accessCode={accessCode}
           onClick={() => {
-            selectAccessCode(accessCode)
+            onAccessCodeClick(accessCode.access_code_id)
           }}
         />
       ))}

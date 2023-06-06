@@ -44,13 +44,14 @@ $ npm install @seamapi/react
 3. Drop in Seam Components.
 
 ```ts
-import { SeamProvider, DeviceTable } from '@seamapi/react'
+import { ConnectAccountButton, DeviceTable, SeamProvider } from '@seamapi/react'
 
 export const App = () => {
   return (
     <SeamProvider publishableKey='your_publishable_key'>
       <main>
         <h1>My App</h1>
+        <ConnectAccountButton />
         <DeviceTable />
       </main>
     </SeamProvider>
@@ -69,6 +70,9 @@ export const App = () => {
 
 ```html
 <body>
+  <seam-connect-account-button
+    publishable-key="your_publishable_key"
+  ></seam-connect-account-button>
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
