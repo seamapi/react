@@ -14,10 +14,13 @@ export interface UseCreateConnectWebviewParams {
 
 export type UseCreateConnectWebviewMutationParams = ConnectWebviewCreateRequest
 
-export function useCreateConnectWebview(
-  params?: UseCreateConnectWebviewParams
-): UseMutationResult<ConnectWebview, SeamError, ConnectWebviewCreateRequest> {
-  const { willNavigateToWebview = false } = params ?? {}
+export function useCreateConnectWebview({
+  willNavigateToWebview = false,
+}: UseCreateConnectWebviewParams = {}): UseMutationResult<
+  ConnectWebview,
+  SeamError,
+  ConnectWebviewCreateRequest
+> {
   const { client } = useSeamClient()
 
   return useMutation<
