@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { TextButton } from 'lib/ui/TextButton.js'
+import { Button } from 'lib/ui/Button.js'
 
 import { useCreateConnectWebview } from '../../../../hooks.js'
 
@@ -25,13 +25,14 @@ export function ConnectAccountButton({
   }, [mutate, url])
 
   return (
-    <TextButton
+    <Button
+      size='small'
       onClick={handleClick}
       className={className}
       disabled={isLoading}
     >
       {t.connectAccount}
-    </TextButton>
+    </Button>
   )
 }
 
