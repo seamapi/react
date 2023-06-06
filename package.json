@@ -4,7 +4,7 @@
   "description": "Seam Components.",
   "type": "module",
   "main": "index.js",
-  "typings": "index.d.ts",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
       "import": "./index.js"
