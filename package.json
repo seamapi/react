@@ -21,8 +21,9 @@
   },
   "module": "index.js",
   "sideEffects": [
-    "dist/elements.js",
-    "dist/*.css"
+    "**/*.css",
+    "./elements.js",
+    "./dist/elements.js"
   ],
   "keywords": [
     "node"
