@@ -32,7 +32,10 @@ export interface DeviceTableProps {
   className?: string
 }
 
-const defaultDeviceFilter = (device: Device, searchInputValue: string) => {
+const defaultDeviceFilter = (
+  device: Device,
+  searchInputValue: string
+): boolean => {
   const value = searchInputValue.trim()
   if (value === '') return true
   return new RegExp(value, 'i').test(device.properties.name ?? '')

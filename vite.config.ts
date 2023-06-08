@@ -6,8 +6,10 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(async () => {
-  const pkg = await readPackageJson()
-  const version: string = pkg.version
+  const { version } = await readPackageJson()
+  if (version == null) {
+    throw new Error('Missing version in package.json')
+  }
   return {
     plugins: [
       tsconfigPaths(),
@@ -31,7 +33,7 @@ export default defineConfig(async () => {
   }
 })
 
-const readPackageJson = async () => {
+const readPackageJson = async (): Promise<{ version?: string }> => {
   const pkgBuff = await readFile(
     fileURLToPath(new URL('package.json', import.meta.url))
   )
