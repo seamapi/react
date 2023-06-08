@@ -14,13 +14,11 @@ export function ConnectAccountButton({
     willNavigateToWebview: true,
   })
 
-  const url = window.location.href
   const handleClick = useCallback(() => {
     mutate({
-      custom_redirect_url: url,
-      custom_redirect_failure_url: url,
+      custom_redirect_url: globalThis.location?.href,
     })
-  }, [mutate, url])
+  }, [mutate])
 
   return (
     <Button
