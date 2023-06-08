@@ -46,7 +46,7 @@ type AccessCode = UseAccessCodesData[number]
 const defaultAccessCodeFilter = (
   accessCode: AccessCode,
   searchInputValue: string
-) => {
+): boolean => {
   const value = searchInputValue.trim()
   if (value === '') return true
   return new RegExp(value, 'i').test(accessCode.name ?? '')
