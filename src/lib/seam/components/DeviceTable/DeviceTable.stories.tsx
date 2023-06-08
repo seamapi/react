@@ -18,7 +18,7 @@ export default meta
 type Story = StoryObj<typeof DeviceTable>
 
 export const Content: Story = {
-  render: ({ onBack, ...props }) => <DeviceTable {...props} />,
+  render: ({ onBack, ...props } = {}) => <DeviceTable {...props} />,
 }
 
 export const InsideModal: Story = {
@@ -28,7 +28,7 @@ export const InsideModal: Story = {
 function InsideModalComponent({
   onBack,
   ...props
-}: DeviceTableProps): JSX.Element {
+}: DeviceTableProps = {}): JSX.Element {
   const [open, toggleOpen] = useToggle()
   return (
     <>

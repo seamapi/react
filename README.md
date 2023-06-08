@@ -3,13 +3,13 @@
 [![npm](https://img.shields.io/npm/v/@seamapi/react.svg)](https://www.npmjs.com/package/@seamapi/react)
 [![GitHub Actions](https://github.com/seamapi/react/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/react/actions/workflows/check.yml)
 
-> Seam Components are implemented in React, but may be used in **any** web application as native **[⚡Web Components ⚡](#with-native-web-components)**
+> Seam Components may be used in **any** web application as native **[⚡Web Components ⚡](#with-native-web-components)**
 
 ## Description
 
 > [See our official announcement!](https://www.seam.co/blog/Introducing-Seam-Components_ce7e8985-2fe6-4780-8c60-055b34daee55) 🎉
 
-Seam Components are a set of white-labeled UI elements that can be added to your applications in seconds.
+Seam Components are a set of white-labeled UI elements that can be added to your application in seconds.
 With these components, you can offer advanced device management features to your users without needing to develop complex logic for managing device state,
 refreshing data, and performing actions.
 
@@ -44,13 +44,14 @@ $ npm install @seamapi/react
 3. Drop in Seam Components.
 
 ```ts
-import { SeamProvider, DeviceTable } from '@seamapi/react'
+import { ConnectAccountButton, DeviceTable, SeamProvider } from '@seamapi/react'
 
 export const App = () => {
   return (
     <SeamProvider publishableKey='your_publishable_key'>
       <main>
         <h1>My App</h1>
+        <ConnectAccountButton />
         <DeviceTable />
       </main>
     </SeamProvider>
@@ -69,10 +70,13 @@ export const App = () => {
 
 ```html
 <body>
+  <seam-connect-account-button
+    publishable-key="your_publishable_key"
+  ></seam-connect-account-button>
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/1.7.0/dist/elements.js"
+    src="https://react.seam.co/v/1.16.0/dist/elements.js"
   ></script>
 </body>
 ```
@@ -102,7 +106,10 @@ or place the following in the `<head>` tag:
 > You must match the version string below with the exact version of this package used by your application.
 
 ```html
-<link rel="stylesheet" href="https://react.seam.co/v/1.7.0/index.min.css" />
+<link
+  rel="stylesheet"
+  href="https://react.seam.co/v/1.16.0/dist/index.min.css"
+/>
 ```
 
 #### Customizing Styles

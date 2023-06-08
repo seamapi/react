@@ -21,6 +21,7 @@ export default defineConfig(async () => {
     build: {
       outDir: fileURLToPath(new URL('./dist', import.meta.url)),
       sourcemap: true,
+      emptyOutDir: false,
       lib: {
         entry: fileURLToPath(new URL('./src/elements.ts', import.meta.url)),
         fileName: 'elements',

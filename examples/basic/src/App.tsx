@@ -1,4 +1,9 @@
-import { DeviceTable, SeamProvider, SupportedDeviceTable } from '@seamapi/react'
+import {
+  ConnectAccountButton,
+  DeviceTable,
+  SeamProvider,
+  SupportedDeviceTable,
+} from '@seamapi/react'
 
 export const App = (): JSX.Element => {
   return (
@@ -10,6 +15,7 @@ export const App = (): JSX.Element => {
     >
       <main>
         <h1>Seam Components</h1>
+        <ConnectAccountButton />
         <DeviceTable />
         <h2>Supported Devices</h2>
         <SupportedDeviceTable />

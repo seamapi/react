@@ -13,7 +13,7 @@ export interface SupportedDeviceTableProps {
 export function SupportedDeviceTable({
   cannotFilter = false,
   className,
-}: SupportedDeviceTableProps): JSX.Element {
+}: SupportedDeviceTableProps = {}): JSX.Element {
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<DeviceModelFilters>({
     supportedOnly: false,

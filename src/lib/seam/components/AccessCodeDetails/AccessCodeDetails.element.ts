@@ -7,6 +7,7 @@ export const name = 'seam-access-code-details'
 export const props: ElementProps<AccessCodeDetailsProps> = {
   accessCodeId: 'string',
   onBack: 'function',
+  className: 'string',
 }
 
 export { AccessCodeDetails as Component } from './AccessCodeDetails.js'
