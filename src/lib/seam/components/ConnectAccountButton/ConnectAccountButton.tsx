@@ -17,7 +17,6 @@ export function ConnectAccountButton({
   const url = window.location.href
   const handleClick = useCallback(() => {
     mutate({
-      accepted_providers: [],
       custom_redirect_url: url,
       custom_redirect_failure_url: url,
     })
