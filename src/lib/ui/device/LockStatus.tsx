@@ -1,6 +1,6 @@
 import { LockLockedIcon } from 'lib/icons/LockLocked.js'
 import { LockUnlockedIcon } from 'lib/icons/LockUnlocked.js'
-import { type CommonDevice,isLockDevice } from 'lib/seam/devices/types.js'
+import { type CommonDevice, isLockDevice } from 'lib/seam/devices/types.js'
 
 interface LockStatusProps {
   device: CommonDevice
