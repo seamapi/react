@@ -39,12 +39,7 @@ const preview: Preview = {
     },
     seamEndpoint: {
       description: 'Seam Endpoint',
-      defaultValue: useFake
-        ? // special hack for chromatic ui reviews that don't run the fake
-          window?.location?.href.includes('chromatic')
-          ? 'https://react.seam.co/api'
-          : '/api'
-        : process.env['STORYBOOK_SEAM_ENDPOINT'],
+      defaultValue: process.env['STORYBOOK_SEAM_ENDPOINT'] ?? '/api',
     },
   },
   parameters: {
