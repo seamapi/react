@@ -1,7 +1,9 @@
-import type { LockDevice } from 'seamapi'
+import type { CommonDeviceProperties, Device } from 'seamapi'
+
+import { isLockDevice } from 'lib/seam/devices/types.js'
 
 interface DeviceModelProps {
-  device: LockDevice
+  device: Device<CommonDeviceProperties>
 }
 
 export function DeviceModel({ device }: DeviceModelProps): JSX.Element | null {
@@ -18,17 +20,22 @@ export function DeviceModel({ device }: DeviceModelProps): JSX.Element | null {
   )
 }
 
-export const getDeviceModel = ({
-  properties,
-}: LockDevice): string | undefined => {
+export const getDeviceModel = (
+  device: Device<CommonDeviceProperties>
+): string => {
+  if (!isLockDevice(device)) return t.fallbackModel
+
+  const { properties } = device
+
   return (
     properties?.august_metadata?.model ??
     properties?.schlage_metadata?.model ??
-    t.fallbackModel
+    t.fallbackLockModel
   )
 }
 
 const t = {
   model: 'Model',
-  fallbackModel: 'Unknown Lock',
+  fallbackModel: 'Unknown Model',
+  fallbackLockModel: 'Unknown Lock',
 }

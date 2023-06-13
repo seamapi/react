@@ -1,10 +1,10 @@
-import type { LockDevice } from 'seamapi'
+import type { CommonDeviceProperties, Device } from 'seamapi'
 
 import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
 interface OnlineStatusProps {
-  device: LockDevice
+  device: Device<CommonDeviceProperties>
 }
 
 export function OnlineStatus(props: OnlineStatusProps): JSX.Element {

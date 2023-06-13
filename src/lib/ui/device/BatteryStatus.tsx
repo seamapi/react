@@ -1,15 +1,20 @@
-import type { LockDevice } from 'seamapi'
+import type { CommonDeviceProperties, Device } from 'seamapi'
 
 import { BatteryLevelCriticalIcon } from 'lib/icons/BatteryLevelCritical.js'
 import { BatteryLevelFullIcon } from 'lib/icons/BatteryLevelFull.js'
 import { BatteryLevelHighIcon } from 'lib/icons/BatteryLevelHigh.js'
 import { BatteryLevelLowIcon } from 'lib/icons/BatteryLevelLow.js'
+import { isLockDevice } from 'lib/seam/devices/types.js'
 
 interface BatteryStatusProps {
-  device: LockDevice
+  device: Device<CommonDeviceProperties>
 }
 
-export function BatteryStatus(props: BatteryStatusProps): JSX.Element {
+export function BatteryStatus(props: BatteryStatusProps): JSX.Element | null {
+  if (!isLockDevice(props.device)) {
+    return null
+  }
+
   const {
     device: {
       properties: { battery_level: batteryLevel },

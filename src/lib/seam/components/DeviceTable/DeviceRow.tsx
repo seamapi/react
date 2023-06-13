@@ -27,11 +27,7 @@ export function DeviceRow({
   device,
   onClick,
 }: DeviceRowProps): JSX.Element | null {
-  if (!isLockDevice(device)) {
-    return null
-  }
-
-  const deviceModel = getDeviceModel(device) ?? t.unknownLock
+  const deviceModel = getDeviceModel(device)
 
   return (
     <TableRow key={device.device_id} onClick={onClick}>
@@ -45,16 +41,10 @@ export function DeviceRow({
           <div className='seam-device-statuses'>
             <OnlineStatus device={device} />
             <BatteryStatus device={device} />
-            <LockStatus device={device} />
+            {isLockDevice(device) && <LockStatus device={device} />}
           </div>
         </div>
       </TableCell>
     </TableRow>
   )
-}
-
-const t = {
-  devices: 'Devices',
-  unknownLock: 'Unknown Lock',
-  noDevicesMessage: 'Sorry, no devices were found',
 }

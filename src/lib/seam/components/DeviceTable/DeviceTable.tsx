@@ -159,6 +159,5 @@ function Content(props: {
 
 const t = {
   devices: 'Devices',
-  unknownLock: 'Unknown Lock',
   noDevicesMessage: 'Sorry, no devices were found',
 }
