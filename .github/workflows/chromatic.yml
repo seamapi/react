@@ -32,7 +32,7 @@ jobs:
         env:
           REF_NAME: ${{ github.ref_name }}
           STORYBOOK_SEAM_ENDPOINT: ${{ vars.STORYBOOK_SEAM_ENDPOINT }}
-          VERCEL_PREVIEW_URL: 'https://${{ steps.vercel.outputs.preview_url }}'
+          VERCEL_PREVIEW_URL: ${{ steps.vercel.outputs.preview_url }}
         run: |
           if [ $REF_NAME != 'main' ]; then
             echo "url=${VERCEL_PREVIEW_URL}" >> $GITHUB_OUTPUT
