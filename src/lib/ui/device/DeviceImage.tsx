@@ -1,9 +1,10 @@
 import type { HTMLAttributes } from 'react'
-import type { CommonDeviceProperties, Device } from 'seamapi'
+
+import type { CommonDevice } from 'lib/seam/devices/types.js'
 
 export function DeviceImage(
   props: {
-    device: Device<CommonDeviceProperties>
+    device: CommonDevice
   } & HTMLAttributes<HTMLImageElement>
 ): JSX.Element {
   const { device, ...imageProps } = props

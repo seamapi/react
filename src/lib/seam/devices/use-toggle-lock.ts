@@ -5,13 +5,11 @@ import {
 } from '@tanstack/react-query'
 import type {
   ActionAttempt,
-  CommonDeviceProperties,
-  Device,
   LockDevice,
   SeamError,
 } from 'seamapi'
 
-import { isLockDevice } from 'lib/seam/devices/types.js'
+import { type CommonDevice,isLockDevice } from 'lib/seam/devices/types.js'
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export function useToggleLock({
@@ -35,7 +33,7 @@ export function useToggleLock({
       return await toggle(deviceId)
     },
     onMutate: () => {
-      queryClient.setQueryData<Array<Device<CommonDeviceProperties>>>(
+      queryClient.setQueryData<CommonDevice[]>(
         ['devices', 'list', {}],
         (devices) => {
           if (devices == null) {

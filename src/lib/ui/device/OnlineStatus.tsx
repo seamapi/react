@@ -1,10 +1,9 @@
-import type { CommonDeviceProperties, Device } from 'seamapi'
-
 import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
+import type { CommonDevice } from 'lib/seam/devices/types.js'
 
 interface OnlineStatusProps {
-  device: Device<CommonDeviceProperties>
+  device: CommonDevice
 }
 
 export function OnlineStatus(props: OnlineStatusProps): JSX.Element {

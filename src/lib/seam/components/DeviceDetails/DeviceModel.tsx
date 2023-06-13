@@ -1,9 +1,7 @@
-import type { CommonDeviceProperties, Device } from 'seamapi'
-
-import { isLockDevice } from 'lib/seam/devices/types.js'
+import { type CommonDevice, isLockDevice } from 'lib/seam/devices/types.js'
 
 interface DeviceModelProps {
-  device: Device<CommonDeviceProperties>
+  device: CommonDevice
 }
 
 export function DeviceModel({ device }: DeviceModelProps): JSX.Element | null {
@@ -20,9 +18,7 @@ export function DeviceModel({ device }: DeviceModelProps): JSX.Element | null {
   )
 }
 
-export const getDeviceModel = (
-  device: Device<CommonDeviceProperties>
-): string => {
+export const getDeviceModel = (device: CommonDevice): string => {
   if (!isLockDevice(device)) return t.fallbackModel
 
   const { properties } = device

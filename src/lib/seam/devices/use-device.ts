@@ -1,17 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import type {
-  CommonDeviceProperties,
-  Device,
-  DeviceGetRequest,
-  DeviceGetResponse,
-  SeamError,
-} from 'seamapi'
+import type { DeviceGetRequest, DeviceGetResponse, SeamError } from 'seamapi'
 
+import type { CommonDevice } from 'lib/seam/devices/types.js'
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseDeviceParams = DeviceGetRequest | string
-export type UseDeviceData = Device<CommonDeviceProperties> | null
+export type UseDeviceData = CommonDevice | null
 
 export function useDevice(
   params: DeviceGetRequest
