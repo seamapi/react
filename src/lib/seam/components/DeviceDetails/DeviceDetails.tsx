@@ -35,13 +35,17 @@ export function DeviceDetails({
     return null
   }
 
-  if (!isLockDevice(device)) {
-    return null
+  if (isLockDevice(device)) {
+    return (
+      <LockDeviceDetails
+        className={className}
+        device={device}
+        onBack={onBack}
+      />
+    )
   }
 
-  return (
-    <LockDeviceDetails className={className} device={device} onBack={onBack} />
-  )
+  return null
 }
 
 function LockDeviceDetails(props: {
