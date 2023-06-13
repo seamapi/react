@@ -19,13 +19,11 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Get Vercel preview
-        uses: zentered/vercel-preview-url@v1.1.9
+        uses: ViktorJT/Get-vercel-preview-url@1.2.2
         if: github.ref_name != 'main'
         id: vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}
         with:
-          vercel_project_id: ${{ vars.VERCEL_PROJECT_ID }}
+          vercel_access_token: ${{ secrets.VERCEL_ACCESS_TOKEN }}
           vercel_team_id: ${{ vars.VERCEL_TEAM_ID }}
           prefix_url: 'https://'
           prefix_path: /api
