@@ -147,7 +147,7 @@ export const seedFake = (db) => {
       locked: false,
       online: true,
       manufacturer: 'schlage',
-      battery_level: 0.48,
+      battery_level: 0.3,
       serial_number: 'device-1',
       schlage_metadata: {
         model: 'BE489WB',
@@ -159,8 +159,8 @@ export const seedFake = (db) => {
       max_active_codes_supported: 299,
       name: 'FRONT DOOR',
       battery: {
-        level: 0.48,
-        status: 'good',
+        level: 0.3,
+        status: 'low',
       },
       image_url:
         'https://connect.getseam.com/assets/images/devices/schlage_sense-smart-deadbolt-with-camelot-trim_front.png',
