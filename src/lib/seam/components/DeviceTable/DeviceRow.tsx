@@ -1,4 +1,3 @@
-import { getDeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import type {
   UseDevicesData,
   UseDevicesParams,
@@ -26,8 +25,6 @@ export function DeviceRow({
   device,
   onClick,
 }: DeviceRowProps): JSX.Element | null {
-  const deviceModel = getDeviceModel(device)
-
   return (
     <TableRow key={device.device_id} onClick={onClick}>
       <TableCell className='seam-image-cell'>
@@ -36,7 +33,9 @@ export function DeviceRow({
       <TableCell className='seam-body-cell'>
         <Title className='seam-truncated-text'>{device.properties.name}</Title>
         <div className='seam-bottom'>
-          <span className='seam-device-model'>{deviceModel}</span>
+          <span className='seam-device-model'>
+            {device.properties.model.display_name}
+          </span>
           <div className='seam-device-statuses'>
             <OnlineStatus device={device} />
             <BatteryStatus device={device} />

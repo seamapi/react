@@ -1,6 +1,5 @@
 import { isLockDevice, type LockDevice } from 'seamapi'
 
-import { getDeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Button } from 'lib/ui/Button.js'
@@ -37,7 +36,6 @@ function Content(props: {
 }): JSX.Element {
   const { device, onSelectDevice } = props
   const toggleLock = useToggleLock(device)
-  const model = getDeviceModel(device)
 
   const toggleLockLabel = device.properties.locked ? t.unlock : t.lock
 
@@ -47,7 +45,7 @@ function Content(props: {
         <DeviceImage device={device} />
       </div>
       <div className='seam-body'>
-        <div className='seam-model'>{model}</div>
+        <div className='seam-model'>{device.properties.model.display_name}</div>
         <TextButton
           onClick={() => {
             onSelectDevice(device.device_id)
