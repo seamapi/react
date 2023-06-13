@@ -118,7 +118,7 @@ export function AccessCodeTable({
         />
       </TableHeader>
       <TableBody>
-        <Body
+        <Content
           accessCodes={filteredAccessCodes}
           onAccessCodeClick={handleAccessCodeClick}
         />
@@ -127,7 +127,7 @@ export function AccessCodeTable({
   )
 }
 
-function Body(props: {
+function Content(props: {
   accessCodes: Array<UseAccessCodesData[number]>
   onAccessCodeClick: (accessCodeId: string) => void
 }): JSX.Element {

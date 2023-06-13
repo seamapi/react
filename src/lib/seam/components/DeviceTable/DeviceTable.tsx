@@ -108,13 +108,13 @@ export function DeviceTable({
         />
       </TableHeader>
       <TableBody>
-        <Body devices={filteredDevices} onDeviceClick={handleDeviceClick} />
+        <Content devices={filteredDevices} onDeviceClick={handleDeviceClick} />
       </TableBody>
     </div>
   )
 }
 
-function Body(props: {
+function Content(props: {
   devices: Array<UseDevicesData[number]>
   onDeviceClick: (deviceId: string) => void
 }): JSX.Element {

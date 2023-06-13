@@ -21,10 +21,10 @@ export function AccessCodeDevice({
     return null
   }
 
-  return <LockDeviceDetails device={device} onSelectDevice={onSelectDevice} />
+  return <Content device={device} onSelectDevice={onSelectDevice} />
 }
 
-function LockDeviceDetails(props: {
+function Content(props: {
   device: LockDevice
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element {
