@@ -31,8 +31,7 @@ export function LockDeviceDetails(props: {
 
   const accessCodeCount = accessCodes?.length
 
-  const accessCodeLength =
-    device.properties?.schlage_metadata?.access_code_length
+  const accessCodeLength = device.properties?.supported_code_lengths?.[0]
 
   if (accessCodes == null) {
     return null
