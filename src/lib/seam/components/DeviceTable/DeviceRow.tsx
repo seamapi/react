@@ -1,5 +1,4 @@
 import { getDeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
-import { isLockDevice } from 'lib/seam/devices/types.js'
 import type {
   UseDevicesData,
   UseDevicesParams,
@@ -41,7 +40,7 @@ export function DeviceRow({
           <div className='seam-device-statuses'>
             <OnlineStatus device={device} />
             <BatteryStatus device={device} />
-            {isLockDevice(device) && <LockStatus device={device} />}
+            <LockStatus device={device} />
           </div>
         </div>
       </TableCell>
