@@ -23,6 +23,7 @@ jobs:
         if: github.ref_name != 'main'
         id: vercel
         with:
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
           vercel_access_token: ${{ secrets.VERCEL_ACCESS_TOKEN }}
           vercel_team_id: ${{ vars.VERCEL_TEAM_ID }}
           prefix_url: 'https://'
