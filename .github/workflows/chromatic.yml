@@ -27,6 +27,7 @@ jobs:
         with:
           vercel_project_id: ${{ vars.VERCEL_PROJECT_ID }}
           vercel_team_id: ${{ vars.VERCEL_TEAM_ID }}
+          prefix_url: 'https://'
       - name: Get Seam endpoint
         id: seam_endpoint
         env:
