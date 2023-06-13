@@ -17,7 +17,15 @@ export function AccessCodeDevice({
 }): JSX.Element | null {
   const { isLoading, device } = useDevice({ device_id: deviceId })
 
-  if (isLoading || device == null || !isLockDevice(device)) {
+  if (isLoading) {
+    return null
+  }
+
+  if (device == null) {
+    return null
+  }
+
+  if (!isLockDevice(device)) {
     return null
   }
 
