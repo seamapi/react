@@ -1,5 +1,6 @@
+import { isLockDevice } from 'seamapi'
+
 import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
-import { isLockDevice } from 'lib/seam/devices/types.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 
 export interface DeviceDetailsProps {

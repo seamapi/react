@@ -1,6 +1,5 @@
 import type { HTMLAttributes } from 'react'
-
-import type { CommonDevice } from 'lib/seam/devices/types.js'
+import type { CommonDevice } from 'seamapi'
 
 export function DeviceImage(
   props: {

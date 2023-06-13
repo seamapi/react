@@ -1,4 +1,4 @@
-import { type CommonDevice, isLockDevice } from 'lib/seam/devices/types.js'
+import { type CommonDevice, isLockDevice } from 'seamapi'
 
 interface DeviceModelProps {
   device: CommonDevice

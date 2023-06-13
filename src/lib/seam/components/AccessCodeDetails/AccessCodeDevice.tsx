@@ -1,7 +1,6 @@
-import type { LockDevice } from 'seamapi'
+import { isLockDevice, type LockDevice } from 'seamapi'
 
 import { getDeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
-import { isLockDevice } from 'lib/seam/devices/types.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Button } from 'lib/ui/Button.js'

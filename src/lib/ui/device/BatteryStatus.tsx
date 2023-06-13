@@ -1,10 +1,9 @@
-import type { BatteryStatus as SeamBatteryStatus } from 'seamapi'
+import type { BatteryStatus as SeamBatteryStatus, CommonDevice } from 'seamapi'
 
 import { BatteryLevelCriticalIcon } from 'lib/icons/BatteryLevelCritical.js'
 import { BatteryLevelFullIcon } from 'lib/icons/BatteryLevelFull.js'
 import { BatteryLevelHighIcon } from 'lib/icons/BatteryLevelHigh.js'
 import { BatteryLevelLowIcon } from 'lib/icons/BatteryLevelLow.js'
-import type { CommonDevice } from 'lib/seam/devices/types.js'
 
 interface BatteryStatusProps {
   device: CommonDevice

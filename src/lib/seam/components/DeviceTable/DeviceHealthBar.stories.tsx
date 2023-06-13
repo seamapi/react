@@ -39,6 +39,9 @@ export const Content: Story = {
               properties: {
                 name: 'mydevice',
                 online: true,
+                model: {
+                  display_name: 'Pro Lock 9000',
+                },
               },
               errors: [
                 {
@@ -65,6 +68,9 @@ export const Content: Story = {
               properties: {
                 name: 'mydevice',
                 online: true,
+                model: {
+                  display_name: 'Smart Lock 2nd Generation',
+                },
               },
               errors: [
                 {

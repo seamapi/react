@@ -1,6 +1,7 @@
+import type { CommonDevice } from 'seamapi'
+
 import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
-import type { CommonDevice } from 'lib/seam/devices/types.js'
 
 interface OnlineStatusProps {
   device: CommonDevice
