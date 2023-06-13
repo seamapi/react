@@ -31,8 +31,6 @@ export function LockDeviceDetails(props: {
 
   const accessCodeCount = accessCodes?.length
 
-  const accessCodeLength = device.properties?.supported_code_lengths?.[0]
-
   if (accessCodes == null) {
     return null
   }
@@ -110,7 +108,11 @@ export function LockDeviceDetails(props: {
               </Button>
             </div>
           </div>
-          <AccessCodeLength accessCodeLength={accessCodeLength} />
+          <AccessCodeLength
+            supportedCodeLengths={
+              device.properties?.supported_code_lengths ?? []
+            }
+          />
         </div>
       </div>
     </div>
@@ -118,18 +120,24 @@ export function LockDeviceDetails(props: {
 }
 
 function AccessCodeLength(props: {
-  accessCodeLength: number | null | undefined
+  supportedCodeLengths: number[]
 }): JSX.Element | null {
-  const { accessCodeLength } = props
-  if (accessCodeLength == null) {
+  const { supportedCodeLengths } = props
+
+  if (supportedCodeLengths.length === 0) {
     return null
   }
+
+  const min = Math.min(...supportedCodeLengths)
+  const max = Math.max(...supportedCodeLengths)
+
+  const range = min === max ? max : `${min}–${max}`
 
   return (
     <div className='seam-content seam-access-code-length'>
       <span className='seam-label'>{t.codeLength}</span>
       <span className='seam-value'>
-        {accessCodeLength} {t.digits}
+        {range} {t.digits}
       </span>
     </div>
   )

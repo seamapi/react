@@ -50,7 +50,7 @@ export const seedFake = (db) => {
         house_name: 'My House',
         keypad_battery_level: 'Not Available',
       },
-      supported_code_lengths: [6],
+      supported_code_lengths: [4, 5, 6],
       name: 'FRONT DOOR',
       battery: {
         level: 0.9999532347993827,
