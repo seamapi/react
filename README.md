@@ -275,9 +275,6 @@ Edit the seed data for the fake or find relevant ids for testing components here
 - [Storybook fake seed](./.storybook/seed-fake.js).
 - [Jest test fake seed](./test/jest/global-setup.cjs).
 
-> Note that the Chromatic tests use the fake seed data on the main branch, not the Vercel Preview Deployment.
-> To review UI changes with new seed data, update the seed data on the main branch first.
-
 ### Previews
 
 Every pull request deploys the Storybook with the examples
@@ -355,10 +352,12 @@ The following repository secrets must be set on [GitHub Actions]:
 - `GIT_USER_EMAIL`: The GitHub bot user's email.
 - `GPG_PRIVATE_KEY`: The GitHub bot user's [GPG private key].
 - `GPG_PASSPHRASE`: The GitHub bot user's GPG passphrase.
+- `VERCEL_ACCESS_TOKEN`: The Vercel project token.
 - `CHROMATIC_PROJECT_TOKEN`: The Chromatic project token.
 
 The following repository variables must be set on [GitHub Actions]:
 
+- `VERCEL_PROJECT_ID`: The Vercel project ID.
 - `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.

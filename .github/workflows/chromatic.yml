@@ -18,12 +18,35 @@ jobs:
           fetch-depth: 0
       - name: Setup
         uses: ./.github/actions/setup
+      - name: Wait for Vercel preview
+        if: github.ref_name != 'main'
+        run: sleep 60
+      - name: Get Vercel preview
+        uses: zentered/vercel-preview-url@v1.1.9
+        if: github.ref_name != 'main'
+        id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}
+        with:
+          vercel_project_id: ${{ vars.VERCEL_PROJECT_ID }}
+      - name: Get Seam endpoint
+        id: seam_endpoint
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          STORYBOOK_SEAM_ENDPOINT: ${{ vars.STORYBOOK_SEAM_ENDPOINT }}
+          VERCEL_PREVIEW_URL: 'https://${{ steps.vercel.outputs.preview_url }}'
+        run: |
+          if [ $REF_NAME != 'main' ]; then
+            echo "url=${VERCEL_PREVIEW_URL}" >> $GITHUB_OUTPUT
+          else
+            echo "url=${STORYBOOK_SEAM_ENDPOINT}" >> $GITHUB_OUTPUT
+          fi
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: storybook:build
         env:
-          STORYBOOK_SEAM_ENDPOINT: ${{ vars.STORYBOOK_SEAM_ENDPOINT }}
+          STORYBOOK_SEAM_ENDPOINT: ${{ steps.seam_endpoint.outputs.url }}
           STORYBOOK_SEAM_PUBLISHABLE_KEY: ${{ vars.STORYBOOK_SEAM_PUBLISHABLE_KEY }}
           STORYBOOK_SEAM_USER_IDENTIFIER_KEY: ${{ vars.STORYBOOK_SEAM_USER_IDENTIFIER_KEY }}
