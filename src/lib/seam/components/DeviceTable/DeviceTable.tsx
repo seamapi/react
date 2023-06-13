@@ -8,6 +8,7 @@ import {
   DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
+import { isLockDevice } from 'lib/seam/devices/types.js'
 import {
   useDevices,
   type UseDevicesData,
@@ -60,6 +61,7 @@ export function DeviceTable({
   const filteredDevices = useMemo(
     () =>
       devices
+        ?.filter(isLockDevice)
         ?.filter((device) => deviceFilter(device, searchInputValue))
         ?.sort(deviceComparator) ?? [],
     [devices, searchInputValue, deviceFilter, deviceComparator]
