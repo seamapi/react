@@ -353,7 +353,6 @@ The following repository secrets must be set on [GitHub Actions]:
 - `GPG_PRIVATE_KEY`: The GitHub bot user's [GPG private key].
 - `GPG_PASSPHRASE`: The GitHub bot user's GPG passphrase.
 - `VERCEL_ACCESS_TOKEN`: The Vercel project token.
-- `CHROMATIC_PROJECT_TOKEN`: The Chromatic project token.
 
 The following repository variables must be set on [GitHub Actions]:
 
