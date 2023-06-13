@@ -18,9 +18,6 @@ jobs:
           fetch-depth: 0
       - name: Setup
         uses: ./.github/actions/setup
-      - name: Wait for Vercel preview
-        if: github.ref_name != 'main'
-        run: sleep 60
       - name: Get Vercel preview
         uses: zentered/vercel-preview-url@v1.1.9
         if: github.ref_name != 'main'
