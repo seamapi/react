@@ -357,7 +357,8 @@ The following repository secrets must be set on [GitHub Actions]:
 
 The following repository variables must be set on [GitHub Actions]:
 
-- `VERCEL_PROJECT_ID`: The Vercel project ID.
+- `VERCEL_PROJECT_ID`: The Vercel project id.
+- `VERCEL_TEAM_ID`: The Vercel team id.
 - `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
