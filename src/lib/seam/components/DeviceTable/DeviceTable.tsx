@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
+import { isLockDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -60,6 +61,7 @@ export function DeviceTable({
   const filteredDevices = useMemo(
     () =>
       devices
+        ?.filter(isLockDevice)
         ?.filter((device) => deviceFilter(device, searchInputValue))
         ?.sort(deviceComparator) ?? [],
     [devices, searchInputValue, deviceFilter, deviceComparator]
@@ -108,13 +110,13 @@ export function DeviceTable({
         />
       </TableHeader>
       <TableBody>
-        <Body devices={filteredDevices} onDeviceClick={handleDeviceClick} />
+        <Content devices={filteredDevices} onDeviceClick={handleDeviceClick} />
       </TableBody>
     </div>
   )
 }
 
-function Body(props: {
+function Content(props: {
   devices: Array<UseDevicesData[number]>
   onDeviceClick: (deviceId: string) => void
 }): JSX.Element {
@@ -159,6 +161,5 @@ function Body(props: {
 
 const t = {
   devices: 'Devices',
-  unknownLock: 'Unknown Lock',
   noDevicesMessage: 'Sorry, no devices were found',
 }

@@ -1,7 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type {
-  CommonDeviceProperties,
-  Device,
+  CommonDevice,
   DevicesListRequest,
   DevicesListResponse,
   SeamError,
@@ -11,7 +10,7 @@ import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseDevicesParams = DevicesListRequest
-export type UseDevicesData = Array<Device<CommonDeviceProperties>>
+export type UseDevicesData = CommonDevice[]
 
 export function useDevices(
   params?: UseDevicesParams

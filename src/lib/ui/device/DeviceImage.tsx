@@ -1,8 +1,10 @@
 import type { HTMLAttributes } from 'react'
-import type { LockDevice } from 'seamapi'
+import type { CommonDevice } from 'seamapi'
 
 export function DeviceImage(
-  props: { device: LockDevice } & HTMLAttributes<HTMLImageElement>
+  props: {
+    device: CommonDevice
+  } & HTMLAttributes<HTMLImageElement>
 ): JSX.Element {
   const { device, ...imageProps } = props
 

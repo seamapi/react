@@ -1,4 +1,4 @@
-import type { LockDevice } from 'seamapi'
+import type { BatteryStatus as SeamBatteryStatus, CommonDevice } from 'seamapi'
 
 import { BatteryLevelCriticalIcon } from 'lib/icons/BatteryLevelCritical.js'
 import { BatteryLevelFullIcon } from 'lib/icons/BatteryLevelFull.js'
@@ -6,31 +6,23 @@ import { BatteryLevelHighIcon } from 'lib/icons/BatteryLevelHigh.js'
 import { BatteryLevelLowIcon } from 'lib/icons/BatteryLevelLow.js'
 
 interface BatteryStatusProps {
-  device: LockDevice
+  device: CommonDevice
 }
 
 export function BatteryStatus(props: BatteryStatusProps): JSX.Element {
-  const {
-    device: {
-      properties: { battery_level: batteryLevel },
-    },
-  } = props
-
   return (
     <div className='seam-battery-status'>
-      <Content batteryLevel={batteryLevel} />
+      <Content status={props.device.properties.battery?.status} />
     </div>
   )
 }
 
-function Content(props: { batteryLevel?: number }): JSX.Element | null {
-  const { batteryLevel } = props
+function Content(props: {
+  status: SeamBatteryStatus | null | undefined
+}): JSX.Element | null {
+  const { status } = props
 
-  if (batteryLevel == null) {
-    return null
-  }
-
-  if (batteryLevel > batteryThreshold.full) {
+  if (status === 'full') {
     return (
       <>
         <BatteryLevelFullIcon />
@@ -39,7 +31,7 @@ function Content(props: { batteryLevel?: number }): JSX.Element | null {
     )
   }
 
-  if (batteryLevel > batteryThreshold.high) {
+  if (status === 'good') {
     return (
       <>
         <BatteryLevelHighIcon />
@@ -48,7 +40,7 @@ function Content(props: { batteryLevel?: number }): JSX.Element | null {
     )
   }
 
-  if (batteryLevel > batteryThreshold.low) {
+  if (status === 'low') {
     return (
       <>
         <BatteryLevelLowIcon />
@@ -57,18 +49,16 @@ function Content(props: { batteryLevel?: number }): JSX.Element | null {
     )
   }
 
-  return (
-    <>
-      <BatteryLevelCriticalIcon />
-      <span className='seam-text-danger'>{t.critical}</span>
-    </>
-  )
-}
+  if (status === 'critical') {
+    return (
+      <>
+        <BatteryLevelCriticalIcon />
+        <span className='seam-text-danger'>{t.critical}</span>
+      </>
+    )
+  }
 
-const batteryThreshold = {
-  full: 0.85,
-  high: 0.6,
-  low: 0.3,
+  return null
 }
 
 const t = {
