@@ -1,8 +1,6 @@
 import classNames from 'classnames'
 import type { DeviceModel } from 'seamapi'
 
-import { capitalize } from 'lib/strings.js'
-
 export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
 }
@@ -10,7 +8,7 @@ export interface SupportedDeviceRowProps {
 export function SupportedDeviceRow({
   deviceModel,
 }: SupportedDeviceRowProps): JSX.Element {
-  const statusColor = supportLevelColors[deviceModel.support_level] ?? 'gray'
+  const statusColor = supportLevelColors[deviceModel.support_level] ?? 'unknown'
   return (
     <tr>
       <td>
@@ -24,7 +22,7 @@ export function SupportedDeviceRow({
         <div
           className={classNames('seam-status-pill', `status-${statusColor}`)}
         >
-          <span>{capitalize(deviceModel.support_level)}</span>
+          <span>{status[deviceModel.support_level]}</span>
         </div>
       </td>
     </tr>
@@ -33,11 +31,17 @@ export function SupportedDeviceRow({
 
 const supportLevelColors: Record<
   DeviceModel['support_level'],
-  'green' | 'blue' | 'orange'
+  'green' | 'blue' | 'unknown'
 > = {
   live: 'green',
   beta: 'blue',
-  unsupported: 'orange',
+  unsupported: 'unknown',
+}
+
+const status: Record<DeviceModel['support_level'], string> = {
+  live: 'LIVE',
+  beta: 'BETA',
+  unsupported: 'Inquire',
 }
 
 const connectionTypeNames: Record<DeviceModel['connection_type'], string> = {

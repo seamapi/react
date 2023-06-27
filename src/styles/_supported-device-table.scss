@@ -184,34 +184,32 @@ $row-padding: 8px;
     .seam-status-pill {
       display: inline-flex;
       padding: 4px 8px;
-      border-radius: 90px;
-      background-color: colors.$status-green;
+      border-radius: 16px;
 
       & span {
-        color: white;
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 1;
+        font-size: 11px;
+        line-height: 134%;
+        letter-spacing: 0.55px;
       }
 
       &.status-green {
-        background-color: colors.$status-green;
-      }
-
-      &.status-orange {
-        background-color: colors.$status-orange;
-      }
-
-      &.status-red {
-        background-color: colors.$status-red;
+        background-color: colors.$pill-green-bg;
+        color: colors.$pill-green-text;
       }
 
       &.status-blue {
-        background-color: colors.$primary;
+        background-color: colors.$pill-blue-bg;
+        color: colors.$pill-blue-text;
       }
 
-      &.status-gray {
-        background-color: colors.$bg-d;
+      &.status-unknown {
+        color: colors.$text-gray-1;
+        font-size: 12px;
+        line-height: 118%;
+      }
+
+      &:not(.status-unknown) {
+        font-weight: 600;
       }
     }
   }
