@@ -14,10 +14,11 @@ export function SupportedDeviceRow({
       <td>
         <img width={40} src={deviceModel.icon_url} />
       </td>
-      <td>{deviceModel.main_category}</td>
       <td>{deviceModel.model_name}</td>
-      <td>{deviceModel.manufacturer_model_id}</td>
-      <td>{connectionTypeNames[deviceModel.connection_type]}</td>
+      <td>
+        {deviceModel.manufacturer_model_id} •{' '}
+        {connectionTypeNames[deviceModel.connection_type]}
+      </td>
       <td>
         <div
           className={classNames('seam-status-pill', `status-${statusColor}`)}
