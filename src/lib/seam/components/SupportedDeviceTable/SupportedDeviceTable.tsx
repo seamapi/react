@@ -6,12 +6,17 @@ import { SupportedDeviceFilterArea } from 'lib/seam/components/SupportedDeviceTa
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 
 export interface SupportedDeviceTableProps {
+  disableFilter?: boolean
+  /**
+   * @deprecated Use disableFilter.
+   */
   cannotFilter?: boolean
   className?: string
 }
 
 export function SupportedDeviceTable({
-  cannotFilter = false,
+  disableFilter,
+  cannotFilter,
   className,
 }: SupportedDeviceTableProps = {}): JSX.Element {
   const [filterValue, setFilterValue] = useState('')
@@ -21,6 +26,9 @@ export function SupportedDeviceTable({
     brand: null,
   })
 
+  const hideFilter =
+    cannotFilter == null ? disableFilter ?? false : cannotFilter ?? false
+
   return (
     <div
       className={classNames(
@@ -28,7 +36,7 @@ export function SupportedDeviceTable({
         className
       )}
     >
-      {!cannotFilter && (
+      {!hideFilter && (
         <SupportedDeviceFilterArea
           filterValue={filterValue}
           setFilterValue={setFilterValue}
