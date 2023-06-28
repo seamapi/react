@@ -42,7 +42,9 @@ export function AccessCodeDetails({
     )
   }
 
-  const errorFilter = (error: AccessCodeError | DeviceError | ConnectedAccountError) => {
+  const errorFilter = (
+    error: AccessCodeError | DeviceError | ConnectedAccountError
+  ) => {
     if (!error?.is_access_code_error) return true
 
     if (
