@@ -1,4 +1,4 @@
-gimport { CheckIcon } from 'lib/icons/Check.js'
+import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import type { UseAccessCodesData } from 'lib/seam/access-codes/use-access-codes.js'
 import { TableFilterBar } from 'lib/ui/Table/TableFilterBar/TableFilterBar.js'
