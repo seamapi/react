@@ -1,7 +1,7 @@
 import type { DeviceModel } from 'seamapi'
 
 import { SupportedDeviceBrandSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceBrandSection.js'
-import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
+import { SupportedDeviceFilterResultRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterResultRowProps.js'
 import {
   type DeviceModelFilters,
   useFilteredDeviceModels,
@@ -78,7 +78,7 @@ export function SupportedDeviceContent({
     return (
       <div className='seam-supported-device-table-content'>
         {deviceModels.map((deviceModel, index) => (
-          <SupportedDeviceRow
+          <SupportedDeviceFilterResultRow
             key={[
               deviceModel.main_category,
               deviceModel.brand,

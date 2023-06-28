@@ -241,6 +241,19 @@ $row-padding: 8px;
         display: flex;
         padding: 8px;
       }
+
+      &.filter-result-row {
+
+        .seam-model-name {
+          display: flex;
+          align-items: center;
+
+          .seam-brand-image {
+            width: 32px;
+            margin-right: 4px;
+          }
+        }
+      }
     }
 
     .seam-status-pill {

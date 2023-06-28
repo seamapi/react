@@ -10,28 +10,45 @@ export interface SupportedDeviceRowProps {
 export function SupportedDeviceRow({
   deviceModel,
 }: SupportedDeviceRowProps): JSX.Element {
-  const statusColor = supportLevelColors[deviceModel.support_level] ?? 'unknown'
   return (
     <div className='seam-row'>
-      <div className='seam-col seam-device-image-col'>
-        <div className='seam-image-box'>
-          <img width={40} src={deviceModel.icon_url} />
-        </div>
+      <ImageColumn deviceModel={deviceModel} />
+      <ModelColumn deviceModel={deviceModel} />
+      <StatusColumn deviceModel={deviceModel} />
+    </div>
+  )
+}
+
+export function ImageColumn({ deviceModel }: SupportedDeviceRowProps) {
+  return (
+    <div className='seam-col seam-device-image-col'>
+      <div className='seam-image-box'>
+        <img width={40} src={deviceModel.icon_url} />
       </div>
-      <div className='seam-col  seam-model-col'>
-        <div className='seam-model-name'>{deviceModel.model_name}</div>
-        <div className='seam-model-id'>
-          {deviceModel.manufacturer_model_id}
-          <DotDivider />
-          {connectionTypeNames[deviceModel.connection_type]}
-        </div>
+    </div>
+  )
+}
+
+export function ModelColumn({ deviceModel }: SupportedDeviceRowProps) {
+  return (
+    <div className='seam-col seam-model-col'>
+      <div className='seam-model-name'>{deviceModel.model_name}</div>
+      <div className='seam-model-id'>
+        {deviceModel.manufacturer_model_id}
+        <DotDivider />
+        {connectionTypeNames[deviceModel.connection_type]}
       </div>
-      <div className='seam-col seam-status-col'>
-        <div
-          className={classNames('seam-status-pill', `status-${statusColor}`)}
-        >
-          <span>{status[deviceModel.support_level]}</span>
-        </div>
+    </div>
+  )
+}
+
+export function StatusColumn({ deviceModel }: SupportedDeviceRowProps) {
+  const statusColor = supportLevelColors[deviceModel.support_level] ?? 'unknown'
+
+  return (
+    <div className='seam-col seam-status-col'>
+      <div className={classNames('seam-status-pill', `status-${statusColor}`)}>
+        <span>{status[deviceModel.support_level]}</span>
       </div>
     </div>
   )
@@ -52,7 +69,10 @@ const status: Record<DeviceModel['support_level'], string> = {
   unsupported: 'Inquire',
 }
 
-const connectionTypeNames: Record<DeviceModel['connection_type'], string> = {
+export const connectionTypeNames: Record<
+  DeviceModel['connection_type'],
+  string
+> = {
   wifi: 'Wifi',
   zwave: 'Z-Wave',
   zigbee: 'Zigbee',
