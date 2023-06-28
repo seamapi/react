@@ -5,6 +5,7 @@ import { isLockDevice } from 'seamapi'
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
+  type AccountFilter,
   type DeviceFilter,
   DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
@@ -127,7 +128,9 @@ function Content(props: {
   onDeviceClick: (deviceId: string) => void
 }): JSX.Element {
   const { devices, onDeviceClick } = props
-  const [filter, setFilter] = useState<DeviceFilter | null>(null)
+  const [filter, setFilter] = useState<AccountFilter | DeviceFilter | null>(
+    null
+  )
 
   if (devices.length === 0) {
     return <EmptyPlaceholder>{t.noDevicesMessage}</EmptyPlaceholder>
@@ -138,8 +141,17 @@ function Content(props: {
       return true
     }
 
+    if (filter === 'account_issues') {
+      return (
+        device.errors.filter((error) => 'is_connected_account_error' in error)
+          .length > 0
+      )
+    }
+
     if (filter === 'device_issues') {
-      return device.errors.length > 0
+      return (
+        device.errors.filter((error) => 'is_device_error' in error).length > 0
+      )
     }
 
     return true

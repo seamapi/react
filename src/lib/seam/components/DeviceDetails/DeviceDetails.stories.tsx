@@ -70,3 +70,7 @@ export const DisableLockUnlock: Story = {
     />
   ),
 }
+
+export const DeviceOffline: Story = {
+  render: (props) => <DeviceDetails {...props} deviceId='device2' />,
+}

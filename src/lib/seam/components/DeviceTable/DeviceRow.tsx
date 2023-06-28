@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+
 import type {
   UseDevicesData,
   UseDevicesParams,
@@ -25,24 +27,61 @@ export function DeviceRow({
   device,
   onClick,
 }: DeviceRowProps): JSX.Element | null {
+  const opacityClass =
+    isAccountOffline(device) || isDeviceOffline(device)
+      ? 'seam-offline-fade'
+      : undefined
   return (
-    <TableRow key={device.device_id} onClick={onClick}>
-      <TableCell className='seam-image-cell'>
+    <TableRow onClick={onClick}>
+      <TableCell className={classNames('seam-image-cell', opacityClass)}>
         <DeviceImage device={device} />
       </TableCell>
       <TableCell className='seam-body-cell'>
-        <Title className='seam-truncated-text'>{device.properties.name}</Title>
+        <Title className={classNames('seam-truncated-text', opacityClass)}>
+          {device.properties.name}
+        </Title>
         <div className='seam-bottom'>
-          <span className='seam-device-model'>
+          <span className={classNames('seam-device-model', opacityClass)}>
             {device.properties.model.display_name}
           </span>
-          <div className='seam-device-statuses'>
-            <OnlineStatus device={device} />
-            <BatteryStatus device={device} />
-            <LockStatus device={device} />
-          </div>
+          <DeviceStatuses device={device} />
         </div>
       </TableCell>
     </TableRow>
+  )
+}
+
+interface DeviceStatusesProps {
+  device: UseDevicesData[number]
+}
+
+function DeviceStatuses({ device }: DeviceStatusesProps): JSX.Element | null {
+  if (isAccountOffline(device) || isDeviceOffline(device)) {
+    return (
+      <div className='seam-device-statuses'>
+        <OnlineStatus device={device} />
+      </div>
+    )
+  }
+  return (
+    <div className='seam-device-statuses'>
+      <OnlineStatus device={device} />
+      <BatteryStatus device={device} />
+      <LockStatus device={device} />
+    </div>
+  )
+}
+
+const isAccountOffline = (device: UseDevicesData[number]): boolean => {
+  return (
+    device.errors.filter((error) => error.error_code === 'account_disconnected')
+      .length > 0
+  )
+}
+
+const isDeviceOffline = (device: UseDevicesData[number]): boolean => {
+  return (
+    device.errors.filter((error) => error.error_code === 'device_disconnected')
+      .length > 0
   )
 }

@@ -9,6 +9,10 @@
     .seam-table-row {
       cursor: pointer;
 
+      .seam-offline-fade {
+        opacity: 0.4;
+      }
+
       .seam-image-cell {
         width: 64px;
         height: 64px;
