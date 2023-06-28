@@ -60,3 +60,13 @@ export const InsideModal: Story = {
     )
   },
 }
+
+export const DisableLockUnlock: Story = {
+  render: (props, { globals }) => (
+    <DeviceDetails
+      {...props}
+      deviceId={props.deviceId ?? globals['deviceId']}
+      disableLockUnlock
+    />
+  ),
+}
