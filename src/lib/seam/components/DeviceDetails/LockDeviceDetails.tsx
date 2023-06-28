@@ -13,12 +13,14 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
+
 export function LockDeviceDetails(props: {
   device: LockDevice
+  disableLockUnlock: boolean
   onBack?: () => void
   className?: string
 }): JSX.Element | null {
-  const { device, onBack, className } = props
+  const { device, disableLockUnlock, onBack, className } = props
 
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
@@ -98,14 +100,16 @@ export function LockDeviceDetails(props: {
               <span className='seam-value'>{lockStatus}</span>
             </div>
             <div className='seam-right'>
-              <Button
-                size='small'
-                onClick={() => {
-                  toggleLock.mutate()
-                }}
-              >
-                {toggleLockLabel}
-              </Button>
+              {!disableLockUnlock && (
+                <Button
+                  size='small'
+                  onClick={() => {
+                    toggleLock.mutate()
+                  }}
+                >
+                  {toggleLockLabel}
+                </Button>
+              )}
             </div>
           </div>
           <AccessCodeLength

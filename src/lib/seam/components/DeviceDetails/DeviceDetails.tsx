@@ -5,12 +5,14 @@ import { useDevice } from 'lib/seam/devices/use-device.js'
 
 export interface DeviceDetailsProps {
   deviceId: string
+  disableLockUnlock?: boolean
   onBack?: () => void
   className?: string
 }
 
 export function DeviceDetails({
   deviceId,
+  disableLockUnlock = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
@@ -27,6 +29,7 @@ export function DeviceDetails({
       <LockDeviceDetails
         className={className}
         device={device}
+        disableLockUnlock={disableLockUnlock}
         onBack={onBack}
       />
     )
