@@ -82,7 +82,7 @@ function DeviceStatuses({ device }: DeviceStatusesProps): JSX.Element | null {
 
 const isAccountOffline = (device: UseDevicesData[number]): boolean => {
   return (
-    device.errors.filter((error) => 'is_connected_account_error' in error)
+    device.errors.filter((error) => error.error_code === 'account_disconnected')
       .length > 0
   )
 }

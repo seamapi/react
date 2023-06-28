@@ -254,7 +254,7 @@ export const seedFake = (db) => {
       {
         is_device_error: true,
         error_code: 'low_battery',
-        message: 'Battery levels is low.',
+        message: 'Battery level is low.',
       },
     ],
   })
