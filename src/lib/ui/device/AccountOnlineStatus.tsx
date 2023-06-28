@@ -3,20 +3,21 @@ import type { CommonDevice } from 'seamapi'
 import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
-interface OnlineStatusProps {
+interface AccountOnlineStatusProps {
   device: CommonDevice
 }
 
-export function AccountOnlineStatus(props: OnlineStatusProps): JSX.Element {
-  const {
-    device: {
-      properties: { online },
-    },
-  } = props
+export function AccountOnlineStatus(
+  props: AccountOnlineStatusProps
+): JSX.Element {
+  const { device } = props
+  const isAccountOffline =
+    device.errors.filter((error) => error.error_code === 'account_disconnected')
+      .length > 0
 
   return (
     <div className='seam-online-status'>
-      <Content isOnline={online} />
+      <Content isOnline={!isAccountOffline} />
     </div>
   )
 }
