@@ -1,13 +1,13 @@
 import type { CommonDevice } from 'seamapi'
 
-import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
+import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
 interface OnlineStatusProps {
   device: CommonDevice
 }
 
-export function OnlineStatus(props: OnlineStatusProps): JSX.Element {
+export function AccountOnlineStatus(props: OnlineStatusProps): JSX.Element {
   const {
     device: {
       properties: { online },
@@ -34,13 +34,13 @@ function Content(props: { isOnline: boolean }): JSX.Element {
 
   return (
     <>
-      <OnlineStatusDeviceOfflineIcon />
-      <span className='seam-text-danger'>{t.deviceOffline}</span>
+      <OnlineStatusAccountOfflineIcon />
+      <span className='seam-text-danger'>{t.accountOffline}</span>
     </>
   )
 }
 
 const t = {
   online: 'Online',
-  deviceOffline: 'Device Offline',
+  accountOffline: 'Account Offline',
 }

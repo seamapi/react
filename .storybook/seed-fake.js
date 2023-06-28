@@ -37,7 +37,7 @@ export const seedFake = (db) => {
     created_at: '2023-05-16T10:17:18.000',
     properties: {
       locked: false,
-      online: true,
+      online: false,
       door_open: false,
       manufacturer: 'august',
       battery_level: 0.9999532347993827,
@@ -63,6 +63,7 @@ export const seedFake = (db) => {
     },
     errors: [
       {
+        is_connected_account_error: true,
         error_code: 'account_disconnected',
         message: 'Device account has been disconnected.',
       },
@@ -188,7 +189,7 @@ export const seedFake = (db) => {
     created_at: '2023-05-24T22:15:14.000',
     properties: {
       locked: false,
-      online: true,
+      online: false,
       door_open: false,
       manufacturer: 'august',
       battery_level: 0.9999532347993827,
@@ -204,13 +205,20 @@ export const seedFake = (db) => {
       supported_code_lengths: [6],
       name: 'GARAGE',
       battery: {
-        level: 0.9999532347993827,
+        level: 0.3,
         status: 'full',
       },
       image_url:
         'https://connect.getseam.com/assets/images/devices/august_wifi-smart-lock-3rd-gen_silver_front.png',
       image_alt_text: 'August Wifi Smart Lock 3rd Gen, Silver, Front',
     },
+    errors: [
+      {
+        is_device_error: true,
+        error_code: 'device_disconnected',
+        message: 'Device is disconnected.',
+      },
+    ],
   })
 
   const device3 = db.addDevice({
@@ -242,6 +250,47 @@ export const seedFake = (db) => {
         'https://connect.getseam.com/assets/images/devices/schlage_sense-smart-deadbolt-with-camelot-trim_front.png',
       image_alt_text: 'Schlage Sense Smart Deadbolt with Camelot Trim, Front',
     },
+    errors: [
+      {
+        is_device_error: true,
+        error_code: 'low_battery',
+        message: 'Battery levels is low.',
+      },
+    ],
+  })
+
+  const device4 = db.addDevice({
+    connected_account_id: ca.connected_account_id,
+    device_type: 'august_lock',
+    name: 'Back Door',
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-24T22:15:14.000',
+    properties: {
+      locked: true,
+      online: true,
+      door_open: false,
+      manufacturer: 'august',
+      battery_level: 0.9999532347993827,
+      serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
+      august_metadata: {
+        lock_id: 'lock-3',
+        house_id: 'house-1',
+        lock_name: 'GARAGE',
+        has_keypad: true,
+        house_name: 'My House',
+        keypad_battery_level: 'Not Available',
+      },
+      supported_code_lengths: [6],
+      name: 'GARAGE',
+      battery: {
+        level: 0.8,
+        status: 'full',
+      },
+      image_url:
+        'https://connect.getseam.com/assets/images/devices/august_wifi-smart-lock-3rd-gen_silver_front.png',
+      image_alt_text: 'August Wifi Smart Lock 3rd Gen, Silver, Front',
+    },
+    errors: [],
   })
 
   db.addClientSession({
@@ -254,6 +303,7 @@ export const seedFake = (db) => {
     device1,
     device2,
     device3,
+    device4,
   })
 }
 

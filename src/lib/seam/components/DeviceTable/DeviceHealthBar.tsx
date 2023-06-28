@@ -1,15 +1,17 @@
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
+import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOffline.js'
 import type { UseDevicesData } from 'lib/seam/devices/use-devices.js'
 import { TableFilterBar } from 'lib/ui/Table/TableFilterBar/TableFilterBar.js'
 import { TableFilterItem } from 'lib/ui/Table/TableFilterBar/TableFilterItem.js'
 
+export type AccountFilter = 'account_issues'
 export type DeviceFilter = 'device_issues'
 
 interface DeviceHealthBarProps {
   devices: Array<UseDevicesData[number]>
-  filter: DeviceFilter | null
-  onFilterSelect: (filter: DeviceFilter | null) => void
+  filter: AccountFilter | DeviceFilter | null
+  onFilterSelect: (filter: AccountFilter | DeviceFilter | null) => void
 }
 
 export function DeviceHealthBar({
@@ -17,25 +19,40 @@ export function DeviceHealthBar({
   filter,
   onFilterSelect,
 }: DeviceHealthBarProps): JSX.Element {
-  const erroredDevices = devices.filter((device) => device.errors.length > 0)
-  const issueCount = erroredDevices.length
+  const erroredAccounts = devices.filter((device) => {
+    return (
+      device.errors.filter((error) => 'is_connected_account_error' in error)
+        .length > 0
+    )
+  })
+  const erroredDevices = devices.filter((device) => {
+    return (
+      device.errors.filter((error) => 'is_device_error' in error).length > 0
+    )
+  })
+  const accountIssueCount = erroredAccounts.length
+  const deviceIssueCount = erroredDevices.length
 
-  const toggle = (target: DeviceFilter) => () => {
+  const toggle = (target: AccountFilter | DeviceFilter) => () => {
     const newFilter = target === filter ? null : target
     onFilterSelect(newFilter)
   }
 
-  const isPlural = issueCount === 0 || issueCount > 1
-  const label = isPlural
-    ? `${issueCount} ${t.deviceIssues}`
-    : `${issueCount} ${t.deviceIssue}`
+  const deviceLabel =
+    deviceIssueCount > 0
+      ? `${deviceIssueCount} ${t.deviceIssues}`
+      : `${deviceIssueCount} ${t.deviceIssue}`
+  const accountLabel =
+    accountIssueCount > 0
+      ? `${accountIssueCount} ${t.accountIssues}`
+      : `${accountIssueCount} ${t.accountIssue}`
 
-  if (issueCount === 0) {
+  if (accountIssueCount === 0 && deviceIssueCount === 0) {
     return (
       <TableFilterBar filterCleared>
         <TableFilterItem>
           <CheckIcon />
-          {t.devicesOk}
+          {t.devicesAndAccountsOk}
         </TableFilterItem>
       </TableFilterBar>
     )
@@ -48,19 +65,32 @@ export function DeviceHealthBar({
         onFilterSelect(null)
       }}
     >
-      <TableFilterItem
-        onClick={toggle('device_issues')}
-        selected={filter === 'device_issues'}
-      >
-        <ExclamationCircleOutlineIcon />
-        {label}
-      </TableFilterItem>
+      {deviceIssueCount > 0 && (
+        <TableFilterItem
+          onClick={toggle('device_issues')}
+          selected={filter === 'device_issues'}
+        >
+          <ExclamationCircleOutlineIcon />
+          {deviceLabel}
+        </TableFilterItem>
+      )}
+      {accountIssueCount > 0 && (
+        <TableFilterItem
+          onClick={toggle('account_issues')}
+          selected={filter === 'account_issues'}
+        >
+          <OnlineStatusAccountOfflineIcon />
+          {accountLabel}
+        </TableFilterItem>
+      )}
     </TableFilterBar>
   )
 }
 
 const t = {
-  devicesOk: 'Devices OK',
+  devicesAndAccountsOk: 'Devices & accounts OK',
+  accountIssue: 'account issue',
+  accountIssues: 'account issues',
   deviceIssue: 'device issue',
   deviceIssues: 'device issues',
 }

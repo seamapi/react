@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import {
+  type AccountFilter,
   type DeviceFilter,
   DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
@@ -20,7 +21,9 @@ type Story = StoryObj<typeof DeviceHealthBar>
 export const Content: Story = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [filter, setFilter] = useState<DeviceFilter | null>(null)
+    const [filter, setFilter] = useState<AccountFilter | DeviceFilter | null>(
+      null
+    )
     return (
       <Box display='grid' gap={3} gridTemplateColumns='1fr'>
         <DeviceHealthBar filter={null} onFilterSelect={() => {}} devices={[]} />
@@ -69,16 +72,16 @@ export const Content: Story = {
               workspace_id: 'workspace_1',
               properties: {
                 name: 'mydevice',
-                online: true,
+                online: false,
                 model: {
                   display_name: 'Smart Lock 2nd Generation',
                 },
               },
               errors: [
                 {
-                  error_code: 'account_disconnected',
-                  message: 'Device account has been disconnected.',
-                  is_connected_account_error: true,
+                  error_code: 'device_disconnected',
+                  message: 'Device has been disconnected.',
+                  is_device_error: true,
                 },
               ],
               warnings: [
