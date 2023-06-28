@@ -15,7 +15,7 @@ export interface SupportedDeviceTableProps {
 }
 
 export function SupportedDeviceTable({
-  disableFilter,
+  disableFilter = false,
   cannotFilter,
   className,
 }: SupportedDeviceTableProps = {}): JSX.Element {
@@ -26,8 +26,7 @@ export function SupportedDeviceTable({
     brand: null,
   })
 
-  const hideFilter =
-    cannotFilter == null ? disableFilter ?? false : cannotFilter ?? false
+  const hideFilter = cannotFilter ?? disableFilter
 
   return (
     <div
