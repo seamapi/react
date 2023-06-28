@@ -45,3 +45,13 @@ export const InsideModal: Story = {
     )
   },
 }
+
+export const DisableLockUnlock: Story = {
+  render: (props, { globals }) => (
+    <AccessCodeDetails
+      {...props}
+      accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+      disableLockUnlock
+    />
+  ),
+}

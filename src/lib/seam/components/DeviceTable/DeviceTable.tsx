@@ -30,6 +30,7 @@ export interface DeviceTableProps {
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
+  disableLockUnlock?: boolean
   onBack?: () => void
   className?: string
 }
@@ -48,6 +49,7 @@ export function DeviceTable({
   connectedAccountIds,
   onDeviceClick = () => {},
   preventDefaultOnDeviceClick = false,
+  disableLockUnlock = false,
   onBack,
   deviceFilter = defaultDeviceFilter,
   deviceComparator = compareByCreatedAtDesc,
@@ -87,6 +89,7 @@ export function DeviceTable({
         onBack={() => {
           setSelectedDeviceId(null)
         }}
+        disableLockUnlock={disableLockUnlock}
       />
     )
   }

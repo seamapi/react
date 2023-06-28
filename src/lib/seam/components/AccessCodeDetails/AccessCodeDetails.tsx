@@ -18,12 +18,14 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 export interface AccessCodeDetailsProps {
   accessCodeId: string
   onBack?: () => void
+  disableLockUnlock?: boolean
   className?: string
 }
 
 export function AccessCodeDetails({
   accessCodeId,
   onBack,
+  disableLockUnlock = false,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
@@ -43,6 +45,7 @@ export function AccessCodeDetails({
         onBack={() => {
           selectDevice(null)
         }}
+        disableLockUnlock={disableLockUnlock}
       />
     )
   }
@@ -80,6 +83,7 @@ export function AccessCodeDetails({
 
         <AccessCodeDevice
           deviceId={accessCode.device_id}
+          disableLockUnlock={disableLockUnlock}
           onSelectDevice={selectDevice}
         />
       </div>
