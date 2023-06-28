@@ -42,7 +42,8 @@ export const Content: Story = {
               errors: [
                 {
                   error_code: 'account_disconnected',
-                  message: 'Account Disconnected, you may need to reconnect the account with a new webview.',
+                  message:
+                    'Account Disconnected, you may need to reconnect the account with a new webview.',
                 },
               ],
               warnings: [
@@ -64,7 +65,8 @@ export const Content: Story = {
               errors: [
                 {
                   error_code: 'account_disconnected',
-                  message: 'Account Disconnected, you may need to reconnect the account with a new webview.',
+                  message:
+                    'Account Disconnected, you may need to reconnect the account with a new webview.',
                 },
               ],
               warnings: [
