@@ -53,7 +53,7 @@ export function AccessCodeDetails({
         ) {
           return true
         }
-        
+
         return false
       }) ?? []
     )
