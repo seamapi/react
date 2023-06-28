@@ -26,11 +26,11 @@ type Device = UseDevicesData[number]
 export interface DeviceTableProps {
   deviceIds?: string[]
   connectedAccountIds?: string[]
+  disableLockUnlock?: boolean
   deviceFilter?: (device: Device, searchInputValue: string) => boolean
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
-  disableLockUnlock?: boolean
   onBack?: () => void
   className?: string
 }
@@ -47,9 +47,9 @@ const defaultDeviceFilter = (
 export function DeviceTable({
   deviceIds,
   connectedAccountIds,
+  disableLockUnlock = false,
   onDeviceClick = () => {},
   preventDefaultOnDeviceClick = false,
-  disableLockUnlock = false,
   onBack,
   deviceFilter = defaultDeviceFilter,
   deviceComparator = compareByCreatedAtDesc,

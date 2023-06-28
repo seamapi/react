@@ -7,6 +7,7 @@ export const name = 'seam-device-table'
 export const props: ElementProps<DeviceTableProps> = {
   deviceIds: 'json',
   connectedAccountIds: 'json',
+  disableLockUnlock: 'boolean',
   deviceFilter: 'function',
   deviceComparator: 'function',
   onDeviceClick: 'function',
