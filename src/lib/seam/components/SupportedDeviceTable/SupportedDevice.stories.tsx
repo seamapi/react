@@ -20,7 +20,7 @@ type Story = StoryObj<typeof SupportedDeviceTable>
 export const Content: Story = {}
 
 export const NoFilter: Story = {
-  render: (props) => <SupportedDeviceTable {...props} cannotFilter />,
+  render: (props) => <SupportedDeviceTable {...props} disableFilter />,
 }
 
 export const InsideModal: Story = {
