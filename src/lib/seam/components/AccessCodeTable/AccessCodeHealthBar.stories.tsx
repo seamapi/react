@@ -39,6 +39,7 @@ export const Content: Story = {
               type: 'ongoing',
               code: '1234',
               status: 'setting',
+              is_backup_access_code_available: false,
               errors: [
                 {
                   error_code: 'account_disconnected',
@@ -62,6 +63,7 @@ export const Content: Story = {
               type: 'ongoing',
               code: '1234',
               status: 'setting',
+              is_backup_access_code_available: false,
               errors: [
                 {
                   error_code: 'account_disconnected',
