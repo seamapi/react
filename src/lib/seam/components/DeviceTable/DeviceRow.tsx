@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+
 import type {
   UseDevicesData,
   UseDevicesParams,
@@ -17,33 +19,52 @@ interface Props {
   onBack?: () => void
 }
 
+interface DeviceRowProps {
+  device: UseDevicesData[number]
+  onClick: () => void
+}
+
+export function DeviceRow({
+  device,
+  onClick,
+}: DeviceRowProps): JSX.Element | null {
+  const opacityClass =
+    isAccountOffline(device) || isDeviceOffline(device)
+      ? 'seam-offline-fade'
+      : undefined
+  return (
+    <TableRow onClick={onClick}>
+      <TableCell className={classNames('seam-image-cell', opacityClass)}>
+        <DeviceImage device={device} />
+      </TableCell>
+      <TableCell className='seam-body-cell'>
+        <Title className={classNames('seam-truncated-text', opacityClass)}>
+          {device.properties.name}
+        </Title>
+        <div className='seam-bottom'>
+          <span className={classNames('seam-device-model', opacityClass)}>
+            {device.properties.model.display_name}
+          </span>
+          <DeviceStatuses device={device} />
+        </div>
+      </TableCell>
+    </TableRow>
+  )
+}
+
 interface DeviceStatusesProps {
   device: UseDevicesData[number]
 }
 
-function accountIsOffline(device: UseDevicesData[number]): boolean {
-  return (
-    device.errors.filter((error) => 'is_connected_account_error' in error)
-      .length > 0
-  )
-}
-
-function deviceIsOffline(device: UseDevicesData[number]): boolean {
-  return (
-    device.errors.filter((error) => error.error_code === 'device_disconnected')
-      .length > 0
-  )
-}
-
 function DeviceStatuses({ device }: DeviceStatusesProps): JSX.Element | null {
-  if (accountIsOffline(device)) {
+  if (isAccountOffline(device)) {
     return (
       <div className='seam-device-statuses'>
         <AccountOnlineStatus device={device} />
       </div>
     )
   }
-  if (deviceIsOffline(device)) {
+  if (isDeviceOffline(device)) {
     return (
       <div className='seam-device-statuses'>
         <DeviceOnlineStatus device={device} />
@@ -59,35 +80,16 @@ function DeviceStatuses({ device }: DeviceStatusesProps): JSX.Element | null {
   )
 }
 
-interface DeviceRowProps {
-  device: UseDevicesData[number]
-  onClick: () => void
+const isAccountOffline = (device: UseDevicesData[number]): boolean => {
+  return (
+    device.errors.filter((error) => 'is_connected_account_error' in error)
+      .length > 0
+  )
 }
 
-export function DeviceRow({
-  device,
-  onClick,
-}: DeviceRowProps): JSX.Element | null {
-  const opacityClass =
-    accountIsOffline(device) || deviceIsOffline(device)
-      ? 'seam-offline-fade'
-      : ''
+const isDeviceOffline = (device: UseDevicesData[number]): boolean => {
   return (
-    <TableRow onClick={onClick}>
-      <TableCell className={`seam-image-cell ${opacityClass}`}>
-        <DeviceImage device={device} />
-      </TableCell>
-      <TableCell className='seam-body-cell'>
-        <Title className={`seam-truncated-text ${opacityClass}`}>
-          {device.properties.name}
-        </Title>
-        <div className='seam-bottom'>
-          <span className={`seam-device-model ${opacityClass}`}>
-            {device.properties.model.display_name}
-          </span>
-          <DeviceStatuses device={device} />
-        </div>
-      </TableCell>
-    </TableRow>
+    device.errors.filter((error) => error.error_code === 'device_disconnected')
+      .length > 0
   )
 }

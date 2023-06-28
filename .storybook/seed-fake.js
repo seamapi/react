@@ -205,7 +205,7 @@ export const seedFake = (db) => {
       supported_code_lengths: [6],
       name: 'GARAGE',
       battery: {
-        level: 0.3,
+        level: 0.98,
         status: 'full',
       },
       image_url:
