@@ -42,19 +42,6 @@ export function AccessCodeDetails({
     )
   }
 
-  const errorFilter = (error: AccessCodeError | DeviceError | ConnectedAccountError) => {
-    if (!error?.is_access_code_error) return true
-
-    if (
-      error.error_code === 'failed_to_set_on_device' ||
-      error.error_code === 'failed_to_remove_on_device'
-    ) {
-      return true
-    }
-
-    return false
-  }
-
   const alerts = [
     ...accessCode.errors.filter(errorFilter).map((error) => ({
       variant: 'error' as const,
@@ -188,6 +175,19 @@ function formatDate(date: string): string {
     day: 'numeric',
     year: 'numeric',
   })
+}
+
+const errorFilter = (error: AccessCodeError | DeviceError | ConnectedAccountError) => {
+  if (!error?.is_access_code_error) return true
+
+  if (
+    error.error_code === 'failed_to_set_on_device' ||
+    error.error_code === 'failed_to_remove_on_device'
+  ) {
+    return true
+  }
+
+  return false
 }
 
 const t = {
