@@ -143,25 +143,19 @@ function Content(props: {
   const { accessCodes, onAccessCodeClick } = props
   const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
-  const accessCodesWithIssues = useMemo(
-    () =>
-      accessCodes.filter((accessCode) => {
-        return accessCode.errors.length > 0 || accessCode.warnings.length > 0
-      }),
-    [accessCodes]
-  )
-
   const filteredAccessCodes = useMemo(() => {
     if (filter === null) {
       return accessCodes
     }
 
     if (filter === 'access_code_issues') {
-      return accessCodesWithIssues
+      return accessCodes.filter((accessCode) => {
+        return accessCode.errors.length > 0 || accessCode.warnings.length > 0
+      })
     }
 
     return accessCodes
-  }, [accessCodes, accessCodesWithIssues, filter])
+  }, [accessCodes, filter])
 
   if (accessCodes.length === 0) {
     return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
