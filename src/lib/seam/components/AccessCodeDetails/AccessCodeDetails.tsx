@@ -45,18 +45,16 @@ export function AccessCodeDetails({
   const filterCodeErrors = () => {
     return (
       accessCode.errors.filter((error) => {
-        if (error.is_access_code_error) {
-          if (
-            error.error_code === 'failed_to_set_on_device' ||
-            error.error_code === 'failed_to_remove_on_device'
-          ) {
-            return true
-          }
+        if (!error?.is_access_code_error) return true
 
-          return false
+        if (
+          error.error_code === 'failed_to_set_on_device' ||
+          error.error_code === 'failed_to_remove_on_device'
+        ) {
+          return true
         }
-
-        return true
+        
+        return false
       }) ?? []
     )
   }
