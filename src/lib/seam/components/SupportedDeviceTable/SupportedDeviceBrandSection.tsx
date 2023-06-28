@@ -12,7 +12,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  * How many device models before requiring the
  * user to expand the list.
  */
-const numDevicesBeforeHiding = 3
+const numDevicesBeforeHiding = 1
 
 export interface SupportedDeviceRowProps {
   brand: string
@@ -44,7 +44,7 @@ export function SupportedDeviceBrandSection({
     <div
       className={classNames('seam-brand-section', {
         collapsed,
-        'viewing-all-devices': viewingAllDevices,
+        'viewing-all-devices': viewingAllDevices && !collapsed,
       })}
     >
       <div className='seam-header' onClick={toggleCollapsed}>
