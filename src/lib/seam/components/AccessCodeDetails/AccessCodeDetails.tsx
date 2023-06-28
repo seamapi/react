@@ -44,7 +44,7 @@ export function AccessCodeDetails({
 
   const filterCodeErrors = () => {
     return (
-      accessCode?.errors?.filter((error) => {
+      accessCode.errors.filter((error) => {
         if (error.is_access_code_error) {
           if (
             error.error_code === 'failed_to_set_on_device' ||
@@ -66,10 +66,10 @@ export function AccessCodeDetails({
       variant: 'error' as const,
       message: error.message,
     })),
-    ...(accessCode?.warnings?.map((warning) => ({
+    ...accessCode.warnings.map((warning) => ({
       variant: 'warning' as const,
       message: warning.message,
-    })) ?? []),
+    })),
   ]
 
   return (
