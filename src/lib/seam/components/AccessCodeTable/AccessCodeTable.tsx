@@ -5,11 +5,16 @@ import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
+import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
 import {
   useAccessCodes,
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import {
+  type AccessCodeFilter,
+  AccessCodeHealthBar,
+} from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -50,7 +55,11 @@ const defaultAccessCodeFilter = (
 ): boolean => {
   const value = searchInputValue.trim()
   if (value === '') return true
-  return new RegExp(value, 'i').test(accessCode.name ?? '')
+  const searchRegex = new RegExp(value, 'i')
+  return (
+    searchRegex.test(accessCode?.name ?? '') ||
+    searchRegex.test(accessCode?.code ?? '')
+  )
 }
 
 export function AccessCodeTable({
@@ -135,6 +144,21 @@ function Content(props: {
   onAccessCodeClick: (accessCodeId: string) => void
 }): JSX.Element {
   const { accessCodes, onAccessCodeClick } = props
+  const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
+
+  const filteredAccessCodes = useMemo(() => {
+    if (filter === null) {
+      return accessCodes
+    }
+
+    if (filter === 'access_code_issues') {
+      return accessCodes.filter((accessCode) => {
+        return accessCode.errors.length > 0 || accessCode.warnings.length > 0
+      })
+    }
+
+    return accessCodes
+  }, [accessCodes, filter])
 
   if (accessCodes.length === 0) {
     return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
@@ -142,7 +166,12 @@ function Content(props: {
 
   return (
     <>
-      {accessCodes.map((accessCode) => (
+      <AccessCodeHealthBar
+        accessCodes={accessCodes}
+        filter={filter}
+        onFilterSelect={setFilter}
+      />
+      {filteredAccessCodes.map((accessCode) => (
         <AccessCodeRow
           key={accessCode.access_code_id}
           accessCode={accessCode}
@@ -161,14 +190,18 @@ function AccessCodeRow(props: {
 }): JSX.Element {
   const { onClick, accessCode } = props
 
-  const errorCount = accessCode.errors?.length ?? 0
+  const errorCount = accessCode.errors.length
+  const warningCount = accessCode.warnings.length
   const isPlural = errorCount === 0 || errorCount > 1
-  const issueIconTitle = isPlural
+  const errorIconTitle = isPlural
     ? `${errorCount} ${t.codeIssues}`
     : `${errorCount} ${t.codeIssue}`
+  const warningIconTitle = isPlural
+    ? `${warningCount} ${t.codeIssues}`
+    : `${warningCount} ${t.codeIssue}`
 
   return (
-    <TableRow key={accessCode.access_code_id} onClick={onClick}>
+    <TableRow onClick={onClick}>
       <TableCell className='seam-icon-cell'>
         <div>
           <AccessCodeKeyIcon />
@@ -180,8 +213,13 @@ function AccessCodeRow(props: {
       </TableCell>
       <TableCell className='seam-action-cell'>
         {errorCount > 0 && (
-          <div className='seam-code-issue-icon-wrap' title={issueIconTitle}>
+          <div className='seam-code-issue-icon-wrap' title={errorIconTitle}>
             <ExclamationCircleOutlineIcon />
+          </div>
+        )}
+        {errorCount === 0 && warningCount > 0 && (
+          <div className='seam-code-issue-icon-wrap' title={warningIconTitle}>
+            <TriangleWarningOutlineIcon />
           </div>
         )}
         <MoreActionsMenu
