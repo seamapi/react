@@ -152,7 +152,7 @@ function Content(props: {
     }
 
     if (filter === 'access_code_issues') {
-      return (accessCode?.errors?.length ?? 0) > 0
+      return accessCode.errors.length > 0
     }
 
     return true
