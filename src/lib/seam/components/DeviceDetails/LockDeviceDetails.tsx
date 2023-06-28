@@ -10,7 +10,7 @@ import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
-import { DeviceOnlineStatus } from 'lib/ui/device/OnlineStatus.js'
+import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
@@ -73,7 +73,7 @@ export function LockDeviceDetails(props: {
               <h4 className='seam-device-name'>{device.properties.name}</h4>
               <div className='seam-properties'>
                 <span className='seam-label'>{t.status}:</span>{' '}
-                <DeviceOnlineStatus device={device} />
+                <OnlineStatus device={device} />
                 <span className='seam-label'>{t.power}:</span>{' '}
                 <BatteryStatus device={device} />
                 <DeviceModel device={device} />
