@@ -18,7 +18,7 @@ export function AccessCodeHealthBar({
   onFilterSelect,
 }: AccessCodeHealthBarProps): JSX.Element {
   const erroredAccessCodes = accessCodes.filter(
-    (accessCodes) => (accessCodes?.errors?.length ?? 0) > 0
+    (accessCodes) => accessCodes.errors.length > 0
   )
   const issueCount = erroredAccessCodes.length
 
