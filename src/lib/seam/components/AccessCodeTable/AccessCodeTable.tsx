@@ -10,6 +10,10 @@ import {
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import {
+  type AccessCodeFilter,
+  AccessCodeHealthBar,
+} from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -132,14 +136,32 @@ function Content(props: {
   onAccessCodeClick: (accessCodeId: string) => void
 }): JSX.Element {
   const { accessCodes, onAccessCodeClick } = props
+  const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
   if (accessCodes.length === 0) {
     return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
   }
 
+  const filteredAccessCodes = accessCodes.filter((accessCode) => {
+    if (filter === null) {
+      return true
+    }
+
+    if (filter === 'access_code_issues') {
+      return (accessCode?.errors || []).length > 0
+    }
+
+    return true
+  })
+
   return (
     <>
-      {accessCodes.map((accessCode) => (
+      <AccessCodeHealthBar
+        accessCodes={accessCodes}
+        filter={filter}
+        onFilterSelect={setFilter}
+      />
+      {filteredAccessCodes.map((accessCode) => (
         <AccessCodeRow
           key={accessCode.access_code_id}
           accessCode={accessCode}

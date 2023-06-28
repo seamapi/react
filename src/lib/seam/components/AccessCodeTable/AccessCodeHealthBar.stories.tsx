@@ -1,0 +1,79 @@
+import { Box } from '@mui/material'
+import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
+
+import {
+  type AccessCodeFilter,
+  AccessCodeHealthBar,
+} from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
+
+const meta: Meta<typeof AccessCodeHealthBar> = {
+  title: 'Library/AccessCodeHealthBar',
+  component: AccessCodeHealthBar,
+  tags: ['autodocs'],
+}
+
+export default meta
+
+type Story = StoryObj<typeof AccessCodeHealthBar>
+
+export const Content: Story = {
+  render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
+    return (
+      <Box display='grid' gap={3} gridTemplateColumns='1fr'>
+        <AccessCodeHealthBar filter={null} onFilterSelect={() => {}} accessCodes={[]} />
+        <AccessCodeHealthBar
+          filter={filter}
+          onFilterSelect={setFilter}
+          accessCodes={[
+            {
+              device_id: 'account_1',
+              access_code_id: 'dev_1',
+              created_at: '2023-05-08T22:38:30.963Z',
+              type: "ongoing",
+              code: "1234",
+              status: "setting",
+              errors: [
+                {
+                  error_code: 'account_disconnected',
+                  message: 'AccessCode account has been disconnected.',
+                },
+              ],
+              warnings: [
+                {
+                  warning_code: 'salto_office_mode',
+                  message:
+                    'Salto office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
+                },
+              ],
+            },
+
+            {
+              device_id: 'account_1',
+              access_code_id: 'dev_2',
+              created_at: '2023-05-08T22:38:30.963Z',
+              type: "ongoing",
+              code: "1234",
+              status: "setting",
+              errors: [
+                {
+                  error_code: 'account_disconnected',
+                  message: 'AccessCode account has been disconnected.',
+                },
+              ],
+              warnings: [
+                {
+                  warning_code: 'salto_office_mode',
+                  message:
+                    'Salto office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
+                },
+              ],
+            },
+          ]}
+        />
+      </Box>
+    )
+  },
+}
