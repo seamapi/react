@@ -26,6 +26,18 @@ export const Content: Story = {
   ),
 }
 
+export const Issue: Story = {
+  render: (props, { globals }) => (
+    <AccessCodeTable
+      {...props}
+      deviceId={props.deviceId ?? globals['deviceId']}
+      accessCodeFilter={(accessCode) =>
+        (accessCode?.errors != null || []).length > 0
+      }
+    />
+  ),
+}
+
 export const InsideModal: Story = {
   render: (props, { globals }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks

@@ -23,18 +23,22 @@ export const Content: Story = {
     const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
     return (
       <Box display='grid' gap={3} gridTemplateColumns='1fr'>
-        <AccessCodeHealthBar filter={null} onFilterSelect={() => {}} accessCodes={[]} />
+        <AccessCodeHealthBar
+          filter={null}
+          onFilterSelect={() => {}}
+          accessCodes={[]}
+        />
         <AccessCodeHealthBar
           filter={filter}
           onFilterSelect={setFilter}
           accessCodes={[
             {
-              device_id: 'account_1',
-              access_code_id: 'dev_1',
+              device_id: 'device_1',
+              access_code_id: 'code_1',
               created_at: '2023-05-08T22:38:30.963Z',
-              type: "ongoing",
-              code: "1234",
-              status: "setting",
+              type: 'ongoing',
+              code: '1234',
+              status: 'setting',
               errors: [
                 {
                   error_code: 'account_disconnected',
@@ -51,12 +55,12 @@ export const Content: Story = {
             },
 
             {
-              device_id: 'account_1',
-              access_code_id: 'dev_2',
+              device_id: 'device_1',
+              access_code_id: 'code_2',
               created_at: '2023-05-08T22:38:30.963Z',
-              type: "ongoing",
-              code: "1234",
-              status: "setting",
+              type: 'ongoing',
+              code: '1234',
+              status: 'setting',
               errors: [
                 {
                   error_code: 'account_disconnected',

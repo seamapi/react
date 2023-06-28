@@ -53,7 +53,11 @@ const defaultAccessCodeFilter = (
 ): boolean => {
   const value = searchInputValue.trim()
   if (value === '') return true
-  return new RegExp(value, 'i').test(accessCode.name ?? '')
+  const searchRegex = new RegExp(value, 'i')
+  return (
+    searchRegex.test(accessCode?.name ?? '') ||
+    searchRegex.test(accessCode?.code ?? '')
+  )
 }
 
 export function AccessCodeTable({
@@ -148,7 +152,7 @@ function Content(props: {
     }
 
     if (filter === 'access_code_issues') {
-      return (accessCode?.errors || []).length > 0
+      return (accessCode?.errors?.length ?? 0) > 0
     }
 
     return true
