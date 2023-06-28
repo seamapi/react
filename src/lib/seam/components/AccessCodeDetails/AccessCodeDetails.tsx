@@ -42,11 +42,30 @@ export function AccessCodeDetails({
     )
   }
 
+  const filterCodeErrors = () => {
+    return (
+      accessCode?.errors?.filter((error) => {
+        if (error.is_access_code_error) {
+          if (
+            error.error_code === 'failed_to_set_on_device' ||
+            error.error_code === 'failed_to_remove_on_device'
+          ) {
+            return true
+          }
+          
+          return false
+        }
+
+        return true
+      }) ?? []
+    )
+  }
+
   const alerts = [
-    ...(accessCode?.errors?.map((error) => ({
+    ...filterCodeErrors().map((error) => ({
       variant: 'error' as const,
       message: error.message,
-    })) ?? []),
+    })),
     ...(accessCode?.warnings?.map((warning) => ({
       variant: 'warning' as const,
       message: warning.message,
