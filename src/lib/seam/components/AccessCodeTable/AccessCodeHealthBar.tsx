@@ -12,24 +12,13 @@ interface AccessCodeHealthBarProps {
   onFilterSelect: (filter: AccessCodeFilter | null) => void
 }
 
-function filterOutDuplicates(array: any[]): any[] {
-  const set = new Set(array)
-  return Array.from(set)
-}
-
 export function AccessCodeHealthBar({
   accessCodes,
   filter,
   onFilterSelect,
 }: AccessCodeHealthBarProps): JSX.Element {
-  const erroredAccessCodes = accessCodes.filter(
-    (accessCodes) => accessCodes.errors.length > 0
-  )
-  const warningAccessCodes = accessCodes.filter(
-    (accessCodes) => accessCodes.warnings.length > 0
-  )
-  const codesWithIssues = filterOutDuplicates(
-    erroredAccessCodes.concat(warningAccessCodes)
+  const codesWithIssues = accessCodes.filter(
+    ({errors, warnings}) => errors.length > 0 || warnings.length > 0
   )
   const issueCount = codesWithIssues.length
 
