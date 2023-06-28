@@ -4,13 +4,11 @@ import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOff
 import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
-interface DeviceOnlineStatusProps {
+interface OnlineStatusProps {
   device: CommonDevice
 }
 
-export function DeviceOnlineStatus(
-  props: DeviceOnlineStatusProps
-): JSX.Element {
+export function OnlineStatus(props: OnlineStatusProps): JSX.Element {
   const { device } = props
 
   const isAccountOffline =
@@ -24,7 +22,7 @@ export function DeviceOnlineStatus(
   return (
     <div className='seam-online-status'>
       {isAccountOffline && <OnlineStatusAccountOfflineIcon />}
-      <Content isOnline={device.properties.online} />
+      <DeviceOnlineContent isOnline={device.properties.online} />
     </div>
   )
 }
@@ -38,7 +36,7 @@ function AccountOfflineContent() {
   )
 }
 
-function Content(props: { isOnline: boolean }): JSX.Element {
+function DeviceOnlineContent(props: { isOnline: boolean }): JSX.Element {
   const { isOnline } = props
   if (isOnline) {
     return (

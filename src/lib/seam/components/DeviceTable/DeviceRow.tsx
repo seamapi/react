@@ -4,11 +4,10 @@ import type {
   UseDevicesData,
   UseDevicesParams,
 } from 'lib/seam/devices/use-devices.js'
-import { AccountOnlineStatus } from 'lib/ui/device/AccountOnlineStatus.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
-import { DeviceOnlineStatus } from 'lib/ui/device/DeviceOnlineStatus.js'
 import { LockStatus } from 'lib/ui/device/LockStatus.js'
+import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
@@ -57,23 +56,16 @@ interface DeviceStatusesProps {
 }
 
 function DeviceStatuses({ device }: DeviceStatusesProps): JSX.Element | null {
-  if (isAccountOffline(device)) {
+  if (isAccountOffline(device) || isDeviceOffline(device)) {
     return (
       <div className='seam-device-statuses'>
-        <AccountOnlineStatus device={device} />
-      </div>
-    )
-  }
-  if (isDeviceOffline(device)) {
-    return (
-      <div className='seam-device-statuses'>
-        <DeviceOnlineStatus device={device} />
+        <OnlineStatus device={device} />
       </div>
     )
   }
   return (
     <div className='seam-device-statuses'>
-      <DeviceOnlineStatus device={device} />
+      <OnlineStatus device={device} />
       <BatteryStatus device={device} />
       <LockStatus device={device} />
     </div>
