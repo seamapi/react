@@ -47,6 +47,7 @@ export const Content: Story = {
                 {
                   error_code: 'account_disconnected',
                   message: 'Device account has been disconnected.',
+                  is_connected_account_error: true,
                 },
               ],
               warnings: [
@@ -77,6 +78,7 @@ export const Content: Story = {
                 {
                   error_code: 'account_disconnected',
                   message: 'Device account has been disconnected.',
+                  is_connected_account_error: true,
                 },
               ],
               warnings: [

@@ -1,11 +1,17 @@
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type { AccessCode } from 'seamapi'
+import type {
+  AccessCode,
+  AccessCodeError,
+  ConnectedAccountError,
+  DeviceError,
+} from 'seamapi'
 
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
@@ -44,11 +50,27 @@ export function AccessCodeDetails({
     )
   }
 
+  const alerts = [
+    ...accessCode.errors.filter(errorFilter).map((error) => ({
+      variant: 'error' as const,
+      message: error.message,
+    })),
+    ...accessCode.warnings.map((warning) => ({
+      variant: 'warning' as const,
+      message: warning.message,
+    })),
+  ]
+
   return (
     <div className={classNames('seam-access-code-details', className)}>
       <ContentHeader title='Access code' onBack={onBack} />
       <div className='seam-summary'>
-        <div className='seam-top'>
+        <div
+          className={classNames(
+            'seam-top',
+            alerts.length > 0 && 'seam-top-has-alerts'
+          )}
+        >
           <span className='seam-label'>{t.accessCode}</span>
           <h5 className='seam-access-code-name'>{name}</h5>
           <div className='seam-code'>{accessCode.code}</div>
@@ -56,6 +78,9 @@ export function AccessCodeDetails({
             <Duration accessCode={accessCode} />
           </div>
         </div>
+
+        <Alerts alerts={alerts} className='seam-alerts-padded' />
+
         <AccessCodeDevice
           deviceId={accessCode.device_id}
           disableLockUnlock={disableLockUnlock}
@@ -159,6 +184,22 @@ function formatDate(date: string): string {
     day: 'numeric',
     year: 'numeric',
   })
+}
+
+const errorFilter = (
+  error: AccessCodeError | DeviceError | ConnectedAccountError
+): boolean => {
+  if ('is_access_code_error' in error && !error.is_access_code_error)
+    return true
+
+  if (
+    error.error_code === 'failed_to_set_on_device' ||
+    error.error_code === 'failed_to_remove_on_device'
+  ) {
+    return true
+  }
+
+  return false
 }
 
 const t = {
