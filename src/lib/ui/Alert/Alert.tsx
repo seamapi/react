@@ -24,12 +24,14 @@ export function Alert(props: AlertProps): JSX.Element {
       className={classNames('seam-alert', `seam-${variant}-alert`, className)}
     >
       <div className='seam-alert-content'>
-        <div className='seam-alert-icon'>
-          {variant === 'warning' ? (
-            <TriangleWarningIcon />
-          ) : (
-            <ExclamationCircleIcon />
-          )}
+        <div className='seam-alert-icon-wrap'>
+          <div className='seam-alert-icon'>
+            {variant === 'warning' ? (
+              <TriangleWarningIcon />
+            ) : (
+              <ExclamationCircleIcon />
+            )}
+          </div>
         </div>
         <div className='seam-alert-message-wrap'>
           <p className='seam-alert-message'>{message}</p>
