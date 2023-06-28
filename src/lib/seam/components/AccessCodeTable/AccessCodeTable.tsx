@@ -37,6 +37,7 @@ export interface AccessCodeTableProps {
   ) => number
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
+  disableLockUnlock?: boolean
   onBack?: () => void
   className?: string
 }
@@ -56,6 +57,7 @@ export function AccessCodeTable({
   deviceId,
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
+  disableLockUnlock = false,
   onBack,
   accessCodeFilter = defaultAccessCodeFilter,
   accessCodeComparator = compareByCreatedAtDesc,
@@ -100,6 +102,7 @@ export function AccessCodeTable({
         onBack={() => {
           setSelectedAccessCodeId(null)
         }}
+        disableLockUnlock={disableLockUnlock}
       />
     )
   }
