@@ -31,9 +31,7 @@ export const Issue: Story = {
     <AccessCodeTable
       {...props}
       deviceId={props.deviceId ?? globals['deviceId']}
-      accessCodeFilter={(accessCode) =>
-        (accessCode?.errors != null || []).length > 0
-      }
+      accessCodeFilter={(accessCode) => (accessCode?.errors?.length ?? 0) > 0}
     />
   ),
 }
