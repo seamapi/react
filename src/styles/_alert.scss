@@ -1,6 +1,7 @@
 @use './colors';
 
 @mixin all {
+
   // Alerts
   .seam-alerts {
     width: 100%;
@@ -13,12 +14,16 @@
     &.seam-alerts-space-top {
       margin-top: 16px;
     }
+
+    &.seam-alerts-padded {
+      padding: 0 16px 24px;
+    }
   }
 
   // Alert
   .seam-alert {
     width: 100%;
-    min-height: 70px;
+    min-height: 54px;
     padding: 8px 16px;
     border-radius: 8px;
     display: flex;
@@ -68,6 +73,11 @@
       margin-top: 16px;
     }
 
+    .seam-alert-icon-wrap {
+      padding: 7px 8px;
+      padding-left: 0;
+    }
+
     .seam-alert-icon {
       width: 24px;
       height: 24px;
@@ -76,12 +86,13 @@
     .seam-alert-content {
       display: flex;
       justify-content: flex-start;
-      align-items: center;
+      align-items: flex-start;
       flex-direction: row;
-      gap: 8px;
     }
 
     .seam-alert-message-wrap {
+      padding: 8px 0;
+
       .seam-alert-message {
         font-size: 14px;
         font-weight: 400;
@@ -91,7 +102,7 @@
     }
   }
 
-  @media only screen and (width <= 500px) {
+  @media only screen and (width <=500px) {
     .seam-alert {
       justify-content: flex-start;
       flex-direction: column;
