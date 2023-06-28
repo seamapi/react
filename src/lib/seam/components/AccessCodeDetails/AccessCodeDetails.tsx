@@ -8,6 +8,7 @@ import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCo
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
+import { Alerts } from 'lib/ui/Alert/Alerts.js'
 
 export interface AccessCodeDetailsProps {
   accessCodeId: string
@@ -41,6 +42,17 @@ export function AccessCodeDetails({
     )
   }
 
+  const alerts = [
+    ...(accessCode?.errors?.map((error) => ({
+      variant: 'error' as const,
+      message: error.message,
+    })) ?? []),
+    ...(accessCode?.warnings?.map((warning) => ({
+      variant: 'warning' as const,
+      message: warning.message,
+    })) ?? []),
+  ]
+
   return (
     <div className={classNames('seam-access-code-details', className)}>
       <ContentHeader title='Access code' onBack={onBack} />
@@ -53,6 +65,9 @@ export function AccessCodeDetails({
             <Duration accessCode={accessCode} />
           </div>
         </div>
+
+        <Alerts alerts={alerts} className='seam-alerts-padded' />
+
         <AccessCodeDevice
           deviceId={accessCode.device_id}
           onSelectDevice={selectDevice}
