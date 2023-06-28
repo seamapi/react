@@ -1,4 +1,3 @@
-import { SupportedDeviceHeader } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceHeader.js'
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
 import {
   type DeviceModelFilters,
@@ -53,7 +52,6 @@ export function SupportedDeviceContent({
 
   return (
     <table className='seam-supported-device-table-content'>
-      <SupportedDeviceHeader />
       <tbody>
         {deviceModels.map((deviceModel, index) => (
           <SupportedDeviceRow
