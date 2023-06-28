@@ -16,6 +16,7 @@ refreshing data, and performing actions.
 ### Resources to Get Started
 
 - [Get started with Seam](https://www.seam.co/).
+- [Get started with Client Side Components](https://docs.seam.co/latest/seam-components/get-started-with-client-side-components).
 - [Get started with React and Client Session Tokens](https://docs.seam.co/latest/seam-components/get-started-with-react-components-and-client-session-tokens).
 - [Make a Supported Devices Page with React](https://docs.seam.co/latest/seam-components/make-a-supported-devices-page-with-react).
 - Reference the [Component API](https://docs.seam.co/latest/seam-components/react-components).
