@@ -5,6 +5,7 @@ import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
+import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
 import {
   useAccessCodes,
   type UseAccessCodesData,
@@ -142,21 +143,29 @@ function Content(props: {
   const { accessCodes, onAccessCodeClick } = props
   const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
-  if (accessCodes.length === 0) {
-    return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
-  }
+  const accessCodesWithIssues = useMemo(
+    () =>
+      accessCodes.filter((accessCode) => {
+        return accessCode.errors.length > 0 || accessCode.warnings.length > 0
+      }),
+    [accessCodes]
+  )
 
-  const filteredAccessCodes = accessCodes.filter((accessCode) => {
+  const filteredAccessCodes = useMemo(() => {
     if (filter === null) {
-      return true
+      return accessCodes
     }
 
     if (filter === 'access_code_issues') {
-      return accessCode.errors.length > 0
+      return accessCodesWithIssues
     }
 
-    return true
-  })
+    return accessCodes
+  }, [accessCodes, accessCodesWithIssues, filter])
+
+  if (accessCodes.length === 0) {
+    return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
+  }
 
   return (
     <>
@@ -184,14 +193,18 @@ function AccessCodeRow(props: {
 }): JSX.Element {
   const { onClick, accessCode } = props
 
-  const errorCount = accessCode.errors?.length ?? 0
+  const errorCount = accessCode.errors.length
+  const warningCount = accessCode.warnings.length
   const isPlural = errorCount === 0 || errorCount > 1
-  const issueIconTitle = isPlural
+  const errorIconTitle = isPlural
     ? `${errorCount} ${t.codeIssues}`
     : `${errorCount} ${t.codeIssue}`
+  const warningIconTitle = isPlural
+    ? `${warningCount} ${t.codeIssues}`
+    : `${warningCount} ${t.codeIssue}`
 
   return (
-    <TableRow key={accessCode.access_code_id} onClick={onClick}>
+    <TableRow onClick={onClick}>
       <TableCell className='seam-icon-cell'>
         <div>
           <AccessCodeKeyIcon />
@@ -203,8 +216,13 @@ function AccessCodeRow(props: {
       </TableCell>
       <TableCell className='seam-action-cell'>
         {errorCount > 0 && (
-          <div className='seam-code-issue-icon-wrap' title={issueIconTitle}>
+          <div className='seam-code-issue-icon-wrap' title={errorIconTitle}>
             <ExclamationCircleOutlineIcon />
+          </div>
+        )}
+        {errorCount === 0 && warningCount > 0 && (
+          <div className='seam-code-issue-icon-wrap' title={warningIconTitle}>
+            <TriangleWarningOutlineIcon />
           </div>
         )}
         <MoreActionsMenu

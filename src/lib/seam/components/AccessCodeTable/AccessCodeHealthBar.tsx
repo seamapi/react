@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import type { UseAccessCodesData } from 'lib/seam/access-codes/use-access-codes.js'
@@ -20,7 +21,11 @@ export function AccessCodeHealthBar({
   const erroredAccessCodes = accessCodes.filter(
     (accessCodes) => accessCodes.errors.length > 0
   )
-  const issueCount = erroredAccessCodes.length
+  const warningAccessCodes = accessCodes.filter(
+    (accessCodes) => accessCodes.warnings.length > 0
+  )
+  const codesWithIssues = _.merge(erroredAccessCodes, warningAccessCodes)
+  const issueCount = codesWithIssues.length
 
   const toggle = (target: AccessCodeFilter) => () => {
     const newFilter = target === filter ? null : target
