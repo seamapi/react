@@ -139,6 +139,47 @@ export const seedFake = (db) => {
     is_managed: true,
   })
 
+  db.addAccessCode({
+    device_id: device1.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-19T03:11:10.000',
+    name: "Bob's Front Door Code",
+    code: '3333',
+    common_code_key: null,
+    type: 'ongoing',
+    status: 'set',
+    errors: [
+      {
+        error_code: 'failed_to_set_on_device',
+        is_device_error: true,
+        message:
+          'An error occurred when we tried to set the access code on the device. We will continue to try and set the code on the device in case the error was temporary.',
+      },
+    ],
+    warnings: [],
+    is_managed: true,
+  })
+
+  db.addAccessCode({
+    device_id: device1.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-19T03:11:10.000',
+    name: "Kai's Front Door Code",
+    code: '3334',
+    common_code_key: null,
+    type: 'ongoing',
+    status: 'set',
+    errors: [],
+    warnings: [
+      {
+        warning_code: 'delay_in_setting_on_device',
+        message:
+          'There was an unusually long delay in programming the code onto the device. For time bound codes, this is sent when the code enters its active time. Note that this is a temporary warning and might be removed if the code is successfully set.',
+      },
+    ],
+    is_managed: true,
+  })
+
   const device2 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: 'august_lock',
