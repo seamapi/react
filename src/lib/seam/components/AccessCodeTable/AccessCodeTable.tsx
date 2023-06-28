@@ -32,6 +32,7 @@ import { Title } from 'lib/ui/typography/Title.js'
 
 export interface AccessCodeTableProps {
   deviceId: string
+  disableLockUnlock?: boolean
   accessCodeFilter?: (
     accessCode: AccessCode,
     searchInputValue: string
@@ -42,7 +43,6 @@ export interface AccessCodeTableProps {
   ) => number
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
-  disableLockUnlock?: boolean
   onBack?: () => void
   className?: string
 }
@@ -64,9 +64,9 @@ const defaultAccessCodeFilter = (
 
 export function AccessCodeTable({
   deviceId,
+  disableLockUnlock = false,
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
-  disableLockUnlock = false,
   onBack,
   accessCodeFilter = defaultAccessCodeFilter,
   accessCodeComparator = compareByCreatedAtDesc,
