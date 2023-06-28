@@ -12,7 +12,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  * How many device models before requiring the
  * user to expand the list.
  */
-const numDevicesBeforeHiding = 1
+const numDevicesBeforeHiding = 3
 
 export interface SupportedDeviceRowProps {
   brand: string
