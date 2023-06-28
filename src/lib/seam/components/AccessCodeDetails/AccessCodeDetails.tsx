@@ -39,6 +39,7 @@ export function AccessCodeDetails({
         onBack={() => {
           selectDevice(null)
         }}
+        disableLockUnlock={disableLockUnlock}
       />
     )
   }
