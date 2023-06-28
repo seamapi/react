@@ -1,7 +1,10 @@
+import classNames from 'classnames'
 import type { DeviceModel } from 'seamapi'
 
 import { getBrandInfo, getImage } from 'lib/brands.js'
+import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
+import { useToggle } from 'lib/ui/use-toggle.js'
 
 export interface SupportedDeviceRowProps {
   brand: string
@@ -13,9 +16,12 @@ export function SupportedDeviceBrandSection({
   deviceModels,
 }: SupportedDeviceRowProps): JSX.Element {
   const brandInfo = getBrandInfo(brand)
+
+  const [collapsed, toggleCollapsed] = useToggle()
+
   return (
-    <div className='seam-brand-section'>
-      <div className='seam-header'>
+    <div className={classNames('seam-brand-section', { collapsed })}>
+      <div className='seam-header' onClick={toggleCollapsed}>
         <img
           src={getImage(brandInfo)}
           alt={brand}
@@ -24,6 +30,7 @@ export function SupportedDeviceBrandSection({
         <h5 className='seam-brand-name'>
           {brandInfo.readableName} {t.devices}
         </h5>
+        <ChevronRightIcon className='chevron' />
       </div>
       <div className='seam-supported-device-table-content'>
         {deviceModels.map((deviceModel, index) => (
