@@ -1,9 +1,14 @@
+import type { DeviceModel } from 'seamapi'
+
+import { SupportedDeviceBrandSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceBrandSection.js'
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
 import {
   type DeviceModelFilters,
   useFilteredDeviceModels,
 } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 import { Button } from 'lib/ui/Button.js'
+
+import type { UseDeviceModelsData } from '../../../../hooks.js'
 
 interface SupportedDeviceContentProps {
   filterValue: string
@@ -50,9 +55,28 @@ export function SupportedDeviceContent({
     return null
   }
 
-  return (
-    <table className='seam-supported-device-table-content'>
-      <tbody>
+  const isEmpty = deviceModels.length === 0
+  if (isEmpty) {
+    return (
+      <div className='seam-supported-device-table-content'>
+        <EmptyResult
+          filterValue={filterValue}
+          resetFilterValue={resetFilterValue}
+        />
+      </div>
+    )
+  }
+
+  // If we have any active filters/search, we'll just show all the rows
+  // without any brand sections.
+  const hasFilters =
+    filterValue.trim() !== '' ||
+    filters.supportedOnly ||
+    filters.category !== null ||
+    filters.brand !== null
+  if (hasFilters) {
+    return (
+      <div className='seam-supported-device-table-content'>
         {deviceModels.map((deviceModel, index) => (
           <SupportedDeviceRow
             key={[
@@ -65,14 +89,22 @@ export function SupportedDeviceContent({
             deviceModel={deviceModel}
           />
         ))}
-        {deviceModels.length === 0 && (
-          <EmptyResult
-            filterValue={filterValue}
-            resetFilterValue={resetFilterValue}
+      </div>
+    )
+  }
+
+  return (
+    <>
+      {Object.entries(groupDeviceModelsByBrand(deviceModels)).map(
+        ([brand, models]) => (
+          <SupportedDeviceBrandSection
+            key={brand}
+            brand={brand}
+            deviceModels={models}
           />
-        )}
-      </tbody>
-    </table>
+        )
+      )}
+    </>
   )
 }
 
@@ -106,6 +138,20 @@ function EmptyResult({
       </td>
     </tr>
   )
+}
+
+function groupDeviceModelsByBrand(
+  deviceModels: UseDeviceModelsData
+): Record<string, DeviceModel[]> {
+  const result: Record<string, DeviceModel[]> = {}
+
+  for (const model of deviceModels) {
+    const { brand } = model
+    const list = result[brand] ?? []
+    const appended = [...list, model]
+    result[brand] = appended
+  }
+  return result
 }
 
 const t = {

@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import type { DeviceModel } from 'seamapi'
 
+import { DotDivider } from 'lib/ui/layout/DotDivider.js'
+
 export interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
 }
@@ -10,23 +12,28 @@ export function SupportedDeviceRow({
 }: SupportedDeviceRowProps): JSX.Element {
   const statusColor = supportLevelColors[deviceModel.support_level] ?? 'unknown'
   return (
-    <tr>
-      <td>
-        <img width={40} src={deviceModel.icon_url} />
-      </td>
-      <td>{deviceModel.model_name}</td>
-      <td>
-        {deviceModel.manufacturer_model_id} •{' '}
-        {connectionTypeNames[deviceModel.connection_type]}
-      </td>
-      <td>
+    <div className='seam-row'>
+      <div className='seam-col seam-device-image-col'>
+        <div className='seam-image-box'>
+          <img width={40} src={deviceModel.icon_url} />
+        </div>
+      </div>
+      <div className='seam-col  seam-model-col'>
+        <div className='seam-model-name'>{deviceModel.model_name}</div>
+        <div className='seam-model-id'>
+          {deviceModel.manufacturer_model_id}
+          <DotDivider />
+          {connectionTypeNames[deviceModel.connection_type]}
+        </div>
+      </div>
+      <div className='seam-col seam-status-col'>
         <div
           className={classNames('seam-status-pill', `status-${statusColor}`)}
         >
           <span>{status[deviceModel.support_level]}</span>
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
   )
 }
 
