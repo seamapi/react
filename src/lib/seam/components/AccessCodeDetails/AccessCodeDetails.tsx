@@ -76,7 +76,12 @@ export function AccessCodeDetails({
     <div className={classNames('seam-access-code-details', className)}>
       <ContentHeader title='Access code' onBack={onBack} />
       <div className='seam-summary'>
-        <div className='seam-top'>
+        <div
+          className={classNames(
+            'seam-top',
+            alerts.length > 0 && 'seam-top-has-alerts'
+          )}
+        >
           <span className='seam-label'>{t.accessCode}</span>
           <h5 className='seam-access-code-name'>{name}</h5>
           <div className='seam-code'>{accessCode.code}</div>
