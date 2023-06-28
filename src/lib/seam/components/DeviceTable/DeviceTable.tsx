@@ -25,6 +25,7 @@ type Device = UseDevicesData[number]
 
 export interface DeviceTableProps {
   deviceIds?: string[]
+  connectedAccountIds?: string[]
   deviceFilter?: (device: Device, searchInputValue: string) => boolean
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
@@ -44,6 +45,7 @@ const defaultDeviceFilter = (
 
 export function DeviceTable({
   deviceIds,
+  connectedAccountIds,
   onDeviceClick = () => {},
   preventDefaultOnDeviceClick = false,
   onBack,
@@ -53,6 +55,7 @@ export function DeviceTable({
 }: DeviceTableProps = {}): JSX.Element {
   const { devices, isLoading, isError, error } = useDevices({
     device_ids: deviceIds,
+    connected_account_ids: connectedAccountIds,
   })
 
   const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
