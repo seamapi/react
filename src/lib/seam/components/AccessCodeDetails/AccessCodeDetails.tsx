@@ -1,7 +1,12 @@
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type { AccessCode } from 'seamapi'
+import type {
+  AccessCode,
+  AccessCodeError,
+  ConnectedAccountError,
+  DeviceError,
+} from 'seamapi'
 
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
@@ -179,8 +184,9 @@ function formatDate(date: string): string {
 
 const errorFilter = (
   error: AccessCodeError | DeviceError | ConnectedAccountError
-) => {
-  if (!error?.is_access_code_error) return true
+): boolean => {
+  if ('is_access_code_error' in error && !error.is_access_code_error)
+    return true
 
   if (
     error.error_code === 'failed_to_set_on_device' ||
