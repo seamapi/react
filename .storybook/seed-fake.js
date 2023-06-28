@@ -85,8 +85,43 @@ export const seedFake = (db) => {
     common_code_key: null,
     type: 'ongoing',
     status: 'set',
-    errors: [],
-    warnings: [],
+    errors: [
+      {
+        error_code: 'account_disconnected',
+        is_connected_account_error: true,
+        message:
+          'Seam has lost connection to a connected account. This may happen if the third-party provider triggered an access token to be revoked (e.g., after a password change). The account owner needs to reconnect the connected account with a new connect webview.',
+        created_at: '2023-06-27T22:50:19.440Z',
+      },
+      {
+        error_code: 'device_disconnected',
+        is_device_error: true,
+        message: 'Device Disconnected, you may need to reconnect the device.',
+        created_at: '2023-06-27T22:50:19.440Z',
+      },
+      {
+        error_code: 'failed_to_set_on_device',
+        is_access_code_error: true,
+        message:
+          'An access code with the same pin already exists on the device.',
+        created_at: '2023-06-27T06:01:11.885Z',
+      },
+      {
+        error_code: 'duplicate_code_on_device',
+        is_access_code_error: true,
+        message:
+          'An access code with the same pin already exists on the device.',
+        created_at: '2023-06-27T06:01:11.914Z',
+      },
+    ],
+    warnings: [
+      {
+        warning_code: 'delay_in_setting_on_device',
+        message:
+          'There was an unusually long delay in programming the code onto the device. For time bound codes, this is sent when the code enters its active time. Note that this is a temporary warning and might be removed if the code is successfully set.',
+        created_at: '2023-06-27T06:01:11.885Z',
+      },
+    ],
     is_managed: true,
   })
 
