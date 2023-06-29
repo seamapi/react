@@ -1,13 +1,13 @@
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
 import { type UseDeviceModelsData } from 'lib/seam/device-models/use-device-models.js'
 
-interface SupportedDeviceContentProps {
+interface SupportedDeviceContentRowsProps {
   deviceModels: UseDeviceModelsData
 }
 
 export function SupportedDeviceContentRows({
   deviceModels,
-}: SupportedDeviceContentProps): JSX.Element | null {
+}: SupportedDeviceContentRowsProps): JSX.Element | null {
   return (
     <div className='seam-supported-device-table-content'>
       {deviceModels.map((deviceModel, index) => (
