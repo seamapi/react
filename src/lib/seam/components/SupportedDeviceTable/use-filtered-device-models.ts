@@ -9,10 +9,15 @@ export interface DeviceModelFilters {
   brand: string | null
 }
 
-export const useFilteredDeviceModels = (
-  filterValue: string,
+export const useFilteredDeviceModels = ({
+  filterValue,
+  filters,
+  brands,
+}: {
+  filterValue: string
   filters: DeviceModelFilters
-): ReturnType<typeof useDeviceModels> => {
+  brands: string[]
+}): ReturnType<typeof useDeviceModels> => {
   const params: UseDeviceModelsParams = {}
 
   if (filterValue.trim() !== '') {
@@ -31,5 +36,17 @@ export const useFilteredDeviceModels = (
     params.brand = filters.brand
   }
 
-  return useDeviceModels(params)
+  const query = useDeviceModels(params)
+
+  if (brands.length === 0) {
+    return query
+  }
+
+  // If the user only wants models for a collection of brands, such as ["yale", "august"], then
+  // we'll filter everything else out here.
+  const onlySpecificBrands = query.deviceModels?.filter((deviceModel) =>
+    brands.includes(deviceModel.brand)
+  )
+
+  return { ...query, deviceModels: onlySpecificBrands }
 }

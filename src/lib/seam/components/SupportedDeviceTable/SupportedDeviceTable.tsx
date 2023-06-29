@@ -11,12 +11,14 @@ export interface SupportedDeviceTableProps {
    * @deprecated Use disableFilter.
    */
   cannotFilter?: boolean
+  brands?: string[]
   className?: string
 }
 
 export function SupportedDeviceTable({
   disableFilter = false,
   cannotFilter,
+  brands = [],
   className,
 }: SupportedDeviceTableProps = {}): JSX.Element {
   const [filterValue, setFilterValue] = useState('')
@@ -41,6 +43,7 @@ export function SupportedDeviceTable({
           setFilterValue={setFilterValue}
           filters={filters}
           setFilters={setFilters}
+          brands={brands}
         />
       )}
       <SupportedDeviceContent
@@ -49,6 +52,7 @@ export function SupportedDeviceTable({
         }}
         filterValue={filterValue}
         filters={filters}
+        brands={brands}
       />
     </div>
   )

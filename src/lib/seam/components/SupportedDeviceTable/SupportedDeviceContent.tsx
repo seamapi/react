@@ -1,25 +1,33 @@
-import { SupportedDeviceHeader } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceHeader.js'
-import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
+import type { DeviceModel } from 'seamapi'
+
+import { SupportedDeviceBrandSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceBrandSection.js'
+import { SupportedDeviceFilterResultRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterResultRowProps.js'
 import {
   type DeviceModelFilters,
   useFilteredDeviceModels,
 } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
+import type { UseDeviceModelsData } from 'lib/seam/device-models/use-device-models.js'
 import { Button } from 'lib/ui/Button.js'
 
 interface SupportedDeviceContentProps {
   filterValue: string
   resetFilterValue: () => void
   filters: DeviceModelFilters
+  brands: string[]
 }
 
 export function SupportedDeviceContent({
   resetFilterValue,
   filterValue,
   filters,
+  brands,
 }: SupportedDeviceContentProps): JSX.Element | null {
   const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
-    filterValue,
-    filters
+    {
+      filterValue,
+      filters,
+      brands,
+    }
   )
 
   if (isLoading) {
@@ -51,12 +59,29 @@ export function SupportedDeviceContent({
     return null
   }
 
-  return (
-    <table className='seam-supported-device-table-content'>
-      <SupportedDeviceHeader />
-      <tbody>
+  const isEmpty = deviceModels.length === 0
+  if (isEmpty) {
+    return (
+      <div className='seam-supported-device-table-content'>
+        <EmptyResult
+          filterValue={filterValue}
+          resetFilterValue={resetFilterValue}
+        />
+      </div>
+    )
+  }
+
+  // If there are no active filters or search, show all the rows without any brand sections.
+  const hasFilters =
+    filterValue.trim() !== '' ||
+    filters.supportedOnly ||
+    filters.category !== null ||
+    filters.brand !== null
+  if (hasFilters) {
+    return (
+      <div className='seam-supported-device-table-content'>
         {deviceModels.map((deviceModel, index) => (
-          <SupportedDeviceRow
+          <SupportedDeviceFilterResultRow
             key={[
               deviceModel.main_category,
               deviceModel.brand,
@@ -67,14 +92,22 @@ export function SupportedDeviceContent({
             deviceModel={deviceModel}
           />
         ))}
-        {deviceModels.length === 0 && (
-          <EmptyResult
-            filterValue={filterValue}
-            resetFilterValue={resetFilterValue}
+      </div>
+    )
+  }
+
+  return (
+    <>
+      {Object.entries(groupDeviceModelsByBrand(deviceModels)).map(
+        ([brand, models]) => (
+          <SupportedDeviceBrandSection
+            key={brand}
+            brand={brand}
+            deviceModels={models}
           />
-        )}
-      </tbody>
-    </table>
+        )
+      )}
+    </>
   )
 }
 
@@ -108,6 +141,19 @@ function EmptyResult({
       </td>
     </tr>
   )
+}
+
+function groupDeviceModelsByBrand(
+  deviceModels: UseDeviceModelsData
+): Record<string, DeviceModel[]> {
+  const result: Record<string, DeviceModel[]> = {}
+
+  for (const model of deviceModels) {
+    const { brand } = model
+    const list = result[brand] ?? []
+    result[brand] = [...list, model]
+  }
+  return result
 }
 
 const t = {
