@@ -86,6 +86,57 @@ export const App = () => {
 
 [Seam Console]: https://console.seam.co/
 
+### React Hooks
+
+All components interact with the Seam API via a set of React Hooks.
+You can use these hooks directly in your application to build your own components.
+
+Import hooks directly from `@seamapi/react` or `@seamapi/react/hooks`.
+For most applications, these imports are equivalent,
+however if you are only using the hooks, we recommend importing from `@seamapi/react/hooks`
+as it may enable performance or bundling improvements depending on your build system.
+
+Hooks must be used inside the `SeamProvider`.
+They are well-typed and follow a uniform API.
+
+```ts
+import { SeamProvider, useDevices } from '@seamapi/react/hooks'
+
+export const App = () => {
+  return (
+    <SeamProvider publishableKey='your_publishable_key'>
+      <main>
+        <h1>My App</h1>
+        <Devices />
+      </main>
+    </SeamProvider>
+  )
+}
+
+const Devices = () => {
+  const { devices, isLoading, isError, error } = useDevices()
+
+  if (isLoading) {
+    return <p>Loading</p>
+  }
+
+  if (isError) {
+    return <p>{error?.message}</p>
+  }
+
+  return (
+    <>
+      <h2>Devices</h2>
+      <div>
+        {devices?.map((device) => (
+          <p key={device.device_id}>{device.properties.name}</p>
+        ))}
+      </div>
+    </>
+  )
+}
+```
+
 ### Styles
 
 > CSS is automatically included unless using `<SeamProvider disableCssInjection />`.
