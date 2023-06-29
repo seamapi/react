@@ -2,22 +2,22 @@ import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 
 interface ShowAllDevicesButtonProps {
   onClick: () => void
-  isShowing: boolean
-  viewingAllDevices: boolean
+  visible: boolean
+  expanded: boolean
   totalDeviceCount: number
 }
 
 export function ShowAllDevicesButton({
   onClick,
-  isShowing,
-  viewingAllDevices,
+  visible,
+  expanded,
   totalDeviceCount,
 }: ShowAllDevicesButtonProps) {
-  if (!isShowing) {
+  if (!visible) {
     return null
   }
 
-  const label = viewingAllDevices ? t.showLess : t.showAll(totalDeviceCount)
+  const label = expanded ? t.showLess : t.showAll(totalDeviceCount)
 
   return (
     <button className='show-all-devices-button' onClick={onClick}>

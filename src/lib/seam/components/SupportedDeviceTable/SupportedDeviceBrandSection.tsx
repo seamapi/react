@@ -81,9 +81,9 @@ export function SupportedDeviceBrandSection({
         ))}
       </div>
       <ShowAllDevicesButton
-        isShowing={canExpand}
+        visible={canExpand}
         onClick={toggleExpand}
-        viewingAllDevices={expanded}
+        expanded={expanded}
         totalDeviceCount={deviceModels.length}
       />
       <HiddenDevicesOverlay visible={canExpand && !expanded} />
