@@ -1,9 +1,9 @@
 interface HiddenDevicesOverlayProps {
-  isShowing: boolean
+  visible: boolean
 }
 
-export function HiddenDevicesOverlay({ isShowing }: HiddenDevicesOverlayProps) {
-  if (!isShowing) {
+export function HiddenDevicesOverlay({ visible }: HiddenDevicesOverlayProps) {
+  if (!visible) {
     return null
   }
 
