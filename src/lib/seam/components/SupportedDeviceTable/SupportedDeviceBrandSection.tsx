@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import type { DeviceModel } from 'seamapi'
 
-import { getBrandInfo, getImage } from 'lib/brands.js'
+import { useDeviceProvider } from 'lib/brands.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { HiddenDevicesOverlay } from 'lib/seam/components/SupportedDeviceTable/HiddenDevicesOverlay.js'
 import { ShowAllDevicesButton } from 'lib/seam/components/SupportedDeviceTable/ShowAllDevicesButton.js'
@@ -22,8 +22,8 @@ export interface SupportedDeviceRowProps {
 export function SupportedDeviceBrandSection({
   brand,
   deviceModels,
-}: SupportedDeviceRowProps): JSX.Element {
-  const brandInfo = getBrandInfo(brand)
+}: SupportedDeviceRowProps): JSX.Element | null {
+  const { deviceProvider } = useDeviceProvider(brand)
 
   const [collapsed, toggleCollapsed] = useToggle()
   const [viewingAllDevices, toggleViewingAllDevices] = useToggle()
@@ -40,6 +40,10 @@ export function SupportedDeviceBrandSection({
     )
   }
 
+  if (deviceProvider == null) {
+    return null
+  }
+
   return (
     <div
       className={classNames('seam-brand-section', {
@@ -49,12 +53,12 @@ export function SupportedDeviceBrandSection({
     >
       <div className='seam-header' onClick={toggleCollapsed}>
         <img
-          src={getImage(brandInfo)}
+          src={deviceProvider.image_url}
           alt={brand}
           className='seam-brand-image'
         />
         <h5 className='seam-brand-name'>
-          {brandInfo.readableName} {t.devices}
+          {deviceProvider.display_name} {t.devices}
         </h5>
         <ChevronRightIcon className='chevron' />
       </div>

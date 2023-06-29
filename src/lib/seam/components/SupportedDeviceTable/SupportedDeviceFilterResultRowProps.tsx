@@ -1,6 +1,6 @@
 import type { DeviceModel } from 'seamapi'
 
-import { getBrandInfo, getImage } from 'lib/brands.js'
+import { useDeviceProvider } from 'lib/brands.js'
 import {
   connectionTypeNames,
   ImageColumn,
@@ -27,13 +27,17 @@ export function SupportedDeviceFilterResultRow({
 export function ModelColumn({
   deviceModel,
 }: SupportedDeviceFilterResultRowProps) {
-  const brandInfo = getBrandInfo(deviceModel.brand)
+  const { deviceProvider } = useDeviceProvider(deviceModel.brand)
+
+  if (deviceProvider == null) {
+    return null
+  }
 
   return (
     <div className='seam-col seam-model-col'>
       <div className='seam-model-name'>
         <img
-          src={getImage(brandInfo)}
+          src={deviceProvider.image_url}
           alt={deviceModel.brand}
           className='seam-brand-image'
         />{' '}
