@@ -17,7 +17,7 @@ export function ShowAllDevicesButton({
     return null
   }
 
-  const label = viewingAllDevices ? t.showLess : t.seeAll(totalDeviceCount)
+  const label = viewingAllDevices ? t.showLess : t.showAll(totalDeviceCount)
 
   return (
     <button className='show-all-devices-button' onClick={onClick}>
@@ -28,5 +28,5 @@ export function ShowAllDevicesButton({
 
 const t = {
   showLess: 'Show less',
-  seeAll: (count: number) => `See all ${count} devices`,
+  showAll: (count: number) => `See all ${count} devices`,
 }
