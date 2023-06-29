@@ -11,15 +11,15 @@ export interface SupportedDeviceTableProps {
    * @deprecated Use disableFilter.
    */
   cannotFilter?: boolean
-  className?: string
   brands?: string[]
+  className?: string
 }
 
 export function SupportedDeviceTable({
   disableFilter = false,
   cannotFilter,
-  className,
   brands = [],
+  className,
 }: SupportedDeviceTableProps = {}): JSX.Element {
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<DeviceModelFilters>({
