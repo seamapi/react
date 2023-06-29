@@ -1,11 +1,11 @@
 import type { DeviceModel } from 'seamapi'
 
-import { useDeviceProvider } from 'lib/brands.js'
 import {
   connectionTypeNames,
   ImageColumn,
   StatusColumn,
 } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
+import { useDeviceProvider } from 'lib/seam/components/SupportedDeviceTable/use-device-provider.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 
 export interface SupportedDeviceFilterResultRowProps {

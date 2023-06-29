@@ -1,11 +1,11 @@
 import classNames from 'classnames'
 import type { DeviceModel } from 'seamapi'
 
-import { useDeviceProvider } from 'lib/brands.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { HiddenDevicesOverlay } from 'lib/seam/components/SupportedDeviceTable/HiddenDevicesOverlay.js'
 import { ShowAllDevicesButton } from 'lib/seam/components/SupportedDeviceTable/ShowAllDevicesButton.js'
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
+import { useDeviceProvider } from 'lib/seam/components/SupportedDeviceTable/use-device-provider.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
