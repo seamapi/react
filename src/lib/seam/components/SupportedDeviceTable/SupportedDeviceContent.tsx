@@ -66,8 +66,7 @@ export function SupportedDeviceContent({
     )
   }
 
-  // If we have any active filters/search, we'll just show all the rows
-  // without any brand sections.
+  // If there are no active filters or search, show all the rows without any brand sections.
   const hasFilters =
     filterValue.trim() !== '' ||
     filters.supportedOnly ||
