@@ -100,11 +100,6 @@ $row-padding: 8px;
       display: flex;
       align-items: center;
       height: 64px;
-      cursor: pointer;
-
-      &:hover {
-        background: colors.$bg-aa;
-      }
 
       .seam-brand-image {
         width: 48px;
@@ -164,22 +159,24 @@ $row-padding: 8px;
       z-index: 2;
     }
 
-    &.collapsed {
-      margin-bottom: 0;
+    &.can-expand {
+      .seam-header {
+        cursor: pointer;
+
+        &:hover {
+          background: colors.$bg-aa;
+        }
+      }
+    }
+
+    &.expanded {
+      margin-bottom: 96px; // 32px  (usual margin) + 64px (empty row)
 
       .seam-header {
         .chevron {
           transform: rotate(270deg);
         }
       }
-
-      .seam-supported-device-table-content {
-        display: none;
-      }
-    }
-
-    &.viewing-all-devices {
-      margin-bottom: 96px; // 32px  (usual margin) + 64px (empty row)
 
       .show-all-devices-button {
         transform: translate(-50%, 16px);

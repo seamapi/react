@@ -9,10 +9,11 @@ import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/Sup
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
- * How many device models before requiring the
- * user to expand the list.
+ * How many device models required before we collapse
+ * the list, and require the user to click to
+ * view all.
  */
-const numDevicesBeforeHiding = 3
+const maxDevicesBeforeCollapsing = 3
 
 export interface SupportedDeviceRowProps {
   brand: string
@@ -25,19 +26,26 @@ export function SupportedDeviceBrandSection({
 }: SupportedDeviceRowProps): JSX.Element | null {
   const { deviceProvider } = useDeviceProvider(brand)
 
-  const [collapsed, toggleCollapsed] = useToggle()
-  const [viewingAllDevices, toggleViewingAllDevices] = useToggle()
+  const [expanded, toggleExpand] = useToggle()
 
-  const canToggleDevices = deviceModels.length > numDevicesBeforeHiding
+  const canExpand = deviceModels.length > maxDevicesBeforeCollapsing
 
   const visibleDevices = () => {
-    if (!canToggleDevices || viewingAllDevices) {
+    if (!canExpand || expanded) {
       return deviceModels
     }
 
     return deviceModels.filter(
-      (_deviceModel, index) => index < numDevicesBeforeHiding
+      (_deviceModel, index) => index < maxDevicesBeforeCollapsing
     )
+  }
+
+  const handleHeaderClick = () => {
+    if (!canExpand) {
+      return
+    }
+
+    toggleExpand()
   }
 
   if (deviceProvider == null) {
@@ -47,11 +55,11 @@ export function SupportedDeviceBrandSection({
   return (
     <div
       className={classNames('seam-brand-section', {
-        collapsed,
-        'viewing-all-devices': viewingAllDevices && !collapsed,
+        'can-expand': canExpand,
+        expanded,
       })}
     >
-      <div className='seam-header' onClick={toggleCollapsed}>
+      <div className='seam-header' onClick={handleHeaderClick}>
         <img
           src={deviceProvider.image_url}
           alt={brand}
@@ -60,7 +68,7 @@ export function SupportedDeviceBrandSection({
         <h5 className='seam-brand-name'>
           {deviceProvider.display_name} {t.devices}
         </h5>
-        <ChevronRightIcon className='chevron' />
+        {canExpand && <ChevronRightIcon className='chevron' />}
       </div>
       <div className='seam-supported-device-table-content'>
         {visibleDevices().map((deviceModel, index) => (
@@ -77,14 +85,12 @@ export function SupportedDeviceBrandSection({
         ))}
       </div>
       <ShowAllDevicesButton
-        isShowing={canToggleDevices && !collapsed}
-        onClick={toggleViewingAllDevices}
-        viewingAllDevices={viewingAllDevices}
+        isShowing={canExpand}
+        onClick={toggleExpand}
+        viewingAllDevices={expanded}
         totalDeviceCount={deviceModels.length}
       />
-      <HiddenDevicesOverlay
-        isShowing={canToggleDevices && !viewingAllDevices && !collapsed}
-      />
+      <HiddenDevicesOverlay isShowing={canExpand && !expanded} />
     </div>
   )
 }
