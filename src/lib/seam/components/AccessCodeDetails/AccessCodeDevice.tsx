@@ -8,12 +8,16 @@ import { TextButton } from 'lib/ui/TextButton.js'
 
 export function AccessCodeDevice({
   deviceId,
+  disableLockUnlock,
   onSelectDevice,
 }: {
   deviceId: string
+  disableLockUnlock: boolean
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element | null {
-  const { isLoading, device } = useDevice({ device_id: deviceId })
+  const { isLoading, device } = useDevice({
+    device_id: deviceId,
+  })
 
   if (isLoading) {
     return null
@@ -27,14 +31,21 @@ export function AccessCodeDevice({
     return null
   }
 
-  return <Content device={device} onSelectDevice={onSelectDevice} />
+  return (
+    <Content
+      device={device}
+      disableLockUnlock={disableLockUnlock}
+      onSelectDevice={onSelectDevice}
+    />
+  )
 }
 
 function Content(props: {
   device: LockDevice
+  disableLockUnlock: boolean
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element {
-  const { device, onSelectDevice } = props
+  const { device, disableLockUnlock, onSelectDevice } = props
   const toggleLock = useToggleLock(device)
 
   const toggleLockLabel = device.properties.locked ? t.unlock : t.lock
@@ -54,13 +65,15 @@ function Content(props: {
           {t.deviceDetails}
         </TextButton>
       </div>
-      <Button
-        onClick={() => {
-          toggleLock.mutate()
-        }}
-      >
-        {toggleLockLabel}
-      </Button>
+      {!disableLockUnlock && (
+        <Button
+          onClick={() => {
+            toggleLock.mutate()
+          }}
+        >
+          {toggleLockLabel}
+        </Button>
+      )}
     </div>
   )
 }

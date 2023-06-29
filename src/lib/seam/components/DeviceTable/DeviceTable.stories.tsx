@@ -11,6 +11,12 @@ const meta: Meta<typeof DeviceTable> = {
   title: 'Example/DeviceTable',
   component: DeviceTable,
   tags: ['autodocs'],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/Su3VO6yupz4yxe88fv0Uqa/Seam-Components?type=design&node-id=358-43308&mode=design&t=4OQwfRB8Mw8kT1rw-4',
+    },
+  },
 }
 
 export default meta
@@ -48,3 +54,7 @@ function InsideModalComponent({
     </>
   )
 }
+
+export const ReadOnlyCustomerSupportPanel = () => (
+  <DeviceTable connectedAccountIds={['connected_account1']} disableLockUnlock />
+)

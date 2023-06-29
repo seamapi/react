@@ -13,7 +13,10 @@ export type UseDeviceModelsParams = DeviceModelsListRequest
 export type UseDeviceModelsData = DeviceModel[]
 
 export function useDeviceModels(
-  params?: UseDeviceModelsParams
+  params?: Omit<
+    UseDeviceModelsParams,
+    'acknowledge_intentional_use_of_internal_api'
+  >
 ): UseSeamQueryResult<'deviceModels', UseDeviceModelsData> {
   const { client } = useSeamClient()
 
@@ -25,7 +28,10 @@ export function useDeviceModels(
     queryKey: ['device_models', 'list', params],
     queryFn: async () => {
       if (client == null) return []
-      const deviceModels = await client?.deviceModels.list(params)
+      const deviceModels = await client?.deviceModels.list({
+        ...params,
+        acknowledge_intentional_use_of_internal_api: true,
+      })
       return deviceModels
     },
   })

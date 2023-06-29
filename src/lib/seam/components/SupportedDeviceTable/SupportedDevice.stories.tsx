@@ -11,6 +11,12 @@ const meta: Meta<typeof SupportedDeviceTable> = {
   title: 'Example/SupportedDeviceTable',
   component: SupportedDeviceTable,
   tags: ['autodocs'],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/6nCfNVHmYQ7wxhnFOpFBm6/Supported-devices?type=design&node-id=171-36651&mode=design&t=JkLcfU9cdo7cMpHR-4',
+    },
+  },
 }
 
 export default meta
@@ -20,7 +26,7 @@ type Story = StoryObj<typeof SupportedDeviceTable>
 export const Content: Story = {}
 
 export const NoFilter: Story = {
-  render: (props) => <SupportedDeviceTable {...props} cannotFilter />,
+  render: (props) => <SupportedDeviceTable {...props} disableFilter />,
 }
 
 export const InsideModal: Story = {

@@ -11,6 +11,12 @@ const meta: Meta<typeof AccessCodeDetails> = {
   title: 'Example/AccessCodeDetails',
   component: AccessCodeDetails,
   tags: ['autodocs'],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/Su3VO6yupz4yxe88fv0Uqa/Seam-Components?type=design&node-id=358-43227&mode=design&t=4OQwfRB8Mw8kT1rw-4',
+    },
+  },
 }
 
 export default meta
@@ -44,4 +50,14 @@ export const InsideModal: Story = {
       </>
     )
   },
+}
+
+export const DisableLockUnlock: Story = {
+  render: (props, { globals }) => (
+    <AccessCodeDetails
+      {...props}
+      accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+      disableLockUnlock
+    />
+  ),
 }

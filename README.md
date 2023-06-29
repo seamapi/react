@@ -16,6 +16,7 @@ refreshing data, and performing actions.
 ### Resources to Get Started
 
 - [Get started with Seam](https://www.seam.co/).
+- [Get started with Client Side Components](https://docs.seam.co/latest/seam-components/get-started-with-client-side-components).
 - [Get started with React and Client Session Tokens](https://docs.seam.co/latest/seam-components/get-started-with-react-components-and-client-session-tokens).
 - [Make a Supported Devices Page with React](https://docs.seam.co/latest/seam-components/make-a-supported-devices-page-with-react).
 - Reference the [Component API](https://docs.seam.co/latest/seam-components/react-components).
@@ -372,7 +373,6 @@ The following environment variables must be set on [Vercel]:
 
 - `SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with the examples.
 - `SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with the examples..
-- `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
 

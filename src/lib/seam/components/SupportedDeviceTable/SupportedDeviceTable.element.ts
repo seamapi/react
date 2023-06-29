@@ -6,6 +6,7 @@ export const name = 'seam-supported-device-table'
 
 export const props: ElementProps<SupportedDeviceTableProps> = {
   cannotFilter: 'boolean',
+  disableFilter: 'boolean',
   className: 'string',
 }
 

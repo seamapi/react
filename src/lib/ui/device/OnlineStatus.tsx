@@ -1,5 +1,6 @@
 import type { CommonDevice } from 'seamapi'
 
+import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOffline.js'
 import { OnlineStatusDeviceOfflineIcon } from 'lib/icons/OnlineStatusDeviceOffline.js'
 import { OnlineStatusOnlineIcon } from 'lib/icons/OnlineStatusOnline.js'
 
@@ -8,20 +9,34 @@ interface OnlineStatusProps {
 }
 
 export function OnlineStatus(props: OnlineStatusProps): JSX.Element {
-  const {
-    device: {
-      properties: { online },
-    },
-  } = props
+  const { device } = props
+
+  const isAccountOffline =
+    device.errors.filter((error) => error.error_code === 'account_disconnected')
+      .length > 0
+
+  if (isAccountOffline) {
+    return <AccountOfflineContent />
+  }
 
   return (
     <div className='seam-online-status'>
-      <Content isOnline={online} />
+      {isAccountOffline && <OnlineStatusAccountOfflineIcon />}
+      <DeviceOnlineContent isOnline={device.properties.online} />
     </div>
   )
 }
 
-function Content(props: { isOnline: boolean }): JSX.Element {
+function AccountOfflineContent() {
+  return (
+    <div className='seam-online-status'>
+      <OnlineStatusAccountOfflineIcon />
+      <span className='seam-text-danger'>{t.accountOffline}</span>
+    </div>
+  )
+}
+
+function DeviceOnlineContent(props: { isOnline: boolean }): JSX.Element {
   const { isOnline } = props
   if (isOnline) {
     return (
@@ -42,5 +57,6 @@ function Content(props: { isOnline: boolean }): JSX.Element {
 
 const t = {
   online: 'Online',
+  accountOffline: 'Account Offline',
   deviceOffline: 'Device Offline',
 }

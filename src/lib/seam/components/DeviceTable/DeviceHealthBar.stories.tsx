@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 import {
+  type AccountFilter,
   type DeviceFilter,
   DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
@@ -11,6 +12,12 @@ const meta: Meta<typeof DeviceHealthBar> = {
   title: 'Library/DeviceHealthBar',
   component: DeviceHealthBar,
   tags: ['autodocs'],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/Su3VO6yupz4yxe88fv0Uqa/Seam-Components?type=design&node-id=521-101011&mode=design&t=4OQwfRB8Mw8kT1rw-4',
+    },
+  },
 }
 
 export default meta
@@ -20,11 +27,12 @@ type Story = StoryObj<typeof DeviceHealthBar>
 export const Content: Story = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [filter, setFilter] = useState<DeviceFilter | null>(null)
+    const [filter, setFilter] = useState<AccountFilter | DeviceFilter | null>(
+      null
+    )
     return (
       <Box display='grid' gap={3} gridTemplateColumns='1fr'>
         <DeviceHealthBar filter={null} onFilterSelect={() => {}} devices={[]} />
-
         <DeviceHealthBar
           filter={filter}
           onFilterSelect={setFilter}
@@ -33,6 +41,7 @@ export const Content: Story = {
               connected_account_id: 'account_1',
               device_type: 'august_lock',
               device_id: 'dev_1',
+              is_managed: true,
               capabilities_supported: [],
               created_at: '2023-05-08T22:38:30.963Z',
               workspace_id: 'workspace_1',
@@ -47,6 +56,7 @@ export const Content: Story = {
                 {
                   error_code: 'account_disconnected',
                   message: 'Device account has been disconnected.',
+                  is_connected_account_error: true,
                 },
               ],
               warnings: [
@@ -62,20 +72,22 @@ export const Content: Story = {
               connected_account_id: 'account_1',
               device_type: 'august_lock',
               device_id: 'dev_2',
+              is_managed: true,
               capabilities_supported: [],
               created_at: '2023-05-08T22:38:30.963Z',
               workspace_id: 'workspace_1',
               properties: {
                 name: 'mydevice',
-                online: true,
+                online: false,
                 model: {
                   display_name: 'Smart Lock 2nd Generation',
                 },
               },
               errors: [
                 {
-                  error_code: 'account_disconnected',
-                  message: 'Device account has been disconnected.',
+                  error_code: 'device_disconnected',
+                  message: 'Device has been disconnected.',
+                  is_device_error: true,
                 },
               ],
               warnings: [

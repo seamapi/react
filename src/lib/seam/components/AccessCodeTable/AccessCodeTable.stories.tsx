@@ -11,6 +11,12 @@ const meta: Meta<typeof AccessCodeTable> = {
   title: 'Example/AccessCodeTable',
   component: AccessCodeTable,
   tags: ['autodocs'],
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/Su3VO6yupz4yxe88fv0Uqa/Seam-Components?type=design&node-id=358-43443&mode=design&t=4OQwfRB8Mw8kT1rw-4',
+    },
+  },
 }
 
 export default meta
@@ -22,6 +28,16 @@ export const Content: Story = {
     <AccessCodeTable
       {...props}
       deviceId={props.deviceId ?? globals['deviceId']}
+    />
+  ),
+}
+
+export const Issue: Story = {
+  render: (props, { globals }) => (
+    <AccessCodeTable
+      {...props}
+      deviceId={props.deviceId ?? globals['deviceId']}
+      accessCodeFilter={(accessCode) => accessCode.errors.length > 0}
     />
   ),
 }
