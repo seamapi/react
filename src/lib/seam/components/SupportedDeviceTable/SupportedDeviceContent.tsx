@@ -6,7 +6,7 @@ import {
   type DeviceModelFilters,
   useFilteredDeviceModels,
 } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
-import { type UseDeviceModelsData } from 'lib/seam/device-models/use-device-models.js'
+import type { UseDeviceModelsData } from 'lib/seam/device-models/use-device-models.js'
 import { Button } from 'lib/ui/Button.js'
 
 interface SupportedDeviceContentProps {

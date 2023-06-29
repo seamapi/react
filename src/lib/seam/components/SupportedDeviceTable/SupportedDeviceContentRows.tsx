@@ -1,5 +1,5 @@
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
-import { type UseDeviceModelsData } from 'lib/seam/device-models/use-device-models.js'
+import type { UseDeviceModelsData } from 'lib/seam/device-models/use-device-models.js'
 
 interface SupportedDeviceContentRowsProps {
   deviceModels: UseDeviceModelsData
