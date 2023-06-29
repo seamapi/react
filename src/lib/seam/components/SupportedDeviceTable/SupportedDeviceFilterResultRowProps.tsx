@@ -27,11 +27,7 @@ export function SupportedDeviceFilterResultRow({
 export function ModelColumn({
   deviceModel,
 }: SupportedDeviceFilterResultRowProps) {
-  const { deviceProvider } = useDeviceProvider(deviceModel.brand)
-
-  if (deviceProvider == null) {
-    return null
-  }
+  const deviceProvider = useDeviceProvider(deviceModel.brand)
 
   return (
     <div className='seam-col seam-model-col'>

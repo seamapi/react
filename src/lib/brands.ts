@@ -3,13 +3,10 @@ import type { DeviceProvider } from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export function useDeviceProvider(brand: string): {
-  deviceProvider: DeviceProvider | undefined
-  isLoading: boolean
-} {
+export function useDeviceProvider(brand: string): DeviceProvider {
   const { client } = useSeamClient()
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryFn: async () => {
       if (client == null) {
         return []
@@ -21,10 +18,18 @@ export function useDeviceProvider(brand: string): {
     enabled: client != null,
   })
 
+  const definedProvider = data?.find(
+    (provider) => provider.device_provider_name === brand
+  )
+
+  if (definedProvider != null) {
+    return definedProvider
+  }
+
   return {
-    deviceProvider: data?.find(
-      (provider) => provider.device_provider_name === brand
-    ),
-    isLoading,
+    device_provider_name: 'unknown',
+    display_name: 'Unknown',
+    image_url: `https://connect.getseam.com/assets/images/logos/seam.png`,
+    provider_categories: [],
   }
 }

@@ -24,7 +24,7 @@ export function SupportedDeviceBrandSection({
   brand,
   deviceModels,
 }: SupportedDeviceRowProps): JSX.Element | null {
-  const { deviceProvider } = useDeviceProvider(brand)
+  const deviceProvider = useDeviceProvider(brand)
 
   const [expanded, toggleExpand] = useToggle()
 
@@ -46,10 +46,6 @@ export function SupportedDeviceBrandSection({
     }
 
     toggleExpand()
-  }
-
-  if (deviceProvider == null) {
-    return null
   }
 
   return (
