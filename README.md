@@ -44,7 +44,7 @@ $ npm install @seamapi/react
 2. Wrap your React app with the `SeamProvider`.
 3. Drop in Seam Components.
 
-```ts
+```tsx
 import { ConnectAccountButton, DeviceTable, SeamProvider } from '@seamapi/react'
 
 export const App = () => {
@@ -86,6 +86,57 @@ export const App = () => {
 
 [Seam Console]: https://console.seam.co/
 
+### React Hooks
+
+All components interact with the Seam API via a set of React Hooks.
+You can use these hooks directly in your application to build your own components.
+
+Import hooks directly from `@seamapi/react` or `@seamapi/react/hooks`.
+For most applications, these imports are equivalent,
+however if you are only using the hooks, we recommend importing from `@seamapi/react/hooks`
+as it may enable performance or bundling improvements depending on your build system.
+
+Hooks must be used inside the `SeamProvider`.
+They are well-typed and follow a uniform API.
+
+```tsx
+import { SeamProvider, useDevices } from '@seamapi/react/hooks'
+
+export const App = () => {
+  return (
+    <SeamProvider publishableKey='your_publishable_key'>
+      <main>
+        <h1>My App</h1>
+        <Devices />
+      </main>
+    </SeamProvider>
+  )
+}
+
+const Devices = () => {
+  const { devices, isLoading, isError, error } = useDevices()
+
+  if (isLoading) {
+    return <p>Loading</p>
+  }
+
+  if (isError) {
+    return <p>{error?.message}</p>
+  }
+
+  return (
+    <>
+      <h2>Devices</h2>
+      <div>
+        {devices?.map((device) => (
+          <p key={device.device_id}>{device.properties.name}</p>
+        ))}
+      </div>
+    </>
+  )
+}
+```
+
 ### Styles
 
 > CSS is automatically included unless using `<SeamProvider disableCssInjection />`.
@@ -98,7 +149,7 @@ If you prefer to manually load the CSS,
 this behavior may be disabled with the `disableCssInjection` prop.
 Then, either import the CSS using a supported bundler with
 
-```ts
+```tsx
 import '@seamapi/react/index.css'
 ```
 
@@ -311,7 +362,7 @@ To add a new icon:
 2. Run `npm run generate`.
 3. Import with
 
-```ts
+```tsx
 import { SeamIcon } from 'lib/icons/SeamIcon.js'
 ```
 
