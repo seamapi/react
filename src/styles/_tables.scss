@@ -111,7 +111,7 @@
     }
 
     &.seam-selected {
-      background: #fff;
+      background: colors.$white;
       border: 1px solid colors.$text-gray-3;
     }
   }
