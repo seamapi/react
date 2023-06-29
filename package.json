@@ -121,7 +121,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
     "@r2wc/react-to-web-component": "^2.0.2",
-    "@seamapi/fake-seam-connect": "^0.8.0",
+    "@seamapi/fake-seam-connect": "^0.10.0",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-interactions": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
