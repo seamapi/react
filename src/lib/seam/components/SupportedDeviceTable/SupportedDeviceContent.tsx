@@ -147,8 +147,7 @@ function groupDeviceModelsByBrand(
   for (const model of deviceModels) {
     const { brand } = model
     const list = result[brand] ?? []
-    const appended = [...list, model]
-    result[brand] = appended
+    result[brand] = [...list, model]
   }
   return result
 }
