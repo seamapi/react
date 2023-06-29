@@ -44,7 +44,7 @@ $ npm install @seamapi/react
 2. Wrap your React app with the `SeamProvider`.
 3. Drop in Seam Components.
 
-```ts
+```tsx
 import { ConnectAccountButton, DeviceTable, SeamProvider } from '@seamapi/react'
 
 export const App = () => {
@@ -99,7 +99,7 @@ as it may enable performance or bundling improvements depending on your build sy
 Hooks must be used inside the `SeamProvider`.
 They are well-typed and follow a uniform API.
 
-```ts
+```tsx
 import { SeamProvider, useDevices } from '@seamapi/react/hooks'
 
 export const App = () => {
@@ -149,7 +149,7 @@ If you prefer to manually load the CSS,
 this behavior may be disabled with the `disableCssInjection` prop.
 Then, either import the CSS using a supported bundler with
 
-```ts
+```tsx
 import '@seamapi/react/index.css'
 ```
 
@@ -362,7 +362,7 @@ To add a new icon:
 2. Run `npm run generate`.
 3. Import with
 
-```ts
+```tsx
 import { SeamIcon } from 'lib/icons/SeamIcon.js'
 ```
 
