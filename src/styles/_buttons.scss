@@ -6,7 +6,7 @@
     border-radius: 6px;
     border: 1px solid rgb(0 122 252 / 50%);
     cursor: pointer;
-    background: #fff;
+    background: colors.$white;
     padding: 6px;
     line-height: 0;
 
@@ -62,7 +62,7 @@
 @mixin button-variant {
   &.seam-btn-solid {
     background: colors.$primary;
-    color: #fff;
+    color: colors.$white;
     border: 1px solid colors.$primary;
 
     &:hover {
@@ -106,7 +106,7 @@
     &:disabled {
       color: colors.$text-gray-2-5;
       border-color: colors.$text-gray-3;
-      background: #fff;
+      background: colors.$white;
     }
   }
 }
