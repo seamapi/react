@@ -48,3 +48,7 @@ function InsideModalComponent({
     </>
   )
 }
+
+export const ReadOnlyCustomerSupportPanel = () => (
+  <DeviceTable connectedAccountIds={['connected_account1']} disableLockUnlock />
+)
