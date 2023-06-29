@@ -15,7 +15,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  */
 const maxDevicesBeforeCollapsing = 3
 
-export interface SupportedDeviceRowProps {
+export interface SupportedDeviceBrandSectionProps {
   brand: string
   deviceModels: DeviceModel[]
 }
@@ -23,7 +23,7 @@ export interface SupportedDeviceRowProps {
 export function SupportedDeviceBrandSection({
   brand,
   deviceModels,
-}: SupportedDeviceRowProps): JSX.Element | null {
+}: SupportedDeviceBrandSectionProps): JSX.Element | null {
   const deviceProvider = useDeviceProvider(brand)
 
   const [expanded, toggleExpand] = useToggle()
