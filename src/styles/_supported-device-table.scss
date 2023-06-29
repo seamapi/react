@@ -92,7 +92,6 @@ $row-padding: 8px;
     }
   }
 
-
   .seam-brand-section {
     margin-bottom: 32px;
     position: relative;
@@ -140,7 +139,8 @@ $row-padding: 8px;
       color: colors.$text-gray-1;
       border-radius: 30px;
       border: 0;
-      box-shadow: 0px 1px 1px 0px rgba(16, 27, 37, 0.10), 0px 1px 8px 0px rgba(46, 69, 82, 0.12);
+      box-shadow: 0 1px 1px 0 rgb(16 27 37 / 10%),
+        0 1px 8px 0 rgb(46 69 82 / 12%);
       position: absolute;
       left: 50%;
       transform: translate(-50%, -47px);
@@ -152,7 +152,11 @@ $row-padding: 8px;
     }
 
     .hidden-devices-overlay {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 10.17%, #FFF 86.98%);
+      background: linear-gradient(
+        180deg,
+        rgb(255 255 255 / 0%) 10.17%,
+        #fff 86.98%
+      );
       position: absolute;
       height: 64px;
       width: 100%;
@@ -168,6 +172,7 @@ $row-padding: 8px;
           transform: rotate(270deg);
         }
       }
+
       .seam-supported-device-table-content {
         display: none;
       }
@@ -179,7 +184,7 @@ $row-padding: 8px;
       .show-all-devices-button {
         transform: translate(-50%, 16px);
 
-        svg  {
+        svg {
           transform: rotate(270deg);
         }
       }
@@ -243,7 +248,6 @@ $row-padding: 8px;
       }
 
       &.filter-result-row {
-
         .seam-model-name {
           display: flex;
           align-items: center;
