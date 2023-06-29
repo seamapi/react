@@ -14,6 +14,7 @@ export interface SupportedDeviceFilterAreaProps {
   setFilterValue: (filter: string) => void
   filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
+  brands: string[]
 }
 
 export function SupportedDeviceFilterArea({
@@ -21,13 +22,14 @@ export function SupportedDeviceFilterArea({
   setFilterValue,
   filters,
   setFilters,
+  brands,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = Object.values(filters).filter(
     (v) => v != null && v !== false
   ).length
 
   const filterProperty = 'brand'
-  const availableProperties = useAvailableProperties(filterProperty)
+  const availableProperties = useAvailableProperties(filterProperty, { brands })
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -116,12 +118,29 @@ export function SupportedDeviceFilterArea({
   )
 }
 
-const useAvailableProperties = (property: keyof DeviceModel): string[] => {
+const useAvailableProperties = (
+  property: keyof DeviceModel,
+  options: {
+    brands: string[]
+  }
+): string[] => {
   const { deviceModels } = useDeviceModels()
   if (deviceModels == null) return []
   const properties = new Set<string>()
   for (const deviceModel of deviceModels) {
-    properties.add(capitalize(deviceModel[property]))
+    const value = deviceModel[property]
+
+    // If we're only looking at a subset of brands, such as ["yale", "august"], then we
+    // don't want to show other brands in the filter.
+    if (
+      property === 'brand' &&
+      options.brands.length > 0 &&
+      !options.brands.includes(value)
+    ) {
+      continue
+    }
+
+    properties.add(capitalize(value))
   }
   return Array.from(properties)
 }

@@ -8,11 +8,13 @@ import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTabl
 export interface SupportedDeviceTableProps {
   cannotFilter?: boolean
   className?: string
+  brands?: string[]
 }
 
 export function SupportedDeviceTable({
   cannotFilter = false,
   className,
+  brands = [],
 }: SupportedDeviceTableProps = {}): JSX.Element {
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<DeviceModelFilters>({
@@ -34,6 +36,7 @@ export function SupportedDeviceTable({
           setFilterValue={setFilterValue}
           filters={filters}
           setFilters={setFilters}
+          brands={brands}
         />
       )}
       <SupportedDeviceContent
@@ -42,6 +45,7 @@ export function SupportedDeviceTable({
         }}
         filterValue={filterValue}
         filters={filters}
+        brands={brands}
       />
     </div>
   )

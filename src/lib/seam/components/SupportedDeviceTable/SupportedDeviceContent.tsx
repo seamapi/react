@@ -13,16 +13,21 @@ interface SupportedDeviceContentProps {
   filterValue: string
   resetFilterValue: () => void
   filters: DeviceModelFilters
+  brands: string[]
 }
 
 export function SupportedDeviceContent({
   resetFilterValue,
   filterValue,
   filters,
+  brands,
 }: SupportedDeviceContentProps): JSX.Element | null {
   const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
-    filterValue,
-    filters
+    {
+      filterValue,
+      filters,
+      brands,
+    }
   )
 
   if (isLoading) {
