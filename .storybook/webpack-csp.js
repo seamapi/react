@@ -8,9 +8,9 @@ export default class CspPlugin {
   apply(compiler) {
     compiler.hooks.afterEmit.tapAsync('CspPlugin', async () => {
       await Promise.all(
-        ['index.html', 'iframe.html'].map((name) =>
-          injectNonce(join(compiler.outputPath, name))
-        )
+        ['index.html', 'iframe.html'].map(async (name) => {
+          await injectNonce(join(compiler.outputPath, name))
+        })
       )
     })
   }
