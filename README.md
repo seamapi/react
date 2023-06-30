@@ -207,7 +207,7 @@ default-src 'self'; connect-src 'self' https://connect.getseam.com; img-src 'sel
 
 #### Granular CSP
 
-Depending on how which assets you choose to host yourself, the CSP may be made stricter.
+Depending on which assets you choose to host yourself, the CSP may be made stricter.
 
 By self hosting the styles and recommended fonts (or choosing not to use them),
 and proxying the Seam API endpoint, the components are compatible with this strict CSP:
