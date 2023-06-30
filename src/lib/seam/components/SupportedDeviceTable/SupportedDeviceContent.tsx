@@ -1,7 +1,7 @@
 import type { DeviceModel } from 'seamapi'
 
 import { SupportedDeviceBrandSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceBrandSection.js'
-import { SupportedDeviceFilterResultRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterResultRowProps.js'
+import { SupportedDeviceFilterResultRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterResultRow.js'
 import {
   type DeviceModelFilters,
   useFilteredDeviceModels,

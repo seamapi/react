@@ -3,7 +3,7 @@ import type { DeviceModel } from 'seamapi'
 
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 
-export interface SupportedDeviceRowProps {
+interface SupportedDeviceRowProps {
   deviceModel: DeviceModel
 }
 
@@ -19,7 +19,9 @@ export function SupportedDeviceRow({
   )
 }
 
-export function ImageColumn({ deviceModel }: SupportedDeviceRowProps) {
+export function ImageColumn({
+  deviceModel,
+}: SupportedDeviceRowProps): JSX.Element {
   return (
     <div className='seam-col seam-device-image-col'>
       <div className='seam-image-box'>
@@ -29,7 +31,9 @@ export function ImageColumn({ deviceModel }: SupportedDeviceRowProps) {
   )
 }
 
-export function ModelColumn({ deviceModel }: SupportedDeviceRowProps) {
+export function ModelColumn({
+  deviceModel,
+}: SupportedDeviceRowProps): JSX.Element {
   return (
     <div className='seam-col seam-model-col'>
       <div className='seam-model-name'>{deviceModel.model_name}</div>
@@ -42,7 +46,9 @@ export function ModelColumn({ deviceModel }: SupportedDeviceRowProps) {
   )
 }
 
-export function StatusColumn({ deviceModel }: SupportedDeviceRowProps) {
+export function StatusColumn({
+  deviceModel,
+}: SupportedDeviceRowProps): JSX.Element {
   const statusColor = supportLevelColors[deviceModel.support_level] ?? 'unknown'
 
   return (

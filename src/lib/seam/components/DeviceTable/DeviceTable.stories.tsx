@@ -55,6 +55,12 @@ function InsideModalComponent({
   )
 }
 
-export const ReadOnlyCustomerSupportPanel = () => (
-  <DeviceTable connectedAccountIds={['connected_account1']} disableLockUnlock />
-)
+export const ReadOnlyCustomerSupportPanel: Story = {
+  render: (props = {}) => (
+    <DeviceTable
+      {...props}
+      connectedAccountIds={['connected_account1']}
+      disableLockUnlock
+    />
+  ),
+}
