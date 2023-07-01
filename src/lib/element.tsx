@@ -56,7 +56,7 @@ export const defineCustomElement = ({
 function withProvider<P extends JSX.IntrinsicAttributes>(
   Component: ComponentType<P>
 ) {
-  return function({
+  return function ({
     publishableKey,
     userIdentifierKey,
     clientSessionToken,
