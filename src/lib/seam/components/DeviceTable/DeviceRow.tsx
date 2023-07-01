@@ -80,8 +80,5 @@ const isAccountOffline = (device: UseDevicesData[number]): boolean => {
 }
 
 const isDeviceOffline = (device: UseDevicesData[number]): boolean => {
-  return (
-    device.errors.filter((error) => error.error_code === 'device_disconnected')
-      .length > 0
-  )
+  return !device.properties.online
 }
