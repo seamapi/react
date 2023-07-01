@@ -38,6 +38,7 @@
         }
       ],
       "rules": {
+        "@typescript-eslint/member-ordering": "error",
         "@typescript-eslint/consistent-type-imports": [
           "error",
           {
