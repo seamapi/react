@@ -124,6 +124,7 @@ export function AccessCodeTable({
       <AccessCodeAddForm
         className={className}
         onBack={toggleAddAccessCodeForm}
+        deviceId={deviceId}
       />
     )
   }

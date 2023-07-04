@@ -1,10 +1,13 @@
 import { ArrowBackIcon } from 'lib/icons/ArrowBack.js'
 
-export function ContentHeader(props: {
-  title?: string
+export interface ContentHeaderProps {
   onBack?: () => void
-}): JSX.Element | null {
-  const { title, onBack } = props
+  title?: string
+  subheading?: string
+}
+
+export function ContentHeader(props: ContentHeaderProps): JSX.Element | null {
+  const { title, onBack, subheading } = props
   if (title == null && onBack == null) {
     return null
   }
@@ -12,7 +15,12 @@ export function ContentHeader(props: {
   return (
     <div className='seam-content-header'>
       <BackIcon onClick={onBack} />
-      <span className='seam-title'>{title}</span>
+      <div>
+        <span className='seam-title'>{title}</span>
+        {subheading != null && (
+          <span className='seam-subheading'>{subheading}</span>
+        )}
+      </div>
     </div>
   )
 }
