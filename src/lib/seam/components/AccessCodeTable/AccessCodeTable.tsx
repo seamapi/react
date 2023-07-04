@@ -153,9 +153,21 @@ function Content(props: {
   const { accessCodes, onAccessCodeClick } = props
   const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
-  const filteredAccessCodes = useFilteredAccessCodes(filter, accessCodes)
+  const filteredAccessCodes = useMemo(() => {
+    if (filter === null) {
+      return accessCodes
+    }
 
-  if (filteredAccessCodes.length === 0) {
+    if (filter === 'access_code_issues') {
+      return accessCodes.filter((accessCode) => {
+        return accessCode.errors.length > 0 || accessCode.warnings.length > 0
+      })
+    }
+
+    return accessCodes
+  }, [accessCodes, filter])
+
+  if (accessCodes.length === 0) {
     return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
   }
 
@@ -240,27 +252,6 @@ function AccessCodeRow(props: {
       </TableCell>
     </TableRow>
   )
-}
-
-function useFilteredAccessCodes(
-  filter: AccessCodeFilter | null,
-  accessCodes: Array<UseAccessCodesData[number]>
-) {
-  return useMemo(() => {
-    if (filter === null) {
-      return accessCodes
-    }
-
-    if (filter === 'access_code_issues') {
-      return accessCodes.filter(hasIssue)
-    }
-
-    return accessCodes
-  }, [accessCodes, filter])
-}
-
-function hasIssue(accessCode: AccessCode) {
-  return accessCode.errors.length > 0 || accessCode.warnings.length > 0
 }
 
 const t = {
