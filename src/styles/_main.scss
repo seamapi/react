@@ -15,6 +15,7 @@
 @use './supported-device-table';
 @use './access-code-add-form';
 @use './input-label';
+@use './form-field';
 
 .seam-components {
   // Reset
@@ -25,6 +26,7 @@
   @include tables.all;
   @include inputs.all;
   @include input-label.all;
+  @include form-field.all;
   @include buttons.all;
   @include layout.all;
   @include icons.all;

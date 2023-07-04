@@ -1,9 +1,11 @@
 import classNames from 'classnames'
 import {
   type ChangeEvent,
+  forwardRef,
   type InputHTMLAttributes,
   type MutableRefObject,
   useEffect,
+  useImperativeHandle,
   useState,
 } from 'react'
 
@@ -25,8 +27,11 @@ export interface TextFieldProps {
   clearable?: boolean
 }
 
-export function TextField(props: TextFieldProps): JSX.Element {
-  const {
+export const TextField = forwardRef<
+  HTMLInputElement | undefined,
+  TextFieldProps
+>(function TextField(
+  {
     value,
     onChange,
     className,
@@ -36,8 +41,9 @@ export function TextField(props: TextFieldProps): JSX.Element {
     disabled = false,
     size = 'small',
     clearable = false,
-  } = props
-
+  },
+  ref
+): JSX.Element {
   const [inputEl, setInputEl] = useState<HTMLInputElement | null>(null)
 
   const valueIsEmpty = useValueIsEmpty(value, inputEl)
@@ -52,6 +58,11 @@ export function TextField(props: TextFieldProps): JSX.Element {
       inputEl.value = ''
     }
   }
+
+  // Maintain a local ref, and still forward it along
+  useImperativeHandle(ref, () => (inputEl != null ? inputEl : undefined), [
+    inputEl,
+  ])
 
   const endAdornmentVisible = endAdornment != null || clearable
 
@@ -90,7 +101,7 @@ export function TextField(props: TextFieldProps): JSX.Element {
       )}
     </div>
   )
-}
+})
 
 export const handleString =
   (setter: (v: string) => void) =>
