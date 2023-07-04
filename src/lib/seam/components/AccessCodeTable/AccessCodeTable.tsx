@@ -83,7 +83,7 @@ export function AccessCodeTable({
   >(null)
 
   const [searchInputValue, setSearchInputValue] = useState('')
-  const [isAddMode, toggleAddMode] = useToggle()
+  const [addAccessCodeFormVisible, toggleAddAccessCodeForm] = useToggle()
 
   const filteredAccessCodes = useMemo(
     () =>
@@ -119,8 +119,13 @@ export function AccessCodeTable({
     )
   }
 
-  if (isAddMode) {
-    return <AccessCodeAddForm className={className} onBack={toggleAddMode} />
+  if (!addAccessCodeFormVisible) {
+    return (
+      <AccessCodeAddForm
+        className={className}
+        onBack={toggleAddAccessCodeForm}
+      />
+    )
   }
 
   return (

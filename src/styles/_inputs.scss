@@ -4,7 +4,6 @@
   .seam-text-field {
     border: 1px solid colors.$text-gray-3;
     border-radius: 8px;
-    padding: 0 8px;
     display: flex;
     align-items: center;
 
@@ -29,6 +28,9 @@
     .seam-text-field-input {
       height: 40px;
       border: 0;
+      width: 100%;
+      padding: 0 8px;
+      border-radius: 8px;
 
       &:focus {
         outline: none;

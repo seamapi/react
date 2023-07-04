@@ -1,3 +1,8 @@
+import classNames from 'classnames'
+
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { TextField } from 'lib/ui/TextField/TextField.js'
+
 export interface AccessCodeAddFormProps {
   className?: string
   onBack?: () => void
@@ -5,7 +10,12 @@ export interface AccessCodeAddFormProps {
 
 export function AccessCodeAddForm({
   className,
-  onBack: _onBack,
+  onBack,
 }: AccessCodeAddFormProps) {
-  return <div className={className} />
+  return (
+    <div className={classNames('seam-access-code-add-form', className)}>
+      <ContentHeader title='Add new access code' onBack={onBack} />
+      <TextField />
+    </div>
+  )
 }
