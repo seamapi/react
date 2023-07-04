@@ -10,6 +10,7 @@ import {
   useAccessCodes,
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
+import { AccessCodeAddForm } from 'lib/seam/components/AccessCodeAddForm/AccessCodeAddForm.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
 import {
   type AccessCodeFilter,
@@ -29,6 +30,7 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
+import { useToggle } from 'lib/ui/use-toggle.js'
 
 export interface AccessCodeTableProps {
   deviceId: string
@@ -81,6 +83,7 @@ export function AccessCodeTable({
   >(null)
 
   const [searchInputValue, setSearchInputValue] = useState('')
+  const [isAddMode, toggleAddMode] = useToggle()
 
   const filteredAccessCodes = useMemo(
     () =>
@@ -114,6 +117,10 @@ export function AccessCodeTable({
         disableLockUnlock={disableLockUnlock}
       />
     )
+  }
+
+  if (isAddMode) {
+    return <AccessCodeAddForm className={className} onBack={toggleAddMode} />
   }
 
   return (
@@ -178,8 +185,8 @@ function AccessCodeRow(props: {
 }): JSX.Element {
   const { onClick, accessCode } = props
 
-  const errorCount = getCount('errors', accessCode)
-  const warningCount = getCount('warnings', accessCode)
+  const errorCount = accessCode.errors.length
+  const warningCount = accessCode.warnings.length
   const isPlural = errorCount === 0 || errorCount > 1
   const errorIconTitle = isPlural
     ? `${errorCount} ${t.codeIssues}`
@@ -252,18 +259,8 @@ function useFilteredAccessCodes(
   }, [accessCodes, filter])
 }
 
-function getCount<Key extends 'errors' | 'warnings'>(
-  key: Key,
-  accessCode: AccessCode
-) {
-  const items = accessCode[key] ?? []
-  return items.length
-}
-
 function hasIssue(accessCode: AccessCode) {
-  return (
-    getCount('errors', accessCode) > 0 || getCount('warnings', accessCode) > 0
-  )
+  return accessCode.errors.length > 0 || accessCode.warnings.length > 0
 }
 
 const t = {
