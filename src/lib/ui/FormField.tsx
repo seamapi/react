@@ -1,30 +1,20 @@
 import classNames from 'classnames'
-import { cloneElement, createContext, useEffect, useState } from 'react'
+import { cloneElement, useRef } from 'react'
 
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 
-interface FormFieldContextProps {
-  hasError: boolean
-}
-
-const FormFieldContext = createContext<undefined | FormFieldContextProps>(
-  undefined
-)
-
 interface FormFieldProps {
   children: JSX.Element | JSX.Element[]
   className?: string
-  isValid?: (value: string) => boolean
 }
 
-export function FormField({ children, className, isValid }: FormFieldProps) {
-  const [inputEl, setInputEl] = useState<HTMLInputElement | null>(null)
-  const [value, setValue] = useState<string | undefined>()
+export function FormField({ children, className }: FormFieldProps) {
+  const inputRef = useRef<HTMLInputElement>()
 
   const focusInput = () => {
-    if (inputEl != null) {
-      inputEl.focus()
+    if (inputRef.current != null) {
+      inputRef.current.focus()
     }
   }
 
@@ -48,45 +38,16 @@ export function FormField({ children, className, isValid }: FormFieldProps) {
     if (component.type === TextField) {
       return cloneElement(component, {
         ...baseProps,
-        ref: setInputEl,
+        ref: inputRef,
       })
     }
 
     return cloneElement(component, baseProps)
   })
 
-  // Bind listeners to inputEl to get current value
-  useEffect(() => {
-    if (inputEl == null) {
-      return
-    }
-
-    const handler = (event: Event): void => {
-      if (event.target == null || !('value' in event.target)) {
-        return
-      }
-
-      const inputValue = event.target.value as string
-      setValue(inputValue)
-    }
-
-    inputEl.addEventListener('input', handler)
-
-    return () => {
-      inputEl.removeEventListener('input', handler)
-    }
-  }, [inputEl, value])
-
-  const hasError =
-    isValid != null && value !== undefined && value !== ''
-      ? !isValid(value)
-      : false
-
   return (
     <div className={classNames('seam-form-field', className)}>
-      <FormFieldContext.Provider value={{ hasError }}>
-        {updatedComponents}
-      </FormFieldContext.Provider>
+      {updatedComponents}
     </div>
   )
 }

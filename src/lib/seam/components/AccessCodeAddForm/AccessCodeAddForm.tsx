@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useState } from 'react'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -22,9 +23,13 @@ export function AccessCodeAddForm({
     device_id: deviceId,
   })
 
+  const [code, setCode] = useState('')
+
   if (device == null) {
     return null
   }
+
+  console.log(code)
 
   return (
     <div className={classNames('seam-access-code-add-form', className)}>
@@ -39,9 +44,9 @@ export function AccessCodeAddForm({
           <TextField size='large' clearable />
         </FormField>
 
-        <FormField isValid={(value) => value.includes('a')}>
+        <FormField>
           <InputLabel>Enter the code (PIN)</InputLabel>
-          <TextField size='large' clearable />
+          <TextField size='large' clearable onChange={setCode} />
           <div>
             <ul>
               <li>4-8 digit code</li>
