@@ -146,21 +146,9 @@ function Content(props: {
   const { accessCodes, onAccessCodeClick } = props
   const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
-  const filteredAccessCodes = useMemo(() => {
-    if (filter === null) {
-      return accessCodes
-    }
+  const filteredAccessCodes = useFilteredAccessCodes(filter, accessCodes)
 
-    if (filter === 'access_code_issues') {
-      return accessCodes.filter((accessCode) => {
-        return accessCode.errors.length > 0 || accessCode.warnings.length > 0
-      })
-    }
-
-    return accessCodes
-  }, [accessCodes, filter])
-
-  if (accessCodes.length === 0) {
+  if (filteredAccessCodes.length === 0) {
     return <EmptyPlaceholder>{t.noAccessCodesMessage}</EmptyPlaceholder>
   }
 
@@ -190,8 +178,8 @@ function AccessCodeRow(props: {
 }): JSX.Element {
   const { onClick, accessCode } = props
 
-  const errorCount = accessCode.errors.length
-  const warningCount = accessCode.warnings.length
+  const errorCount = getCount('errors', accessCode)
+  const warningCount = getCount('warnings', accessCode)
   const isPlural = errorCount === 0 || errorCount > 1
   const errorIconTitle = isPlural
     ? `${errorCount} ${t.codeIssues}`
@@ -244,6 +232,37 @@ function AccessCodeRow(props: {
         </MoreActionsMenu>
       </TableCell>
     </TableRow>
+  )
+}
+
+function useFilteredAccessCodes(
+  filter: AccessCodeFilter | null,
+  accessCodes: Array<UseAccessCodesData[number]>
+) {
+  return useMemo(() => {
+    if (filter === null) {
+      return accessCodes
+    }
+
+    if (filter === 'access_code_issues') {
+      return accessCodes.filter(hasIssue)
+    }
+
+    return accessCodes
+  }, [accessCodes, filter])
+}
+
+function getCount<Key extends 'errors' | 'warnings'>(
+  key: Key,
+  accessCode: AccessCode
+) {
+  const items = accessCode[key] ?? []
+  return items.length
+}
+
+function hasIssue(accessCode: AccessCode) {
+  return (
+    getCount('errors', accessCode) > 0 || getCount('warnings', accessCode) > 0
   )
 }
 
