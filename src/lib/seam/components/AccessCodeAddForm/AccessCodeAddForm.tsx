@@ -15,7 +15,7 @@ export function AccessCodeAddForm({
   return (
     <div className={classNames('seam-access-code-add-form', className)}>
       <ContentHeader title='Add new access code' onBack={onBack} />
-      <TextField />
+      <TextField size='large' clearable />
     </div>
   )
 }

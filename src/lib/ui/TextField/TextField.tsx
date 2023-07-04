@@ -1,5 +1,13 @@
 import classNames from 'classnames'
-import type { ChangeEvent, InputHTMLAttributes, MutableRefObject } from 'react'
+import {
+  type ChangeEvent,
+  type InputHTMLAttributes,
+  type MutableRefObject,
+  useEffect,
+  useState,
+} from 'react'
+
+import { CloseIcon } from 'lib/icons/Close.js'
 
 export interface TextFieldProps {
   value?: string
@@ -8,11 +16,13 @@ export interface TextFieldProps {
   endAdornment?: JSX.Element
   disabled?: boolean
   className?: string
+  size?: 'small' | 'large'
   inputProps?: {
     ref?:
       | MutableRefObject<HTMLInputElement | null>
       | ((inputEl: HTMLInputElement) => void)
   } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
+  clearable?: boolean
 }
 
 export function TextField(props: TextFieldProps): JSX.Element {
@@ -24,11 +34,30 @@ export function TextField(props: TextFieldProps): JSX.Element {
     endAdornment,
     inputProps,
     disabled = false,
+    size = 'small',
+    clearable = false,
   } = props
+
+  const [inputEl, setInputEl] = useState<HTMLInputElement | null>(null)
+
+  const valueIsEmpty = useValueIsEmpty(value, inputEl)
+
+  const clearInput = (): void => {
+    if (onChange != null) {
+      onChange('')
+      return
+    }
+
+    if (inputEl != null) {
+      inputEl.value = ''
+    }
+  }
+
+  const endAdornmentVisible = endAdornment != null || clearable
 
   return (
     <div
-      className={classNames('seam-text-field', className, {
+      className={classNames('seam-text-field', className, `seam-${size}`, {
         'seam-disabled': disabled,
       })}
     >
@@ -41,10 +70,23 @@ export function TextField(props: TextFieldProps): JSX.Element {
         onChange={onChange == null ? undefined : handleString(onChange)}
         type='text'
         disabled={disabled}
+        ref={setInputEl}
         {...inputProps}
       />
-      {endAdornment != null && (
-        <div className='seam-adornment seam-end'>{endAdornment}</div>
+      {endAdornmentVisible && (
+        <div className='seam-adornment seam-end'>
+          {clearable && (
+            <button
+              className={classNames({
+                'seam-hidden': valueIsEmpty,
+              })}
+              onClick={clearInput}
+            >
+              <CloseIcon />
+            </button>
+          )}
+          {endAdornment}
+        </div>
       )}
     </div>
   )
@@ -55,3 +97,46 @@ export const handleString =
   (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setter(event.currentTarget.value)
   }
+
+function useValueIsEmpty(
+  value: string | undefined,
+  inputEl: HTMLInputElement | null
+): boolean {
+  const [valueIsEmpty, setValueIsEmpty] = useState(true)
+
+  // If this is a controlled element, we'll just look at `value`
+  useEffect(() => {
+    setValueIsEmpty(value == null || value === '')
+  }, [value])
+
+  // If this is not a controlled element, we'll need to listen to `input`
+  // events.
+  useEffect(() => {
+    if (inputEl == null) {
+      return
+    }
+
+    const handler = (event: Event): void => {
+      if (value !== undefined) {
+        return
+      }
+
+      if (event.target == null || !('value' in event.target)) {
+        return
+      }
+
+      const inputValue = event.target.value
+      if (value === undefined) {
+        setValueIsEmpty(inputValue === '')
+      }
+    }
+
+    inputEl.addEventListener('input', handler)
+
+    return () => {
+      inputEl.removeEventListener('input', handler)
+    }
+  }, [inputEl, value])
+
+  return valueIsEmpty
+}
