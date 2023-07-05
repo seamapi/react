@@ -10,11 +10,7 @@
   },
   "overrides": [
     {
-      "files": [".js", ".mjs"],
-      "extends": ["standard", "prettier"]
-    },
-    {
-      "files": ["*.cjs"],
+      "files": [".js", ".mjs", ".cjs"],
       "extends": ["standard", "prettier"]
     },
     {
