@@ -9,7 +9,7 @@ import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 
-export interface SupportedDeviceFilterAreaProps {
+interface SupportedDeviceFilterAreaProps {
   filterValue: string
   setFilterValue: (filter: string) => void
   filters: DeviceModelFilters

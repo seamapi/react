@@ -5,7 +5,7 @@ import {
   SupportedDeviceTable,
 } from '@seamapi/react'
 
-export const App = (): JSX.Element => {
+export function App(): JSX.Element {
   return (
     <SeamProvider
       endpoint={import.meta.env.SEAM_ENDPOINT}

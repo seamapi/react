@@ -27,7 +27,7 @@ export function OnlineStatus(props: OnlineStatusProps): JSX.Element {
   )
 }
 
-function AccountOfflineContent() {
+function AccountOfflineContent(): JSX.Element {
   return (
     <div className='seam-online-status'>
       <OnlineStatusAccountOfflineIcon />

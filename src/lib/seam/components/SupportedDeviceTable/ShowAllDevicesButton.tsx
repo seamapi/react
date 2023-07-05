@@ -12,7 +12,7 @@ export function ShowAllDevicesButton({
   visible,
   expanded,
   totalDeviceCount,
-}: ShowAllDevicesButtonProps) {
+}: ShowAllDevicesButtonProps): JSX.Element | null {
   if (!visible) {
     return null
   }

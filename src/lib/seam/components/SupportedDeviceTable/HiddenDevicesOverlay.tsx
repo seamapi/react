@@ -2,7 +2,9 @@ interface HiddenDevicesOverlayProps {
   visible: boolean
 }
 
-export function HiddenDevicesOverlay({ visible }: HiddenDevicesOverlayProps) {
+export function HiddenDevicesOverlay({
+  visible,
+}: HiddenDevicesOverlayProps): JSX.Element | null {
   if (!visible) {
     return null
   }
