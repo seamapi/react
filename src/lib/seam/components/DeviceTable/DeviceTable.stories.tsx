@@ -56,7 +56,7 @@ function InsideModalComponent({
 }
 
 export const ReadOnlyCustomerSupportPanel: Story = {
-  render: (props = {}) => (
+  render: ({ onBack, ...props } = {}) => (
     <DeviceTable
       {...props}
       connectedAccountIds={['connected_account1']}
