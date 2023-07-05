@@ -11,32 +11,27 @@ interface OnlineStatusProps {
 export function OnlineStatus(props: OnlineStatusProps): JSX.Element {
   const { device } = props
 
-  const isAccountOffline =
-    device.errors.filter((error) => error.error_code === 'account_disconnected')
-      .length > 0
-
-  if (isAccountOffline) {
-    return <AccountOfflineContent />
-  }
-
   return (
     <div className='seam-online-status'>
-      {isAccountOffline && <OnlineStatusAccountOfflineIcon />}
-      <DeviceOnlineContent isOnline={device.properties.online} />
+      {isDeviceAccountOffline(device) ? (
+        <AccountOfflineContent />
+      ) : (
+        <AccountOnlineContent isOnline={device.properties.online} />
+      )}
     </div>
   )
 }
 
 function AccountOfflineContent(): JSX.Element {
   return (
-    <div className='seam-online-status'>
+    <>
       <OnlineStatusAccountOfflineIcon />
       <span className='seam-text-danger'>{t.accountOffline}</span>
-    </div>
+    </>
   )
 }
 
-function DeviceOnlineContent(props: { isOnline: boolean }): JSX.Element {
+function AccountOnlineContent(props: { isOnline: boolean }): JSX.Element {
   const { isOnline } = props
   if (isOnline) {
     return (
@@ -54,6 +49,10 @@ function DeviceOnlineContent(props: { isOnline: boolean }): JSX.Element {
     </>
   )
 }
+
+export const isDeviceAccountOffline = (device: CommonDevice): boolean =>
+  device.errors.filter((error) => error.error_code === 'account_disconnected')
+    .length > 0
 
 const t = {
   online: 'Online',
