@@ -7,7 +7,10 @@ import type {
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { LockStatus } from 'lib/ui/device/LockStatus.js'
-import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
+import {
+  isDeviceAccountOffline,
+  OnlineStatus,
+} from 'lib/ui/device/OnlineStatus.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
@@ -27,58 +30,42 @@ export function DeviceRow({
   device,
   onClick,
 }: DeviceRowProps): JSX.Element | null {
-  const opacityClass =
-    isAccountOffline(device) || isDeviceOffline(device)
-      ? 'seam-offline-fade'
-      : undefined
+  const isDeviceOffline = !device.properties.online
+  const isDisconnected = isDeviceAccountOffline(device) || isDeviceOffline
+  const isConnected = !isDisconnected
+
   return (
     <TableRow onClick={onClick}>
-      <TableCell className={classNames('seam-image-cell', opacityClass)}>
+      <TableCell
+        className={classNames('seam-image-cell', {
+          'seam-offline-fade': isDisconnected,
+        })}
+      >
         <DeviceImage device={device} />
       </TableCell>
       <TableCell className='seam-body-cell'>
-        <Title className={classNames('seam-truncated-text', opacityClass)}>
+        <Title
+          className={classNames('seam-truncated-text', {
+            'seam-offline-fade': isDisconnected,
+          })}
+        >
           {device.properties.name}
         </Title>
         <div className='seam-bottom'>
-          <span className={classNames('seam-device-model', opacityClass)}>
+          <span
+            className={classNames('seam-device-model', {
+              'seam-offline-fade': isDisconnected,
+            })}
+          >
             {device.properties.model.display_name}
           </span>
-          <DeviceStatuses device={device} />
+          <div className='seam-device-statuses'>
+            <OnlineStatus device={device} />
+            {isConnected && <BatteryStatus device={device} />}
+            {isConnected && <LockStatus device={device} />}
+          </div>
         </div>
       </TableCell>
     </TableRow>
   )
-}
-
-interface DeviceStatusesProps {
-  device: UseDevicesData[number]
-}
-
-function DeviceStatuses({ device }: DeviceStatusesProps): JSX.Element | null {
-  if (isAccountOffline(device) || isDeviceOffline(device)) {
-    return (
-      <div className='seam-device-statuses'>
-        <OnlineStatus device={device} />
-      </div>
-    )
-  }
-  return (
-    <div className='seam-device-statuses'>
-      <OnlineStatus device={device} />
-      <BatteryStatus device={device} />
-      <LockStatus device={device} />
-    </div>
-  )
-}
-
-const isAccountOffline = (device: UseDevicesData[number]): boolean => {
-  return (
-    device.errors.filter((error) => error.error_code === 'account_disconnected')
-      .length > 0
-  )
-}
-
-const isDeviceOffline = (device: UseDevicesData[number]): boolean => {
-  return !device.properties.online
 }
