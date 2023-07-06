@@ -8,17 +8,17 @@ import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 
-export interface AccessCodeAddFormProps {
+export interface AccessCodeFormProps {
   className?: string
   onBack?: () => void
   deviceId: string
 }
 
-export function AccessCodeAddForm({
+export function AccessCodeForm({
   className,
   onBack,
   deviceId,
-}: AccessCodeAddFormProps): JSX.Element | null {
+}: AccessCodeFormProps): JSX.Element | null {
   const { device } = useDevice({
     device_id: deviceId,
   })
@@ -32,7 +32,7 @@ export function AccessCodeAddForm({
   console.log(code)
 
   return (
-    <div className={classNames('seam-access-code-add-form', className)}>
+    <div className={classNames('seam-access-code-form', className)}>
       <ContentHeader
         title={t.addNewAccessCode}
         subheading={device.properties.name}

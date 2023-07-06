@@ -10,8 +10,8 @@ import {
   useAccessCodes,
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
-import { AccessCodeAddForm } from 'lib/seam/components/AccessCodeAddForm/AccessCodeAddForm.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import { AccessCodeForm } from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
 import {
   type AccessCodeFilter,
   AccessCodeHealthBar,
@@ -121,7 +121,7 @@ export function AccessCodeTable({
 
   if (!addAccessCodeFormVisible) {
     return (
-      <AccessCodeAddForm
+      <AccessCodeForm
         className={className}
         onBack={toggleAddAccessCodeForm}
         deviceId={deviceId}
