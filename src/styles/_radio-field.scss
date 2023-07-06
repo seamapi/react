@@ -1,0 +1,27 @@
+@use './colors';
+
+@mixin all {
+  .seam-radio-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    > .seam-radio {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 8px;
+      cursor: pointer;
+
+      > input {
+        display: none;
+      }
+
+      > .seam-radio-label {
+        font-size: 16px;
+        line-height: 134%;
+      }
+    }
+  }
+}
+

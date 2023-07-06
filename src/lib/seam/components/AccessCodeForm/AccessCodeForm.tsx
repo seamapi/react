@@ -1,11 +1,14 @@
 import classNames from 'classnames'
 import { useState } from 'react'
+import type { AccessCode } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { Radio } from 'lib/ui/RadioField/Radio.js'
+import { RadioField } from 'lib/ui/RadioField/RadioField.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
@@ -26,6 +29,7 @@ export function AccessCodeForm({
 
   const [name, setName] = useState('')
   const [code, setCode] = useState('')
+  const [type, setType] = useState<AccessCode['type']>('time_bound')
   const [codeInputFocused, toggleCodeInputFocused] = useToggle()
 
   if (device == null) {
@@ -79,6 +83,13 @@ export function AccessCodeForm({
             <Button size='small'>{t.codeGenerateButton}</Button>
           </div>
         </FormField>
+        <FormField>
+          <InputLabel>{t.timingInputLabel}</InputLabel>
+          <RadioField value={type} onChange={setType} name='type'>
+            <Radio label='Ongoing' value='ongoing' />
+            <Radio label='Start/end times' value='time_bound' />
+          </RadioField>
+        </FormField>
       </div>
     </div>
   )
@@ -92,4 +103,5 @@ const t = {
   codeRequirementLength: '4-8 digit code',
   codeRequirementNumbersOnly: 'Numbers only',
   codeGenerateButton: 'Generate code',
+  timingInputLabel: 'Timing',
 }

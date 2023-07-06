@@ -4,8 +4,12 @@
   .seam-form-field {
     margin-bottom: 24px;
 
-    .seam-input-label {
+    > .seam-input-label {
       user-select: none;
+    }
+
+    > .seam-radio-field {
+      margin-top: 4px;
     }
   }
 }

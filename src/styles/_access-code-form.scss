@@ -18,8 +18,7 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          opacity: 0;
-          visibility: hidden;
+          display: none;
 
           .seam-requirements {
             color: colors.$text-gray-2;
@@ -30,8 +29,7 @@
           }
 
           &.seam-visible {
-            opacity: 1;
-            visibility: visible;
+            display: flex;
           }
         }
       }

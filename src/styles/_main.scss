@@ -16,6 +16,7 @@
 @use './access-code-form';
 @use './input-label';
 @use './form-field';
+@use './radio-field';
 
 .seam-components {
   // Reset
@@ -27,6 +28,7 @@
   @include inputs.all;
   @include input-label.all;
   @include form-field.all;
+  @include radio-field.all;
   @include buttons.all;
   @include layout.all;
   @include icons.all;
