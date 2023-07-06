@@ -47,7 +47,7 @@ $ npm install @seamapi/react
 ```tsx
 import { ConnectAccountButton, DeviceTable, SeamProvider } from '@seamapi/react'
 
-export const App = () => {
+export function App() {
   return (
     <SeamProvider publishableKey='your_publishable_key'>
       <main>
@@ -102,7 +102,7 @@ They are well-typed and follow a uniform API.
 ```tsx
 import { SeamProvider, useDevices } from '@seamapi/react/hooks'
 
-export const App = () => {
+export function App() {
   return (
     <SeamProvider publishableKey='your_publishable_key'>
       <main>
@@ -113,7 +113,7 @@ export const App = () => {
   )
 }
 
-const Devices = () => {
+function Devices() {
   const { devices, isLoading, isError, error } = useDevices()
 
   if (isLoading) {
