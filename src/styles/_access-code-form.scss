@@ -4,6 +4,31 @@
   .seam-access-code-form {
     .content {
       padding: 24px 24px 0;
+
+      .seam-code-text-field {
+        margin-bottom: 4px;
+      }
+
+      .seam-code-field {
+        > .seam-text-field {
+          margin-bottom: 4px;
+        }
+
+        > .seam-bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .seam-requirements {
+            color: colors.$text-gray-2;
+            font-size: 14px;
+            line-height: 134%;
+            list-style: disc;
+            padding-left: 20px;
+          }
+
+        }
+      }
     }
   }
 }

@@ -44,15 +44,15 @@ export function AccessCodeForm({
           <TextField size='large' clearable />
         </FormField>
 
-        <FormField>
+        <FormField className='seam-code-field'>
           <InputLabel>Enter the code (PIN)</InputLabel>
           <TextField size='large' clearable onChange={setCode} />
-          <div>
-            <ul>
+          <div className='seam-bottom '>
+            <ul className='seam-requirements'>
               <li>4-8 digit code</li>
               <li>Numbers only</li>
             </ul>
-            <Button>Generate code</Button>
+            <Button size='small'>Generate code</Button>
           </div>
         </FormField>
       </div>

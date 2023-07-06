@@ -9,10 +9,13 @@ interface FormFieldProps {
   className?: string
 }
 
-export function FormField({ children, className }: FormFieldProps) {
+export function FormField({
+  children,
+  className,
+}: FormFieldProps): JSX.Element {
   const inputRef = useRef<HTMLInputElement>()
 
-  const focusInput = () => {
+  const focusInput = (): void => {
     if (inputRef.current != null) {
       inputRef.current.focus()
     }
