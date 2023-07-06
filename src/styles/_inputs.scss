@@ -96,6 +96,10 @@
     }
 
     &.seam-error {
+      > .seam-main {
+        border: 1px solid colors.$status-red;
+      }
+
       > .seam-helper-text {
         color: colors.$status-red;
       }

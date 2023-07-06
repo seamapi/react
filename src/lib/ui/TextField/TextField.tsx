@@ -26,9 +26,10 @@ export interface TextFieldProps {
       | ((inputEl: HTMLInputElement) => void)
   } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
   clearable?: boolean
-  error?: string
   onFocus?: FocusEventHandler<HTMLInputElement>
   onBlur?: FocusEventHandler<HTMLInputElement>
+  helperText?: string
+  hasError?: boolean
 }
 
 export const TextField = forwardRef<
@@ -45,9 +46,11 @@ export const TextField = forwardRef<
     disabled = false,
     size = 'small',
     clearable = false,
-    error,
+    helperText: error,
     onFocus,
     onBlur,
+    hasError = false,
+    helperText,
   },
   ref
 ): JSX.Element {
@@ -77,7 +80,7 @@ export const TextField = forwardRef<
     <div
       className={classNames('seam-text-field', className, `seam-${size}`, {
         'seam-disabled': disabled,
-        'seam-error': error != null,
+        'seam-error': hasError,
       })}
     >
       <div className='seam-main'>
@@ -111,7 +114,9 @@ export const TextField = forwardRef<
           </div>
         )}
       </div>
-      {error != null && <div className='seam-helper-text'>{error}</div>}
+      {helperText != null && (
+        <div className='seam-helper-text'>{helperText}</div>
+      )}
     </div>
   )
 })

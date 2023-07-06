@@ -26,6 +26,10 @@
             line-height: 134%;
             list-style: disc;
             padding-left: 20px;
+
+            &.seam-error {
+              color: colors.$status-red;
+            }
           }
 
           &.seam-visible {

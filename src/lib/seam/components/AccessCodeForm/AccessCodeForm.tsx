@@ -11,6 +11,9 @@ import { RadioField } from 'lib/ui/RadioField/RadioField.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
+const minCodeLength = 4
+const maxCodeLength = 8
+
 export interface AccessCodeFormProps {
   className?: string
   onBack?: () => void
@@ -42,6 +45,24 @@ export function AccessCodeForm({
     return undefined
   }
 
+  const codeError = (): string | undefined => {
+    // Only check code on any input
+    if (code.trim().length === 0) {
+      return undefined
+    }
+
+    // If a non-digit exists
+    if (/\D/.test(code)) {
+      return 'Number only.'
+    }
+
+    if (code.length < minCodeLength || code.length > maxCodeLength) {
+      return 'Code must be between 4, and 8 digits.'
+    }
+
+    return undefined
+  }
+
   return (
     <div className={classNames('seam-access-code-form', className)}>
       <ContentHeader
@@ -57,7 +78,8 @@ export function AccessCodeForm({
             clearable
             value={name}
             onChange={setName}
-            error={nameError()}
+            hasError={nameError() != null}
+            helperText={nameError()}
           />
         </FormField>
 
@@ -69,13 +91,18 @@ export function AccessCodeForm({
             onChange={setCode}
             onFocus={toggleCodeInputFocused}
             onBlur={toggleCodeInputFocused}
+            hasError={codeError() != null}
           />
           <div
             className={classNames('seam-bottom', {
               'seam-visible': codeInputFocused,
             })}
           >
-            <ul className='seam-requirements'>
+            <ul
+              className={classNames('seam-requirements', {
+                'seam-error': codeError() != null,
+              })}
+            >
               <li>{t.codeRequirementLength}</li>
               <li>{t.codeRequirementNumbersOnly}</li>
             </ul>
