@@ -1,27 +1,34 @@
 import { createContext, useContext } from 'react'
 
-export interface RadioFieldProps<Value> {
+import { Radio } from 'lib/ui/RadioField/Radio.js'
+
+export interface RadioFieldProps<Value extends string> {
   name: string
   value: Value
   onChange: (value: Value) => void
-  children: JSX.Element | JSX.Element[]
+  options: Array<RadioOption<Value>>
 }
 
-interface RadioFieldContextProps {
-  value: any
-  onChange: (value: any) => void
+export interface RadioOption<Value> {
+  label: string
+  value: Value
+}
+
+interface RadioFieldContextProps<Value extends string> {
+  value: Value
+  onChange: (value: Value) => void
   name: string
 }
 
-const RadioFieldContext = createContext<RadioFieldContextProps | undefined>(
-  undefined
-)
+const RadioFieldContext = createContext<
+  RadioFieldContextProps<any> | undefined
+>(undefined)
 
-export function RadioField<Value>({
+export function RadioField<Value extends string>({
   value,
   onChange,
-  children,
   name,
+  options,
 }: RadioFieldProps<Value>): JSX.Element {
   return (
     <RadioFieldContext.Provider
@@ -31,12 +38,18 @@ export function RadioField<Value>({
         name,
       }}
     >
-      <div className='seam-radio-field'>{children}</div>
+      <div className='seam-radio-field'>
+        {options.map(({ value, label }, index) => (
+          <Radio value={value} label={label} key={index} />
+        ))}
+      </div>
     </RadioFieldContext.Provider>
   )
 }
 
-export function useRadioField(): RadioFieldContextProps {
+export function useRadioField<
+  Value extends string
+>(): RadioFieldContextProps<Value> {
   const context = useContext(RadioFieldContext)
   if (context === undefined) {
     throw new Error('useRadioField must be used within a <RadioField/>')

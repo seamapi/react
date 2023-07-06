@@ -4,13 +4,16 @@ import { RadioCheckedIcon } from 'lib/icons/RadioChecked.js'
 import { RadioUncheckedIcon } from 'lib/icons/RadioUnchecked.js'
 import { useRadioField } from 'lib/ui/RadioField/RadioField.js'
 
-export interface RadioProps {
-  value: any
+export interface RadioProps<Value extends string> {
+  value: Value
   label: string
 }
 
-export function Radio({ value, label }: RadioProps): JSX.Element {
-  const { value: fieldValue, onChange, name } = useRadioField()
+export function Radio<Value extends string>({
+  value,
+  label,
+}: RadioProps<Value>): JSX.Element {
+  const { value: fieldValue, onChange, name } = useRadioField<Value>()
 
   const checked = fieldValue === value
 
@@ -33,7 +36,7 @@ export function Radio({ value, label }: RadioProps): JSX.Element {
         value={value}
         checked={checked}
         onChange={(event) => {
-          onChange(event.target.value)
+          onChange(event.target.value as Value)
         }}
       />
       <span className='seam-radio-label'>{label}</span>
