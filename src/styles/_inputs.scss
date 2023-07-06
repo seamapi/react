@@ -2,27 +2,20 @@
 
 @mixin text-field {
   .seam-text-field {
-    border: 1px solid colors.$text-gray-3;
-    border-radius: 8px;
-    display: flex;
-    padding: 0 8px;
-    align-items: center;
 
-    &:hover {
-      border-color: colors.$text-default;
-    }
+    > .seam-main {
+      border: 1px solid colors.$text-gray-3;
+      border-radius: 8px;
+      display: flex;
+      padding: 0 8px;
+      align-items: center;
 
-    &:focus-within {
-      border-color: colors.$primary;
-    }
+      &:hover {
+        border-color: colors.$text-default;
+      }
 
-    &.seam-disabled {
-      border-color: colors.$text-gray-3;
-      background: colors.$bg-gray;
-      cursor: not-allowed;
-
-      .seam-text-field-input {
-        cursor: not-allowed;
+      &:focus-within {
+        border-color: colors.$primary;
       }
     }
 
@@ -75,12 +68,36 @@
       }
     }
 
-    &.seam-large {
-      padding: 0 12px;
+    > .seam-helper-text {
+      margin-top: 4px;
+    }
 
-      .seam-text-field-input {
-        height: 48px;
-        font-size: 16px;
+    &.seam-disabled {
+      > .seam-main {
+        border-color: colors.$text-gray-3;
+        background: colors.$bg-gray;
+        cursor: not-allowed;
+
+        > .seam-text-field-input {
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    &.seam-large {
+      > .seam-main {
+        padding: 0 12px;
+
+        > .seam-text-field-input {
+          height: 48px;
+          font-size: 16px;
+        }
+      }
+    }
+
+    &.seam-error {
+      > .seam-helper-text {
+        color: colors.$status-red;
       }
     }
   }

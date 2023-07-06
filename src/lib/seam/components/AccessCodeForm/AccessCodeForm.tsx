@@ -23,13 +23,18 @@ export function AccessCodeForm({
     device_id: deviceId,
   })
 
+  const [name, setName] = useState('')
   const [code, setCode] = useState('')
 
   if (device == null) {
     return null
   }
 
-  console.log(code)
+  const nameError = (): string | undefined => {
+    if (name.length > 60) {
+      return t.overCharacterLimitError
+    }
+  }
 
   return (
     <div className={classNames('seam-access-code-form', className)}>
@@ -41,7 +46,13 @@ export function AccessCodeForm({
       <div className='content'>
         <FormField>
           <InputLabel>Name the new code</InputLabel>
-          <TextField size='large' clearable />
+          <TextField
+            size='large'
+            clearable
+            value={name}
+            onChange={setName}
+            error={nameError()}
+          />
         </FormField>
 
         <FormField className='seam-code-field'>
@@ -62,4 +73,5 @@ export function AccessCodeForm({
 
 const t = {
   addNewAccessCode: 'Add new access code',
+  overCharacterLimitError: '60 characters max',
 }

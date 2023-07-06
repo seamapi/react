@@ -25,6 +25,7 @@ export interface TextFieldProps {
       | ((inputEl: HTMLInputElement) => void)
   } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
   clearable?: boolean
+  error?: string
 }
 
 export const TextField = forwardRef<
@@ -41,6 +42,7 @@ export const TextField = forwardRef<
     disabled = false,
     size = 'small',
     clearable = false,
+    error,
   },
   ref
 ): JSX.Element {
@@ -70,35 +72,39 @@ export const TextField = forwardRef<
     <div
       className={classNames('seam-text-field', className, `seam-${size}`, {
         'seam-disabled': disabled,
+        'seam-error': error != null,
       })}
     >
-      {startAdornment != null && (
-        <div className='seam-adornment seam-start'>{startAdornment}</div>
-      )}
-      <input
-        className='seam-text-field-input'
-        value={value}
-        onChange={onChange == null ? undefined : handleString(onChange)}
-        type='text'
-        disabled={disabled}
-        ref={setInputEl}
-        {...inputProps}
-      />
-      {endAdornmentVisible && (
-        <div className='seam-adornment seam-end'>
-          {clearable && (
-            <button
-              className={classNames({
-                'seam-hidden': valueIsEmpty,
-              })}
-              onClick={clearInput}
-            >
-              <CloseIcon />
-            </button>
-          )}
-          {endAdornment}
-        </div>
-      )}
+      <div className='seam-main'>
+        {startAdornment != null && (
+          <div className='seam-adornment seam-start'>{startAdornment}</div>
+        )}
+        <input
+          className='seam-text-field-input'
+          value={value}
+          onChange={onChange == null ? undefined : handleString(onChange)}
+          type='text'
+          disabled={disabled}
+          ref={setInputEl}
+          {...inputProps}
+        />
+        {endAdornmentVisible && (
+          <div className='seam-adornment seam-end'>
+            {clearable && (
+              <button
+                className={classNames({
+                  'seam-hidden': valueIsEmpty,
+                })}
+                onClick={clearInput}
+              >
+                <CloseIcon />
+              </button>
+            )}
+            {endAdornment}
+          </div>
+        )}
+      </div>
+      {error != null && <div className='seam-helper-text'>{error}</div>}
     </div>
   )
 })
