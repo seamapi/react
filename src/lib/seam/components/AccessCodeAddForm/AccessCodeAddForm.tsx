@@ -18,7 +18,7 @@ export function AccessCodeAddForm({
   className,
   onBack,
   deviceId,
-}: AccessCodeAddFormProps) {
+}: AccessCodeAddFormProps): JSX.Element | null {
   const { device } = useDevice({
     device_id: deviceId,
   })
