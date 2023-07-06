@@ -56,7 +56,7 @@ export const defineCustomElement = ({
 function withProvider<P extends JSX.IntrinsicAttributes>(
   Component: ComponentType<P>
 ) {
-  return ({
+  return function ({
     publishableKey,
     userIdentifierKey,
     clientSessionToken,
@@ -65,7 +65,7 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
     unminifiyCss,
     container: _container,
     ...props
-  }: ProviderProps & { container: Container } & P): JSX.Element | null => {
+  }: ProviderProps & { container: Container } & P): JSX.Element | null {
     return (
       <SeamProvider
         publishableKey={publishableKey}

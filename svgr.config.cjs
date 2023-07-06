@@ -13,11 +13,11 @@ import type { SVGProps } from 'react'
 
 ${variables.interfaces};
 
-export const ${variables.componentName.replace('Svg', '') + 'Icon'} = (${
+export function ${variables.componentName.replace('Svg', '') + 'Icon'} (${
       variables.props
-    }): JSX.Element => (
-  ${variables.jsx}
-);
+    }): JSX.Element {
+  return ${variables.jsx}
+};
 `
   },
   indexTemplate: () => {

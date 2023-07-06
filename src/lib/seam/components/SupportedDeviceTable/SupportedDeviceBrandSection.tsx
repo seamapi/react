@@ -15,7 +15,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  */
 const maxDevicesBeforeCollapsing = 3
 
-export interface SupportedDeviceBrandSectionProps {
+interface SupportedDeviceBrandSectionProps {
   brand: string
   deviceModels: DeviceModel[]
 }
@@ -30,17 +30,14 @@ export function SupportedDeviceBrandSection({
 
   const canExpand = deviceModels.length > maxDevicesBeforeCollapsing
 
-  const visibleDevices = () => {
-    if (!canExpand || expanded) {
-      return deviceModels
-    }
+  const visibleDevices =
+    !canExpand || expanded
+      ? deviceModels
+      : deviceModels.filter(
+          (_deviceModel, index) => index < maxDevicesBeforeCollapsing
+        )
 
-    return deviceModels.filter(
-      (_deviceModel, index) => index < maxDevicesBeforeCollapsing
-    )
-  }
-
-  const handleHeaderClick = () => {
+  const handleHeaderClick = (): void => {
     if (!canExpand) {
       return
     }
@@ -67,7 +64,7 @@ export function SupportedDeviceBrandSection({
         {canExpand && <ChevronRightIcon className='chevron' />}
       </div>
       <div className='seam-supported-device-table-content'>
-        {visibleDevices().map((deviceModel, index) => (
+        {visibleDevices.map((deviceModel, index) => (
           <SupportedDeviceRow
             key={[
               deviceModel.main_category,
