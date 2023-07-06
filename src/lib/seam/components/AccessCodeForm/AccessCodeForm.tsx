@@ -1,9 +1,10 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import type { DateTime } from 'luxon'
+import { useEffect, useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
 import { getRandomInt } from 'lib/numbers.js'
-import { useDevice } from 'lib/seam/devices/use-device.js'
+import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -30,14 +31,45 @@ export function AccessCodeForm({
     device_id: deviceId,
   })
 
+  if (device == null) {
+    return null
+  }
+
+  return (
+    <div className={classNames('seam-access-code-form', className)}>
+      <Content className={className} onBack={onBack} device={device} />
+    </div>
+  )
+}
+
+function Content({
+  className,
+  onBack,
+  device,
+}: Omit<AccessCodeFormProps, 'deviceId'> & {
+  device: NonNullable<UseDeviceData>
+}): JSX.Element {
   const [name, setName] = useState('')
   const [code, setCode] = useState('')
   const [type, setType] = useState<AccessCode['type']>('ongoing')
   const [codeInputFocused, toggleCodeInputFocused] = useToggle()
+  const [datePickerVisible, setDatePickerVisible] = useState(false)
+  const [startDate, setStartDate] = useState<DateTime | null>(null)
+  const [endDate, setEndDate] = useState<DateTime | null>(null)
 
-  if (device == null) {
-    return null
-  }
+  // Auto-show date picker screen if we've selected a time_bound Access
+  // Code, but don't have dates
+  useEffect(() => {
+    if (type !== 'time_bound') {
+      return
+    }
+
+    if (startDate != null || endDate != null) {
+      return
+    }
+
+    setDatePickerVisible(true)
+  }, [type, startDate, endDate, setDatePickerVisible])
 
   const nameError = (): string | undefined => {
     if (name.length > 60) {
@@ -75,8 +107,23 @@ export function AccessCodeForm({
     setCode(generated)
   }
 
+  if (datePickerVisible) {
+    return (
+      <div className='seam-timing-picker'>
+        <ContentHeader
+          title={t.timingTitle}
+          onBack={() => {
+            setDatePickerVisible(false)
+          }}
+        />
+
+        <div className='content'>All times in Pacific Time - US & Canada</div>
+      </div>
+    )
+  }
+
   return (
-    <div className={classNames('seam-access-code-form', className)}>
+    <>
       <ContentHeader
         title={t.addNewAccessCode}
         subheading={device.properties.name}
@@ -149,7 +196,7 @@ export function AccessCodeForm({
           />
         </FormField>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -164,4 +211,5 @@ const t = {
   timingInputLabel: 'Timing',
   typeOngoingLabel: 'Ongoing',
   typeTimeBoundLabel: 'Start/end times',
+  timingTitle: 'Timing',
 }
