@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import {
   type ChangeEvent,
+  type FocusEventHandler,
   forwardRef,
   type InputHTMLAttributes,
   type MutableRefObject,
@@ -26,6 +27,8 @@ export interface TextFieldProps {
   } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
   clearable?: boolean
   error?: string
+  onFocus?: FocusEventHandler<HTMLInputElement>
+  onBlur?: FocusEventHandler<HTMLInputElement>
 }
 
 export const TextField = forwardRef<
@@ -43,6 +46,8 @@ export const TextField = forwardRef<
     size = 'small',
     clearable = false,
     error,
+    onFocus,
+    onBlur,
   },
   ref
 ): JSX.Element {
@@ -86,6 +91,8 @@ export const TextField = forwardRef<
           type='text'
           disabled={disabled}
           ref={setInputEl}
+          onFocus={onFocus}
+          onBlur={onBlur}
           {...inputProps}
         />
         {endAdornmentVisible && (

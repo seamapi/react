@@ -7,6 +7,7 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
+import { useToggle } from 'lib/ui/use-toggle.js'
 
 export interface AccessCodeFormProps {
   className?: string
@@ -25,6 +26,7 @@ export function AccessCodeForm({
 
   const [name, setName] = useState('')
   const [code, setCode] = useState('')
+  const [codeInputFocused, toggleCodeInputFocused] = useToggle()
 
   if (device == null) {
     return null
@@ -34,6 +36,7 @@ export function AccessCodeForm({
     if (name.length > 60) {
       return t.overCharacterLimitError
     }
+    return undefined
   }
 
   return (
@@ -45,7 +48,7 @@ export function AccessCodeForm({
       />
       <div className='content'>
         <FormField>
-          <InputLabel>Name the new code</InputLabel>
+          <InputLabel>{t.nameInputLabel}</InputLabel>
           <TextField
             size='large'
             clearable
@@ -56,14 +59,24 @@ export function AccessCodeForm({
         </FormField>
 
         <FormField className='seam-code-field'>
-          <InputLabel>Enter the code (PIN)</InputLabel>
-          <TextField size='large' clearable onChange={setCode} />
-          <div className='seam-bottom '>
+          <InputLabel>{t.codeInputLabel}</InputLabel>
+          <TextField
+            size='large'
+            clearable
+            onChange={setCode}
+            onFocus={toggleCodeInputFocused}
+            onBlur={toggleCodeInputFocused}
+          />
+          <div
+            className={classNames('seam-bottom', {
+              'seam-visible': codeInputFocused,
+            })}
+          >
             <ul className='seam-requirements'>
-              <li>4-8 digit code</li>
-              <li>Numbers only</li>
+              <li>{t.codeRequirementLength}</li>
+              <li>{t.codeRequirementNumbersOnly}</li>
             </ul>
-            <Button size='small'>Generate code</Button>
+            <Button size='small'>{t.codeGenerateButton}</Button>
           </div>
         </FormField>
       </div>
@@ -74,4 +87,9 @@ export function AccessCodeForm({
 const t = {
   addNewAccessCode: 'Add new access code',
   overCharacterLimitError: '60 characters max',
+  nameInputLabel: 'Name the new code',
+  codeInputLabel: 'Enter the code (PIN)',
+  codeRequirementLength: '4-8 digit code',
+  codeRequirementNumbersOnly: 'Numbers only',
+  codeGenerateButton: 'Generate code',
 }
