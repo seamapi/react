@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
+import { getRandomInt } from 'lib/numbers.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
@@ -63,6 +64,17 @@ export function AccessCodeForm({
     return undefined
   }
 
+  const generateCode = (): void => {
+    // Randomize code length
+    const length = getRandomInt({ min: minCodeLength, max: maxCodeLength })
+    // Fill each digit with a random int from 0-9
+    const generated = Array.from({ length }, () =>
+      getRandomInt({ min: 0, max: 9 })
+    ).join('')
+
+    setCode(generated)
+  }
+
   return (
     <div className={classNames('seam-access-code-form', className)}>
       <ContentHeader
@@ -88,6 +100,7 @@ export function AccessCodeForm({
           <TextField
             size='large'
             clearable
+            value={code}
             onChange={setCode}
             onFocus={toggleCodeInputFocused}
             onBlur={toggleCodeInputFocused}
@@ -106,7 +119,15 @@ export function AccessCodeForm({
               <li>{t.codeRequirementLength}</li>
               <li>{t.codeRequirementNumbersOnly}</li>
             </ul>
-            <Button size='small'>{t.codeGenerateButton}</Button>
+            <Button
+              size='small'
+              onMouseDown={(e) => {
+                e.preventDefault() // Disable stealing input focus
+                generateCode()
+              }}
+            >
+              {t.codeGenerateButton}
+            </Button>
           </div>
         </FormField>
         <FormField>
