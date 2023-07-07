@@ -9,12 +9,12 @@ import type {
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
-export type UseDevicesParams = DeviceProvidersListRequest
-export type UseDevicesData = DeviceProvider[]
+export type UseDeviceProvidersParams = DeviceProvidersListRequest
+export type UseDeviceProvidersData = DeviceProvider[]
 
 export function useDeviceProviders(
-  params?: UseDevicesParams
-): UseSeamQueryResult<'deviceProviders', UseDevicesData> {
+  params?: UseDeviceProvidersParams
+): UseSeamQueryResult<'deviceProviders', UseDeviceProvidersData> {
   const { client } = useSeamClient()
 
   const { data, ...rest } = useQuery<
@@ -25,7 +25,7 @@ export function useDeviceProviders(
     queryKey: ['devices', 'list_device_providers', params],
     queryFn: async () => {
       if (client == null) return []
-      return await client?.devices.listDeviceProviders(params)
+      return await client.devices.listDeviceProviders(params)
     },
   })
 
