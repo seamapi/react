@@ -27,7 +27,7 @@ export function useDevice(
     queryKey: ['devices', 'get', normalizedParams],
     queryFn: async () => {
       if (client == null) return null
-      return await client?.devices.get(normalizedParams)
+      return await client.devices.get(normalizedParams)
     },
   })
 
