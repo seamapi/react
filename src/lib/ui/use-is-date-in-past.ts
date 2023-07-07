@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useInterval } from 'lib/ui/use-interval.js'
 
 export function useIsDateInPast(
-  date: string | null | undefined
+  date: string | null | undefined,
 ): boolean | null {
   const [isDateInPast, setIsDateInPast] = useState<boolean | null>(null)
 

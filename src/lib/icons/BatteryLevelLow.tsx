@@ -4,7 +4,7 @@
  */
 import type { SVGProps } from 'react'
 export function BatteryLevelLowIcon(
-  props: SVGProps<SVGSVGElement>
+  props: SVGProps<SVGSVGElement>,
 ): JSX.Element {
   return (
     <svg

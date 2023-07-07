@@ -52,7 +52,7 @@ export function SearchTextField({
 
 function useValueIsEmpty(
   value: string | undefined,
-  inputEl: HTMLInputElement | null
+  inputEl: HTMLInputElement | null,
 ): boolean {
   const [valueIsEmpty, setValueIsEmpty] = useState(true)
 

@@ -68,7 +68,7 @@ export function AccessCodeDetails({
         <div
           className={classNames(
             'seam-top',
-            alerts.length > 0 && 'seam-top-has-alerts'
+            alerts.length > 0 && 'seam-top-has-alerts',
           )}
         >
           <span className='seam-label'>{t.accessCode}</span>
@@ -187,7 +187,7 @@ function formatDate(date: string): string {
 }
 
 const errorFilter = (
-  error: AccessCodeError | DeviceError | ConnectedAccountError
+  error: AccessCodeError | DeviceError | ConnectedAccountError,
 ): boolean => {
   if ('is_access_code_error' in error && !error.is_access_code_error)
     return true

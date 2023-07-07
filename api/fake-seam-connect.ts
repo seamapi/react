@@ -36,7 +36,7 @@ interface NextApiResponse extends ServerResponse {
 
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   const { apipath, ...getParams } = req.query
 

@@ -38,7 +38,7 @@ export interface DeviceTableProps {
 
 const defaultDeviceFilter = (
   device: Device,
-  searchInputValue: string
+  searchInputValue: string,
 ): boolean => {
   const value = searchInputValue.trim()
   if (value === '') return true
@@ -70,7 +70,7 @@ export function DeviceTable({
         ?.filter(isLockDevice)
         ?.filter((device) => deviceFilter(device, searchInputValue))
         ?.sort(deviceComparator) ?? [],
-    [devices, searchInputValue, deviceFilter, deviceComparator]
+    [devices, searchInputValue, deviceFilter, deviceComparator],
   )
 
   const handleDeviceClick = useCallback(
@@ -79,7 +79,7 @@ export function DeviceTable({
       if (preventDefaultOnDeviceClick) return
       setSelectedDeviceId(deviceId)
     },
-    [onDeviceClick, preventDefaultOnDeviceClick, setSelectedDeviceId]
+    [onDeviceClick, preventDefaultOnDeviceClick, setSelectedDeviceId],
   )
 
   if (selectedDeviceId != null) {
@@ -129,7 +129,7 @@ function Content(props: {
 }): JSX.Element {
   const { devices, onDeviceClick } = props
   const [filter, setFilter] = useState<AccountFilter | DeviceFilter | null>(
-    null
+    null,
   )
 
   if (devices.length === 0) {

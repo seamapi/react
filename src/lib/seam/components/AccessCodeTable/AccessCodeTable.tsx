@@ -35,11 +35,11 @@ export interface AccessCodeTableProps {
   disableLockUnlock?: boolean
   accessCodeFilter?: (
     accessCode: AccessCode,
-    searchInputValue: string
+    searchInputValue: string,
   ) => boolean
   accessCodeComparator?: (
     accessCodeA: AccessCode,
-    accessCodeB: AccessCode
+    accessCodeB: AccessCode,
   ) => number
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
@@ -51,7 +51,7 @@ type AccessCode = UseAccessCodesData[number]
 
 const defaultAccessCodeFilter = (
   accessCode: AccessCode,
-  searchInputValue: string
+  searchInputValue: string,
 ): boolean => {
   const value = searchInputValue.trim()
   if (value === '') return true
@@ -87,7 +87,7 @@ export function AccessCodeTable({
       accessCodes
         ?.filter((accessCode) => accessCodeFilter(accessCode, searchInputValue))
         ?.sort(accessCodeComparator) ?? [],
-    [accessCodes, searchInputValue, accessCodeFilter, accessCodeComparator]
+    [accessCodes, searchInputValue, accessCodeFilter, accessCodeComparator],
   )
 
   const handleAccessCodeClick = useCallback(
@@ -100,7 +100,7 @@ export function AccessCodeTable({
       onAccessCodeClick,
       preventDefaultOnAccessCodeClick,
       setSelectedAccessCodeId,
-    ]
+    ],
   )
 
   if (selectedAccessCodeId != null) {

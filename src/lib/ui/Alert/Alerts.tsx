@@ -9,7 +9,7 @@ interface AlertsProps {
 }
 
 export function Alerts(
-  props: PropsWithChildren<AlertsProps>
+  props: PropsWithChildren<AlertsProps>,
 ): JSX.Element | null {
   const { alerts, children, className } = props
 

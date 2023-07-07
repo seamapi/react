@@ -19,7 +19,7 @@ export function useSeamClient(): {
     ...context
   } = useSeamContext()
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
-    clientSessionToken != null ? '' : context.userIdentifierKey
+    clientSessionToken != null ? '' : context.userIdentifierKey,
   )
 
   const { isLoading, isError, error, data } = useQuery<Seam>({
@@ -45,7 +45,7 @@ export function useSeamClient(): {
 
       if (publishableKey == null) {
         throw new Error(
-          'Missing either a client, publishableKey, or clientSessionToken'
+          'Missing either a client, publishableKey, or clientSessionToken',
         )
       }
 
@@ -70,7 +70,7 @@ export function useSeamClient(): {
 }
 
 function useUserIdentifierKeyOrFingerprint(
-  userIdentifierKey: string | undefined
+  userIdentifierKey: string | undefined,
 ): string {
   useEffect(() => {
     if (userIdentifierKey != null) return

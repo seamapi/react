@@ -13,7 +13,7 @@ export type UseDeviceProvidersParams = DeviceProvidersListRequest
 export type UseDeviceProvidersData = DeviceProvider[]
 
 export function useDeviceProviders(
-  params?: UseDeviceProvidersParams
+  params?: UseDeviceProvidersParams,
 ): UseSeamQueryResult<'deviceProviders', UseDeviceProvidersData> {
   const { client } = useSeamClient()
 

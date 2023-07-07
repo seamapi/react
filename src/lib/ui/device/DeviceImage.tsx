@@ -4,7 +4,7 @@ import type { CommonDevice } from 'seamapi'
 export function DeviceImage(
   props: {
     device: CommonDevice
-  } & HTMLAttributes<HTMLImageElement>
+  } & HTMLAttributes<HTMLImageElement>,
 ): JSX.Element {
   const { device, ...imageProps } = props
 

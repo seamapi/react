@@ -45,7 +45,7 @@ export const useFilteredDeviceModels = ({
   // If the user only wants models for a collection of brands, such as ["yale", "august"], then
   // we'll filter everything else out here.
   const onlySpecificBrands = query.deviceModels?.filter((deviceModel) =>
-    brands.includes(deviceModel.brand)
+    brands.includes(deviceModel.brand),
   )
 
   return { ...query, deviceModels: onlySpecificBrands }

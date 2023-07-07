@@ -28,7 +28,7 @@ export const Content: Story = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [filter, setFilter] = useState<AccountFilter | DeviceFilter | null>(
-      null
+      null,
     )
     return (
       <Box display='grid' gap={3} gridTemplateColumns='1fr'>

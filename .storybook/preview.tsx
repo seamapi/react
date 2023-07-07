@@ -4,7 +4,7 @@ import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
 const useFake = !['1', 'true'].includes(
-  process.env['STORYBOOK_DISABLE_FAKE']?.toLowerCase() ?? ''
+  process.env['STORYBOOK_DISABLE_FAKE']?.toLowerCase() ?? '',
 )
 
 const preview: Preview = {
@@ -54,7 +54,7 @@ const preview: Preview = {
   decorators: [
     (
       Story,
-      { globals: { publishableKey, userIdentifierKey, seamEndpoint } }
+      { globals: { publishableKey, userIdentifierKey, seamEndpoint } },
     ) => {
       return (
         <SeamProvider

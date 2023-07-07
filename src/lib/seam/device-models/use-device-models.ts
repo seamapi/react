@@ -16,7 +16,7 @@ export function useDeviceModels(
   params?: Omit<
     UseDeviceModelsParams,
     'acknowledge_intentional_use_of_internal_api'
-  >
+  >,
 ): UseSeamQueryResult<'deviceModels', UseDeviceModelsData> {
   const { client } = useSeamClient()
 

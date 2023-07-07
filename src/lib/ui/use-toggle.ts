@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react'
  * Simple util to quickly handle on/off states.
  */
 export const useToggle = (
-  initialState: boolean = false
+  initialState: boolean = false,
 ): [boolean, () => void] => {
   const [isTrue, setIsTrue] = useState(initialState)
 

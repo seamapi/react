@@ -27,7 +27,7 @@ export function SupportedDeviceContent({
       filterValue,
       filters,
       brands,
-    }
+    },
   )
 
   if (isLoading) {
@@ -105,7 +105,7 @@ export function SupportedDeviceContent({
             brand={brand}
             deviceModels={models}
           />
-        )
+        ),
       )}
     </>
   )
@@ -144,7 +144,7 @@ function EmptyResult({
 }
 
 function groupDeviceModelsByBrand(
-  deviceModels: UseDeviceModelsData
+  deviceModels: UseDeviceModelsData,
 ): Record<string, DeviceModel[]> {
   const result: Record<string, DeviceModel[]> = {}
 
