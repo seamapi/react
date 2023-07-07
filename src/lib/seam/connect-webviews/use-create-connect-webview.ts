@@ -29,7 +29,7 @@ export function useCreateConnectWebview({
     UseCreateConnectWebviewMutationParams
   >({
     mutationFn: async (
-      mutationParams: UseCreateConnectWebviewMutationParams
+      mutationParams: UseCreateConnectWebviewMutationParams,
     ) => {
       if (client == null) {
         throw new Error('Missing seam client')

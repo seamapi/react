@@ -87,7 +87,7 @@ export function SeamProvider({
     value.clientSessionToken == null
   ) {
     throw new Error(
-      `Must provide either a Seam client, clientSessionToken, or a publishableKey.`
+      `Must provide either a Seam client, clientSessionToken, or a publishableKey.`,
     )
   }
 
@@ -159,7 +159,7 @@ export function useSeamContext(): SeamContext {
 }
 
 const isSeamProviderPropsWithClient = (
-  props: SeamProviderProps
+  props: SeamProviderProps,
 ): props is SeamProviderPropsWithClient => {
   if (!('client' in props)) return false
 
@@ -174,7 +174,7 @@ const isSeamProviderPropsWithClient = (
 }
 
 const isSeamProviderPropsWithPublishableKey = (
-  props: SeamProviderProps
+  props: SeamProviderProps,
 ): props is SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions => {
   if (!('publishableKey' in props)) return false
 
@@ -187,7 +187,7 @@ const isSeamProviderPropsWithPublishableKey = (
 
   if ('clientSessionToken' in props && props.clientSessionToken != null) {
     throw new Error(
-      'Cannot provide both a publishableKey and a clientSessionToken.'
+      'Cannot provide both a publishableKey and a clientSessionToken.',
     )
   }
 
@@ -195,7 +195,7 @@ const isSeamProviderPropsWithPublishableKey = (
 }
 
 const isSeamProviderPropsWithClientSessionToken = (
-  props: SeamProviderProps
+  props: SeamProviderProps,
 ): props is SeamProviderPropsWithClientSessionToken &
   AllowedSeamClientOptions => {
   if (!('clientSessionToken' in props)) return false
@@ -209,7 +209,7 @@ const isSeamProviderPropsWithClientSessionToken = (
 
   if ('publishableKey' in props && props.publishableKey != null) {
     throw new Error(
-      'Cannot provide both a clientSessionToken and a publishableKey.'
+      'Cannot provide both a clientSessionToken and a publishableKey.',
     )
   }
 

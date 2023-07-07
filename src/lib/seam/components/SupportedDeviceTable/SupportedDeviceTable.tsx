@@ -34,7 +34,7 @@ export function SupportedDeviceTable({
     <div
       className={classNames(
         'seam-supported-device-table-content-wrap',
-        className
+        className,
       )}
     >
       {!hideFilter && (

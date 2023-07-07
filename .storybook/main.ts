@@ -38,7 +38,7 @@ const config: StorybookConfig = {
       config.plugins.push(
         new CopyPlugin({
           patterns: [{ from: `examples/dist`, to: 'examples' }],
-        })
+        }),
       )
 
       config.plugins.push(new CspPlugin())

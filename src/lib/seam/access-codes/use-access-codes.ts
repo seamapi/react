@@ -13,7 +13,7 @@ export type UseAccessCodesParams = AccessCodesListRequest | string
 export type UseAccessCodesData = AccessCode[]
 
 export function useAccessCodes(
-  params: UseAccessCodesParams
+  params: UseAccessCodesParams,
 ): UseSeamQueryResult<'accessCodes', UseAccessCodesData> {
   const normalizedParams =
     typeof params === 'string' ? { device_id: params } : params

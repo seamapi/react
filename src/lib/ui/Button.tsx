@@ -24,7 +24,7 @@ export function Button({
         {
           'seam-btn-disabled': disabled,
         },
-        className
+        className,
       )}
       disabled={disabled}
       onClick={onClick}

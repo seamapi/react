@@ -31,7 +31,7 @@ type Render = typeof render
 
 const customRender = (
   ui: Parameters<Render>[0],
-  options?: Parameters<Render>[1]
+  options?: Parameters<Render>[1],
 ): ReturnType<Render> => render(ui, { wrapper: Providers, ...options })
 
 // eslint-disable-next-line import/export

@@ -27,10 +27,10 @@ export default defineConfig(async ({ command, mode }) => {
     resolve: {
       alias: {
         '@seamapi/react/elements.js': fileURLToPath(
-          new URL('../src/elements.js', import.meta.url)
+          new URL('../src/elements.js', import.meta.url),
         ),
         '@seamapi/react/index.css': fileURLToPath(
-          new URL('../src/index.scss', import.meta.url)
+          new URL('../src/index.scss', import.meta.url),
         ),
       },
     },
@@ -48,7 +48,7 @@ export default defineConfig(async ({ command, mode }) => {
               basename(dirname(file)),
               fileURLToPath(new URL(file, import.meta.url)),
             ])
-            .map(([k, v]) => [k === base ? 'main' : k, v])
+            .map(([k, v]) => [k === base ? 'main' : k, v]),
         ),
       },
     },
@@ -68,7 +68,7 @@ export default defineConfig(async ({ command, mode }) => {
 const setupEnv = async (
   endpoint: string,
   isBuild: boolean,
-  useFake: boolean
+  useFake: boolean,
 ): Promise<void> => {
   if (useFake) {
     env['SEAM_ENDPOINT'] = endpoint
@@ -86,7 +86,7 @@ const setupEnv = async (
         `> Using the default publishable key.
 > Use your own by setting SEAM_PUBLISHABLE_KEY in your environment.
 > Get one for free at https://console.seam.co/
-`
+`,
       )
       await setTimeout(2000)
     }

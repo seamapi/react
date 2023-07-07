@@ -25,7 +25,7 @@ export function SupportedDeviceFilterArea({
   brands,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = Object.values(filters).filter(
-    (v) => v != null && v !== false
+    (v) => v != null && v !== false,
   ).length
 
   const filterProperty = 'brand'
@@ -122,7 +122,7 @@ const useAvailableProperties = (
   property: keyof DeviceModel,
   options: {
     brands: string[]
-  }
+  },
 ): string[] => {
   const { deviceModels } = useDeviceModels()
   if (deviceModels == null) return []

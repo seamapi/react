@@ -20,13 +20,13 @@ export default async (app) => {
       target: process.env.STORYBOOK_SEAM_ENDPOINT ?? fake.server.serverUrl,
       pathRewrite: { '^/api': '' },
       changeOrigin: true,
-    })
+    }),
   )
 
   app.use(
     '/',
     createProxyMiddleware('/examples', {
       target: 'http://localhost:8080',
-    })
+    }),
   )
 }

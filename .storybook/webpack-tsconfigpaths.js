@@ -24,14 +24,14 @@ export default (config) => {
             if (existsSync(fallback)) {
               resource.request = resource.request.replace(
                 /\.js$/,
-                fallbackExtension
+                fallbackExtension,
               )
               break
             }
           }
         }
       }
-    })
+    }),
   )
 
   // UPSTREAM: Handle imports with .js file extensions resolved with TSConfig paths.
@@ -40,12 +40,12 @@ export default (config) => {
   config.plugins.push(
     new NormalModuleReplacementPlugin(/^lib\/.*js$/, (resource) => {
       resource.request = resource.request.replace(/\.js$/, '')
-    })
+    }),
   )
   config.plugins.push(
     new NormalModuleReplacementPlugin(/^@seamapi\/react$/, (resource) => {
       resource.request = 'src/index.ts'
-    })
+    }),
   )
 
   if (config?.resolve == null) config.resolve = {}

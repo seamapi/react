@@ -13,7 +13,7 @@ export type UseDevicesParams = DevicesListRequest
 export type UseDevicesData = CommonDevice[]
 
 export function useDevices(
-  params?: UseDevicesParams
+  params?: UseDevicesParams,
 ): UseSeamQueryResult<'devices', UseDevicesData> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -31,11 +31,11 @@ export function useDevices(
         for (const device of devices) {
           queryClient.setQueryData(
             ['devices', 'get', { device_id: device.device_id }],
-            device
+            device,
           )
         }
       },
-    }
+    },
   )
 
   return { ...rest, devices: data }

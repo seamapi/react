@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 
 export const compareByCreatedAtDesc = (
   a: { created_at: string },
-  b: { created_at: string }
+  b: { created_at: string },
 ): number => {
   const t1 = DateTime.fromISO(a.created_at)
   const t2 = DateTime.fromISO(b.created_at)

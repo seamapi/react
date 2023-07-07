@@ -34,7 +34,7 @@ export function SupportedDeviceBrandSection({
     !canExpand || expanded
       ? deviceModels
       : deviceModels.filter(
-          (_deviceModel, index) => index < maxDevicesBeforeCollapsing
+          (_deviceModel, index) => index < maxDevicesBeforeCollapsing,
         )
 
   const handleHeaderClick = (): void => {

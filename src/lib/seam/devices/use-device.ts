@@ -13,7 +13,7 @@ export type UseDeviceParams = DeviceGetRequest | string
 export type UseDeviceData = CommonDevice | null
 
 export function useDevice(
-  params: DeviceGetRequest
+  params: DeviceGetRequest,
 ): UseSeamQueryResult<'device', UseDeviceData> {
   const normalizedParams =
     typeof params === 'string' ? { device_id: params } : params

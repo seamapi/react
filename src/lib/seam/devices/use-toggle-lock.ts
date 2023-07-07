@@ -55,7 +55,7 @@ export function useToggleLock({
 
             return device
           })
-        }
+        },
       )
 
       queryClient.setQueryData<LockDevice>(
@@ -72,7 +72,7 @@ export function useToggleLock({
               locked: !device.properties.locked,
             },
           }
-        }
+        },
       )
     },
     onSettled: async () => {

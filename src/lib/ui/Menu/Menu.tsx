@@ -138,7 +138,7 @@ export function Menu({
           className={classNames(
             'seam-menu-bg',
             backgroundProps?.className,
-            visible ? 'seam-menu-visible' : 'seam-menu-hidden'
+            visible ? 'seam-menu-visible' : 'seam-menu-hidden',
           )}
           onClick={(event) => {
             event.stopPropagation()
@@ -155,7 +155,7 @@ export function Menu({
             {children}
           </div>
         </div>,
-        documentEl
+        documentEl,
       )}
 
       {/*

@@ -10,7 +10,7 @@ export default class CspPlugin {
       await Promise.all(
         ['index.html', 'iframe.html'].map(async (name) => {
           await injectNonce(join(compiler.outputPath, name))
-        })
+        }),
       )
     })
   }
@@ -25,7 +25,7 @@ const injectNonce = async (path) => {
     .replace(/<script>/g, `<script nonce="${nonce}">`)
     .replace(
       /<script type="module">/g,
-      `<script type="module" nonce="${nonce}">`
+      `<script type="module" nonce="${nonce}">`,
     )
     .replace(/<style>/g, `<style nonce="${nonce}">`)
 
