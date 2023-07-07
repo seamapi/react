@@ -6,9 +6,9 @@ import type { AccessCode } from 'seamapi'
 import { getBrowserTimezone, getTimezoneLabel } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { getRandomInt } from 'lib/numbers.js'
+import { TimezonePicker } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePicker.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
-import { Checkbox } from 'lib/ui/Checkbox.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -46,7 +46,6 @@ export function AccessCodeForm({
 }
 
 function Content({
-  className,
   onBack,
   device,
 }: Omit<AccessCodeFormProps, 'deviceId'> & {
@@ -61,11 +60,6 @@ function Content({
   const [startDate, setStartDate] = useState<DateTime | null>(null)
   const [endDate, setEndDate] = useState<DateTime | null>(null)
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
-  const [manualTimezoneEnabled, setManualTimezoneEnabled] = useState(false)
-
-  const hasSelectedDifferentTimezone = timezone !== getBrowserTimezone()
-
-  const isManualTimezone = hasSelectedDifferentTimezone || manualTimezoneEnabled
 
   // Auto-show date picker screen if we've selected a time_bound Access
   // Code, but don't have dates
@@ -118,21 +112,12 @@ function Content({
   }
 
   if (timezonePickerVisible) {
-    const title = isManualTimezone
-      ? t.timezonePickerTitleManual
-      : t.timezonePickerTitleAuto
-
     return (
-      <div className='seam-timezone-picker'>
-        <ContentHeader title={title} onBack={toggleTimezonePicker} />
-        <div className='seam-content'>
-          <Checkbox
-            label={t.setTimezoneManuallyLabel}
-            checked={isManualTimezone}
-            onChange={setManualTimezoneEnabled}
-          />
-        </div>
-      </div>
+      <TimezonePicker
+        value={timezone}
+        onChange={setTimezone}
+        onClose={toggleTimezonePicker}
+      />
     )
   }
 

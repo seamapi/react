@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useRef } from 'react'
 
 import { CheckboxBlankIcon } from 'lib/icons/CheckboxBlank.js'
@@ -7,12 +8,14 @@ interface CheckboxProps {
   label: string
   checked?: boolean
   onChange: (checked: boolean) => void
+  className?: string
 }
 
 export function Checkbox({
   label,
   checked,
   onChange,
+  className,
 }: CheckboxProps): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -23,7 +26,7 @@ export function Checkbox({
   }
 
   return (
-    <div className='seam-checkbox' onClick={toggle}>
+    <div className={classNames('seam-checkbox', className)} onClick={toggle}>
       <span className='seam-checkbox-icon'>
         {checked === true ? <CheckboxFilledIcon /> : <CheckboxBlankIcon />}
       </span>

@@ -87,6 +87,56 @@
   .seam-timezone-picker {
     .seam-content {
       padding: 0 24px;
+
+      .seam-manual-timezone-checkbox {
+        margin-bottom: 8px;
+      }
+
+      .seam-timezones {
+        padding: 8px 12px 8px 0;
+        border-radius: 8px;
+        border: 1px solid colors.$text-gray-3;
+        background: colors.$white;
+        max-height: 360px;
+        overflow: auto;
+        position: relative;
+
+        &.seam-disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+          overflow: hidden;
+
+          * {
+            pointer-events: none;
+          }
+        }
+
+        .seam-timezone {
+          padding: 8px 0 8px 16px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          line-height: 150%;
+
+          &:hover {
+            background: colors.$item-hover-bg;
+          }
+
+          .seam-utc-label {
+            color: colors.$text-gray-2;
+            margin-right: 4px;
+          }
+
+          .check-icon {
+            scale: 0.75;
+            margin-left: 8px;
+
+            * {
+              fill: colors.$black;
+            }
+          }
+        }
+      }
     }
   }
 }
