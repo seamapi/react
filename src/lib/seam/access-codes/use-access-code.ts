@@ -27,7 +27,7 @@ export function useAccessCode(
     queryKey: ['access_codes', 'get', normalizedParams],
     queryFn: async () => {
       if (client == null) return null
-      return await client?.accessCodes.get(normalizedParams)
+      return await client.accessCodes.get(normalizedParams)
     },
   })
   return { ...rest, accessCode: data }
