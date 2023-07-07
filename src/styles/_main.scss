@@ -17,6 +17,7 @@
 @use './input-label';
 @use './form-field';
 @use './radio-field';
+@use './checkbox';
 
 .seam-components {
   // Reset
@@ -29,6 +30,7 @@
   @include input-label.all;
   @include form-field.all;
   @include radio-field.all;
+  @include checkbox.all;
   @include buttons.all;
   @include layout.all;
   @include icons.all;

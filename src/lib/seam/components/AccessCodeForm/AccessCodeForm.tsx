@@ -3,9 +3,12 @@ import type { DateTime } from 'luxon'
 import { useEffect, useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
+import { getBrowserTimezone, getTimezoneLabel } from 'lib/dates.js'
+import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { getRandomInt } from 'lib/numbers.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
+import { Checkbox } from 'lib/ui/Checkbox.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -54,8 +57,15 @@ function Content({
   const [type, setType] = useState<AccessCode['type']>('ongoing')
   const [codeInputFocused, toggleCodeInputFocused] = useToggle()
   const [datePickerVisible, setDatePickerVisible] = useState(false)
+  const [timezone, setTimezone] = useState<string>(getBrowserTimezone())
   const [startDate, setStartDate] = useState<DateTime | null>(null)
   const [endDate, setEndDate] = useState<DateTime | null>(null)
+  const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+  const [manualTimezoneEnabled, setManualTimezoneEnabled] = useState(false)
+
+  const hasSelectedDifferentTimezone = timezone !== getBrowserTimezone()
+
+  const isManualTimezone = hasSelectedDifferentTimezone || manualTimezoneEnabled
 
   // Auto-show date picker screen if we've selected a time_bound Access
   // Code, but don't have dates
@@ -107,17 +117,43 @@ function Content({
     setCode(generated)
   }
 
+  if (timezonePickerVisible) {
+    const title = isManualTimezone
+      ? t.timezonePickerTitleManual
+      : t.timezonePickerTitleAuto
+
+    return (
+      <div className='seam-timezone-picker'>
+        <ContentHeader title={title} onBack={toggleTimezonePicker} />
+        <div className='seam-content'>
+          <Checkbox
+            label={t.setTimezoneManuallyLabel}
+            checked={isManualTimezone}
+            onChange={setManualTimezoneEnabled}
+          />
+        </div>
+      </div>
+    )
+  }
+
   if (datePickerVisible) {
     return (
-      <div className='seam-timing-picker'>
+      <div className='seam-schedule-picker'>
         <ContentHeader
           title={t.timingTitle}
           onBack={() => {
             setDatePickerVisible(false)
           }}
         />
-
-        <div className='content'>All times in Pacific Time - US & Canada</div>
+        <div className='seam-content'>
+          <div className='seam-timezone'>
+            <span className='seam-label'>{t.selectedTimezoneLabel}</span>
+            <span className='seam-selected' onClick={toggleTimezonePicker}>
+              {getTimezoneLabel(timezone)}
+              <ChevronRightIcon />
+            </span>
+          </div>
+        </div>
       </div>
     )
   }
@@ -129,7 +165,7 @@ function Content({
         subheading={device.properties.name}
         onBack={onBack}
       />
-      <div className='content'>
+      <div className='seam-main'>
         <FormField>
           <InputLabel>{t.nameInputLabel}</InputLabel>
           <TextField
@@ -212,4 +248,8 @@ const t = {
   typeOngoingLabel: 'Ongoing',
   typeTimeBoundLabel: 'Start/end times',
   timingTitle: 'Timing',
+  selectedTimezoneLabel: 'All times in',
+  timezonePickerTitleAuto: 'Time Zone (automatic)',
+  timezonePickerTitleManual: 'Time Zone (manual)',
+  setTimezoneManuallyLabel: 'Set time zone manually',
 }
