@@ -1,7 +1,13 @@
 import classNames from 'classnames'
 import flatpickr from 'flatpickr'
 import type { FlatpickrFn, Instance } from 'flatpickr/dist/types/instance.js'
-import { useEffect, useRef, useState } from 'react'
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
 
 import { formatDateReadable } from 'lib/dates.js'
 import { TextField, type TextFieldProps } from 'lib/ui/TextField/TextField.js'
@@ -15,15 +21,21 @@ type DateTextFieldProps = Omit<TextFieldProps, 'onChange'> & {
   onChange: (value: string) => void
 }
 
-export function DateTextField({
-  className,
-  value,
-  onChange,
-  ...props
-}: DateTextFieldProps): JSX.Element {
+export const DateTextField = forwardRef<
+  HTMLInputElement | undefined,
+  DateTextFieldProps
+>(function DateTextField(
+  { className, value, onChange, ...props },
+  ref
+): JSX.Element {
   const [inputEl, setInputEl] = useState<HTMLInputElement | null | undefined>(
     null
   )
+
+  // Maintain a ocal ref, and still forward it along
+  useImperativeHandle(ref, () => (inputEl != null ? inputEl : undefined), [
+    inputEl,
+  ])
 
   const flatpickr = useRef<Instance>()
 
@@ -95,4 +107,4 @@ export function DateTextField({
       ref={setInputEl}
     />
   )
-}
+})
