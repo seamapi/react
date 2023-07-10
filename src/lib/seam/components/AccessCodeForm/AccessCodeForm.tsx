@@ -13,6 +13,7 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { RadioField } from 'lib/ui/RadioField/RadioField.js'
+import { DateTextField } from 'lib/ui/TextField/DateTextField.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
@@ -138,6 +139,10 @@ function Content({
               <ChevronRightIcon />
             </span>
           </div>
+          <FormField>
+            <InputLabel>{t.startTimeLabel}</InputLabel>
+            <DateTextField />
+          </FormField>
         </div>
       </div>
     )
@@ -237,4 +242,6 @@ const t = {
   timezonePickerTitleAuto: 'Time Zone (automatic)',
   timezonePickerTitleManual: 'Time Zone (manual)',
   setTimezoneManuallyLabel: 'Set time zone manually',
+  startTimeLabel: 'Start',
+  endTimeLabel: 'End',
 }

@@ -9,7 +9,7 @@
 }
 
 @mixin main {
-  .seam-main {
+  > .seam-main {
     padding: 24px 24px 0;
 
     .seam-code-text-field {
@@ -57,6 +57,7 @@
         display: flex;
         align-items: center;
         font-size: 14px;
+        margin-bottom: 24px;
 
         .seam-label {
           color: colors.$text-gray-2;

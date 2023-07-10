@@ -46,7 +46,6 @@ export const TextField = forwardRef<
     disabled = false,
     size = 'small',
     clearable = false,
-    helperText: error,
     onFocus,
     onBlur,
     hasError = false,
