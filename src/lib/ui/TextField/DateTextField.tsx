@@ -55,6 +55,7 @@ export const DateTextField = forwardRef<
     inputEl.addEventListener('input', handler)
 
     const instance = createFlatpickr(inputEl, {
+      minDate: 'today',
       locale: {
         // Configure to only show first letter of weekday, the default was
         // Sun, Mon, Tue ...
