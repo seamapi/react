@@ -102,3 +102,31 @@ export const formatTimeIso = (time: string): string | null => {
 
   return dateTime.toFormat('HH.mm.ss')
 }
+
+/**
+ * Get an array of time units in the specified minute intervals.
+ *
+ * eg. Interval of 15 = ['2:45 PM', '3:00 PM', ... '12:00 AM']
+ * @param interval
+ * @returns array
+ */
+export const getMinuteIntervalsUntilEndOfDay = (interval: number): string[] => {
+  const intervalStartMinutes =
+    Math.floor(DateTime.now().get('minute') / interval) * interval
+
+  const start = DateTime.now().set({ minute: intervalStartMinutes })
+
+  const totalMinutes = Math.ceil(
+    start.endOf('day').diffNow('minutes').get('minutes')
+  )
+
+  const numOptions = Math.ceil(totalMinutes / interval) + 1
+
+  return Array.from({ length: numOptions }, (_, index) => {
+    return start
+      .plus({
+        minutes: index * interval,
+      })
+      .toFormat('h:mm a')
+  })
+}

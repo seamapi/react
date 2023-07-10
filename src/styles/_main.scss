@@ -19,10 +19,13 @@
 @use './radio-field';
 @use './checkbox';
 @use './flatpickr';
+@use './time-text-field';
 
 // Flatpickr (date picker) has to be imported outside of .seam-components, as
 // the element is floating (outside of component tree).
 @include flatpickr.all;
+
+@include time-text-field.all;
 
 .seam-components {
   // Reset

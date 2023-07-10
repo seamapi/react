@@ -32,7 +32,7 @@ export const DateTextField = forwardRef<
     null
   )
 
-  // Maintain a ocal ref, and still forward it along
+  // Maintain a local ref, and still forward it along
   useImperativeHandle(ref, () => (inputEl != null ? inputEl : undefined), [
     inputEl,
   ])
