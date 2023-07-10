@@ -81,3 +81,6 @@ export function getTimezoneOffsetLabel(timezone: string): string {
 export function getTimezoneOffset(timezone: string): number {
   return DateTime.local().setZone(timezone).offset
 }
+
+export const formatDateReadable = (date: string): string =>
+  DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat('EEE MMM d, yyyy') // '2023-04-17' to 'Mon Apr 17, 2023'

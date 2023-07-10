@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import type { DateTime } from 'luxon'
 import { useEffect, useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
@@ -58,8 +57,10 @@ function Content({
   const [codeInputFocused, toggleCodeInputFocused] = useToggle()
   const [datePickerVisible, setDatePickerVisible] = useState(false)
   const [timezone, setTimezone] = useState<string>(getBrowserTimezone())
-  const [startDate, setStartDate] = useState<DateTime | null>(null)
-  const [endDate, setEndDate] = useState<DateTime | null>(null)
+  const [startDate, setStartDate] = useState<string | null>(null)
+  const [endDate, setEndDate] = useState<string | null>(null)
+  const [startTime, setStartTime] = useState<string | null>(null)
+  const [endTime, setEndTime] = useState<string | null>(null)
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
 
   // Auto-show date picker screen if we've selected a time_bound Access
@@ -141,7 +142,11 @@ function Content({
           </div>
           <FormField>
             <InputLabel>{t.startTimeLabel}</InputLabel>
-            <DateTextField />
+            <DateTextField
+              value={startDate != null ? startDate : undefined}
+              onChange={setStartDate}
+              size='large'
+            />
           </FormField>
         </div>
       </div>

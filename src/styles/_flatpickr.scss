@@ -22,14 +22,23 @@
     box-shadow: 0px 2px 16px 2px rgba(15, 22, 28, 0.15), 0px 0px 1px 0px rgba(0, 0, 0, 0.30);
 
     .flatpickr-months {
+      * {
+        background: colors.$white!important;
+      }
+
       .flatpickr-prev-month {
         left: unset;
         right: 50px;
       }
 
-      .flatpickr-month {
-        background: colors.$white;
+      .flatpickr-prev-month, .flatpickr-next-month {
+        height: 24px;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+      }
 
+      .flatpickr-month {
         .flatpickr-current-month {
           font-size: 16px;
           line-height: 150%;
@@ -39,10 +48,8 @@
 
           select {
             appearance: none;
-          }
-
-          .flatpickr-monthDropdown-months {
-            background: colors.$white;
+            padding: 0 0 0 8px;
+            margin-right: 4px;
           }
         }
       }
