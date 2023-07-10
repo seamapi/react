@@ -14,6 +14,7 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { RadioField } from 'lib/ui/RadioField/RadioField.js'
 import { DateTextField } from 'lib/ui/TextField/DateTextField.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
+import { TimeTextField } from 'lib/ui/TextField/TimeTextField.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const minCodeLength = 4
@@ -147,11 +148,18 @@ function Content({
               onChange={setStartDate}
               size='large'
             />
+            <TimeTextField
+              value={startTime != null ? startTime : ''}
+              onChange={setStartTime}
+              size='large'
+            />
           </FormField>
         </div>
       </div>
     )
   }
+
+  console.log('start time: ', startTime)
 
   return (
     <>

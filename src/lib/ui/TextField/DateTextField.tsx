@@ -54,7 +54,7 @@ export const DateTextField = forwardRef<
 
     inputEl.addEventListener('input', handler)
 
-    const instance = createFlatpickr(inputEl, {
+    const flatpickrInstance = createFlatpickr(inputEl, {
       minDate: 'today',
       locale: {
         // Configure to only show first letter of weekday, the default was
@@ -76,9 +76,9 @@ export const DateTextField = forwardRef<
 
     // Scope to seam class for custom styles in case the consumer also uses
     // flatpickr, we wouldn't want to style their pickers.
-    instance.calendarContainer.classList.add('seam-flatpickr')
+    flatpickrInstance.calendarContainer.classList.add('seam-flatpickr')
 
-    flatpickr.current = instance
+    flatpickr.current = flatpickrInstance
 
     return () => {
       inputEl.removeEventListener('input', handler)

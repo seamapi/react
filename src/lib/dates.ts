@@ -84,3 +84,21 @@ export function getTimezoneOffset(timezone: string): number {
 
 export const formatDateReadable = (date: string): string =>
   DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat('EEE MMM d, yyyy') // '2023-04-17' to 'Mon Apr 17, 2023'
+
+export const formatTimeReadable = (time: string): string | null => {
+  const dateTime = DateTime.fromFormat(time, 'HH.mm.ss')
+  if (!dateTime.isValid) {
+    return null
+  }
+
+  return dateTime.toFormat('h:mm a')
+}
+
+export const formatTimeIso = (time: string): string | null => {
+  const dateTime = DateTime.fromFormat(time, 'h:mm a')
+  if (!dateTime.isValid) {
+    return null
+  }
+
+  return dateTime.toFormat('HH.mm.ss')
+}
