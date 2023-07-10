@@ -44,6 +44,8 @@ export function DateTextField({
 
     const instance = createFlatpickr(inputEl, {
       locale: {
+        // Configure to only show first letter of weekday, the default was
+        // Sun, Mon, Tue ...
         weekdays: {
           shorthand: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
           longhand: [
@@ -58,7 +60,11 @@ export function DateTextField({
         },
       },
     })
+
+    // Scope to seam class for custom styles in case the consumer also uses
+    // flatpickr, we wouldn't want to style their pickers.
     instance.calendarContainer.classList.add('seam-flatpickr')
+
     flatpickr.current = instance
 
     return () => {
