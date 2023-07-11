@@ -74,8 +74,6 @@ function Content({
       return
     }
 
-    console.log('here')
-
     createAccessCode.mutate(
       {
         name,
@@ -83,7 +81,6 @@ function Content({
       },
       {
         onSuccess: () => {
-          console.log('success!')
           onBack?.()
         },
       }
@@ -182,6 +179,14 @@ function Content({
             <DateTimePicker
               value={startDate == null ? '' : startDate}
               onChange={setStartDate}
+              size='large'
+            />
+          </FormField>
+          <FormField>
+            <InputLabel>{t.endTimeLabel}</InputLabel>
+            <DateTimePicker
+              value={endDate == null ? '' : endDate}
+              onChange={setEndDate}
               size='large'
             />
           </FormField>

@@ -22,7 +22,6 @@
       }
 
       > .seam-bottom {
-        display: flex;
         align-items: center;
         justify-content: space-between;
         display: none;
@@ -59,7 +58,6 @@
 
 @mixin schedule-picker {
   .seam-schedule-picker {
-
     .seam-content {
       padding: 0 24px;
 
@@ -81,8 +79,8 @@
           align-items: center;
 
           svg {
-            scale: 0.66667;
-            transform:translate(-6px, 2px);
+            scale: 0.6667;
+            transform: translate(-6px, 2px);
 
             * {
               fill: colors.$primary;
