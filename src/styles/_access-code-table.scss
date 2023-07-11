@@ -6,6 +6,18 @@
       width: 170px;
     }
 
+    .seam-table-header {
+
+      .seam-left {
+        display: flex;
+        align-items: center;
+
+        .seam-add-access-code-button {
+          margin-left: 8px;
+        }
+      }
+    }
+
     .seam-table-row {
       cursor: pointer;
 

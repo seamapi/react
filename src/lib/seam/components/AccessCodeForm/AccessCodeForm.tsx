@@ -74,13 +74,16 @@ function Content({
       return
     }
 
+    console.log('here')
+
     createAccessCode.mutate(
       {
         name,
         code,
       },
       {
-        onSuccess() {
+        onSuccess: () => {
+          console.log('success!')
           onBack?.()
         },
       }

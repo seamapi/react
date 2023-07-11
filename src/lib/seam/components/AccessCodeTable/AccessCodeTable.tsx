@@ -3,6 +3,7 @@ import { useCallback, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
+import { AddIcon } from 'lib/icons/Add.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
@@ -18,6 +19,7 @@ import {
 } from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
+import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 import { MoreActionsMenu } from 'lib/ui/Menu/MoreActionsMenu.js'
@@ -133,9 +135,17 @@ export function AccessCodeTable({
     <div className={classNames('seam-access-code-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
-        <TableTitle>
-          {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>
-        </TableTitle>
+        <div className='seam-left'>
+          <TableTitle>
+            {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>{' '}
+          </TableTitle>
+          <IconButton
+            onClick={toggleAddAccessCodeForm}
+            className='seam-add-access-code-button'
+          >
+            <AddIcon />
+          </IconButton>
+        </div>
         <SearchTextField
           value={searchInputValue}
           onChange={setSearchInputValue}

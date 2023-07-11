@@ -7,11 +7,21 @@
     border: 1px solid rgb(0 122 252 / 50%);
     cursor: pointer;
     background: colors.$white;
-    padding: 6px;
+    padding: 2px;
     line-height: 0;
+    width: 30px;
+    height: 30px;
 
     &:hover {
       background: rgb(0 122 252 / 8%);
+    }
+
+
+    svg {
+        scale: 0.75;
+      * {
+        fill: colors.$primary;
+      }
     }
   }
 }
