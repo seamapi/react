@@ -25,7 +25,7 @@ export function FormField({
 
   // Map children to automatically focus on input when clicking
   // on an InputLabel.
-  const updatedComponents = components.map((component, index) => {
+  const clonedChildren = components.map((component, index) => {
     const baseProps = {
       ...component.props,
       key: index,
@@ -50,7 +50,7 @@ export function FormField({
 
   return (
     <div className={classNames('seam-form-field', className)}>
-      {updatedComponents}
+      {clonedChildren}
     </div>
   )
 }
