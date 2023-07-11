@@ -6,6 +6,7 @@
     @include typography.all;
 
     background: colors.$white;
+    z-index: 5000;
     display: none;
     position: fixed;
     margin-top: 5px;

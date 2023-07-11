@@ -17,7 +17,8 @@ import { TextField, type TextFieldProps } from 'lib/ui/TextField/TextField.js'
 // call signatures error.
 const createFlatpickr = flatpickr as unknown as FlatpickrFn
 
-type DatePickerProps = Omit<TextFieldProps, 'onChange'> & {
+type DatePickerProps = Omit<TextFieldProps, 'onChange' | 'value'> & {
+  value: string
   onChange: (value: string) => void
 }
 
@@ -93,7 +94,7 @@ export const DatePicker = forwardRef<
     }
   }, [value])
 
-  const readableDate = value != null ? formatDateReadable(value) : ''
+  const readableDate = value !== '' ? formatDateReadable(value) : ''
 
   return (
     <TextField

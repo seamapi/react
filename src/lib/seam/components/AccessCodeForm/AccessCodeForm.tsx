@@ -8,13 +8,12 @@ import { getRandomInt } from 'lib/numbers.js'
 import { TimezonePicker } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePicker.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
+import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { RadioField } from 'lib/ui/RadioField/RadioField.js'
-import { DatePicker } from 'lib/ui/DatePicker.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
-import { TimePicker } from 'lib/ui/TimePicker.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const minCodeLength = 4
@@ -60,8 +59,7 @@ function Content({
   const [timezone, setTimezone] = useState<string>(getBrowserTimezone())
   const [startDate, setStartDate] = useState<string | null>(null)
   const [endDate, setEndDate] = useState<string | null>(null)
-  const [startTime, setStartTime] = useState<string | null>(null)
-  const [endTime, setEndTime] = useState<string | null>(null)
+
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
 
   // Auto-show date picker screen if we've selected a time_bound Access
@@ -143,14 +141,9 @@ function Content({
           </div>
           <FormField>
             <InputLabel>{t.startTimeLabel}</InputLabel>
-            <DatePicker
-              value={startDate != null ? startDate : undefined}
+            <DateTimePicker
+              value={startDate}
               onChange={setStartDate}
-              size='large'
-            />
-            <TimePicker
-              value={startTime != null ? startTime : ''}
-              onChange={setStartTime}
               size='large'
             />
           </FormField>
@@ -158,8 +151,6 @@ function Content({
       </div>
     )
   }
-
-  console.log('start time: ', startTime)
 
   return (
     <>

@@ -1,0 +1,14 @@
+@mixin all {
+  .seam-date-time-picker {
+    display: flex;
+    gap: 8px;
+
+    .seam-date-picker {
+      flex: 7 1 200px;
+    }
+
+    .seam-time-picker {
+      flex: 3 1 140px;
+    }
+  }
+}
