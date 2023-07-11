@@ -12,9 +12,9 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { RadioField } from 'lib/ui/RadioField/RadioField.js'
-import { DateTextField } from 'lib/ui/TextField/DateTextField.js'
+import { DatePicker } from 'lib/ui/DatePicker.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
-import { TimeTextField } from 'lib/ui/TextField/TimeTextField.js'
+import { TimePicker } from 'lib/ui/TimePicker.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const minCodeLength = 4
@@ -143,12 +143,12 @@ function Content({
           </div>
           <FormField>
             <InputLabel>{t.startTimeLabel}</InputLabel>
-            <DateTextField
+            <DatePicker
               value={startDate != null ? startDate : undefined}
               onChange={setStartDate}
               size='large'
             />
-            <TimeTextField
+            <TimePicker
               value={startTime != null ? startTime : ''}
               onChange={setStartTime}
               size='large'

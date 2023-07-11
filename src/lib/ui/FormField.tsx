@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { cloneElement, useRef } from 'react'
 
 import { InputLabel } from 'lib/ui/InputLabel.js'
-import { DateTextField } from 'lib/ui/TextField/DateTextField.js'
+import { DatePicker } from 'lib/ui/DatePicker.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 
 interface FormFieldProps {
@@ -39,7 +39,7 @@ export function FormField({
       })
     }
 
-    if (component.type === TextField || component.type === DateTextField) {
+    if (component.type === TextField || component.type === DatePicker) {
       return cloneElement(component, {
         ...baseProps,
         ref: inputRef,

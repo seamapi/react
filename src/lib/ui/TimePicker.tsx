@@ -18,13 +18,13 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 
 const optionIntervalMins = 15
 
-type TimeTextFieldProps = Omit<TextFieldProps, 'onChange'> & {
+type TimePickerProps = Omit<TextFieldProps, 'onChange'> & {
   onChange: (value: string) => void
 }
 
-export const TimeTextField = forwardRef<
+export const TimePicker = forwardRef<
   HTMLInputElement | undefined,
-  TimeTextFieldProps
+  TimePickerProps
 >(function TimeTextField(
   { className, value = '', onChange, ...props },
   ref
@@ -96,7 +96,7 @@ export const TimeTextField = forwardRef<
     <>
       {createPortal(
         <div
-          className={classNames('seam-time-text-field-options', {
+          className={classNames('seam-time-picker-options', {
             'seam-visible': optionsVisible,
           })}
           style={{
@@ -126,7 +126,7 @@ export const TimeTextField = forwardRef<
         value={readableValue}
         onChange={setReadableValue}
         {...props}
-        className={classNames(className, 'seam-date-text-field')}
+        className={classNames(className, 'seam-time-picker')}
         clearable
         ref={setInputEl}
         onFocus={toggleOptions}

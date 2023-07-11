@@ -17,13 +17,13 @@ import { TextField, type TextFieldProps } from 'lib/ui/TextField/TextField.js'
 // call signatures error.
 const createFlatpickr = flatpickr as unknown as FlatpickrFn
 
-type DateTextFieldProps = Omit<TextFieldProps, 'onChange'> & {
+type DatePickerProps = Omit<TextFieldProps, 'onChange'> & {
   onChange: (value: string) => void
 }
 
-export const DateTextField = forwardRef<
+export const DatePicker = forwardRef<
   HTMLInputElement | undefined,
-  DateTextFieldProps
+  DatePickerProps
 >(function DateTextField(
   { className, value, onChange, ...props },
   ref
@@ -103,7 +103,7 @@ export const DateTextField = forwardRef<
         // to the input's change events.
       }}
       {...props}
-      className={classNames(className, 'seam-date-text-field')}
+      className={classNames(className, 'seam-date-picker')}
       clearable
       ref={setInputEl}
     />

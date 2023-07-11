@@ -2,7 +2,7 @@
 @use './colors';
 
 @mixin all {
-  .seam-time-text-field-options {
+  .seam-time-picker-options {
     @include typography.all;
 
     background: colors.$white;
