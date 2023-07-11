@@ -74,7 +74,7 @@ function Content({
     )
   }
 
-  const nameError = name.length > 0 ? t.overCharacterLimitError : undefined
+  const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
   const codeError = getCodeError(code)
 
   const generateCode = (): void => {
