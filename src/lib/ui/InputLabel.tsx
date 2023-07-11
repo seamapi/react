@@ -1,8 +1,7 @@
 import classNames from 'classnames'
-import { forwardRef, type ReactNode } from 'react'
+import { forwardRef, type PropsWithChildren } from 'react'
 
-interface InputLabelProps {
-  children: ReactNode
+interface InputLabelProps extends PropsWithChildren {
   className?: string
   onClick?: () => void
 }
