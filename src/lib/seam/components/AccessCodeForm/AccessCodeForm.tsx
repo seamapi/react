@@ -5,6 +5,7 @@ import type { AccessCode } from 'seamapi'
 import { getBrowserTimezone, getTimezoneLabel } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { getRandomInt } from 'lib/numbers.js'
+import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import { TimezonePicker } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePicker.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -60,7 +61,31 @@ function Content({
   const [startDate, setStartDate] = useState<string | null>(null)
   const [endDate, setEndDate] = useState<string | null>(null)
 
+  const createAccessCode = useCreateAccessCode(device)
+
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+
+  const save = (): void => {
+    if (name === '' || code === '') {
+      return
+    }
+
+    if (createAccessCode.isLoading) {
+      return
+    }
+
+    createAccessCode.mutate(
+      {
+        name,
+        code,
+      },
+      {
+        onSuccess() {
+          onBack?.()
+        },
+      }
+    )
+  }
 
   // Auto-show date picker screen if we've selected a time_bound Access
   // Code, but don't have dates
@@ -117,7 +142,8 @@ function Content({
       name.trim().length > 0 &&
       nameError() === undefined &&
       code.trim().length > 0 &&
-      codeError() === undefined
+      codeError() === undefined &&
+      !createAccessCode.isLoading
     )
   }
 
@@ -236,7 +262,7 @@ function Content({
         </FormField>
         <div className='seam-actions'>
           <Button onClick={onBack}>Cancel</Button>
-          <Button variant='solid' disabled={!canSave()}>
+          <Button variant='solid' disabled={!canSave()} onClick={save}>
             Save
           </Button>
         </div>
