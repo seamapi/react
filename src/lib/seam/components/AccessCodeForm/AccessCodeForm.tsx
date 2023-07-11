@@ -73,12 +73,8 @@ function Content({
       }
     )
   }
-  const nameError = (): string | undefined => {
-    if (name.length > 60) {
-      return t.overCharacterLimitError
-    }
-    return undefined
-  }
+
+  const nameError = name.length > 0 ? t.overCharacterLimitError : undefined
 
   const codeError = (): string | undefined => {
     // Only check code on any input
@@ -112,7 +108,7 @@ function Content({
   const canSave = (): boolean => {
     return (
       name.trim().length > 0 &&
-      nameError() === undefined &&
+      nameError === undefined &&
       code.trim().length > 0 &&
       codeError() === undefined &&
       !createAccessCode.isLoading
