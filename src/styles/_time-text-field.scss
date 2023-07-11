@@ -5,6 +5,7 @@
   .seam-time-text-field-options {
     @include typography.all;
 
+    background: colors.$white;
     display: none;
     position: fixed;
     margin-top: 5px;
