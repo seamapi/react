@@ -153,7 +153,7 @@ function Content({
         <div className='seam-actions'>
           <Button onClick={onBack}>Cancel</Button>
           <Button variant='solid' disabled={!isFormValid} onClick={save}>
-            Save
+            {t.save}
           </Button>
         </div>
       </div>
@@ -187,4 +187,5 @@ const t = {
   codeRequirementLength: '4-8 digit code',
   codeRequirementNumbersOnly: 'Numbers only',
   codeGenerateButton: 'Generate code',
+  save: 'Save',
 }
