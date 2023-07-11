@@ -24,7 +24,7 @@ export function useDevices(
       queryKey: ['devices', 'list', params],
       queryFn: async () => {
         if (client == null) return []
-        return await client?.devices.list(params)
+        return await client.devices.list(params)
       },
       onSuccess: (devices) => {
         // Prime cache for each device.

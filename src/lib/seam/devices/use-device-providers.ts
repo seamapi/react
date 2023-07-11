@@ -1,25 +1,33 @@
 import { useQuery } from '@tanstack/react-query'
-import type { DeviceProvider } from 'seamapi'
+import type {
+  DeviceProvider,
+  DeviceProvidersListRequest,
+  DeviceProvidersListResponse,
+  SeamError,
+} from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
+import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
-export function useDeviceProviders(): {
-  deviceProviders: DeviceProvider[] | undefined
-  isLoading: boolean
-} {
+export type UseDeviceProvidersParams = DeviceProvidersListRequest
+export type UseDeviceProvidersData = DeviceProvider[]
+
+export function useDeviceProviders(
+  params?: UseDeviceProvidersParams
+): UseSeamQueryResult<'deviceProviders', UseDeviceProvidersData> {
   const { client } = useSeamClient()
 
-  const { data, isLoading } = useQuery({
-    queryFn: async () => {
-      if (client == null) {
-        return []
-      }
-
-      return await client?.devices.listDeviceProviders({})
-    },
-    queryKey: ['devices', 'list_device_providers'],
+  const { data, ...rest } = useQuery<
+    DeviceProvidersListResponse['device_providers'],
+    SeamError
+  >({
     enabled: client != null,
+    queryKey: ['devices', 'list_device_providers', params],
+    queryFn: async () => {
+      if (client == null) return []
+      return await client.devices.listDeviceProviders(params)
+    },
   })
 
-  return { deviceProviders: data, isLoading }
+  return { ...rest, deviceProviders: data }
 }

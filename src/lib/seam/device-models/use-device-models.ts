@@ -28,11 +28,10 @@ export function useDeviceModels(
     queryKey: ['device_models', 'list', params],
     queryFn: async () => {
       if (client == null) return []
-      const deviceModels = await client?.deviceModels.list({
+      return await client.deviceModels.list({
         ...params,
         acknowledge_intentional_use_of_internal_api: true,
       })
-      return deviceModels
     },
   })
 
