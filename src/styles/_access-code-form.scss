@@ -44,6 +44,16 @@
         }
       }
     }
+
+    .seam-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+
+      .seam-btn {
+        width: 96px;
+      }
+    }
   }
 }
 

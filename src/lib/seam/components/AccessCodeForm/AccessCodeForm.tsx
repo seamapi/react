@@ -112,6 +112,15 @@ function Content({
     setCode(generated)
   }
 
+  const canSave = (): boolean => {
+    return (
+      name.trim().length > 0 &&
+      nameError() === undefined &&
+      code.trim().length > 0 &&
+      codeError() === undefined
+    )
+  }
+
   if (timezonePickerVisible) {
     return (
       <TimezonePicker
@@ -225,6 +234,12 @@ function Content({
             ]}
           />
         </FormField>
+        <div className='seam-actions'>
+          <Button onClick={onBack}>Cancel</Button>
+          <Button variant='solid' disabled={!canSave()}>
+            Save
+          </Button>
+        </div>
       </div>
     </>
   )
