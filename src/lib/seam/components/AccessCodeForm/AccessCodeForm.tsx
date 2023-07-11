@@ -75,24 +75,7 @@ function Content({
   }
 
   const nameError = name.length > 0 ? t.overCharacterLimitError : undefined
-
-  const codeError = (): string | undefined => {
-    // Only check code on any input
-    if (code.trim().length === 0) {
-      return undefined
-    }
-
-    // If a non-digit exists
-    if (/\D/.test(code)) {
-      return 'Number only.'
-    }
-
-    if (code.length < minCodeLength || code.length > maxCodeLength) {
-      return 'Code must be between 4, and 8 digits.'
-    }
-
-    return undefined
-  }
+  const codeError = getCodeError(code)
 
   const generateCode = (): void => {
     // Randomize code length
@@ -110,7 +93,7 @@ function Content({
       name.trim().length > 0 &&
       nameError === undefined &&
       code.trim().length > 0 &&
-      codeError() === undefined &&
+      codeError === undefined &&
       !createAccessCode.isLoading
     )
   }
@@ -130,8 +113,8 @@ function Content({
             clearable
             value={name}
             onChange={setName}
-            hasError={nameError() != null}
-            helperText={nameError()}
+            hasError={nameError != null}
+            helperText={nameError}
           />
         </FormField>
 
@@ -144,7 +127,7 @@ function Content({
             onChange={setCode}
             onFocus={toggleCodeInputFocused}
             onBlur={toggleCodeInputFocused}
-            hasError={codeError() != null}
+            hasError={codeError != null}
           />
           <div
             className={classNames('seam-bottom', {
@@ -153,7 +136,7 @@ function Content({
           >
             <ul
               className={classNames('seam-requirements', {
-                'seam-error': codeError() != null,
+                'seam-error': codeError != null,
               })}
             >
               <li>{t.codeRequirementLength}</li>
@@ -179,6 +162,24 @@ function Content({
       </div>
     </>
   )
+}
+
+function getCodeError(code: string): string | undefined {
+  // Only check code on any input
+  if (code.trim().length === 0) {
+    return undefined
+  }
+
+  // If a non-digit exists
+  if (/\D/.test(code)) {
+    return 'Number only.'
+  }
+
+  if (code.length < minCodeLength || code.length > maxCodeLength) {
+    return 'Code must be between 4, and 8 digits.'
+  }
+
+  return undefined
 }
 
 const t = {
