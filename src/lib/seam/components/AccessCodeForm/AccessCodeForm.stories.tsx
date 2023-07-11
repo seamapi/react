@@ -25,7 +25,10 @@ type Story = StoryObj<typeof AccessCodeForm>
 
 export const Content: Story = {
   render: (props, { globals }) => (
-    <AccessCodeForm {...props} deviceId={props.deviceId ?? globals.deviceId} />
+    <AccessCodeForm
+      {...props}
+      deviceId={props.deviceId ?? globals['deviceId']}
+    />
   ),
 }
 
@@ -40,7 +43,7 @@ export const InsideModal: Story = {
           <div className='seam-components'>
             <AccessCodeForm
               {...props}
-              deviceId={props.deviceId ?? globals.deviceId}
+              deviceId={props.deviceId ?? globals['deviceId']}
             />
           </div>
         </Dialog>
