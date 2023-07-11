@@ -142,7 +142,7 @@ function Content({
           <FormField>
             <InputLabel>{t.startTimeLabel}</InputLabel>
             <DateTimePicker
-              value={startDate}
+              value={startDate == null ? '' : startDate}
               onChange={setStartDate}
               size='large'
             />
