@@ -151,7 +151,7 @@ function Content({
           </div>
         </FormField>
         <div className='seam-actions'>
-          <Button onClick={onBack}>Cancel</Button>
+          <Button onClick={onBack}>{t.cancel}</Button>
           <Button variant='solid' disabled={!isFormValid} onClick={save}>
             {t.save}
           </Button>
@@ -187,5 +187,6 @@ const t = {
   codeRequirementLength: '4-8 digit code',
   codeRequirementNumbersOnly: 'Numbers only',
   codeGenerateButton: 'Generate code',
+  cancel: 'Cancel',
   save: 'Save',
 }
