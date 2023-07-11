@@ -17,15 +17,6 @@
 @use './input-label';
 @use './form-field';
 
-// Flatpickr (date picker) has to be imported outside of .seam-components, as
-// the element is floating (outside of component tree).
-
-// Floating components
-// These components are rendered outside of the component tree, such as popovers,
-// menus, etc.
-@include date-picker.all;
-@include time-picker.all;
-
 .seam-components {
   // Reset
   @include reset.all;
