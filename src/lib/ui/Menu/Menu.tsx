@@ -11,7 +11,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 
-export interface MenuProps {
+export interface MenuProps extends PropsWithChildren {
   verticalOffset?: number
   horizontalOffset?: number
   edgeOffset?: number
@@ -38,7 +38,7 @@ export function Menu({
   children,
   renderButton,
   backgroundProps,
-}: PropsWithChildren<MenuProps>): JSX.Element | null {
+}: MenuProps): JSX.Element | null {
   const { Provider } = menuContext
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [documentEl, setDocumentEl] = useState<null | Element>(null)
