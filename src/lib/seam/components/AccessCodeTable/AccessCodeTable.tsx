@@ -37,6 +37,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 export interface AccessCodeTableProps {
   deviceId: string
   disableLockUnlock?: boolean
+  disableCreateAccessCode?: boolean
   accessCodeFilter?: (
     accessCode: AccessCode,
     searchInputValue: string
@@ -69,6 +70,7 @@ const defaultAccessCodeFilter = (
 export function AccessCodeTable({
   deviceId,
   disableLockUnlock = false,
+  disableCreateAccessCode = false,
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
   onBack,
@@ -139,12 +141,14 @@ export function AccessCodeTable({
           <TableTitle>
             {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>{' '}
           </TableTitle>
-          <IconButton
-            onClick={toggleAddAccessCodeForm}
-            className='seam-add-access-code-button'
-          >
-            <AddIcon />
-          </IconButton>
+          {!disableCreateAccessCode && (
+            <IconButton
+              onClick={toggleAddAccessCodeForm}
+              className='seam-add-access-code-button'
+            >
+              <AddIcon />
+            </IconButton>
+          )}
         </div>
         <SearchTextField
           value={searchInputValue}
