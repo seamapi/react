@@ -3,6 +3,7 @@ import { useCallback, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
+import { AddIcon } from 'lib/icons/Add.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
@@ -11,12 +12,14 @@ import {
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import { AccessCodeForm } from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
 import {
   type AccessCodeFilter,
   AccessCodeHealthBar,
 } from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
+import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 import { MoreActionsMenu } from 'lib/ui/Menu/MoreActionsMenu.js'
@@ -29,10 +32,12 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
+import { useToggle } from 'lib/ui/use-toggle.js'
 
 export interface AccessCodeTableProps {
   deviceId: string
   disableLockUnlock?: boolean
+  disableCreateAccessCode?: boolean
   accessCodeFilter?: (
     accessCode: AccessCode,
     searchInputValue: string
@@ -65,6 +70,7 @@ const defaultAccessCodeFilter = (
 export function AccessCodeTable({
   deviceId,
   disableLockUnlock = false,
+  disableCreateAccessCode = false,
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
   onBack,
@@ -81,6 +87,7 @@ export function AccessCodeTable({
   >(null)
 
   const [searchInputValue, setSearchInputValue] = useState('')
+  const [accessCodeFormVisible, toggleAddAccessCodeForm] = useToggle()
 
   const filteredAccessCodes = useMemo(
     () =>
@@ -116,13 +123,33 @@ export function AccessCodeTable({
     )
   }
 
+  if (accessCodeFormVisible) {
+    return (
+      <AccessCodeForm
+        className={className}
+        onBack={toggleAddAccessCodeForm}
+        deviceId={deviceId}
+      />
+    )
+  }
+
   return (
     <div className={classNames('seam-access-code-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
-        <TableTitle>
-          {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>
-        </TableTitle>
+        <div className='seam-left'>
+          <TableTitle>
+            {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>{' '}
+          </TableTitle>
+          {!disableCreateAccessCode && (
+            <IconButton
+              onClick={toggleAddAccessCodeForm}
+              className='seam-add-access-code-button'
+            >
+              <AddIcon />
+            </IconButton>
+          )}
+        </div>
         <SearchTextField
           value={searchInputValue}
           onChange={setSearchInputValue}
