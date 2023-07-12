@@ -13,6 +13,23 @@
 @use './device-table';
 @use './access-code-details';
 @use './supported-device-table';
+@use './access-code-form';
+@use './input-label';
+@use './form-field';
+@use './radio-field';
+@use './checkbox';
+@use './date-picker';
+@use './time-picker';
+@use './date-time-picker';
+
+// Flatpickr (date picker) has to be imported outside of .seam-components, as
+// the element is floating (outside of component tree).
+
+// Floating components
+// These components are rendered outside of the component tree, such as popovers,
+// menus, etc.
+@include date-picker.all;
+@include time-picker.all;
 
 .seam-components {
   // Reset
@@ -22,6 +39,10 @@
   @include typography.all;
   @include tables.all;
   @include inputs.all;
+  @include input-label.all;
+  @include form-field.all;
+  @include radio-field.all;
+  @include checkbox.all;
   @include buttons.all;
   @include layout.all;
   @include icons.all;
@@ -32,6 +53,8 @@
   @include device-table.all;
   @include access-code-table.all;
   @include access-code-details.all;
+  @include access-code-form.all;
   @include alert.all;
   @include supported-device-table.all;
+  @include date-time-picker.all;
 }

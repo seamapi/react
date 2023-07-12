@@ -1,0 +1,37 @@
+@use './typography';
+@use './colors';
+
+@mixin all {
+  .seam-time-picker-options {
+    @include typography.all;
+
+    background: colors.$white;
+    z-index: 5000;
+    display: none;
+    position: fixed;
+    margin-top: 5px;
+    max-height: 230px;
+    overflow: auto;
+    padding: 8px 0;
+    width: 168px;
+    box-shadow: 0 2px 16px 2px rgb(15 22 28 / 15%), 0 0 1px 0 rgb(0 0 0 / 30%);
+    border-radius: 4px;
+
+    &.seam-visible {
+      display: block;
+    }
+
+    > .seam-option {
+      padding: 6px 16px;
+      cursor: pointer;
+
+      &:hover {
+        background: colors.$item-hover-bg;
+      }
+
+      &.seam-selected {
+        background: colors.$item-hover-bg;
+      }
+    }
+  }
+}
