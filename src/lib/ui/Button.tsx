@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import type { MouseEventHandler, PropsWithChildren } from 'react'
 
-interface ButtonProps {
+interface ButtonProps extends PropsWithChildren {
   variant?: 'solid' | 'outline' | 'neutral'
   size?: 'small' | 'medium' | 'large'
   disabled?: boolean
@@ -16,7 +16,7 @@ export function Button({
   disabled = false,
   onClick,
   className,
-}: PropsWithChildren<ButtonProps>): JSX.Element {
+}: ButtonProps): JSX.Element {
   return (
     <button
       className={classNames(
