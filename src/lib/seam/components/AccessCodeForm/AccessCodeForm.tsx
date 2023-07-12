@@ -152,7 +152,7 @@ function Content({
         </FormField>
         <div className='seam-actions'>
           <Button onClick={onBack}>{t.cancel}</Button>
-          <Button variant='solid' disabled={!isFormValid} onClick={save}>
+          <Button variant='solid' disabled={!isFormValid} onMouseDown={save}>
             {t.save}
           </Button>
         </div>
