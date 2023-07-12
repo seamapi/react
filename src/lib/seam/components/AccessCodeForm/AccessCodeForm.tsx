@@ -15,15 +15,15 @@ const minCodeLength = 4
 const maxCodeLength = 8
 
 export interface AccessCodeFormProps {
-  className?: string
-  onBack?: () => void
   deviceId: string
+  onBack?: () => void
+  className?: string
 }
 
 export function AccessCodeForm({
-  className,
-  onBack,
   deviceId,
+  onBack,
+  className,
 }: AccessCodeFormProps): JSX.Element | null {
   const { device } = useDevice({
     device_id: deviceId,
