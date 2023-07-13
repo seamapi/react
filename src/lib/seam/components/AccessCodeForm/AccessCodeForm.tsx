@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 
-import { getRandomInt } from 'lib/numbers.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -77,17 +76,6 @@ function Content({
   const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
   const codeError = getCodeError(code)
 
-  const generateCode = (): void => {
-    // Randomize code length
-    const length = getRandomInt({ min: minCodeLength, max: maxCodeLength })
-    // Fill each digit with a random int from 0-9
-    const generated = Array.from({ length }, () =>
-      getRandomInt({ min: 0, max: 9 })
-    ).join('')
-
-    setCode(generated)
-  }
-
   const isFormValid =
     name.trim().length > 0 &&
     nameError === undefined &&
@@ -139,15 +127,6 @@ function Content({
               <li>{t.codeRequirementLength}</li>
               <li>{t.codeRequirementNumbersOnly}</li>
             </ul>
-            <Button
-              size='small'
-              onMouseDown={(e) => {
-                e.preventDefault() // Disable stealing input focus
-                generateCode()
-              }}
-            >
-              {t.codeGenerateButton}
-            </Button>
           </div>
         </FormField>
         <div className='seam-actions'>
@@ -186,7 +165,6 @@ const t = {
   codeInputLabel: 'Enter the code (PIN)',
   codeRequirementLength: '4-8 digit code',
   codeRequirementNumbersOnly: 'Numbers only',
-  codeGenerateButton: 'Generate code',
   cancel: 'Cancel',
   save: 'Save',
 }
