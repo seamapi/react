@@ -3,22 +3,18 @@ import {
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type { LockDevice, OngoingAccessCode, SeamError } from 'seamapi'
+import type { OngoingAccessCode, SeamError } from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export interface UseCreateAccessCodeParams {
-  device: Pick<LockDevice, 'device_id'>
-}
-
+export type UseCreateAccessCodeParams = never
 export type UseCreateAccessCodeData = OngoingAccessCode | null
 export interface UseCreateAccessCodeMutationParams {
+  device_id: string
   name: string
 }
 
-export function useCreateAccessCode({
-  device,
-}: UseCreateAccessCodeParams): UseMutationResult<
+export function useCreateAccessCode(): UseMutationResult<
   UseCreateAccessCodeData,
   SeamError,
   UseCreateAccessCodeMutationParams
@@ -27,15 +23,12 @@ export function useCreateAccessCode({
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (data) => {
+    mutationFn: async (mutationParams) => {
       if (client === null) {
         throw new Error('Missing seam client')
       }
 
-      return await client.accessCodes.create({
-        device_id: device.device_id,
-        name: data.name,
-      })
+      return await client.accessCodes.create(mutationParams)
     },
     onSuccess: () => {
       void queryClient.invalidateQueries(['access_codes', 'list'])

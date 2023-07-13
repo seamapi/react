@@ -43,7 +43,7 @@ function Content({
 }): JSX.Element {
   const [name, setName] = useState('')
 
-  const createAccessCode = useCreateAccessCode({ device })
+  const createAccessCode = useCreateAccessCode()
 
   const save = (): void => {
     if (name === '') {
@@ -57,6 +57,7 @@ function Content({
     createAccessCode.mutate(
       {
         name,
+        device_id: device.device_id,
       },
       {
         onSuccess: () => {
