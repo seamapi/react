@@ -49,7 +49,7 @@ function Content({
   const [code, setCode] = useState('')
   const [codeInputFocused, toggleCodeInputFocused] = useToggle()
 
-  const createAccessCode = useCreateAccessCode(device)
+  const createAccessCode = useCreateAccessCode({ device })
 
   const save = (): void => {
     if (name === '' || code === '') {

@@ -3,27 +3,27 @@ import {
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  AccessCode,
-  AccessCodeGetRequest,
-  LockDevice,
-  OngoingAccessCode,
-  SeamError,
-} from 'seamapi'
+import type { LockDevice, OngoingAccessCode, SeamError } from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export type UseAccessCodeParams = AccessCodeGetRequest | string
-export type UseAccessCodeData = AccessCode | null
+export interface UseCreateAccessCodeParams {
+  device: Pick<LockDevice, 'device_id'>
+}
 
-export interface UseCreateAccessCodeData {
+export type UseCreateAccessCodeData = OngoingAccessCode | null
+export interface UseCreateAccessCodeMutationParams {
   name: string
   code: string
 }
 
-export function useCreateAccessCode(
-  device: Pick<LockDevice, 'device_id'>
-): UseMutationResult<OngoingAccessCode, SeamError, UseCreateAccessCodeData> {
+export function useCreateAccessCode({
+  device,
+}: UseCreateAccessCodeParams): UseMutationResult<
+  UseCreateAccessCodeData,
+  SeamError,
+  UseCreateAccessCodeMutationParams
+> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
