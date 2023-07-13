@@ -7,6 +7,7 @@ interface ButtonProps extends PropsWithChildren {
   disabled?: boolean
   onClick?: MouseEventHandler<HTMLButtonElement>
   className?: string
+  onMouseDown?: MouseEventHandler<HTMLButtonElement>
 }
 
 export function Button({
@@ -16,6 +17,7 @@ export function Button({
   disabled = false,
   onClick,
   className,
+  onMouseDown,
 }: ButtonProps): JSX.Element {
   return (
     <button
@@ -28,6 +30,7 @@ export function Button({
       )}
       disabled={disabled}
       onClick={onClick}
+      onMouseDown={onMouseDown}
     >
       {children}
     </button>

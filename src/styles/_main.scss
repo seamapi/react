@@ -13,6 +13,9 @@
 @use './device-table';
 @use './access-code-details';
 @use './supported-device-table';
+@use './access-code-form';
+@use './input-label';
+@use './form-field';
 
 .seam-components {
   // Reset
@@ -22,6 +25,8 @@
   @include typography.all;
   @include tables.all;
   @include inputs.all;
+  @include input-label.all;
+  @include form-field.all;
   @include buttons.all;
   @include layout.all;
   @include icons.all;
@@ -32,6 +37,7 @@
   @include device-table.all;
   @include access-code-table.all;
   @include access-code-details.all;
+  @include access-code-form.all;
   @include alert.all;
   @include supported-device-table.all;
 }
