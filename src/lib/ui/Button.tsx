@@ -17,6 +17,7 @@ export function Button({
   disabled = false,
   onClick,
   className,
+  onMouseDown,
 }: ButtonProps): JSX.Element {
   return (
     <button
