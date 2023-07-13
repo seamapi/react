@@ -2,14 +2,11 @@ import type { PropsWithChildren } from 'react'
 
 import { useMenu } from 'lib/ui/Menu/Menu.js'
 
-interface MenuItemProps {
+interface MenuItemProps extends PropsWithChildren {
   onClick: () => void
 }
 
-export function MenuItem({
-  onClick,
-  children,
-}: PropsWithChildren<MenuItemProps>): JSX.Element {
+export function MenuItem({ onClick, children }: MenuItemProps): JSX.Element {
   const { close: closeMenu } = useMenu()
 
   return (

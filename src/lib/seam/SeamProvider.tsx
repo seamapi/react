@@ -25,10 +25,11 @@ export interface SeamContext {
   clientSessionToken?: string | undefined
 }
 
-export type SeamProviderProps =
+export type SeamProviderProps = PropsWithChildren<
   | SeamProviderPropsWithClient
   | SeamProviderPropsWithPublishableKey
   | SeamProviderPropsWithClientSessionToken
+>
 
 export interface SeamProviderPropsWithClient extends SeamProviderBaseProps {
   client: Seam
@@ -65,7 +66,7 @@ export function SeamProvider({
   unminifiyCss = false,
   queryClient,
   ...props
-}: PropsWithChildren<SeamProviderProps>): JSX.Element {
+}: SeamProviderProps): JSX.Element {
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
   useSeamFont({ disabled: disableFontInjection })
 
