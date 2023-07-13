@@ -14,7 +14,6 @@ export interface UseCreateAccessCodeParams {
 export type UseCreateAccessCodeData = OngoingAccessCode | null
 export interface UseCreateAccessCodeMutationParams {
   name: string
-  code: string
 }
 
 export function useCreateAccessCode({
@@ -36,7 +35,6 @@ export function useCreateAccessCode({
       return await client.accessCodes.create({
         device_id: device.device_id,
         name: data.name,
-        code: data.code,
       })
     },
     onSuccess: () => {
