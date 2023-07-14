@@ -3,7 +3,12 @@ import {
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type { AccessCode, AccessCodeCreateRequest, SeamError } from 'seamapi'
+import type {
+  AccessCode,
+  AccessCodeCreateRequest,
+  AccessCodeCreateResponse,
+  SeamError,
+} from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
@@ -19,8 +24,12 @@ export function useCreateAccessCode(): UseMutationResult<
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  return useMutation({
-    mutationFn: async (mutationParams) => {
+  return useMutation<
+    AccessCodeCreateResponse['access_code'],
+    SeamError,
+    AccessCodeCreateRequest
+  >({
+    mutationFn: async (mutationParams: UseCreateAccessCodeMutationParams) => {
       if (client === null) {
         throw new Error('Missing seam client')
       }
