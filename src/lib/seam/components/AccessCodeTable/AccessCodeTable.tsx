@@ -34,10 +34,11 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 import { Title } from 'lib/ui/typography/Title.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
+const disableCreateAccessCode = true
+
 export interface AccessCodeTableProps {
   deviceId: string
   disableLockUnlock?: boolean
-  disableCreateAccessCode?: boolean
   accessCodeFilter?: (
     accessCode: AccessCode,
     searchInputValue: string
@@ -70,7 +71,6 @@ const defaultAccessCodeFilter = (
 export function AccessCodeTable({
   deviceId,
   disableLockUnlock = false,
-  disableCreateAccessCode = false,
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
   onBack,
