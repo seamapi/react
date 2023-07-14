@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import { DateTime, IANAZone } from 'luxon'
 
 export const compareByCreatedAtDesc = (
   a: { created_at: string },
@@ -48,28 +48,8 @@ export function getTimezoneLabel(timezone: string): string {
  * @returns offset
  */
 export function getTimezoneOffsetLabel(timezone: string): string {
-  const offset = getTimezoneOffset(timezone) / 60
-
-  const isPositive = offset >= 0
-
-  // Convert fraction to minutes, ie., offset 0.5 to 30 minutes.
-  const fraction = parseInt(String(offset * 100).slice(-2)) / 100
-  const minutes = fraction !== 0 ? 60 * fraction : 0
-
-  const numDigits = Math.abs(offset) >= 10 ? 2 : 1
-
-  const offsetString = Math.abs(offset).toString()
-
-  // Given an offset like -3.5, we want to turn it into -03:30
-
-  const d0 = numDigits === 2 ? offsetString.charAt(0) : 0
-  const d1 = numDigits === 1 ? offsetString.charAt(0) : offsetString.charAt(1)
-  const d2 = minutes > 0 ? String(minutes).charAt(0) : 0
-  const d3 = minutes > 0 ? String(minutes).charAt(1) : 0
-
-  const sign = isPositive ? '+' : '-'
-
-  return `UTC${sign}${d0}${d1}:${d2}${d3}`
+  const offset = IANAZone.create(timezone).formatOffset(Date.now(), 'short')
+  return `UTC ${offset}`
 }
 
 /**
