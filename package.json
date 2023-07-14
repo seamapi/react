@@ -124,7 +124,7 @@
     "classnames": "^2.3.2",
     "flatpickr": "^4.6.13",
     "luxon": "^3.3.0",
-    "seamapi": "^6.15.1",
+    "seamapi": "^7.1.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
