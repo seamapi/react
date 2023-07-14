@@ -40,9 +40,11 @@ export function FormField({
       })
     }
 
-    if (component.type === TextField ||
+    if (
+      component.type === TextField ||
       component.type === DatePicker ||
-      component.type === DateTimePicker) {
+      component.type === DateTimePicker
+    ) {
       return cloneElement(component, {
         ...baseProps,
         ref: inputRef,

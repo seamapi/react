@@ -14,7 +14,9 @@
     overflow: auto;
     padding: 8px 0;
     width: 168px;
-    box-shadow: 0 2px 16px 2px rgb(15 22 28 / 15%), 0 0 1px 0 rgb(0 0 0 / 30%);
+    box-shadow:
+      0 2px 16px 2px rgb(15 22 28 / 15%),
+      0 0 1px 0 rgb(0 0 0 / 30%);
     border-radius: 4px;
 
     &.seam-visible {

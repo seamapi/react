@@ -48,7 +48,7 @@ export function RadioField<Value extends string>({
 }
 
 export function useRadioField<
-  Value extends string
+  Value extends string,
 >(): RadioFieldContextProps<Value> {
   const context = useContext(RadioFieldContext)
   if (context === undefined) {
