@@ -70,7 +70,7 @@
     "prebuild:css": "npm run build:flatpickr-styles",
     "build:css": "sass --load-path=node_modules src/index.scss:dist/index.css",
     "postbuild:css": "sass --style=compressed --load-path=node_modules src/index.scss:dist/index.min.css",
-    "build:flatpickr-styles": "echo \"// AUTO-GENERATED FILE DO NOT EDIT\n// See 'build:flatpickr-styles' for more info\n@mixin all {\n$(npx stylus --print src/styles/_date-picker-flatpickr.styl)\n}\" | sed -r 's/7ch.*;/7ch;/g' > src/styles/_date-picker-flatpickr.scss",
+    "build:flatpickr-styles": "echo \"// AUTO-GENERATED FILE DO NOT EDIT\n// See 'build:flatpickr-styles' for more info\n@mixin all {\n$(stylus --print src/styles/_date-picker-flatpickr.styl)\n}\" | sed -r 's/7ch.*;/7ch;/g' > src/styles/_date-picker-flatpickr.scss",
     "docs:start": "concurrently --raw --kill-others npm:examples:storybook npm:storybook:docs",
     "docs:build": "storybook build --docs --output-dir docs",
     "predocs:build": "npm run examples:build",
