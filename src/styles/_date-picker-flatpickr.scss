@@ -423,8 +423,6 @@
     border-radius: 0;
     vertical-align: initial;
     appearance: textfield;
-    appearance: textfield;
-    appearance: textfield;
   }
 
   .flatpickr-current-month input.cur-year:focus {
@@ -440,11 +438,9 @@
   }
 
   .flatpickr-current-month .flatpickr-monthDropdown-months {
-    appearance: menulist;
     background: #eceef1;
     border: none;
     border-radius: 0;
-    box-sizing: border-box;
     color: inherit;
     cursor: pointer;
     font-size: inherit;
@@ -458,7 +454,6 @@
     position: relative;
     vertical-align: initial;
     box-sizing: border-box;
-    appearance: menulist;
     appearance: menulist;
     width: auto;
   }
@@ -538,7 +533,6 @@
     display: inline-block;
     display: flexbox;
     display: flex;
-    flex-wrap: wrap;
     flex-wrap: wrap;
     -ms-flex-pack: justify;
     justify-content: space-around;
@@ -785,8 +779,6 @@
     font-size: 14px;
     position: relative;
     box-sizing: border-box;
-    appearance: textfield;
-    appearance: textfield;
     appearance: textfield;
   }
 
