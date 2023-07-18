@@ -37,6 +37,7 @@
     "examples/**/*",
     "api/**/*",
     ".storybook/**/*",
+    "prepack.ts",
     "vite.config.ts"
   ]
 }
