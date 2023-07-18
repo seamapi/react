@@ -39,6 +39,7 @@ export function useSeamClient(): {
       if (clientSessionToken != null) {
         return new Seam({
           ...clientOptions,
+          apiKey: undefined,
           clientSessionToken,
         })
       }
@@ -61,6 +62,7 @@ export function useSeamClient(): {
 
       return new Seam({
         ...clientOptions,
+        apiKey: undefined,
         clientSessionToken: res.client_session.token,
       })
     },

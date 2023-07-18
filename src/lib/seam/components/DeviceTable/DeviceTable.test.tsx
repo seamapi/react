@@ -4,5 +4,5 @@ import { DeviceTable } from './DeviceTable.js'
 
 test('DeviceTable', async () => {
   render(<DeviceTable />)
-  await screen.findByText('...')
+  await screen.findByText('Front Door')
 })
