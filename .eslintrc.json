@@ -1,16 +1,44 @@
 {
   "root": true,
   "ignorePatterns": ["!.storybook"],
-  "rules": {
-    "no-console": "error"
-  },
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": "latest"
   },
+  "rules": {
+    "no-console": "error",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "import/extensions": ["error", "ignorePackages"],
+    "import/no-duplicates": ["error", { "prefer-inline": true }],
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^\\u0000"],
+          ["^node:"],
+          ["^@?\\w"],
+          ["index.js"],
+          ["^fixtures/", "^lib/"],
+          ["^"],
+          ["^\\."]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "error"
+  },
   "overrides": [
     {
-      "files": [".js", ".mjs", ".cjs"],
+      "files": ["*.js", "*.mjs", "*.cjs"],
       "extends": ["standard", "prettier"]
     },
     {
@@ -27,12 +55,6 @@
       "parserOptions": {
         "project": "./tsconfig.json"
       },
-      "overrides": [
-        {
-          "files": ["**/*.test.tsx?", "test/jest/setup-*.tsx?"],
-          "env": { "jest": true }
-        }
-      ],
       "rules": {
         "@typescript-eslint/no-import-type-side-effects": "error",
         "@typescript-eslint/consistent-type-imports": [
@@ -42,36 +64,14 @@
           }
         ],
         "@typescript-eslint/no-unused-vars": "off",
-        "react/function-component-definition": "error",
-        "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": [
-          "error",
-          {
-            "vars": "all",
-            "varsIgnorePattern": "^_",
-            "args": "after-used",
-            "argsIgnorePattern": "^_",
-            "ignoreRestSiblings": true
-          }
-        ],
-        "import/extensions": ["error", "ignorePackages"],
-        "import/no-duplicates": ["error", { "prefer-inline": true }],
-        "simple-import-sort/imports": [
-          "error",
-          {
-            "groups": [
-              ["^\\u0000"],
-              ["^node:"],
-              ["^@?\\w"],
-              ["index.js"],
-              ["^fixtures/", "^lib/"],
-              ["^"],
-              ["^\\."]
-            ]
-          }
-        ],
-        "simple-import-sort/exports": "error"
-      }
+        "react/function-component-definition": "error"
+      },
+      "overrides": [
+        {
+          "files": ["**/*.test.tsx?", "test/jest/setup-*.tsx?"],
+          "env": { "jest": true }
+        }
+      ]
     }
   ]
 }
