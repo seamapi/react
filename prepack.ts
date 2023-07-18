@@ -11,13 +11,12 @@ const main = async (): Promise<void> => {
   const version = await injectVersion(
     fileURLToPath(new URL(versionFile, import.meta.url))
   )
-
   // eslint-disable-next-line no-console
-  console.log(`✓ Version ${version} injected into ${versionFile}
+  console.log(`✓ Version ${version} injected into ${versionFile}`)
 
-> tsc --project tsconfig.version.json`)
-
-  await $`tsc --project tsconfig.version.json`
+  const { command } = await $`tsc --project tsconfig.version.json`
+  // eslint-disable-next-line no-console
+  console.log(`✓ Rebuilt with '${command}'`)
 }
 
 const injectVersion = async (path: string): Promise<string> => {
