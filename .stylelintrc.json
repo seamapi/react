@@ -3,5 +3,5 @@
   "rules": {
     "no-descending-specificity": null
   },
-  "ignoreFiles": ["**/_date-picker.scss"]
+  "ignoreFiles": ["**/_date-picker-flatpickr.scss"]
 }
