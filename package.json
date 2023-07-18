@@ -81,6 +81,8 @@
     "prelint": "prettier --check --ignore-path .gitignore .",
     "postlint": "stylelint '**/*.scss'",
     "prepack": "tsx ./prepack.ts",
+    "version": "tsx ./version.ts",
+    "preversion": "tsx ./preversion.ts",
     "postversion": "git push --follow-tags",
     "storybook": "storybook dev --port 6006",
     "storybook:docs": "storybook dev --docs --port 6007",
