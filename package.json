@@ -77,7 +77,7 @@
     "test:update": "jest --updateSnapshot",
     "test:watch": "jest --watch",
     "test:inspect": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.cjs,.mjs,.ts,.tsx .",
+    "lint": "eslint --ignore-path .gitignore .",
     "prelint": "prettier --check --ignore-path .gitignore .",
     "postlint": "stylelint '**/*.scss'",
     "prepack": "tsx ./prepack.ts",
@@ -94,7 +94,7 @@
     "generate": "svgr --out-dir src/lib/icons -- assets/icons",
     "pregenerate": "del src/lib/icons",
     "postgenerate": "eslint --fix src/lib/icons",
-    "format": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.mjs,.ts,.tsx .",
+    "format": "eslint --ignore-path .gitignore --fix .",
     "preformat": "prettier --write --ignore-path .gitignore .",
     "postformat": "stylelint --fix '**/*.scss'"
   },
