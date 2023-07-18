@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import {
   getBrowserTimezone,
-  getTimezoneOffset,
+  getTimezoneOffsetMinutes,
   getTimezones,
 } from 'lib/dates.js'
 import { TimezoneListItem } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePickerListItem.js'
@@ -52,7 +52,10 @@ export function TimezonePicker({
         >
           <ul>
             {getTimezones()
-              .sort((a, b) => getTimezoneOffset(a) - getTimezoneOffset(b)) // by Offset (ascending)
+              .sort(
+                (a, b) =>
+                  getTimezoneOffsetMinutes(a) - getTimezoneOffsetMinutes(b)
+              ) // by Offset (ascending)
               .map((timezone) => (
                 <TimezoneListItem
                   key={timezone}

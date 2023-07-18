@@ -2,7 +2,11 @@ import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
-import { getBrowserTimezone, getTimezoneLabel } from 'lib/dates.js'
+import {
+  getBrowserTimezone,
+  getTimezoneLabel,
+  getTimezoneOffset,
+} from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import { TimezonePicker } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePicker.js'
@@ -81,10 +85,17 @@ function Content({
       return
     }
 
+    const offset = getTimezoneOffset(timezone)
+    const startsAtFull =
+      startDate != null ? `${startDate}.000${offset}` : undefined
+    const endsAtFull = endDate != null ? `${endDate}.000${offset}` : undefined
+
     createAccessCode.mutate(
       {
         name,
         device_id: device.device_id,
+        starts_at: startsAtFull,
+        ends_at: endsAtFull,
       },
       {
         onSuccess: () => {

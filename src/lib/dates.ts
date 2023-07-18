@@ -40,33 +40,33 @@ export function getTimezoneLabel(timezone: string): string {
 }
 
 /**
- * Turns a timezone into a readable UTC offset.
+ * Get a timezones offset from UTC in minutes.
+ *
+ * @param timezone
+ * @returns minutes
+ */
+export function getTimezoneOffsetMinutes(timezone: string): number {
+  return DateTime.local().setZone(timezone).offset
+}
+
+/**
+ * Get the timezone offset
+ * America/Los_angeles -> -07:00
  *
  * eg. America/Los_Angeles -> UTC-07:00
  *
  * @param timezone
  * @returns offset
  */
-export function getTimezoneOffsetLabel(timezone: string): string {
-  const offset = IANAZone.create(timezone).formatOffset(Date.now(), 'short')
-  return `UTC ${offset}`
-}
-
-/**
- * Get a timezones offset from UTC in minutes.
- *
- * @param timezone
- * @returns minutes
- */
-export function getTimezoneOffset(timezone: string): number {
-  return DateTime.local().setZone(timezone).offset
+export function getTimezoneOffset(timezone: string): string {
+  return IANAZone.create(timezone).formatOffset(Date.now(), 'short')
 }
 
 export const formatDateReadable = (date: string): string =>
   DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat('EEE MMM d, yyyy') // '2023-04-17' to 'Mon Apr 17, 2023'
 
 export const formatTimeReadable = (time: string): string | null => {
-  const dateTime = DateTime.fromFormat(time, 'HH.mm.ss')
+  const dateTime = DateTime.fromFormat(time, 'HH:mm:ss')
   if (!dateTime.isValid) {
     return null
   }
@@ -80,7 +80,7 @@ export const formatTimeIso = (time: string): string | null => {
     return null
   }
 
-  return dateTime.toFormat('HH.mm.ss')
+  return dateTime.toFormat('HH:mm:ss')
 }
 
 /**

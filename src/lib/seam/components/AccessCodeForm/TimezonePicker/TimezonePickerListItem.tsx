@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-import { getTimezoneLabel, getTimezoneOffsetLabel } from 'lib/dates.js'
+import { getTimezoneLabel, getTimezoneOffset } from 'lib/dates.js'
 import { CheckIcon } from 'lib/icons/Check.js'
 
 interface TimezoneListItemProps {
@@ -58,7 +58,7 @@ export function TimezoneListItem({
 
   return (
     <li className='seam-timezone' onClick={onClick} ref={elRef}>
-      <span className='seam-utc-label'>{getTimezoneOffsetLabel(value)}</span>{' '}
+      <span className='seam-utc-label'>UTC {getTimezoneOffset(value)}</span>{' '}
       {getTimezoneLabel(value)}
       {isSelected && <CheckIcon className='check-icon' />}
     </li>
