@@ -85,17 +85,12 @@ function Content({
       return
     }
 
-    const offset = getTimezoneOffset(timezone)
-    const startsAtFull =
-      startDate != null ? `${startDate}.000${offset}` : undefined
-    const endsAtFull = endDate != null ? `${endDate}.000${offset}` : undefined
-
     createAccessCode.mutate(
       {
         name,
         device_id: device.device_id,
-        starts_at: startsAtFull,
-        ends_at: endsAtFull,
+        starts_at: createIsoDate(startDate, timezone),
+        ends_at: createIsoDate(endDate, timezone),
       },
       {
         onSuccess: () => {
@@ -206,6 +201,18 @@ function Content({
       </div>
     </>
   )
+}
+
+function createIsoDate(
+  date: string | null,
+  timezone: string
+): string | undefined {
+  if (date === null) {
+    return undefined
+  }
+
+  const offset = getTimezoneOffset(timezone)
+  return `${date}.000${offset}`
 }
 
 const t = {
