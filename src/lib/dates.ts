@@ -110,3 +110,13 @@ export const getMinuteIntervalsUntilEndOfDay = (interval: number): string[] => {
       .toFormat('h:mm a')
   })
 }
+
+export const getNow = (): string => formatDateTime(DateTime.now())
+export const get24HoursLater = (): string =>
+  formatDateTime(DateTime.now().plus({ days: 1 }))
+
+export function formatDateTime(dateTime: DateTime): string {
+  const date = dateTime.toFormat('yyyy-MM-dd')
+  const time = dateTime.toFormat('HH:mm:ss')
+  return `${date}T${time}`
+}

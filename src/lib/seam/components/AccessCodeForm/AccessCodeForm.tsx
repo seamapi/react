@@ -1,9 +1,11 @@
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
 import {
+  get24HoursLater,
   getBrowserTimezone,
+  getNow,
   getTimezoneLabel,
   getTimezoneOffset,
 } from 'lib/dates.js'
@@ -54,27 +56,13 @@ function Content({
 }): JSX.Element {
   const [name, setName] = useState('')
   const [type, setType] = useState<AccessCode['type']>('ongoing')
-  const [datePickerVisible, setDatePickerVisible] = useState(false)
+  const [datePickerVisible, setDatePickerVisible] = useState(true)
   const [timezone, setTimezone] = useState<string>(getBrowserTimezone())
-  const [startDate, setStartDate] = useState<string | null>(null)
-  const [endDate, setEndDate] = useState<string | null>(null)
+  const [startDate, setStartDate] = useState<string>(getNow())
+  const [endDate, setEndDate] = useState<string>(get24HoursLater())
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
 
   const createAccessCode = useCreateAccessCode()
-
-  // Auto-show date picker screen if we've selected a time_bound Access
-  // Code, but don't have dates
-  useEffect(() => {
-    if (type !== 'time_bound') {
-      return
-    }
-
-    if (startDate != null || endDate != null) {
-      return
-    }
-
-    setDatePickerVisible(true)
-  }, [type, startDate, endDate, setDatePickerVisible])
 
   const save = (): void => {
     if (name === '') {
@@ -85,12 +73,28 @@ function Content({
       return
     }
 
+    if (type === 'time_bound') {
+      createAccessCode.mutate(
+        {
+          name,
+          device_id: device.device_id,
+          starts_at: createIsoDate(startDate, timezone),
+          ends_at: createIsoDate(endDate, timezone),
+        },
+        {
+          onSuccess: () => {
+            onBack?.()
+          },
+        }
+      )
+
+      return
+    }
+
     createAccessCode.mutate(
       {
         name,
         device_id: device.device_id,
-        starts_at: createIsoDate(startDate, timezone),
-        ends_at: createIsoDate(endDate, timezone),
       },
       {
         onSuccess: () => {
@@ -203,14 +207,7 @@ function Content({
   )
 }
 
-function createIsoDate(
-  date: string | null,
-  timezone: string
-): string | undefined {
-  if (date === null) {
-    return undefined
-  }
-
+function createIsoDate(date: string, timezone: string): string {
   const offset = getTimezoneOffset(timezone)
   return `${date}.000${offset}`
 }
