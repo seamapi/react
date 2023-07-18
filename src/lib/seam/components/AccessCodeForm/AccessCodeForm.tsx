@@ -3,6 +3,7 @@ import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
 import {
+  formatDateTimeReadable,
   get24HoursLater,
   getBrowserTimezone,
   getNow,
@@ -10,12 +11,14 @@ import {
   getTimezoneOffset,
 } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
+import { EditIcon } from 'lib/icons/Edit.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import { TimezonePicker } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePicker.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
+import { IconButton } from 'lib/ui/IconButton.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { RadioField } from 'lib/ui/RadioField/RadioField.js'
@@ -56,7 +59,7 @@ function Content({
 }): JSX.Element {
   const [name, setName] = useState('')
   const [type, setType] = useState<AccessCode['type']>('ongoing')
-  const [datePickerVisible, setDatePickerVisible] = useState(true)
+  const [datePickerVisible, setDatePickerVisible] = useState(false)
   const [timezone, setTimezone] = useState<string>(getBrowserTimezone())
   const [startDate, setStartDate] = useState<string>(getNow())
   const [endDate, setEndDate] = useState<string>(get24HoursLater())
@@ -195,6 +198,30 @@ function Content({
               },
             ]}
           />
+          <>
+            {type === 'time_bound' && (
+              <div className='seam-selected-times'>
+                <div>
+                  <span className='seam-label'>{t.startTimeLabel}</span>
+                  <span className='seam-time'>
+                    {formatDateTimeReadable(startDate)}
+                  </span>
+                  <span className='seam-label'>{t.endTimeLabel}</span>
+                  <span className='seam-time'>
+                    {formatDateTimeReadable(endDate)}
+                  </span>
+                </div>
+                <IconButton
+                  onClick={() => {
+                    setDatePickerVisible(true)
+                  }}
+                  className='seam-show-date-picker-btn'
+                >
+                  <EditIcon />
+                </IconButton>
+              </div>
+            )}
+          </>
         </FormField>
         <div className='seam-actions'>
           <Button onClick={onBack}>{t.cancel}</Button>

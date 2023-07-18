@@ -44,6 +44,35 @@
       }
     }
 
+    .seam-selected-times {
+      margin-top: 4px;
+      margin-left:36px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      > div {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
+        grid-column-gap: 16px;
+
+        > span {
+          font-size: 14px;
+          line-height: 134%;
+        }
+
+        > .seam-label {
+          color: colors.$text-gray-2;
+        }
+
+        > .seam-time {
+          color: colors.$text-gray-1;
+        }
+      }
+
+    }
+
     .seam-actions {
       display: flex;
       gap: 8px;

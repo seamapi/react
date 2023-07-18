@@ -62,8 +62,19 @@ export function getTimezoneOffset(timezone: string): string {
   return IANAZone.create(timezone).formatOffset(Date.now(), 'short')
 }
 
-export const formatDateReadable = (date: string): string =>
-  DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat('EEE MMM d, yyyy') // '2023-04-17' to 'Mon Apr 17, 2023'
+export const formatDateReadable = (
+  date: string,
+  options: {
+    showWeekday?: boolean
+  } = {}
+): string => {
+  const { showWeekday = true } = options
+
+  // '2023-04-17' to 'Mon Apr 17, 2023' / 'Apr 17, 2023'
+  const format = showWeekday ? 'EEE MMM d, yyyy' : 'MMM d, yyyy'
+
+  return DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat(format)
+}
 
 export const formatTimeReadable = (time: string): string | null => {
   const dateTime = DateTime.fromFormat(time, 'HH:mm:ss')
@@ -72,6 +83,13 @@ export const formatTimeReadable = (time: string): string | null => {
   }
 
   return dateTime.toFormat('h:mm a')
+}
+
+export const formatDateTimeReadable = (dateTime: string): string => {
+  const [date = '', time = ''] = dateTime.split('T')
+  return `${formatDateReadable(date, { showWeekday: false })} at ${
+    formatTimeReadable(time) ?? ''
+  }`
 }
 
 export const formatTimeIso = (time: string): string | null => {
