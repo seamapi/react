@@ -7,16 +7,14 @@ import {
   get24HoursLater,
   getBrowserTimezone,
   getNow,
-  getTimezoneLabel,
   getTimezoneOffset,
 } from 'lib/dates.js'
-import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { EditIcon } from 'lib/icons/Edit.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
+import { AccessCodeFormDatePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { TimezonePicker } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePicker.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
-import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -119,39 +117,17 @@ function Content({
 
   if (datePickerVisible) {
     return (
-      <div className='seam-schedule-picker'>
-        <ContentHeader
-          title={t.timingTitle}
-          onBack={() => {
-            setDatePickerVisible(false)
-          }}
-        />
-        <div className='seam-content'>
-          <div className='seam-timezone'>
-            <span className='seam-label'>{t.selectedTimezoneLabel}</span>
-            <span className='seam-selected' onClick={toggleTimezonePicker}>
-              {getTimezoneLabel(timezone)}
-              <ChevronRightIcon />
-            </span>
-          </div>
-          <FormField>
-            <InputLabel>{t.startTimeLabel}</InputLabel>
-            <DateTimePicker
-              value={startDate == null ? '' : startDate}
-              onChange={setStartDate}
-              size='large'
-            />
-          </FormField>
-          <FormField>
-            <InputLabel>{t.endTimeLabel}</InputLabel>
-            <DateTimePicker
-              value={endDate == null ? '' : endDate}
-              onChange={setEndDate}
-              size='large'
-            />
-          </FormField>
-        </div>
-      </div>
+      <AccessCodeFormDatePicker
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        timezone={timezone}
+        onChangeTimezone={toggleTimezonePicker}
+        onBack={() => {
+          setDatePickerVisible(false)
+        }}
+      />
     )
   }
 
@@ -248,8 +224,6 @@ const t = {
   timingInputLabel: 'Timing',
   typeOngoingLabel: 'Ongoing',
   typeTimeBoundLabel: 'Start/end times',
-  timingTitle: 'Timing',
-  selectedTimezoneLabel: 'All times in',
   startTimeLabel: 'Start',
   endTimeLabel: 'End',
 }
