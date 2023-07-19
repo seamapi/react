@@ -6,7 +6,6 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { createPortal } from 'react-dom'
 
 import {
   formatTimeIso,
@@ -86,48 +85,15 @@ export const TimePicker = forwardRef<
     return []
   }, [optionsVisible])
 
-  const {
-    top = 0,
-    left = 0,
-    height = 0,
-  } = inputEl?.getBoundingClientRect() ?? {}
-
   return (
     <>
-      {createPortal(
-        <div
-          className={classNames('seam-time-picker-options', {
-            'seam-visible': optionsVisible,
-          })}
-          style={{
-            top: top + height,
-            left,
-          }}
-        >
-          {options.map((value, index) => (
-            <div
-              key={index}
-              className={classNames('seam-option', {
-                'seam-selected': value === readableValue,
-              })}
-              onMouseDown={(event) => {
-                event.preventDefault() // Prevent input losing focus
-                setReadableValue(value)
-                inputEl?.blur()
-              }}
-            >
-              {value}
-            </div>
-          ))}
-        </div>,
-        document.body
-      )}
       <TextField
         value={readableValue}
         onChange={setReadableValue}
         {...props}
         className={classNames(className, 'seam-time-picker')}
         clearable
+        type='time'
         ref={setInputEl}
         onFocus={toggleOptions}
         onBlur={toggleOptions}

@@ -1,77 +1,17 @@
 @use './typography';
 @use './colors';
-@use './date-picker-flatpickr';
 
 @mixin all {
-  // Custom Seam Styles
-  @include date-picker-flatpickr.all;
-  @include overrides;
-}
+  .seam-date-picker {
+    position:relative;
 
-@mixin overrides {
-  .seam-flatpickr {
-    @include typography.all;
-
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow:
-      0 2px 16px 2px rgb(15 22 28 / 15%),
-      0 0 1px 0 rgb(0 0 0 / 30%);
-
-    *:hover {
-      svg: {
-        fill: colors.$primary;
-      }
-    }
-
-    .flatpickr-months {
-      * {
-        background: colors.$white !important;
-      }
-
-      .flatpickr-prev-month {
-        left: unset;
-        right: 50px;
-      }
-
-      .flatpickr-prev-month,
-      .flatpickr-next-month {
-        height: 24px;
-        padding: 8px 10px;
-        display: flex;
-        align-items: center;
-      }
-
-      .flatpickr-month {
-        .flatpickr-current-month {
-          font-size: 16px;
-          line-height: 150%;
-          left: 0;
-          width: 50%;
-          color: colors.$text-default;
-
-          select {
-            appearance: none;
-            padding: 0 0 0 8px;
-            margin-right: 4px;
-          }
-        }
-      }
-    }
-
-    .flatpickr-weekdays {
-      background: colors.$white;
-
-      .flatpickr-weekday {
-        background: colors.$white;
-        color: rgb(0 0 0 / 38%);
-        font-weight: 400;
-        font-size: 12px;
-      }
-    }
-
-    .flatpickr-day.selected {
-      font-weight: 400;
+    > .seam-native-picker {
+      position:absolute;
+      visibility: hidden;
+      bottom: 0;
+      left: 0;
+      width: 100%;
     }
   }
 }
+
