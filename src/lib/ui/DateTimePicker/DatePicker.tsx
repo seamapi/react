@@ -51,7 +51,6 @@ export const DatePicker = forwardRef<
           // user to use the picker.
         }}
         {...props}
-        clearable
         ref={setInputEl}
       />
       <input

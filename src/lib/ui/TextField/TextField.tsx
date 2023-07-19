@@ -32,7 +32,6 @@ export interface TextFieldProps {
   onClick?: MouseEventHandler<HTMLInputElement>
   helperText?: string
   hasError?: boolean
-  type?: 'text' | 'time' | 'date'
 }
 
 export const TextField = forwardRef<
@@ -54,7 +53,6 @@ export const TextField = forwardRef<
     onClick,
     hasError = false,
     helperText,
-    type,
   },
   ref
 ): JSX.Element {
@@ -100,7 +98,7 @@ export const TextField = forwardRef<
           onFocus={onFocus}
           onBlur={onBlur}
           onClick={onClick}
-          type={type}
+          type='text'
           {...inputProps}
         />
         {endAdornmentVisible && (

@@ -1,21 +1,12 @@
 import classNames from 'classnames'
-import {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from 'react'
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
+import { formatTimeReadable } from 'lib/dates.js'
 import {
-  formatTimeIso,
-  formatTimeReadable,
-  getMinuteIntervalsUntilEndOfDay,
-} from 'lib/dates.js'
-import { TextField, type TextFieldProps } from 'lib/ui/TextField/TextField.js'
-import { useToggle } from 'lib/ui/use-toggle.js'
-
-const optionIntervalMins = 15
+  handleString,
+  TextField,
+  type TextFieldProps,
+} from 'lib/ui/TextField/TextField.js'
 
 type TimePickerProps = Omit<TextFieldProps, 'onChange'> & {
   onChange: (value: string) => void
@@ -28,76 +19,45 @@ export const TimePicker = forwardRef<
   { className, value = '', onChange, ...props },
   ref
 ): JSX.Element {
-  const [readableValue, setReadableValue] = useState('')
-  const [optionsVisible, toggleOptions] = useToggle()
   const [inputEl, setInputEl] = useState<HTMLInputElement | null | undefined>(
     null
   )
+
+  const timeInputRef = useRef<HTMLInputElement>(null)
 
   // Maintain a local ref, and still forward it along
   useImperativeHandle(ref, () => (inputEl != null ? inputEl : undefined), [
     inputEl,
   ])
 
-  // Format raw value going IN
-  useEffect(() => {
-    if (value === '') {
-      return
-    }
-
-    const readable = formatTimeReadable(value)
-
-    if (readable === null) {
-      return
-    }
-
-    setReadableValue(readable)
-  }, [value])
-
-  // Format readable value going OUT
-  useEffect(() => {
-    if (readableValue === value) {
-      return
-    }
-
-    if (readableValue === '') {
-      onChange('')
-      return
-    }
-
-    const iso = formatTimeIso(readableValue)
-    if (iso === null) {
-      return
-    }
-
-    if (value === iso) {
-      return
-    }
-
-    onChange(iso)
-  }, [readableValue, value, onChange])
-
-  const options = useMemo(() => {
-    if (optionsVisible) {
-      return getMinuteIntervalsUntilEndOfDay(optionIntervalMins)
-    }
-
-    return []
-  }, [optionsVisible])
+  const readableValue = formatTimeReadable(value) ?? ''
 
   return (
-    <>
+    <div className={classNames(className, 'seam-time-picker')}>
       <TextField
         value={readableValue}
-        onChange={setReadableValue}
+        onChange={() => {}}
+        onFocus={() => {
+          if (inputEl != null) {
+            inputEl.blur()
+          }
+        }}
+        onClick={() => {
+          if (timeInputRef.current != null) {
+            timeInputRef.current.showPicker()
+          }
+        }}
         {...props}
-        className={classNames(className, 'seam-time-picker')}
-        clearable
-        type='time'
         ref={setInputEl}
-        onFocus={toggleOptions}
-        onBlur={toggleOptions}
       />
-    </>
+      <input
+        type='time'
+        className='seam-native-picker'
+        ref={timeInputRef}
+        value={value}
+        onChange={handleString(onChange)}
+        pattern='[0-9]{2}:[0-9]{2}'
+      />
+    </div>
   )
 })
