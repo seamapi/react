@@ -33,7 +33,7 @@ export default defineConfig(async () => {
   }
 })
 
-const readPackageJson = async (): Promise<{ version?: string }> => {
+export const readPackageJson = async (): Promise<{ version?: string }> => {
   const pkgBuff = await readFile(
     fileURLToPath(new URL('package.json', import.meta.url))
   )
