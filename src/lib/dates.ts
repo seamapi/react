@@ -45,9 +45,23 @@ export function getTimezoneLabel(timezone: string): string {
  * @param timezone
  * @returns minutes
  */
-export function getTimezoneOffsetMinutes(timezone: string): number {
+function getTimezoneOffsetMinutes(timezone: string): number {
   return DateTime.local().setZone(timezone).offset
 }
+
+/**
+ * Compares 2 timezones (America/Los_angeles) by their offset
+ * minutes in ascending order.
+ *
+ * @param timezoneA
+ * @param timezonB
+ * @returns number
+ */
+export const compareByTimezoneOffsetAsc = (
+  timezoneA: string,
+  timezonB: string
+): number =>
+  getTimezoneOffsetMinutes(timezoneA) - getTimezoneOffsetMinutes(timezonB)
 
 /**
  * Get the timezone offset

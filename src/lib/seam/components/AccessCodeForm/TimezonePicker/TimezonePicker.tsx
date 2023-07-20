@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import { useState } from 'react'
 
 import {
+  compareByTimezoneOffsetAsc,
   getBrowserTimezone,
-  getTimezoneOffsetMinutes,
   getTimezones,
 } from 'lib/dates.js'
 import { TimezoneListItem } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePickerListItem.js'
@@ -52,10 +52,7 @@ export function TimezonePicker({
         >
           <ul>
             {getTimezones()
-              .sort(
-                (a, b) =>
-                  getTimezoneOffsetMinutes(a) - getTimezoneOffsetMinutes(b)
-              ) // by Offset (ascending)
+              .sort(compareByTimezoneOffsetAsc)
               .map((timezone) => (
                 <TimezoneListItem
                   key={timezone}
