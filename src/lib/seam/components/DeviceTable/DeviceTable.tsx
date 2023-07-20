@@ -28,6 +28,7 @@ export interface DeviceTableProps {
   deviceIds?: string[]
   connectedAccountIds?: string[]
   disableLockUnlock?: boolean
+  disableSearch?: boolean
   deviceFilter?: (device: Device, searchInputValue: string) => boolean
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
@@ -49,6 +50,7 @@ export function DeviceTable({
   deviceIds,
   connectedAccountIds,
   disableLockUnlock = false,
+  disableSearch = false,
   onDeviceClick = () => {},
   preventDefaultOnDeviceClick = false,
   onBack,
@@ -110,11 +112,13 @@ export function DeviceTable({
         <TableTitle>
           {t.devices} <Caption>({filteredDevices.length})</Caption>
         </TableTitle>
-        <SearchTextField
-          value={searchInputValue}
-          onChange={setSearchInputValue}
-          disabled={(devices?.length ?? 0) === 0}
-        />
+        {!disableSearch && (
+          <SearchTextField
+            value={searchInputValue}
+            onChange={setSearchInputValue}
+            disabled={(devices?.length ?? 0) === 0}
+          />
+        )}
       </TableHeader>
       <TableBody>
         <Content devices={filteredDevices} onDeviceClick={handleDeviceClick} />
