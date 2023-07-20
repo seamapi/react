@@ -61,7 +61,7 @@ function Content({
   const [endDate, setEndDate] = useState<string>(get24HoursLater())
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
 
-  const { save, isLoading } = useSave({
+  const { submit, isLoading } = useSubmit({
     name,
     type,
     device,
@@ -152,7 +152,7 @@ function Content({
         </FormField>
         <div className='seam-actions'>
           <Button onClick={onBack}>{t.cancel}</Button>
-          <Button variant='solid' disabled={!isFormValid} onMouseDown={save}>
+          <Button variant='solid' disabled={!isFormValid} onMouseDown={submit}>
             {t.save}
           </Button>
         </div>
@@ -161,7 +161,7 @@ function Content({
   )
 }
 
-function useSave(params: {
+function useSubmit(params: {
   name: string
   type: AccessCode['type']
   device: NonNullable<UseDeviceData>
@@ -170,13 +170,13 @@ function useSave(params: {
   timezone: string
   onSuccess?: () => void
 }): {
-  save: () => void
+  submit: () => void
   isLoading: boolean
 } {
   const { name, type, device, startDate, endDate, timezone, onSuccess } = params
 
   const { mutate, isLoading } = useCreateAccessCode()
-  const save = (): void => {
+  const submit = (): void => {
     if (name === '') {
       return
     }
@@ -212,7 +212,7 @@ function useSave(params: {
     )
   }
 
-  return { save, isLoading }
+  return { submit, isLoading }
 }
 
 const t = {
