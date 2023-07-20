@@ -20,7 +20,7 @@ interface RadioFieldContextProps<Value extends string> {
   name: string
 }
 
-const RadioFieldContext = createContext<
+const radioFieldContext = createContext<
   RadioFieldContextProps<any> | undefined
 >(undefined)
 
@@ -30,8 +30,9 @@ export function RadioField<Value extends string>({
   name,
   options,
 }: RadioFieldProps<Value>): JSX.Element {
+  const { Provider } = radioFieldContext
   return (
-    <RadioFieldContext.Provider
+    <Provider
       value={{
         value,
         onChange,
@@ -43,14 +44,14 @@ export function RadioField<Value extends string>({
           <Radio value={value} label={label} key={index} />
         ))}
       </div>
-    </RadioFieldContext.Provider>
+    </Provider>
   )
 }
 
 export function useRadioField<
   Value extends string,
 >(): RadioFieldContextProps<Value> {
-  const context = useContext(RadioFieldContext)
+  const context = useContext(radioFieldContext)
   if (context === undefined) {
     throw new Error('useRadioField must be used within a <RadioField/>')
   }
