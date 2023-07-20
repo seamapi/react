@@ -18,15 +18,8 @@
 @use './form-field';
 @use './radio-field';
 @use './checkbox';
-@use './date-picker';
-@use './time-picker';
 @use './date-time-picker';
 
-// Floating components
-// These components are rendered outside of the component tree, such as popovers,
-// menus, etc.
-@include date-picker.all;
-@include time-picker.all;
 
 .seam-components {
   // Reset

@@ -1,9 +1,12 @@
 import classNames from 'classnames'
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
-import { DatePicker } from 'lib/ui/DateTimePicker/DatePicker.js'
-import { TimePicker } from 'lib/ui/DateTimePicker/TimePicker.js'
-import type { TextFieldProps } from 'lib/ui/TextField/TextField.js'
+import { formatDateTimeReadable } from 'lib/dates.js'
+import {
+  handleString,
+  TextField,
+  type TextFieldProps,
+} from 'lib/ui/TextField/TextField.js'
 
 type DateTimePickerProps = Pick<
   TextFieldProps,
@@ -19,36 +22,44 @@ export const DateTimePicker = forwardRef<
   { className, value, onChange, ...props },
   ref
 ): JSX.Element {
-  const valueParts = value != null ? value.split('T') : undefined
-  const [date = '', time = ''] = valueParts ?? []
+  const [textInput, setTextInput] = useState<
+    HTMLInputElement | null | undefined
+  >(null)
 
-  const [rawDate, setRawDate] = useState(date)
-  const [rawTime, setRawTime] = useState(time)
+  const nativeInputRef = useRef<HTMLInputElement>(null)
 
-  // Set raw values
-  useEffect(() => {
-    setRawDate(date)
-    setRawTime(time)
-  }, [date, time])
+  // Maintain a local ref, and still forward it along
+  useImperativeHandle(ref, () => (textInput != null ? textInput : undefined), [
+    textInput,
+  ])
 
-  // Handle changes
-  useEffect(() => {
-    if (rawDate === '' || rawTime === '') {
-      return
-    }
-
-    if (rawDate === date && rawTime === time) {
-      return
-    }
-
-    const updatedValue = `${rawDate}T${rawTime}`
-    onChange(updatedValue)
-  }, [rawDate, rawTime, onChange, date, time])
+  const readableValue = value != null ? formatDateTimeReadable(value) : ''
 
   return (
     <div className={classNames('seam-date-time-picker', className)}>
-      <DatePicker value={rawDate} onChange={setRawDate} {...props} ref={ref} />
-      <TimePicker value={rawTime} onChange={setRawTime} {...props} />
+      <TextField
+        value={readableValue}
+        onChange={() => {}}
+        onFocus={() => {
+          if (textInput != null) {
+            textInput.blur()
+          }
+        }}
+        onClick={() => {
+          if (nativeInputRef.current != null) {
+            nativeInputRef.current.showPicker()
+          }
+        }}
+        {...props}
+        ref={setTextInput}
+      />
+      <input
+        type='datetime-local'
+        className='seam-native-picker'
+        ref={nativeInputRef}
+        value={value}
+        onChange={handleString(onChange)}
+      />
     </div>
   )
 })
