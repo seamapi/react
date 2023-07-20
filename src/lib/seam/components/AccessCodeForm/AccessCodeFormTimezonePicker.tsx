@@ -8,6 +8,7 @@ import {
 } from 'lib/dates.js'
 import { Checkbox } from 'lib/ui/Checkbox.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { handleString } from 'lib/ui/TextField/TextField.js'
 
 interface AccessCodeFormTimezonePickerProps {
   value: string
@@ -45,7 +46,12 @@ export function AccessCodeFormTimezonePicker({
           className='seam-manual-timezone-checkbox'
         />
 
-        <select value={value} className='seam-timezone-select'>
+        <select
+          value={value}
+          onChange={handleString(onChange)}
+          className='seam-timezone-select'
+          disabled={!isManualTimezone}
+        >
           {getTimezones().map((timezone) => (
             <option value={timezone} key={timezone}>
               UTC {getTimezoneOffset(timezone)} {getTimezoneLabel(timezone)}

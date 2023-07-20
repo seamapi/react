@@ -131,10 +131,12 @@
 
       > .seam-timezone-select {
           background: colors.$white;
-          padding: 8px 12px 8px 0;
+          padding: 0 12px;
           width: 100%;
           border: 1px solid colors.$text-gray-3;
           border-radius: 8px;
+          height: 48px;
+          font-size: 16px;
       }
     }
   }

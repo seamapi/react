@@ -126,7 +126,11 @@ export const TextField = forwardRef<
 
 export const handleString =
   (setter: (v: string) => void) =>
-  (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ): void => {
     setter(event.currentTarget.value)
   }
 
