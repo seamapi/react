@@ -138,3 +138,16 @@ export function formatDateTime(dateTime: DateTime): string {
   const time = dateTime.toFormat('HH:mm:ss')
   return `${date}T${time}`
 }
+
+/**
+ * Takes a date (2023-07-20T00:00:00), and a timezone (America/Los_angeles), and
+ * returns an ISO8601 Date (2023-07-20T00:00:00.000-07:00).
+ *
+ * @param date
+ * @param timezone
+ * @returns ISOdate
+ */
+export const createIsoDate = (date: string, timezone: string): string => {
+  const offset = getTimezoneOffset(timezone)
+  return `${date}.000${offset}`
+}

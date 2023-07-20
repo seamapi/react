@@ -3,10 +3,10 @@ import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
 import {
+  createIsoDate,
   get24HoursLater,
   getBrowserTimezone,
   getNow,
-  getTimezoneOffset,
 } from 'lib/dates.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import { AccessCodeFormDatePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormDatePicker.js'
@@ -210,11 +210,6 @@ function useSave(params: {
   }
 
   return { save, isLoading: createAccessCode.isLoading }
-}
-
-function createIsoDate(date: string, timezone: string): string {
-  const offset = getTimezoneOffset(timezone)
-  return `${date}.000${offset}`
 }
 
 const t = {
