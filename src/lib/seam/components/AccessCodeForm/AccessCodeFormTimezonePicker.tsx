@@ -1,28 +1,26 @@
-import classNames from 'classnames'
 import { useState } from 'react'
 
 import {
-  compareByTimezoneOffsetAsc,
   getBrowserTimezone,
+  getTimezoneLabel,
+  getTimezoneOffset,
   getTimezones,
 } from 'lib/dates.js'
-import { TimezoneListItem } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePickerListItem.js'
 import { Checkbox } from 'lib/ui/Checkbox.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
-interface TimezonePickerProps {
+interface AccessCodeFormTimezonePickerProps {
   value: string
   onChange: (timezone: string) => void
   onClose: () => void
 }
 
-export function TimezonePicker({
+export function AccessCodeFormTimezonePicker({
   onChange,
   value,
   onClose,
-}: TimezonePickerProps): JSX.Element {
+}: AccessCodeFormTimezonePickerProps): JSX.Element {
   const [manualTimezoneEnabled, setManualTimezoneEnabled] = useState(false)
-  const [container, setContainer] = useState<HTMLDivElement | null>(null)
 
   const isBrowserTimezone = value === getBrowserTimezone()
   const isManualTimezone = !isBrowserTimezone || manualTimezoneEnabled
@@ -46,28 +44,14 @@ export function TimezonePicker({
           onChange={handleChangeManualTimezone}
           className='seam-manual-timezone-checkbox'
         />
-        <div
-          className={classNames('seam-timezones', {
-            'seam-disabled': !isManualTimezone,
-          })}
-          ref={setContainer}
-        >
-          <ul>
-            {getTimezones()
-              .sort(compareByTimezoneOffsetAsc)
-              .map((timezone) => (
-                <TimezoneListItem
-                  key={timezone}
-                  value={timezone}
-                  isSelected={timezone === value}
-                  container={container}
-                  onClick={() => {
-                    onChange(timezone)
-                  }}
-                />
-              ))}
-          </ul>
-        </div>
+
+        <select value={value} className='seam-timezone-select'>
+          {getTimezones().map((timezone) => (
+            <option value={timezone} key={timezone}>
+              UTC {getTimezoneOffset(timezone)} {getTimezoneLabel(timezone)}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   )

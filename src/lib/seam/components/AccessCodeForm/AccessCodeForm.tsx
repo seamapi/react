@@ -11,7 +11,7 @@ import {
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import { AccessCodeFormDatePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { AccessCodeFormTimes } from 'lib/seam/components/AccessCodeForm/AccessCodeFormTimes.js'
-import { TimezonePicker } from 'lib/seam/components/AccessCodeForm/TimezonePicker/TimezonePicker.js'
+import { AccessCodeFormTimezonePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormTimezonePicker.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
@@ -73,7 +73,7 @@ function Content({
 
   if (timezonePickerVisible) {
     return (
-      <TimezonePicker
+      <AccessCodeFormTimezonePicker
         value={timezone}
         onChange={setTimezone}
         onClose={toggleTimezonePicker}
