@@ -76,7 +76,7 @@ export function getTimezoneOffset(timezone: string): string {
   return IANAZone.create(timezone).formatOffset(Date.now(), 'short')
 }
 
-export const formatDateReadable = (
+const formatDateReadable = (
   date: string,
   options: {
     showWeekday?: boolean
@@ -90,7 +90,7 @@ export const formatDateReadable = (
   return DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat(format)
 }
 
-export const formatTimeReadable = (time: string): string | null => {
+const formatTimeReadable = (time: string): string | null => {
   const dateTime = DateTime.fromFormat(time, 'HH:mm:ss')
   if (!dateTime.isValid) {
     return null
@@ -106,11 +106,11 @@ export const formatDateTimeReadable = (dateTime: string): string => {
   }`
 }
 
-export const getNow = (): string => formatDateTime(DateTime.now())
+export const getNow = (): string => getDateTimeOnly(DateTime.now())
 export const get24HoursLater = (): string =>
-  formatDateTime(DateTime.now().plus({ days: 1 }))
+  getDateTimeOnly(DateTime.now().plus({ days: 1 }))
 
-export function formatDateTime(dateTime: DateTime): string {
+function getDateTimeOnly(dateTime: DateTime): string {
   const date = dateTime.toFormat('yyyy-MM-dd')
   const time = dateTime.toFormat('HH:mm:ss')
   return `${date}T${time}`
