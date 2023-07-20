@@ -100,7 +100,7 @@ function Content({
   const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
 
   const isFormValid =
-    name.trim().length > 0 && nameError === undefined && isLoading === false
+    name.trim().length > 0 && nameError === undefined && !isLoading
 
   return (
     <>
@@ -169,21 +169,24 @@ function useSave(params: {
   endDate: string
   timezone: string
   onSuccess?: () => void
-}): any {
+}): {
+  save: () => void
+  isLoading: boolean
+} {
   const { name, type, device, startDate, endDate, timezone, onSuccess } = params
 
-  const createAccessCode = useCreateAccessCode()
+  const { mutate, isLoading } = useCreateAccessCode()
   const save = (): void => {
     if (name === '') {
       return
     }
 
-    if (createAccessCode.isLoading) {
+    if (isLoading) {
       return
     }
 
     if (type === 'time_bound') {
-      createAccessCode.mutate(
+      mutate(
         {
           name,
           device_id: device.device_id,
@@ -198,7 +201,7 @@ function useSave(params: {
       return
     }
 
-    createAccessCode.mutate(
+    mutate(
       {
         name,
         device_id: device.device_id,
@@ -209,7 +212,7 @@ function useSave(params: {
     )
   }
 
-  return { save, isLoading: createAccessCode.isLoading }
+  return { save, isLoading }
 }
 
 const t = {
