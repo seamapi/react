@@ -18,7 +18,6 @@
 @use './form-field';
 @use './radio-field';
 @use './checkbox';
-@use './date-time-picker';
 
 .seam-components {
   // Reset
@@ -45,5 +44,4 @@
   @include access-code-form.all;
   @include alert.all;
   @include supported-device-table.all;
-  @include date-time-picker.all;
 }
