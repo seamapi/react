@@ -172,9 +172,5 @@ export function Menu({
 }
 
 export function useMenu(): MenuContext {
-  const context = useContext(menuContext)
-  if (context == null) {
-    throw new Error('useMenu must be used within a Menu.')
-  }
-  return context
+  return useContext(menuContext)
 }
