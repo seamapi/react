@@ -14,14 +14,14 @@ export interface RadioOption<Value> {
   value: Value
 }
 
-interface RadioFieldContextProps<Value extends string> {
+interface RadioFieldContextValue<Value extends string> {
   value: Value
   onChange: (value: Value) => void
   name: string
 }
 
 const radioFieldContext = createContext<
-  RadioFieldContextProps<any> | undefined
+  RadioFieldContextValue<any> | undefined
 >(undefined)
 
 export function RadioField<Value extends string>({
@@ -50,7 +50,7 @@ export function RadioField<Value extends string>({
 
 export function useRadioField<
   Value extends string,
->(): RadioFieldContextProps<Value> {
+>(): RadioFieldContextValue<Value> {
   const context = useContext(radioFieldContext)
   if (context === undefined) {
     throw new Error('useRadioField must be used within a <RadioField/>')
