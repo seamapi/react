@@ -7,12 +7,14 @@ interface TimezoneListItemProps {
   value: string
   isSelected: boolean
   onClick: () => void
+  container: HTMLDivElement | null
 }
 
 export function TimezoneListItem({
   value,
   onClick,
   isSelected,
+  container,
 }: TimezoneListItemProps): JSX.Element {
   const elRef = useRef<HTMLLIElement>(null)
 
@@ -26,8 +28,6 @@ export function TimezoneListItem({
     if (item == null) {
       return
     }
-
-    const container = item.closest('.seam-timezones')
 
     if (container == null) {
       return
@@ -54,7 +54,7 @@ export function TimezoneListItem({
     if (container != null) {
       container.scrollTop = item.offsetTop
     }
-  }, [isSelected])
+  }, [isSelected, container])
 
   return (
     <li className='seam-timezone' onClick={onClick} ref={elRef}>

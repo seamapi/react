@@ -22,6 +22,7 @@ export function TimezonePicker({
   onClose,
 }: TimezonePickerProps): JSX.Element {
   const [manualTimezoneEnabled, setManualTimezoneEnabled] = useState(false)
+  const [container, setContainer] = useState<HTMLDivElement | null>(null)
 
   const isBrowserTimezone = value === getBrowserTimezone()
   const isManualTimezone = !isBrowserTimezone || manualTimezoneEnabled
@@ -49,6 +50,7 @@ export function TimezonePicker({
           className={classNames('seam-timezones', {
             'seam-disabled': !isManualTimezone,
           })}
+          ref={setContainer}
         >
           <ul>
             {getTimezones()
@@ -58,6 +60,7 @@ export function TimezonePicker({
                   key={timezone}
                   value={timezone}
                   isSelected={timezone === value}
+                  container={container}
                   onClick={() => {
                     onChange(timezone)
                   }}
