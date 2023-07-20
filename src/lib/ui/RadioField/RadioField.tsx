@@ -2,14 +2,14 @@ import { createContext, useContext } from 'react'
 
 import { Radio } from 'lib/ui/RadioField/Radio.js'
 
-export interface RadioFieldProps<Value extends string> {
+interface RadioFieldProps<Value extends string> {
   name: string
   value: Value
   onChange: (value: Value) => void
   options: Array<RadioOption<Value>>
 }
 
-export interface RadioOption<Value> {
+interface RadioOption<Value> {
   label: string
   value: Value
 }

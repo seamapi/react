@@ -2,7 +2,7 @@ import { formatDateTimeReadable } from 'lib/dates.js'
 import { EditIcon } from 'lib/icons/Edit.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 
-export interface AccessCodeFormTimesProps {
+interface AccessCodeFormTimesProps {
   startDate: string
   endDate: string
   onEdit: () => void

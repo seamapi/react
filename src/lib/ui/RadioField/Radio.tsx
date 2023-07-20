@@ -4,7 +4,7 @@ import { RadioCheckedIcon } from 'lib/icons/RadioChecked.js'
 import { RadioUncheckedIcon } from 'lib/icons/RadioUnchecked.js'
 import { useRadioField } from 'lib/ui/RadioField/RadioField.js'
 
-export interface RadioProps<Value extends string> {
+interface RadioProps<Value extends string> {
   value: Value
   label: string
 }

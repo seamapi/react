@@ -7,7 +7,7 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
-export interface AccessCodeFormDatePickerProps {
+interface AccessCodeFormDatePickerProps {
   startDate: string
   setStartDate: (date: string) => void
   endDate: string
