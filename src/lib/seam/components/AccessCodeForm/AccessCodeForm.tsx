@@ -63,47 +63,15 @@ function Content({
   const [endDate, setEndDate] = useState<string>(get24HoursLater())
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
 
-  const createAccessCode = useCreateAccessCode()
-
-  const save = (): void => {
-    if (name === '') {
-      return
-    }
-
-    if (createAccessCode.isLoading) {
-      return
-    }
-
-    if (type === 'time_bound') {
-      createAccessCode.mutate(
-        {
-          name,
-          device_id: device.device_id,
-          starts_at: createIsoDate(startDate, timezone),
-          ends_at: createIsoDate(endDate, timezone),
-        },
-        {
-          onSuccess: () => {
-            onBack?.()
-          },
-        }
-      )
-
-      return
-    }
-
-    createAccessCode.mutate(
-      {
-        name,
-        device_id: device.device_id,
-      },
-      {
-        onSuccess: () => {
-          onBack?.()
-        },
-      }
-    )
-  }
+  const { save, isLoading } = useSave({
+    name,
+    type,
+    device,
+    startDate,
+    endDate,
+    timezone,
+    onSuccess: onBack,
+  })
 
   if (timezonePickerVisible) {
     return (
@@ -134,9 +102,7 @@ function Content({
   const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
 
   const isFormValid =
-    name.trim().length > 0 &&
-    nameError === undefined &&
-    !createAccessCode.isLoading
+    name.trim().length > 0 && nameError === undefined && isLoading === false
 
   return (
     <>
@@ -208,6 +174,57 @@ function Content({
       </div>
     </>
   )
+}
+
+function useSave(params: {
+  name: string
+  type: AccessCode['type']
+  device: NonNullable<UseDeviceData>
+  startDate: string
+  endDate: string
+  timezone: string
+  onSuccess?: () => void
+}): any {
+  const { name, type, device, startDate, endDate, timezone, onSuccess } = params
+
+  const createAccessCode = useCreateAccessCode()
+  const save = (): void => {
+    if (name === '') {
+      return
+    }
+
+    if (createAccessCode.isLoading) {
+      return
+    }
+
+    if (type === 'time_bound') {
+      createAccessCode.mutate(
+        {
+          name,
+          device_id: device.device_id,
+          starts_at: createIsoDate(startDate, timezone),
+          ends_at: createIsoDate(endDate, timezone),
+        },
+        {
+          onSuccess,
+        }
+      )
+
+      return
+    }
+
+    createAccessCode.mutate(
+      {
+        name,
+        device_id: device.device_id,
+      },
+      {
+        onSuccess,
+      }
+    )
+  }
+
+  return { save, isLoading: createAccessCode.isLoading }
 }
 
 function createIsoDate(date: string, timezone: string): string {
