@@ -133,7 +133,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
     "@r2wc/react-to-web-component": "^2.0.2",
-    "@seamapi/fake-seam-connect": "^0.11.0",
+    "@seamapi/fake-seam-connect": "^1.0.0",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
     "@storybook/addon-styling": "^1.0.5",
