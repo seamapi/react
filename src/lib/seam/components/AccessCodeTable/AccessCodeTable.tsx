@@ -39,6 +39,7 @@ const disableCreateAccessCode = true
 export interface AccessCodeTableProps {
   deviceId: string
   disableLockUnlock?: boolean
+  disableSearch?: boolean
   accessCodeFilter?: (
     accessCode: AccessCode,
     searchInputValue: string
@@ -71,6 +72,7 @@ const defaultAccessCodeFilter = (
 export function AccessCodeTable({
   deviceId,
   disableLockUnlock = false,
+  disableSearch = false,
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
   onBack,
@@ -150,11 +152,13 @@ export function AccessCodeTable({
             </IconButton>
           )}
         </div>
-        <SearchTextField
-          value={searchInputValue}
-          onChange={setSearchInputValue}
-          disabled={(accessCodes?.length ?? 0) === 0}
-        />
+        {!disableSearch && (
+          <SearchTextField
+            value={searchInputValue}
+            onChange={setSearchInputValue}
+            disabled={(accessCodes?.length ?? 0) === 0}
+          />
+        )}
       </TableHeader>
       <TableBody>
         <Content
