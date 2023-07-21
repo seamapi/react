@@ -41,8 +41,10 @@ export function AccessCodeFormTimezonePicker({
       <div className='seam-content'>
         <Checkbox
           label={t.setTimezoneManuallyLabel}
-          checked={isManualTimezone}
-          onChange={handleChangeManualTimezone}
+          checked={!isManualTimezone}
+          onChange={(manual) => {
+            handleChangeManualTimezone(!manual)
+          }}
           className='seam-manual-timezone-checkbox'
         />
 
@@ -66,5 +68,5 @@ export function AccessCodeFormTimezonePicker({
 const t = {
   titleAuto: 'Time Zone (automatic)',
   titleManual: 'Time Zone (manual)',
-  setTimezoneManuallyLabel: 'Set time zone manually',
+  setTimezoneManuallyLabel: 'Set time zone automatically',
 }
