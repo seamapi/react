@@ -39,3 +39,7 @@ export const readPackageJson = async (): Promise<{ version?: string }> => {
   )
   return JSON.parse(pkgBuff.toString())
 }
+
+export const versionFiles = ['./README.md']
+
+export const versionPlaceholder = '_________VERSION_________'

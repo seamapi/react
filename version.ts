@@ -1,17 +1,23 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 
-import { files, versionPlaceholder } from './preversion.js'
-import { readPackageJson } from './vite.config.js'
+import { $ } from 'execa'
+
+import {
+  readPackageJson,
+  versionFiles,
+  versionPlaceholder,
+} from './vite.config.js'
 
 const main = async (): Promise<void> => {
   await Promise.all(
-    files.map(async (file) => {
+    versionFiles.map(async (file) => {
       const version = await injectVersion(
         fileURLToPath(new URL(file, import.meta.url))
       )
       // eslint-disable-next-line no-console
       console.log(`✓ Version ${version} injected into ${file}`)
+      await $`git add ${file}`
     })
   )
 }
