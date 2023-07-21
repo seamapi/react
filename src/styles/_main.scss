@@ -16,6 +16,8 @@
 @use './access-code-form';
 @use './input-label';
 @use './form-field';
+@use './radio-field';
+@use './checkbox';
 
 .seam-components {
   // Reset
@@ -31,6 +33,8 @@
   @include layout.all;
   @include icons.all;
   @include menus.all;
+  @include checkbox.all;
+  @include radio-field.all;
 
   // Components
   @include device-details.all;

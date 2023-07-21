@@ -23,11 +23,11 @@ export interface MenuProps extends PropsWithChildren {
   }>
 }
 
-interface MenuContextValue {
+interface MenuContext {
   close: () => void
 }
 
-const menuContext = createContext<MenuContextValue>({
+const menuContext = createContext<MenuContext>({
   close: () => {},
 })
 
@@ -171,10 +171,6 @@ export function Menu({
   )
 }
 
-export function useMenu(): MenuContextValue {
-  const context = useContext(menuContext)
-  if (context == null) {
-    throw new Error('useMenu must be used within a Menu.')
-  }
-  return context
+export function useMenu(): MenuContext {
+  return useContext(menuContext)
 }

@@ -4,6 +4,7 @@ import {
   type FocusEventHandler,
   forwardRef,
   type InputHTMLAttributes,
+  type MouseEventHandler,
   type MutableRefObject,
   useEffect,
   useImperativeHandle,
@@ -28,8 +29,10 @@ export interface TextFieldProps {
   clearable?: boolean
   onFocus?: FocusEventHandler<HTMLInputElement>
   onBlur?: FocusEventHandler<HTMLInputElement>
+  onClick?: MouseEventHandler<HTMLInputElement>
   helperText?: string
   hasError?: boolean
+  type?: 'text' | 'datetime-local'
 }
 
 export const TextField = forwardRef<
@@ -48,8 +51,10 @@ export const TextField = forwardRef<
     clearable = false,
     onFocus,
     onBlur,
+    onClick,
     hasError = false,
     helperText,
+    type = 'text',
   },
   ref
 ): JSX.Element {
@@ -90,11 +95,12 @@ export const TextField = forwardRef<
           className='seam-text-field-input'
           value={value}
           onChange={onChange == null ? undefined : handleString(onChange)}
-          type='text'
           disabled={disabled}
           ref={setInputEl}
           onFocus={onFocus}
           onBlur={onBlur}
+          onClick={onClick}
+          type={type}
           {...inputProps}
         />
         {endAdornmentVisible && (
@@ -122,7 +128,11 @@ export const TextField = forwardRef<
 
 export const handleString =
   (setter: (v: string) => void) =>
-  (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ): void => {
     setter(event.currentTarget.value)
   }
 
