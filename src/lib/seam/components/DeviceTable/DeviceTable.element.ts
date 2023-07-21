@@ -8,6 +8,7 @@ export const props: ElementProps<DeviceTableProps> = {
   deviceIds: 'json',
   connectedAccountIds: 'json',
   disableLockUnlock: 'boolean',
+  disableSearch: 'boolean',
   deviceFilter: 'function',
   deviceComparator: 'function',
   onDeviceClick: 'function',
