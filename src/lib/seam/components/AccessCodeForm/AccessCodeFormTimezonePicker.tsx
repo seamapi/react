@@ -52,7 +52,6 @@ export function AccessCodeFormTimezonePicker({
           value={value}
           onChange={handleString(onChange)}
           className='seam-timezone-select'
-          disabled={!isManualTimezone}
         >
           {getTimezones().map((timezone) => (
             <option value={timezone} key={timezone}>
@@ -69,5 +68,5 @@ const t = {
   titleAuto: 'Time Zone (automatic)',
   titleManual: 'Time Zone (manual)',
   utc: 'UTC',
-  setTimezoneManuallyLabel: 'Set time zone automatically',
+  setTimezoneManuallyLabel: 'Use local time zone',
 }
