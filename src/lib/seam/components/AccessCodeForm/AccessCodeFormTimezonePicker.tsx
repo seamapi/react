@@ -56,7 +56,7 @@ export function AccessCodeFormTimezonePicker({
         >
           {getTimezones().map((timezone) => (
             <option value={timezone} key={timezone}>
-              UTC {getTimezoneOffset(timezone)} {getTimezoneLabel(timezone)}
+              {t.utc} {getTimezoneOffset(timezone)} {getTimezoneLabel(timezone)}
             </option>
           ))}
         </select>
@@ -68,5 +68,6 @@ export function AccessCodeFormTimezonePicker({
 const t = {
   titleAuto: 'Time Zone (automatic)',
   titleManual: 'Time Zone (manual)',
+  utc: 'UTC',
   setTimezoneManuallyLabel: 'Set time zone automatically',
 }
