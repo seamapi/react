@@ -78,7 +78,7 @@ export function App() {
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/_________VERSION_________/dist/elements.js"
+    src="https://react.seam.co/v/1.31.0/dist/elements.js"
   ></script>
 </body>
 ```
