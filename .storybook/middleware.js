@@ -6,18 +6,18 @@ import { seedFake } from './seed-fake.js'
 // https://github.com/storybookjs/storybook/issues/208#issuecomment-1485081586
 /** @type {(app: import('express').Router) => void} */
 export default async (app) => {
-  const { create } = await import('@seamapi/fake-seam-connect')
-  const fake = await create()
-  seedFake(fake.database.getState())
+  const { createFake } = await import('@seamapi/fake-seam-connect')
+  const fake = await createFake()
+  seedFake(fake.database)
   await fake.startServer()
 
   // eslint-disable-next-line no-console
-  console.log(`Fake server running at: "${fake.server.serverUrl}"`)
+  console.log(`Fake server running at: "${fake.serverUrl}"`)
 
   app.use(
     '/',
     createProxyMiddleware('/api', {
-      target: process.env.STORYBOOK_SEAM_ENDPOINT ?? fake.server.serverUrl,
+      target: process.env.STORYBOOK_SEAM_ENDPOINT ?? fake.serverUrl,
       pathRewrite: { '^/api': '' },
       changeOrigin: true,
     })

@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { Readable, type Stream } from 'node:stream'
 
-import { create as createFake } from '@seamapi/fake-seam-connect'
+import { createFake } from '@seamapi/fake-seam-connect'
 import axios from 'axios'
 import getRawBody from 'raw-body'
 
@@ -18,7 +18,7 @@ export const getRequestStreamFromBuffer = (requestBuffer: Buffer): Stream => {
   return requestStream
 }
 
-const dontProxyHeaders = new Set([
+const unproxiedHeaders = new Set([
   'content-length',
   'etag',
   'x-powered-by',
@@ -42,9 +42,9 @@ export default async (
 
   const fake = await createFake()
 
-  const server = await fake.startServer()
-
   seedFake(fake.database)
+
+  const server = await fake.startServer()
 
   const requestBuffer = await getRawBody(req)
 
@@ -59,18 +59,15 @@ export default async (
     headers: { ...req.headers },
     data: getRequestStreamFromBuffer(requestBuffer),
     timeout: 10_000,
-    validateStatus: () => true, // accept all responses
+    validateStatus: () => true,
     maxRedirects: 0,
   })
 
-  fake.stopServer()
-
-  // TODO save modified state
-  // const modified_state = fake.toJSON()
+  await fake.stopServer()
 
   res.status(proxyRes.status)
   for (const [headerKey, headerVal] of Object.entries(proxyRes.headers)) {
-    if (dontProxyHeaders.has(headerKey)) continue
+    if (unproxiedHeaders.has(headerKey)) continue
     res.setHeader(headerKey, headerVal)
   }
   if (typeof proxyRes.data === 'string') {

@@ -1,9 +1,9 @@
 /** @type {(globalConfig: import('@jest/types').Config.GlobalConfig, globalConfig: import('@jest/types').Config.ProjectConfig) => Promise<void>} */
 module.exports = async function (_globalConfig, projectConfig) {
-  const { create } = await import('@seamapi/fake-seam-connect')
-  const fake = await create()
+  const { createFake } = await import('@seamapi/fake-seam-connect')
+  const fake = await createFake()
 
-  const db = fake.database.getState()
+  const db = fake.database
 
   const ws1 = db.addWorkspace({ name: 'Seed Workspace 1 (starts empty)' })
   const ws2 = db.addWorkspace({ name: 'Seed Workspace 2 (starts populated)' })
@@ -45,8 +45,8 @@ module.exports = async function (_globalConfig, projectConfig) {
   })
 
   await fake.startServer()
-  projectConfig.testEnvironmentOptions.url = fake.server.serverUrl
-  projectConfig.globals.JEST_SEAM_ENDPOINT = fake.server.serverUrl
+  projectConfig.testEnvironmentOptions.url = fake.serverUrl
+  projectConfig.globals.JEST_SEAM_ENDPOINT = fake.serverUrl
   projectConfig.globals.JEST_SEAM_PUBLISHABLE_KEY_1 = ws1.publishable_key
   projectConfig.globals.JEST_SEAM_PUBLISHABLE_KEY_2 = ws2.publishable_key
   projectConfig.globals.JEST_SEAM_CLIENT_SESSION_TOKEN_2 = clientSession2.token
