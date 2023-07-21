@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig, type UserConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(async () => {
@@ -10,7 +10,7 @@ export default defineConfig(async () => {
   if (version == null) {
     throw new Error('Missing version in package.json')
   }
-  return {
+  const config: UserConfig = {
     plugins: [
       tsconfigPaths(),
       // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
@@ -31,6 +31,7 @@ export default defineConfig(async () => {
       },
     },
   }
+  return config
 })
 
 export const readPackageJson = async (): Promise<{ version?: string }> => {
