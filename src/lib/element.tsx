@@ -58,6 +58,7 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
 ) {
   return function ({
     publishableKey,
+    endpoint,
     userIdentifierKey,
     clientSessionToken,
     disableCssInjection,
@@ -71,6 +72,7 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
         publishableKey={publishableKey}
         userIdentifierKey={userIdentifierKey}
         clientSessionToken={clientSessionToken}
+        endpoint={endpoint}
         disableCssInjection={
           disableCssInjection ?? globalThis.disableSeamCssInjection
         }
