@@ -34,6 +34,7 @@ const providerProps: ElementProps<ProviderProps> = {
   publishableKey: 'string',
   userIdentifierKey: 'string',
   clientSessionToken: 'string',
+  endpoint: 'string',
   disableCssInjection: 'boolean',
   disableFontInjection: 'boolean',
   unminifiyCss: 'boolean',
