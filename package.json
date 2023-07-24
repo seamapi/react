@@ -88,7 +88,7 @@
     "storybook:docs": "storybook dev --docs --port 6007",
     "storybook:build": "storybook build",
     "prestorybook:build": "vite build examples",
-    "examples": "vite examples",
+    "examples": "vite examples --host",
     "examples:build": "vite build examples",
     "examples:preview": "vite preview examples",
     "examples:storybook": "vite examples --host --clearScreen false --mode storybook",
