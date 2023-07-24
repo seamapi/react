@@ -14,7 +14,7 @@ export type UseClimateSettingSchedulesParams =
 export type UseClimateSettingSchedulesData = ClimateSettingSchedule[]
 
 export function useClimateSettingSchedules(
-  params: UseClimateSettingSchedulesParams
+  params: Partial<UseClimateSettingSchedulesParams>
 ): UseSeamQueryResult<
   'climateSettingSchedules',
   UseClimateSettingSchedulesData
@@ -30,6 +30,7 @@ export function useClimateSettingSchedules(
     queryKey: ['thermostats', 'climate_setting_schedules', 'list', params],
     queryFn: async () => {
       if (client == null) return []
+      if (!params.device_id) return []
       return await client.thermostats.climateSettingSchedules.list(params)
     },
     onSuccess: (schedules) => {

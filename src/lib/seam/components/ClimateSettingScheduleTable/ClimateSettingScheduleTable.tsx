@@ -1,12 +1,9 @@
 import classNames from 'classnames'
-import { useCallback, useMemo, useState } from 'react'
-
 import { compareByCreatedAtDesc } from 'lib/dates.js'
-
-// import {
-//   useClimateSettingSchedules,
-//   type UseClimateSettingSchedulesData,
-// } from 'lib/seam/ClimateSettingSchedules/use-ClimateSettingSchedules.js'
+import {
+  useClimateSettingSchedules,
+  type UseClimateSettingSchedulesData,
+} from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -14,16 +11,14 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-import type { ClimateSettingSchedule } from 'seamapi'
+import { useCallback, useMemo, useState } from 'react'
 import type { AccountFilter } from '../DeviceTable/DeviceHealthBar.js'
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
-// type ClimateSettingSchedule = UseClimateSettingSchedulesData[number]
+type ClimateSettingSchedule = UseClimateSettingSchedulesData[number]
 
 export interface ClimateSettingScheduleTableProps {
-  climateSettingScheduleIds?: string[]
-  connectedAccountIds?: string[]
-  disableLockUnlock?: boolean
+  deviceId?: string
   disableSearch?: boolean
   climateSettingScheduleFilter?: (
     ClimateSettingSchedule: ClimateSettingSchedule,
@@ -40,20 +35,16 @@ export interface ClimateSettingScheduleTableProps {
 }
 
 const defaultClimateSettingScheduleFilter = (
-  ClimateSettingSchedule: ClimateSettingSchedule,
+  schedule: ClimateSettingSchedule,
   searchInputValue: string
 ): boolean => {
   const value = searchInputValue.trim()
   if (value === '') return true
-  return new RegExp(value, 'i').test(
-    ClimateSettingSchedule.properties.name ?? ''
-  )
+  return new RegExp(value, 'i').test(schedule.name ?? '')
 }
 
 export function ClimateSettingScheduleTable({
-  climateSettingScheduleIds,
-  connectedAccountIds,
-  disableLockUnlock = false,
+  deviceId,
   disableSearch = false,
   onClimateSettingScheduleClick = () => {},
   preventDefaultOnClimateSettingScheduleClick = false,
@@ -62,10 +53,9 @@ export function ClimateSettingScheduleTable({
   climateSettingScheduleComparator = compareByCreatedAtDesc,
   className,
 }: ClimateSettingScheduleTableProps = {}): JSX.Element {
-  const { ClimateSettingSchedules, isLoading, isError, error } =
+  const { climateSettingSchedules, isLoading, isError, error } =
     useClimateSettingSchedules({
-      climate_setting_schedule_ids: climateSettingScheduleIds,
-      connected_account_ids: connectedAccountIds,
+      device_id: deviceId,
     })
 
   const [
@@ -76,11 +66,13 @@ export function ClimateSettingScheduleTable({
 
   const filteredClimateSettingSchedules = useMemo(
     () =>
-      ClimateSettingSchedules?.filter((schedule) =>
-        climateSettingScheduleFilter(schedule, searchInputValue)
-      )?.sort(climateSettingScheduleComparator) ?? [],
+      climateSettingSchedules
+        ?.filter((schedule) =>
+          climateSettingScheduleFilter(schedule, searchInputValue)
+        )
+        ?.sort(climateSettingScheduleComparator) ?? [],
     [
-      ClimateSettingSchedules,
+      climateSettingSchedules,
       searchInputValue,
       climateSettingScheduleFilter,
       climateSettingScheduleComparator,
@@ -100,6 +92,7 @@ export function ClimateSettingScheduleTable({
     ]
   )
 
+  // TODO: details page
   // if (selectedClimateSettingScheduleId != null) {
   //   return (
   //     <ClimateSettingScheduleDetails
@@ -126,20 +119,20 @@ export function ClimateSettingScheduleTable({
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
-          {t.ClimateSettingSchedules}{' '}
+          {t.climateSettingSchedules}{' '}
           <Caption>({filteredClimateSettingSchedules.length})</Caption>
         </TableTitle>
         {!disableSearch && (
           <SearchTextField
             value={searchInputValue}
             onChange={setSearchInputValue}
-            disabled={(ClimateSettingSchedules?.length ?? 0) === 0}
+            disabled={(climateSettingSchedules?.length ?? 0) === 0}
           />
         )}
       </TableHeader>
       <TableBody>
         <Content
-          ClimateSettingSchedules={filteredClimateSettingSchedules}
+          climateSettingSchedules={filteredClimateSettingSchedules}
           onClimateSettingScheduleClick={handleClimateSettingScheduleClick}
         />
       </TableBody>
@@ -148,49 +141,54 @@ export function ClimateSettingScheduleTable({
 }
 
 function Content(props: {
-  ClimateSettingSchedules: Array<UseClimateSettingSchedulesData[number]>
+  climateSettingSchedules: Array<UseClimateSettingSchedulesData[number]>
   onClimateSettingScheduleClick: (ClimateSettingScheduleId: string) => void
 }): JSX.Element {
-  const { ClimateSettingSchedules, onClimateSettingScheduleClick } = props
+  const { climateSettingSchedules, onClimateSettingScheduleClick } = props
   const [filter, setFilter] = useState<
     AccountFilter | ClimateSettingScheduleFilter | null
   >(null)
 
-  if (ClimateSettingSchedules.length === 0) {
+  if (climateSettingSchedules.length === 0) {
     return (
       <EmptyPlaceholder>{t.noClimateSettingSchedulesMessage}</EmptyPlaceholder>
     )
   }
 
-  const filteredClimateSettingSchedules = ClimateSettingSchedules.filter(
-    (ClimateSettingSchedule) => {
-      if (filter === null) {
-        return true
-      }
+  // const filteredClimateSettingSchedules = climateSettingSchedules.filter(
+  //   (schedule) => {
+  //     if (filter === null) {
+  //       return true
+  //     }
 
-      if (filter === 'account_issues') {
-        return (
-          ClimateSettingSchedule.errors.filter(
-            (error) => 'is_connected_account_error' in error
-          ).length > 0
-        )
-      }
+  //     if (filter === 'account_issues') {
+  //       return (
+  //         schedule.errors.filter(
+  //           (error) => 'is_connected_account_error' in error
+  //         ).length > 0
+  //       )
+  //     }
 
-      if (filter === 'ClimateSettingSchedule_issues') {
-        return (
-          ClimateSettingSchedule.errors.filter(
-            (error) => 'is_ClimateSettingSchedule_error' in error
-          ).length > 0
-        )
-      }
+  //     if (filter === 'ClimateSettingSchedule_issues') {
+  //       return (
+  //         ClimateSettingSchedule.errors.filter(
+  //           (error) => 'is_ClimateSettingSchedule_error' in error
+  //         ).length > 0
+  //       )
+  //     }
 
-      return true
-    }
-  )
+  //     return true
+  //   }
+  // )
+
+  //TODO: figure out how to filter
+  const filteredClimateSettingSchedules = climateSettingSchedules
 
   return (
     <>
-      {/* <ClimateSettingScheduleHealthBar
+      {/* 
+      TODO: probably remove
+      <ClimateSettingScheduleHealthBar
         ClimateSettingSchedules={ClimateSettingSchedules}
         filter={filter}
         onFilterSelect={setFilter}
@@ -198,9 +196,9 @@ function Content(props: {
       {filteredClimateSettingSchedules.map((schedule) => (
         <ClimateSettingScheduleRow
           climateSettingSchedule={schedule}
-          key={schedule.ClimateSettingSchedule_id}
+          key={schedule.climate_setting_schedule_id}
           onClick={() => {
-            onClimateSettingScheduleClick(schedule.ClimateSettingSchedule_id)
+            onClimateSettingScheduleClick(schedule.climate_setting_schedule_id)
           }}
         />
       ))}

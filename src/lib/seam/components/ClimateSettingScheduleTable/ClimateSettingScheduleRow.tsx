@@ -1,9 +1,9 @@
-import classNames from 'classnames'
-
+import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import type {
   UseClimateSettingSchedulesData,
   UseClimateSettingSchedulesParams,
-} from 'lib/seam/ClimateSettingSchedules/use-ClimateSettingSchedules.js'
+} from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+
 // import { ClimateSettingScheduleImage } from 'lib/ui/ClimateSettingSchedule/ClimateSettingScheduleImage.js'
 // import { isClimateSettingScheduleAccountOffline } from 'lib/ui/ClimateSettingSchedule/OnlineStatus.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
@@ -26,41 +26,20 @@ export function ClimateSettingScheduleRow({
   climateSettingSchedule,
   onClick,
 }: ClimateSettingScheduleRowProps): JSX.Element | null {
-  const isClimateSettingScheduleOffline =
-    !climateSettingSchedule.properties.online
-  const isDisconnected =
-    isClimateSettingScheduleAccountOffline(climateSettingSchedule) ||
-    isClimateSettingScheduleOffline
-  const isConnected = !isDisconnected
-
   return (
     <TableRow onClick={onClick}>
-      <TableCell
-        className={classNames('seam-image-cell', {
-          'seam-offline-fade': isDisconnected,
-        })}
-      >
-        {/* <ClimateSettingScheduleImage
-          ClimateSettingSchedule={climateSettingSchedule}
-        /> */}
+      <TableCell>
+        <ClimateSettingScheduleIcon />
       </TableCell>
       <TableCell className='seam-body-cell'>
-        <Title
-          className={classNames('seam-truncated-text', {
-            'seam-offline-fade': isDisconnected,
-          })}
-        >
-          {climateSettingSchedule.properties.name}
-        </Title>
+        <Title>{climateSettingSchedule.name}</Title>
         <div className='seam-bottom'>
-          <span
-            className={classNames('seam-climatesettingschedule-model', {
-              'seam-offline-fade': isDisconnected,
-            })}
+          {/* <span
           >
             {climateSettingSchedule.properties.model.display_name}
-          </span>
-          <div className='seam-climatesettingschedule-statuses'>
+          </span> */}
+          <div className='seam-device-statuses'>
+            {/* TODO stats go here */}
             {/* <OnlineStatus ClimateSettingSchedule={ClimateSettingSchedule} />
             {isConnected && (
               <BatteryStatus ClimateSettingSchedule={ClimateSettingSchedule} />
