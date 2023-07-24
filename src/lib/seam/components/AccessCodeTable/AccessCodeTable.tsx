@@ -144,7 +144,8 @@ export function AccessCodeTable({
         <div className='seam-left'>
           {title != null ? (
             <TableTitle>
-              {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>{' '}
+              {title ?? t.accessCodes}{' '}
+              <Caption>({filteredAccessCodes.length})</Caption>{' '}
             </TableTitle>
           ) : (
             <div className='seam-fragment' />
