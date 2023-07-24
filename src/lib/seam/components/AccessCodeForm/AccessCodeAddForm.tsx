@@ -17,8 +17,6 @@ export function AccessCodeAddForm({
     device_id: deviceId,
   })
 
-  const { submit, isLoading } = useSubmit()
-
   if (device == null) {
     return null
   }
@@ -28,8 +26,6 @@ export function AccessCodeAddForm({
       device={device}
       className={className}
       onBack={onBack}
-      onSubmit={submit}
-      isLoading={isLoading}
     />
   )
 }
@@ -44,7 +40,7 @@ export interface AccessCodeAddFormSubmitParams {
   onSuccess?: () => void
 }
 
-function useSubmit(): {
+export function useSubmitAdd(): {
   submit: (params: AccessCodeAddFormSubmitParams) => void
   isLoading: boolean
 } {

@@ -9,8 +9,8 @@ import {
   getTimezoneFromIsoDate,
 } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
-import type { AccessCodeAddFormSubmitParams } from 'lib/seam/components/AccessCodeForm/AccessCodeAddForm.js'
-import type { AccessCodeEditFormSubmitParams } from 'lib/seam/components/AccessCodeForm/AccessCodeEditForm.js'
+import { useSubmitAdd } from 'lib/seam/components/AccessCodeForm/AccessCodeAddForm.js'
+import { useSubmitUpdate } from 'lib/seam/components/AccessCodeForm/AccessCodeEditForm.js'
 import type { AccessCodeFormProps } from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
 import { AccessCodeFormDatePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { AccessCodeFormTimes } from 'lib/seam/components/AccessCodeForm/AccessCodeFormTimes.js'
@@ -27,10 +27,6 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 interface AccessCodeFormContentProps extends AccessCodeFormProps {
   accessCode?: NonNullable<UseAccessCodeData>
   device: NonNullable<UseDeviceData>
-  isLoading: boolean
-  onSubmit: (
-    params: AccessCodeAddFormSubmitParams | AccessCodeEditFormSubmitParams
-  ) => void
 }
 
 export default function AccessCodeFormContent({
@@ -48,8 +44,6 @@ function Content({
   onBack,
   accessCode,
   device,
-  onSubmit,
-  isLoading,
 }: Omit<AccessCodeFormContentProps, 'className'>): JSX.Element {
   const [name, setName] = useState(accessCode?.name ?? '')
   const [type, setType] = useState<AccessCode['type']>(
@@ -66,18 +60,37 @@ function Content({
     getAccessCodeDate('ends_at', accessCode) ?? get24HoursLater()
   )
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+  const { submit: submitAdd, isLoading: isLoadingAdd } = useSubmitAdd()
+  const { submit: submitEdit, isLoading: isLoadingEdit } = useSubmitUpdate()
+  const isLoading = isLoadingAdd || isLoadingEdit
 
   const submit = (): void => {
-    onSubmit({
-      name,
-      type,
-      device,
-      startDate,
-      endDate,
-      timezone,
-      onSuccess: onBack,
-      accessCode,
-    })
+    if (isLoading) {
+      return
+    }
+
+    if (accessCode != null) {
+      submitEdit({
+        name,
+        type,
+        device,
+        startDate,
+        endDate,
+        timezone,
+        onSuccess: onBack,
+        accessCode,
+      })
+    } else {
+      submitAdd({
+        name,
+        type,
+        device,
+        startDate,
+        endDate,
+        timezone,
+        onSuccess: onBack,
+      })
+    }
   }
 
   if (timezonePickerVisible) {

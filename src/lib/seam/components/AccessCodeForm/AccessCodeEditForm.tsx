@@ -51,7 +51,6 @@ function Content({
   const { device } = useDevice({
     device_id: accessCode.device_id,
   })
-  const { submit, isLoading } = useSubmit()
 
   if (device == null) {
     return null
@@ -63,13 +62,11 @@ function Content({
       className={className}
       accessCode={accessCode}
       device={device}
-      onSubmit={submit}
-      isLoading={isLoading}
     />
   )
 }
 
-function useSubmit(): {
+export function useSubmitUpdate(): {
   submit: (params: AccessCodeEditFormSubmitParams) => void
   isLoading: boolean
 } {
