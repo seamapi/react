@@ -34,6 +34,7 @@ export interface DeviceTableProps {
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
   onBack?: () => void
+  title?: string | null
   className?: string
 }
 
@@ -56,6 +57,7 @@ export function DeviceTable({
   onBack,
   deviceFilter = defaultDeviceFilter,
   deviceComparator = compareByCreatedAtDesc,
+  title = t.devices,
   className,
 }: DeviceTableProps = {}): JSX.Element {
   const { devices, isLoading, isError, error } = useDevices({
@@ -109,9 +111,13 @@ export function DeviceTable({
     <div className={classNames('seam-device-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
-        <TableTitle>
-          {t.devices} <Caption>({filteredDevices.length})</Caption>
-        </TableTitle>
+        {title != null ? (
+          <TableTitle>
+            {title ?? t.devices} <Caption>({filteredDevices.length})</Caption>
+          </TableTitle>
+        ) : (
+          <div />
+        )}
         {!disableSearch && (
           <SearchTextField
             value={searchInputValue}
