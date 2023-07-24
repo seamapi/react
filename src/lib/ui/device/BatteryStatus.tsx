@@ -26,7 +26,7 @@ function Content(props: {
 }): JSX.Element | null {
   const { status, level } = props
 
-  const percentage = level ? ` (${Math.floor(level * 100)}%)` : null
+  const percentage = level != null ? ` (${Math.floor(level * 100)}%)` : null
 
   if (status === 'full') {
     return (
