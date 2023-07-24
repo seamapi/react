@@ -22,7 +22,7 @@ export function BatteryStatus(props: BatteryStatusProps): JSX.Element {
 
 function Content(props: {
   status: SeamBatteryStatus | null | undefined
-  level: number | undefined
+  level: number | null | undefined
 }): JSX.Element | null {
   const { status, level } = props
 
