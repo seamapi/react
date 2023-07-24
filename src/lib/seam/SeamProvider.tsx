@@ -97,7 +97,9 @@ export function SeamProvider({
       <QueryClientProvider
         client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
       >
-        <seamContext.Provider value={seamProviderContextValue}>{children}</seamContext.Provider>
+        <seamContext.Provider value={seamProviderContextValue}>
+          {children}
+        </seamContext.Provider>
       </QueryClientProvider>
     </div>
   )
@@ -143,7 +145,9 @@ const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
   return { client: null }
 }
 
-export const seamContext = createContext<SeamContext>(getDefaultSeamContextValue())
+export const seamContext = createContext<SeamContext>(
+  getDefaultSeamContextValue()
+)
 
 export function useSeamContext(): SeamContext {
   const context = useContext(seamContext)

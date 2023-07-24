@@ -20,7 +20,7 @@ export function useSeamClient(): {
   } = useSeamContext()
 
   // eslint-disable-next-line
-  const endpoint = clientOptions?.endpoint || "https://connect.getseam.com"
+  const endpoint = clientOptions?.endpoint || 'https://connect.getseam.com'
 
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
     clientSessionToken != null ? '' : context.userIdentifierKey
