@@ -1,15 +1,15 @@
 import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
+import { AccessCodeAddForm } from 'lib/seam/components/AccessCodeForm/AccessCodeAddForm.js'
 
-import { AccessCodeForm } from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
  * These stories showcase access code details.
  */
-const meta: Meta<typeof AccessCodeForm> = {
+const meta: Meta<typeof AccessCodeAddForm> = {
   title: 'Example/AccessCodeForm (Coming Soon)',
-  component: AccessCodeForm,
+  component: AccessCodeAddForm,
   tags: ['autodocs'],
   parameters: {
     design: {
@@ -21,11 +21,11 @@ const meta: Meta<typeof AccessCodeForm> = {
 
 export default meta
 
-type Story = StoryObj<typeof AccessCodeForm>
+type Story = StoryObj<typeof AccessCodeAddForm>
 
 export const Content: Story = {
   render: (props, { globals }) => (
-    <AccessCodeForm
+    <AccessCodeAddForm
       {...props}
       deviceId={props.deviceId ?? globals['deviceId']}
     />
@@ -41,7 +41,7 @@ export const InsideModal: Story = {
         <Button onClick={toggleOpen}>Open Modal</Button>
         <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
           <div className='seam-components'>
-            <AccessCodeForm
+            <AccessCodeAddForm
               {...props}
               deviceId={props.deviceId ?? globals['deviceId']}
             />
