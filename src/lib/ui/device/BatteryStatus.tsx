@@ -1,4 +1,4 @@
-import type { BatteryStatus as SeamBatteryStatus, CommonDevice } from 'seamapi'
+import type { CommonDevice, BatteryStatus as SeamBatteryStatus } from 'seamapi'
 
 import { BatteryLevelCriticalIcon } from 'lib/icons/BatteryLevelCritical.js'
 import { BatteryLevelFullIcon } from 'lib/icons/BatteryLevelFull.js'
@@ -12,21 +12,27 @@ interface BatteryStatusProps {
 export function BatteryStatus(props: BatteryStatusProps): JSX.Element {
   return (
     <div className='seam-battery-status'>
-      <Content status={props.device.properties.battery?.status} />
+      <Content
+        status={props.device.properties.battery?.status}
+        level={props.device.properties.battery?.level}
+      />
     </div>
   )
 }
 
 function Content(props: {
   status: SeamBatteryStatus | null | undefined
+  level: number | undefined
 }): JSX.Element | null {
-  const { status } = props
+  const { status, level } = props
+
+  const percentage = Math.floor((level ?? 0) * 100)
 
   if (status === 'full') {
     return (
       <>
         <BatteryLevelFullIcon />
-        <span className='seam-status-text'>{t.full}</span>
+        <span className='seam-status-text'>{`${t.full} (${percentage}%)`}</span>
       </>
     )
   }
@@ -35,7 +41,7 @@ function Content(props: {
     return (
       <>
         <BatteryLevelHighIcon />
-        <span className='seam-status-text'>{t.high}</span>
+        <span className='seam-status-text'>{`${t.high} (${percentage}%)`}</span>
       </>
     )
   }
@@ -44,7 +50,7 @@ function Content(props: {
     return (
       <>
         <BatteryLevelLowIcon />
-        <span className='seam-status-text'>{t.low}</span>
+        <span className='seam-status-text'>{`${t.low} (${percentage}%)`}</span>
       </>
     )
   }
@@ -53,7 +59,7 @@ function Content(props: {
     return (
       <>
         <BatteryLevelCriticalIcon />
-        <span className='seam-text-danger'>{t.critical}</span>
+        <span className='seam-text-danger'>{`${t.critical} (${percentage}%)`}</span>
       </>
     )
   }
