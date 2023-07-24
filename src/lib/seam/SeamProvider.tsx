@@ -150,13 +150,7 @@ const defaultSeamContextValue = createDefaultSeamContextValue()
 export const seamContext = createContext<SeamContext>(defaultSeamContextValue)
 
 export function useSeamContext(): SeamContext {
-  const context = useContext(seamContext)
-
-  if (context == null) {
-    throw new Error('useSeamContext must be used inside a <SeamProvider/>')
-  }
-
-  return context
+  return useContext(seamContext)
 }
 
 const isSeamProviderPropsWithClient = (
