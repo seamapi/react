@@ -51,6 +51,7 @@ export interface AccessCodeTableProps {
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
   onBack?: () => void
+  title?: string | null
   className?: string
 }
 
@@ -78,6 +79,7 @@ export function AccessCodeTable({
   onBack,
   accessCodeFilter = defaultAccessCodeFilter,
   accessCodeComparator = compareByCreatedAtDesc,
+  title = t.accessCodes,
   className,
 }: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
@@ -140,9 +142,14 @@ export function AccessCodeTable({
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <div className='seam-left'>
-          <TableTitle>
-            {t.accessCodes} <Caption>({filteredAccessCodes.length})</Caption>{' '}
-          </TableTitle>
+          {title != null ? (
+            <TableTitle>
+              {title ?? t.accessCodes}{' '}
+              <Caption>({filteredAccessCodes.length})</Caption>
+            </TableTitle>
+          ) : (
+            <div className='seam-fragment' />
+          )}
           {!disableCreateAccessCode && (
             <IconButton
               onClick={toggleAddAccessCodeForm}
