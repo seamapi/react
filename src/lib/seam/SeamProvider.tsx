@@ -70,42 +70,40 @@ export function SeamProvider({
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
   useSeamFont({ disabled: disableFontInjection })
 
-  const value = useMemo(() => {
+  const seamProviderContextValue = useMemo(() => {
     const context = createSeamContextValue(props)
     if (
       context.client == null &&
       context.publishableKey == null &&
       context.clientSessionToken == null
     ) {
-      return defaultSeamContextValue
+      return getDefaultSeamContextValue()
     }
     return context
   }, [props])
 
   if (
-    value.client == null &&
-    value.publishableKey == null &&
-    value.clientSessionToken == null
+    seamProviderContextValue.client == null &&
+    seamProviderContextValue.publishableKey == null &&
+    seamProviderContextValue.clientSessionToken == null
   ) {
     throw new Error(
       `Must provide either a Seam client, clientSessionToken, or a publishableKey.`
     )
   }
 
-  const { Provider } = seamContext
-
   return (
     <div className='seam-components'>
       <QueryClientProvider
         client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
       >
-        <Provider value={value}>{children}</Provider>
+        <seamContext.Provider value={seamProviderContextValue}>{children}</seamContext.Provider>
       </QueryClientProvider>
     </div>
   )
 }
 
-const createDefaultSeamContextValue = (): SeamContext => {
+const getDefaultSeamContextValue = (): SeamContext => {
   try {
     if (globalThis.seam == null) {
       return { client: null }
@@ -145,9 +143,7 @@ const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
   return { client: null }
 }
 
-const defaultSeamContextValue = createDefaultSeamContextValue()
-
-export const seamContext = createContext<SeamContext>(defaultSeamContextValue)
+export const seamContext = createContext<SeamContext>(getDefaultSeamContextValue())
 
 export function useSeamContext(): SeamContext {
   const context = useContext(seamContext)

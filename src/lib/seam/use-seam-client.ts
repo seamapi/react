@@ -18,6 +18,10 @@ export function useSeamClient(): {
     clientSessionToken,
     ...context
   } = useSeamContext()
+
+  // eslint-disable-next-line
+  const endpoint = clientOptions?.endpoint || "https://connect.getseam.com"
+
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
     clientSessionToken != null ? '' : context.userIdentifierKey
   )
@@ -39,6 +43,7 @@ export function useSeamClient(): {
       if (clientSessionToken != null) {
         return new Seam({
           ...clientOptions,
+          endpoint,
           apiKey: undefined,
           clientSessionToken,
         })
@@ -62,6 +67,7 @@ export function useSeamClient(): {
 
       return new Seam({
         ...clientOptions,
+        endpoint,
         apiKey: undefined,
         clientSessionToken: res.client_session.token,
       })
