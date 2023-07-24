@@ -116,7 +116,7 @@ export function DeviceTable({
             {title ?? t.devices} <Caption>({filteredDevices.length})</Caption>
           </TableTitle>
         ) : (
-          <div />
+          <div className='seam-fragment' />
         )}
         {!disableSearch && (
           <SearchTextField
