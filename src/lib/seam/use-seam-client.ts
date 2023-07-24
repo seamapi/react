@@ -71,6 +71,21 @@ export function useSeamClient(): {
   return { client: data ?? null, isLoading, isError, error }
 }
 
+export class NullSeamClientError extends Error {
+  constructor() {
+    super(
+      [
+        'Attempted to use a null Seam client.',
+        'Either a hook using useSeamClient was called outside of a SeamProvider,',
+        'or there was an error when creating the Seam client in useSeamClient,',
+        'or useSeamClient is still loading the client.',
+      ].join(' ')
+    )
+    this.name = this.constructor.name
+    Error.captureStackTrace(this, this.constructor)
+  }
+}
+
 function useUserIdentifierKeyOrFingerprint(
   userIdentifierKey: string | undefined
 ): string {
