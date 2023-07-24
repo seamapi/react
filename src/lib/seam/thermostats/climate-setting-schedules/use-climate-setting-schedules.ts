@@ -1,42 +1,53 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type {
-  CommonDevice,
-  DevicesListRequest,
-  DevicesListResponse,
+  ClimateSettingSchedule,
+  ClimateSettingSchedulesListRequest,
+  ClimateSettingSchedulesListResponse,
   SeamError,
 } from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
-export type UseDevicesParams = DevicesListRequest
-export type UseDevicesData = CommonDevice[]
+export type UseClimateSettingSchedulesParams =
+  ClimateSettingSchedulesListRequest
+export type UseClimateSettingSchedulesData = ClimateSettingSchedule[]
 
 export function useClimateSettingSchedules(
-  params?: UseDevicesParams
-): UseSeamQueryResult<'devices', UseDevicesData> {
+  params: UseClimateSettingSchedulesParams
+): UseSeamQueryResult<
+  'climateSettingSchedules',
+  UseClimateSettingSchedulesData
+> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  const { data, ...rest } = useQuery<DevicesListResponse['devices'], SeamError>(
-    {
-      enabled: client != null,
-      queryKey: ['devices', 'list', params],
-      queryFn: async () => {
-        if (client == null) return []
-        return await client.devices.list(params)
-      },
-      onSuccess: (devices) => {
-        // Prime cache for each device.
-        for (const device of devices) {
-          queryClient.setQueryData(
-            ['devices', 'get', { device_id: device.device_id }],
-            device
-          )
-        }
-      },
-    }
-  )
+  const { data, ...rest } = useQuery<
+    ClimateSettingSchedulesListResponse['climate_setting_schedules'],
+    SeamError
+  >({
+    enabled: client != null,
+    queryKey: ['thermostats', 'climate_setting_schedules', 'list', params],
+    queryFn: async () => {
+      if (client == null) return []
+      return await client.thermostats.climateSettingSchedules.list(params)
+    },
+    onSuccess: (schedules) => {
+      // Prime cache for each schedule.
+      for (const schedule of schedules) {
+        queryClient.setQueryData(
+          [
+            'climate_setting_schedules',
+            'get',
+            {
+              climate_setting_schedule_id: schedule.climate_setting_schedule_id,
+            },
+          ],
+          schedule
+        )
+      }
+    },
+  })
 
-  return { ...rest, devices: data }
+  return { ...rest, climateSettingSchedules: data }
 }
