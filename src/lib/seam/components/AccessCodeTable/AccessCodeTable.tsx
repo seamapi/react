@@ -122,6 +122,19 @@ export function AccessCodeTable({
     [setSelectedEditAccessCodeId]
   )
 
+  if (selectedEditAccessCodeId != null) {
+    return (
+      <AccessCodeForm
+        accessCodeId={selectedEditAccessCodeId}
+        className={className}
+        onBack={() => {
+          setSelectedEditAccessCodeId(null)
+        }}
+        deviceId={deviceId}
+      />
+    )
+  }
+
   if (selectedViewAccessCodeId != null) {
     return (
       <AccessCodeDetails
@@ -131,17 +144,9 @@ export function AccessCodeTable({
           setSelectedViewAccessCodeId(null)
         }}
         disableLockUnlock={disableLockUnlock}
-      />
-    )
-  }
-
-  if (selectedEditAccessCodeId != null) {
-    return (
-      <AccessCodeForm
-        accessCodeId={selectedEditAccessCodeId}
-        className={className}
-        onBack={() => setSelectedEditAccessCodeId(null)}
-        deviceId={deviceId}
+        onEdit={() => {
+          setSelectedEditAccessCodeId(selectedViewAccessCodeId)
+        }}
       />
     )
   }
