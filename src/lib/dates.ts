@@ -136,5 +136,5 @@ export const createIsoDate = (date: string, timezone: string): string => {
  * @param date
  * @returns string
  */
-export const getTimezoneFromIsoDate = (date: string) =>
+export const getTimezoneFromIsoDate = (date: string): string | null =>
   DateTime.fromISO(date).zoneName

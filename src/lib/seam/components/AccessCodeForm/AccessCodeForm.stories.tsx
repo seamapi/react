@@ -1,7 +1,7 @@
 import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import { AccessCodeAddForm } from 'lib/seam/components/AccessCodeForm/AccessCodeAddForm.js'
 
+import { AccessCodeAddForm } from 'lib/seam/components/AccessCodeForm/AccessCodeAddForm.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
