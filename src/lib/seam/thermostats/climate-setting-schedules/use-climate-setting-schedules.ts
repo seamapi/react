@@ -16,7 +16,7 @@ export type UseClimateSettingSchedulesData = ClimateSettingSchedule[]
 export function useClimateSettingSchedules(
   params: UseClimateSettingSchedulesParams
 ): UseSeamQueryResult<
-  'climate_setting_schedules',
+  'climateSettingSchedules',
   UseClimateSettingSchedulesData
 > {
   const { client } = useSeamClient()
@@ -49,5 +49,5 @@ export function useClimateSettingSchedules(
     },
   })
 
-  return { ...rest, climate_setting_schedules: data }
+  return { ...rest, climateSettingSchedules: data }
 }
