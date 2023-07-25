@@ -327,14 +327,14 @@ On pull requests, Chromatic will run UI regressions tests on each commit.
 Chromatic reports results as status checks that link directly to the storybook.
 
 If changes are detected, follow the link in the status checks to approve the changes.
-_Contributors must be granted access to approve changes on Chromatic:
+_Contributors must be granted access to approve changes on Chromatic;
 request access from another maintainer of this project._
 
 [Chromatic]: https://www.chromatic.com/
 
 ### Previews
 
-Every pull request deploys the Storybook in docs mode with the examples
+Every pull request deploys the storybook in docs mode with the examples
 in a [Vercel Preview Deployment]
 where you may [comment directly on the preview][Vercel Comments].
 This is the same storybook published on [react.seam.co](https://react.seam.co).
