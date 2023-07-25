@@ -22,7 +22,7 @@ export function ClimateSettingStatus({
       <Content
         mode={setting.hvac_mode_setting}
         coolingSetPoint={setting.cooling_set_point_fahrenheit}
-        heatingSetPoint={setting.cooling_set_point_fahrenheit}
+        heatingSetPoint={setting.heating_set_point_fahrenheit}
       />
       {iconPlacement === 'right' && (
         <ClimateSettingIcon mode={setting.hvac_mode_setting} />
@@ -35,20 +35,15 @@ function ClimateSettingIcon(props: {
   mode: ClimateSetting['hvac_mode_setting']
 }): JSX.Element | null {
   const { mode } = props
-  if (mode === 'cool') {
-    return <ThermostatCoolIcon />
-  }
-  if (mode === 'heat') {
-    return <ThermostatHeatIcon />
-  }
-  if (mode === 'heatcool') {
-    return <ThermostatHeatCoolIcon />
-  }
-  if (mode === 'off') {
-    return <ThermostatOffIcon />
-  }
 
-  return null
+  return (
+    <div className='seam-climate-setting-status-icon'>
+      {mode === 'cool' && <ThermostatCoolIcon />}
+      {mode === 'heat' && <ThermostatHeatIcon />}
+      {mode === 'heatcool' && <ThermostatHeatCoolIcon />}
+      {mode === 'off' && <ThermostatOffIcon />}
+    </div>
+  )
 }
 
 function Content(props: {
@@ -58,33 +53,16 @@ function Content(props: {
 }): JSX.Element | null {
   const { mode, coolingSetPoint, heatingSetPoint } = props
 
-  if (mode === 'cool')
-    return (
-      <>
-        <span className='seam-status-text'>{`${coolingSetPoint}${t.degree}F`}</span>
-      </>
-    )
+  if (mode === 'cool') return <span>{`${coolingSetPoint}${t.degree}F`}</span>
 
-  if (mode === 'heat')
-    return (
-      <>
-        <span className='seam-status-text'>{`${heatingSetPoint}${t.degree}F`}</span>
-      </>
-    )
+  if (mode === 'heat') return <span>{`${heatingSetPoint}${t.degree}F`}</span>
 
   if (mode === 'heatcool')
     return (
-      <>
-        <span className='seam-status-text'>{`${heatingSetPoint}${t.degree}F - ${coolingSetPoint}${t.degree}F`}</span>
-      </>
+      <span>{`${heatingSetPoint}${t.degree}F - ${coolingSetPoint}${t.degree}F`}</span>
     )
 
-  if (mode === 'off')
-    return (
-      <>
-        <span className='seam-status-text'>{`Off`}</span>
-      </>
-    )
+  if (mode === 'off') return <span>{`Off`}</span>
 
   return null
 }

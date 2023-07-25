@@ -1,10 +1,21 @@
-
+@use './colors';
 
 @mixin all {
-.seam-climate-setting-status {
+  .seam-climate-setting-status {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    color: colors.$text-gray-1;
+    font-size: 14px;
+    line-height: 118%;
+    white-space: nowrap;
+  }
+
+  .seam-climate-setting-status-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
     align-items: center;
   }
 }
