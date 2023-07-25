@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import { isLockDevice } from 'seamapi'
+import { isLockDevice, isThermostatDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -71,7 +71,7 @@ export function DeviceTable({
   const filteredDevices = useMemo(
     () =>
       devices
-        ?.filter(isLockDevice)
+        ?.filter((device) => isLockDevice(device) || isThermostatDevice(device))
         ?.filter((device) => deviceFilter(device, searchInputValue))
         ?.sort(deviceComparator) ?? [],
     [devices, searchInputValue, deviceFilter, deviceComparator]
