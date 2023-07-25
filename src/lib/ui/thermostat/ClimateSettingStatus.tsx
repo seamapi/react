@@ -62,7 +62,7 @@ function Content(props: {
       <span>{`${heatingSetPoint}${t.degree}F - ${coolingSetPoint}${t.degree}F`}</span>
     )
 
-  if (mode === 'off') return <span>{`Off`}</span>
+  if (mode === 'off') return <span>Off</span>
 
   return null
 }
