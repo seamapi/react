@@ -4,7 +4,7 @@ import type { DeviceTableProps } from './DeviceTable.js'
 
 export const name = 'seam-device-table'
 
-export const props: ElementProps<DeviceTableProps> = {
+export const props: ElementProps<Omit<DeviceTableProps, 'title'>> = {
   deviceIds: 'json',
   connectedAccountIds: 'json',
   disableLockUnlock: 'boolean',

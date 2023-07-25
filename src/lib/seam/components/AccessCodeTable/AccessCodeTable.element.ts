@@ -4,7 +4,7 @@ import type { AccessCodeTableProps } from './AccessCodeTable.js'
 
 export const name = 'seam-access-code-table'
 
-export const props: ElementProps<AccessCodeTableProps> = {
+export const props: ElementProps<Omit<AccessCodeTableProps, 'title'>> = {
   deviceId: 'string',
   disableLockUnlock: 'boolean',
   disableSearch: 'boolean',

@@ -23,14 +23,15 @@ export interface ElementDefinition {
   props?: ElementProps<Record<string, object>>
 }
 
-export type ElementProps<T> = Partial<
-  Record<keyof T, 'string' | 'number' | 'boolean' | 'function' | 'json'>
+export type ElementProps<T> = Record<
+  keyof T,
+  'string' | 'number' | 'boolean' | 'function' | 'json'
 >
 
 type ProviderProps = SeamProviderPropsWithPublishableKey &
   SeamProviderPropsWithClientSessionToken
 
-const providerProps: ElementProps<ProviderProps> = {
+const providerProps: ElementProps<Omit<ProviderProps, 'queryClient'>> = {
   publishableKey: 'string',
   userIdentifierKey: 'string',
   clientSessionToken: 'string',
