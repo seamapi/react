@@ -34,6 +34,10 @@ export interface DeviceTableProps {
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
   onBack?: () => void
+  heading?: string | null
+  /**
+   * @deprecated Use `heading` instead
+   */
   title?: string | null
   className?: string
 }
@@ -57,6 +61,7 @@ export function DeviceTable({
   onBack,
   deviceFilter = defaultDeviceFilter,
   deviceComparator = compareByCreatedAtDesc,
+  heading = t.devices,
   title = t.devices,
   className,
 }: DeviceTableProps = {}): JSX.Element {
@@ -113,7 +118,8 @@ export function DeviceTable({
       <TableHeader>
         {title != null ? (
           <TableTitle>
-            {title ?? t.devices} <Caption>({filteredDevices.length})</Caption>
+            {heading ?? title ?? t.devices}{' '}
+            <Caption>({filteredDevices.length})</Caption>
           </TableTitle>
         ) : (
           <div className='seam-fragment' />
