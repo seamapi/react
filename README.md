@@ -327,8 +327,8 @@ On pull requests, Chromatic will run UI regressions tests on each commit.
 Chromatic reports results as status checks that link directly to the storybook.
 
 If changes are detected, follow the link in the status checks to approve the changes.
-_Contributors must be granted access to approve changes on Chromatic.
-Request access from another maintainer of this project._
+_Contributors must be granted access to approve changes on Chromatic:
+request access from another maintainer of this project._
 
 [Chromatic]: https://www.chromatic.com/
 
