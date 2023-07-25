@@ -15,7 +15,7 @@ export function ClimateSettingStatus({
   iconPlacement = 'left',
 }: ClimateSettingStatusProps): JSX.Element {
   return (
-    <div className='seam-battery-status'>
+    <div className='seam-climate-setting-status'>
       {iconPlacement === 'left' && (
         <ClimateSettingIcon mode={setting.hvac_mode_setting} />
       )}
@@ -90,5 +90,5 @@ function Content(props: {
 }
 
 const t = {
-  degree: 'U+00B0F',
+  degree: `\u00b0`,
 }
