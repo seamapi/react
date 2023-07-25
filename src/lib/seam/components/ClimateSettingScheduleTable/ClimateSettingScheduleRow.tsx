@@ -9,6 +9,8 @@ import type {
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
+import { DateTime } from 'luxon'
+import type { CommonDevice } from 'seamapi'
 
 export type ClimateSettingScheduleTableProps = Props &
   UseClimateSettingSchedulesParams
@@ -19,13 +21,22 @@ interface Props {
 
 interface ClimateSettingScheduleRowProps {
   climateSettingSchedule: UseClimateSettingSchedulesData[number]
+  device: CommonDevice
   onClick: () => void
 }
 
 export function ClimateSettingScheduleRow({
   climateSettingSchedule,
+  device,
   onClick,
 }: ClimateSettingScheduleRowProps): JSX.Element | null {
+  const startDate = DateTime.fromISO(
+    climateSettingSchedule.schedule_starts_at
+  ).toLocaleString({
+    month: 'short',
+    day: 'numeric',
+  })
+
   return (
     <TableRow onClick={onClick}>
       <TableCell>
@@ -34,19 +45,10 @@ export function ClimateSettingScheduleRow({
       <TableCell className='seam-body-cell'>
         <Title>{climateSettingSchedule.name}</Title>
         <div className='seam-bottom'>
-          {/* <span
-          >
-            {climateSettingSchedule.properties.model.display_name}
-          </span> */}
           <div className='seam-device-statuses'>
-            {/* TODO stats go here */}
-            {/* <OnlineStatus ClimateSettingSchedule={ClimateSettingSchedule} />
-            {isConnected && (
-              <BatteryStatus ClimateSettingSchedule={ClimateSettingSchedule} />
-            )}
-            {isConnected && (
-              <LockStatus ClimateSettingSchedule={ClimateSettingSchedule} />
-            )} */}
+            <span className='seam-status-text'>{device.properties.name}</span>
+            <span className='seam-status-text'>{`Starts ${startDate}`}</span>
+            <span className='seam-status-text'>{`70\u00B0F`}</span>
           </div>
         </div>
       </TableCell>
