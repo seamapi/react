@@ -293,6 +293,47 @@ export const seedFake = (db) => {
     errors: [],
   })
 
+  const thermostatDevice1 = db.addDevice({
+    connected_account_id: ca.connected_account_id,
+    device_type: 'ecobee_thermostat',
+    name: 'Main hall thermostat',
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-24T22:15:14.000',
+    properties: {
+      online: true,
+      is_cooling: true,
+      is_heating: false,
+      manufacturer: 'ecobee',
+      is_fan_running: true,
+      ecobee_metadata: {
+        device_name: 'Main hall thermostat',
+        ecobee_device_id: '7953dd39-10c9-4dda-a88d-12a0dec62234',
+        max_cooling_set_point_celsius: 29.499999999999996,
+        max_heating_set_point_celsius: 24.777777777777775,
+        min_cooling_set_point_celsius: 20.111111111111114,
+        min_heating_set_point_celsius: 18.111111111111107,
+        min_delta_heat_cool_set_points_celsius: 2.7777777777777777,
+      },
+      has_direct_power: true,
+      relative_humidity: 0.59,
+      temperature_celsius: 22.555555555555554,
+      temperature_fahrenheit: 72.6,
+      current_climate_setting: {
+        hvac_mode_setting: 'cool',
+        manual_override_allowed: false,
+        automatic_cooling_enabled: true,
+        automatic_heating_enabled: false,
+        cooling_set_point_celsius: 22.22222222222222,
+        cooling_set_point_fahrenheit: 72,
+      },
+      available_hvac_mode_settings: ['off', 'cool', 'heat', 'heatcool'],
+      can_enable_automatic_cooling: true,
+      can_enable_automatic_heating: true,
+      is_temporary_manual_override_active: false,
+    },
+    errors: [],
+  })
+
   db.addClientSession({
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-29T01:02:02.000',
