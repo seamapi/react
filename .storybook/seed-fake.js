@@ -29,6 +29,7 @@ export const seedFake = (db) => {
     status: 'authorized',
   })
 
+
   const device1 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: 'august_lock',
@@ -304,6 +305,59 @@ export const seedFake = (db) => {
     device2,
     device3,
     device4,
+  })
+
+
+ // Add ecobee thermostat
+ const cw2 = db.addConnectWebview({
+  workspace_id: ws2.workspace_id,
+  created_at: '2023-05-15T15:08:51.000',
+})
+
+const ca2 = db.addConnectedAccount({
+  provider: 'ecobee',
+  workspace_id: ws2.workspace_id,
+  created_at: '2023-05-15T15:08:52.000',
+})
+
+db.updateConnectWebview({
+  connect_webview_id: cw2.connect_webview_id,
+  connected_account_id: ca2.connected_account_id,
+  status: 'authorized',
+})
+
+  const device5 = db.addDevice({
+    connected_account_id: ca.connected_account_id,
+    device_type: 'ecobee_thermostat',
+    name: 'Entryway',
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-24T22:30:14.000',
+    properties: {
+      locked: true,
+      online: true,
+      door_open: false,
+      manufacturer: 'august',
+      battery_level: 0.9999532347993827,
+      serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
+      august_metadata: {
+        lock_id: 'lock-3',
+        house_id: 'house-1',
+        lock_name: 'GARAGE',
+        has_keypad: true,
+        house_name: 'My House',
+        keypad_battery_level: 'Not Available',
+      },
+      supported_code_lengths: [6],
+      name: 'GARAGE',
+      battery: {
+        level: 0.8,
+        status: 'full',
+      },
+      image_url:
+        'https://connect.getseam.com/assets/images/devices/august_wifi-smart-lock-3rd-gen_silver_front.png',
+      image_alt_text: 'August Wifi Smart Lock 3rd Gen, Silver, Front',
+    },
+    errors: [],
   })
 }
 
