@@ -57,6 +57,7 @@ export function ClimateSettingScheduleTable({
     useClimateSettingSchedules({
       device_id: deviceId,
     })
+  // TODO get device
 
   const [
     selectedClimateSettingScheduleId,
@@ -197,6 +198,7 @@ function Content(props: {
       /> */}
       {filteredClimateSettingSchedules.map((schedule) => (
         <ClimateSettingScheduleRow
+          device={}
           climateSettingSchedule={schedule}
           key={schedule.climate_setting_schedule_id}
           onClick={() => {
