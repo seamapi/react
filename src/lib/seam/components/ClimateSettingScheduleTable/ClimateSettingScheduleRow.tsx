@@ -1,23 +1,11 @@
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
-import type {
-  UseClimateSettingSchedulesData,
-  UseClimateSettingSchedulesParams,
-} from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+import type { UseClimateSettingSchedulesData } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 
-// import { ClimateSettingScheduleImage } from 'lib/ui/ClimateSettingSchedule/ClimateSettingScheduleImage.js'
-// import { isClimateSettingScheduleAccountOffline } from 'lib/ui/ClimateSettingSchedule/OnlineStatus.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
 import { DateTime } from 'luxon'
 import type { CommonDevice } from 'seamapi'
-
-export type ClimateSettingScheduleTableProps = Props &
-  UseClimateSettingSchedulesParams
-
-interface Props {
-  onBack?: () => void
-}
 
 interface ClimateSettingScheduleRowProps {
   climateSettingSchedule: UseClimateSettingSchedulesData[number]

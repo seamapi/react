@@ -4,12 +4,12 @@ import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
 } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
-import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useCallback, useMemo, useState } from 'react'
 import type { AccountFilter } from '../DeviceTable/DeviceHealthBar.js'
@@ -115,7 +115,9 @@ export function ClimateSettingScheduleTable({
   }
 
   return (
-    <div className={classNames('seam-ClimateSettingSchedule-table', className)}>
+    <div
+      className={classNames('seam-climate-setting-schedule-table', className)}
+    >
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
@@ -207,7 +209,7 @@ function Content(props: {
 }
 
 const t = {
-  climateSettingSchedules: 'climateSettingSchedules',
+  climateSettingSchedules: 'Climate setting schedules',
   noClimateSettingSchedulesMessage:
     'Sorry, no climate setting schedules were found',
 }

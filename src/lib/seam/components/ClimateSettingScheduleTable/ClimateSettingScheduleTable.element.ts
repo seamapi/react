@@ -1,18 +1,15 @@
 import type { ElementProps } from 'lib/element.js'
-import type { ClimateSettingScheduleTableProps } from './ClimateSettingScheduleRow.js'
+import type { ClimateSettingScheduleTableProps } from './ClimateSettingScheduleTable.js'
 
-]
-export const name = 'seam-device-table'
+export const name = 'seam-climate-setting-schedule-table'
 
 export const props: ElementProps<ClimateSettingScheduleTableProps> = {
-  climateSettingScheduleIds: 'json',
-  connectedAccountIds: 'json',
-  disableLockUnlock: 'boolean',
+  deviceId: 'string',
   disableSearch: 'boolean',
-  deviceFilter: 'function',
-  deviceComparator: 'function',
+  climateSettingScheduleFilter: 'function',
+  climateSettingScheduleComparator: 'function',
   onClimateSettingScheduleClick: 'function',
-  preventDefaultOnDeviceClick: 'boolean',
+  preventDefaultOnClimateSettingScheduleClick: 'boolean',
   onBack: 'function',
   className: 'string',
 }
