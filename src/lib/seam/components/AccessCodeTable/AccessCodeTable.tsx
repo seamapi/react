@@ -53,7 +53,7 @@ export interface AccessCodeTableProps {
   onBack?: () => void
   heading?: string | null
   /**
-   * @deprecated Use `heading` instead
+   * @deprecated Use heading.
    */
   title?: string | null
   className?: string
