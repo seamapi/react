@@ -309,7 +309,7 @@ Run the full storybook in development mode with
 $ npm start
 ```
 
-The deployed storybook runs in docs mode with does not contain the full storybook.
+The deployed storybook runs in docs mode which does not contain the full storybook.
 Develop the storybook in docs mode with
 
 ```
