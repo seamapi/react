@@ -14,6 +14,7 @@ export const props: ElementProps<DeviceTableProps> = {
   onDeviceClick: 'function',
   preventDefaultOnDeviceClick: 'boolean',
   onBack: 'function',
+  heading: 'string',
   className: 'string',
 }
 

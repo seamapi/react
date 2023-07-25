@@ -13,6 +13,7 @@ export const props: ElementProps<AccessCodeTableProps> = {
   onAccessCodeClick: 'function',
   preventDefaultOnAccessCodeClick: 'boolean',
   onBack: 'function',
+  heading: 'string',
   className: 'string',
 }
 
