@@ -1,9 +1,9 @@
+import type { ClimateSetting } from 'seamapi'
+
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { ThermostatOffIcon } from 'lib/icons/ThermostatOff.js'
-
-import type { ClimateSetting } from 'seamapi'
 
 interface ClimateSettingStatusProps {
   setting: ClimateSetting
@@ -82,7 +82,7 @@ function Content(props: {
   if (mode === 'off')
     return (
       <>
-        <span className='seam-status-text'>{`Off`}</span>
+        <span className='seam-status-text'>Off</span>
       </>
     )
 
