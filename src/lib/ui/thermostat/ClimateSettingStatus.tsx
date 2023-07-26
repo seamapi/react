@@ -52,12 +52,16 @@ function Content(props: {
   heatingSetPoint: ClimateSetting['cooling_set_point_fahrenheit']
 }): JSX.Element | null {
   const { mode, coolingSetPoint, heatingSetPoint } = props
+  const hasCoolingSetPoint = coolingSetPoint !== undefined
+  const hasHeatingSetPoint = heatingSetPoint !== undefined
 
-  if (mode === 'cool') return <span>{`${coolingSetPoint}${t.degree}F`}</span>
+  if (mode === 'cool' && hasCoolingSetPoint)
+    return <span>{`${coolingSetPoint}${t.degree}F`}</span>
 
-  if (mode === 'heat') return <span>{`${heatingSetPoint}${t.degree}F`}</span>
+  if (mode === 'heat' && hasHeatingSetPoint)
+    return <span>{`${heatingSetPoint}${t.degree}F`}</span>
 
-  if (mode === 'heatcool')
+  if (mode === 'heatcool' && hasHeatingSetPoint && hasCoolingSetPoint)
     return (
       <span>{`${heatingSetPoint}${t.degree}F - ${coolingSetPoint}${t.degree}F`}</span>
     )

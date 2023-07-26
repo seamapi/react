@@ -13,7 +13,7 @@ const meta: Meta<typeof ClimateSettingStatus> = {
 type Story = StoryObj<typeof ClimateSettingStatus>
 
 export const Content: Story = {
-  render: (props) => {
+  render: () => {
     return (
       <Box display='grid' gap={4} gridTemplateColumns='repeat(2, min-content)'>
         <ClimateSettingStatus
