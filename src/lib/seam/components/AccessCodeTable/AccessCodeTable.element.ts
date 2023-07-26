@@ -4,15 +4,15 @@ import type { AccessCodeTableProps } from './AccessCodeTable.js'
 
 export const name = 'seam-access-code-table'
 
-export const props: ElementProps<AccessCodeTableProps> = {
+export const props: ElementProps<Omit<AccessCodeTableProps, 'title'>> = {
   deviceId: 'string',
   disableLockUnlock: 'boolean',
   disableSearch: 'boolean',
-  accessCodeFilter: 'function',
-  accessCodeComparator: 'function',
-  onAccessCodeClick: 'function',
+  accessCodeFilter: 'object',
+  accessCodeComparator: 'object',
+  onAccessCodeClick: 'object',
   preventDefaultOnAccessCodeClick: 'boolean',
-  onBack: 'function',
+  onBack: 'object',
   heading: 'string',
   className: 'string',
 }

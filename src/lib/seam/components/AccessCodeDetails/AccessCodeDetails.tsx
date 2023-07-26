@@ -17,8 +17,8 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 export interface AccessCodeDetailsProps {
   accessCodeId: string
-  onBack?: () => void
   disableLockUnlock?: boolean
+  onBack?: () => void
   className?: string
 }
 
