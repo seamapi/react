@@ -31,11 +31,12 @@ export type ElementProps<T> = Record<
 type ProviderProps = SeamProviderPropsWithPublishableKey &
   SeamProviderPropsWithClientSessionToken
 
-const providerProps: ElementProps<Omit<ProviderProps, 'queryClient'>> = {
+const providerProps: ElementProps<ProviderProps> = {
   publishableKey: 'string',
   userIdentifierKey: 'string',
   clientSessionToken: 'string',
   endpoint: 'string',
+  queryClient: 'object',
   disableCssInjection: 'boolean',
   disableFontInjection: 'boolean',
   unminifiyCss: 'boolean',
