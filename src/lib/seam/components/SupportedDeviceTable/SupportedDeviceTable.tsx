@@ -23,7 +23,7 @@ export function SupportedDeviceTable({
 }: SupportedDeviceTableProps = {}): JSX.Element {
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<DeviceModelFilters>({
-    supportedOnly: false,
+    supportedOnly: true,
     category: null,
     brand: null,
   })

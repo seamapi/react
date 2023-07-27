@@ -71,12 +71,11 @@ export function SupportedDeviceContent({
     )
   }
 
-  // If there are no active filters or search, show all the rows without any brand sections.
   const hasFilters =
     filterValue.trim() !== '' ||
-    filters.supportedOnly ||
     filters.category !== null ||
     filters.brand !== null
+
   if (hasFilters) {
     return (
       <div className='seam-supported-device-table-content'>
