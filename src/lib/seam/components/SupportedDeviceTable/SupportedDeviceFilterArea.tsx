@@ -14,7 +14,7 @@ interface SupportedDeviceFilterAreaProps {
   setFilterValue: (filter: string) => void
   filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
-  brands: string[]
+  brands: string[] | null
 }
 
 export function SupportedDeviceFilterArea({
@@ -121,20 +121,20 @@ export function SupportedDeviceFilterArea({
 const useAvailableProperties = (
   property: keyof DeviceModel,
   options: {
-    brands: string[]
+    brands: string[] | null
   }
 ): string[] => {
   const { deviceModels } = useDeviceModels()
+
   if (deviceModels == null) return []
+
   const properties = new Set<string>()
   for (const deviceModel of deviceModels) {
     const value = deviceModel[property]
 
-    // If we're only looking at a subset of brands, such as ["yale", "august"], then we
-    // don't want to show other brands in the filter.
     if (
       property === 'brand' &&
-      options.brands.length > 0 &&
+      options.brands !== null &&
       !options.brands.includes(value)
     ) {
       continue

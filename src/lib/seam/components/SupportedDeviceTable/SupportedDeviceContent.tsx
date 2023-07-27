@@ -13,7 +13,7 @@ interface SupportedDeviceContentProps {
   filterValue: string
   resetFilterValue: () => void
   filters: DeviceModelFilters
-  brands: string[]
+  brands: string[] | null
 }
 
 export function SupportedDeviceContent({

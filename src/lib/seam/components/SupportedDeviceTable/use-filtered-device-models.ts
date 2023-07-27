@@ -15,7 +15,7 @@ export const useFilteredDeviceModels = ({
 }: {
   filterValue: string
   filters: DeviceModelFilters
-  brands: string[]
+  brands: string[] | null
 }): ReturnType<typeof useDeviceModels> => {
   const params: UseDeviceModelsParams = {}
 
@@ -33,15 +33,16 @@ export const useFilteredDeviceModels = ({
 
   const query = useDeviceModels(params)
 
-  if (brands.length === 0) {
+  if (brands === null) {
     return query
   }
 
-  // If the user only wants models for a collection of brands, such as ["yale", "august"], then
-  // we'll filter everything else out here.
-  const onlySpecificBrands = query.deviceModels?.filter((deviceModel) =>
-    brands.includes(deviceModel.brand)
-  )
-
-  return { ...query, deviceModels: onlySpecificBrands }
+  // UPSTREAM: The API does not have a brands query parameter,
+  // so selected brands are filtered here.
+  return {
+    ...query,
+    deviceModels: query.deviceModels?.filter((deviceModel) =>
+      brands.includes(deviceModel.brand)
+    ),
+  }
 }
