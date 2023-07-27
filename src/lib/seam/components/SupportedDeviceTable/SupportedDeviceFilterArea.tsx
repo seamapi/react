@@ -1,5 +1,4 @@
 import type { Dispatch, SetStateAction } from 'react'
-import type { DeviceModel } from 'seamapi'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
@@ -28,8 +27,7 @@ export function SupportedDeviceFilterArea({
     (v) => v != null && v !== false
   ).length
 
-  const filterProperty = 'brand'
-  const availableProperties = useAvailableProperties(filterProperty, { brands })
+  const availableBrands = useAvailableBrands(brands)
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -68,7 +66,7 @@ export function SupportedDeviceFilterArea({
               <FilterCategoryMenu
                 label={t.brand}
                 allLabel={allLabel}
-                options={availableProperties}
+                options={availableBrands}
                 onSelect={(brand: string) => {
                   setFilters((filters) => ({
                     ...filters,
@@ -77,7 +75,7 @@ export function SupportedDeviceFilterArea({
                 }}
                 buttonLabel={filters.brand ?? allLabel}
                 onAllOptionSelect={() => {
-                  resetFilter(filterProperty)
+                  resetFilter('brand')
                 }}
               />
             </div>
@@ -118,31 +116,27 @@ export function SupportedDeviceFilterArea({
   )
 }
 
-const useAvailableProperties = (
-  property: keyof DeviceModel,
-  options: {
-    brands: string[] | null
-  }
-): string[] => {
+const useAvailableBrands = (brands: string[] | null): string[] => {
   const { deviceModels } = useDeviceModels()
 
   if (deviceModels == null) return []
 
-  const properties = new Set<string>()
+  const uniqueBrands = new Set<string>()
   for (const deviceModel of deviceModels) {
-    const value = deviceModel[property]
+    const value = deviceModel['brand']
 
-    if (
-      property === 'brand' &&
-      options.brands !== null &&
-      !options.brands.includes(value)
-    ) {
-      continue
-    }
+    // UPSTREAM: API can return an empty value for brand.
+    if (value.trim() === '') continue
 
-    properties.add(capitalize(value))
+    uniqueBrands.add(deviceModel['brand'])
   }
-  return Array.from(properties)
+
+  return Array.from(uniqueBrands)
+    .filter((brand) => {
+      if (brands === null) return true
+      return brands.includes(brand)
+    })
+    .map((brand) => capitalize(brand))
 }
 
 const t = {
