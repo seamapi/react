@@ -24,7 +24,6 @@ export function SupportedDeviceTable({
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<DeviceModelFilters>({
     supportedOnly: true,
-    category: null,
     brand: null,
   })
 

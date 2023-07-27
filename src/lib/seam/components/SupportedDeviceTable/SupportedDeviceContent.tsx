@@ -71,10 +71,7 @@ export function SupportedDeviceContent({
     )
   }
 
-  const hasFilters =
-    filterValue.trim() !== '' ||
-    filters.category !== null ||
-    filters.brand !== null
+  const hasFilters = filterValue.trim() !== '' || filters.brand !== null
 
   if (hasFilters) {
     return (

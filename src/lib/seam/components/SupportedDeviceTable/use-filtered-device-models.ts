@@ -5,7 +5,6 @@ import {
 
 export interface DeviceModelFilters {
   supportedOnly: boolean
-  category: string | null
   brand: string | null
 }
 
@@ -26,10 +25,6 @@ export const useFilteredDeviceModels = ({
 
   if (filters.supportedOnly) {
     params.support_level = 'live'
-  }
-
-  if (filters.category !== null) {
-    params.main_category = filters.category
   }
 
   if (filters.brand !== null) {
