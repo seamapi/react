@@ -4,16 +4,17 @@ import type { DeviceTableProps } from './DeviceTable.js'
 
 export const name = 'seam-device-table'
 
-export const props: ElementProps<DeviceTableProps> = {
+export const props: ElementProps<Omit<DeviceTableProps, 'title'>> = {
   deviceIds: 'json',
   connectedAccountIds: 'json',
   disableLockUnlock: 'boolean',
   disableSearch: 'boolean',
-  deviceFilter: 'function',
-  deviceComparator: 'function',
-  onDeviceClick: 'function',
+  deviceFilter: 'object',
+  deviceComparator: 'object',
+  onDeviceClick: 'object',
   preventDefaultOnDeviceClick: 'boolean',
-  onBack: 'function',
+  onBack: 'object',
+  heading: 'string',
   className: 'string',
 }
 

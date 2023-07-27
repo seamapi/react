@@ -6,7 +6,7 @@ export const name = 'seam-access-code-form'
 export const props: ElementProps<AccessCodeFormProps> = {
   deviceId: 'string',
   accessCodeId: 'string',
-  onBack: 'function',
+  onBack: 'object',
   className: 'string',
 }
 

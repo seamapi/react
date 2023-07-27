@@ -18,18 +18,18 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 export interface AccessCodeDetailsProps {
   accessCodeId: string
+  disableLockUnlock?: boolean
   onBack?: () => void
   onEdit: () => void
-  disableLockUnlock?: boolean
   className?: string
 }
 
 export function AccessCodeDetails({
   accessCodeId,
-  onBack,
   disableLockUnlock = false,
-  className,
+  onBack,
   onEdit,
+  className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)

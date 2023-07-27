@@ -7,7 +7,7 @@ export const name = 'seam-device-details'
 export const props: ElementProps<DeviceDetailsProps> = {
   deviceId: 'string',
   disableLockUnlock: 'boolean',
-  onBack: 'function',
+  onBack: 'object',
   className: 'string',
 }
 
