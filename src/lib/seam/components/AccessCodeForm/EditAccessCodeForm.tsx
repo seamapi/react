@@ -1,22 +1,26 @@
-import type { AccessCode } from 'seamapi'
-
 import { createIsoDate } from 'lib/dates.js'
 import {
   useAccessCode,
   type UseAccessCodeData,
 } from 'lib/seam/access-codes/use-access-code.js'
 import { useUpdateAccessCode } from 'lib/seam/access-codes/use-update-access-code.js'
-import type { AccessCodeFormProps } from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
-import AccessCodeFormContent from 'lib/seam/components/AccessCodeForm/AccessCodeFormContent.js'
-import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
+import {
+  AccessCodeForm,
+  type AccessCodeFormSubmitData,
+} from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
 
-export function AccessCodeEditForm({
+export interface EditAccessCodeFormProps {
+  onBack?: () => void
+  className?: string
+  accessCodeId: string
+}
+
+export function EditAccessCodeForm({
   accessCodeId,
   onBack,
   className,
-}: Omit<AccessCodeFormProps, 'accessCodeId'> & {
-  accessCodeId: string
-}): JSX.Element | null {
+}: EditAccessCodeFormProps): JSX.Element | null {
   const { accessCode } = useAccessCode({
     access_code_id: accessCodeId,
   })
@@ -30,63 +34,51 @@ export function AccessCodeEditForm({
   )
 }
 
-export interface AccessCodeEditFormSubmitParams {
-  name: string
-  type: AccessCode['type']
-  device: NonNullable<UseDeviceData>
-  startDate: string
-  endDate: string
-  timezone: string
-  onSuccess?: () => void
-  accessCode: NonNullable<UseAccessCodeData>
-}
-
 function Content({
   className,
   onBack,
   accessCode,
-}: Omit<AccessCodeFormProps, 'accessCodeId'> & {
+}: Omit<EditAccessCodeFormProps, 'accessCodeId'> & {
   accessCode: NonNullable<UseAccessCodeData>
 }): JSX.Element | null {
   const { device } = useDevice({
     device_id: accessCode.device_id,
   })
 
+  const { submit, isSubmitting } = useUpdate(accessCode, onBack)
+
   if (device == null) {
     return null
   }
 
   return (
-    <AccessCodeFormContent
+    <AccessCodeForm
       onBack={onBack}
       className={className}
       accessCode={accessCode}
       device={device}
+      onSubmit={submit}
+      isSubmitting={isSubmitting}
     />
   )
 }
 
-export function useSubmitUpdate(): {
-  submit: (params: AccessCodeEditFormSubmitParams) => void
-  isLoading: boolean
+function useUpdate(
+  accessCode: NonNullable<UseAccessCodeData>,
+  onSuccess?: () => void
+): {
+  submit: (data: AccessCodeFormSubmitData) => void
+  isSubmitting: boolean
 } {
-  const { mutate, isLoading } = useUpdateAccessCode()
-  const submit = (params: AccessCodeEditFormSubmitParams): void => {
-    const {
-      name,
-      type,
-      device,
-      startDate,
-      endDate,
-      timezone,
-      onSuccess,
-      accessCode,
-    } = params
+  const { mutate, isLoading: isSubmitting } = useUpdateAccessCode()
+
+  const submit = (data: AccessCodeFormSubmitData): void => {
+    const { name, type, device, startDate, endDate, timezone } = data
     if (name === '') {
       return
     }
 
-    if (isLoading) {
+    if (isSubmitting) {
       return
     }
 
@@ -121,5 +113,5 @@ export function useSubmitUpdate(): {
     )
   }
 
-  return { submit, isLoading }
+  return { submit, isSubmitting }
 }

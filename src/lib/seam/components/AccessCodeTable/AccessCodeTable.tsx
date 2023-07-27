@@ -12,7 +12,8 @@ import {
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
-import { AccessCodeForm } from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
+import { CreateAccessCodeForm } from 'lib/seam/components/AccessCodeForm/CreateAccessCodeForm.js'
+import { EditAccessCodeForm } from 'lib/seam/components/AccessCodeForm/EditAccessCodeForm.js'
 import {
   type AccessCodeFilter,
   AccessCodeHealthBar,
@@ -131,13 +132,12 @@ export function AccessCodeTable({
 
   if (selectedEditAccessCodeId != null) {
     return (
-      <AccessCodeForm
+      <EditAccessCodeForm
         accessCodeId={selectedEditAccessCodeId}
         className={className}
         onBack={() => {
           setSelectedEditAccessCodeId(null)
         }}
-        deviceId={deviceId}
       />
     )
   }
@@ -160,7 +160,7 @@ export function AccessCodeTable({
 
   if (addAccessCodeFormVisible) {
     return (
-      <AccessCodeForm
+      <CreateAccessCodeForm
         className={className}
         onBack={toggleAddAccessCodeForm}
         deviceId={deviceId}

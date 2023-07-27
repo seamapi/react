@@ -4,10 +4,12 @@ import type { AccessCodeFormProps } from 'lib/seam/components/AccessCodeForm/Acc
 export const name = 'seam-access-code-form'
 
 export const props: ElementProps<AccessCodeFormProps> = {
-  deviceId: 'string',
-  accessCodeId: 'string',
-  onBack: 'object',
   className: 'string',
+  onBack: 'object',
+  accessCode: 'object',
+  device: 'object',
+  isSubmitting: 'boolean',
+  onSubmit: 'object',
 }
 
 export { AccessCodeForm as Component } from './AccessCodeForm.js'
