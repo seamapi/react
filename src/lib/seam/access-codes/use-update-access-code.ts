@@ -10,7 +10,7 @@ import type {
   SeamError,
 } from 'seamapi'
 
-import { useSeamClient } from 'lib/seam/use-seam-client.js'
+import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseUpdateAccessCodeParams = never
 export type UseUpdateAccessCodeData = ActionAttempt<'UPDATE_ACCESS_CODE'>
@@ -30,9 +30,7 @@ export function useUpdateAccessCode(): UseMutationResult<
     AccessCodeUpdateRequest
   >({
     mutationFn: async (mutationParams: UseUpdateAccessCodeMutationParams) => {
-      if (client === null) {
-        throw new Error('Missing seam client')
-      }
+      if (client === null) throw new NullSeamClientError()
 
       return await client.accessCodes.update(mutationParams)
     },
