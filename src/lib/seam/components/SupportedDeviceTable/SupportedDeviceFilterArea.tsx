@@ -23,9 +23,7 @@ export function SupportedDeviceFilterArea({
   setFilters,
   brands,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
-  const appliedFiltersCount = Object.values(filters).filter(
-    (v) => v != null && v !== false
-  ).length
+  const appliedFiltersCount = getAppliedFilterCount(filters)
 
   const availableBrands = useAvailableBrands(brands)
 
@@ -114,6 +112,13 @@ export function SupportedDeviceFilterArea({
       </div>
     </div>
   )
+}
+
+const getAppliedFilterCount = (filters: DeviceModelFilters): number => {
+  let count = 0
+  if (filters.brand !== null) count++
+  if (!filters.supportedOnly) count++
+  return count
 }
 
 const useAvailableBrands = (brands: string[] | null): string[] => {
