@@ -31,11 +31,11 @@ interface AccessCodeFormContentProps extends AccessCodeFormProps {
 
 export default function AccessCodeFormContent({
   className,
-  ...otherProps
+  ...props
 }: AccessCodeFormContentProps): JSX.Element | null {
   return (
     <div className={classNames('seam-access-code-form', className)}>
-      <Content {...otherProps} />
+      <Content {...props} />
     </div>
   )
 }
