@@ -45,7 +45,7 @@ function Content({
     device_id: accessCode.device_id,
   })
 
-  const { submit, isSubmitting } = useUpdate(accessCode, onBack)
+  const { submit, isSubmitting } = useSubmitEditAccessCode(accessCode, onBack)
 
   if (device == null) {
     return null
@@ -63,7 +63,7 @@ function Content({
   )
 }
 
-function useUpdate(
+function useSubmitEditAccessCode(
   accessCode: NonNullable<UseAccessCodeData>,
   onSuccess?: () => void
 ): {

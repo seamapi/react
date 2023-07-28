@@ -35,7 +35,7 @@ function Content({
 }: Omit<CreateAccessCodeFormProps, 'deviceId'> & {
   device: NonNullable<UseDeviceData>
 }): JSX.Element {
-  const { submit, isSubmitting } = useSubmitAdd(onBack)
+  const { submit, isSubmitting } = useSubmitCreateAccessCode(onBack)
 
   return (
     <AccessCodeForm
@@ -48,7 +48,7 @@ function Content({
   )
 }
 
-function useSubmitAdd(onSuccess?: () => void): {
+function useSubmitCreateAccessCode(onSuccess?: () => void): {
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
 } {
