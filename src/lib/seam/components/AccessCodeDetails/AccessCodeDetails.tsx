@@ -19,6 +19,7 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 export interface AccessCodeDetailsProps {
   accessCodeId: string
   disableLockUnlock?: boolean
+  disableEdit?: boolean
   onBack?: () => void
   onEdit: () => void
   className?: string
@@ -27,6 +28,7 @@ export interface AccessCodeDetailsProps {
 export function AccessCodeDetails({
   accessCodeId,
   disableLockUnlock = false,
+  disableEdit = false,
   onBack,
   onEdit,
   className,
@@ -90,12 +92,13 @@ export function AccessCodeDetails({
           onSelectDevice={selectDevice}
         />
       </div>
-
-      <div className='seam-actions'>
-        <Button size='small' onClick={onEdit}>
-          {t.editCode}
-        </Button>
-      </div>
+      {!disableEdit && (
+        <div className='seam-actions'>
+          <Button size='small' onClick={onEdit}>
+            {t.editCode}
+          </Button>
+        </div>
+      )}
       <div className='seam-details'>
         <div className='seam-row'>
           <div className='seam-heading'>{t.id}:</div>

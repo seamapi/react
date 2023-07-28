@@ -36,6 +36,7 @@ import { Title } from 'lib/ui/typography/Title.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const disableCreateAccessCode = true
+const disableEditAccessCode = false
 
 export interface AccessCodeTableProps {
   deviceId: string
@@ -151,6 +152,7 @@ export function AccessCodeTable({
           setSelectedViewAccessCodeId(null)
         }}
         disableLockUnlock={disableLockUnlock}
+        disableEdit={disableEditAccessCode}
         onEdit={() => {
           setSelectedEditAccessCodeId(selectedViewAccessCodeId)
         }}
@@ -203,6 +205,7 @@ export function AccessCodeTable({
           accessCodes={filteredAccessCodes}
           onAccessCodeClick={handleAccessCodeClick}
           onAccessCodeEdit={handleAccessCodeEdit}
+          disableEditAccessCode={disableEditAccessCode}
         />
       </TableBody>
     </div>
@@ -213,8 +216,14 @@ function Content(props: {
   accessCodes: Array<UseAccessCodesData[number]>
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
+  disableEditAccessCode: boolean
 }): JSX.Element {
-  const { accessCodes, onAccessCodeClick, onAccessCodeEdit } = props
+  const {
+    accessCodes,
+    onAccessCodeClick,
+    onAccessCodeEdit,
+    disableEditAccessCode,
+  } = props
   const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
   const filteredAccessCodes = useMemo(() => {
@@ -249,6 +258,7 @@ function Content(props: {
           onClick={() => {
             onAccessCodeClick(accessCode.access_code_id)
           }}
+          disableEdit={disableEditAccessCode}
           onEdit={() => {
             onAccessCodeEdit(accessCode.access_code_id)
           }}
@@ -262,8 +272,9 @@ function AccessCodeRow(props: {
   accessCode: UseAccessCodesData[number]
   onClick: () => void
   onEdit: () => void
+  disableEdit: boolean
 }): JSX.Element {
-  const { onClick, accessCode, onEdit } = props
+  const { onClick, accessCode, onEdit, disableEdit } = props
 
   const errorCount = accessCode.errors.length
   const warningCount = accessCode.warnings.length
@@ -316,8 +327,12 @@ function AccessCodeRow(props: {
               <CopyIcon />
             </div>
           </MenuItem>
-          <div className='seam-divider' />
-          <MenuItem onClick={onEdit}>{t.editCode}</MenuItem>
+          {!disableEdit && (
+            <>
+              <div className='seam-divider' />
+              <MenuItem onClick={onEdit}>{t.editCode}</MenuItem>
+            </>
+          )}
         </MoreActionsMenu>
       </TableCell>
     </TableRow>
