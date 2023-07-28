@@ -5,7 +5,7 @@ import { EditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditA
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
- * These stories showcase access code details.
+ * These stories showcase editing an access code.
  */
 const meta: Meta<typeof EditAccessCodeForm> = {
   title: 'Example/EditAccessCodeForm',

@@ -5,7 +5,7 @@ import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/C
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
- * These stories showcase access code details.
+ * These stories showcase creating an access code.
  */
 const meta: Meta<typeof CreateAccessCodeForm> = {
   title: 'Example/CreateAccessCodeForm (Coming Soon)',
