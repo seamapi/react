@@ -3,16 +3,16 @@ import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
 import {
-  createIsoDate,
   get24HoursLater,
   getBrowserTimezone,
   getNow,
+  getTimezoneFromIsoDate,
 } from 'lib/dates.js'
-import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
-import { AccessCodeFormDatePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormDatePicker.js'
-import { AccessCodeFormTimes } from 'lib/seam/components/AccessCodeForm/AccessCodeFormTimes.js'
-import { AccessCodeFormTimezonePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormTimezonePicker.js'
-import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
+import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
+import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
+import { AccessCodeFormDatePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormDatePicker.js'
+import { AccessCodeFormTimes } from 'lib/ui/AccessCodeForm/AccessCodeFormTimes.js'
+import { AccessCodeFormTimezonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimezonePicker.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -21,55 +21,72 @@ import { RadioField } from 'lib/ui/RadioField/RadioField.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
+export interface AccessCodeFormSubmitData {
+  name: string
+  type: AccessCode['type']
+  device: NonNullable<UseDeviceData>
+  startDate: string
+  endDate: string
+  timezone: string
+}
+
 export interface AccessCodeFormProps {
-  deviceId: string
-  onBack?: () => void
   className?: string
+  onBack?: () => void
+  accessCode?: NonNullable<UseAccessCodeData>
+  device: NonNullable<UseDeviceData>
+  isSubmitting: boolean
+  onSubmit: (data: AccessCodeFormSubmitData) => void
 }
 
 export function AccessCodeForm({
-  deviceId,
-  onBack,
   className,
+  ...props
 }: AccessCodeFormProps): JSX.Element | null {
-  const { device } = useDevice({
-    device_id: deviceId,
-  })
-
-  if (device == null) {
-    return null
-  }
-
   return (
     <div className={classNames('seam-access-code-form', className)}>
-      <Content className={className} onBack={onBack} device={device} />
+      <Content {...props} />
     </div>
   )
 }
 
 function Content({
   onBack,
+  accessCode,
   device,
-}: Omit<AccessCodeFormProps, 'deviceId'> & {
-  device: NonNullable<UseDeviceData>
-}): JSX.Element {
-  const [name, setName] = useState('')
-  const [type, setType] = useState<AccessCode['type']>('ongoing')
+  onSubmit,
+  isSubmitting,
+}: Omit<AccessCodeFormProps, 'className'>): JSX.Element {
+  const [name, setName] = useState(accessCode?.name ?? '')
+  const [type, setType] = useState<AccessCode['type']>(
+    accessCode?.type ?? 'ongoing'
+  )
   const [datePickerVisible, setDatePickerVisible] = useState(false)
-  const [timezone, setTimezone] = useState<string>(getBrowserTimezone())
-  const [startDate, setStartDate] = useState<string>(getNow())
-  const [endDate, setEndDate] = useState<string>(get24HoursLater())
+  const [timezone, setTimezone] = useState<string>(
+    getAccessCodeTimezone(accessCode) ?? getBrowserTimezone()
+  )
+  const [startDate, setStartDate] = useState<string>(
+    getAccessCodeDate('starts_at', accessCode) ?? getNow()
+  )
+  const [endDate, setEndDate] = useState<string>(
+    getAccessCodeDate('ends_at', accessCode) ?? get24HoursLater()
+  )
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
 
-  const { submit, isLoading } = useSubmit({
-    name,
-    type,
-    device,
-    startDate,
-    endDate,
-    timezone,
-    onSuccess: onBack,
-  })
+  const submit = (): void => {
+    if (isSubmitting) {
+      return
+    }
+
+    onSubmit({
+      name,
+      type,
+      device,
+      startDate,
+      endDate,
+      timezone,
+    })
+  }
 
   if (timezonePickerVisible) {
     return (
@@ -100,12 +117,14 @@ function Content({
   const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
 
   const isFormValid =
-    name.trim().length > 0 && nameError === undefined && !isLoading
+    name.trim().length > 0 && nameError === undefined && !isSubmitting
+
+  const title = accessCode == null ? t.addNewAccessCode : t.editAccessCode
 
   return (
     <>
       <ContentHeader
-        title={t.addNewAccessCode}
+        title={title}
         subheading={device.properties.name}
         onBack={onBack}
       />
@@ -161,62 +180,45 @@ function Content({
   )
 }
 
-function useSubmit(params: {
-  name: string
-  type: AccessCode['type']
-  device: NonNullable<UseDeviceData>
-  startDate: string
-  endDate: string
-  timezone: string
-  onSuccess?: () => void
-}): {
-  submit: () => void
-  isLoading: boolean
-} {
-  const { name, type, device, startDate, endDate, timezone, onSuccess } = params
-
-  const { mutate, isLoading } = useCreateAccessCode()
-  const submit = (): void => {
-    if (name === '') {
-      return
-    }
-
-    if (isLoading) {
-      return
-    }
-
-    if (type === 'time_bound') {
-      mutate(
-        {
-          name,
-          device_id: device.device_id,
-          starts_at: createIsoDate(startDate, timezone),
-          ends_at: createIsoDate(endDate, timezone),
-        },
-        {
-          onSuccess,
-        }
-      )
-
-      return
-    }
-
-    mutate(
-      {
-        name,
-        device_id: device.device_id,
-      },
-      {
-        onSuccess,
-      }
-    )
+function getAccessCodeTimezone(
+  accessCode?: NonNullable<UseAccessCodeData>
+): undefined | string {
+  if (accessCode == null) {
+    return undefined
   }
 
-  return { submit, isLoading }
+  if (accessCode.type === 'ongoing') {
+    return undefined
+  }
+
+  const date = accessCode.starts_at
+
+  const timezone = getTimezoneFromIsoDate(date)
+  if (timezone == null) {
+    return undefined
+  }
+
+  return timezone
+}
+
+function getAccessCodeDate(
+  date: 'starts_at' | 'ends_at',
+  accessCode?: NonNullable<UseAccessCodeData>
+): string | undefined {
+  if (accessCode == null) {
+    return undefined
+  }
+
+  if (accessCode.type !== 'time_bound') {
+    return undefined
+  }
+
+  return accessCode[date]
 }
 
 const t = {
   addNewAccessCode: 'Add new access code',
+  editAccessCode: 'Edit access code',
   overCharacterLimitError: '60 characters max',
   nameInputLabel: 'Name the new code',
   cancel: 'Cancel',

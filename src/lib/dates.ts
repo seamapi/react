@@ -128,3 +128,13 @@ export const createIsoDate = (date: string, timezone: string): string => {
   const offset = getTimezoneOffset(timezone)
   return `${date}.000${offset}`
 }
+
+/**
+ * Takes a ISO datetime string (2023-07-20T00:00:00.000-07:00) and returns
+ * the IANA timezone (America/Los_angeles).
+ *
+ * @param date
+ * @returns string
+ */
+export const getTimezoneFromIsoDate = (date: string): string | null =>
+  DateTime.fromISO(date).zoneName

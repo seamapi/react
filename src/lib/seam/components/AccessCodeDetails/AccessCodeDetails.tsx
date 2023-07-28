@@ -12,20 +12,25 @@ import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
+import { Button } from 'lib/ui/Button.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
+
+const disableEditAccessCode = false
 
 export interface AccessCodeDetailsProps {
   accessCodeId: string
   disableLockUnlock?: boolean
   onBack?: () => void
+  onEdit: () => void
   className?: string
 }
 
 export function AccessCodeDetails({
   accessCodeId,
-  onBack,
   disableLockUnlock = false,
+  onBack,
+  onEdit,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
@@ -87,6 +92,13 @@ export function AccessCodeDetails({
           onSelectDevice={selectDevice}
         />
       </div>
+      {!disableEditAccessCode && (
+        <div className='seam-actions'>
+          <Button size='small' onClick={onEdit}>
+            {t.editCode}
+          </Button>
+        </div>
+      )}
       <div className='seam-details'>
         <div className='seam-row'>
           <div className='seam-heading'>{t.id}:</div>
@@ -211,4 +223,5 @@ const t = {
   ongoing: 'Ongoing',
   start: 'Start',
   end: 'End',
+  editCode: 'Edit code',
 }

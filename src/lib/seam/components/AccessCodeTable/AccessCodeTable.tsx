@@ -12,12 +12,13 @@ import {
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
-import { AccessCodeForm } from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
 import {
   type AccessCodeFilter,
   AccessCodeHealthBar,
 } from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
+import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
+import { EditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -35,6 +36,7 @@ import { Title } from 'lib/ui/typography/Title.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const disableCreateAccessCode = true
+const disableEditAccessCode = false
 
 export interface AccessCodeTableProps {
   deviceId: string
@@ -91,12 +93,15 @@ export function AccessCodeTable({
     device_id: deviceId,
   })
 
-  const [selectedAccessCodeId, setSelectedAccessCodeId] = useState<
+  const [selectedViewAccessCodeId, setSelectedViewAccessCodeId] = useState<
     string | null
   >(null)
 
   const [searchInputValue, setSearchInputValue] = useState('')
-  const [accessCodeFormVisible, toggleAddAccessCodeForm] = useToggle()
+  const [addAccessCodeFormVisible, toggleAddAccessCodeForm] = useToggle()
+  const [selectedEditAccessCodeId, setSelectedEditAccessCodeId] = useState<
+    string | null
+  >(null)
 
   const filteredAccessCodes = useMemo(
     () =>
@@ -110,31 +115,53 @@ export function AccessCodeTable({
     (accessCodeId: string): void => {
       onAccessCodeClick(accessCodeId)
       if (preventDefaultOnAccessCodeClick) return
-      setSelectedAccessCodeId(accessCodeId)
+      setSelectedViewAccessCodeId(accessCodeId)
     },
     [
       onAccessCodeClick,
       preventDefaultOnAccessCodeClick,
-      setSelectedAccessCodeId,
+      setSelectedViewAccessCodeId,
     ]
   )
 
-  if (selectedAccessCodeId != null) {
+  const handleAccessCodeEdit = useCallback(
+    (accessCodeId: string): void => {
+      setSelectedEditAccessCodeId(accessCodeId)
+    },
+    [setSelectedEditAccessCodeId]
+  )
+
+  if (selectedEditAccessCodeId != null) {
     return (
-      <AccessCodeDetails
+      <EditAccessCodeForm
+        accessCodeId={selectedEditAccessCodeId}
         className={className}
-        accessCodeId={selectedAccessCodeId}
         onBack={() => {
-          setSelectedAccessCodeId(null)
+          setSelectedEditAccessCodeId(null)
         }}
-        disableLockUnlock={disableLockUnlock}
       />
     )
   }
 
-  if (accessCodeFormVisible) {
+  if (selectedViewAccessCodeId != null) {
     return (
-      <AccessCodeForm
+      <AccessCodeDetails
+        className={className}
+        accessCodeId={selectedViewAccessCodeId}
+        onBack={() => {
+          setSelectedViewAccessCodeId(null)
+        }}
+        disableLockUnlock={disableLockUnlock}
+        onEdit={() => {
+          setSelectedEditAccessCodeId(selectedViewAccessCodeId)
+        }}
+      />
+    )
+  }
+
+  if (addAccessCodeFormVisible) {
+    return (
+      <CreateAccessCodeForm
         className={className}
         onBack={toggleAddAccessCodeForm}
         deviceId={deviceId}
@@ -176,6 +203,8 @@ export function AccessCodeTable({
         <Content
           accessCodes={filteredAccessCodes}
           onAccessCodeClick={handleAccessCodeClick}
+          onAccessCodeEdit={handleAccessCodeEdit}
+          disableEditAccessCode={disableEditAccessCode}
         />
       </TableBody>
     </div>
@@ -185,8 +214,15 @@ export function AccessCodeTable({
 function Content(props: {
   accessCodes: Array<UseAccessCodesData[number]>
   onAccessCodeClick: (accessCodeId: string) => void
+  onAccessCodeEdit: (accessCodeId: string) => void
+  disableEditAccessCode: boolean
 }): JSX.Element {
-  const { accessCodes, onAccessCodeClick } = props
+  const {
+    accessCodes,
+    onAccessCodeClick,
+    onAccessCodeEdit,
+    disableEditAccessCode,
+  } = props
   const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
   const filteredAccessCodes = useMemo(() => {
@@ -221,6 +257,10 @@ function Content(props: {
           onClick={() => {
             onAccessCodeClick(accessCode.access_code_id)
           }}
+          disableEditAccessCode={disableEditAccessCode}
+          onEdit={() => {
+            onAccessCodeEdit(accessCode.access_code_id)
+          }}
         />
       ))}
     </>
@@ -230,8 +270,10 @@ function Content(props: {
 function AccessCodeRow(props: {
   accessCode: UseAccessCodesData[number]
   onClick: () => void
+  onEdit: () => void
+  disableEditAccessCode: boolean
 }): JSX.Element {
-  const { onClick, accessCode } = props
+  const { onClick, accessCode, onEdit, disableEditAccessCode } = props
 
   const errorCount = accessCode.errors.length
   const warningCount = accessCode.warnings.length
@@ -277,13 +319,19 @@ function AccessCodeRow(props: {
               void copyToClipboard(accessCode.code ?? '')
             }}
           >
-            <div className='menu-item-copy'>
+            <div className='seam-menu-item-copy'>
               <span>
                 {t.copyCode} - {accessCode.code}
               </span>
               <CopyIcon />
             </div>
           </MenuItem>
+          {!disableEditAccessCode && (
+            <>
+              <div className='seam-divider' />
+              <MenuItem onClick={onEdit}>{t.editCode}</MenuItem>
+            </>
+          )}
         </MoreActionsMenu>
       </TableCell>
     </TableRow>
@@ -296,4 +344,5 @@ const t = {
   noAccessCodesMessage: 'Sorry, no access codes were found',
   codeIssue: 'code issue',
   codeIssues: 'code issues',
+  editCode: 'Edit code',
 }
