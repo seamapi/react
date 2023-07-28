@@ -9,10 +9,10 @@ import {
   getTimezoneFromIsoDate,
 } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
-import { AccessCodeFormDatePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormDatePicker.js'
-import { AccessCodeFormTimes } from 'lib/seam/components/AccessCodeForm/AccessCodeFormTimes.js'
-import { AccessCodeFormTimezonePicker } from 'lib/seam/components/AccessCodeForm/AccessCodeFormTimezonePicker.js'
 import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
+import { AccessCodeFormDatePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormDatePicker.js'
+import { AccessCodeFormTimes } from 'lib/ui/AccessCodeForm/AccessCodeFormTimes.js'
+import { AccessCodeFormTimezonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimezonePicker.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'

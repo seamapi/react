@@ -4,15 +4,15 @@ import {
   type UseAccessCodeData,
 } from 'lib/seam/access-codes/use-access-code.js'
 import { useUpdateAccessCode } from 'lib/seam/access-codes/use-update-access-code.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
-} from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
-import { useDevice } from 'lib/seam/devices/use-device.js'
+} from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
 
 export interface EditAccessCodeFormProps {
-  onBack?: () => void
   className?: string
+  onBack?: () => void
   accessCodeId: string
 }
 

@@ -1,14 +1,14 @@
 import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CreateAccessCodeForm } from 'lib/seam/components/AccessCodeForm/CreateAccessCodeForm.js'
+import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
  * These stories showcase access code details.
  */
 const meta: Meta<typeof CreateAccessCodeForm> = {
-  title: 'Example/AccessCodeForm (Coming Soon)',
+  title: 'Example/CreateAccessCodeForm (Coming Soon)',
   component: CreateAccessCodeForm,
   tags: ['autodocs'],
   parameters: {

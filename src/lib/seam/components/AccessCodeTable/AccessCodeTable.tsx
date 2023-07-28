@@ -12,13 +12,13 @@ import {
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
-import { CreateAccessCodeForm } from 'lib/seam/components/AccessCodeForm/CreateAccessCodeForm.js'
-import { EditAccessCodeForm } from 'lib/seam/components/AccessCodeForm/EditAccessCodeForm.js'
+import { EditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
 import {
   type AccessCodeFilter,
   AccessCodeHealthBar,
 } from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
+import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'

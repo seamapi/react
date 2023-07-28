@@ -3,19 +3,19 @@ import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-cod
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
-} from 'lib/seam/components/AccessCodeForm/AccessCodeForm.js'
+} from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 
-interface CreateAccessCodeFormProps {
-  onBack?: () => void
+export interface CreateAccessCodeFormProps {
   className?: string
+  onBack?: () => void
   deviceId: string
 }
 
 export function CreateAccessCodeForm({
-  deviceId,
-  onBack,
   className,
+  onBack,
+  deviceId,
 }: CreateAccessCodeFormProps): JSX.Element | null {
   const { device } = useDevice({
     device_id: deviceId,
