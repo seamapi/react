@@ -1,10 +1,10 @@
 import { createIsoDate } from 'lib/dates.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
+import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
-import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 
 export interface CreateAccessCodeFormProps {
   className?: string
