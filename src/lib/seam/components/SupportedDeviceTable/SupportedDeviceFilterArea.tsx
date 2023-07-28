@@ -128,12 +128,12 @@ const useAvailableBrands = (brands: string[] | null): string[] => {
 
   const uniqueBrands = new Set<string>()
   for (const deviceModel of deviceModels) {
-    const value = deviceModel['brand']
+    const value = deviceModel.brand
 
     // UPSTREAM: API can return an empty value for brand.
     if (value.trim() === '') continue
 
-    uniqueBrands.add(deviceModel['brand'])
+    uniqueBrands.add(deviceModel.brand)
   }
 
   return Array.from(uniqueBrands)
