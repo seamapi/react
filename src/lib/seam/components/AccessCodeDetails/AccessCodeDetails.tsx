@@ -16,10 +16,11 @@ import { Button } from 'lib/ui/Button.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
+const disableEditAccessCode = false
+
 export interface AccessCodeDetailsProps {
   accessCodeId: string
   disableLockUnlock?: boolean
-  disableEdit?: boolean
   onBack?: () => void
   onEdit: () => void
   className?: string
@@ -28,7 +29,6 @@ export interface AccessCodeDetailsProps {
 export function AccessCodeDetails({
   accessCodeId,
   disableLockUnlock = false,
-  disableEdit = false,
   onBack,
   onEdit,
   className,
@@ -92,7 +92,7 @@ export function AccessCodeDetails({
           onSelectDevice={selectDevice}
         />
       </div>
-      {!disableEdit && (
+      {!disableEditAccessCode && (
         <div className='seam-actions'>
           <Button size='small' onClick={onEdit}>
             {t.editCode}

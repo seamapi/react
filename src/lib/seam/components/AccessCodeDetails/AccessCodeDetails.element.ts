@@ -7,7 +7,6 @@ export const name = 'seam-access-code-details'
 export const props: ElementProps<AccessCodeDetailsProps> = {
   accessCodeId: 'string',
   disableLockUnlock: 'boolean',
-  disableEdit: 'boolean',
   onBack: 'object',
   onEdit: 'object',
   className: 'string',

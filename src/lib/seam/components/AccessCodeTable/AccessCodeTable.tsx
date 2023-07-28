@@ -152,7 +152,6 @@ export function AccessCodeTable({
           setSelectedViewAccessCodeId(null)
         }}
         disableLockUnlock={disableLockUnlock}
-        disableEdit={disableEditAccessCode}
         onEdit={() => {
           setSelectedEditAccessCodeId(selectedViewAccessCodeId)
         }}
@@ -258,7 +257,7 @@ function Content(props: {
           onClick={() => {
             onAccessCodeClick(accessCode.access_code_id)
           }}
-          disableEdit={disableEditAccessCode}
+          disableEditAccessCode={disableEditAccessCode}
           onEdit={() => {
             onAccessCodeEdit(accessCode.access_code_id)
           }}
@@ -272,9 +271,9 @@ function AccessCodeRow(props: {
   accessCode: UseAccessCodesData[number]
   onClick: () => void
   onEdit: () => void
-  disableEdit: boolean
+  disableEditAccessCode: boolean
 }): JSX.Element {
-  const { onClick, accessCode, onEdit, disableEdit } = props
+  const { onClick, accessCode, onEdit, disableEditAccessCode } = props
 
   const errorCount = accessCode.errors.length
   const warningCount = accessCode.warnings.length
@@ -327,7 +326,7 @@ function AccessCodeRow(props: {
               <CopyIcon />
             </div>
           </MenuItem>
-          {!disableEdit && (
+          {!disableEditAccessCode && (
             <>
               <div className='seam-divider' />
               <MenuItem onClick={onEdit}>{t.editCode}</MenuItem>
