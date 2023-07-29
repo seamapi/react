@@ -16,7 +16,7 @@ import { Button } from 'lib/ui/Button.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
-const disableEditAccessCode = false
+const disableEditAccessCode = true
 
 export interface AccessCodeDetailsProps {
   accessCodeId: string
