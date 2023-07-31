@@ -26,8 +26,8 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const disableCreateAccessCode = true
-const disableEditAccessCode = false
-const disableDeleteAccessCode = false
+const disableEditAccessCode = true
+const disableDeleteAccessCode = true
 
 export interface AccessCodeTableProps {
   deviceId: string
