@@ -13,7 +13,7 @@ export function MenuItem({
   onClick,
   children,
   className,
-  disableCloseOnClick = false
+  disableCloseOnClick = false,
 }: MenuItemProps): JSX.Element {
   const { close: closeMenu } = useMenu()
 
@@ -23,8 +23,7 @@ export function MenuItem({
       onClick={(event: React.MouseEvent) => {
         onClick(event)
 
-
-        if(!disableCloseOnClick)  {
+        if (!disableCloseOnClick) {
           closeMenu()
         }
       }}

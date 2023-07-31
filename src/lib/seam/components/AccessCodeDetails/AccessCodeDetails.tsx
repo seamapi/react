@@ -37,7 +37,7 @@ export function AccessCodeDetails({
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
-  const {mutate: deleteCode, isLoading: isDeleting} = useDeleteAccessCode()
+  const { mutate: deleteCode, isLoading: isDeleting } = useDeleteAccessCode()
 
   if (accessCode == null) {
     return null
@@ -95,23 +95,24 @@ export function AccessCodeDetails({
           onSelectDevice={selectDevice}
         />
       </div>
-      {(!disableEditAccessCode || !disableDeleteAccessCode )&& (
+      {(!disableEditAccessCode || !disableDeleteAccessCode) && (
         <div className='seam-actions'>
-          {
-            !disableEditAccessCode && (
-              <Button size='small' onClick={onEdit}
-               disabled={isDeleting}>
-                {t.editCode}
-              </Button>
-            )
-          }
-          {
-            !disableDeleteAccessCode && (
-              <Button size='small' onClick={() => { deleteCode({access_code_id: accessCode.access_code_id}); }} disabled={isDeleting}>
+          {!disableEditAccessCode && (
+            <Button size='small' onClick={onEdit} disabled={isDeleting}>
+              {t.editCode}
+            </Button>
+          )}
+          {!disableDeleteAccessCode && (
+            <Button
+              size='small'
+              onClick={() => {
+                deleteCode({ access_code_id: accessCode.access_code_id })
+              }}
+              disabled={isDeleting}
+            >
               {t.deleteCode}
             </Button>
-            )
-          }
+          )}
         </div>
       )}
       <div className='seam-details'>

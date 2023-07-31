@@ -36,22 +36,35 @@ function Content({
   disableDeleteAccessCode,
   onEdit,
 }: AccessCodeMenuProps): JSX.Element {
-
   const [deleteConfirmationVisible, toggleDeleteConfirmation] = useToggle()
 
   const deleteAccessCode = useDeleteAccessCode()
 
-  if(deleteConfirmationVisible) {
-    return <div className='seam-delete-confirmation'>
-      <span>
-        Delete this code and data?
-      </span>
-      <div className='seam-actions'>
-        <Button onClick={toggleDeleteConfirmation}
-        disabled={deleteAccessCode.isLoading}>Cancel</Button>
-        <Button variant="solid" disabled={deleteAccessCode.isLoading} onClick={() => { deleteAccessCode.mutate({access_code_id: accessCode.access_code_id}); }}>Delete</Button>
+  if (deleteConfirmationVisible) {
+    return (
+      <div className='seam-delete-confirmation'>
+        <span>Delete this code and data?</span>
+        <div className='seam-actions'>
+          <Button
+            onClick={toggleDeleteConfirmation}
+            disabled={deleteAccessCode.isLoading}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='solid'
+            disabled={deleteAccessCode.isLoading}
+            onClick={() => {
+              deleteAccessCode.mutate({
+                access_code_id: accessCode.access_code_id,
+              })
+            }}
+          >
+            Delete
+          </Button>
+        </div>
       </div>
-    </div>
+    )
   }
 
   return (
@@ -76,10 +89,14 @@ function Content({
       {!disableDeleteAccessCode && (
         <>
           <div className='seam-divider' />
-          <MenuItem onClick={event => {
-            event.stopPropagation() // Prevent hiding menu on outside click
-            toggleDeleteConfirmation()
-          }} disableCloseOnClick className='seam-text-danger'>
+          <MenuItem
+            onClick={(event) => {
+              event.stopPropagation() // Prevent hiding menu on outside click
+              toggleDeleteConfirmation()
+            }}
+            disableCloseOnClick
+            className='seam-text-danger'
+          >
             {t.deleteCode}
           </MenuItem>
         </>
