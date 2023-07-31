@@ -36,7 +36,7 @@ import { Title } from 'lib/ui/typography/Title.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const disableCreateAccessCode = true
-const disableEditAccessCode = false
+const disableEditAccessCode = true
 
 export interface AccessCodeTableProps {
   deviceId: string
