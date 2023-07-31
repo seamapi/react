@@ -26,7 +26,7 @@
         align-items: center;
         justify-content: center;
 
-        > div {
+        >div {
           width: 40px;
           height: 40px;
           display: flex;
@@ -82,6 +82,18 @@
   }
 
   .seam-access-code-table-action-menu {
+    .seam-delete-confirmation {
+      padding: 8px 16px;
+      text-align: center;
+
+      .seam-actions {
+        margin-top: 16px;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+    }
+
     .seam-menu-item-copy {
       display: flex;
       align-items: center;
