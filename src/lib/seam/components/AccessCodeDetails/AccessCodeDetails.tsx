@@ -34,7 +34,7 @@ export function AccessCodeDetails({
   onBack,
   onEdit,
   className,
-  disableDeleteAccessCode = false
+  disableDeleteAccessCode = false,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)

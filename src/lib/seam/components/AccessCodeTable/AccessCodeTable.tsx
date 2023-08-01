@@ -79,7 +79,7 @@ export function AccessCodeTable({
   heading = t.accessCodes,
   title = t.accessCodes,
   className,
-  disableDeleteAccessCode=false
+  disableDeleteAccessCode = false,
 }: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
     device_id: deviceId,

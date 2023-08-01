@@ -49,7 +49,7 @@ function Content({
             onClick={toggleDeleteConfirmation}
             disabled={deleteAccessCode.isLoading}
           >
-          {t.cancelDelete}
+            {t.cancelDelete}
           </Button>
           <Button
             variant='solid'
@@ -60,7 +60,7 @@ function Content({
               })
             }}
           >
-          {t.confirmDelete}
+            {t.confirmDelete}
           </Button>
         </div>
       </div>
@@ -114,5 +114,5 @@ const t = {
   deleteCode: 'Delete code',
   deleteCodeConfirmation: 'Delete this code and data?',
   cancelDelete: 'Cancel',
-  confirmDelete: 'Delete'
+  confirmDelete: 'Delete',
 }
