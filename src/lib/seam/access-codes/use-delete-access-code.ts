@@ -33,7 +33,6 @@ export function useDeleteAccessCode(): UseMutationResult<
   >({
     mutationFn: async (mutationParams: UseDeleteAccessCodeMutationParams) => {
       if (client === null) throw new NullSeamClientError()
-
       return await client.accessCodes.delete(mutationParams)
     },
     onSuccess: (_data, variables) => {
