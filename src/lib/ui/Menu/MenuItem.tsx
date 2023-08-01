@@ -6,14 +6,14 @@ import { useMenu } from 'lib/ui/Menu/Menu.js'
 interface MenuItemProps extends PropsWithChildren {
   onClick: (event: React.MouseEvent) => void
   className?: string
-  disableCloseOnClick?: boolean
+  preventDefaultOnClick?: boolean
 }
 
 export function MenuItem({
   onClick,
   children,
   className,
-  disableCloseOnClick = false,
+  preventDefaultOnClick = false,
 }: MenuItemProps): JSX.Element {
   const { close: closeMenu } = useMenu()
 
@@ -23,7 +23,7 @@ export function MenuItem({
       onClick={(event: React.MouseEvent) => {
         onClick(event)
 
-        if (!disableCloseOnClick) {
+        if (!preventDefaultOnClick) {
           closeMenu()
         }
       }}

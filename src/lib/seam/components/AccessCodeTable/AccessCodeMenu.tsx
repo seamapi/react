@@ -94,7 +94,7 @@ function Content({
               event.stopPropagation() // Prevent hiding menu on outside click
               toggleDeleteConfirmation()
             }}
-            disableCloseOnClick
+            preventDefaultOnClick
             className='seam-text-danger'
           >
             {t.deleteCode}
