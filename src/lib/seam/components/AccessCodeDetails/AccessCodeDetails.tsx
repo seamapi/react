@@ -18,7 +18,6 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 const disableEditAccessCode = true
-const disableDeleteAccessCode = true
 
 export interface AccessCodeDetailsProps {
   accessCodeId: string
@@ -26,6 +25,7 @@ export interface AccessCodeDetailsProps {
   onBack?: () => void
   onEdit: () => void
   className?: string
+  disableDeleteAccessCode?: boolean
 }
 
 export function AccessCodeDetails({
@@ -34,6 +34,7 @@ export function AccessCodeDetails({
   onBack,
   onEdit,
   className,
+  disableDeleteAccessCode = false
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)

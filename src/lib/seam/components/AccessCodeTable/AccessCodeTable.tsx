@@ -27,7 +27,6 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 
 const disableCreateAccessCode = true
 const disableEditAccessCode = true
-const disableDeleteAccessCode = true
 
 export interface AccessCodeTableProps {
   deviceId: string
@@ -50,6 +49,7 @@ export interface AccessCodeTableProps {
    */
   title?: string | null
   className?: string
+  disableDeleteAccessCode?: boolean
 }
 
 type AccessCode = UseAccessCodesData[number]
@@ -79,6 +79,7 @@ export function AccessCodeTable({
   heading = t.accessCodes,
   title = t.accessCodes,
   className,
+  disableDeleteAccessCode=false
 }: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
     device_id: deviceId,
@@ -146,6 +147,7 @@ export function AccessCodeTable({
         onEdit={() => {
           setSelectedEditAccessCodeId(selectedViewAccessCodeId)
         }}
+        disableDeleteAccessCode={disableDeleteAccessCode}
       />
     )
   }
@@ -196,6 +198,7 @@ export function AccessCodeTable({
           onAccessCodeClick={handleAccessCodeClick}
           onAccessCodeEdit={handleAccessCodeEdit}
           disableEditAccessCode={disableEditAccessCode}
+          disableDeleteAccessCode={disableDeleteAccessCode}
         />
       </TableBody>
     </div>
@@ -207,12 +210,14 @@ function Content(props: {
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
   disableEditAccessCode: boolean
+  disableDeleteAccessCode: boolean
 }): JSX.Element {
   const {
     accessCodes,
     onAccessCodeClick,
     onAccessCodeEdit,
     disableEditAccessCode,
+    disableDeleteAccessCode,
   } = props
   const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
