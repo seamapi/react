@@ -25,7 +25,7 @@ export interface ElementDefinition {
 
 export type ElementProps<T> = Record<
   keyof T,
-  'string' | 'number' | 'boolean' | 'function' | 'json' | 'object'
+  'string' | 'number' | 'boolean' | 'array' | 'function' | 'json' | 'object'
 >
 
 type ProviderProps = SeamProviderPropsWithPublishableKey &
