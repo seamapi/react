@@ -43,13 +43,13 @@ function Content({
   if (deleteConfirmationVisible) {
     return (
       <div className='seam-delete-confirmation'>
-        <span>Delete this code and data?</span>
+        <span>{t.deleteCodeConfirmation}</span>
         <div className='seam-actions'>
           <Button
             onClick={toggleDeleteConfirmation}
             disabled={deleteAccessCode.isLoading}
           >
-            Cancel
+          {t.cancelDelete}
           </Button>
           <Button
             variant='solid'
@@ -60,7 +60,7 @@ function Content({
               })
             }}
           >
-            Delete
+          {t.confirmDelete}
           </Button>
         </div>
       </div>
@@ -112,4 +112,7 @@ const t = {
   editCode: 'Edit code',
   viewCodeDetails: 'View code details',
   deleteCode: 'Delete code',
+  deleteCodeConfirmation: 'Delete this code and data?',
+  cancelDelete: 'Cancel',
+  confirmDelete: 'Delete'
 }
