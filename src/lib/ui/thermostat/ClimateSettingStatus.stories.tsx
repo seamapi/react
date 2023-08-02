@@ -6,7 +6,6 @@ import { ClimateSettingStatus } from './ClimateSettingStatus.js'
 const meta: Meta<typeof ClimateSettingStatus> = {
   title: 'Library/ClimateSettingStatus',
   tags: ['autodocs'],
-
   component: ClimateSettingStatus,
 }
 
