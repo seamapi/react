@@ -82,7 +82,7 @@ function Content(props: {
 }
 
 const t = {
-  degreeFahrenheit: `\u00b0F`,
-  degreeCelsius: `\u00b0C`,
+  degreeFahrenheit: '°F',
+  degreeCelsius: '°C',
   off: 'Off',
 }
