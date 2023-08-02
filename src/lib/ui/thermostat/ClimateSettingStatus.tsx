@@ -6,26 +6,29 @@ import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { ThermostatOffIcon } from 'lib/icons/ThermostatOff.js'
 
 interface ClimateSettingStatusProps {
-  setting: ClimateSetting
+  climateSetting: ClimateSetting
+  temperatureUnit?: 'fahrenheit' | 'celsius'
   iconPlacement?: 'left' | 'right'
 }
 
 export function ClimateSettingStatus({
-  setting,
+  climateSetting,
+  temperatureUnit = 'fahrenheit',
   iconPlacement = 'left',
 }: ClimateSettingStatusProps): JSX.Element {
   return (
     <div className='seam-climate-setting-status'>
       {iconPlacement === 'left' && (
-        <ClimateSettingIcon mode={setting.hvac_mode_setting} />
+        <ClimateSettingIcon mode={climateSetting.hvac_mode_setting} />
       )}
       <Content
-        mode={setting.hvac_mode_setting}
-        coolingSetPoint={setting.cooling_set_point_fahrenheit}
-        heatingSetPoint={setting.heating_set_point_fahrenheit}
+        mode={climateSetting.hvac_mode_setting}
+        coolingSetPoint={climateSetting.cooling_set_point_fahrenheit}
+        heatingSetPoint={climateSetting.heating_set_point_fahrenheit}
+        temperatureUnit={temperatureUnit}
       />
       {iconPlacement === 'right' && (
-        <ClimateSettingIcon mode={setting.hvac_mode_setting} />
+        <ClimateSettingIcon mode={climateSetting.hvac_mode_setting} />
       )}
     </div>
   )
@@ -48,29 +51,38 @@ function ClimateSettingIcon(props: {
 
 function Content(props: {
   mode: ClimateSetting['hvac_mode_setting']
-  coolingSetPoint: ClimateSetting['cooling_set_point_fahrenheit']
-  heatingSetPoint: ClimateSetting['cooling_set_point_fahrenheit']
+  coolingSetPoint:
+    | ClimateSetting['cooling_set_point_fahrenheit']
+    | ClimateSetting['cooling_set_point_celsius']
+  heatingSetPoint:
+    | ClimateSetting['heating_set_point_fahrenheit']
+    | ClimateSetting['heating_set_point_celsius']
+  temperatureUnit: 'fahrenheit' | 'celsius'
 }): JSX.Element | null {
-  const { mode, coolingSetPoint, heatingSetPoint } = props
+  const { mode, coolingSetPoint, heatingSetPoint, temperatureUnit } = props
   const hasCoolingSetPoint = coolingSetPoint !== undefined
   const hasHeatingSetPoint = heatingSetPoint !== undefined
+  const unit =
+    temperatureUnit === 'fahrenheit' ? t.degreeFahrenheit : t.degreeCelsius
 
   if (mode === 'cool' && hasCoolingSetPoint)
-    return <span>{`${coolingSetPoint}${t.degree}F`}</span>
+    return <span>{`${coolingSetPoint}${unit}`}</span>
 
   if (mode === 'heat' && hasHeatingSetPoint)
-    return <span>{`${heatingSetPoint}${t.degree}F`}</span>
+    return <span>{`${heatingSetPoint}${unit}`}</span>
 
   if (mode === 'heatcool' && hasHeatingSetPoint && hasCoolingSetPoint)
     return (
-      <span>{`${heatingSetPoint}${t.degree}F - ${coolingSetPoint}${t.degree}F`}</span>
+      <span>{`${heatingSetPoint}${unit} - ${coolingSetPoint}${unit}`}</span>
     )
 
-  if (mode === 'off') return <span>Off</span>
+  if (mode === 'off') return <span>{t.off}</span>
 
   return null
 }
 
 const t = {
-  degree: `\u00b0`,
+  degreeFahrenheit: `\u00b0F`,
+  degreeCelsius: `\u00b0C`,
+  off: 'Off',
 }
