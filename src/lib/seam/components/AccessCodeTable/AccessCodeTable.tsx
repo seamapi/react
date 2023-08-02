@@ -2,11 +2,7 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
-import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { AddIcon } from 'lib/icons/Add.js'
-import { CopyIcon } from 'lib/icons/Copy.js'
-import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
-import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
 import {
   useAccessCodes,
   type UseAccessCodesData,
@@ -16,27 +12,21 @@ import {
   type AccessCodeFilter,
   AccessCodeHealthBar,
 } from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
-import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
+import { AccessCodeRow } from 'lib/seam/components/AccessCodeTable/AccessCodeRow.js'
 import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { EditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
-import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
-import { MoreActionsMenu } from 'lib/ui/Menu/MoreActionsMenu.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
-import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
-import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-import { Title } from 'lib/ui/typography/Title.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const disableCreateAccessCode = true
-const disableEditAccessCode = false
+const disableEditAccessCode = true
 
 export interface AccessCodeTableProps {
   deviceId: string
@@ -59,6 +49,7 @@ export interface AccessCodeTableProps {
    */
   title?: string | null
   className?: string
+  disableDeleteAccessCode?: boolean
 }
 
 type AccessCode = UseAccessCodesData[number]
@@ -88,6 +79,7 @@ export function AccessCodeTable({
   heading = t.accessCodes,
   title = t.accessCodes,
   className,
+  disableDeleteAccessCode = false,
 }: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
     device_id: deviceId,
@@ -155,6 +147,7 @@ export function AccessCodeTable({
         onEdit={() => {
           setSelectedEditAccessCodeId(selectedViewAccessCodeId)
         }}
+        disableDeleteAccessCode={disableDeleteAccessCode}
       />
     )
   }
@@ -205,6 +198,7 @@ export function AccessCodeTable({
           onAccessCodeClick={handleAccessCodeClick}
           onAccessCodeEdit={handleAccessCodeEdit}
           disableEditAccessCode={disableEditAccessCode}
+          disableDeleteAccessCode={disableDeleteAccessCode}
         />
       </TableBody>
     </div>
@@ -216,12 +210,14 @@ function Content(props: {
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
   disableEditAccessCode: boolean
+  disableDeleteAccessCode: boolean
 }): JSX.Element {
   const {
     accessCodes,
     onAccessCodeClick,
     onAccessCodeEdit,
     disableEditAccessCode,
+    disableDeleteAccessCode,
   } = props
   const [filter, setFilter] = useState<AccessCodeFilter | null>(null)
 
@@ -258,6 +254,7 @@ function Content(props: {
             onAccessCodeClick(accessCode.access_code_id)
           }}
           disableEditAccessCode={disableEditAccessCode}
+          disableDeleteAccessCode={disableDeleteAccessCode}
           onEdit={() => {
             onAccessCodeEdit(accessCode.access_code_id)
           }}
@@ -267,82 +264,7 @@ function Content(props: {
   )
 }
 
-function AccessCodeRow(props: {
-  accessCode: UseAccessCodesData[number]
-  onClick: () => void
-  onEdit: () => void
-  disableEditAccessCode: boolean
-}): JSX.Element {
-  const { onClick, accessCode, onEdit, disableEditAccessCode } = props
-
-  const errorCount = accessCode.errors.length
-  const warningCount = accessCode.warnings.length
-  const isPlural = errorCount === 0 || errorCount > 1
-  const errorIconTitle = isPlural
-    ? `${errorCount} ${t.codeIssues}`
-    : `${errorCount} ${t.codeIssue}`
-  const warningIconTitle = isPlural
-    ? `${warningCount} ${t.codeIssues}`
-    : `${warningCount} ${t.codeIssue}`
-
-  return (
-    <TableRow onClick={onClick}>
-      <TableCell className='seam-icon-cell'>
-        <div>
-          <AccessCodeKeyIcon />
-        </div>
-      </TableCell>
-      <TableCell className='seam-name-cell'>
-        <Title className='seam-truncated-text'>{accessCode.name}</Title>
-        <CodeDetails accessCode={accessCode} />
-      </TableCell>
-      <TableCell className='seam-action-cell'>
-        {errorCount > 0 && (
-          <div className='seam-code-issue-icon-wrap' title={errorIconTitle}>
-            <ExclamationCircleOutlineIcon />
-          </div>
-        )}
-        {errorCount === 0 && warningCount > 0 && (
-          <div className='seam-code-issue-icon-wrap' title={warningIconTitle}>
-            <TriangleWarningOutlineIcon />
-          </div>
-        )}
-        <MoreActionsMenu
-          menuProps={{
-            backgroundProps: {
-              className: 'seam-access-code-table-action-menu',
-            },
-          }}
-        >
-          <MenuItem
-            onClick={() => {
-              void copyToClipboard(accessCode.code ?? '')
-            }}
-          >
-            <div className='seam-menu-item-copy'>
-              <span>
-                {t.copyCode} - {accessCode.code}
-              </span>
-              <CopyIcon />
-            </div>
-          </MenuItem>
-          {!disableEditAccessCode && (
-            <>
-              <div className='seam-divider' />
-              <MenuItem onClick={onEdit}>{t.editCode}</MenuItem>
-            </>
-          )}
-        </MoreActionsMenu>
-      </TableCell>
-    </TableRow>
-  )
-}
-
 const t = {
   accessCodes: 'Access Codes',
-  copyCode: 'Copy code',
   noAccessCodesMessage: 'Sorry, no access codes were found',
-  codeIssue: 'code issue',
-  codeIssues: 'code issues',
-  editCode: 'Edit code',
 }
