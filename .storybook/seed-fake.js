@@ -29,7 +29,6 @@ export const seedFake = (db) => {
     status: 'authorized',
   })
 
-
   const device1 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: 'august_lock',
@@ -307,24 +306,23 @@ export const seedFake = (db) => {
     device4,
   })
 
+  // Add ecobee thermostat
+  const cw2 = db.addConnectWebview({
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-15T15:08:51.000',
+  })
 
- // Add ecobee thermostat
- const cw2 = db.addConnectWebview({
-  workspace_id: ws2.workspace_id,
-  created_at: '2023-05-15T15:08:51.000',
-})
+  const ca2 = db.addConnectedAccount({
+    provider: 'ecobee',
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-15T15:08:52.000',
+  })
 
-const ca2 = db.addConnectedAccount({
-  provider: 'ecobee',
-  workspace_id: ws2.workspace_id,
-  created_at: '2023-05-15T15:08:52.000',
-})
-
-db.updateConnectWebview({
-  connect_webview_id: cw2.connect_webview_id,
-  connected_account_id: ca2.connected_account_id,
-  status: 'authorized',
-})
+  db.updateConnectWebview({
+    connect_webview_id: cw2.connect_webview_id,
+    connected_account_id: ca2.connected_account_id,
+    status: 'authorized',
+  })
 
   const device5 = db.addDevice({
     connected_account_id: ca.connected_account_id,
