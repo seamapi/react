@@ -1,5 +1,4 @@
 import type { Dispatch, SetStateAction } from 'react'
-import type { DeviceModel } from 'seamapi'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
@@ -14,7 +13,7 @@ interface SupportedDeviceFilterAreaProps {
   setFilterValue: (filter: string) => void
   filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
-  brands: string[]
+  brands: string[] | null
 }
 
 export function SupportedDeviceFilterArea({
@@ -24,12 +23,9 @@ export function SupportedDeviceFilterArea({
   setFilters,
   brands,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
-  const appliedFiltersCount = Object.values(filters).filter(
-    (v) => v != null && v !== false
-  ).length
+  const appliedFiltersCount = getAppliedFilterCount(filters)
 
-  const filterProperty = 'brand'
-  const availableProperties = useAvailableProperties(filterProperty, { brands })
+  const availableBrands = useAvailableBrands(brands)
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -68,7 +64,7 @@ export function SupportedDeviceFilterArea({
               <FilterCategoryMenu
                 label={t.brand}
                 allLabel={allLabel}
-                options={availableProperties}
+                options={availableBrands}
                 onSelect={(brand: string) => {
                   setFilters((filters) => ({
                     ...filters,
@@ -77,7 +73,7 @@ export function SupportedDeviceFilterArea({
                 }}
                 buttonLabel={filters.brand ?? allLabel}
                 onAllOptionSelect={() => {
-                  resetFilter(filterProperty)
+                  resetFilter('brand')
                 }}
               />
             </div>
@@ -118,31 +114,34 @@ export function SupportedDeviceFilterArea({
   )
 }
 
-const useAvailableProperties = (
-  property: keyof DeviceModel,
-  options: {
-    brands: string[]
-  }
-): string[] => {
+const getAppliedFilterCount = (filters: DeviceModelFilters): number => {
+  let count = 0
+  if (filters.brand !== null) count++
+  if (!filters.supportedOnly) count++
+  return count
+}
+
+const useAvailableBrands = (brands: string[] | null): string[] => {
   const { deviceModels } = useDeviceModels()
+
   if (deviceModels == null) return []
-  const properties = new Set<string>()
+
+  const uniqueBrands = new Set<string>()
   for (const deviceModel of deviceModels) {
-    const value = deviceModel[property]
+    const value = deviceModel.brand
 
-    // If we're only looking at a subset of brands, such as ["yale", "august"], then we
-    // don't want to show other brands in the filter.
-    if (
-      property === 'brand' &&
-      options.brands.length > 0 &&
-      !options.brands.includes(value)
-    ) {
-      continue
-    }
+    // UPSTREAM: API can return an empty value for brand.
+    if (value.trim() === '') continue
 
-    properties.add(capitalize(value))
+    uniqueBrands.add(deviceModel.brand)
   }
-  return Array.from(properties)
+
+  return Array.from(uniqueBrands)
+    .filter((brand) => {
+      if (brands === null) return true
+      return brands.includes(brand)
+    })
+    .map((brand) => capitalize(brand))
 }
 
 const t = {

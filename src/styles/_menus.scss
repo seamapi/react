@@ -43,6 +43,12 @@
         background: colors.$item-hover-bg;
       }
     }
+
+    .seam-divider {
+      height: 1px;
+      background: colors.$divider-stroke-light;
+      margin: 8px 0;
+    }
   }
 
   .seam-menu-shadow {

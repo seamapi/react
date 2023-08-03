@@ -36,7 +36,7 @@ export function FilterCategoryMenu({
   onAllOptionSelect,
   buttonLabel,
 }: FilterCategoryMenuProps): JSX.Element {
-  const usableOptions = hideAllOption ? options : ['All', ...options]
+  const usableOptions = hideAllOption ? options : [allLabel, ...options]
 
   return (
     <div className='seam-supported-device-table-filter-menu-wrap'>

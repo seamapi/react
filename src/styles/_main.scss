@@ -18,6 +18,7 @@
 @use './form-field';
 @use './radio-field';
 @use './checkbox';
+@use './thermostat';
 
 .seam-components {
   // Reset
@@ -44,4 +45,5 @@
   @include access-code-form.all;
   @include alert.all;
   @include supported-device-table.all;
+  @include thermostat.all;
 }
