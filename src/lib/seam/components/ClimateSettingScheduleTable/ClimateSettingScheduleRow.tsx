@@ -3,19 +3,17 @@ import type { UseClimateSettingSchedulesData } from 'lib/seam/thermostats/climat
 
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
+import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { Title } from 'lib/ui/typography/Title.js'
 import { DateTime } from 'luxon'
-import type { CommonDevice } from 'seamapi'
 
 interface ClimateSettingScheduleRowProps {
   climateSettingSchedule: UseClimateSettingSchedulesData[number]
-  device: CommonDevice
   onClick: () => void
 }
 
 export function ClimateSettingScheduleRow({
   climateSettingSchedule,
-  device,
   onClick,
 }: ClimateSettingScheduleRowProps): JSX.Element | null {
   const startDate = DateTime.fromISO(
@@ -34,9 +32,8 @@ export function ClimateSettingScheduleRow({
         <Title>{climateSettingSchedule.name}</Title>
         <div className='seam-bottom'>
           <div className='seam-device-statuses'>
-            <span className='seam-status-text'>{device.properties.name}</span>
             <span className='seam-status-text'>{`Starts ${startDate}`}</span>
-            <span className='seam-status-text'>{`70\u00B0F`}</span>
+            <ClimateSettingStatus climateSetting={climateSettingSchedule} />
           </div>
         </div>
       </TableCell>

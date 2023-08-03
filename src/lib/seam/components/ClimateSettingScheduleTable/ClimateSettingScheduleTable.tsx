@@ -9,16 +9,13 @@ import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
-import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-import { useCallback, useMemo, useState } from 'react'
-import type { AccountFilter } from '../DeviceTable/DeviceHealthBar.js'
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
 type ClimateSettingSchedule = UseClimateSettingSchedulesData[number]
 
 export interface ClimateSettingScheduleTableProps {
-  deviceId?: string
+  deviceId: string
   disableSearch?: boolean
   climateSettingScheduleFilter?: (
     ClimateSettingSchedule: ClimateSettingSchedule,
@@ -52,48 +49,48 @@ export function ClimateSettingScheduleTable({
   climateSettingScheduleFilter = defaultClimateSettingScheduleFilter,
   climateSettingScheduleComparator = compareByCreatedAtDesc,
   className,
-}: ClimateSettingScheduleTableProps = {}): JSX.Element {
+}: ClimateSettingScheduleTableProps): JSX.Element {
   const { climateSettingSchedules, isLoading, isError, error } =
     useClimateSettingSchedules({
       device_id: deviceId,
     })
-  // TODO get device
 
-  const [
-    selectedClimateSettingScheduleId,
-    setSelectedClimateSettingScheduleId,
-  ] = useState<string | null>(null)
-  const [searchInputValue, setSearchInputValue] = useState('')
+  // const [
+  //   selectedClimateSettingScheduleId,
+  //   setSelectedClimateSettingScheduleId,
+  // ] = useState<string | null>(null)
+  // const [searchInputValue, setSearchInputValue] = useState('')
 
-  const filteredClimateSettingSchedules = useMemo(
-    () =>
-      climateSettingSchedules
-        ?.filter((schedule) =>
-          climateSettingScheduleFilter(schedule, searchInputValue)
-        )
-        ?.sort(climateSettingScheduleComparator) ?? [],
-    [
-      climateSettingSchedules,
-      searchInputValue,
-      climateSettingScheduleFilter,
-      climateSettingScheduleComparator,
-    ]
-  )
+  const filteredClimateSettingSchedules = climateSettingSchedules ?? []
 
-  const handleClimateSettingScheduleClick = useCallback(
-    (climateSettingScheduleId: string): void => {
-      onClimateSettingScheduleClick(climateSettingScheduleId)
-      if (preventDefaultOnClimateSettingScheduleClick) return
-      setSelectedClimateSettingScheduleId(climateSettingScheduleId)
-    },
-    [
-      onClimateSettingScheduleClick,
-      preventDefaultOnClimateSettingScheduleClick,
-      setSelectedClimateSettingScheduleId,
-    ]
-  )
+  // const filteredClimateSettingSchedules = useMemo(
+  //   () =>
+  //     climateSettingSchedules
+  //       ?.filter((schedule) =>
+  //         climateSettingScheduleFilter(schedule, searchInputValue)
+  //       )
+  //       ?.sort(climateSettingScheduleComparator) ?? [],
+  //   [
+  //     climateSettingSchedules,
+  //     searchInputValue,
+  //     climateSettingScheduleFilter,
+  //     climateSettingScheduleComparator,
+  //   ]
+  // )
 
-  // TODO: details page
+  // const handleClimateSettingScheduleClick = useCallback(
+  //   (climateSettingScheduleId: string): void => {
+  //     onClimateSettingScheduleClick(climateSettingScheduleId)
+  //     if (preventDefaultOnClimateSettingScheduleClick) return
+  //     setSelectedClimateSettingScheduleId(climateSettingScheduleId)
+  //   },
+  //   [
+  //     onClimateSettingScheduleClick,
+  //     preventDefaultOnClimateSettingScheduleClick,
+  //     setSelectedClimateSettingScheduleId,
+  //   ]
+  // )
+
   // if (selectedClimateSettingScheduleId != null) {
   //   return (
   //     <ClimateSettingScheduleDetails
@@ -125,18 +122,19 @@ export function ClimateSettingScheduleTable({
           {t.climateSettingSchedules}{' '}
           <Caption>({filteredClimateSettingSchedules.length})</Caption>
         </TableTitle>
-        {!disableSearch && (
+        {/* {!disableSearch && (
           <SearchTextField
             value={searchInputValue}
             onChange={setSearchInputValue}
             disabled={(climateSettingSchedules?.length ?? 0) === 0}
           />
-        )}
+        )} */}
       </TableHeader>
       <TableBody>
         <Content
           climateSettingSchedules={filteredClimateSettingSchedules}
-          onClimateSettingScheduleClick={handleClimateSettingScheduleClick}
+          // onClimateSettingScheduleClick={handleClimateSettingScheduleClick}
+          onClimateSettingScheduleClick={() => {}}
         />
       </TableBody>
     </div>
@@ -148,9 +146,9 @@ function Content(props: {
   onClimateSettingScheduleClick: (ClimateSettingScheduleId: string) => void
 }): JSX.Element {
   const { climateSettingSchedules, onClimateSettingScheduleClick } = props
-  const [filter, setFilter] = useState<
-    AccountFilter | ClimateSettingScheduleFilter | null
-  >(null)
+  // const [filter, setFilter] = useState<
+  //   AccountFilter | ClimateSettingScheduleFilter | null
+  // >(null)
 
   if (climateSettingSchedules.length === 0) {
     return (
@@ -189,16 +187,8 @@ function Content(props: {
 
   return (
     <>
-      {/* 
-      TODO: probably remove
-      <ClimateSettingScheduleHealthBar
-        ClimateSettingSchedules={ClimateSettingSchedules}
-        filter={filter}
-        onFilterSelect={setFilter}
-      /> */}
       {filteredClimateSettingSchedules.map((schedule) => (
         <ClimateSettingScheduleRow
-          device={}
           climateSettingSchedule={schedule}
           key={schedule.climate_setting_schedule_id}
           onClick={() => {
