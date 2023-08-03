@@ -43,8 +43,8 @@ export const useFilteredDeviceModels = ({
   // so selected brands are filtered here.
   return {
     ...query,
-    deviceModels: query.deviceModels?.filter(({ brand}) =>
-      brands.includes(brand) && !omitBrands.includes(brand)
+    deviceModels: query.deviceModels?.filter(
+      ({ brand }) => brands.includes(brand) && !omitBrands.includes(brand)
     ),
   }
 }
