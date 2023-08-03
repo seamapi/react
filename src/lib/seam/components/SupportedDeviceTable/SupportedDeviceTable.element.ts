@@ -8,6 +8,7 @@ export const props: ElementProps<SupportedDeviceTableProps> = {
   cannotFilter: 'boolean',
   disableFilter: 'boolean',
   brands: 'array',
+  omitBrands: 'array',
   className: 'string',
 }
 
