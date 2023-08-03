@@ -9,27 +9,36 @@ import type {
 } from 'seamapi'
 
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
+import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
+import { Button } from 'lib/ui/Button.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
+const disableEditAccessCode = true
+
 export interface AccessCodeDetailsProps {
   accessCodeId: string
-  onBack?: () => void
   disableLockUnlock?: boolean
+  onBack?: () => void
+  onEdit: () => void
   className?: string
+  disableDeleteAccessCode?: boolean
 }
 
 export function AccessCodeDetails({
   accessCodeId,
-  onBack,
   disableLockUnlock = false,
+  onBack,
+  onEdit,
   className,
+  disableDeleteAccessCode = false,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
+  const { mutate: deleteCode, isLoading: isDeleting } = useDeleteAccessCode()
 
   if (accessCode == null) {
     return null
@@ -87,6 +96,26 @@ export function AccessCodeDetails({
           onSelectDevice={selectDevice}
         />
       </div>
+      {(!disableEditAccessCode || !disableDeleteAccessCode) && (
+        <div className='seam-actions'>
+          {!disableEditAccessCode && (
+            <Button size='small' onClick={onEdit} disabled={isDeleting}>
+              {t.editCode}
+            </Button>
+          )}
+          {!disableDeleteAccessCode && (
+            <Button
+              size='small'
+              onClick={() => {
+                deleteCode({ access_code_id: accessCode.access_code_id })
+              }}
+              disabled={isDeleting}
+            >
+              {t.deleteCode}
+            </Button>
+          )}
+        </div>
+      )}
       <div className='seam-details'>
         <div className='seam-row'>
           <div className='seam-heading'>{t.id}:</div>
@@ -211,4 +240,6 @@ const t = {
   ongoing: 'Ongoing',
   start: 'Start',
   end: 'End',
+  editCode: 'Edit code',
+  deleteCode: 'Delete code',
 }

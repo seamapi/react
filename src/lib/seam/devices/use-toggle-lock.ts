@@ -11,7 +11,7 @@ import {
   type SeamError,
 } from 'seamapi'
 
-import { useSeamClient } from 'lib/seam/use-seam-client.js'
+import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export function useToggleLock({
   device_id: deviceId,
@@ -26,10 +26,7 @@ export function useToggleLock({
 
   return useMutation<{ actionAttempt: ActionAttempt }, SeamError>({
     mutationFn: async () => {
-      if (client == null) {
-        throw new Error('Missing seam client')
-      }
-
+      if (client === null) throw new NullSeamClientError()
       const toggle = locked ? client.locks.unlockDoor : client.locks.lockDoor
       return await toggle(deviceId)
     },

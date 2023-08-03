@@ -14,11 +14,12 @@ interface RadioOption<Value> {
   value: Value
 }
 
-type RadioFieldContext<Value extends string> =
-  | Omit<RadioFieldProps<Value>, 'options'>
-  | undefined
+type RadioFieldContext<Value extends string> = Omit<
+  RadioFieldProps<Value>,
+  'options'
+> | null
 
-const radioFieldContext = createContext<RadioFieldContext<any>>(undefined)
+const radioFieldContext = createContext<RadioFieldContext<any>>(null)
 
 export function RadioField<Value extends string>({
   value,
@@ -48,7 +49,7 @@ export function useRadioField<Value extends string>(): NonNullable<
   RadioFieldContext<Value>
 > {
   const context = useContext<RadioFieldContext<Value>>(radioFieldContext)
-  if (context === undefined) {
+  if (context === null) {
     throw new Error('useRadioField must be used within a <RadioField/>')
   }
   return context

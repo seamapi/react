@@ -150,13 +150,7 @@ const defaultSeamContextValue = createDefaultSeamContextValue()
 export const seamContext = createContext<SeamContext>(defaultSeamContextValue)
 
 export function useSeamContext(): SeamContext {
-  const context = useContext(seamContext)
-
-  if (context == null) {
-    throw new Error('useSeamContext must be used inside a <SeamProvider/>')
-  }
-
-  return context
+  return useContext(seamContext)
 }
 
 const isSeamProviderPropsWithClient = (
@@ -167,8 +161,11 @@ const isSeamProviderPropsWithClient = (
   const { client } = props
   if (client == null) return false
 
-  if (Object.values(props).some((v) => v == null)) {
-    throw new Error('Cannot provide a Seam client along with other options.')
+  const otherNonNullProps = Object.values(props).filter((v) => v != null)
+  if (otherNonNullProps.length > 0) {
+    throw new InvalidSeamProviderProps(
+      `The client prop cannot be used with ${otherNonNullProps.join(' or ')}.`
+    )
   }
 
   return true
@@ -183,12 +180,14 @@ const isSeamProviderPropsWithPublishableKey = (
   if (publishableKey == null) return false
 
   if ('client' in props && props.client != null) {
-    throw new Error('Cannot provide a Seam client along with other options.')
+    throw new InvalidSeamProviderProps(
+      'The client prop cannot be used with the publishableKey prop.'
+    )
   }
 
   if ('clientSessionToken' in props && props.clientSessionToken != null) {
-    throw new Error(
-      'Cannot provide both a publishableKey and a clientSessionToken.'
+    throw new InvalidSeamProviderProps(
+      'The clientSessionToken prop cannot be used with the publishableKey prop.'
     )
   }
 
@@ -205,18 +204,30 @@ const isSeamProviderPropsWithClientSessionToken = (
   if (clientSessionToken == null) return false
 
   if ('client' in props && props.client != null) {
-    throw new Error('Cannot provide a Seam client along with other options.')
+    throw new InvalidSeamProviderProps(
+      'The client prop cannot be used with the clientSessionToken prop.'
+    )
   }
 
   if ('publishableKey' in props && props.publishableKey != null) {
-    throw new Error(
-      'Cannot provide both a clientSessionToken and a publishableKey.'
+    throw new InvalidSeamProviderProps(
+      'The publishableKey prop cannot be used with the clientSessionToken prop.'
     )
   }
 
   if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
-    throw new Error('Cannot use a userIdentifierKey with a clientSessionToken.')
+    throw new InvalidSeamProviderProps(
+      'The userIdentifierKey prop cannot be used with the clientSessionToken prop.'
+    )
   }
 
   return true
+}
+
+class InvalidSeamProviderProps extends Error {
+  constructor(message: string) {
+    super(`SeamProvider received invalid props: ${message}`)
+    this.name = this.constructor.name
+    Error.captureStackTrace(this, this.constructor)
+  }
 }

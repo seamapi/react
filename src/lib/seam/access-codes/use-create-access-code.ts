@@ -10,7 +10,7 @@ import type {
   SeamError,
 } from 'seamapi'
 
-import { useSeamClient } from 'lib/seam/use-seam-client.js'
+import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseCreateAccessCodeParams = never
 export type UseCreateAccessCodeData = AccessCode
@@ -30,10 +30,7 @@ export function useCreateAccessCode(): UseMutationResult<
     AccessCodeCreateRequest
   >({
     mutationFn: async (mutationParams: UseCreateAccessCodeMutationParams) => {
-      if (client === null) {
-        throw new Error('Missing seam client')
-      }
-
+      if (client === null) throw new NullSeamClientError()
       return await client.accessCodes.create(mutationParams)
     },
     onSuccess: () => {
