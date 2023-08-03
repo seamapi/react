@@ -14,7 +14,7 @@ interface SupportedDeviceFilterAreaProps {
   filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
   brands: string[] | null
-  omitBrands: string[]
+  hiddenBrands: string[]
 }
 
 export function SupportedDeviceFilterArea({
@@ -23,11 +23,11 @@ export function SupportedDeviceFilterArea({
   filters,
   setFilters,
   brands,
-  omitBrands,
+  hiddenBrands,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = getAppliedFilterCount(filters)
 
-  const availableBrands = useAvailableBrands(brands, omitBrands)
+  const availableBrands = useAvailableBrands(brands, hiddenBrands)
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -125,7 +125,7 @@ const getAppliedFilterCount = (filters: DeviceModelFilters): number => {
 
 const useAvailableBrands = (
   brands: string[] | null,
-  omitBrands: string[]
+  hiddenBrands: string[]
 ): string[] => {
   const { deviceModels } = useDeviceModels()
 
@@ -139,7 +139,7 @@ const useAvailableBrands = (
     })
     .filter((brand) => {
       if (brands === null) return true
-      return brands.includes(brand) && !omitBrands.includes(brand)
+      return brands.includes(brand) && !hiddenBrands.includes(brand)
     })
     .map((brand) => capitalize(brand))
 

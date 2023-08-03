@@ -12,12 +12,12 @@ export const useFilteredDeviceModels = ({
   filterValue,
   filters,
   brands,
-  omitBrands,
+  hiddenBrands,
 }: {
   filterValue: string
   filters: DeviceModelFilters
   brands: string[] | null
-  omitBrands: string[]
+  hiddenBrands: string[]
 }): ReturnType<typeof useDeviceModels> => {
   const params: UseDeviceModelsParams = {}
 
@@ -39,12 +39,12 @@ export const useFilteredDeviceModels = ({
     return query
   }
 
-  // UPSTREAM: The API does not have a brands or omitBrands query parameter,
+  // UPSTREAM: The API does not have a brands or hiddenBrands query parameter,
   // so selected brands are filtered here.
   return {
     ...query,
     deviceModels: query.deviceModels?.filter(
-      ({ brand }) => brands.includes(brand) && !omitBrands.includes(brand)
+      ({ brand }) => brands.includes(brand) && !hiddenBrands.includes(brand)
     ),
   }
 }
