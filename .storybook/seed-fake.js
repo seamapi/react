@@ -421,8 +421,6 @@ export const seedFake = (db) => {
     errors: [],
   })
 
-  db
-
   db.addClientSession({
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-29T01:02:02.000',
