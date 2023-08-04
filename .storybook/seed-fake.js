@@ -29,7 +29,6 @@ export const seedFake = (db) => {
     status: 'authorized',
   })
 
-
   const device1 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: 'august_lock',
@@ -294,70 +293,149 @@ export const seedFake = (db) => {
     errors: [],
   })
 
+  // Add ecobee thermostat
+  const cw2 = db.addConnectWebview({
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-15T15:08:51.000',
+  })
+
+  const ca2 = db.addConnectedAccount({
+    provider: 'ecobee',
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-15T15:08:52.000',
+  })
+
+  db.updateConnectWebview({
+    connect_webview_id: cw2.connect_webview_id,
+    connected_account_id: ca2.connected_account_id,
+    status: 'authorized',
+  })
+
+  const device5 = db.addDevice({
+    connected_account_id: ca.connected_account_id,
+    device_type: 'ecobee_thermostat',
+    name: 'parkway kerosene',
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-15T15:08:53.000',
+    properties: {
+      online: true,
+      is_cooling: false,
+      is_heating: false,
+      manufacturer: 'ecobee',
+      is_fan_running: false,
+      ecobee_metadata: {
+        min_delta_heat_cool_set_points_fahrenheit: 5,
+        max_cooling_set_point_fahrenheit: 92,
+        min_cooling_set_point_fahrenheit: 65,
+        max_heating_set_point_fahrenheit: 79,
+        min_heating_set_point_fahrenheit: 45,
+        device_name: 'parkway kerosene',
+        ecobee_device_id: '14a7f34b-3e44-42b8-a314-ae953f81722a',
+        max_cooling_set_point_celsius: 33.333333333333336,
+        max_heating_set_point_celsius: 26.11111111111111,
+        min_cooling_set_point_celsius: 18.333333333333336,
+        min_heating_set_point_celsius: 7.222222222222222,
+        min_delta_heat_cool_set_points_celsius: 2.7777777777777777,
+      },
+      has_direct_power: true,
+      relative_humidity: 0.36,
+      temperature_celsius: 21.11111111111111,
+      temperature_fahrenheit: 70,
+      current_climate_setting: {
+        hvac_mode_setting: 'heatcool',
+        manual_override_allowed: false,
+        automatic_cooling_enabled: true,
+        automatic_heating_enabled: true,
+        cooling_set_point_celsius: 23.88888888888889,
+        heating_set_point_celsius: 18.333333333333336,
+        cooling_set_point_fahrenheit: 75,
+        heating_set_point_fahrenheit: 65,
+      },
+      available_hvac_mode_settings: ['off', 'cool', 'heat', 'heatcool'],
+      can_enable_automatic_cooling: true,
+      can_enable_automatic_heating: true,
+      is_temporary_manual_override_active: false,
+      name: 'parkway kerosene',
+      model: {
+        display_name: 'Unknown Thermostat',
+      },
+      image_url:
+        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+      image_alt_text: 'Placeholder Lock Image',
+      is_climate_setting_schedule_active: false,
+    },
+    errors: [],
+  })
+
+  const device6 = db.addDevice({
+    connected_account_id: ca.connected_account_id,
+    device_type: 'ecobee_thermostat',
+    name: 'debating book',
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-15T15:08:53.000',
+    properties: {
+      online: true,
+      is_cooling: false,
+      is_heating: false,
+      manufacturer: 'ecobee',
+      is_fan_running: false,
+      ecobee_metadata: {
+        min_delta_heat_cool_set_points_fahrenheit: 5,
+        max_cooling_set_point_fahrenheit: 92,
+        min_cooling_set_point_fahrenheit: 65,
+        max_heating_set_point_fahrenheit: 79,
+        min_heating_set_point_fahrenheit: 45,
+        device_name: 'debating book',
+        ecobee_device_id: '14a7f34b-3e44-42b8-a314-ae953f81722a',
+        max_cooling_set_point_celsius: 33.333333333333336,
+        max_heating_set_point_celsius: 26.11111111111111,
+        min_cooling_set_point_celsius: 18.333333333333336,
+        min_heating_set_point_celsius: 7.222222222222222,
+        min_delta_heat_cool_set_points_celsius: 2.7777777777777777,
+      },
+      has_direct_power: true,
+      relative_humidity: 0.36,
+      temperature_celsius: 21.11111111111111,
+      temperature_fahrenheit: 70,
+      current_climate_setting: {
+        hvac_mode_setting: 'heat',
+        manual_override_allowed: false,
+        automatic_cooling_enabled: false,
+        automatic_heating_enabled: true,
+        heating_set_point_celsius: 20,
+        heating_set_point_fahrenheit: 68,
+      },
+      available_hvac_mode_settings: ['off', 'cool', 'heat', 'heatcool'],
+      can_enable_automatic_cooling: true,
+      can_enable_automatic_heating: true,
+      is_temporary_manual_override_active: false,
+      name: 'debating book',
+      model: {
+        display_name: 'Unknown Thermostat',
+      },
+      image_url:
+        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+      image_alt_text: 'Placeholder Lock Image',
+      is_climate_setting_schedule_active: false,
+    },
+    errors: [],
+  })
+
+  db
+
   db.addClientSession({
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-29T01:02:02.000',
-    connect_webview_ids: [cw.connect_webview_id],
-    connected_account_ids: [ca.connected_account_id],
+    connect_webview_ids: [cw.connect_webview_id, cw2.connect_webview_id],
+    connected_account_ids: [ca.connected_account_id, ca2.connected_account_id],
     user_identifier_key: fakeUserIdentifierKey,
     token: 'seam_cst1_0000',
     device1,
     device2,
     device3,
     device4,
-  })
-
-
- // Add ecobee thermostat
- const cw2 = db.addConnectWebview({
-  workspace_id: ws2.workspace_id,
-  created_at: '2023-05-15T15:08:51.000',
-})
-
-const ca2 = db.addConnectedAccount({
-  provider: 'ecobee',
-  workspace_id: ws2.workspace_id,
-  created_at: '2023-05-15T15:08:52.000',
-})
-
-db.updateConnectWebview({
-  connect_webview_id: cw2.connect_webview_id,
-  connected_account_id: ca2.connected_account_id,
-  status: 'authorized',
-})
-
-  const device5 = db.addDevice({
-    connected_account_id: ca.connected_account_id,
-    device_type: 'ecobee_thermostat',
-    name: 'Entryway',
-    workspace_id: ws2.workspace_id,
-    created_at: '2023-05-24T22:30:14.000',
-    properties: {
-      locked: true,
-      online: true,
-      door_open: false,
-      manufacturer: 'august',
-      battery_level: 0.9999532347993827,
-      serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
-      august_metadata: {
-        lock_id: 'lock-3',
-        house_id: 'house-1',
-        lock_name: 'GARAGE',
-        has_keypad: true,
-        house_name: 'My House',
-        keypad_battery_level: 'Not Available',
-      },
-      supported_code_lengths: [6],
-      name: 'GARAGE',
-      battery: {
-        level: 0.8,
-        status: 'full',
-      },
-      image_url:
-        'https://connect.getseam.com/assets/images/devices/august_wifi-smart-lock-3rd-gen_silver_front.png',
-      image_alt_text: 'August Wifi Smart Lock 3rd Gen, Silver, Front',
-    },
-    errors: [],
+    device5,
+    device6,
   })
 }
 
