@@ -293,7 +293,7 @@ export const seedFake = (db) => {
     errors: [],
   })
 
-  // Add ecobee thermostat
+  // Add ecobee thermostats
   const cw2 = db.addConnectWebview({
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-15T15:08:51.000',
