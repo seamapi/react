@@ -31,6 +31,13 @@ jobs:
         uses: ./.github/actions/setup
       - name: Format
         run: npm run format
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ vars.TERRAFORM_VERSION }}
+      - name: Format terraform
+        working-directory: terraform
+        run: terraform fmt -write -recursive
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         if: always()
