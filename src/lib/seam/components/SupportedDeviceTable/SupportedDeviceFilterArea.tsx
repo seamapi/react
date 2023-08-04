@@ -14,6 +14,7 @@ interface SupportedDeviceFilterAreaProps {
   filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
   brands: string[] | null
+  excludedBrands: string[]
 }
 
 export function SupportedDeviceFilterArea({
@@ -22,10 +23,11 @@ export function SupportedDeviceFilterArea({
   filters,
   setFilters,
   brands,
+  excludedBrands,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = getAppliedFilterCount(filters)
 
-  const availableBrands = useAvailableBrands(brands)
+  const availableBrands = useAvailableBrands(brands, excludedBrands)
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -121,27 +123,27 @@ const getAppliedFilterCount = (filters: DeviceModelFilters): number => {
   return count
 }
 
-const useAvailableBrands = (brands: string[] | null): string[] => {
+const useAvailableBrands = (
+  brands: string[] | null,
+  excludedBrands: string[]
+): string[] => {
   const { deviceModels } = useDeviceModels()
 
   if (deviceModels == null) return []
 
-  const uniqueBrands = new Set<string>()
-  for (const deviceModel of deviceModels) {
-    const value = deviceModel.brand
-
-    // UPSTREAM: API can return an empty value for brand.
-    if (value.trim() === '') continue
-
-    uniqueBrands.add(deviceModel.brand)
-  }
-
-  return Array.from(uniqueBrands)
+  const availableBrands = deviceModels
+    .map(({ brand }) => brand.trim())
+    .filter((brand) => {
+      // UPSTREAM: API can return an empty value for brand.
+      return brand !== ''
+    })
     .filter((brand) => {
       if (brands === null) return true
-      return brands.includes(brand)
+      return brands.includes(brand) && !excludedBrands.includes(brand)
     })
     .map((brand) => capitalize(brand))
+
+  return Array.from(new Set(availableBrands))
 }
 
 const t = {
