@@ -33,8 +33,6 @@ jobs:
         run: npm run format
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: ${{ vars.TERRAFORM_VERSION }}
       - name: Format terraform
         working-directory: terraform
         run: terraform fmt -write -recursive
