@@ -424,6 +424,7 @@ The following repository secrets must be set on [GitHub Actions]:
 
 The following repository variables must be set on [GitHub Actions]:
 
+- `CLOUDFLARE_R2_BUCKET`: The Cloudflare R2 bucket name.
 - `VERCEL_TEAM_ID`: The Vercel team id.
 - `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
