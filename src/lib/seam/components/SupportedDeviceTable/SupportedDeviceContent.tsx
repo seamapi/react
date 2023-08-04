@@ -132,13 +132,13 @@ function EmptyResult({
   )
 
   return (
-    <tr className='seam-supported-device-table-content-message-row'>
-      <td colSpan={6}>
+    <div className='seam-supported-device-table-content-message-row'>
+      <div>
         <div className='seam-supported-device-table-content-message'>
           {filterValue.length === 0 ? <p>{t.noneFound}</p> : noMatchingRows}
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
   )
 }
 
