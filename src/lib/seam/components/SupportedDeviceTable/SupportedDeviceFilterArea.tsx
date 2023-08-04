@@ -139,7 +139,10 @@ const useAvailableBrands = (
     })
     .filter((brand) => {
       if (brands === null) return true
-      return brands.includes(brand) && !excludedBrands.includes(brand)
+      return brands.includes(brand)
+    })
+    .filter((brand) => {
+      return !excludedBrands.includes(brand)
     })
     .map((brand) => capitalize(brand))
 

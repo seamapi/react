@@ -35,16 +35,17 @@ export const useFilteredDeviceModels = ({
 
   const query = useDeviceModels(params)
 
-  if (brands === null) {
-    return query
-  }
-
   // UPSTREAM: The API does not have a brands or excludedBrands query parameter,
   // so selected brands are filtered here.
   return {
     ...query,
-    deviceModels: query.deviceModels?.filter(
-      ({ brand }) => brands.includes(brand) && !excludedBrands.includes(brand)
-    ),
+    deviceModels: query.deviceModels
+      ?.filter(({ brand }) => {
+        if (brands === null) return true
+        return brands.includes(brand)
+      })
+      .filter(({ brand }) => {
+        return !excludedBrands.includes(brand)
+      }),
   }
 }
