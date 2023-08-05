@@ -84,7 +84,7 @@ jobs:
       - name: ls
         run: ls
       - name: Extract package
-        run: "tar -xzf *.tgz"
+        run: 'tar -xzf *.tgz'
       - name: Sync to R2
         uses: jakejarvis/s3-sync-action@v0.5.1
         env:

@@ -147,7 +147,7 @@ jobs:
           name: ${{ needs.build.outputs.artifact_name }}
           path: package
       - name: Extract package
-        run: "tar -xzf *.tgz"
+        run: 'tar -xzf *.tgz'
       - name: Sync R2
         uses: jakejarvis/s3-sync-action@v0.5.1
         env:
