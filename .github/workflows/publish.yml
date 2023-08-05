@@ -80,7 +80,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ needs.build.outputs.artifact_name }}
-          path: package
+          path: .
+      - run: ls -R
+      - run: tar -xzf *.tgz
       - name: Sync to R2
         uses: jakejarvis/s3-sync-action@v0.5.1
         env:
