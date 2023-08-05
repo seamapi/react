@@ -65,6 +65,7 @@ jobs:
     secrets:
       registry_token: ${{ secrets.GITHUB_TOKEN }}
   assets:
+    name: Assets
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: build
@@ -80,8 +81,10 @@ jobs:
         with:
           name: ${{ needs.build.outputs.artifact_name }}
           path: package
+      - name: ls
+        run: ls
       - name: Extract package
-        run: tar -xzf *.tgz
+        run: "tar -xzf *.tgz"
       - name: Sync to R2
         uses: jakejarvis/s3-sync-action@v0.5.1
         env:
