@@ -81,8 +81,6 @@ jobs:
         with:
           name: ${{ needs.build.outputs.artifact_name }}
           path: package
-      - name: ls
-        run: ls
       - name: Extract package
         run: 'tar -xzf *.tgz'
       - name: Sync to R2
