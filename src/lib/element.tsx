@@ -1,4 +1,4 @@
-import r2wc from '@r2wc/react-to-web-component'
+import r2wc from '@rxfork/r2wc-react-to-web-component'
 import type { ComponentType } from 'react'
 import type { Container } from 'react-dom'
 
@@ -23,8 +23,9 @@ export interface ElementDefinition {
   props?: ElementProps<Record<string, object>>
 }
 
-export type ElementProps<T> = Partial<
-  Record<keyof T, 'string' | 'number' | 'boolean' | 'function' | 'json'>
+export type ElementProps<T> = Record<
+  keyof T,
+  'string' | 'number' | 'boolean' | 'array' | 'function' | 'json' | 'object'
 >
 
 type ProviderProps = SeamProviderPropsWithPublishableKey &
@@ -35,6 +36,7 @@ const providerProps: ElementProps<ProviderProps> = {
   userIdentifierKey: 'string',
   clientSessionToken: 'string',
   endpoint: 'string',
+  queryClient: 'object',
   disableCssInjection: 'boolean',
   disableFontInjection: 'boolean',
   unminifiyCss: 'boolean',

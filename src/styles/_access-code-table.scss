@@ -82,7 +82,19 @@
   }
 
   .seam-access-code-table-action-menu {
-    .menu-item-copy {
+    .seam-delete-confirmation {
+      padding: 8px 16px;
+      text-align: center;
+
+      .seam-actions {
+        margin-top: 16px;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+    }
+
+    .seam-menu-item-copy {
       display: flex;
       align-items: center;
       justify-content: space-between;

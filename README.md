@@ -78,7 +78,7 @@ export function App() {
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/1.37.0/dist/elements.js"
+    src="https://react.seam.co/v/1.45.2/dist/elements.js"
   ></script>
 </body>
 ```
@@ -303,20 +303,44 @@ $ npm install
 
 Develop components with [Storybook].
 
-Run Storybook in development mode with
+Run the full storybook in development mode with
 
 ```
 $ npm start
 ```
 
-The Storybook is deployed in docs mode.
-Develop the Storybook in docs mode with
+The deployed storybook runs in docs mode which does not contain the full storybook.
+Develop the storybook in docs mode with
 
 ```
 $ npm run docs:start
 ```
 
 [Storybook]: https://storybook.js.org/
+
+#### Chromatic
+
+[Chromatic] automates visual and interaction tests for Storybook.
+
+On each commit, the full storybook is published to Chromatic for review.
+On pull requests, Chromatic will run UI regressions tests on each commit.
+Chromatic reports results as status checks that link directly to the storybook.
+
+If changes are detected, follow the link in the status checks to approve the changes.
+_Contributors must be granted access to approve changes on Chromatic;
+request access from another maintainer of this project._
+
+[Chromatic]: https://www.chromatic.com/
+
+### Previews
+
+Every pull request deploys the storybook in docs mode with the examples
+in a [Vercel Preview Deployment]
+where you may [comment directly on the preview][Vercel Comments].
+This is the same storybook published on [react.seam.co](https://react.seam.co).
+
+[Vercel Preview Deployment]: https://vercel.com/docs/concepts/deployments/preview-deployments
+[Vercel Comments]: https://vercel.com/docs/concepts/deployments/comments
 
 ### Fake Seam Connect
 
@@ -327,15 +351,6 @@ Edit the seed data for the fake or find relevant ids for testing components here
 
 - [Storybook fake seed](./.storybook/seed-fake.js).
 - [Jest test fake seed](./test/jest/global-setup.cjs).
-
-### Previews
-
-Every pull request deploys the Storybook with the examples
-in a [Vercel Preview Deployment]
-where you may [comment directly on the preview][Vercel Comments].
-
-[Vercel Preview Deployment]: https://vercel.com/docs/concepts/deployments/preview-deployments
-[Vercel Comments]: https://vercel.com/docs/concepts/deployments/comments
 
 ### Tests
 
@@ -413,6 +428,19 @@ The following repository variables must be set on [GitHub Actions]:
 - `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
+
+### R2 Bucket
+
+The following repository variables must be set on GitHub Actions:
+
+- `CLOUDFLARE_ACCOUNT_ID`: The Cloudflare account id.
+- `CLOUDFLARE_R2_BUCKET_NAME`: The Cloudflare R2 bucket name.
+- `CLOUDFLARE_R2_BUCKET_REGION`: The Cloudflare R2 bucket region.
+- `CLOUDFLARE_R2_ACCESS_KEY_ID`: The Cloudflare R2 bucket access key id.
+
+The following repository secrets must be set on GitHub Actions:
+
+- `CLOUDFLARE_R2_SECRET_ACCESS_KEY`: The Cloudflare R2 secret access key.
 
 [GitHub Actions]: https://github.com/features/actions
 [GPG private key]: https://github.com/marketplace/actions/import-gpg#prerequisites

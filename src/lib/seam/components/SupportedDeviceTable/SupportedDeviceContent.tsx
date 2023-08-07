@@ -13,7 +13,8 @@ interface SupportedDeviceContentProps {
   filterValue: string
   resetFilterValue: () => void
   filters: DeviceModelFilters
-  brands: string[]
+  brands: string[] | null
+  excludedBrands: string[]
 }
 
 export function SupportedDeviceContent({
@@ -21,12 +22,14 @@ export function SupportedDeviceContent({
   filterValue,
   filters,
   brands,
+  excludedBrands,
 }: SupportedDeviceContentProps): JSX.Element | null {
   const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
     {
       filterValue,
       filters,
       brands,
+      excludedBrands,
     }
   )
 
@@ -71,12 +74,8 @@ export function SupportedDeviceContent({
     )
   }
 
-  // If there are no active filters or search, show all the rows without any brand sections.
-  const hasFilters =
-    filterValue.trim() !== '' ||
-    filters.supportedOnly ||
-    filters.category !== null ||
-    filters.brand !== null
+  const hasFilters = filterValue.trim() !== '' || filters.brand !== null
+
   if (hasFilters) {
     return (
       <div className='seam-supported-device-table-content'>
@@ -133,13 +132,13 @@ function EmptyResult({
   )
 
   return (
-    <tr className='seam-supported-device-table-content-message-row'>
-      <td colSpan={6}>
+    <div className='seam-supported-device-table-content-message-row'>
+      <div>
         <div className='seam-supported-device-table-content-message'>
           {filterValue.length === 0 ? <p>{t.noneFound}</p> : noMatchingRows}
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
   )
 }
 
