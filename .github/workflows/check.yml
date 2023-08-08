@@ -135,26 +135,3 @@ jobs:
         uses: ./.github/actions/setup
       - name: Build docs
         run: npm run docs:build
-  assets:
-    name: Assets
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    needs: build
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ needs.build.outputs.artifact_name }}
-          path: .
-      - name: Extract package
-        run: tar -xzf *.tgz
-      - name: Sync R2
-        uses: jakejarvis/s3-sync-action@v0.5.1
-        env:
-          AWS_S3_BUCKET: ${{ vars.CLOUDFLARE_R2_BUCKET_NAME }}
-          AWS_ACCESS_KEY_ID: ${{ vars.CLOUDFLARE_R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ vars.CLOUDFLARE_R2_BUCKET_REGION }}
-          AWS_S3_ENDPOINT: https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
-          SOURCE_DIR: package
-          DEST_DIR: tmp/${{ github.sha }}
