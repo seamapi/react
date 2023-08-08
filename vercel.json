@@ -9,7 +9,7 @@
   "rewrites": [
     {
       "source": "/v/:version/:asset*",
-      "destination": "https://www.unpkg.com/@seamapi/react@:version/:asset"
+      "destination": "https://react.seam.net/v/:version/:asset"
     },
     {
       "source": "/api/:apipath*",
