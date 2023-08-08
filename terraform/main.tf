@@ -9,7 +9,8 @@ data "cloudflare_zone" "main" {
 }
 
 locals {
-  zone_id = data.cloudflare_zone.main.id
+  zone_id       = data.cloudflare_zone.main.id
+  bucket_domain = "${var.subdomain}.${var.zone_name}"
 }
 
 resource "cloudflare_r2_bucket" "main" {
