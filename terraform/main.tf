@@ -17,10 +17,3 @@ resource "cloudflare_r2_bucket" "main" {
   name       = join("-", [local.org, local.repo, local.id])
   location   = "WNAM"
 }
-
-resource "cloudflare_record" "main" {
-  zone_id = local.zone_id
-  name    = var.subdomain
-  value   = cloudflare_r2_bucket.main.name
-  type    = "R2"
-}
