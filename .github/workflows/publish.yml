@@ -75,7 +75,7 @@ jobs:
         id: version
         with:
           result-encoding: string
-          script: return context.ref.split('/')[2]
+          script: return context.ref.split('/')[2].slice(1)
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
