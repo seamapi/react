@@ -13,21 +13,10 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
-type ClimateSettingSchedule = UseClimateSettingSchedulesData[number]
+// type ClimateSettingSchedule = UseClimateSettingSchedulesData[number]
 
 export interface ClimateSettingScheduleTableProps {
   deviceId: string
-  disableSearch?: boolean
-  climateSettingScheduleFilter?: (
-    ClimateSettingSchedule: ClimateSettingSchedule,
-    searchInputValue: string
-  ) => boolean
-  climateSettingScheduleComparator?: (
-    ClimateSettingScheduleA: ClimateSettingSchedule,
-    ClimateSettingScheduleB: ClimateSettingSchedule
-  ) => number
-  onClimateSettingScheduleClick?: (ClimateSettingScheduleId: string) => void
-  preventDefaultOnClimateSettingScheduleClick?: boolean
   onBack?: () => void
   className?: string
 }
