@@ -29,9 +29,12 @@ export function useClimateSettingSchedules(
     enabled: client != null,
     queryKey: ['thermostats', 'climate_setting_schedules', 'list', params],
     queryFn: async () => {
+      const { device_id } = params
       if (client == null) return []
-      if (!params.device_id) return []
-      return await client.thermostats.climateSettingSchedules.list(params)
+      if (!device_id) return []
+      return await client.thermostats.climateSettingSchedules.list({
+        device_id,
+      })
     },
     onSuccess: (schedules) => {
       // Prime cache for each schedule.
