@@ -18,8 +18,7 @@ export function ClimateSettingScheduleDetails(props: {
         {device?.properties.name}
       </span>
       <DotDivider />
-      {/* <Duration accessCode={accessCode} /> */}
-      <span className='seam-status-text'>{`Starts :)`}</span>
+      <Duration climateSettingSchedule={climateSettingSchedule} />
       <DotDivider />
       <ClimateSettingStatus climateSetting={climateSettingSchedule} />
     </div>
@@ -31,29 +30,19 @@ function Duration(props: {
 }): JSX.Element {
   const { climateSettingSchedule } = props
 
-  const hasStarted =
-    useIsDateInPast('starts_at' in accessCode ? accessCode?.starts_at : null) ??
-    false
-
-  if (accessCode.type === 'ongoing') {
-    return (
-      <span>
-        {t.ends}: {t.never}
-      </span>
-    )
-  }
+  const hasStarted = useIsDateInPast(climateSettingSchedule.schedule_starts_at)
 
   if (hasStarted) {
     return (
       <span>
-        {t.ends}: {formatDate(accessCode.ends_at)}{' '}
+        {t.ends} {formatDate(climateSettingSchedule.schedule_ends_at)}{' '}
       </span>
     )
   }
 
   return (
     <span>
-      {t.starts}: {formatDate(accessCode.starts_at)}
+      {t.starts} {formatDate(climateSettingSchedule.schedule_starts_at)}
     </span>
   )
 }
