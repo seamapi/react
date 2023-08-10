@@ -3,9 +3,8 @@ import type { UseClimateSettingSchedulesData } from 'lib/seam/thermostats/climat
 
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
-import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { Title } from 'lib/ui/typography/Title.js'
-import { DateTime } from 'luxon'
+import { ClimateSettingScheduleDetails } from './ClimateSettingScheduleDetails.js'
 
 interface ClimateSettingScheduleRowProps {
   climateSettingSchedule: UseClimateSettingSchedulesData[number]
@@ -16,26 +15,20 @@ export function ClimateSettingScheduleRow({
   climateSettingSchedule,
   onClick,
 }: ClimateSettingScheduleRowProps): JSX.Element | null {
-  const startDate = DateTime.fromISO(
-    climateSettingSchedule.schedule_starts_at
-  ).toLocaleString({
-    month: 'short',
-    day: 'numeric',
-  })
-
   return (
     <TableRow onClick={onClick}>
-      <TableCell>
-        <ClimateSettingScheduleIcon />
-      </TableCell>
-      <TableCell className='seam-body-cell'>
-        <Title>{climateSettingSchedule.name}</Title>
-        <div className='seam-bottom'>
-          <div className='seam-device-statuses'>
-            <span className='seam-status-text'>{`Starts ${startDate}`}</span>
-            <ClimateSettingStatus climateSetting={climateSettingSchedule} />
-          </div>
+      <TableCell className='seam-icon-cell'>
+        <div>
+          <ClimateSettingScheduleIcon />
         </div>
+      </TableCell>
+      <TableCell className='seam-name-cell'>
+        <Title className='seam-truncated-text'>
+          {climateSettingSchedule.name}
+        </Title>
+        <ClimateSettingScheduleDetails
+          climateSettingSchedule={climateSettingSchedule}
+        />
       </TableCell>
     </TableRow>
   )

@@ -21,16 +21,16 @@ export default meta
 type Story = StoryObj<typeof ClimateSettingScheduleTable>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <ClimateSettingScheduleTable
       {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
+      deviceId={props.deviceId ?? 'device5'}
     />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
@@ -39,7 +39,7 @@ export const InsideModal: Story = {
           <div className='seam-components'>
             <ClimateSettingScheduleTable
               {...props}
-              deviceId={props.deviceId ?? globals['deviceId']}
+              deviceId={props.deviceId ?? 'device5'}
             />
           </div>
           <DialogActions
@@ -56,10 +56,10 @@ export const InsideModal: Story = {
 }
 
 export const ReadOnlyCustomerSupportPanel: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <ClimateSettingScheduleTable
       {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
+      deviceId={props.deviceId ?? 'device5'}
     />
   ),
 }

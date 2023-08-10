@@ -421,6 +421,36 @@ export const seedFake = (db) => {
     errors: [],
   })
 
+  // add climate setting schedules
+  db.addClimateSettingSchedule({
+    device_id: device5.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
+    name: "Vacation Setting (Hawaii)",
+    schedule_starts_at: "2021-01-01T00:00:00.000Z",
+    schedule_ends_at: "2021-02-02T00:00:00.000Z",
+    schedule_type: "time_bound",
+    manual_override_allowed: true,
+    automatic_heating_enabled: true,
+    automatic_cooling_enabled: true,
+    heating_set_point_fahrenheit: 40,
+    cooling_set_point_fahrenheit: 80,
+  })
+
+
+  db.addClimateSettingSchedule({
+    device_id: device5.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
+    name: "Vacation Setting (Bali)",
+    schedule_starts_at: "2021-01-01T00:00:00.000Z",
+    schedule_ends_at: "2021-02-02T00:00:00.000Z",
+    schedule_type: "time_bound",
+    manual_override_allowed: true,
+    automatic_cooling_enabled: true,
+    cooling_set_point_fahrenheit: 70,
+  })
+
   db.addClientSession({
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-29T01:02:02.000',
