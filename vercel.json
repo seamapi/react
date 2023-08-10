@@ -9,7 +9,7 @@
   "rewrites": [
     {
       "source": "/v/:version/:asset*",
-      "destination": "https://www.unpkg.com/@seamapi/react@:version/:asset"
+      "destination": "https://react.seam.net/v/:version/:asset"
     },
     {
       "source": "/api/:apipath*",
@@ -51,6 +51,31 @@
         {
           "key": "Permissions-Policy",
           "value": "geolocation=(), camera=(), microphone=(), payment=()"
+        }
+      ]
+    },
+    {
+      "source": "/v/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "false"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     },

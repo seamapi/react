@@ -78,7 +78,7 @@ export function App() {
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/1.44.0/dist/elements.js"
+    src="https://react.seam.co/v/1.46.3/dist/elements.js"
   ></script>
 </body>
 ```
@@ -428,6 +428,19 @@ The following repository variables must be set on [GitHub Actions]:
 - `STORYBOOK_SEAM_ENDPOINT`: The Seam endpoint to use with Storybook.
 - `STORYBOOK_SEAM_PUBLISHABLE_KEY`: The Seam publishable key to use with Storybook.
 - `STORYBOOK_SEAM_USER_IDENTIFIER_KEY`: The Seam user identifer key to use with Storybook.
+
+### R2 Bucket
+
+The following repository variables must be set on GitHub Actions:
+
+- `CLOUDFLARE_ACCOUNT_ID`: The Cloudflare account id.
+- `CLOUDFLARE_R2_BUCKET_NAME`: The Cloudflare R2 bucket name.
+- `CLOUDFLARE_R2_BUCKET_REGION`: The Cloudflare R2 bucket region.
+- `CLOUDFLARE_R2_ACCESS_KEY_ID`: The Cloudflare R2 bucket access key id.
+
+The following repository secrets must be set on GitHub Actions:
+
+- `CLOUDFLARE_R2_SECRET_ACCESS_KEY`: The Cloudflare R2 secret access key.
 
 [GitHub Actions]: https://github.com/features/actions
 [GPG private key]: https://github.com/marketplace/actions/import-gpg#prerequisites
