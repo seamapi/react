@@ -1,4 +1,5 @@
 import type { ElementProps } from 'lib/element.js'
+
 import type { ClimateSettingScheduleTableProps } from './ClimateSettingScheduleTable.js'
 
 export const name = 'seam-climate-setting-schedule-table'

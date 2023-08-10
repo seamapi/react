@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+
 import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
@@ -9,6 +10,7 @@ import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
+
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
 type ClimateSettingSchedule = UseClimateSettingSchedulesData[number]
@@ -40,7 +42,7 @@ export function ClimateSettingScheduleTable({
       device_id: deviceId,
     })
 
-  //TODO filtering
+  // TODO filtering
   const filteredClimateSettingSchedules = climateSettingSchedules ?? []
 
   if (isLoading) {
