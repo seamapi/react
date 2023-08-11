@@ -30,7 +30,8 @@ function Duration(props: {
 }): JSX.Element {
   const { climateSettingSchedule } = props
 
-  const hasStarted = useIsDateInPast(climateSettingSchedule.schedule_starts_at)
+  const hasStarted =
+    useIsDateInPast(climateSettingSchedule.schedule_starts_at) ?? false
 
   if (hasStarted) {
     return (

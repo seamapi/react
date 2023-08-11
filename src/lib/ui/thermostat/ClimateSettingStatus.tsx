@@ -16,7 +16,6 @@ export function ClimateSettingStatus({
   temperatureUnit = 'fahrenheit',
   iconPlacement = 'left',
 }: ClimateSettingStatusProps): JSX.Element {
-  console.log('climate setting: ', climateSetting)
   return (
     <div className='seam-climate-setting-status'>
       {iconPlacement === 'left' && (
