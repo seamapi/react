@@ -14,7 +14,7 @@ interface ClimateSettingScheduleRowProps {
 export function ClimateSettingScheduleRow({
   climateSettingSchedule,
   onClick,
-}: ClimateSettingScheduleRowProps): JSX.Element | null {
+}: ClimateSettingScheduleRowProps): JSX.Element {
   return (
     <TableRow onClick={onClick}>
       <TableCell className='seam-icon-cell'>
