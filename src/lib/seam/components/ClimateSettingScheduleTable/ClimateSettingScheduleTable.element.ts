@@ -6,7 +6,7 @@ export const name = 'seam-climate-setting-schedule-table'
 
 export const props: ElementProps<ClimateSettingScheduleTableProps> = {
   deviceId: 'string',
-  onBack: 'function',
+  onBack: 'object',
   className: 'string',
 }
 
