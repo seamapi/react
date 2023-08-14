@@ -6,8 +6,7 @@ import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { ThermostatOffIcon } from 'lib/icons/ThermostatOff.js'
 
 interface ClimateSettingStatusProps {
-  climateSetting: ClimateSetting &
-    Partial<Pick<ClimateSetting, 'manual_override_allowed'>>
+  climateSetting: Partial<ClimateSetting>
   temperatureUnit?: 'fahrenheit' | 'celsius'
   iconPlacement?: 'left' | 'right'
 }

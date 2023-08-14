@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import type { ClimateSetting, ClimateSettingSchedule } from 'seamapi'
+import type { ClimateSettingSchedule } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
@@ -20,9 +20,7 @@ export function ClimateSettingScheduleDetails(props: {
       <DotDivider />
       <Duration climateSettingSchedule={climateSettingSchedule} />
       <DotDivider />
-      <ClimateSettingStatus
-        climateSetting={climateSettingSchedule as ClimateSetting}
-      />
+      <ClimateSettingStatus climateSetting={climateSettingSchedule} />
     </div>
   )
 }
