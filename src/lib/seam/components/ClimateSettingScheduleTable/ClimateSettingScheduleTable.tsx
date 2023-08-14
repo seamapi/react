@@ -13,7 +13,6 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
-
 export interface ClimateSettingScheduleTableProps {
   deviceId: string
   onBack?: () => void
