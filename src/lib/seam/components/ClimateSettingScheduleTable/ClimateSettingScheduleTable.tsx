@@ -74,12 +74,9 @@ function Content(props: {
     )
   }
 
-  // TODO filtering
-  const filteredClimateSettingSchedules = climateSettingSchedules
-
   return (
     <>
-      {filteredClimateSettingSchedules.map((schedule) => (
+      {climateSettingSchedules.map((schedule) => (
         <ClimateSettingScheduleRow
           climateSettingSchedule={schedule}
           key={schedule.climate_setting_schedule_id}
