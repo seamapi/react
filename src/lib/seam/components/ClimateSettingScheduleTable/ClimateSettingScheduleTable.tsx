@@ -64,7 +64,7 @@ export function ClimateSettingScheduleTable({
 
 function Content(props: {
   climateSettingSchedules: Array<UseClimateSettingSchedulesData[number]>
-  onClimateSettingScheduleClick: (ClimateSettingScheduleId: string) => void
+  onClimateSettingScheduleClick: (climateSettingScheduleId: string) => void
 }): JSX.Element {
   const { climateSettingSchedules, onClimateSettingScheduleClick } = props
 
