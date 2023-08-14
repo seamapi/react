@@ -13,7 +13,6 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
-// type ClimateSettingSchedule = UseClimateSettingSchedulesData[number]
 
 export interface ClimateSettingScheduleTableProps {
   deviceId: string
