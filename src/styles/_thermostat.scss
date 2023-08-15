@@ -18,4 +18,81 @@
     justify-content: center;
     align-items: center;
   }
+
+  .seam-thermostat-card {
+    background-color: colors.$bg-a;
+    border-radius: 16px;
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+
+    .seam-thermostat-card-content {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: row;
+      gap: 8px;
+      align-self: stretch;
+    }
+
+    .seam-thermostat-card-image-wrap {
+      padding: 24px;
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+      }
+    }
+
+    .seam-thermostat-heading-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      gap: 16px;
+    }
+
+    .seam-thermostat-card-heading {
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 132%;
+      white-space: nowrap;
+    }
+
+    .seam-thermostat-temperature-toggle {
+      appearance: none;
+      width: 32px;
+      height: 22px;
+      border: none;
+      box-shadow: none;
+      border-radius: 5px;
+      border: 1px solid var(--text-text-gray-3, #D5D8DC);
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: colors.$text-gray-1;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .seam-thermostat-card-details {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .seam-thermostat-properties {
+      display: grid;
+      grid-template-columns: auto auto;
+    }
+  }
 }
