@@ -53,15 +53,15 @@
           color: colors.$text-gray-1;
           display: flex;
 
-            .seam-device-name {
-                max-width: 190px;
-                width: auto;
-            }
+          .seam-device-name {
+            max-width: 190px;
+            width: auto;
+          }
 
-            .seam-dot-divider {
-                margin: 0 4px;
-                color: colors.$text-gray-3;
-            }
+          .seam-dot-divider {
+            margin: 0 4px;
+            color: colors.$text-gray-3;
+          }
         }
       }
 
