@@ -71,7 +71,7 @@ export function AccessCodeDetails({
   ]
 
   return (
-    <div className={classNames('seam-access-code-details', className)}>
+    <div className={classNames('seam-details', className)}>
       <ContentHeader title='Access code' onBack={onBack} />
       <div className='seam-summary'>
         <div

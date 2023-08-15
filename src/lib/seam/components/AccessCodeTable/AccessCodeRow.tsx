@@ -46,12 +46,12 @@ export function AccessCodeRow({
       </TableCell>
       <TableCell className='seam-action-cell'>
         {errorCount > 0 && (
-          <div className='seam-code-issue-icon-wrap' title={errorIconTitle}>
+          <div className='seam-issue-icon-wrap' title={errorIconTitle}>
             <ExclamationCircleOutlineIcon />
           </div>
         )}
         {errorCount === 0 && warningCount > 0 && (
-          <div className='seam-code-issue-icon-wrap' title={warningIconTitle}>
+          <div className='seam-issue-icon-wrap' title={warningIconTitle}>
             <TriangleWarningOutlineIcon />
           </div>
         )}
