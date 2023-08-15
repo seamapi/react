@@ -1,7 +1,8 @@
+import { useState } from 'react'
+
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 
 import { useDevice } from '../../../hooks.js'
-import { useState } from 'react'
 
 interface ThermostatCardProps {
   deviceId: string
@@ -50,7 +51,7 @@ function Content(props: { deviceId: string }): JSX.Element | null {
           </button>
         </div>
 
-        <div className='seam-thermostat-properties'></div>
+        <div className='seam-thermostat-properties' />
       </div>
     </div>
   )
