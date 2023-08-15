@@ -19,6 +19,7 @@
 @use './radio-field';
 @use './checkbox';
 @use './thermostat';
+@use './climate-setting-schedule-table';
 
 .seam-components {
   // Reset
@@ -46,4 +47,5 @@
   @include alert.all;
   @include supported-device-table.all;
   @include thermostat.all;
+  @include climate-setting-schedule-table.all;
 }
