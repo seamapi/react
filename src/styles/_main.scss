@@ -20,7 +20,6 @@
 @use './thermostat';
 @use './seam-table';
 
-
 .seam-components {
   // Reset
   @include reset.all;
