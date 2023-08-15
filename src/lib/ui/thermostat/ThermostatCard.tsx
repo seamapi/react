@@ -1,7 +1,8 @@
+import { useState } from 'react'
+
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 
 import { useDevice } from '../../../hooks.js'
-import { useState } from 'react'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 interface ThermostatCardProps {
