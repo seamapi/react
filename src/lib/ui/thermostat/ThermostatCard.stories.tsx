@@ -15,7 +15,7 @@ export const Content: Story = {
   render: (props, { globals }) => {
     return (
       <Box display='grid' gap={4} gridTemplateColumns='repeat(4, min-content)'>
-        <ThermostatCard deviceId={props.deviceId || globals['deviceId']} />
+        <ThermostatCard deviceId="device5" />
       </Box>
     )
   },
