@@ -58,7 +58,7 @@ const defaultAccessCodeFilter = (
   accessCode: AccessCode,
   searchInputValue: string
 ): boolean => {
-  const value = searchInputValue.trim()
+  const value = searchInputValue.trim().toLowerCase()
   if (value === '') return true
   return (
     (accessCode.name?.includes(value) || accessCode.code?.includes(value)) ??
