@@ -5,9 +5,9 @@ import { isLockDevice } from 'seamapi'
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
-  DeviceHealthBar,
   type AccountFilter,
   type DeviceFilter,
+  DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
 import {
