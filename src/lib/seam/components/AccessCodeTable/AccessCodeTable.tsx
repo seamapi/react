@@ -60,9 +60,10 @@ const defaultAccessCodeFilter = (
 ): boolean => {
   const value = searchInputValue.trim().toLowerCase()
   if (value === '') return true
+  const { name = '', code = '' } = accessCode
   return (
-    (accessCode.name?.includes(value) || accessCode.code?.includes(value)) ??
-    false
+    name.trim().toLowerCase().includes(value) ??
+    code?.trim().toLowerCase().includes(value)
   )
 }
 
