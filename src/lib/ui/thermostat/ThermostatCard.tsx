@@ -4,6 +4,7 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 
 import { useDevice } from '../../../hooks.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+import { FanIcon } from 'lib/icons/Fan.js'
 
 interface ThermostatCardProps {
   deviceId: string
@@ -80,7 +81,10 @@ function Content(props: { deviceId: string }): JSX.Element | null {
           <div className='seam-thermostat-property-block'>
             <p className='seam-thermostat-property-label'>Fan mode:</p>
           </div>
-          <div className='seam-thermostat-property-block'>
+          <div className='seam-thermostat-property-block seam-thermostat-property-icon-block'>
+            <div className='seam-thermostat-property-icon'>
+              <FanIcon />
+            </div>
             <p className='seam-thermostat-property-value'>Auto</p>
           </div>
           <div className='seam-thermostat-property-block'>
