@@ -1,7 +1,7 @@
 @use './colors';
 
 @mixin all {
-  .seam-climate-setting-schedule-table {
+  .seam-table {
     .seam-search-text-field {
       width: 170px;
     }
@@ -11,7 +11,7 @@
         display: flex;
         align-items: center;
 
-        .seam-add-climate-setting-schedule-button {
+        .seam-add-button {
           margin-left: 8px;
         }
       }
@@ -47,7 +47,7 @@
           max-width: 380px;
         }
 
-        .seam-climate-setting-schedule-details {
+        .seam-details {
           font-size: 14px;
           line-height: 134%;
           color: colors.$text-gray-1;
@@ -72,7 +72,7 @@
         justify-content: center;
       }
 
-      .seam-climate-setting-schedule-issue-icon-wrap {
+      .seam-issue-icon-wrap {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -81,7 +81,7 @@
     }
   }
 
-  .seam-climate-setting-schedule-table-action-menu {
+  .seam-table-action-menu {
     .seam-delete-confirmation {
       padding: 8px 16px;
       text-align: center;

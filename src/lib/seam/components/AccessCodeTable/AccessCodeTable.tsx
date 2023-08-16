@@ -163,7 +163,7 @@ export function AccessCodeTable({
   }
 
   return (
-    <div className={classNames('seam-access-code-table', className)}>
+    <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <div className='seam-left'>
@@ -178,7 +178,7 @@ export function AccessCodeTable({
           {!disableCreateAccessCode && (
             <IconButton
               onClick={toggleAddAccessCodeForm}
-              className='seam-add-access-code-button'
+              className='seam-add-button'
             >
               <AddIcon />
             </IconButton>

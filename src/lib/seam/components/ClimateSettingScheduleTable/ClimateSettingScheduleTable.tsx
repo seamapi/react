@@ -41,9 +41,7 @@ export function ClimateSettingScheduleTable({
   }
 
   return (
-    <div
-      className={classNames('seam-climate-setting-schedule-table', className)}
-    >
+    <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <TableTitle>
