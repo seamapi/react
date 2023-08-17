@@ -48,7 +48,7 @@ const defaultDeviceFilter = (
 ): boolean => {
   const value = searchInputValue.trim()
   if (value === '') return true
-  return device.properties.name.includes(value)
+  return device.properties.name.toLowerCase().includes(value)
 }
 
 export function DeviceTable({
