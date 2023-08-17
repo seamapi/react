@@ -17,13 +17,21 @@ refreshing data, and performing actions.
 
 - [Seam Components Overview](https://docs.seam.co/latest/seam-components/overview)
 - [Get started with Seam](https://www.seam.co/).
-- [Get started with Client Side Components](https://docs.seam.co/latest/seam-components/get-started-with-client-side-components).
-- [Get started with React and Client Session Tokens](https://docs.seam.co/latest/seam-components/get-started-with-react-components-and-client-session-tokens).
-- [Make a Supported Devices Page with React](https://docs.seam.co/latest/seam-components/make-a-supported-devices-page-with-react).
+- [Get started without needing a backend](https://docs.seam.co/latest/seam-components/get-started-with-client-side-components).
+- [Get started with Angular](https://docs.seam.co/latest/seam-components/overview/angular).
+- [Get started with Vue](https://docs.seam.co/latest/seam-components/overview/vue).
+- [Get started with Client Sessions](https://docs.seam.co/latest/seam-components/get-started-with-react-components-and-client-session-tokens).
+- [Make a Supported Devices Page](https://docs.seam.co/latest/seam-components/make-a-supported-devices-page).
 - Reference the [Component API](https://docs.seam.co/latest/seam-components/react-components).
 - Find developer specific technical documentation in the [README](https://github.com/seamapi/react/).
 - Play with the components live in the interactive [Storybook](https://react.seam.co/)!
 - See how the components work with a real Seam sandbox workspace in this [live example app](https://react.seam.co/examples/basic/).
+- Cloning a [sample app in your preferred framework](https://github.com/seamapi/seam-components-sample-apps).
+
+### Live Examples
+
+- <a href='/examples/basic/'>Basic Example App</a> ([source](https://github.com/seamapi/react/tree/main/examples/basic/))
+- <a href='/examples/web-components/'>Web Components Example App</a> ([source](https://github.com/seamapi/react/tree/main/examples/web-components/))
 
 ## Installation
 
@@ -321,6 +329,9 @@ $ npm run docs:start
 #### Chromatic
 
 [Chromatic] automates visual and interaction tests for Storybook.
+
+The full storybook for the main branch is hosted at
+[storybook.react.seam.co](https://storybook.react.seam.co).
 
 On each commit, the full storybook is published to Chromatic for review.
 On pull requests, Chromatic will run UI regressions tests on each commit.
