@@ -5,7 +5,6 @@
 @use './alert';
 @use './buttons';
 @use './layout';
-@use './access-code-table';
 @use './colors';
 @use './icons';
 @use './menus';
@@ -19,6 +18,7 @@
 @use './radio-field';
 @use './checkbox';
 @use './thermostat';
+@use './seam-table';
 
 .seam-components {
   // Reset
@@ -40,10 +40,10 @@
   // Components
   @include device-details.all;
   @include device-table.all;
-  @include access-code-table.all;
   @include access-code-details.all;
   @include access-code-form.all;
   @include alert.all;
   @include supported-device-table.all;
   @include thermostat.all;
+  @include seam-table.all;
 }

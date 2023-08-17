@@ -6,7 +6,7 @@ import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { ThermostatOffIcon } from 'lib/icons/ThermostatOff.js'
 
 interface ClimateSettingStatusProps {
-  climateSetting: ClimateSetting
+  climateSetting: Partial<ClimateSetting>
   temperatureUnit?: 'fahrenheit' | 'celsius'
   iconPlacement?: 'left' | 'right'
 }
@@ -23,8 +23,16 @@ export function ClimateSettingStatus({
       )}
       <Content
         mode={climateSetting.hvac_mode_setting}
-        coolingSetPoint={climateSetting.cooling_set_point_fahrenheit}
-        heatingSetPoint={climateSetting.heating_set_point_fahrenheit}
+        coolingSetPoint={
+          temperatureUnit === 'fahrenheit'
+            ? climateSetting.cooling_set_point_fahrenheit
+            : climateSetting.cooling_set_point_celsius
+        }
+        heatingSetPoint={
+          temperatureUnit === 'fahrenheit'
+            ? climateSetting.heating_set_point_fahrenheit
+            : climateSetting.heating_set_point_celsius
+        }
         temperatureUnit={temperatureUnit}
       />
       {iconPlacement === 'right' && (

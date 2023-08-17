@@ -10,7 +10,7 @@ export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
   const { device } = useDevice({ device_id: accessCode.device_id })
 
   return (
-    <div className='seam-code-details'>
+    <div className='seam-details'>
       <span className='seam-device-name seam-truncated-text'>
         {device?.properties.name}
       </span>

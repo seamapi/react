@@ -20,7 +20,7 @@ export function AccessCodeMenu(props: AccessCodeMenuProps): JSX.Element {
     <MoreActionsMenu
       menuProps={{
         backgroundProps: {
-          className: 'seam-access-code-table-action-menu',
+          className: 'seam-table-action-menu',
         },
       }}
     >

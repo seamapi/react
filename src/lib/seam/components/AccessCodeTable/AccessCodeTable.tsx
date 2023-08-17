@@ -58,12 +58,13 @@ const defaultAccessCodeFilter = (
   accessCode: AccessCode,
   searchInputValue: string
 ): boolean => {
-  const value = searchInputValue.trim()
+  const value = searchInputValue.trim().toLowerCase()
   if (value === '') return true
-  const searchRegex = new RegExp(value, 'i')
+  const name = accessCode.name ?? ''
+  const code = accessCode.code ?? ''
   return (
-    searchRegex.test(accessCode?.name ?? '') ||
-    searchRegex.test(accessCode?.code ?? '')
+    name.trim().toLowerCase().includes(value) ||
+    code.trim().toLowerCase().includes(value)
   )
 }
 
@@ -163,7 +164,7 @@ export function AccessCodeTable({
   }
 
   return (
-    <div className={classNames('seam-access-code-table', className)}>
+    <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
         <div className='seam-left'>
@@ -178,7 +179,7 @@ export function AccessCodeTable({
           {!disableCreateAccessCode && (
             <IconButton
               onClick={toggleAddAccessCodeForm}
-              className='seam-add-access-code-button'
+              className='seam-add-button'
             >
               <AddIcon />
             </IconButton>
