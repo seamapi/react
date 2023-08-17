@@ -1,12 +1,12 @@
+import classNames from 'classnames'
 import { useState } from 'react'
 
 import { FanIcon } from 'lib/icons/Fan.js'
+import { OffIcon } from 'lib/icons/Off.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 import { useDevice } from '../../../hooks.js'
-import classNames from 'classnames'
-import { OffIcon } from 'lib/icons/Off.js'
 
 interface ThermostatCardProps {
   deviceId: string
