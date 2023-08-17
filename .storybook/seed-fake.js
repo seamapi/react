@@ -435,6 +435,7 @@ export const seedFake = (db) => {
     automatic_cooling_enabled: true,
     hvac_mode_setting: 'cool',
     cooling_set_point_fahrenheit: 70,
+    cooling_set_point_celsius: 21,
   })
 
   db.addClimateSettingSchedule({
@@ -450,7 +451,9 @@ export const seedFake = (db) => {
     automatic_cooling_enabled: true,
     hvac_mode_setting: 'heatcool',
     heating_set_point_fahrenheit: 65,
+    heating_set_point_celsius: 18,
     cooling_set_point_fahrenheit: 72,
+    cooling_set_point_celsius: 22,
   })
 
   db.addClientSession({
