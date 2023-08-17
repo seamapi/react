@@ -5,6 +5,8 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 import { useDevice } from '../../../hooks.js'
 import { FanIcon } from 'lib/icons/Fan.js'
+import classNames from 'classnames'
+import { OffIcon } from 'lib/icons/Off.js'
 
 interface ThermostatCardProps {
   deviceId: string
@@ -53,22 +55,24 @@ function Content(props: { deviceId: string }): JSX.Element | null {
             onClick={toggleTemperatureScale}
             className='seam-thermostat-temperature-toggle'
           >
-            <span>º{temperatureUnit.slice(0, 1).toUpperCase()}</span>
+            <span className='seam-thermostat-temperature-toggle-label'>
+              º{temperatureUnit.slice(0, 1).toUpperCase()}
+            </span>
           </button>
         </div>
 
         <div className='seam-thermostat-properties'>
           <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>Temperature:</p>
+            <p className='seam-thermostat-property-label'>{t.temperature}:</p>
           </div>
           <div className='seam-thermostat-property-block'>
             <p className='seam-thermostat-property-value'>72º</p>
             <p className='seam-thermostat-property-value'>|</p>
-            <p className='seam-thermostat-property-label'>Humidity:</p>
+            <p className='seam-thermostat-property-label'>{t.humidity}:</p>
             <p className='seam-thermostat-property-value'>52%</p>
           </div>
           <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>Setting:</p>
+            <p className='seam-thermostat-property-label'>{t.setting}:</p>
           </div>
           <div className='seam-thermostat-property-block'>
             {device.properties.current_climate_setting && (
@@ -79,22 +83,45 @@ function Content(props: { deviceId: string }): JSX.Element | null {
             )}
           </div>
           <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>Fan mode:</p>
+            <p className='seam-thermostat-property-label'>{t.fanMode}:</p>
           </div>
           <div className='seam-thermostat-property-block seam-thermostat-property-icon-block'>
             <div className='seam-thermostat-property-icon'>
-              <FanIcon />
+              {device.properties.is_fan_running ? <FanIcon /> : <OffIcon />}
             </div>
-            <p className='seam-thermostat-property-value'>Auto</p>
+            <p className='seam-thermostat-property-value'>
+              {device.properties.is_fan_running ? t.auto : t.off}
+            </p>
           </div>
           <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>System status:</p>
+            <p className='seam-thermostat-property-label'>{t.systemStatus}:</p>
           </div>
           <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-value'>Cooling</p>
+            <div
+              className={classNames(
+                'seam-thermostat-property-tag',
+                `seam-thermostat-property-tag-${'cooling'}`
+              )}
+            >
+              <p className='seam-thermostat-property-tag-label'>{t.cooling}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   )
+}
+
+const t = {
+  fahrenheit: 'F',
+  celsius: 'C',
+  auto: 'Auto',
+  off: 'Off',
+  temperature: 'Temperature',
+  humidity: 'Humidity',
+  setting: 'Setting',
+  fanMode: 'Fan mode',
+  systemStatus: 'System status',
+  cooling: 'Cooling',
+  heating: 'Heating',
 }
