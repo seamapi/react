@@ -23,16 +23,16 @@ export function ClimateSettingStatus({
       )}
       <Content
         mode={climateSetting.hvac_mode_setting}
-        coolingSetPoint={
-          temperatureUnit === 'fahrenheit'
+        coolingSetPoint={Math.trunc(
+          (temperatureUnit === 'fahrenheit'
             ? climateSetting.cooling_set_point_fahrenheit
-            : climateSetting.cooling_set_point_celsius
-        }
-        heatingSetPoint={
-          temperatureUnit === 'fahrenheit'
+            : climateSetting.cooling_set_point_celsius) ?? 0
+        )}
+        heatingSetPoint={Math.trunc(
+          (temperatureUnit === 'fahrenheit'
             ? climateSetting.heating_set_point_fahrenheit
-            : climateSetting.heating_set_point_celsius
-        }
+            : climateSetting.heating_set_point_celsius) ?? 0
+        )}
         temperatureUnit={temperatureUnit}
       />
       {iconPlacement === 'right' && (
