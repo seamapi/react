@@ -9,8 +9,8 @@ import {
 } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
 import {
-  type AccessCodeFilter,
   AccessCodeHealthBar,
+  type AccessCodeFilter,
 } from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { AccessCodeRow } from 'lib/seam/components/AccessCodeTable/AccessCodeRow.js'
 import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
@@ -60,10 +60,11 @@ const defaultAccessCodeFilter = (
 ): boolean => {
   const value = searchInputValue.trim().toLowerCase()
   if (value === '') return true
-  const { name = '', code = '' } = accessCode
+  const name = accessCode.name ?? ''
+  const code = accessCode.code ?? ''
   return (
-    name.trim().toLowerCase().includes(value) ??
-    code?.trim().toLowerCase().includes(value)
+    name.trim().toLowerCase().includes(value) ||
+    code.trim().toLowerCase().includes(value)
   )
 }
 
