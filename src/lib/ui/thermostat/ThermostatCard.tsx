@@ -62,28 +62,39 @@ function Content(props: { deviceId: string }): JSX.Element | null {
         </div>
 
         <div className='seam-thermostat-properties'>
-          <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>{t.temperature}:</p>
-          </div>
-          <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-value'>
-              {Math.trunc(
-                (temperatureUnit === 'fahrenheit'
-                  ? device.properties.temperature_fahrenheit
-                  : device.properties.temperature_celsius) ?? 0
-              )}
-              º
-            </p>
-            {device.properties.relative_humidity !== undefined && (
+          {'temperature_fahrenheit' in device.properties &&
+            'temperature_celsius' in device.properties && (
               <>
-                <p className='seam-thermostat-property-value'>|</p>
-                <p className='seam-thermostat-property-label'>{t.humidity}:</p>
-                <p className='seam-thermostat-property-value'>
-                  {device.properties.relative_humidity * 100}%
-                </p>
+                <div className='seam-thermostat-property-block'>
+                  <p className='seam-thermostat-property-label'>
+                    {t.temperature}:
+                  </p>
+                </div>
+                <div className='seam-thermostat-property-block'>
+                  <p className='seam-thermostat-property-value'>
+                    {Math.trunc(
+                      Number(
+                        temperatureUnit === 'fahrenheit'
+                          ? device.properties.temperature_fahrenheit
+                          : device.properties.temperature_celsius
+                      )
+                    )}
+                    º
+                  </p>
+                  {'relative_humidity' in device.properties && (
+                    <>
+                      <p className='seam-thermostat-property-value'>|</p>
+                      <p className='seam-thermostat-property-label'>
+                        {t.humidity}:
+                      </p>
+                      <p className='seam-thermostat-property-value'>
+                        {Number(device.properties.relative_humidity) * 100}%
+                      </p>
+                    </>
+                  )}
+                </div>
               </>
             )}
-          </div>
 
           {device.properties.current_climate_setting && (
             <>
