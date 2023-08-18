@@ -314,7 +314,7 @@ export const seedFake = (db) => {
   const device5 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: 'ecobee_thermostat',
-    name: 'parkway kerosene',
+    name: 'Apartment 21A',
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-15T15:08:53.000',
     properties: {
@@ -355,7 +355,7 @@ export const seedFake = (db) => {
       can_enable_automatic_cooling: true,
       can_enable_automatic_heating: true,
       is_temporary_manual_override_active: false,
-      name: 'parkway kerosene',
+      name: 'Apartment 21A',
       model: {
         display_name: 'Unknown Thermostat',
       },
@@ -419,6 +419,41 @@ export const seedFake = (db) => {
       is_climate_setting_schedule_active: false,
     },
     errors: [],
+  })
+
+  // add climate setting schedules
+  db.addClimateSettingSchedule({
+    device_id: device5.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
+    name: 'Guest - Robinson',
+    schedule_starts_at: '2024-07-24T00:00:00.000Z',
+    schedule_ends_at: '2024-08-01T00:00:00.000Z',
+    schedule_type: 'time_bound',
+    manual_override_allowed: true,
+    automatic_heating_enabled: false,
+    automatic_cooling_enabled: true,
+    hvac_mode_setting: 'cool',
+    cooling_set_point_fahrenheit: 70,
+    cooling_set_point_celsius: 21,
+  })
+
+  db.addClimateSettingSchedule({
+    device_id: device5.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
+    name: 'Guest - Cabrero',
+    schedule_starts_at: '2024-07-04T00:00:00.000Z',
+    schedule_ends_at: '2024-07-14T00:00:00.000Z',
+    schedule_type: 'time_bound',
+    manual_override_allowed: true,
+    automatic_heating_enabled: true,
+    automatic_cooling_enabled: true,
+    hvac_mode_setting: 'heatcool',
+    heating_set_point_fahrenheit: 65,
+    heating_set_point_celsius: 18,
+    cooling_set_point_fahrenheit: 72,
+    cooling_set_point_celsius: 22,
   })
 
   db.addClientSession({
