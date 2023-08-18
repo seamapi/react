@@ -50,6 +50,7 @@ export const Content: Story = {
                 online: true,
                 model: {
                   display_name: 'Pro Lock 9000',
+                  manufacturer_display_name: 'August',
                 },
               },
               errors: [
@@ -81,6 +82,7 @@ export const Content: Story = {
                 online: false,
                 model: {
                   display_name: 'Smart Lock 2nd Generation',
+                  manufacturer_display_name: 'August',
                 },
               },
               errors: [
