@@ -360,7 +360,7 @@ export const seedFake = (db) => {
         display_name: 'Unknown Thermostat',
       },
       image_url:
-        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+        'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
       is_climate_setting_schedule_active: false,
     },
@@ -414,7 +414,7 @@ export const seedFake = (db) => {
         display_name: 'Unknown Thermostat',
       },
       image_url:
-        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+        'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
       is_climate_setting_schedule_active: false,
     },
