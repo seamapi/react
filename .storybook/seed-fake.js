@@ -374,7 +374,7 @@ export const seedFake = (db) => {
       is_temporary_manual_override_active: false,
       name: 'Apartment 21A',
       image_url:
-        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+        'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
       is_climate_setting_schedule_active: false,
     },
@@ -429,7 +429,7 @@ export const seedFake = (db) => {
       is_temporary_manual_override_active: false,
       name: 'debating book',
       image_url:
-        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+        'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
       is_climate_setting_schedule_active: false,
     },
