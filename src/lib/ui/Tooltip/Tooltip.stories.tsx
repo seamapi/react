@@ -35,7 +35,7 @@ export const Content: Story = {
       >
         <div>
           <Tooltip {...props}>
-            {props.children ||
+            {props.children ??
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.'}
           </Tooltip>
         </div>
