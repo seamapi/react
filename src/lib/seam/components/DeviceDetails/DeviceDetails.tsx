@@ -1,7 +1,8 @@
-import { isLockDevice } from 'seamapi'
+import { isLockDevice, isThermostatDevice } from 'seamapi'
 
-import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
+import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
 
 export interface DeviceDetailsProps {
   deviceId: string
@@ -33,6 +34,10 @@ export function DeviceDetails({
         onBack={onBack}
       />
     )
+  }
+
+  if (isThermostatDevice(device)) {
+    return <ThermostatDeviceDetails device={device} />
   }
 
   return null

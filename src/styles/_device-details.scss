@@ -35,7 +35,7 @@
             display: flex;
             justify-content: space-between;
 
-            > .seam-right {
+            >.seam-right {
               display: flex;
               align-items: center;
             }
@@ -78,7 +78,7 @@
           }
 
           .seam-info {
-            > .seam-label {
+            >.seam-label {
               color: colors.$text-gray-1;
               font-weight: 600;
               font-size: 14px;
@@ -115,7 +115,7 @@
                 margin-right: 8px;
               }
 
-              > * {
+              >* {
                 display: flex;
                 align-items: center;
               }
@@ -131,7 +131,7 @@
         align-items: center;
         justify-content: center;
 
-        > div {
+        >div {
           width: 40px;
           height: 40px;
           display: flex;
@@ -150,6 +150,53 @@
         align-items: center;
         justify-content: center;
       }
+    }
+
+    // ThermostatDeviceDetails
+    .seam-thermostat-detail-section {
+      width: 100%;
+    }
+
+    .seam-thermostat-detail-label-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: row;
+      margin-bottom: 8px;
+    }
+
+    .seam-thermostat-detail-label {
+      color: colors.$text-gray-1;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 134%;
+    }
+
+    .seam-thermostat-detail-group {
+      border-radius: 8px;
+      border: 1px solid colors.$text-gray-3;
+      overflow: hidden;
+    }
+
+    .seam-thermostat-detail-row {
+      background-color: colors.$white;
+      min-height: 64px;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid colors.$divider-stroke-light;
+      }
+    }
+
+    .seam-thermostat-row-title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 118%;
     }
   }
 }
