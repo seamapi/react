@@ -124,14 +124,14 @@ function Content(props: { deviceId: string }): JSX.Element | null {
               </div>
               <div className='seam-thermostat-property-block seam-thermostat-property-icon-block'>
                 <div className='seam-thermostat-property-icon'>
-                  {Boolean(device.properties.is_fan_running) ? (
+                  {device.properties.is_fan_running === true ? (
                     <FanIcon />
                   ) : (
                     <OffIcon />
                   )}
                 </div>
                 <p className='seam-thermostat-property-value'>
-                  {Boolean(device.properties.is_fan_running) ? t.auto : t.off}
+                  {device.properties.is_fan_running === true ? t.auto : t.off}
                 </p>
               </div>
             </>
