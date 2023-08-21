@@ -32,7 +32,7 @@ function Content(props: { deviceId: string }): JSX.Element | null {
     'fahrenheit' | 'celsius'
   >('fahrenheit')
 
-  const toggleTemperatureScale = () => {
+  const toggleTemperatureScale = (): void => {
     setTemperatureUnit(
       temperatureUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit'
     )
