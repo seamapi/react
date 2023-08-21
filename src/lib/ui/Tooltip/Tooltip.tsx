@@ -1,6 +1,7 @@
 import { type MouseEventHandler, useEffect, useState } from 'react'
 
 import { InfoIcon } from 'lib/icons/Info.js'
+import { InfoDarkIcon } from 'lib/icons/InfoDark.js'
 
 interface TooltipProps {
   children: React.ReactNode
@@ -13,8 +14,8 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
     setIsOpen(false)
   }
 
-  const handleEscape = (e: KeyboardEvent): void => {
-    if (e.key === 'Escape') {
+  const handleEscape = (ev: KeyboardEvent): void => {
+    if (ev.key === 'Escape') {
       handleClose()
     }
   }
@@ -40,16 +41,19 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
     <div className='seam-tooltip'>
       <div className='seam-tooltip-trigger-wrap'>
         <button onClick={handleToggle} className='seam-tooltip-button'>
-          <InfoIcon />
+          <div className='seam-tooltip-button-icon seam-tooltip-button-icon-default'>
+            <InfoIcon />
+          </div>
+          <div className='seam-tooltip-button-icon seam-tooltip-button-icon-hover'>
+            <InfoDarkIcon />
+          </div>
         </button>
       </div>
 
       <div
         className='seam-tooltip-popover'
         aria-expanded={isOpen}
-        onClick={(ev) => {
-          ev.stopPropagation()
-        }}
+        onClick={(ev) => ev.stopPropagation()}
       >
         <p className='seam-tooltip-text'>{children}</p>
       </div>

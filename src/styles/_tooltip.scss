@@ -13,7 +13,30 @@
       background: none;
       padding: 0;
       margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 90px;
       cursor: pointer;
+
+      & .seam-tooltip-button-icon {
+        position: absolute;
+        transition: opacity 0.15s ease-in-out;
+      }
+
+      .seam-tooltip-button-icon-hover {
+        opacity: 0;
+      }
+
+      &:hover {
+        .seam-tooltip-button-icon-default {
+          opacity: 0;
+        }
+
+        .seam-tooltip-button-icon-hover {
+          opacity: 1;
+        }
+      }
     }
 
     .seam-tooltip-popover {
@@ -22,7 +45,7 @@
       gap: 10px;
       position: absolute;
       bottom: 28px;
-      left: 4px;
+      left: 2px;
       display: flex;
       border-radius: 8px;
       background: colors.$white;
