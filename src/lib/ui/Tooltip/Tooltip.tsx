@@ -53,7 +53,9 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
       <div
         className='seam-tooltip-popover'
         aria-expanded={isOpen}
-        onClick={(ev) => { ev.stopPropagation(); }}
+        onClick={(ev) => {
+          ev.stopPropagation()
+        }}
       >
         <p className='seam-tooltip-text'>{children}</p>
       </div>
