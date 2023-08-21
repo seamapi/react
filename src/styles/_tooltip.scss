@@ -28,7 +28,7 @@
         opacity: 0;
       }
 
-      &:hover {
+      &:hover, &:focus {
         .seam-tooltip-button-icon-default {
           opacity: 0;
         }
@@ -37,6 +37,10 @@
           opacity: 1;
         }
       }
+
+			&:focus {
+				outline: none;
+			}
     }
 
     .seam-tooltip-popover {
