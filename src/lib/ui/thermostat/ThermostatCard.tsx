@@ -7,6 +7,7 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 import { useDevice } from '../../../hooks.js'
+import type { ClimateSetting } from 'seamapi'
 
 interface ThermostatCardProps {
   deviceId: string
@@ -96,23 +97,27 @@ function Content(props: { deviceId: string }): JSX.Element | null {
               </>
             )}
 
-          {device.properties.current_climate_setting && (
-            <>
-              <div className='seam-thermostat-property-block'>
-                <p className='seam-thermostat-property-label'>{t.setting}:</p>
-              </div>
-              <div className='seam-thermostat-property-block'>
-                {device.properties.current_climate_setting && (
+          {'current_climate_setting' in device.properties &&
+            'hvac_mode_setting' in
+              (device.properties
+                ?.current_climate_setting as ClimateSetting) && (
+              <>
+                <div className='seam-thermostat-property-block'>
+                  <p className='seam-thermostat-property-label'>{t.setting}:</p>
+                </div>
+                <div className='seam-thermostat-property-block'>
                   <ClimateSettingStatus
-                    climateSetting={device.properties.current_climate_setting}
+                    climateSetting={
+                      device.properties
+                        .current_climate_setting as ClimateSetting
+                    }
                     temperatureUnit={temperatureUnit}
                   />
-                )}
-              </div>
-            </>
-          )}
+                </div>
+              </>
+            )}
 
-          {device.properties.is_fan_running !== undefined && (
+          {'is_fan_running' in device.properties && (
             <>
               <div className='seam-thermostat-property-block'>
                 <p className='seam-thermostat-property-label'>{t.fanMode}:</p>
