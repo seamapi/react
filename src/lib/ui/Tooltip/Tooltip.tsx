@@ -24,11 +24,11 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
     if (isOpen) {
       document.addEventListener('click', handleClose)
       window.addEventListener('keydown', handleEscape)
+    }
 
-      return () => {
-        document.removeEventListener('click', handleClose)
-        window.removeEventListener('keydown', handleEscape)
-      }
+    return () => {
+      document.removeEventListener('click', handleClose)
+      window.removeEventListener('keydown', handleEscape)
     }
   }, [isOpen])
 
