@@ -35,7 +35,7 @@
             display: flex;
             justify-content: space-between;
 
-            >.seam-right {
+            > .seam-right {
               display: flex;
               align-items: center;
             }
@@ -78,7 +78,7 @@
           }
 
           .seam-info {
-            >.seam-label {
+            > .seam-label {
               color: colors.$text-gray-1;
               font-weight: 600;
               font-size: 14px;
@@ -115,7 +115,7 @@
                 margin-right: 8px;
               }
 
-              >* {
+              > * {
                 display: flex;
                 align-items: center;
               }
@@ -131,7 +131,7 @@
         align-items: center;
         justify-content: center;
 
-        >div {
+        > div {
           width: 40px;
           height: 40px;
           display: flex;
