@@ -69,6 +69,12 @@
       },
       "overrides": [
         {
+          "files": ["**/*.stories.tsx"],
+          "rules": {
+            "react-hooks/rules-of-hooks": "off"
+          }
+        },
+        {
           "files": ["**/*.test.tsx?", "test/jest/setup-*.tsx?"],
           "env": { "jest": true }
         }

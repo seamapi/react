@@ -32,7 +32,6 @@ export const Content: Story = {
 
 export const InsideModal: Story = {
   render: (props) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [open, toggleOpen] = useToggle()
     return (
       <>
