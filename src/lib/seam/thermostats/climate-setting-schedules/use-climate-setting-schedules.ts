@@ -37,6 +37,7 @@ export function useClimateSettingSchedules(
       for (const schedule of schedules) {
         queryClient.setQueryData(
           [
+            'thermostats',
             'climate_setting_schedules',
             'get',
             {
