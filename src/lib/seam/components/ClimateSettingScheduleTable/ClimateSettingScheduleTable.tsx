@@ -11,17 +11,45 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
+import { compareByCreatedAtDesc } from 'lib/dates.js'
+import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
+import { useMemo, useState } from 'react'
+import type { ClimateSettingSchedule } from 'seamapi'
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
 export interface ClimateSettingScheduleTableProps {
   deviceId: string
+  disableSearch?: boolean
+  climateSettingScheduleFilter?: (
+    climateSettingSchedule: ClimateSettingSchedule,
+    searchInputValue: string
+  ) => boolean
+  climateSettingScheduleComparator?: (
+    climateSettingScheduleA: ClimateSettingSchedule,
+    climateSettingScheduleB: ClimateSettingSchedule
+  ) => number
   onBack?: () => void
+  heading?: string | null
   className?: string
+}
+
+const defaultClimateSettingScheduleFilter = (
+  climateSettingSchedule: ClimateSettingSchedule,
+  searchInputValue: string
+): boolean => {
+  const value = searchInputValue.trim().toLowerCase()
+  if (value === '') return true
+  const name = climateSettingSchedule.name ?? ''
+  return name.trim().toLowerCase().includes(value)
 }
 
 export function ClimateSettingScheduleTable({
   deviceId,
+  disableSearch = false,
+  climateSettingScheduleFilter = defaultClimateSettingScheduleFilter,
+  climateSettingScheduleComparator = compareByCreatedAtDesc,
   onBack,
+  heading = t.climateSettingSchedules,
   className,
 }: ClimateSettingScheduleTableProps): JSX.Element {
   const { climateSettingSchedules, isLoading, isError, error } =
@@ -29,8 +57,22 @@ export function ClimateSettingScheduleTable({
       device_id: deviceId,
     })
 
-  // TODO filtering
-  const filteredClimateSettingSchedules = climateSettingSchedules ?? []
+  const [searchInputValue, setSearchInputValue] = useState('')
+
+  const filteredClimateSettingSchedules = useMemo(
+    () =>
+      climateSettingSchedules
+        ?.filter((schedule) =>
+          climateSettingScheduleFilter(schedule, searchInputValue)
+        )
+        ?.sort(climateSettingScheduleComparator) ?? [],
+    [
+      climateSettingSchedules,
+      searchInputValue,
+      climateSettingScheduleFilter,
+      climateSettingScheduleComparator,
+    ]
+  )
 
   if (isLoading) {
     return <p className={className}>...</p>
@@ -44,10 +86,21 @@ export function ClimateSettingScheduleTable({
     <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
-        <TableTitle>
-          {t.climateSettingSchedules}{' '}
-          <Caption>({filteredClimateSettingSchedules.length})</Caption>
-        </TableTitle>
+        {heading != null ? (
+          <TableTitle>
+            {heading ?? t.climateSettingSchedules}{' '}
+            <Caption>({filteredClimateSettingSchedules.length})</Caption>
+          </TableTitle>
+        ) : (
+          <div className='seam-fragment' />
+        )}
+        {!disableSearch && (
+          <SearchTextField
+            value={searchInputValue}
+            onChange={setSearchInputValue}
+            disabled={(climateSettingSchedules?.length ?? 0) === 0}
+          />
+        )}
       </TableHeader>
       <TableBody>
         <Content
