@@ -22,13 +22,13 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
 
   useEffect(() => {
     if (isOpen) {
-      document.addEventListener('click', handleClose)
-      window.addEventListener('keydown', handleEscape)
+      globalThis.document?.addEventListener('click', handleClose)
+      globalThis.addEventListener?.('keydown', handleEscape)
     }
 
     return () => {
-      document.removeEventListener('click', handleClose)
-      window.removeEventListener('keydown', handleEscape)
+      globalThis.document?.removeEventListener('click', handleClose)
+      globalThis.removeEventListener?.('keydown', handleEscape)
     }
   }, [isOpen])
 
