@@ -1,13 +1,15 @@
-import { type MouseEventHandler, useEffect, useState, useCallback } from 'react'
+import {
+  type MouseEventHandler,
+  useEffect,
+  useState,
+  useCallback,
+  type PropsWithChildren,
+} from 'react'
 
 import { InfoIcon } from 'lib/icons/Info.js'
 import { InfoDarkIcon } from 'lib/icons/InfoDark.js'
 
-interface TooltipProps {
-  children: JSX.Element
-}
-
-export function Tooltip({ children }: TooltipProps): JSX.Element {
+export function Tooltip({ children }: PropsWithChildren<{}>): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleClose = useCallback((): void => {
