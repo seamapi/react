@@ -18,6 +18,7 @@
 @use './radio-field';
 @use './checkbox';
 @use './thermostat';
+@use './tooltip';
 @use './seam-table';
 
 .seam-components {
@@ -36,6 +37,7 @@
   @include menus.all;
   @include checkbox.all;
   @include radio-field.all;
+  @include tooltip.all;
 
   // Components
   @include device-details.all;
