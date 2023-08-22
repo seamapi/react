@@ -7,23 +7,18 @@ import type { ClimateSettingScheduleDeleteRequest, SeamError } from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export interface UseDeleteClimateSettingScheduleData {}
 export type UseDeleteClimateSettingScheduleMutationParams =
   ClimateSettingScheduleDeleteRequest
 
 export function useDeleteClimateSettingSchedule(): UseMutationResult<
-  UseDeleteClimateSettingScheduleData,
+  unknown,
   SeamError,
   UseDeleteClimateSettingScheduleMutationParams
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  return useMutation<
-    UseDeleteClimateSettingScheduleData,
-    SeamError,
-    ClimateSettingScheduleDeleteRequest
-  >({
+  return useMutation<unknown, SeamError, ClimateSettingScheduleDeleteRequest>({
     mutationFn: async (
       mutationParams: UseDeleteClimateSettingScheduleMutationParams
     ) => {
