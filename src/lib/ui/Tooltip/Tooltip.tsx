@@ -14,8 +14,8 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
     setIsOpen(false)
   }, [])
 
-  const handleEscape = useCallback((ev: KeyboardEvent): void => {
-    if (ev.key === 'Escape') {
+  const handleEscape = useCallback((event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
       handleClose()
     }
   }, [])
@@ -32,8 +32,8 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
     }
   }, [isOpen, handleEscape, handleClose])
 
-  const handleToggle: MouseEventHandler<HTMLButtonElement> = (ev): void => {
-    ev.stopPropagation()
+  const handleToggle: MouseEventHandler<HTMLButtonElement> = (event): void => {
+    event.stopPropagation()
     setIsOpen((prev) => !prev)
   }
 
@@ -53,8 +53,8 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
       <div
         className='seam-tooltip-popover'
         aria-expanded={isOpen}
-        onClick={(ev) => {
-          ev.stopPropagation()
+        onClick={(event) => {
+          event.stopPropagation()
         }}
       >
         <p className='seam-tooltip-text'>{children}</p>
