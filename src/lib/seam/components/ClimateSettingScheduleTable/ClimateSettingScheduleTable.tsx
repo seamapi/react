@@ -1,5 +1,8 @@
 import classNames from 'classnames'
+import { useMemo, useState } from 'react'
+import type { ClimateSettingSchedule } from 'seamapi'
 
+import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
@@ -9,12 +12,9 @@ import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
+import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
-import { compareByCreatedAtDesc } from 'lib/dates.js'
-import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
-import { useMemo, useState } from 'react'
-import type { ClimateSettingSchedule } from 'seamapi'
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
 export interface ClimateSettingScheduleTableProps {
