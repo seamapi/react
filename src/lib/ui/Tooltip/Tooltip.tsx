@@ -30,7 +30,7 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
       globalThis.document?.removeEventListener('click', handleClose)
       globalThis.removeEventListener?.('keydown', handleEscape)
     }
-  }, [isOpen])
+  }, [isOpen, handleEscape, handleClose])
 
   const handleToggle: MouseEventHandler<HTMLButtonElement> = (ev): void => {
     ev.stopPropagation()
