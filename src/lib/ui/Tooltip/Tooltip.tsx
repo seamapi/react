@@ -1,39 +1,41 @@
-import { type MouseEventHandler, useEffect, useState } from 'react'
+import {
+  type MouseEventHandler,
+  type PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 
 import { InfoIcon } from 'lib/icons/Info.js'
 import { InfoDarkIcon } from 'lib/icons/InfoDark.js'
 
-interface TooltipProps {
-  children: React.ReactNode
-}
-
-export function Tooltip({ children }: TooltipProps): JSX.Element {
+export function Tooltip({ children }: PropsWithChildren): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleClose = (): void => {
+  const handleClose = useCallback((): void => {
     setIsOpen(false)
-  }
+  }, [])
 
-  const handleEscape = (ev: KeyboardEvent): void => {
-    if (ev.key === 'Escape') {
+  const handleEscape = useCallback((event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
       handleClose()
     }
-  }
+  }, [])
 
   useEffect(() => {
     if (isOpen) {
-      document.addEventListener('click', handleClose)
-      window.addEventListener('keydown', handleEscape)
+      globalThis.document?.addEventListener('click', handleClose)
+      globalThis.addEventListener?.('keydown', handleEscape)
     }
 
     return () => {
-      document.removeEventListener('click', handleClose)
-      window.removeEventListener('keydown', handleEscape)
+      globalThis.document?.removeEventListener('click', handleClose)
+      globalThis.removeEventListener?.('keydown', handleEscape)
     }
-  }, [isOpen])
+  }, [isOpen, handleEscape, handleClose])
 
-  const handleToggle: MouseEventHandler<HTMLButtonElement> = (ev): void => {
-    ev.stopPropagation()
+  const handleToggle: MouseEventHandler<HTMLButtonElement> = (event): void => {
+    event.stopPropagation()
     setIsOpen((prev) => !prev)
   }
 
@@ -53,8 +55,8 @@ export function Tooltip({ children }: TooltipProps): JSX.Element {
       <div
         className='seam-tooltip-popover'
         aria-expanded={isOpen}
-        onClick={(ev) => {
-          ev.stopPropagation()
+        onClick={(event) => {
+          event.stopPropagation()
         }}
       >
         <p className='seam-tooltip-text'>{children}</p>
