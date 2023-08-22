@@ -7,7 +7,8 @@ const meta: Meta<typeof Tooltip> = {
   title: 'Library/Tooltip',
   component: Tooltip,
   args: {
-    children: 'Label',
+    children:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.',
   },
   tags: ['autodocs'],
   argTypes: {
@@ -34,10 +35,7 @@ export const Content: Story = {
         }}
       >
         <div>
-          <Tooltip {...props}>
-            {props.children ??
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.'}
-          </Tooltip>
+          <Tooltip {...props}>{props.children}</Tooltip>
         </div>
       </Box>
     )
