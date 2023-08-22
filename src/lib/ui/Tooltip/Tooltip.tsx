@@ -4,7 +4,7 @@ import { InfoIcon } from 'lib/icons/Info.js'
 import { InfoDarkIcon } from 'lib/icons/InfoDark.js'
 
 interface TooltipProps {
-  children: React.ReactNode
+  children: JSX.Element
 }
 
 export function Tooltip({ children }: TooltipProps): JSX.Element {
