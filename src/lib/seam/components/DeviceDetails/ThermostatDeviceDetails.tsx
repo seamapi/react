@@ -43,7 +43,7 @@ export function ThermostatDeviceDetails(props: {
           <Section
             title='Default settings'
             tooltipContent='When a scheduled climate reaches its end time, the default settings will kick in.'
-           />
+          />
 
           <Section title='Device details' />
         </div>
