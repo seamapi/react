@@ -7,7 +7,7 @@ import type { ClimateSettingScheduleDeleteRequest, SeamError } from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export type UseDeleteClimateSettingScheduleData = {}
+export interface UseDeleteClimateSettingScheduleData {}
 export type UseDeleteClimateSettingScheduleMutationParams =
   ClimateSettingScheduleDeleteRequest
 
