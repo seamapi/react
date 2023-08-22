@@ -1,9 +1,9 @@
 import {
   type MouseEventHandler,
+  type PropsWithChildren,
+  useCallback,
   useEffect,
   useState,
-  useCallback,
-  type PropsWithChildren,
 } from 'react'
 
 import { InfoIcon } from 'lib/icons/Info.js'
