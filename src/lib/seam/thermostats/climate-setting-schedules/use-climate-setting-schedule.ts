@@ -24,11 +24,6 @@ export function useClimateSettingSchedule(
       : params
   const { client } = useSeamClient()
 
-  const normalizedParams =
-    typeof params === 'string'
-      ? { climate_setting_schedule_id: params }
-      : params
-
   const { data, ...rest } = useQuery<
     ClimateSettingScheduleGetResponse['climate_setting_schedule'] | null,
     SeamError

@@ -24,18 +24,18 @@ export default meta
 type Story = StoryObj<typeof ClimateSettingScheduleDetails>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <ClimateSettingScheduleDetails
       {...props}
       climateSettingScheduleId={
-        props.climateSettingScheduleId ?? globals['ClimateSettingScheduleId']
+        props.climateSettingScheduleId ?? 'climateSettingSchedule1'
       }
     />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [open, toggleOpen] = useToggle()
     return (
@@ -46,8 +46,7 @@ export const InsideModal: Story = {
             <ClimateSettingScheduleDetails
               {...props}
               climateSettingScheduleId={
-                props.climateSettingScheduleId ??
-                globals['ClimateSettingScheduleId']
+                props.climateSettingScheduleId ?? 'climateSettingSchedule1'
               }
             />
           </div>
