@@ -26,7 +26,6 @@ type Story = StoryObj<typeof DeviceHealthBar>
 
 export const Content: Story = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [filter, setFilter] = useState<AccountFilter | DeviceFilter | null>(
       null
     )
@@ -50,6 +49,7 @@ export const Content: Story = {
                 online: true,
                 model: {
                   display_name: 'Pro Lock 9000',
+                  manufacturer_display_name: 'August',
                 },
               },
               errors: [
@@ -81,6 +81,7 @@ export const Content: Story = {
                 online: false,
                 model: {
                   display_name: 'Smart Lock 2nd Generation',
+                  manufacturer_display_name: 'August',
                 },
               },
               errors: [

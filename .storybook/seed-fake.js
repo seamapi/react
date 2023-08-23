@@ -42,6 +42,9 @@ export const seedFake = (db) => {
       manufacturer: 'august',
       battery_level: 0.9999532347993827,
       serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
+      model: {
+        manufacturer_display_name: 'August',
+      },
       august_metadata: {
         lock_id: 'lock-1',
         house_id: 'house-1',
@@ -194,6 +197,9 @@ export const seedFake = (db) => {
       manufacturer: 'august',
       battery_level: 0.9999532347993827,
       serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
+      model: {
+        manufacturer_display_name: 'August',
+      },
       august_metadata: {
         lock_id: 'lock-3',
         house_id: 'house-1',
@@ -233,6 +239,10 @@ export const seedFake = (db) => {
       manufacturer: 'schlage',
       battery_level: 0.3,
       serial_number: 'device-1',
+      model: {
+        manufacturer_display_name: 'Schlage',
+        display_name: 'BE489WB',
+      },
       schlage_metadata: {
         model: 'BE489WB',
         device_id: 'device-1',
@@ -272,6 +282,9 @@ export const seedFake = (db) => {
       manufacturer: 'august',
       battery_level: 0.9999532347993827,
       serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
+      model: {
+        manufacturer_display_name: 'August',
+      },
       august_metadata: {
         lock_id: 'lock-3',
         house_id: 'house-1',
@@ -323,6 +336,10 @@ export const seedFake = (db) => {
       is_heating: false,
       manufacturer: 'ecobee',
       is_fan_running: false,
+      model: {
+        manufacturer_display_name: 'Ecobee',
+        display_name: 'Thermostat',
+      },
       ecobee_metadata: {
         min_delta_heat_cool_set_points_fahrenheit: 5,
         max_cooling_set_point_fahrenheit: 92,
@@ -356,11 +373,8 @@ export const seedFake = (db) => {
       can_enable_automatic_heating: true,
       is_temporary_manual_override_active: false,
       name: 'Apartment 21A',
-      model: {
-        display_name: 'Unknown Thermostat',
-      },
       image_url:
-        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+        'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
       is_climate_setting_schedule_active: false,
     },
@@ -379,6 +393,10 @@ export const seedFake = (db) => {
       is_heating: false,
       manufacturer: 'ecobee',
       is_fan_running: false,
+      model: {
+        manufacturer_display_name: 'Ecobee',
+        display_name: 'Thermostat',
+      },
       ecobee_metadata: {
         min_delta_heat_cool_set_points_fahrenheit: 5,
         max_cooling_set_point_fahrenheit: 92,
@@ -410,11 +428,8 @@ export const seedFake = (db) => {
       can_enable_automatic_heating: true,
       is_temporary_manual_override_active: false,
       name: 'debating book',
-      model: {
-        display_name: 'Unknown Thermostat',
-      },
       image_url:
-        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+        'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
       is_climate_setting_schedule_active: false,
     },

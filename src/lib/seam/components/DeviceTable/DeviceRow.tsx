@@ -57,6 +57,7 @@ export function DeviceRow({
               'seam-offline-fade': isDisconnected,
             })}
           >
+            {device.properties.model.manufacturer_display_name}{' '}
             {device.properties.model.display_name}
           </span>
           <div className='seam-device-statuses'>
