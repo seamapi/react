@@ -8,6 +8,8 @@ import type {
 } from 'seamapi'
 
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
+import { useDeleteClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-delete-climate-setting-schedule.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
@@ -57,16 +59,16 @@ export function ClimateSettingScheduleDetails({
     )
   }
 
-  const alerts = [
-    ...climateSettingSchedule.errors.filter(errorFilter).map((error) => ({
-      variant: 'error' as const,
-      message: error.message,
-    })),
-    ...climateSettingSchedule.warnings.map((warning) => ({
-      variant: 'warning' as const,
-      message: warning.message,
-    })),
-  ]
+  // const alerts = [
+  //   ...climateSettingSchedule.errors.filter(errorFilter).map((error) => ({
+  //     variant: 'error' as const,
+  //     message: error.message,
+  //   })),
+  //   ...climateSettingSchedule.warnings.map((warning) => ({
+  //     variant: 'warning' as const,
+  //     message: warning.message,
+  //   })),
+  // ]
 
   return (
     <div className={classNames('seam-access-code-details', className)}>
@@ -74,8 +76,8 @@ export function ClimateSettingScheduleDetails({
       <div className='seam-summary'>
         <div
           className={classNames(
-            'seam-top',
-            alerts.length > 0 && 'seam-top-has-alerts'
+            'seam-top'
+            // alerts.length > 0 && 'seam-top-has-alerts'
           )}
         >
           <span className='seam-label'>{t.climateSettingSchedule}</span>
@@ -86,7 +88,7 @@ export function ClimateSettingScheduleDetails({
           </div>
         </div>
 
-        <Alerts alerts={alerts} className='seam-alerts-padded' />
+        {/* <Alerts alerts={alerts} className='seam-alerts-padded' /> */}
 
         {/* <ClimateSettingScheduleDevice
           deviceId={climateSettingSchedule.device_id}
