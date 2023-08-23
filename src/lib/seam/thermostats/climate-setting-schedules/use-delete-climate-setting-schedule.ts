@@ -3,7 +3,11 @@ import {
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type { ClimateSettingScheduleDeleteRequest, SeamError } from 'seamapi'
+import type {
+  ClimateSettingScheduleDeleteRequest,
+  ClimateSettingScheduleDeleteResponse,
+  SeamError,
+} from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
