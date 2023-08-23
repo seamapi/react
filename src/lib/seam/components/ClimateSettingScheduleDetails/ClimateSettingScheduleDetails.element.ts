@@ -1,16 +1,16 @@
 import type { ElementProps } from 'lib/element.js'
 
-import type { AccessCodeDetailsProps } from './ClimateSettingScheduleDetails.js'
+import type { ClimateSettingScheduleDetailsProps } from './ClimateSettingScheduleDetails.js'
 
 export const name = 'seam-access-code-details'
 
-export const props: ElementProps<AccessCodeDetailsProps> = {
-  accessCodeId: 'string',
+export const props: ElementProps<ClimateSettingScheduleDetailsProps> = {
+  climateSettingScheduleId: 'string',
   disableLockUnlock: 'boolean',
-  disableDeleteAccessCode: 'boolean',
+  disableDeleteClimateSettingSchedule: 'boolean',
   onBack: 'object',
   onEdit: 'object',
   className: 'string',
 }
 
-export { AccessCodeDetails as Component } from './ClimateSettingScheduleDetails.js'
+export { ClimateSettingScheduleDetails as Component } from './ClimateSettingScheduleDetails.js'

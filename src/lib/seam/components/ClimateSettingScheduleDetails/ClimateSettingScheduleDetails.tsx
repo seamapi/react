@@ -35,8 +35,8 @@ export function ClimateSettingScheduleDetails({
     climateSettingScheduleId
   )
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
-  // const { mutate: deleteCode, isLoading: isDeleting } =
-  //   useDeleteClimateSettingSchedule()
+  const { mutate: deleteCode, isLoading: isDeleting } =
+    useDeleteClimateSettingSchedule()
 
   if (climateSettingSchedule == null) {
     return null

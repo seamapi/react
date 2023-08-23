@@ -46,7 +46,7 @@ export const InsideModal: Story = {
             <ClimateSettingScheduleDetails
               {...props}
               climateSettingScheduleId={
-                props.ClimateSettingScheduleId ??
+                props.climateSettingScheduleId ??
                 globals['ClimateSettingScheduleId']
               }
             />
