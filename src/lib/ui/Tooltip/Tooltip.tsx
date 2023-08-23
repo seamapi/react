@@ -1,7 +1,6 @@
 import {
   type MouseEventHandler,
   type PropsWithChildren,
-  useCallback,
   useEffect,
   useState,
 } from 'react'
@@ -12,17 +11,16 @@ import { InfoDarkIcon } from 'lib/icons/InfoDark.js'
 export function Tooltip({ children }: PropsWithChildren): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleClose = useCallback((): void => {
-    setIsOpen(false)
-  }, [])
-
-  const handleEscape = useCallback((event: KeyboardEvent): void => {
-    if (event.key === 'Escape') {
-      handleClose()
-    }
-  }, [])
-
   useEffect(() => {
+    const handleClose = (): void => {
+      setIsOpen(false)
+    }
+
+    const handleEscape = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        handleClose()
+      }
+    }
     if (isOpen) {
       globalThis.document?.addEventListener('click', handleClose)
       globalThis.addEventListener?.('keydown', handleEscape)
@@ -32,7 +30,7 @@ export function Tooltip({ children }: PropsWithChildren): JSX.Element {
       globalThis.document?.removeEventListener('click', handleClose)
       globalThis.removeEventListener?.('keydown', handleEscape)
     }
-  }, [isOpen, handleEscape, handleClose])
+  }, [isOpen, setIsOpen])
 
   const handleToggle: MouseEventHandler<HTMLButtonElement> = (event): void => {
     event.stopPropagation()
