@@ -23,15 +23,15 @@ export function ClimateSettingStatus({
       )}
       <Content
         mode={climateSetting.hvac_mode_setting}
-        coolingSetPoint={Math.trunc(
-          (temperatureUnit === 'fahrenheit'
+        coolingSetPoint={formatTemperatureValue(
+          temperatureUnit === 'fahrenheit'
             ? climateSetting.cooling_set_point_fahrenheit
-            : climateSetting.cooling_set_point_celsius) ?? 0
+            : climateSetting.cooling_set_point_celsius
         )}
-        heatingSetPoint={Math.trunc(
-          (temperatureUnit === 'fahrenheit'
+        heatingSetPoint={formatTemperatureValue(
+          temperatureUnit === 'fahrenheit'
             ? climateSetting.heating_set_point_fahrenheit
-            : climateSetting.heating_set_point_celsius) ?? 0
+            : climateSetting.heating_set_point_celsius
         )}
         temperatureUnit={temperatureUnit}
       />
@@ -59,12 +59,8 @@ function ClimateSettingIcon(props: {
 
 function Content(props: {
   mode: ClimateSetting['hvac_mode_setting']
-  coolingSetPoint:
-    | ClimateSetting['cooling_set_point_fahrenheit']
-    | ClimateSetting['cooling_set_point_celsius']
-  heatingSetPoint:
-    | ClimateSetting['heating_set_point_fahrenheit']
-    | ClimateSetting['heating_set_point_celsius']
+  coolingSetPoint: string
+  heatingSetPoint: string
   temperatureUnit: 'fahrenheit' | 'celsius'
 }): JSX.Element | null {
   const { mode, coolingSetPoint, heatingSetPoint, temperatureUnit } = props
@@ -87,6 +83,12 @@ function Content(props: {
   if (mode === 'off') return <span>{t.off}</span>
 
   return null
+}
+
+const formatTemperatureValue = (value: number | undefined): string => {
+  if (value == null) return '0'
+  if (Number.isInteger(value)) return value.toFixed()
+  return value.toFixed(1)
 }
 
 const t = {
