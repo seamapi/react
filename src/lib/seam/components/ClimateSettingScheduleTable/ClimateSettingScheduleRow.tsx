@@ -4,7 +4,7 @@ import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-import { ClimateSettingScheduleDetails } from './ClimateSettingScheduleDetails.js'
+import { ClimateSettingScheduleDetails } from './ScheduleDetails.js'
 
 interface ClimateSettingScheduleRowProps {
   climateSettingSchedule: UseClimateSettingSchedulesData[number]

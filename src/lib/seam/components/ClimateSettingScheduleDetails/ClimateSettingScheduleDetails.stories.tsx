@@ -28,7 +28,7 @@ export const Content: Story = {
     <ClimateSettingScheduleDetails
       {...props}
       climateSettingScheduleId={
-        props.climateSettingScheduleId ?? 'climateSettingSchedule1'
+        props.climateSettingScheduleId ?? 'climate_setting_schedule1'
       }
     />
   ),
@@ -46,7 +46,7 @@ export const InsideModal: Story = {
             <ClimateSettingScheduleDetails
               {...props}
               climateSettingScheduleId={
-                props.climateSettingScheduleId ?? 'climateSettingSchedule1'
+                props.climateSettingScheduleId ?? 'climate_setting_schedule1'
               }
             />
           </div>

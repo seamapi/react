@@ -10,7 +10,6 @@ import type {
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { useDeleteClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-delete-climate-setting-schedule.js'
-import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
@@ -36,6 +35,7 @@ export function ClimateSettingScheduleDetails({
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
   )
+  console.log('climateSettingSchedule', climateSettingSchedule)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isLoading: isDeleting } =
     useDeleteClimateSettingSchedule()
