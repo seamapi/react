@@ -10,7 +10,8 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 export type UseDeleteClimateSettingScheduleMutationParams =
   ClimateSettingScheduleDeleteRequest
 
-export type UseDeleteClimateSettingScheduleData = void
+export type UseDeleteClimateSettingScheduleData =
+  ClimateSettingScheduleDeleteResponse
 
 export function useDeleteClimateSettingSchedule(): UseMutationResult<
   UseDeleteClimateSettingScheduleData,
