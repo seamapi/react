@@ -6,7 +6,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 import { ClimateSettingScheduleTable } from './ClimateSettingScheduleTable.js'
 
 const meta: Meta<typeof ClimateSettingScheduleTable> = {
-  title: 'Example/ClimateSettingScheduleTable',
+  title: 'Example/ClimateSettingScheduleTable (Coming Soon)',
   component: ClimateSettingScheduleTable,
   tags: ['autodocs'],
   parameters: {
