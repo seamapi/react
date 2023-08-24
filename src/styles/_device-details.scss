@@ -188,24 +188,95 @@
       overflow: hidden;
     }
 
-    .seam-thermostat-detail-row {
+    .seam-thermostat-detail-row,
+    .seam-thermostat-accordion-row {
       background-color: colors.$white;
-      min-height: 64px;
-      padding: 8px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-direction: row;
 
       &:not(:last-of-type) {
         border-bottom: 1px solid colors.$divider-stroke-light;
       }
     }
 
+    .seam-thermostat-detail-row,
+    .seam-thermostat-accordion-row-trigger {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      min-height: 64px;
+      padding: 8px 16px;
+    }
+
     .seam-thermostat-row-title {
       font-size: 16px;
       font-weight: 600;
       line-height: 118%;
+    }
+
+    .seam-thermostat-accordion-row {
+      overflow: hidden;
+
+      .seam-thermostat-accordion-row-trigger {
+        appearance: none;
+        width: 100%;
+        background-color: colors.$white;
+        font-size: 16px;
+        border: none;
+        box-shadow: none;
+        cursor: pointer;
+      }
+
+      .seam-thermostat-accordion-row-content {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+
+        max-height: 0;
+        transition: max-height 0.2s ease-in-out;
+      }
+
+      &[aria-expanded='true'] {
+        .seam-thermostat-accordion-row-content {
+          max-height: 64px;
+        }
+
+        .seam-thermostat-accordion-icon-wrap {
+          transform: rotate(180deg);
+        }
+
+        .seam-thermostat-row-trigger-right-content {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+      }
+
+      .seam-thermostat-accordion-row-inner-content {
+        height: 64px;
+        padding: 0 16px;
+        overflow: hidden;
+      }
+
+      .seam-thermostat-row-inner-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 16px;
+      }
+
+      .seam-thermostat-row-trigger-right-content {
+        transition: 0.2s ease-in-out;
+      }
+
+      .seam-thermostat-accordion-icon-wrap {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.2s ease-in-out;
+      }
     }
   }
 }

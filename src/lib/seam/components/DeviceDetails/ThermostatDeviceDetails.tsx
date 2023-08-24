@@ -3,7 +3,9 @@ import type { ThermostatDevice } from 'seamapi'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
-import type { PropsWithChildren } from 'react'
+import { useState, type PropsWithChildren } from 'react'
+import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
+import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
@@ -32,9 +34,16 @@ export function ThermostatDeviceDetails(props: {
             title='Current settings'
             tooltipContent='These are the settings currently on the device. If you change them here, they change on the device.'
           >
-            <div className='seam-thermostat-detail-row'>
-              <p className='seam-thermostat-row-title'>Climate</p>
-            </div>
+            <AccordionRow
+              title='Climate'
+              triggerRightContent={
+                <ClimateSettingStatus
+                  climateSetting={device.properties.current_climate_setting}
+                />
+              }
+            >
+              Hi!
+            </AccordionRow>
             <div className='seam-thermostat-detail-row'>
               <p className='seam-thermostat-row-title'>Fan mode</p>
             </div>
@@ -70,6 +79,47 @@ function Section({
       </div>
 
       <div className='seam-thermostat-detail-group'>{children}</div>
+    </div>
+  )
+}
+
+interface AccordionRowProps {
+  title: string
+  triggerRightContent?: JSX.Element
+}
+
+function AccordionRow({
+  title,
+  triggerRightContent,
+  children,
+}: PropsWithChildren<AccordionRowProps>) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const toggleExpanded = () => {
+    setIsExpanded((isExpanded) => !isExpanded)
+  }
+
+  return (
+    <div className='seam-thermostat-accordion-row' aria-expanded={isExpanded}>
+      <button
+        className='seam-thermostat-accordion-row-trigger'
+        onClick={toggleExpanded}
+      >
+        <p className='seam-thermostat-row-title'>{title}</p>
+        <div className='seam-thermostat-row-inner-wrap'>
+          <div className='seam-thermostat-row-trigger-right-content'>
+            {triggerRightContent}
+          </div>
+          <div className='seam-thermostat-accordion-icon-wrap'>
+            <ChevronWideIcon />
+          </div>
+        </div>
+      </button>
+      <div className='seam-thermostat-accordion-row-content'>
+        <div className='seam-thermostat-accordion-row-inner-content'>
+          {children}
+        </div>
+      </div>
     </div>
   )
 }
