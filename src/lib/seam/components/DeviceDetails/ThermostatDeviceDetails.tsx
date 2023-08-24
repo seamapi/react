@@ -1,11 +1,11 @@
 import classNames from 'classnames'
-import { useState, type PropsWithChildren } from 'react'
+import { type PropsWithChildren,useState } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
-import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
