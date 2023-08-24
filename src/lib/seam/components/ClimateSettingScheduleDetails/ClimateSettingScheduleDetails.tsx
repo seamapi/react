@@ -112,6 +112,17 @@ export function ClimateSettingScheduleDetails({
           <p>Radio</p>
         </div>
       </div>
+      <div style={{ height: '16px' }} />
+      <div className='seam-box'>
+        <div className='seam-content seam-creation-date'>
+          <span className='seam-label'>{t.creationDate}</span>
+          <span className='seam-value'>
+            {`${formatDurationDate(
+              climateSettingSchedule.created_at
+            )} at ${formatTime(climateSettingSchedule.created_at)}`}
+          </span>
+        </div>
+      </div>
     </div>
   )
 }
@@ -219,5 +230,6 @@ const t = {
   startEndTime: 'Start/End Time',
   climateSetting: 'Climate setting',
   allowManualOverride: 'Allow manual override',
+  creationDate: 'Creation date',
   starts: 'Starts',
 }

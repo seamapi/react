@@ -113,18 +113,19 @@
             padding: 20px 16px 20px 16px;
 
 
-
           }
 
           &.seam-allow-manual-override-toggle {
             border-top: 1px solid colors.$text-gray-3;
             justify-content: space-between;
             padding: 20px 16px 20px 16px;
-
-
-
-
           }
+
+          &.seam-creation-date {
+            justify-content: space-between;
+            padding: 20px 16px 20px 16px;
+          }
+
 
           .seam-label {
             display: block;
