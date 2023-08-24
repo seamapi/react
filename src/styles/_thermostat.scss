@@ -1,19 +1,20 @@
 @use './colors';
 
-@mixin temperature-control-thumb() {
+@mixin temperature-control-thumb($primary-color: colors.$thermo-blue) {
   width: var(--thumb-size);
   height: var(--thumb-size);
   border-radius: 1em;
   background: colors.$white;
-  border: 2px solid colors.$thermo-orange;
+  border: 2px solid $primary-color;
   box-shadow: none;
 }
 
-@mixin temperature-control-track() {
+@mixin temperature-control-track($primary-color: colors.$thermo-blue) {
   height: var(--track-height);
   border-radius: 0.5em;
   background:
-    linear-gradient(#fc8e28, #fc8e28) 0 / var(--slider-position) 100% no-repeat,
+    linear-gradient($primary-color, $primary-color) 0 / var(--slider-position)
+      100% no-repeat,
     #d5d8dc;
   border: none;
   box-shadow: none;
