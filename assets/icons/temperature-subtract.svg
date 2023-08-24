@@ -1,0 +1,10 @@
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="inc24/subtract-remove">
+<mask id="mask0_99_25717" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="18" height="18">
+<rect id="Bounding box" width="18" height="18" fill="#2196F3"/>
+</mask>
+<g mask="url(#mask0_99_25717)">
+<path id="remove" d="M3.75 9.75V8.25H14.25V9.75H3.75Z" fill="#9DA1A9"/>
+</g>
+</g>
+</svg>

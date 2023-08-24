@@ -30,6 +30,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    gap: 7px;
 
     input[type='range'].seam-temperature-range-input {
       --temperature-min: 0;
@@ -141,6 +142,31 @@
         margin: 0;
         border: none;
         border-right-width: 0;
+      }
+    }
+
+    .seam-temperature-stepper-button {
+      appearance: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid colors.$text-gray-3;
+      background-color: colors.$white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+      cursor: pointer;
+      transition: 0.1s ease-in-out;
+
+      &:hover {
+        background-color: colors.$bg-a;
+        border-color: colors.$text-gray-2;
+      }
+
+      &:active {
+        background-color: colors.$bg-c;
+        border-color: colors.$text-gray-1;
       }
     }
   }
