@@ -1,25 +1,25 @@
 @use './colors';
 
-@mixin all {
-  .seam-climate-setting-status {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: colors.$text-gray-1;
-    font-size: 14px;
-    line-height: 118%;
-    white-space: nowrap;
-  }
+@mixin temperature-control-thumb() {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 1em;
+  background: colors.$white;
+  border: 2px solid colors.$thermo-orange;
+  box-shadow: none;
+}
 
-  .seam-climate-setting-status-icon {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+@mixin temperature-control-track() {
+  height: var(--track-height);
+  border-radius: 0.5em;
+  background:
+    linear-gradient(#fc8e28, #fc8e28) 0 / var(--slider-position) 100% no-repeat,
+    #d5d8dc;
+  border: none;
+  box-shadow: none;
+}
 
-  // TemperatureControl
+@mixin temperature-control {
   .seam-temperature-control {
     width: 100%;
   }
@@ -54,51 +54,40 @@
         outline: none;
       }
 
-      // webkit
+      // Thumbs
       &::-webkit-slider-thumb {
+        @include temperature-control-thumb();
+
         -webkit-appearance: none;
-        width: var(--thumb-size);
-        height: var(--thumb-size);
-        border-radius: 1em;
-        background: #fc8e28;
-        border: none;
-        box-shadow: none;
         margin-top: calc(var(--track-height) * 0.5 - var(--thumb-size) * 0.5);
       }
 
-      &::-webkit-slider-runnable-track {
-        height: var(--track-height);
-        border: none;
-        border-radius: 0.5em;
-        background:
-          linear-gradient(#fc8e28, #fc8e28) 0 / var(--slider-position) 100%
-            no-repeat,
-          #d5d8dc;
-        box-shadow: none;
+      &::-moz-range-thumb {
+        @include temperature-control-thumb();
       }
 
-      // moz
-      &::-moz-range-thumb {
-        width: var(--thumb-size);
-        height: var(--thumb-size);
-        border-radius: 1em;
-        background: #fc8e28;
-        border: none;
-        box-shadow: none;
+      &::-ms-thumb {
+        @include temperature-control-thumb();
+
+        margin-top: 0;
+        box-sizing: border-box;
+      }
+
+      // Tracks
+      &::-webkit-slider-runnable-track {
+        @include temperature-control-track();
       }
 
       &::-moz-range-track {
-        height: var(--track-height);
-        border: none;
-        border-radius: 0.5em;
-        background:
-          linear-gradient(#fc8e28, #fc8e28) 0 / var(--slider-position) 100%
-            no-repeat,
-          #d5d8dc;
-        box-shadow: none;
+        @include temperature-control-track();
       }
 
-      // ms
+      &::-ms-track {
+        @include temperature-control-track();
+        box-sizing: border-box;
+      }
+
+      // ms specific styling
       &::-ms-fill-upper {
         background: transparent;
         border-color: transparent;
@@ -113,26 +102,31 @@
         border: none;
         border-right-width: 0;
       }
-
-      &::-ms-thumb {
-        width: var(--thumb-size);
-        height: var(--thumb-size);
-        border-radius: 1em;
-        background: #fc8e28;
-        border: none;
-        box-shadow: none;
-        margin-top: 0;
-        box-sizing: border-box;
-      }
-
-      &::-ms-track {
-        height: var(--track-height);
-        border-radius: 0.5em;
-        background: #d5d8dc;
-        border: none;
-        box-shadow: none;
-        box-sizing: border-box;
-      }
     }
   }
+}
+
+@mixin climate-setting-status {
+  .seam-climate-setting-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: colors.$text-gray-1;
+    font-size: 14px;
+    line-height: 118%;
+    white-space: nowrap;
+  }
+
+  .seam-climate-setting-status-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@mixin all {
+  @include temperature-control();
+  @include climate-setting-status();
 }
