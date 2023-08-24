@@ -87,9 +87,7 @@ export function AccessCodeDetails({
             <Duration accessCode={accessCode} />
           </div>
         </div>
-
         <Alerts alerts={alerts} className='seam-alerts-padded' />
-
         <AccessCodeDevice
           deviceId={accessCode.device_id}
           disableLockUnlock={disableLockUnlock}
