@@ -21,15 +21,21 @@ function Stepper({}: StepperProps) {
     if (rangeRef.current != null) {
       const range = rangeRef.current
 
-      range.style.setProperty('--value', range.value)
-      range.style.setProperty('--min', range.min === '' ? '0' : range.min)
-      range.style.setProperty('--max', range.max === '' ? '100' : range.max)
+      range.style.setProperty('--temperature-current', range.value)
+      range.style.setProperty(
+        '--temperature-min',
+        range.min === '' ? '0' : range.min
+      )
+      range.style.setProperty(
+        '--temperature-max',
+        range.max === '' ? '100' : range.max
+      )
     }
   }, [rangeRef.current])
 
   const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const range = event.target
-    range.style.setProperty('--value', range.value)
+    range.style.setProperty('--temperature-current', range.value)
     console.log(range.value)
   }
 
