@@ -1,4 +1,4 @@
-import { type ChangeEventHandler,useEffect, useRef } from 'react'
+import { type ChangeEventHandler, useEffect, useRef } from 'react'
 
 interface TemperatureControlProps {}
 
@@ -40,7 +40,7 @@ function Stepper({}: StepperProps) {
         type='range'
         min={0}
         max={100}
-        onInput={handleRangeChange}
+        onChange={handleRangeChange}
         className='seam-temperature-range-input slider-progress'
       />
       <button className='seam-temperature-stepper-button' />
