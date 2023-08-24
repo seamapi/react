@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ChangeEventHandler } from 'react'
+import { type ChangeEventHandler,useEffect, useRef } from 'react'
 
 interface TemperatureControlProps {}
 
@@ -18,7 +18,7 @@ function Stepper({}: StepperProps) {
   const rangeRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (rangeRef.current) {
+    if (rangeRef.current != null) {
       const range = rangeRef.current
 
       range.style.setProperty('--value', range.value)
@@ -35,7 +35,7 @@ function Stepper({}: StepperProps) {
 
   return (
     <div className='seam-temperature-stepper'>
-      <button className='seam-temperature-stepper-button'></button>
+      <button className='seam-temperature-stepper-button' />
       <input
         type='range'
         min={0}
@@ -43,7 +43,7 @@ function Stepper({}: StepperProps) {
         onInput={handleRangeChange}
         className='seam-temperature-range-input slider-progress'
       />
-      <button className='seam-temperature-stepper-button'></button>
+      <button className='seam-temperature-stepper-button' />
     </div>
   )
 }
