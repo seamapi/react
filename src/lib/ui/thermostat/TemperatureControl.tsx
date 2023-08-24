@@ -15,6 +15,20 @@ interface StepperProps {
 }
 
 function Stepper({}: StepperProps) {
+  return (
+    <div className='seam-temperature-stepper'>
+      <button className='seam-temperature-stepper-button' />
+      <RangeSlider variant='heat' />
+      <button className='seam-temperature-stepper-button' />
+    </div>
+  )
+}
+
+interface RangeSliderProps {
+  variant: 'heat' | 'cool'
+}
+
+function RangeSlider({ variant }: RangeSliderProps) {
   const rangeRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -40,16 +54,14 @@ function Stepper({}: StepperProps) {
   }
 
   return (
-    <div className='seam-temperature-stepper'>
-      <button className='seam-temperature-stepper-button' />
-      <input
-        type='range'
-        min={0}
-        max={100}
-        onChange={handleRangeChange}
-        className='seam-temperature-range-input'
-      />
-      <button className='seam-temperature-stepper-button' />
-    </div>
+    <input
+      ref={rangeRef}
+      type='range'
+      min={0}
+      max={100}
+      onChange={handleRangeChange}
+      className='seam-temperature-range-input'
+      data-variant={variant}
+    />
   )
 }
