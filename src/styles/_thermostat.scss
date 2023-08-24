@@ -45,7 +45,7 @@
         outline: none;
       }
 
-      // Webkit
+      // webkit
       &::-webkit-slider-thumb {
         -webkit-appearance: none;
         width: 20px;
@@ -67,7 +67,7 @@
         box-shadow: none;
       }
 
-      // Firefox
+      // moz
       &::-moz-range-thumb {
         width: 20px;
         height: 20px;
@@ -87,6 +87,7 @@
         box-shadow: none;
       }
 
+      // ms
       &::-ms-fill-upper {
         background: transparent;
         border-color: transparent;
