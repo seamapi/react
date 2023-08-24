@@ -31,21 +31,19 @@
     flex-direction: row;
 
     input[type='range'].seam-temperature-range-input {
-      height: 56px;
-      -webkit-appearance: none;
-    }
-
-    input[type='range'].seam-temperature-range-input.slider-progress {
       --min: 0;
       --max: 100;
       --value: 50;
       --range: calc(var(--max) - var(--min));
       --ratio: calc((var(--value) - var(--min)) / var(--range));
       --sx: calc(0.5 * 20px + var(--ratio) * (100% - 20px));
-    }
 
-    input[type='range'].seam-temperature-range-input:focus {
-      outline: none;
+      height: 56px;
+      -webkit-appearance: none;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     // Webkit
