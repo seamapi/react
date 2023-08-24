@@ -44,33 +44,31 @@
       &:focus {
         outline: none;
       }
+
+      // Webkit
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 1em;
+        background: #fc8e28;
+        border: none;
+        box-shadow: none;
+        margin-top: calc(4px * 0.5 - 20px * 0.5);
+      }
+
+      &::-webkit-slider-runnable-track {
+        height: 4px;
+        border: none;
+        border-radius: 0.5em;
+        background:
+          linear-gradient(#fc8e28, #fc8e28) 0 / var(--sx) 100% no-repeat,
+          #d5d8dc;
+        box-shadow: none;
+      }
     }
 
     // Webkit
-    input[type='range'].seam-temperature-range-input::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 1em;
-      background: #fc8e28;
-      border: none;
-      box-shadow: none;
-      margin-top: calc(4px * 0.5 - 20px * 0.5);
-    }
-
-    input[type='range'].seam-temperature-range-input::-webkit-slider-runnable-track {
-      height: 4px;
-      border: none;
-      border-radius: 0.5em;
-      background: #d5d8dc;
-      box-shadow: none;
-    }
-
-    input[type='range'].seam-temperature-range-input.slider-progress::-webkit-slider-runnable-track {
-      background:
-        linear-gradient(#fc8e28, #fc8e28) 0 / var(--sx) 100% no-repeat,
-        #d5d8dc;
-    }
 
     // Firefox
     input[type='range'].seam-temperature-range-input::-moz-range-thumb {
