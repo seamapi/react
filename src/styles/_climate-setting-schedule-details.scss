@@ -5,26 +5,17 @@
     > .seam-summary {
       background: colors.$bg-a;
       border-radius: 16px;
-      margin: 0 24px 16px;
+      margin-bottom: 16px;
 
       > .seam-top {
         padding: 16px;
         display: flex;
         width: 100%;
         align-items: center;
-        // justify-content: ;
         gap: 8px;
 
         &.seam-top-has-alerts {
           padding-bottom: 8px;
-        }
-
-        > .seam-label {
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 134%;
-          color: colors.$text-gray-1;
-          margin-bottom: 4px;
         }
 
         > .seam-climate-setting-schedule-name-block {
@@ -61,16 +52,16 @@
         //   margin-bottom: 8px;
         // }
 
-        .seam-duration {
-          color: colors.$text-gray-1;
-          font-size: 14px;
-          line-height: 134%;
+        // .seam-duration {
+        //   color: colors.$text-gray-1;
+        //   font-size: 14px;
+        //   line-height: 134%;
 
-          .seam-label {
-            font-weight: 600;
-            color: colors.$text-default;
-          }
-        }
+        //   .seam-label {
+        //     font-weight: 600;
+        //     color: colors.$text-default;
+        //   }
+        // }
       }
 
       .seam-climate-setting-schedule-device {
@@ -100,54 +91,60 @@
       }
     }
 
-    .seam-actions {
-      margin-bottom: 16px;
-      padding: 0 24px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .seam-details {
-      font-size: 16px;
-      line-height: 134%;
-      border-bottom: 1px solid rgb(0 0 0 / 12%);
-      padding: 0 24px;
-
-      .seam-row {
-        padding: 16px;
-        display: flex;
-        border-top: 1px solid rgb(0 0 0 / 12%);
-
-        .seam-heading {
-          width: 112px;
-        }
+    .seam-box {
+        border: 1px solid colors.$text-gray-3;
+        border-radius: 8px;
 
         .seam-content {
           display: flex;
-          flex: 1;
+          align-items: center;
 
-          .seam-times {
+
+          &.seam-start-end-toggle {
             display: flex;
-            flex: 1;
+            justify-content: space-between;
+            padding: 16px;
+          }
+
+
+          &.seam-climate-setting-toggle {
+            border-top: 1px solid colors.$text-gray-3;
+            justify-content: space-between;
+            padding: 20px 16px 20px 16px;
+
+
+
+          }
+
+          &.seam-allow-manual-override-toggle {
+            border-top: 1px solid colors.$text-gray-3;
+            justify-content: space-between;
+            padding: 20px 16px 20px 16px;
+
+
+
+
+          }
+
+          .seam-label {
+            display: block;
+            font-weight: 600;
             font-size: 16px;
             line-height: 134%;
+          }
 
-            .seam-label {
-              color: colors.$text-gray-2;
-            }
+          .seam-value {
+            font-size: 14px;
+            line-height: 134%;
+            color: colors.$text-gray-1;
+          }
 
-            > div {
-              div {
-                margin-bottom: 4px;
-              }
-
-              &:first-child {
-                flex: 0 1 160px;
-              }
-            }
+          > .seam-right {
+            display: flex;
+            align-items: center;
           }
         }
       }
-    }
+
   }
 }

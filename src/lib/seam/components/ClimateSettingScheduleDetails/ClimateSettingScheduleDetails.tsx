@@ -1,11 +1,6 @@
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type {
-  ClimateSettingSchedule,
-  ConnectedAccountError,
-  DeviceError,
-} from 'seamapi'
 
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -13,7 +8,6 @@ import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
-import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 const disableEditClimateSettingSchedule = true
 
@@ -23,7 +17,7 @@ export interface ClimateSettingScheduleDetailsProps {
   onBack?: () => void
   onEdit: () => void
   className?: string
-  disableDeleteClimateSettingSchedule?: boolean
+  // disableDeleteClimateSettingSchedule?: boolean
 }
 
 export function ClimateSettingScheduleDetails({
@@ -31,8 +25,7 @@ export function ClimateSettingScheduleDetails({
   disableLockUnlock = false,
   onBack,
   onEdit,
-  className,
-  disableDeleteClimateSettingSchedule = false,
+  className, // disableDeleteClimateSettingSchedule = false,
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
@@ -60,6 +53,8 @@ export function ClimateSettingScheduleDetails({
     )
   }
 
+  // TODO: warnings
+
   // const alerts = [
   //   ...climateSettingSchedule.errors.filter(errorFilter).map((error) => ({
   //     variant: 'error' as const,
@@ -77,12 +72,7 @@ export function ClimateSettingScheduleDetails({
     >
       <ContentHeader title='Climate setting schedule' onBack={onBack} />
       <div className='seam-summary'>
-        <div
-          className={classNames(
-            'seam-top'
-            // alerts.length > 0 && 'seam-top-has-alerts'
-          )}
-        >
+        <div className={classNames('seam-top')}>
           <ClimateSettingScheduleIcon />
           <div className='seam-climate-setting-schedule-name-block'>
             <h5 className='seam-climate-setting-schedule-name'>{name}</h5>
@@ -98,121 +88,92 @@ export function ClimateSettingScheduleDetails({
             </div>
           </div>
         </div>
-
-        {/* <Alerts alerts={alerts} className='seam-alerts-padded' /> */}
-
-        {/* <ClimateSettingScheduleDevice
-          deviceId={climateSettingSchedule.device_id}
-          disableLockUnlock={disableLockUnlock}
-          onSelectDevice={selectDevice}
-        /> */}
       </div>
-      {(!disableEditClimateSettingSchedule ||
-        !disableDeleteClimateSettingSchedule) && (
-        <div className='seam-actions'>
-          {/* {!disableEditClimateSettingSchedule && (
-            <Button size='small' onClick={onEdit} disabled={isDeleting}>
-              {t.editCode}
-            </Button>
-          )} */}
-          {/* {!disableDeleteClimateSettingSchedule && (
-            <Button
-              size='small'
-              onClick={() => {
-                deleteCode({
-                  access_code_id: climateSettingSchedule.access_code_id,
-                })
-              }}
-              disabled={isDeleting}
-            >
-              {t.deleteCode}
-            </Button>
-          )} */}
+      <div className='seam-box'>
+        <div className='seam-content seam-start-end-toggle'>
+          <div>
+            <span className='seam-label'>{t.startEndTime}</span>
+            <span className='seam-value'>{'A Date'}</span>
+          </div>
+          <div className='seam-right'>{'Chevron'}</div>
         </div>
-      )}
-      <div className='seam-details'>
-        <div className='seam-row'>
-          <div className='seam-heading'>{t.id}:</div>
-          <div className='seam-content'>
-            {climateSettingSchedule.climate_setting_schedule_id}
+        <div className='seam-content seam-climate-setting-toggle'>
+          <span className='seam-label'>{t.climateSetting}</span>
+          <div className='seam-right'>
+            <ClimateSettingStatus
+              climateSetting={climateSettingSchedule}
+              iconPlacement='right'
+            />
+            <p>{'Chevron'}</p>
           </div>
         </div>
-        <div className='seam-row'>
-          <div className='seam-heading'>{t.created}:</div>
-          <div className='seam-content'>
-            {formatDate(climateSettingSchedule.created_at)}
-          </div>
-        </div>
-
-        <div className='seam-row seam-schedule'>
-          <div className='seam-heading'>{t.timing}:</div>
-          <div className='seam-content'>
-            <ScheduleInfo climateSettingSchedule={climateSettingSchedule} />
-          </div>
+        <div className='seam-content seam-allow-manual-override-toggle'>
+          <span className='seam-label'>{t.allowManualOverride}</span>
+          <p>Radio</p>
         </div>
       </div>
     </div>
   )
 }
 
-function ScheduleInfo({
-  climateSettingSchedule,
-}: {
-  climateSettingSchedule: ClimateSettingSchedule
-}): JSX.Element {
-  return (
-    <div className='seam-times'>
-      <div>
-        <div className='seam-label'>{t.start}</div>
-        <div className='seam-date'>
-          {formatDate(climateSettingSchedule.schedule_starts_at)}
-        </div>
-        <div className='seam-time'>
-          {formatTime(climateSettingSchedule.schedule_starts_at)}
-        </div>
-      </div>
-      <div>
-        <div className='seam-label'>{t.end}</div>
-        <div className='seam-date'>
-          {formatDate(climateSettingSchedule.schedule_ends_at)}
-        </div>
-        <div className='seam-time'>
-          {formatTime(climateSettingSchedule.schedule_ends_at)}
-        </div>
-      </div>
-    </div>
-  )
-}
+// function ScheduleInfo({
+//   climateSettingSchedule,
+// }: {
+//   climateSettingSchedule: ClimateSettingSchedule
+// }): JSX.Element {
+//   return (
+//     <div className='seam-times'>
+//       <div>
+//         <div className='seam-label'>{t.start}</div>
+//         <div className='seam-date'>
+//           {formatDate(climateSettingSchedule.schedule_starts_at)}
+//         </div>
+//         <div className='seam-time'>
+//           {formatTime(climateSettingSchedule.schedule_starts_at)}
+//         </div>
+//       </div>
+//       <div>
+//         <div className='seam-label'>{t.end}</div>
+//         <div className='seam-date'>
+//           {formatDate(climateSettingSchedule.schedule_ends_at)}
+//         </div>
+//         <div className='seam-time'>
+//           {formatTime(climateSettingSchedule.schedule_ends_at)}
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
 
-function Duration(props: {
-  climateSettingSchedule: ClimateSettingSchedule
-}): JSX.Element {
-  const { climateSettingSchedule } = props
+// function Duration(props: {
+//   climateSettingSchedule: ClimateSettingSchedule
+// }): JSX.Element {
+//   const { climateSettingSchedule } = props
 
-  const hasStarted =
-    useIsDateInPast(
-      'starts_at' in climateSettingSchedule
-        ? climateSettingSchedule?.schedule_starts_at
-        : null
-    ) ?? false
+//   const hasStarted =
+//     useIsDateInPast(
+//       'starts_at' in climateSettingSchedule
+//         ? climateSettingSchedule?.schedule_starts_at
+//         : null
+//     ) ?? false
 
-  if (hasStarted) {
-    return (
-      <span>
-        <span className='seam-label'>Active</span> until{' '}
-        {formatDurationDate(climateSettingSchedule.schedule_ends_at)} at{' '}
-        {formatTime(climateSettingSchedule.schedule_ends_at)}
-      </span>
-    )
-  }
+//   if (hasStarted) {
+//     return (
+//       <span>
+//         <span className='seam-label'>Active</span> until{' '}
+//         {formatDurationDate(climateSettingSchedule.schedule_ends_at)} at{' '}
+//         {formatTime(climateSettingSchedule.schedule_ends_at)}
+//       </span>
+//     )
+//   }
 
-  return (
-    <span>
-      Starts {formatDurationDate(climateSettingSchedule.schedule_starts_at)} as{' '}
-      {formatTime(climateSettingSchedule.schedule_starts_at)}
-    </span>
-  )
-}
+//   return (
+//     <span>
+//       Starts {formatDurationDate(climateSettingSchedule.schedule_starts_at)} as{' '}
+//       {formatTime(climateSettingSchedule.schedule_starts_at)}
+//     </span>
+//   )
+// }
 
 function formatDurationDate(date: string): string {
   return DateTime.fromISO(date).toLocaleString({
@@ -237,30 +198,26 @@ function formatDate(date: string): string {
   })
 }
 
-const errorFilter = (error: DeviceError | ConnectedAccountError): boolean => {
-  if ('is_access_code_error' in error && !error.is_access_code_error)
-    return true
+// const errorFilter = (error: DeviceError | ConnectedAccountError): boolean => {
+//   if ('is_access_code_error' in error && !error.is_access_code_error)
+//     return true
 
-  if (
-    error.error_code === 'failed_to_set_on_device' ||
-    error.error_code === 'failed_to_remove_on_device'
-  ) {
-    return true
-  }
+//   if (
+//     error.error_code === 'failed_to_set_on_device' ||
+//     error.error_code === 'failed_to_remove_on_device'
+//   ) {
+//     return true
+//   }
 
-  return false
-}
+//   return false
+// }
 
 const t = {
   climateSettingSchedule: 'Climate Setting Schedule',
-  fallbackName: 'Code',
+  fallbackName: 'Climate Setting Schedule',
   id: 'ID',
-  created: 'Created',
-  timing: 'Timing',
-  ongoing: 'Ongoing',
-  start: 'Start',
-  end: 'End',
-  editCode: 'Edit code',
-  deleteCode: 'Delete code',
+  startEndTime: 'Start/End Time',
+  climateSetting: 'Climate setting',
+  allowManualOverride: 'Allow manual override',
   starts: 'Starts',
 }
