@@ -25,9 +25,7 @@
     position: absolute;
     padding: 8px 0;
     background: colors.$white;
-    box-shadow:
-      0 0 1px rgb(0 0 0 / 30%),
-      0 2px 16px 2px rgb(15 22 28 / 15%);
+    box-shadow: 0 0 1px rgb(0 0 0 / 30%), 0 2px 16px 2px rgb(15 22 28 / 15%);
     border-radius: 8px;
 
     .seam-menu-item {
