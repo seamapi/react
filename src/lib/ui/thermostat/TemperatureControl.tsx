@@ -38,7 +38,9 @@ function Stepper({}: StepperProps) {
       <RangeSlider
         variant='heat'
         temperature={temperature}
-        onChange={(temperature) => { setTemperature(temperature); }}
+        onChange={(temperature) => {
+          setTemperature(temperature)
+        }}
       />
       <button className='seam-temperature-stepper-button' onClick={increment}>
         <TemperatureAddIcon />
