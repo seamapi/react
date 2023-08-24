@@ -47,7 +47,7 @@ function Stepper({}: StepperProps) {
         min={0}
         max={100}
         onChange={handleRangeChange}
-        className='seam-temperature-range-input slider-progress'
+        className='seam-temperature-range-input'
       />
       <button className='seam-temperature-stepper-button' />
     </div>
