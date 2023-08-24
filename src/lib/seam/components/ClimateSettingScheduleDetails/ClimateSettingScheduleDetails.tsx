@@ -7,10 +7,12 @@ import type {
   DeviceError,
 } from 'seamapi'
 
+import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
-import { useDeleteClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-delete-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { DotDivider } from 'lib/ui/layout/DotDivider.js'
+import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 const disableEditClimateSettingSchedule = true
@@ -35,10 +37,9 @@ export function ClimateSettingScheduleDetails({
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
   )
-  console.log('climateSettingSchedule', climateSettingSchedule)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
-  const { mutate: deleteCode, isLoading: isDeleting } =
-    useDeleteClimateSettingSchedule()
+  // const { mutate: deleteCode, isLoading: isDeleting } =
+  //   useDeleteClimateSettingSchedule()
 
   if (climateSettingSchedule == null) {
     return null
@@ -71,8 +72,10 @@ export function ClimateSettingScheduleDetails({
   // ]
 
   return (
-    <div className={classNames('seam-access-code-details', className)}>
-      <ContentHeader title='Access code' onBack={onBack} />
+    <div
+      className={classNames('seam-climate-setting-schedule-details', className)}
+    >
+      <ContentHeader title='Climate setting schedule' onBack={onBack} />
       <div className='seam-summary'>
         <div
           className={classNames(
@@ -80,11 +83,19 @@ export function ClimateSettingScheduleDetails({
             // alerts.length > 0 && 'seam-top-has-alerts'
           )}
         >
-          <span className='seam-label'>{t.climateSettingSchedule}</span>
-          <h5 className='seam-access-code-name'>{name}</h5>
-          <div className='seam-code'>{climateSettingSchedule.code}</div>
-          <div className='seam-duration'>
-            <Duration climateSettingSchedule={climateSettingSchedule} />
+          <ClimateSettingScheduleIcon />
+          <div className='seam-climate-setting-schedule-name-block'>
+            <h5 className='seam-climate-setting-schedule-name'>{name}</h5>
+            <div className='seam-climate-setting-schedule-subheading'>
+              <ClimateSettingStatus climateSetting={climateSettingSchedule} />
+              <DotDivider />
+              <span>
+                {t.starts}{' '}
+                {`${formatDurationDate(
+                  climateSettingSchedule.schedule_starts_at
+                )} at ${formatTime(climateSettingSchedule.schedule_starts_at)}`}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -123,7 +134,7 @@ export function ClimateSettingScheduleDetails({
         <div className='seam-row'>
           <div className='seam-heading'>{t.id}:</div>
           <div className='seam-content'>
-            {climateSettingSchedule.access_code_id}
+            {climateSettingSchedule.climate_setting_schedule_id}
           </div>
         </div>
         <div className='seam-row'>
@@ -251,4 +262,5 @@ const t = {
   end: 'End',
   editCode: 'Edit code',
   deleteCode: 'Delete code',
+  starts: 'Starts',
 }

@@ -20,6 +20,7 @@
 @use './thermostat';
 @use './tooltip';
 @use './seam-table';
+@use './climate-setting-schedule-details';
 
 .seam-components {
   // Reset
@@ -48,4 +49,5 @@
   @include supported-device-table.all;
   @include thermostat.all;
   @include seam-table.all;
+  @include climate-setting-schedule-details.all;
 }
