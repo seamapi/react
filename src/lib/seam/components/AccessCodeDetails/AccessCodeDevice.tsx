@@ -56,10 +56,7 @@ function Content(props: {
         <DeviceImage device={device} />
       </div>
       <div className='seam-body'>
-        <div className='seam-model'>
-          {device.properties.model.manufacturer_display_name}{' '}
-          {device.properties.model.display_name}
-        </div>
+        <div>{device.properties.name}</div>
         <TextButton
           onClick={() => {
             onSelectDevice(device.device_id)

@@ -48,13 +48,13 @@ export const seedFake = (db) => {
       august_metadata: {
         lock_id: 'lock-1',
         house_id: 'house-1',
-        lock_name: 'FRONT DOOR',
+        lock_name: 'Front Door',
         has_keypad: true,
         house_name: 'My House',
         keypad_battery_level: 'Not Available',
       },
       supported_code_lengths: [4, 5, 6],
-      name: 'FRONT DOOR',
+      name: 'Front Door',
       battery: {
         level: 0.9999532347993827,
         status: 'full',
@@ -246,12 +246,12 @@ export const seedFake = (db) => {
       schlage_metadata: {
         model: 'BE489WB',
         device_id: 'device-1',
-        device_name: 'FRONT DOOR',
+        device_name: 'Front Door',
         access_code_length: 4,
       },
       supported_code_lengths: [4],
       max_active_codes_supported: 299,
-      name: 'FRONT DOOR',
+      name: 'Front Door',
       battery: {
         level: 0.3,
         status: 'low',
