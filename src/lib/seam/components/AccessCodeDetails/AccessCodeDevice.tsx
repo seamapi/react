@@ -56,7 +56,8 @@ function Content(props: {
         <DeviceImage device={device} />
       </div>
       <div className='seam-body'>
-        <div className='seam-model'>
+        <div>{device.properties.name}</div>
+        <div>
           {device.properties.model.manufacturer_display_name}{' '}
           {device.properties.model.display_name}
         </div>
