@@ -48,7 +48,7 @@ export function Menu({
 
   useEffect(() => {
     const containers =
-      globalThis?.document?.querySelectorAll('.seam-components')
+      globalThis.document?.querySelectorAll('.seam-components')
     if (containers == null) return
     const el = containers[containers.length - 1]
     if (el != null) {
@@ -110,11 +110,11 @@ export function Menu({
 
   useLayoutEffect(() => {
     setPositions()
-    globalThis?.addEventListener('scroll', setPositions)
-    globalThis?.addEventListener('resize', setPositions)
+    globalThis.addEventListener('scroll', setPositions)
+    globalThis.addEventListener('resize', setPositions)
     return () => {
-      globalThis?.removeEventListener('scroll', setPositions)
-      globalThis?.removeEventListener('resize', setPositions)
+      globalThis.removeEventListener('scroll', setPositions)
+      globalThis.removeEventListener('resize', setPositions)
     }
   }, [setPositions])
 
