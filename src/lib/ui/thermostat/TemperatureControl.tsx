@@ -1,7 +1,7 @@
-import { AddIcon } from 'lib/icons/Add.js'
+import { type ChangeEventHandler, useEffect, useRef, useState } from 'react'
+
 import { TemperatureAddIcon } from 'lib/icons/TemperatureAdd.js'
 import { TemperatureSubtractIcon } from 'lib/icons/TemperatureSubtract.js'
-import { type ChangeEventHandler, useEffect, useRef, useState } from 'react'
 
 interface TemperatureControlProps {
   variant: 'heat' | 'cool'
@@ -38,7 +38,7 @@ function Stepper({}: StepperProps) {
       <RangeSlider
         variant='heat'
         temperature={temperature}
-        onChange={(temperature) => setTemperature(temperature)}
+        onChange={(temperature) => { setTemperature(temperature); }}
       />
       <button className='seam-temperature-stepper-button' onClick={increment}>
         <TemperatureAddIcon />
