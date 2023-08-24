@@ -163,7 +163,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-storybook": "^0.6.11",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "execa": "^7.1.1",
+    "execa": "^8.0.1",
     "fast-glob": "^3.2.12",
     "http-proxy-middleware": "^2.0.6",
     "isomorphic-fetch": "^3.0.0",
