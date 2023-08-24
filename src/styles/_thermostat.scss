@@ -66,71 +66,61 @@
           #d5d8dc;
         box-shadow: none;
       }
-    }
 
-    // Webkit
+      // Firefox
+      &::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 1em;
+        background: #fc8e28;
+        border: none;
+        box-shadow: none;
+      }
 
-    // Firefox
-    input[type='range'].seam-temperature-range-input::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      border-radius: 1em;
-      background: #fc8e28;
-      border: none;
-      box-shadow: none;
-    }
+      &::-moz-range-track {
+        height: 4px;
+        border: none;
+        border-radius: 0.5em;
+        background:
+          linear-gradient(#fc8e28, #fc8e28) 0 / var(--sx) 100% no-repeat,
+          #d5d8dc;
+        box-shadow: none;
+      }
 
-    input[type='range'].seam-temperature-range-input::-moz-range-track {
-      height: 4px;
-      border: none;
-      border-radius: 0.5em;
-      background: #d5d8dc;
-      box-shadow: none;
-    }
+      &::-ms-fill-upper {
+        background: transparent;
+        border-color: transparent;
+      }
 
-    input[type='range'].seam-temperature-range-input.slider-progress::-moz-range-track {
-      background:
-        linear-gradient(#fc8e28, #fc8e28) 0 / var(--sx) 100% no-repeat,
-        #d5d8dc;
-    }
+      &::-ms-fill-lower {
+        border-color: transparent;
+        height: 4px;
+        border-radius: 0.5em 0 0 0.5em;
+        margin: 0;
+        background: #fc8e28;
+        border: none;
+        border-right-width: 0;
+      }
 
-    input[type='range'].seam-temperature-range-input::-ms-fill-upper {
-      background: transparent;
-      border-color: transparent;
-    }
+      &::-ms-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 1em;
+        background: #fc8e28;
+        border: none;
+        box-shadow: none;
+        margin-top: 0;
+        box-sizing: border-box;
+      }
 
-    input[type='range'].seam-temperature-range-input::-ms-fill-lower {
-      background: transparent;
-      border-color: transparent;
-    }
-
-    input[type='range'].seam-temperature-range-input::-ms-thumb {
-      width: 20px;
-      height: 20px;
-      border-radius: 1em;
-      background: #fc8e28;
-      border: none;
-      box-shadow: none;
-      margin-top: 0;
-      box-sizing: border-box;
-    }
-
-    input[type='range'].seam-temperature-range-input::-ms-track {
-      height: 4px;
-      border-radius: 0.5em;
-      background: #d5d8dc;
-      border: none;
-      box-shadow: none;
-      box-sizing: border-box;
-    }
-
-    input[type='range'].seam-temperature-range-input.slider-progress::-ms-fill-lower {
-      height: 4px;
-      border-radius: 0.5em 0 0 0.5em;
-      margin: 0;
-      background: #fc8e28;
-      border: none;
-      border-right-width: 0;
+      &::-ms-track {
+        height: 4px;
+        border-radius: 0.5em;
+        background: #d5d8dc;
+        border: none;
+        box-shadow: none;
+        box-sizing: border-box;
+      }
     }
   }
 }
