@@ -1,9 +1,9 @@
 import classNames from 'classnames'
+import { useState, type PropsWithChildren } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
-import { useState, type PropsWithChildren } from 'react'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
@@ -52,9 +52,9 @@ export function ThermostatDeviceDetails(props: {
           <Section
             title='Default settings'
             tooltipContent='When a scheduled climate reaches its end time, the default settings will kick in.'
-          ></Section>
+          />
 
-          <Section title='Device details'></Section>
+          <Section title='Device details' />
         </div>
       </div>
     </div>
