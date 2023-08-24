@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 
+import { Switch } from '@mui/material'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -112,7 +113,9 @@ export function ClimateSettingScheduleDetails({
         </div>
         <div className='seam-content seam-allow-manual-override-toggle'>
           <span className='seam-label'>{t.allowManualOverride}</span>
-          <p>Radio</p>
+          <div className='seam-right'>
+            <Switch defaultChecked size='small' />
+          </div>
         </div>
       </div>
       <div style={{ height: '16px' }} />
