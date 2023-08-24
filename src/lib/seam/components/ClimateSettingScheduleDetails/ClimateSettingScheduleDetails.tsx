@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 
+import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
@@ -81,9 +82,7 @@ export function ClimateSettingScheduleDetails({
               <DotDivider />
               <span>
                 {t.starts}{' '}
-                {`${formatDurationDate(
-                  climateSettingSchedule.schedule_starts_at
-                )} at ${formatTime(climateSettingSchedule.schedule_starts_at)}`}
+                {formatTimeAndDate(climateSettingSchedule.schedule_starts_at)}
               </span>
             </div>
           </div>
@@ -93,9 +92,13 @@ export function ClimateSettingScheduleDetails({
         <div className='seam-content seam-start-end-toggle'>
           <div>
             <span className='seam-label'>{t.startEndTime}</span>
-            <span className='seam-value'>{'A Date'}</span>
+            <span className='seam-value'>{`${formatTimeAndDate(
+              climateSettingSchedule.schedule_starts_at
+            )} -> ${formatTimeAndDate(
+              climateSettingSchedule.schedule_ends_at
+            )}`}</span>
           </div>
-          <div className='seam-right'>{'Chevron'}</div>
+          <ChevronRightIcon className='chevron' />
         </div>
         <div className='seam-content seam-climate-setting-toggle'>
           <span className='seam-label'>{t.climateSetting}</span>
@@ -104,7 +107,7 @@ export function ClimateSettingScheduleDetails({
               climateSetting={climateSettingSchedule}
               iconPlacement='right'
             />
-            <p>{'Chevron'}</p>
+            <ChevronRightIcon className='chevron' />
           </div>
         </div>
         <div className='seam-content seam-allow-manual-override-toggle'>
@@ -117,9 +120,7 @@ export function ClimateSettingScheduleDetails({
         <div className='seam-content seam-creation-date'>
           <span className='seam-label'>{t.creationDate}</span>
           <span className='seam-value'>
-            {`${formatDurationDate(
-              climateSettingSchedule.created_at
-            )} at ${formatTime(climateSettingSchedule.created_at)}`}
+            {formatTimeAndDate(climateSettingSchedule.created_at)}
           </span>
         </div>
       </div>
@@ -186,6 +187,10 @@ export function ClimateSettingScheduleDetails({
 //   )
 // }
 
+function formatTimeAndDate(date: string): string {
+  return `${formatDurationDate(date)} at ${formatTime(date)}`
+}
+
 function formatDurationDate(date: string): string {
   return DateTime.fromISO(date).toLocaleString({
     month: 'short',
@@ -199,16 +204,6 @@ function formatTime(date: string): string {
     minute: '2-digit',
   })
 }
-
-function formatDate(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
-    weekday: 'short',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
-}
-
 // const errorFilter = (error: DeviceError | ConnectedAccountError): boolean => {
 //   if ('is_access_code_error' in error && !error.is_access_code_error)
 //     return true
