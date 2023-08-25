@@ -4,7 +4,7 @@ import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
-import { ScheduleDetails } from './ScheduleDetails.js'
+import { ClimateSettingScheduleRowDetails } from './ClimateSettingScheduleRowDetails.js'
 
 interface ClimateSettingScheduleRowProps {
   climateSettingSchedule: UseClimateSettingSchedulesData[number]
@@ -26,7 +26,9 @@ export function ClimateSettingScheduleRow({
         <Title className='seam-truncated-text'>
           {climateSettingSchedule.name}
         </Title>
-        <ScheduleDetails climateSettingSchedule={climateSettingSchedule} />
+        <ClimateSettingScheduleRowDetails
+          climateSettingSchedule={climateSettingSchedule}
+        />
       </TableCell>
     </TableRow>
   )
