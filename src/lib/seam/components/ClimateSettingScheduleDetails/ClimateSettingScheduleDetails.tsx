@@ -1,4 +1,4 @@
-import { Switch } from '@mui/material'
+import Switch from '@mui/material/Switch'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
