@@ -1,4 +1,3 @@
-import { AddIcon } from 'lib/icons/Add.js'
 import { TemperatureAddIcon } from 'lib/icons/TemperatureAdd.js'
 import { TemperatureSubtractIcon } from 'lib/icons/TemperatureSubtract.js'
 import { type ChangeEventHandler, useEffect, useRef, useState } from 'react'
@@ -8,18 +7,6 @@ interface TemperatureControlProps {
 }
 
 export function TemperatureControl({ variant }: TemperatureControlProps) {
-  return (
-    <div className='seam-temperature-control'>
-      <Stepper variant='cool' />
-    </div>
-  )
-}
-
-interface StepperProps {
-  variant: 'heat' | 'cool'
-}
-
-function Stepper({}: StepperProps) {
   const [temperature, setTemperature] = useState(75)
 
   const increment = () => {
@@ -31,7 +18,7 @@ function Stepper({}: StepperProps) {
   }
 
   return (
-    <div className='seam-temperature-stepper'>
+    <div className='seam-temperature-control'>
       <button className='seam-temperature-stepper-button' onClick={decrement}>
         <TemperatureSubtractIcon />
       </button>
@@ -62,40 +49,52 @@ function RangeSlider({
   temperature,
   onChange,
 }: RangeSliderProps) {
-  const rangeRef = useRef<HTMLInputElement>(null)
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (rangeRef.current != null) {
-      const range = rangeRef.current
+    if (wrapRef.current != null && inputRef.current != null) {
+      const wrap = wrapRef.current
+      const input = inputRef.current
 
-      range.style.setProperty('--temperature-current', range.value)
-      range.style.setProperty(
+      wrap.style.setProperty('--temperature-current', input.value)
+      wrap.style.setProperty(
         '--temperature-min',
-        range.min === '' ? '0' : range.min
+        input.min === '' ? '0' : input.min
       )
-      range.style.setProperty(
+      wrap.style.setProperty(
         '--temperature-max',
-        range.max === '' ? '100' : range.max
+        input.max === '' ? '100' : input.max
       )
     }
-  }, [rangeRef.current, temperature])
+  }, [wrapRef.current, inputRef.current, temperature])
 
   const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const range = event.target
-    range.style.setProperty('--temperature-current', range.value)
-    onChange(Number(range.value))
+    const wrap = wrapRef.current
+    if (wrap == null) return
+
+    const temperature = event.target.value
+    wrap.style.setProperty('--temperature-current', temperature)
+    onChange(Number(temperature))
   }
 
   return (
-    <input
-      ref={rangeRef}
-      type='range'
-      min={min}
-      max={max}
-      value={temperature}
-      onChange={handleRangeChange}
-      className='seam-temperature-range-input'
-      data-variant={variant}
-    />
+    <div ref={wrapRef} className='seam-temperature-range-wrap'>
+      <input
+        ref={inputRef}
+        type='range'
+        min={min}
+        max={max}
+        value={temperature}
+        onChange={handleRangeChange}
+        className='seam-temperature-range'
+        data-variant={variant}
+      />
+
+      <div className='seam-floating-temperature'>
+        <span className='seam-floating-temperature-value'>{temperature}</span>
+        <span className='seam-floating-temperature-unit'>ºF</span>
+      </div>
+    </div>
   )
 }

@@ -23,151 +23,169 @@
 @mixin temperature-control {
   .seam-temperature-control {
     width: 100%;
-  }
-
-  .seam-temperature-stepper {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     gap: 7px;
+  }
 
-    input[type='range'].seam-temperature-range-input {
-      --temperature-min: 0;
-      --temperature-max: 100;
-      --temperature-current: 50;
-      --temperature-range: calc(
-        var(--temperature-max) - var(--temperature-min)
-      );
-      --temperature-ratio: calc(
-        (var(--temperature-current) - var(--temperature-min)) /
-          var(--temperature-range)
-      );
-      --slider-position: calc(
-        0.5 * 20px + var(--temperature-ratio) * (100% - 20px)
-      );
+  .seam-temperature-range-wrap {
+    --temperature-min: 0;
+    --temperature-max: 100;
+    --temperature-current: 50;
+  }
 
-      --thumb-size: 20px;
-      --track-height: 4px;
+  input[type='range'].seam-temperature-range {
+    --temperature-range: calc(var(--temperature-max) - var(--temperature-min));
+    --temperature-ratio: calc(
+      (var(--temperature-current) - var(--temperature-min)) /
+        var(--temperature-range)
+    );
+    --slider-position: calc(
+      0.5 * 20px + var(--temperature-ratio) * (100% - 20px)
+    );
 
-      -webkit-appearance: none;
+    --thumb-size: 20px;
+    --track-height: 4px;
 
-      &:focus {
-        outline: none;
-      }
+    -webkit-appearance: none;
 
-      &[data-variant='heat'] {
-        // Thumbs
-        &::-webkit-slider-thumb {
-          @include temperature-control-thumb(colors.$thermo-orange);
-        }
-        &::-moz-range-thumb {
-          @include temperature-control-thumb(colors.$thermo-orange);
-        }
-        &::-ms-thumb {
-          @include temperature-control-thumb(colors.$thermo-orange);
-        }
+    &:focus {
+      outline: none;
+    }
 
-        // Tracks
-        &::-webkit-slider-runnable-track {
-          @include temperature-control-track(colors.$thermo-orange);
-        }
-        &::-moz-range-track {
-          @include temperature-control-track(colors.$thermo-orange);
-        }
-        &::-ms-track {
-          @include temperature-control-track(colors.$thermo-orange);
-        }
-
-        // etc.
-        &::-ms-fill-lower {
-          background: colors.$thermo-orange;
-        }
-      }
-
-      &[data-variant='cool'] {
-        // Thumbs
-        &::-webkit-slider-thumb {
-          @include temperature-control-thumb(colors.$thermo-blue);
-        }
-
-        &::-moz-range-thumb {
-          @include temperature-control-thumb(colors.$thermo-blue);
-        }
-
-        &::-ms-thumb {
-          @include temperature-control-thumb(colors.$thermo-blue);
-        }
-
-        // Tracks
-        &::-webkit-slider-runnable-track {
-          @include temperature-control-track(colors.$thermo-blue);
-        }
-        &::-moz-range-track {
-          @include temperature-control-track(colors.$thermo-blue);
-        }
-        &::-ms-track {
-          @include temperature-control-track(colors.$thermo-blue);
-        }
-
-        // etc.
-        &::-ms-fill-lower {
-          background: colors.$thermo-blue;
-        }
-      }
-
+    &[data-variant='heat'] {
+      // Thumbs
       &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        margin-top: calc(var(--track-height) * 0.5 - var(--thumb-size) * 0.5);
+        @include temperature-control-thumb(colors.$thermo-orange);
       }
-
+      &::-moz-range-thumb {
+        @include temperature-control-thumb(colors.$thermo-orange);
+      }
       &::-ms-thumb {
-        margin-top: 0;
-        box-sizing: border-box;
+        @include temperature-control-thumb(colors.$thermo-orange);
       }
 
+      // Tracks
+      &::-webkit-slider-runnable-track {
+        @include temperature-control-track(colors.$thermo-orange);
+      }
+      &::-moz-range-track {
+        @include temperature-control-track(colors.$thermo-orange);
+      }
       &::-ms-track {
-        box-sizing: border-box;
+        @include temperature-control-track(colors.$thermo-orange);
       }
 
-      &::-ms-fill-upper {
-        background: transparent;
-        border-color: transparent;
-      }
-
+      // etc.
       &::-ms-fill-lower {
-        border-color: transparent;
-        height: var(--track-height);
-        border-radius: 0.5em 0 0 0.5em;
-        margin: 0;
-        border: none;
-        border-right-width: 0;
+        background: colors.$thermo-orange;
       }
     }
 
-    .seam-temperature-stepper-button {
-      appearance: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      border: 1px solid colors.$text-gray-3;
-      background-color: colors.$white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: none;
-      cursor: pointer;
-      transition: 0.1s ease-in-out;
-
-      &:hover {
-        background-color: colors.$bg-a;
-        border-color: colors.$text-gray-2;
+    &[data-variant='cool'] {
+      // Thumbs
+      &::-webkit-slider-thumb {
+        @include temperature-control-thumb(colors.$thermo-blue);
       }
 
-      &:active {
-        background-color: colors.$bg-c;
-        border-color: colors.$text-gray-1;
+      &::-moz-range-thumb {
+        @include temperature-control-thumb(colors.$thermo-blue);
       }
+
+      &::-ms-thumb {
+        @include temperature-control-thumb(colors.$thermo-blue);
+      }
+
+      // Tracks
+      &::-webkit-slider-runnable-track {
+        @include temperature-control-track(colors.$thermo-blue);
+      }
+      &::-moz-range-track {
+        @include temperature-control-track(colors.$thermo-blue);
+      }
+      &::-ms-track {
+        @include temperature-control-track(colors.$thermo-blue);
+      }
+
+      // etc.
+      &::-ms-fill-lower {
+        background: colors.$thermo-blue;
+      }
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      margin-top: calc(var(--track-height) * 0.5 - var(--thumb-size) * 0.5);
+    }
+
+    &::-ms-thumb {
+      margin-top: 0;
+      box-sizing: border-box;
+    }
+
+    &::-ms-track {
+      box-sizing: border-box;
+    }
+
+    &::-ms-fill-upper {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    &::-ms-fill-lower {
+      border-color: transparent;
+      height: var(--track-height);
+      border-radius: 0.5em 0 0 0.5em;
+      margin: 0;
+      border: none;
+      border-right-width: 0;
+    }
+  }
+
+  .seam-floating-temperature {
+    position: absolute;
+    top: -8px;
+    left: var(--temperature-current);
+
+    .seam-floating-temperature-value {
+      color: colors.$black;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .seam-floating-temperature-unit {
+      color: colors.$text-gray-2-5;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+    }
+  }
+
+  .seam-temperature-stepper-button {
+    appearance: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid colors.$text-gray-3;
+    background-color: colors.$white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+
+    &:hover {
+      background-color: colors.$bg-a;
+      border-color: colors.$text-gray-2;
+    }
+
+    &:active {
+      background-color: colors.$bg-c;
+      border-color: colors.$text-gray-1;
     }
   }
 }
