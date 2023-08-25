@@ -6,6 +6,7 @@ import { Switch } from '@mui/material'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
+import { InfoIcon } from 'lib/icons/Info.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -101,7 +102,11 @@ export function ClimateSettingScheduleDetails({
       <div className='seam-box'>
         <div className='seam-content seam-start-end-toggle'>
           <div>
-            <span className='seam-label'>{t.startEndTime}</span>
+            <span className='seam-label'>
+              {t.startEndTime}
+              <InfoIcon />
+            </span>
+
             <div>
               <span className='seam-value'>
                 {`${formatTimeAndDate(
@@ -118,7 +123,9 @@ export function ClimateSettingScheduleDetails({
           <ChevronRightIcon className='chevron' />
         </div>
         <div className='seam-content seam-climate-setting-toggle'>
-          <span className='seam-label'>{t.climateSetting}</span>
+          <span className='seam-label'>
+            {t.climateSetting} <InfoIcon />
+          </span>
           <div className='seam-right'>
             <ClimateSettingStatus
               climateSetting={climateSettingSchedule}
@@ -128,7 +135,9 @@ export function ClimateSettingScheduleDetails({
           </div>
         </div>
         <div className='seam-content seam-allow-manual-override-toggle'>
-          <span className='seam-label'>{t.allowManualOverride}</span>
+          <span className='seam-label'>
+            {t.allowManualOverride} <InfoIcon />
+          </span>
           <div className='seam-right'>
             <Switch defaultChecked size='small' />
           </div>
