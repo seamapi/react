@@ -86,6 +86,22 @@
       }
     }
 
+    .seam-default-setting-message {
+      display: flex;
+      justify-content: center;
+      margin: 16px 0;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400; 
+      line-height: 115%; 
+      color: colors.$text-gray-2;
+
+      > .seam-default-setting {
+        color: colors.$text-gray-1;
+
+      }
+    }
+
     .seam-box {
         border: 1px solid colors.$text-gray-3;
         border-radius: 8px;

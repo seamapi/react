@@ -99,6 +99,12 @@ export function ClimateSettingScheduleDetails({
           onSelectDevice={selectDevice}
         />
       </div>
+      <span className='seam-default-setting-message'>
+        {t.defaultSettingMessagePart1}
+        &nbsp;<span className='seam-default-setting'>{t.defaultSetting}</span>
+        &nbsp;
+        {t.defaultSettingMessagePart2}
+      </span>
       <div className='seam-box'>
         <div className='seam-content seam-start-end-toggle'>
           <div>
@@ -206,4 +212,7 @@ const t = {
 
   creationDate: 'Creation date',
   starts: 'Starts',
+  defaultSettingMessagePart1: 'Thermostat will return to its',
+  defaultSetting: 'default setting',
+  defaultSettingMessagePart2: 'at end time.',
 }
