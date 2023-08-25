@@ -24,7 +24,7 @@ export function TemperatureControl({ variant }: TemperatureControlProps) {
         <TemperatureSubtractIcon />
       </button>
       <RangeSlider
-        variant='heat'
+        variant={variant}
         temperature={temperature}
         onChange={(temperature) => {
           setTemperature(temperature)
