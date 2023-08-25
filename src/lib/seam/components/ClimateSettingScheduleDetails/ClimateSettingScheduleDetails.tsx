@@ -138,7 +138,7 @@ export function ClimateSettingScheduleDetails({
       <div className='seam-box'>
         <div className='seam-content seam-creation-date'>
           <span className='seam-label'>{t.creationDate}</span>
-          <span className='seam-right'>
+          <span className='seam-right seam-value'>
             {formatTimeAndDate(climateSettingSchedule.created_at)}
           </span>
         </div>
@@ -146,65 +146,6 @@ export function ClimateSettingScheduleDetails({
     </div>
   )
 }
-
-// function ScheduleInfo({
-//   climateSettingSchedule,
-// }: {
-//   climateSettingSchedule: ClimateSettingSchedule
-// }): JSX.Element {
-//   return (
-//     <div className='seam-times'>
-//       <div>
-//         <div className='seam-label'>{t.start}</div>
-//         <div className='seam-date'>
-//           {formatDate(climateSettingSchedule.schedule_starts_at)}
-//         </div>
-//         <div className='seam-time'>
-//           {formatTime(climateSettingSchedule.schedule_starts_at)}
-//         </div>
-//       </div>
-//       <div>
-//         <div className='seam-label'>{t.end}</div>
-//         <div className='seam-date'>
-//           {formatDate(climateSettingSchedule.schedule_ends_at)}
-//         </div>
-//         <div className='seam-time'>
-//           {formatTime(climateSettingSchedule.schedule_ends_at)}
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// function Duration(props: {
-//   climateSettingSchedule: ClimateSettingSchedule
-// }): JSX.Element {
-//   const { climateSettingSchedule } = props
-
-//   const hasStarted =
-//     useIsDateInPast(
-//       'starts_at' in climateSettingSchedule
-//         ? climateSettingSchedule?.schedule_starts_at
-//         : null
-//     ) ?? false
-
-//   if (hasStarted) {
-//     return (
-//       <span>
-//         <span className='seam-label'>Active</span> until{' '}
-//         {formatDurationDate(climateSettingSchedule.schedule_ends_at)} at{' '}
-//         {formatTime(climateSettingSchedule.schedule_ends_at)}
-//       </span>
-//     )
-//   }
-
-//   return (
-//     <span>
-//       Starts {formatDurationDate(climateSettingSchedule.schedule_starts_at)} as{' '}
-//       {formatTime(climateSettingSchedule.schedule_starts_at)}
-//     </span>
-//   )
-// }
 
 function formatTimeAndDate(date: string): string {
   return `${formatDurationDate(date)} at ${formatTime(date)}`

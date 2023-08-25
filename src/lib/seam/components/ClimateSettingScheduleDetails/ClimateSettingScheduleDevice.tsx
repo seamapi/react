@@ -53,14 +53,6 @@ function Content(props: {
             />
           </div>
         </div>
-
-        {/* <TextButton
-          onClick={() => {
-            onSelectDevice(device.device_id)
-          }}
-        >
-          {t.deviceDetails}
-        </TextButton> */}
         <ChevronRightIcon className='chevron' />
       </div>
     </div>

@@ -59,7 +59,8 @@
           line-height: 118%;
           color: colors.$text-gray-2;
           display: flex;
-          align-items: center;          
+          align-items: center;  
+          gap: 8px;        
         }
 
         .seam-device-image {
@@ -98,9 +99,6 @@
             justify-content: space-between;
             padding: 16px;
 
-            > .seam-value {
-
-            }
           }
 
 
