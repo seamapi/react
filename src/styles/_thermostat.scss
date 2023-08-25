@@ -43,7 +43,8 @@
         var(--temperature-range)
     );
     --slider-position: calc(
-      0.5 * var(--thumb-size) + var(--temperature-ratio) * (100% - var(--thumb-size))
+      0.5 * var(--thumb-size) + var(--temperature-ratio) *
+        (100% - var(--thumb-size))
     );
 
     display: flex;
