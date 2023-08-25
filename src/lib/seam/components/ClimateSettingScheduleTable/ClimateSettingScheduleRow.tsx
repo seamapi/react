@@ -3,6 +3,7 @@ import type { UseClimateSettingSchedulesData } from 'lib/seam/thermostats/climat
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
+
 import { ClimateSettingScheduleRowDetails } from './ClimateSettingScheduleRowDetails.js'
 
 interface ClimateSettingScheduleRowProps {
