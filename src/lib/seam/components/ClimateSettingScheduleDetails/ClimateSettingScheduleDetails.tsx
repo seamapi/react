@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import { useState } from 'react'
 
 import { Switch } from '@mui/material'
+import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -10,6 +11,7 @@ import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+import { ClimateSettingDevice } from './ClimateSettingScheduleDevice.js'
 
 const disableEditClimateSettingSchedule = true
 
@@ -75,7 +77,10 @@ export function ClimateSettingScheduleDetails({
       <ContentHeader title='Climate setting schedule' onBack={onBack} />
       <div className='seam-summary'>
         <div className={classNames('seam-top')}>
-          <ClimateSettingScheduleIcon />
+          <div style={{ padding: '8px' }}>
+            <ClimateSettingScheduleIcon />
+          </div>
+
           <div className='seam-climate-setting-schedule-name-block'>
             <h5 className='seam-climate-setting-schedule-name'>{name}</h5>
             <div className='seam-climate-setting-schedule-subheading'>
@@ -88,16 +93,27 @@ export function ClimateSettingScheduleDetails({
             </div>
           </div>
         </div>
+        <ClimateSettingDevice
+          deviceId={climateSettingSchedule.device_id}
+          onSelectDevice={selectDevice}
+        />
       </div>
       <div className='seam-box'>
         <div className='seam-content seam-start-end-toggle'>
           <div>
             <span className='seam-label'>{t.startEndTime}</span>
-            <span className='seam-value'>{`${formatTimeAndDate(
-              climateSettingSchedule.schedule_starts_at
-            )} -> ${formatTimeAndDate(
-              climateSettingSchedule.schedule_ends_at
-            )}`}</span>
+            <div>
+              <span className='seam-value'>
+                {`${formatTimeAndDate(
+                  climateSettingSchedule.schedule_starts_at
+                )}`}
+
+                <ArrowRightIcon />
+                {`${formatTimeAndDate(
+                  climateSettingSchedule.schedule_ends_at
+                )}`}
+              </span>
+            </div>
           </div>
           <ChevronRightIcon className='chevron' />
         </div>
@@ -122,7 +138,7 @@ export function ClimateSettingScheduleDetails({
       <div className='seam-box'>
         <div className='seam-content seam-creation-date'>
           <span className='seam-label'>{t.creationDate}</span>
-          <span className='seam-value'>
+          <span className='seam-right'>
             {formatTimeAndDate(climateSettingSchedule.created_at)}
           </span>
         </div>
