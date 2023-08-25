@@ -6,7 +6,7 @@ import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
-export function ScheduleDetails(props: {
+export function ClimateSettingScheduleRowDetails(props: {
   climateSettingSchedule: ClimateSettingSchedule
 }): JSX.Element {
   const { climateSettingSchedule } = props
