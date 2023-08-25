@@ -72,10 +72,7 @@ export function ClimateSettingScheduleDetails({
             </div>
           </div>
         </div>
-        <ClimateSettingDevice
-          deviceId={climateSettingSchedule.device_id}
-          onSelectDevice={selectDevice}
-        />
+        <ClimateSettingDevice deviceId={climateSettingSchedule.device_id} />
       </div>
       <span className='seam-default-setting-message'>
         {t.defaultSettingMessagePart1}

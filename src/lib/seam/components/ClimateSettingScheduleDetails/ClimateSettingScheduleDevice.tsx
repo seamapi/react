@@ -7,10 +7,8 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 export function ClimateSettingDevice({
   deviceId,
-  onSelectDevice,
 }: {
   deviceId: string
-  onSelectDevice: (deviceId: string) => void
 }): JSX.Element | null {
   const { isLoading, device } = useDevice({
     device_id: deviceId,
@@ -28,13 +26,10 @@ export function ClimateSettingDevice({
     return null
   }
 
-  return <Content device={device} onSelectDevice={onSelectDevice} />
+  return <Content device={device} />
 }
 
-function Content(props: {
-  device: ThermostatDevice
-  onSelectDevice: (deviceId: string) => void
-}): JSX.Element {
+function Content(props: { device: ThermostatDevice }): JSX.Element {
   const { device } = props
 
   return (
@@ -57,8 +52,4 @@ function Content(props: {
       </div>
     </div>
   )
-}
-
-const t = {
-  deviceDetails: 'Device details',
 }
