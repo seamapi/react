@@ -70,7 +70,7 @@ function RangeSlider({
         input.max === '' ? '100' : input.max
       )
     }
-  }, [wrapRef.current, inputRef.current, temperature])
+  }, [temperature])
 
   const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const wrap = wrapRef.current
