@@ -30,9 +30,21 @@
   }
 
   .seam-temperature-range-wrap {
+    --thumb-size: 20px;
+    --track-height: 4px;
+
     --temperature-min: 0;
     --temperature-max: 100;
     --temperature-current: 50;
+
+    --temperature-range: calc(var(--temperature-max) - var(--temperature-min));
+    --temperature-ratio: calc(
+      (var(--temperature-current) - var(--temperature-min)) /
+        var(--temperature-range)
+    );
+    --slider-position: calc(
+      0.5 * var(--thumb-size) + var(--temperature-ratio) * (100% - var(--thumb-size))
+    );
 
     display: flex;
     justify-content: center;
@@ -41,18 +53,6 @@
   }
 
   input[type='range'].seam-temperature-range {
-    --temperature-range: calc(var(--temperature-max) - var(--temperature-min));
-    --temperature-ratio: calc(
-      (var(--temperature-current) - var(--temperature-min)) /
-        var(--temperature-range)
-    );
-    --slider-position: calc(
-      0.5 * 20px + var(--temperature-ratio) * (100% - 20px)
-    );
-
-    --thumb-size: 20px;
-    --track-height: 4px;
-
     -webkit-appearance: none;
 
     &:focus {
@@ -151,7 +151,7 @@
   .seam-floating-temperature {
     position: absolute;
     top: -32px;
-    left: var(--temperature-current);
+    left: calc(var(--slider-position) - 10px);
 
     .seam-floating-temperature-value {
       color: colors.$black;
