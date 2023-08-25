@@ -1,17 +1,18 @@
+import { Switch } from '@mui/material'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 
-import { Switch } from '@mui/material'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
-import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
+
 import { ClimateSettingDevice } from './ClimateSettingScheduleDevice.js'
 
 export interface ClimateSettingScheduleDetailsProps {
