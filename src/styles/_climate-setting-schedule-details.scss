@@ -102,7 +102,6 @@
     .seam-box {
       border: 1px solid colors.$text-gray-3;
       border-radius: 8px;
-
       margin: 0 24px;
 
       .seam-content {
@@ -118,18 +117,18 @@
         &.seam-climate-setting-toggle {
           border-top: 1px solid colors.$text-gray-3;
           justify-content: space-between;
-          padding: 20px 16px 20px 16px;
+          padding: 20px 16px;
         }
 
         &.seam-allow-manual-override-toggle {
           border-top: 1px solid colors.$text-gray-3;
           justify-content: space-between;
-          padding: 20px 16px 20px 16px;
+          padding: 20px 16px;
         }
 
         &.seam-creation-date {
           justify-content: space-between;
-          padding: 20px 16px 20px 16px;
+          padding: 20px 16px;
         }
 
         .seam-label {
