@@ -14,8 +14,18 @@ type Story = StoryObj<typeof TemperatureControl>
 export const Content: Story = {
   render: () => {
     return (
-      <Box display='grid' gap={4} gridTemplateColumns='repeat(4, min-content)'>
-        <TemperatureControl />
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          flexDirection: 'column',
+          gap: '32px',
+        }}
+      >
+        <TemperatureControl variant='heat' />
+        <TemperatureControl variant='cool' />
       </Box>
     )
   },
