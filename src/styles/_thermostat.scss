@@ -34,6 +34,10 @@
     --temperature-min: 0;
     --temperature-max: 100;
     --temperature-current: 50;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   input[type='range'].seam-temperature-range {
