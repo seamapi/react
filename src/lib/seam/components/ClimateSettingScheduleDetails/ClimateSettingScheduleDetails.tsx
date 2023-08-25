@@ -6,9 +6,9 @@ import { Switch } from '@mui/material'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
-import { InfoIcon } from 'lib/icons/Info.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
+import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
@@ -104,7 +104,7 @@ export function ClimateSettingScheduleDetails({
           <div>
             <span className='seam-label'>
               {t.startEndTime}
-              <InfoIcon />
+              <Tooltip>{t.startEndTimeTooltip}</Tooltip>
             </span>
 
             <div>
@@ -124,7 +124,7 @@ export function ClimateSettingScheduleDetails({
         </div>
         <div className='seam-content seam-climate-setting-toggle'>
           <span className='seam-label'>
-            {t.climateSetting} <InfoIcon />
+            {t.climateSetting} <Tooltip>{t.climateSettingTooltip}</Tooltip>
           </span>
           <div className='seam-right'>
             <ClimateSettingStatus
@@ -136,7 +136,8 @@ export function ClimateSettingScheduleDetails({
         </div>
         <div className='seam-content seam-allow-manual-override-toggle'>
           <span className='seam-label'>
-            {t.allowManualOverride} <InfoIcon />
+            {t.allowManualOverride}{' '}
+            <Tooltip>{t.allowManualOverrideTooltip}</Tooltip>
           </span>
           <div className='seam-right'>
             <Switch defaultChecked size='small' />
@@ -192,8 +193,17 @@ const t = {
   fallbackName: 'Climate Setting Schedule',
   id: 'ID',
   startEndTime: 'Start/End Time',
+  startEndTimeTooltip:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.',
+
   climateSetting: 'Climate setting',
+  climateSettingTooltip:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.',
+
   allowManualOverride: 'Allow manual override',
+  allowManualOverrideTooltip:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.',
+
   creationDate: 'Creation date',
   starts: 'Starts',
 }
