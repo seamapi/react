@@ -35,7 +35,7 @@ function Content(props: {
   device: ThermostatDevice
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element {
-  const { device, onSelectDevice } = props
+  const { device } = props
 
   return (
     <div className='seam-climate-setting-schedule-device'>

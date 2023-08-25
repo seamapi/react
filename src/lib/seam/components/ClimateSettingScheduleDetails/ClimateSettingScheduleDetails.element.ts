@@ -6,10 +6,7 @@ export const name = 'seam-access-code-details'
 
 export const props: ElementProps<ClimateSettingScheduleDetailsProps> = {
   climateSettingScheduleId: 'string',
-  disableLockUnlock: 'boolean',
-  disableDeleteClimateSettingSchedule: 'boolean',
   onBack: 'object',
-  onEdit: 'object',
   className: 'string',
 }
 

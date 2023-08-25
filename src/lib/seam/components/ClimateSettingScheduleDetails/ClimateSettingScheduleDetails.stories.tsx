@@ -8,7 +8,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  * These stories showcase access code details.
  */
 const meta: Meta<typeof ClimateSettingScheduleDetails> = {
-  title: 'Example/ClimateSettingScheduleDetails',
+  title: 'Example/ClimateSettingScheduleDetails (Coming Soon)',
   component: ClimateSettingScheduleDetails,
   tags: ['autodocs'],
   parameters: {

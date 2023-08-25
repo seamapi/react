@@ -14,30 +14,21 @@ import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ClimateSettingDevice } from './ClimateSettingScheduleDevice.js'
 
-const disableEditClimateSettingSchedule = true
-
 export interface ClimateSettingScheduleDetailsProps {
   climateSettingScheduleId: string
-  disableLockUnlock?: boolean
   onBack?: () => void
-  onEdit: () => void
   className?: string
-  // disableDeleteClimateSettingSchedule?: boolean
 }
 
 export function ClimateSettingScheduleDetails({
   climateSettingScheduleId,
-  disableLockUnlock = false,
   onBack,
-  onEdit,
-  className, // disableDeleteClimateSettingSchedule = false,
+  className,
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
   )
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
-  // const { mutate: deleteCode, isLoading: isDeleting } =
-  //   useDeleteClimateSettingSchedule()
 
   if (climateSettingSchedule == null) {
     return null
@@ -53,23 +44,9 @@ export function ClimateSettingScheduleDetails({
         onBack={() => {
           selectDevice(null)
         }}
-        disableLockUnlock={disableLockUnlock}
       />
     )
   }
-
-  // TODO: warnings
-
-  // const alerts = [
-  //   ...climateSettingSchedule.errors.filter(errorFilter).map((error) => ({
-  //     variant: 'error' as const,
-  //     message: error.message,
-  //   })),
-  //   ...climateSettingSchedule.warnings.map((warning) => ({
-  //     variant: 'warning' as const,
-  //     message: warning.message,
-  //   })),
-  // ]
 
   return (
     <div
@@ -146,6 +123,7 @@ export function ClimateSettingScheduleDetails({
             <Tooltip>{t.allowManualOverrideTooltip}</Tooltip>
           </span>
           <div className='seam-right'>
+            <span className='seam-switch-label'>On</span>
             <Switch defaultChecked size='small' />
           </div>
         </div>
@@ -180,19 +158,6 @@ function formatTime(date: string): string {
     minute: '2-digit',
   })
 }
-// const errorFilter = (error: DeviceError | ConnectedAccountError): boolean => {
-//   if ('is_access_code_error' in error && !error.is_access_code_error)
-//     return true
-
-//   if (
-//     error.error_code === 'failed_to_set_on_device' ||
-//     error.error_code === 'failed_to_remove_on_device'
-//   ) {
-//     return true
-//   }
-
-//   return false
-// }
 
 const t = {
   climateSettingSchedule: 'Climate Setting Schedule',

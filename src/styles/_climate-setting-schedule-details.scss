@@ -2,10 +2,11 @@
 
 @mixin all {
   .seam-climate-setting-schedule-details {
+
     > .seam-summary {
       background: colors.$bg-a;
       border-radius: 16px;
-      margin-bottom: 16px;
+      margin: 0 24px 16px;
 
       > .seam-top {
         padding: 16px;
@@ -106,6 +107,8 @@
         border: 1px solid colors.$text-gray-3;
         border-radius: 8px;
 
+        margin: 0 24px;
+
         .seam-content {
           display: flex;
           align-items: center;
@@ -130,6 +133,12 @@
             border-top: 1px solid colors.$text-gray-3;
             justify-content: space-between;
             padding: 20px 16px 20px 16px;
+
+            // > .seam-right {
+            //   display: flex;
+            //   align-items: center;
+             
+            // }
           }
 
           &.seam-creation-date {
@@ -158,9 +167,25 @@
           > .seam-right {
             display: flex;
             align-items: center;
+            cursor: pointer;
+            gap: 12px;
+            
+            > .seam-switch-label {
+              font-style: normal;
+              font-weight: 400;
+              line-height: 118%;
+              font-size: 14px; 
+              color: colors.$text-gray-2-5;
+            }
           }
         }
       }
 
-  }
+
+    .chevron {
+      cursor: pointer;
+    }
+
+
+}
 }
