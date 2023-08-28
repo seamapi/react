@@ -1,9 +1,9 @@
-import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
-
 import { formatDateAndTime } from 'lib/dates.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ClimateSettingDevice } from 'lib/ui/thermostat/ClimateSettingScheduleDevice.js'
+import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+
 import { DotDivider } from '../layout/DotDivider.js'
 
 interface ClimateSettingScheduleCardProps {
