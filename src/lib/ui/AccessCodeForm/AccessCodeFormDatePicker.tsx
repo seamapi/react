@@ -42,7 +42,7 @@ export function AccessCodeFormDatePicker({
         <FormField>
           <InputLabel>{t.startTimeLabel}</InputLabel>
           <DateTimePicker
-            value={startDate == null ? '' : startDate}
+            value={startDate ?? ''}
             onChange={setStartDate}
             size='large'
           />
@@ -50,7 +50,7 @@ export function AccessCodeFormDatePicker({
         <FormField>
           <InputLabel>{t.endTimeLabel}</InputLabel>
           <DateTimePicker
-            value={endDate == null ? '' : endDate}
+            value={endDate ?? ''}
             onChange={setEndDate}
             size='large'
           />
