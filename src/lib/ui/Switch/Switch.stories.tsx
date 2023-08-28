@@ -15,7 +15,7 @@ export const Content: Story = {
   render: (props) => {
     const [, setArgs] = useArgs()
 
-    const onChange = (checked: boolean) => {
+    const onChange = (checked: boolean): void => {
       setArgs({ checked })
     }
 
