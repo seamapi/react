@@ -9,10 +9,10 @@ import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.j
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
+import Switch from 'lib/ui/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
-import Switch from 'lib/ui/Switch.js'
 import { ClimateSettingDevice } from './ClimateSettingScheduleDevice.js'
 
 export interface ClimateSettingScheduleDetailsProps {

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import type React from 'react';
+import { useState } from 'react';
 
 interface SwitchProps {
   defaultChecked?: boolean
@@ -15,7 +16,7 @@ const Switch: React.FC<SwitchProps> = ({
 
   const handleToggle = () => {
     setIsChecked(!isChecked)
-    if (onChange) {
+    if (onChange != null) {
       onChange(!isChecked)
     }
   }
