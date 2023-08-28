@@ -1,5 +1,5 @@
+import { useArgs } from '@storybook/preview-api'
 import type { Meta, StoryObj } from '@storybook/react'
-import { useEffect, useState } from 'react'
 
 import Switch from './Switch.js'
 
@@ -13,15 +13,18 @@ type Story = StoryObj<typeof Switch>
 
 export const Content: Story = {
   render: (props) => {
-    const [checked, setChecked] = useState(props.checked || false)
+    const [, setArgs] = useArgs()
 
-    // allows the prop from the story to update the component
-    useEffect(() => {
-      setChecked(props.checked)
-    }, [props.checked])
+    const onChange = (checked: boolean) => {
+      setArgs({ checked })
+    }
 
     return (
-      <Switch label={props.label} checked={checked} onChange={setChecked} />
+      <Switch
+        disableLabel={props.disableLabel}
+        checked={props.checked}
+        onChange={onChange}
+      />
     )
   },
 }

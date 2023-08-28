@@ -1,29 +1,38 @@
+import classNames from 'classnames'
+
 export interface SwitchProps {
   checked: boolean
   onChange: (checked: boolean) => void
-  label?: boolean
+  disableLabel?: boolean
 }
 
 function Switch({
   checked,
   onChange,
-  label = false,
+  disableLabel = true,
 }: SwitchProps): JSX.Element {
   return (
     <div className='seam-switch-container'>
-      {label && (
-        <label className='seam-switch-label'>{checked ? 'On' : 'Off'}</label>
+      {!disableLabel && (
+        <label className='seam-switch-label'>{checked ? t.on : t.off}</label>
       )}
       <div
-        className={`seam-switch ${checked ? 'checked' : ''}`}
+        className={classNames('seam-switch', {
+          'seam-switch-checked': checked,
+        })}
         onClick={() => {
           onChange(!checked)
         }}
       >
-        <div className='slider' />
+        <div className='seam-switch-slider' />
       </div>
     </div>
   )
+}
+
+const t = {
+  on: 'On',
+  off: 'Off',
 }
 
 export default Switch
