@@ -3,17 +3,17 @@ import classNames from 'classnames'
 export interface SwitchProps {
   checked: boolean
   onChange: (checked: boolean) => void
-  disableLabel?: boolean
+  enableLabel?: boolean
 }
 
 function Switch({
   checked,
   onChange,
-  disableLabel = true,
+  enableLabel = false,
 }: SwitchProps): JSX.Element {
   return (
     <div className='seam-switch-container'>
-      {!disableLabel && (
+      {enableLabel && (
         <label className='seam-switch-label'>{checked ? t.on : t.off}</label>
       )}
       <div

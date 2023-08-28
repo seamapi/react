@@ -21,7 +21,7 @@ export const Content: Story = {
 
     return (
       <Switch
-        disableLabel={props.disableLabel}
+        enableLabel={props.enableLabel}
         checked={props.checked}
         onChange={onChange}
       />
