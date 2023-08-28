@@ -33,11 +33,11 @@ function Content(props: { device: ThermostatDevice }): JSX.Element {
   const { device } = props
 
   return (
-    <div className='seam-climate-setting-schedule-device'>
+    <div className='seam-climate-setting-schedule-device-bar'>
       <div className='seam-device-image'>
         <DeviceImage device={device} />
       </div>
-      <div className='seam-body'>
+      <div className='seam-climate-setting-schedule-device-details'>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5px' }}>
           <div className='seam-device-name'>{device.properties.name}</div>
           <div className='seam-device-current-climate-setting'>

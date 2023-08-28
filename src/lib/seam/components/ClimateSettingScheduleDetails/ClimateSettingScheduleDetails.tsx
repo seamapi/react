@@ -1,19 +1,17 @@
 import classNames from 'classnames'
-import { DateTime } from 'luxon'
 import { useState } from 'react'
 
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
-import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
+import { formatDateAndTime } from 'lib/dates.js'
 import Switch from 'lib/ui/Switch.js'
-import { ClimateSettingDevice } from './ClimateSettingScheduleDevice.js'
+import { ClimateSettingScheduleCard } from 'lib/ui/thermostat/ClimateSettingScheduleCard.js'
 
 export interface ClimateSettingScheduleDetailsProps {
   climateSettingScheduleId: string
@@ -35,8 +33,6 @@ export function ClimateSettingScheduleDetails({
     return null
   }
 
-  const name = climateSettingSchedule.name ?? t.fallbackName
-
   if (selectedDeviceId != null) {
     return (
       <DeviceDetails
@@ -54,26 +50,9 @@ export function ClimateSettingScheduleDetails({
       className={classNames('seam-climate-setting-schedule-details', className)}
     >
       <ContentHeader title='Climate setting schedule' onBack={onBack} />
-      <div className='seam-summary'>
-        <div className={classNames('seam-top')}>
-          <div style={{ padding: '8px' }}>
-            <ClimateSettingScheduleIcon />
-          </div>
-
-          <div className='seam-climate-setting-schedule-name-block'>
-            <h5 className='seam-climate-setting-schedule-name'>{name}</h5>
-            <div className='seam-climate-setting-schedule-subheading'>
-              <ClimateSettingStatus climateSetting={climateSettingSchedule} />
-              <DotDivider />
-              <span>
-                {t.starts}{' '}
-                {formatTimeAndDate(climateSettingSchedule.schedule_starts_at)}
-              </span>
-            </div>
-          </div>
-        </div>
-        <ClimateSettingDevice deviceId={climateSettingSchedule.device_id} />
-      </div>
+      <ClimateSettingScheduleCard
+        climateSettingScheduleId={climateSettingScheduleId}
+      />
       <span className='seam-default-setting-message'>
         {t.defaultSettingMessagePart1}
         &nbsp;<span className='seam-default-setting'>{t.defaultSetting}</span>
@@ -90,12 +69,12 @@ export function ClimateSettingScheduleDetails({
 
             <div>
               <span className='seam-value'>
-                {`${formatTimeAndDate(
+                {`${formatDateAndTime(
                   climateSettingSchedule.schedule_starts_at
                 )}`}
 
                 <ArrowRightIcon />
-                {`${formatTimeAndDate(
+                {`${formatDateAndTime(
                   climateSettingSchedule.schedule_ends_at
                 )}`}
               </span>
@@ -130,30 +109,12 @@ export function ClimateSettingScheduleDetails({
         <div className='seam-content seam-creation-date'>
           <span className='seam-label'>{t.creationDate}</span>
           <span className='seam-right seam-value'>
-            {formatTimeAndDate(climateSettingSchedule.created_at)}
+            {formatDateAndTime(climateSettingSchedule.created_at)}
           </span>
         </div>
       </div>
     </div>
   )
-}
-
-function formatTimeAndDate(date: string): string {
-  return `${formatDurationDate(date)} at ${formatTime(date)}`
-}
-
-function formatDurationDate(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
-    month: 'short',
-    day: 'numeric',
-  })
-}
-
-function formatTime(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
-    hour: 'numeric',
-    minute: '2-digit',
-  })
 }
 
 const t = {
