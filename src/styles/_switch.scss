@@ -13,7 +13,7 @@
       font-size: 14px;
       color: colors.$text-gray-2-5;
     }
-  
+
     .seam-switch {
       position: relative;
       cursor: pointer;
@@ -30,7 +30,7 @@
         border-radius: 50%;
         filter: drop-shadow(0 1px 4px rgb(0 0 0 / 25%));
       }
-  
+
       .seam-switch-slider {
         inset: 0;
         width: 34px;
@@ -39,12 +39,12 @@
         transition: 0.4s;
         border-radius: 20px;
       }
-  
+
       &.seam-switch-checked .seam-switch-slider::before {
         transform: translateX(14px);
         background-color: colors.$primary;
       }
-    
+
       &.seam-switch-checked .seam-switch-slider {
         background-color: colors.$primary-dim;
       }
