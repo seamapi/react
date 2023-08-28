@@ -21,6 +21,7 @@
 @use './tooltip';
 @use './seam-table';
 @use './climate-setting-schedule-details';
+@use './switch';
 
 .seam-components {
   // Reset
@@ -39,6 +40,7 @@
   @include checkbox.all;
   @include radio-field.all;
   @include tooltip.all;
+  @include switch.all;  
 
   // Components
   @include device-details.all;

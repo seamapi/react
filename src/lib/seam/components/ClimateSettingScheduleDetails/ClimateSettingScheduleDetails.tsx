@@ -1,4 +1,3 @@
-import Switch from '@mui/material/Switch'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
@@ -13,6 +12,7 @@ import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
+import Switch from 'lib/ui/Switch.js'
 import { ClimateSettingDevice } from './ClimateSettingScheduleDevice.js'
 
 export interface ClimateSettingScheduleDetailsProps {
@@ -121,8 +121,7 @@ export function ClimateSettingScheduleDetails({
             <Tooltip>{t.allowManualOverrideTooltip}</Tooltip>
           </span>
           <div className='seam-right'>
-            <span className='seam-switch-label'>On</span>
-            <Switch defaultChecked size='small' />
+            <Switch label />
           </div>
         </div>
       </div>
