@@ -9,17 +9,21 @@ function Switch({
   onChange,
   label = false,
 }: SwitchProps): JSX.Element {
-  return <div className='seam-switch-container'>
-    {label && (
-      <label className='seam-switch-label'>{checked ? 'On' : 'Off'}</label>
-    )}
-    <div
-      className={`seam-switch ${checked ? 'checked' : ''}`}
-      onClick={() => { onChange(!checked); }}
-    >
-      <div className='slider' />
+  return (
+    <div className='seam-switch-container'>
+      {label && (
+        <label className='seam-switch-label'>{checked ? 'On' : 'Off'}</label>
+      )}
+      <div
+        className={`seam-switch ${checked ? 'checked' : ''}`}
+        onClick={() => {
+          onChange(!checked)
+        }}
+      >
+        <div className='slider' />
+      </div>
     </div>
-  </div>
+  )
 }
 
 export default Switch
