@@ -2,8 +2,8 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 import { formatDateAndTime } from 'lib/dates.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
-import { ClimateSettingDevice } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDevice.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
+import { ClimateSettingDevice } from 'lib/ui/thermostat/ClimateSettingScheduleDevice.js'
 import { DotDivider } from '../layout/DotDivider.js'
 
 interface ClimateSettingScheduleCardProps {
@@ -36,19 +36,22 @@ function Content(props: {
   const name = climateSettingSchedule.name ?? t.fallbackName
 
   return (
-    <div className='seam-climate-setting-schedule-summary'>
-      <div style={{ padding: '8px' }}>
-        <ClimateSettingScheduleIcon />
-      </div>
-      <div className='seam-climate-setting-schedule-name-block'>
-        <h5 className='seam-climate-setting-schedule-heading'>{name}</h5>
-        <div className='seam-climate-setting-schedule-subheading'>
-          <ClimateSettingStatus climateSetting={climateSettingSchedule} />
-          <DotDivider />
-          <span>
-            {t.starts}{' '}
-            {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
-          </span>
+    <div className='seam-climate-setting-schedule-content'>
+      <div className='seam-climate-setting-schedule-summary'>
+        <div style={{ padding: '8px' }}>
+          <ClimateSettingScheduleIcon />
+        </div>
+        <div className='seam-climate-setting-schedule-name-block'>
+          <h5 className='seam-climate-setting-schedule-heading'>{name}</h5>
+          <div className='seam-climate-setting-schedule-subheading'>
+            <ClimateSettingStatus climateSetting={climateSettingSchedule} />
+            <DotDivider />
+            {/* TODO do the 'Ends at' bit here */}
+            <span>
+              {t.starts}{' '}
+              {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
+            </span>
+          </div>
         </div>
       </div>
       <ClimateSettingDevice deviceId={climateSettingSchedule.device_id} />
