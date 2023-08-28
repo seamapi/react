@@ -37,11 +37,11 @@ function Content(props: {
 
   return (
     <div className='seam-climate-setting-schedule-content'>
-      <div className='seam-climate-setting-schedule-summary'>
-        <div style={{ padding: '8px' }}>
+      <div className='seam-climate-setting-schedule-summary-container'>
+        <div className='seam-climate-setting-schedule-icon-block'>
           <ClimateSettingScheduleIcon />
         </div>
-        <div className='seam-climate-setting-schedule-name-block'>
+        <div className='seam-climate-setting-schedule-summary'>
           <h5 className='seam-climate-setting-schedule-heading'>{name}</h5>
           <div className='seam-climate-setting-schedule-subheading'>
             <ClimateSettingStatus climateSetting={climateSettingSchedule} />
