@@ -2,6 +2,6 @@
   "extends": ["stylelint-config-standard-scss"],
   "rules": {
     "no-descending-specificity": null,
-    "operator-no-newline-after": null
+    "scss/operator-no-newline-after": null
   }
 }
