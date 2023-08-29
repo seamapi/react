@@ -80,14 +80,8 @@ function RangeSlider({
     const input = inputRef.current
 
     wrap.style.setProperty('--temperature-current', input.value)
-    wrap.style.setProperty(
-      '--temperature-min',
-      input.min === '' ? String(DEFAULT_MIN) : input.min
-    )
-    wrap.style.setProperty(
-      '--temperature-max',
-      input.max === '' ? String(DEFAULT_MAX) : input.max
-    )
+    wrap.style.setProperty('--temperature-min', input.min)
+    wrap.style.setProperty('--temperature-max', input.max)
   }, [value])
 
   const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (
