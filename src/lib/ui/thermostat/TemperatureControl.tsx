@@ -12,6 +12,7 @@ interface TemperatureControlProps {
   onChange: (temperature: number) => void
   min?: number
   max?: number
+  temperatureUnit?: 'fahrenheit' | 'celsius'
 }
 
 export function TemperatureControl({
@@ -20,6 +21,7 @@ export function TemperatureControl({
   onChange,
   min = DEFAULT_MIN,
   max = DEFAULT_MAX,
+  temperatureUnit = 'fahrenheit',
 }: TemperatureControlProps): JSX.Element {
   const increment = (): void => {
     onChange(temperature + 1)
@@ -42,6 +44,7 @@ export function TemperatureControl({
         onChange={(temperature) => {
           onChange(temperature)
         }}
+        temperatureUnit={temperatureUnit}
       />
       <button className='seam-temperature-stepper-button' onClick={increment}>
         <TemperatureAddIcon />
@@ -56,6 +59,7 @@ interface RangeSliderProps {
   onChange: (temperature: number) => void
   min: number
   max: number
+  temperatureUnit: 'fahrenheit' | 'celsius'
 }
 
 function RangeSlider({
@@ -64,6 +68,7 @@ function RangeSlider({
   onChange,
   min,
   max,
+  temperatureUnit,
 }: RangeSliderProps): JSX.Element {
   const wrapRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -112,7 +117,9 @@ function RangeSlider({
 
       <div className='seam-floating-temperature'>
         <span className='seam-floating-temperature-value'>{temperature}</span>
-        <span className='seam-floating-temperature-unit'>ºF</span>
+        <span className='seam-floating-temperature-unit'>
+          º{temperatureUnit[0]?.toUpperCase()}
+        </span>
       </div>
     </div>
   )

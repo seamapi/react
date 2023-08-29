@@ -14,8 +14,10 @@ type Story = StoryObj<typeof TemperatureControl>
 
 export const Content: Story = {
   render: () => {
-    const [heat, setHeat] = useState(70)
-    const [cool, setCool] = useState(70)
+    const [heatF, setHeatF] = useState(70)
+    const [coolF, setCoolF] = useState(70)
+    const [heatC, setHeatC] = useState(20)
+    const [coolC, setCoolC] = useState(20)
 
     return (
       <Box
@@ -30,18 +32,40 @@ export const Content: Story = {
       >
         <TemperatureControl
           variant='heat'
-          temperature={heat}
+          temperature={heatF}
           onChange={(temperature) => {
-            setHeat(temperature)
+            setHeatF(temperature)
           }}
         />
 
         <TemperatureControl
           variant='cool'
-          temperature={cool}
+          temperature={coolF}
           onChange={(temperature) => {
-            setCool(temperature)
+            setCoolF(temperature)
           }}
+        />
+
+        <TemperatureControl
+          variant='heat'
+          temperature={heatC}
+          onChange={(temperature) => {
+            setHeatC(temperature)
+          }}
+          min={10}
+          max={30}
+          temperatureUnit='celsius'
+        />
+
+        <TemperatureControl
+          variant='cool'
+          temperature={coolC}
+          onChange={(temperature) => {
+            setCoolC(temperature)
+          }}
+          min={10}
+          max={30}
+          temperatureUnit='celsius'
         />
       </Box>
     )
