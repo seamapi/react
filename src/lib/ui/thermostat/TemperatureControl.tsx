@@ -36,7 +36,7 @@ export function TemperatureControl({
         min={min}
         max={max}
         temperature={temperature}
-        onChange={(temperature) => onChange(temperature)}
+        onChange={(temperature) => { onChange(temperature); }}
       />
       <button className='seam-temperature-stepper-button' onClick={increment}>
         <TemperatureAddIcon />
