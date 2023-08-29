@@ -10,7 +10,6 @@ export function useCurrentTime(): DateTime | null {
     setDate(DateTime.now())
   }, [setDate])
 
-  useEffect(update, [update])
   useInterval(update)
 
   return date
