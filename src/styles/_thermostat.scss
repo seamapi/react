@@ -1,5 +1,11 @@
 @use './colors';
 
+@mixin temperature-control-thumb-active($primary-color: colors.$thermo-blue) {
+  cursor: grabbing;
+  background-color: $primary-color;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
 @mixin temperature-control-thumb(
   $primary-color: colors.$thermo-blue,
   $secondary-color: colors.$thermo-blue-faded
@@ -18,9 +24,7 @@
   }
 
   &:active {
-    cursor: grabbing;
-    background-color: $primary-color;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+    @include temperature-control-thumb-active($primary-color);
   }
 }
 
@@ -80,6 +84,7 @@
   }
 
   input[type='range'].seam-temperature-range {
+    width: 160px;
     -webkit-appearance: none;
 
     &:focus {
@@ -136,6 +141,18 @@
         );
       }
 
+      &:focus {
+        &::-webkit-slider-thumb {
+          @include temperature-control-thumb-active(colors.$thermo-orange);
+        }
+        &::-moz-range-thumb {
+          @include temperature-control-thumb-active(colors.$thermo-orange);
+        }
+        &::-ms-thumb {
+          @include temperature-control-thumb-active(colors.$thermo-orange);
+        }
+      }
+
       // Tracks
       &::-webkit-slider-runnable-track {
         @include temperature-control-track(colors.$thermo-orange);
@@ -177,6 +194,18 @@
           colors.$thermo-blue,
           colors.$thermo-blue-faded
         );
+      }
+
+      &:focus {
+        &::-webkit-slider-thumb {
+          @include temperature-control-thumb-active(colors.$thermo-blue);
+        }
+        &::-moz-range-thumb {
+          @include temperature-control-thumb-active(colors.$thermo-blue);
+        }
+        &::-ms-thumb {
+          @include temperature-control-thumb-active(colors.$thermo-blue);
+        }
       }
 
       // Tracks
@@ -234,7 +263,12 @@
     cursor: pointer;
     transition: 0.1s ease-in-out;
 
-    &:hover {
+    &:focus {
+      outline: none;
+    }
+
+    &:hover,
+    &:focus {
       background-color: colors.$bg-a;
       border-color: colors.$text-gray-2;
     }
