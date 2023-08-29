@@ -1,4 +1,4 @@
-import { type ChangeEventHandler, useEffect, useRef, useState } from 'react'
+import { type ChangeEventHandler, useEffect, useRef } from 'react'
 
 import { TemperatureAddIcon } from 'lib/icons/TemperatureAdd.js'
 import { TemperatureSubtractIcon } from 'lib/icons/TemperatureSubtract.js'
@@ -7,21 +7,23 @@ interface TemperatureControlProps {
   variant: 'heat' | 'cool'
   min?: number
   max?: number
+  temperature: number
+  onChange: (temperature: number) => void
 }
 
 export function TemperatureControl({
   variant,
   min,
   max,
+  temperature,
+  onChange,
 }: TemperatureControlProps) {
-  const [temperature, setTemperature] = useState(75)
-
   const increment = () => {
-    setTemperature((temperature) => temperature + 1)
+    onChange(temperature + 1)
   }
 
   const decrement = () => {
-    setTemperature((temperature) => temperature - 1)
+    onChange(temperature - 1)
   }
 
   return (
@@ -34,9 +36,7 @@ export function TemperatureControl({
         min={min}
         max={max}
         temperature={temperature}
-        onChange={(temperature) => {
-          setTemperature(temperature)
-        }}
+        onChange={(temperature) => onChange(temperature)}
       />
       <button className='seam-temperature-stepper-button' onClick={increment}>
         <TemperatureAddIcon />
