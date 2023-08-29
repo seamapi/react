@@ -44,7 +44,9 @@ export function ClimateSettingScheduleForm({
   ...props
 }: ClimateSettingScheduleFormProps): JSX.Element | null {
   return (
-    <div className={classNames('seam-access-code-form', className)}>
+    <div
+      className={classNames('seam-climate-setting-schedule-form', className)}
+    >
       <Content {...props} />
     </div>
   )
@@ -107,7 +109,10 @@ function Content({
       <ClimateSettingScheduleDeviceSelect
         devices={devices}
         onBack={() => console.log('TODO: back to scheduled climate list')}
-        onSelect={setDeviceId}
+        onSelect={(deviceId) => {
+          setDeviceId(deviceId)
+          setPage('name_and_time')
+        }}
       />
     )
   }

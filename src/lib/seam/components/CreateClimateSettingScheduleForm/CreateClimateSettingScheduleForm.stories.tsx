@@ -25,9 +25,7 @@ type Story = StoryObj<typeof CreateClimateSettingScheduleForm>
 
 export const Content: Story = {
   render: (props, { globals }) => (
-    <CreateClimateSettingScheduleForm
-      {...props}
-    />
+    <CreateClimateSettingScheduleForm {...props} />
   ),
 }
 
@@ -39,9 +37,7 @@ export const InsideModal: Story = {
         <Button onClick={toggleOpen}>Open Modal</Button>
         <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
           <div className='seam-components'>
-            <CreateClimateSettingScheduleForm
-              {...props}
-            />
+            <CreateClimateSettingScheduleForm {...props} />
           </div>
         </Dialog>
       </>

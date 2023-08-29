@@ -6,7 +6,6 @@ export const name = 'seam-create-access-code-form'
 export const props: ElementProps<CreateClimateSettingScheduleFormProps> = {
   className: 'string',
   onBack: 'object',
-  deviceId: 'string',
 }
 
 export { CreateClimateSettingScheduleForm as Component } from './CreateClimateSettingScheduleForm.js'
