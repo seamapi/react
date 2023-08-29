@@ -6,7 +6,7 @@ import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-
 import { ClimateSettingDevice } from 'lib/ui/thermostat/ClimateSettingScheduleDevice.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
-import { DotDivider } from '../layout/DotDivider.js'
+import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 
 interface ClimateSettingScheduleCardProps {
   climateSettingScheduleId: string
