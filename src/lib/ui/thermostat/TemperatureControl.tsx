@@ -111,9 +111,14 @@ function RangeSlider({
       <div className='seam-floating-temperature'>
         <span className='seam-floating-temperature-value'>{value}</span>
         <span className='seam-floating-temperature-unit'>
-          º{unit[0]?.toUpperCase()}
+          {unit === 'fahrenheit' ? t.degreeFahrenheit : t.degreeCelsius}
         </span>
       </div>
     </div>
   )
+}
+
+const t = {
+  degreeFahrenheit: 'ºF',
+  degreeCelsius: 'ºC',
 }
