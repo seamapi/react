@@ -17,7 +17,7 @@
   border: 2px solid $primary-color;
   box-shadow: none;
   cursor: grab;
-  transition: 0.1s ease-in-out;
+  transition: 0.15s ease-in-out;
 
   &:hover {
     @include temperature-control-thumb-hover($secondary-color);
