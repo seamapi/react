@@ -5,7 +5,7 @@ import { useDevice } from 'lib/seam/devices/use-device.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
-export function ClimateSettingDevice({
+export function ClimateSettingScheduleDevice({
   deviceId,
 }: {
   deviceId: string
