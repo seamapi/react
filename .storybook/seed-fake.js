@@ -475,7 +475,7 @@ export const seedFake = (db) => {
     device_id: device5.device_id,
     workspace_id: ws2.workspace_id,
     created_at: '2022-05-17T00:16:12.000',
-    name: 'Really Really Really Really Really Really Really Really Really Really Really Really Really Really Really Really Really Long Name',
+    name: 'Guest - Robinson very long titles can wrap making the card taller',
     schedule_starts_at: '2023-07-04T00:00:00.000Z',
     schedule_ends_at: '2027-08-14T00:00:00.000Z',
     schedule_type: 'time_bound',
