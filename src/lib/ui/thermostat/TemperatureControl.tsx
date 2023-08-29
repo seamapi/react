@@ -57,7 +57,7 @@ interface RangeSliderProps {
 
 function RangeSlider({
   variant,
-  min = 60,
+  min = 50,
   max = 90,
   temperature,
   onChange,

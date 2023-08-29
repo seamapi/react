@@ -15,7 +15,7 @@ type Story = StoryObj<typeof TemperatureControl>
 export const Content: Story = {
   render: () => {
     const [heat, setHeat] = useState(70)
-    const [cool, setCool] = useState(75)
+    const [cool, setCool] = useState(70)
 
     return (
       <Box
