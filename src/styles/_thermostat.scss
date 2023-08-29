@@ -34,7 +34,7 @@
 @mixin temperature-control-rtl-track($primary-color: colors.$thermo-blue) {
   background:
     linear-gradient($primary-color, $primary-color) 100% /
-      calc(var(--slider-position) / 2) 100% no-repeat,
+      calc(var(--slider-position-rtl)) 100% no-repeat,
     colors.$text-gray-3;
 }
 
@@ -71,6 +71,7 @@
       0.5 * var(--thumb-size) + var(--temperature-ratio) *
         (100% - var(--thumb-size))
     );
+    --slider-position-rtl: calc(100% - var(--slider-position));
 
     display: flex;
     justify-content: center;
