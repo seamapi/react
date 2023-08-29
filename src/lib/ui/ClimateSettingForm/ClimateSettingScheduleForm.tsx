@@ -17,9 +17,13 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { title } from 'process'
 import type { ClimateSetting } from 'seamapi'
 import type { UseDeviceData } from '../../../hooks.js'
+import { useToggle } from '../use-toggle.js'
 import { ClimateSettingScheduleDeviceSelect } from './ClimateSettingScheduleDeviceSelect.js'
+import { ClimateSettingScheduleFormDatePicker } from './ClimateSettingScheduleFormDatePicker.js'
+import { ClimateSettingScheduleFormTimezonePicker } from './ClimateSettingScheduleFormTimezonePicker.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
@@ -82,6 +86,8 @@ function Content({
     {}
   )
 
+  const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+
   const [page, setPage] = useState<
     'device_select' | 'default_setting' | 'name_and_time' | 'climate_setting'
   >('device_select')
@@ -106,52 +112,59 @@ function Content({
 
   if (page === 'device_select') {
     return (
-      <ClimateSettingScheduleDeviceSelect
-        devices={devices}
-        onBack={() => console.log('TODO: back to scheduled climate list')}
-        onSelect={(deviceId) => {
-          setDeviceId(deviceId)
-          setPage('name_and_time')
-        }}
-      />
+      <>
+        <ContentHeader title={t.addNewClimateSettingSchedule} onBack={onBack} />
+        <ClimateSettingScheduleDeviceSelect
+          devices={devices}
+          // onBack={() => console.log('TODO: back to scheduled climate list')}
+          onSelect={(deviceId) => {
+            setDeviceId(deviceId)
+            setPage('name_and_time')
+          }}
+        />
+      </>
     )
   }
 
-  // if (timezonePickerVisible) {
-  //   return (
-  //     <ClimateSettingScheduleFormTimezonePicker
-  //       value={timezone}
-  //       onChange={setTimezone}
-  //       onClose={toggleTimezonePicker}
-  //     />
-  //   )
-  // }
+  if (page === 'name_and_time') {
+    return (
+      <>
+        <ContentHeader
+          title={t.addNewClimateSettingSchedule}
+          subheading={
+            devices.find((d) => d.device_id === deviceId)?.properties.name
+          }
+          onBack={() => setPage('device_select')}
+        />
+        <ClimateSettingScheduleFormDatePicker
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          timezone={timezone}
+          onChangeTimezone={toggleTimezonePicker}
+          onBack={() => {
+            setPage('device_select')
+          }}
+        />
+      </>
+    )
+  }
 
-  // if (datePickerVisible) {
-  //   return (
-  //     <ClimateSettingScheduleFormDatePicker
-  //       startDate={startDate}
-  //       setStartDate={setStartDate}
-  //       endDate={endDate}
-  //       setEndDate={setEndDate}
-  //       timezone={timezone}
-  //       onChangeTimezone={toggleTimezonePicker}
-  //       onBack={() => {
-  //         setDatePickerVisible(false)
-  //       }}
-  //     />
-  //   )
-  // }
+  if (timezonePickerVisible) {
+    return (
+      <ClimateSettingScheduleFormTimezonePicker
+        value={timezone}
+        onChange={setTimezone}
+        onClose={toggleTimezonePicker}
+      />
+    )
+  }
 
   const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
 
   const isFormValid =
     name.trim().length > 0 && nameError === undefined && !isSubmitting
-
-  const title =
-    climateSettingSchedule == null
-      ? t.addNewClimateSettingSchedule
-      : t.editClimateSettingSchedule
 
   return (
     <>

@@ -61,7 +61,7 @@ function Content({
   const [type, setType] = useState<AccessCode['type']>(
     accessCode?.type ?? 'ongoing'
   )
-  const [datePickerVisible, setDatePickerVisible] = useState(false)
+  const [datePickerVisible, setDatePickerVisible] = useState(true)
   const [timezone, setTimezone] = useState<string>(
     getAccessCodeTimezone(accessCode) ?? getBrowserTimezone()
   )

@@ -1,6 +1,6 @@
 import { DeviceTable } from 'lib/index.js'
-import type { UseDeviceData } from '../../../hooks.js'
-import { ContentHeader } from '../layout/ContentHeader.js'
+import { isThermostatDevice } from 'seamapi'
+import type { UseDeviceData, UseDevicesData } from '../../../hooks.js'
 
 interface ClimateSettingScheduleDeviceSelectProps {
   devices: NonNullable<UseDeviceData>[]
@@ -13,10 +13,23 @@ export const ClimateSettingScheduleDeviceSelect = ({
   onBack,
   onSelect,
 }: ClimateSettingScheduleDeviceSelectProps) => {
+  const deviceFilter = (
+    device: UseDevicesData[number],
+    searchInputValue: string
+  ): boolean => {
+    if (!isThermostatDevice(device)) return false
+    const value = searchInputValue.trim()
+    if (value === '') return true
+    return device.properties.name.toLowerCase().includes(value)
+  }
+
   return (
     <>
-      <ContentHeader title={t.tableHeader} onBack={onBack} />
-      <DeviceTable />
+      <DeviceTable
+        deviceFilter={deviceFilter}
+        preventDefaultOnDeviceClick
+        onDeviceClick={onSelect}
+      />
     </>
   )
 }
