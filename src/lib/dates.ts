@@ -148,10 +148,10 @@ export const getTimezoneFromIsoDate = (date: string): string | null =>
  *
  */
 export const formatDateAndTime = (date: string): string =>
-  `${DateTime.fromISO(date).toLocaleString({
+  DateTime.fromISO(date).toLocaleString({
     month: 'short',
     day: 'numeric',
-  })} at ${DateTime.fromISO(date).toLocaleString({
     hour: 'numeric',
     minute: '2-digit',
-  })}`
+    timeZoneName: 'short',
+  })

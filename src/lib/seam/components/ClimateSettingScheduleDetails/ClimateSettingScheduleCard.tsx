@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import type { ClimateSettingSchedule } from 'seamapi'
 
 import { formatDateAndTime } from 'lib/dates.js'
@@ -5,7 +6,8 @@ import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
-import { ClimateSettingDevice } from './ClimateSettingScheduleDevice.js'
+import { useCurrentTime } from 'lib/ui/use-current-time.js'
+import { ClimateSettingScheduleDeviceBar } from './ClimateSettingScheduleDeviceBar.js'
 
 interface ClimateSettingScheduleCardProps {
   climateSettingScheduleId: string
@@ -53,7 +55,9 @@ function Content(props: {
           </div>
         </div>
       </div>
-      <ClimateSettingDevice deviceId={climateSettingSchedule.device_id} />
+      <ClimateSettingScheduleDeviceBar
+        deviceId={climateSettingSchedule.device_id}
+      />
     </div>
   )
 }
@@ -63,27 +67,25 @@ function ClimateSettingScheduleTiming(props: {
 }): JSX.Element | null {
   const { climateSettingSchedule } = props
 
-  const startTime = new Date(
-    climateSettingSchedule.schedule_starts_at
-  ).getTime()
+  const currentTime = useCurrentTime()
 
-  const endTime = new Date(climateSettingSchedule.schedule_ends_at).getTime()
+  if (!currentTime) return null
 
-  if (Date.now() < startTime)
+  const startTime = DateTime.fromISO(climateSettingSchedule.schedule_starts_at)
+  const endTime = DateTime.fromISO(climateSettingSchedule.schedule_ends_at)
+
+  if (currentTime < startTime)
     return (
       <span>
-        {`${t.starts} ${formatDateAndTime(
-          climateSettingSchedule.schedule_starts_at
-        )}`}
+        {t.starts}{' '}
+        {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
       </span>
     )
 
-  if (startTime <= Date.now() && Date.now() <= endTime)
+  if (startTime <= currentTime && currentTime <= endTime)
     return (
       <span>
-        {`${t.ends} ${formatDateAndTime(
-          climateSettingSchedule.schedule_starts_at
-        )}`}
+        {t.ends} {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
       </span>
     )
 
