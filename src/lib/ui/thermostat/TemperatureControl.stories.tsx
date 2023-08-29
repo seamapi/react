@@ -32,40 +32,40 @@ export const Content: Story = {
       >
         <TemperatureControl
           variant='heat'
-          temperature={heatF}
-          onChange={(temperature) => {
-            setHeatF(temperature)
+          value={heatF}
+          onChange={(value) => {
+            setHeatF(value)
           }}
         />
 
         <TemperatureControl
           variant='cool'
-          temperature={coolF}
-          onChange={(temperature) => {
-            setCoolF(temperature)
+          value={coolF}
+          onChange={(value) => {
+            setCoolF(value)
           }}
         />
 
         <TemperatureControl
           variant='heat'
-          temperature={heatC}
-          onChange={(temperature) => {
-            setHeatC(temperature)
+          value={heatC}
+          onChange={(value) => {
+            setHeatC(value)
           }}
           min={10}
           max={30}
-          temperatureUnit='celsius'
+          unit='celsius'
         />
 
         <TemperatureControl
           variant='cool'
-          temperature={coolC}
-          onChange={(temperature) => {
-            setCoolC(temperature)
+          value={coolC}
+          onChange={(value) => {
+            setCoolC(value)
           }}
           min={10}
           max={30}
-          temperatureUnit='celsius'
+          unit='celsius'
         />
       </Box>
     )

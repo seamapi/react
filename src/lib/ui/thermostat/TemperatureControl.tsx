@@ -8,27 +8,27 @@ const DEFAULT_MAX = 90
 
 interface TemperatureControlProps {
   variant: 'heat' | 'cool'
-  temperature: number
+  value: number
   onChange: (temperature: number) => void
   min?: number
   max?: number
-  temperatureUnit?: 'fahrenheit' | 'celsius'
+  unit?: 'fahrenheit' | 'celsius'
 }
 
 export function TemperatureControl({
   variant,
-  temperature,
+  value,
   onChange,
   min = DEFAULT_MIN,
   max = DEFAULT_MAX,
-  temperatureUnit = 'fahrenheit',
+  unit = 'fahrenheit',
 }: TemperatureControlProps): JSX.Element {
   const increment = (): void => {
-    onChange(Math.min(temperature + 1, max))
+    onChange(Math.min(value + 1, max))
   }
 
   const decrement = (): void => {
-    onChange(Math.max(temperature - 1, min))
+    onChange(Math.max(value - 1, min))
   }
 
   return (
@@ -40,11 +40,11 @@ export function TemperatureControl({
         variant={variant}
         min={min}
         max={max}
-        temperature={temperature}
+        value={value}
         onChange={(temperature) => {
           onChange(temperature)
         }}
-        temperatureUnit={temperatureUnit}
+        unit={unit}
       />
       <button className='seam-temperature-stepper-button' onClick={increment}>
         <TemperatureAddIcon />
@@ -55,20 +55,20 @@ export function TemperatureControl({
 
 interface RangeSliderProps {
   variant: 'heat' | 'cool'
-  temperature: number
+  value: number
   onChange: (temperature: number) => void
   min: number
   max: number
-  temperatureUnit: 'fahrenheit' | 'celsius'
+  unit: 'fahrenheit' | 'celsius'
 }
 
 function RangeSlider({
   variant,
-  temperature,
+  value,
   onChange,
   min,
   max,
-  temperatureUnit,
+  unit,
 }: RangeSliderProps): JSX.Element {
   const wrapRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -88,7 +88,7 @@ function RangeSlider({
         input.max === '' ? String(DEFAULT_MAX) : input.max
       )
     }
-  }, [temperature])
+  }, [value])
 
   const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (
     event
@@ -109,16 +109,16 @@ function RangeSlider({
         type='range'
         min={min}
         max={max}
-        value={temperature}
+        value={value}
         onChange={handleRangeChange}
         className='seam-temperature-range'
         data-variant={variant}
       />
 
       <div className='seam-floating-temperature'>
-        <span className='seam-floating-temperature-value'>{temperature}</span>
+        <span className='seam-floating-temperature-value'>{value}</span>
         <span className='seam-floating-temperature-unit'>
-          º{temperatureUnit[0]?.toUpperCase()}
+          º{unit[0]?.toUpperCase()}
         </span>
       </div>
     </div>
