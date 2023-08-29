@@ -26,7 +26,7 @@
   &:active {
     cursor: grabbing;
     background-color: $primary-color !important;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 15%) !important;
   }
 }
 
@@ -63,11 +63,9 @@
   .seam-temperature-range-wrap {
     --thumb-size: 20px;
     --track-height: 4px;
-
     --temperature-min: 0;
     --temperature-max: 100;
     --temperature-current: 50;
-
     --temperature-range: calc(var(--temperature-max) - var(--temperature-min));
     --temperature-ratio: calc(
       (var(--temperature-current) - var(--temperature-min)) /
@@ -87,14 +85,14 @@
 
   input[type='range'].seam-temperature-range {
     width: 160px;
-    -webkit-appearance: none;
+    appearance: none;
 
     &:focus {
       outline: none;
     }
 
     &::-webkit-slider-thumb {
-      -webkit-appearance: none;
+      appearance: none;
       margin-top: calc(var(--track-height) * 0.5 - var(--thumb-size) * 0.5);
     }
 
@@ -128,12 +126,14 @@
           colors.$thermo-orange-faded
         );
       }
+
       &::-moz-range-thumb {
         @include temperature-control-thumb(
           colors.$thermo-orange,
           colors.$thermo-orange-faded
         );
       }
+
       &::-ms-thumb {
         @include temperature-control-thumb(
           colors.$thermo-orange,
@@ -145,9 +145,11 @@
         &::-webkit-slider-thumb {
           @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
         }
+
         &::-moz-range-thumb {
           @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
         }
+
         &::-ms-thumb {
           @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
         }
@@ -157,10 +159,12 @@
         @include temperature-control-track(colors.$thermo-orange);
         @include temperature-control-ltr-track(colors.$thermo-orange);
       }
+
       &::-moz-range-track {
         @include temperature-control-track(colors.$thermo-orange);
         @include temperature-control-ltr-track(colors.$thermo-orange);
       }
+
       &::-ms-track {
         @include temperature-control-track(colors.$thermo-orange);
         @include temperature-control-ltr-track(colors.$thermo-orange);
@@ -178,12 +182,14 @@
           colors.$thermo-blue-faded
         );
       }
+
       &::-moz-range-thumb {
         @include temperature-control-thumb(
           colors.$thermo-blue,
           colors.$thermo-blue-faded
         );
       }
+
       &::-ms-thumb {
         @include temperature-control-thumb(
           colors.$thermo-blue,
@@ -195,9 +201,11 @@
         &::-webkit-slider-thumb {
           @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
         }
+
         &::-moz-range-thumb {
           @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
         }
+
         &::-ms-thumb {
           @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
         }
@@ -207,10 +215,12 @@
         @include temperature-control-track(colors.$thermo-blue);
         @include temperature-control-rtl-track(colors.$thermo-blue);
       }
+
       &::-moz-range-track {
         @include temperature-control-track(colors.$thermo-blue);
         @include temperature-control-rtl-track(colors.$thermo-blue);
       }
+
       &::-ms-track {
         @include temperature-control-track(colors.$thermo-blue);
         @include temperature-control-rtl-track(colors.$thermo-blue);
@@ -294,6 +304,6 @@
 }
 
 @mixin all {
-  @include temperature-control();
-  @include climate-setting-status();
+  @include temperature-control;
+  @include climate-setting-status;
 }

@@ -20,12 +20,12 @@ export function TemperatureControl({
   onChange,
   min = DEFAULT_MIN,
   max = DEFAULT_MAX,
-}: TemperatureControlProps) {
-  const increment = () => {
+}: TemperatureControlProps): JSX.Element {
+  const increment = (): void => {
     onChange(temperature + 1)
   }
 
-  const decrement = () => {
+  const decrement = (): void => {
     onChange(temperature - 1)
   }
 
@@ -64,7 +64,7 @@ function RangeSlider({
   onChange,
   min,
   max,
-}: RangeSliderProps) {
+}: RangeSliderProps): JSX.Element {
   const wrapRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -85,7 +85,9 @@ function RangeSlider({
     }
   }, [temperature])
 
-  const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (
+    event
+  ): void => {
     const wrap = wrapRef.current
 
     if (wrap != null) {
