@@ -121,9 +121,7 @@
       border-right-width: 0;
     }
 
-    // Variants
     &[data-variant='heat'] {
-      // Thumbs
       &::-webkit-slider-thumb {
         @include temperature-control-thumb(
           colors.$thermo-orange,
@@ -155,7 +153,6 @@
         }
       }
 
-      // Tracks
       &::-webkit-slider-runnable-track {
         @include temperature-control-track(colors.$thermo-orange);
         @include temperature-control-ltr-track(colors.$thermo-orange);
@@ -169,28 +166,24 @@
         @include temperature-control-ltr-track(colors.$thermo-orange);
       }
 
-      // etc.
       &::-ms-fill-lower {
         background: colors.$thermo-orange;
       }
     }
 
     &[data-variant='cool'] {
-      // Thumbs
       &::-webkit-slider-thumb {
         @include temperature-control-thumb(
           colors.$thermo-blue,
           colors.$thermo-blue-faded
         );
       }
-
       &::-moz-range-thumb {
         @include temperature-control-thumb(
           colors.$thermo-blue,
           colors.$thermo-blue-faded
         );
       }
-
       &::-ms-thumb {
         @include temperature-control-thumb(
           colors.$thermo-blue,
@@ -210,7 +203,6 @@
         }
       }
 
-      // Tracks
       &::-webkit-slider-runnable-track {
         @include temperature-control-track(colors.$thermo-blue);
         @include temperature-control-rtl-track(colors.$thermo-blue);
@@ -224,7 +216,6 @@
         @include temperature-control-rtl-track(colors.$thermo-blue);
       }
 
-      // etc.
       &::-ms-fill-lower {
         background: colors.$thermo-blue;
       }
