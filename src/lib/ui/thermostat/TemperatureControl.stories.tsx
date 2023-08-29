@@ -1,8 +1,8 @@
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
 import { TemperatureControl } from './TemperatureControl.js'
-import { useState } from 'react'
 
 const meta: Meta<typeof TemperatureControl> = {
   title: 'Library/TemperatureControl',
@@ -31,13 +31,17 @@ export const Content: Story = {
         <TemperatureControl
           variant='heat'
           temperature={heat}
-          onChange={(temperature) => setHeat(temperature)}
+          onChange={(temperature) => {
+            setHeat(temperature)
+          }}
         />
-        
+
         <TemperatureControl
           variant='cool'
           temperature={cool}
-          onChange={(temperature) => setCool(temperature)}
+          onChange={(temperature) => {
+            setCool(temperature)
+          }}
         />
       </Box>
     )
