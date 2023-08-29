@@ -1,9 +1,9 @@
 @use './colors';
 
-@mixin temperature-control-thumb-active($primary-color: colors.$thermo-blue) {
-  cursor: grabbing;
-  background-color: $primary-color;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+@mixin temperature-control-thumb-hover(
+  $secondary-color: colors.$thermo-blue-faded
+) {
+  background-color: $secondary-color;
 }
 
 @mixin temperature-control-thumb(
@@ -20,11 +20,13 @@
   transition: 0.1s ease-in-out;
 
   &:hover {
-    background-color: $secondary-color;
+    @include temperature-control-thumb-hover($secondary-color);
   }
 
   &:active {
-    @include temperature-control-thumb-active($primary-color);
+    cursor: grabbing;
+    background-color: $primary-color !important;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15) !important;
   }
 }
 
@@ -143,13 +145,13 @@
 
       &:focus {
         &::-webkit-slider-thumb {
-          @include temperature-control-thumb-active(colors.$thermo-orange);
+          @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
         }
         &::-moz-range-thumb {
-          @include temperature-control-thumb-active(colors.$thermo-orange);
+          @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
         }
         &::-ms-thumb {
-          @include temperature-control-thumb-active(colors.$thermo-orange);
+          @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
         }
       }
 
@@ -198,13 +200,13 @@
 
       &:focus {
         &::-webkit-slider-thumb {
-          @include temperature-control-thumb-active(colors.$thermo-blue);
+          @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
         }
         &::-moz-range-thumb {
-          @include temperature-control-thumb-active(colors.$thermo-blue);
+          @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
         }
         &::-ms-thumb {
-          @include temperature-control-thumb-active(colors.$thermo-blue);
+          @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
         }
       }
 
