@@ -73,11 +73,11 @@ function RangeSlider({
       wrap.style.setProperty('--temperature-current', input.value)
       wrap.style.setProperty(
         '--temperature-min',
-        input.min === '' ? '0' : input.min
+        input.min === '' ? '50' : input.min
       )
       wrap.style.setProperty(
         '--temperature-max',
-        input.max === '' ? '100' : input.max
+        input.max === '' ? '90' : input.max
       )
     }
   }, [temperature])
