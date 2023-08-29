@@ -1,3 +1,5 @@
+import type { ClimateSettingSchedule } from 'seamapi'
+
 import { formatDateAndTime } from 'lib/dates.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
@@ -46,11 +48,9 @@ function Content(props: {
           <div className='seam-climate-setting-schedule-subheading'>
             <ClimateSettingStatus climateSetting={climateSettingSchedule} />
             <DotDivider />
-            {/* TODO do the 'Ends at' bit here */}
-            <span>
-              {t.starts}{' '}
-              {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
-            </span>
+            <ClimateSettingScheduleTiming
+              climateSettingSchedule={climateSettingSchedule}
+            />
           </div>
         </div>
       </div>
@@ -59,8 +59,41 @@ function Content(props: {
   )
 }
 
+function ClimateSettingScheduleTiming(props: {
+  climateSettingSchedule: ClimateSettingSchedule
+}): JSX.Element | null {
+  const { climateSettingSchedule } = props
+
+  const startTime = new Date(
+    climateSettingSchedule.schedule_starts_at
+  ).getTime()
+
+  const endTime = new Date(climateSettingSchedule.schedule_ends_at).getTime()
+
+  if (Date.now() < startTime)
+    return (
+      <span>
+        {`${t.starts} ${formatDateAndTime(
+          climateSettingSchedule.schedule_starts_at
+        )}`}
+      </span>
+    )
+
+  if (startTime <= Date.now() && Date.now() <= endTime)
+    return (
+      <span>
+        {`${t.ends} ${formatDateAndTime(
+          climateSettingSchedule.schedule_starts_at
+        )}`}
+      </span>
+    )
+
+  return <span>{t.expired}</span>
+}
+
 const t = {
   starts: 'Starts',
   ends: 'Ends',
+  expired: 'Expired',
   fallbackName: 'Climate Setting Schedule',
 }
