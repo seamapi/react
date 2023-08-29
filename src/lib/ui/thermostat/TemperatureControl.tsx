@@ -5,9 +5,15 @@ import { TemperatureSubtractIcon } from 'lib/icons/TemperatureSubtract.js'
 
 interface TemperatureControlProps {
   variant: 'heat' | 'cool'
+  min?: number
+  max?: number
 }
 
-export function TemperatureControl({ variant }: TemperatureControlProps) {
+export function TemperatureControl({
+  variant,
+  min,
+  max,
+}: TemperatureControlProps) {
   const [temperature, setTemperature] = useState(75)
 
   const increment = () => {
@@ -25,6 +31,8 @@ export function TemperatureControl({ variant }: TemperatureControlProps) {
       </button>
       <RangeSlider
         variant={variant}
+        min={min}
+        max={max}
         temperature={temperature}
         onChange={(temperature) => {
           setTemperature(temperature)

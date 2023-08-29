@@ -24,13 +24,23 @@
   }
 }
 
-@mixin temperature-control-track($primary-color: colors.$thermo-blue) {
-  height: var(--track-height);
-  border-radius: 0.5em;
+@mixin temperature-control-ltr-track($primary-color: colors.$thermo-blue) {
   background:
     linear-gradient($primary-color, $primary-color) 0 / var(--slider-position)
       100% no-repeat,
     colors.$text-gray-3;
+}
+
+@mixin temperature-control-rtl-track($primary-color: colors.$thermo-blue) {
+  background:
+    linear-gradient($primary-color, $primary-color) 100% /
+      calc(var(--slider-position) / 2) 100% no-repeat,
+    colors.$text-gray-3;
+}
+
+@mixin temperature-control-track($primary-color: colors.$thermo-blue) {
+  height: var(--track-height);
+  border-radius: 0.5em;
   border: none;
   box-shadow: none;
 }
@@ -75,6 +85,35 @@
       outline: none;
     }
 
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      margin-top: calc(var(--track-height) * 0.5 - var(--thumb-size) * 0.5);
+    }
+
+    &::-ms-thumb {
+      margin-top: 0;
+      box-sizing: border-box;
+    }
+
+    &::-ms-track {
+      box-sizing: border-box;
+    }
+
+    &::-ms-fill-upper {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    &::-ms-fill-lower {
+      border-color: transparent;
+      height: var(--track-height);
+      border-radius: 0.5em 0 0 0.5em;
+      margin: 0;
+      border: none;
+      border-right-width: 0;
+    }
+
+    // Variants
     &[data-variant='heat'] {
       // Thumbs
       &::-webkit-slider-thumb {
@@ -99,12 +138,15 @@
       // Tracks
       &::-webkit-slider-runnable-track {
         @include temperature-control-track(colors.$thermo-orange);
+        @include temperature-control-ltr-track(colors.$thermo-orange);
       }
       &::-moz-range-track {
         @include temperature-control-track(colors.$thermo-orange);
+        @include temperature-control-ltr-track(colors.$thermo-orange);
       }
       &::-ms-track {
         @include temperature-control-track(colors.$thermo-orange);
+        @include temperature-control-ltr-track(colors.$thermo-orange);
       }
 
       // etc.
@@ -139,46 +181,21 @@
       // Tracks
       &::-webkit-slider-runnable-track {
         @include temperature-control-track(colors.$thermo-blue);
+        @include temperature-control-rtl-track(colors.$thermo-blue);
       }
       &::-moz-range-track {
         @include temperature-control-track(colors.$thermo-blue);
+        @include temperature-control-rtl-track(colors.$thermo-blue);
       }
       &::-ms-track {
         @include temperature-control-track(colors.$thermo-blue);
+        @include temperature-control-rtl-track(colors.$thermo-blue);
       }
 
       // etc.
       &::-ms-fill-lower {
         background: colors.$thermo-blue;
       }
-    }
-
-    &::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      margin-top: calc(var(--track-height) * 0.5 - var(--thumb-size) * 0.5);
-    }
-
-    &::-ms-thumb {
-      margin-top: 0;
-      box-sizing: border-box;
-    }
-
-    &::-ms-track {
-      box-sizing: border-box;
-    }
-
-    &::-ms-fill-upper {
-      background: transparent;
-      border-color: transparent;
-    }
-
-    &::-ms-fill-lower {
-      border-color: transparent;
-      height: var(--track-height);
-      border-radius: 0.5em 0 0 0.5em;
-      margin: 0;
-      border: none;
-      border-right-width: 0;
     }
   }
 
