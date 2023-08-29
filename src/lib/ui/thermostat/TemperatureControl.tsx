@@ -24,11 +24,11 @@ export function TemperatureControl({
   temperatureUnit = 'fahrenheit',
 }: TemperatureControlProps): JSX.Element {
   const increment = (): void => {
-    onChange(temperature + 1)
+    onChange(Math.min(temperature + 1, max))
   }
 
   const decrement = (): void => {
-    onChange(temperature - 1)
+    onChange(Math.max(temperature - 1, min))
   }
 
   return (
