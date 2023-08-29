@@ -49,18 +49,18 @@ export function TemperatureControl({
 
 interface RangeSliderProps {
   variant: 'heat' | 'cool'
-  min?: number
-  max?: number
   temperature: number
   onChange: (temperature: number) => void
+  min?: number
+  max?: number
 }
 
 function RangeSlider({
   variant,
-  min = 50,
-  max = 90,
   temperature,
   onChange,
+  min = 50,
+  max = 90,
 }: RangeSliderProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
