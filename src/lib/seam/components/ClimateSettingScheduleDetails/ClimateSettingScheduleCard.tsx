@@ -70,7 +70,7 @@ function ClimateSettingScheduleTiming(props: {
 
   const currentTime = useCurrentTime()
 
-  if (!currentTime) return null
+  if (currentTime === null) return null
 
   const startTime = DateTime.fromISO(climateSettingSchedule.schedule_starts_at)
   const endTime = DateTime.fromISO(climateSettingSchedule.schedule_ends_at)
