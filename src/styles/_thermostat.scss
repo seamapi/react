@@ -69,6 +69,7 @@
         padding: 16px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         cursor: pointer;
 
         .seam-device-image {
@@ -82,25 +83,30 @@
           }
         }
 
-        .seam-climate-setting-schedule-device-details {
+        .seam-climate-setting-schedule-device-content {
           display: flex;
-          justify-content: space-between;
           align-items: center;
           width: 100%;
           font-weight: 400;
           font-size: 14px;
           line-height: 134%;
 
-          .seam-device-name {
-            color: colors.$text-gray-1;
-          }
-
-          .seam-device-current-climate-setting {
-            line-height: 118%;
-            color: colors.$text-gray-2;
+          .seam-climate-setting-schedule-device-details {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-direction: column;
+            gap: 2.5px;
+
+            .seam-device-name {
+              color: colors.$text-gray-1;
+            }
+  
+            .seam-device-current-climate-setting {
+              line-height: 118%;
+              color: colors.$text-gray-2;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            }
           }
         }
       }

@@ -34,21 +34,21 @@ function Content(props: { device: ThermostatDevice }): JSX.Element {
 
   return (
     <div className='seam-climate-setting-schedule-device-bar'>
-      <div className='seam-device-image'>
-        <DeviceImage device={device} />
-      </div>
-      <div className='seam-climate-setting-schedule-device-details'>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5px' }}>
+      <div className='seam-climate-setting-schedule-device-content'>
+        <div className='seam-device-image'>
+          <DeviceImage device={device} />
+        </div>
+        <div className='seam-climate-setting-schedule-device-details'>
           <div className='seam-device-name'>{device.properties.name}</div>
           <div className='seam-device-current-climate-setting'>
-            Current climate:{' '}
+            Current climate:
             <ClimateSettingStatus
               climateSetting={device.properties.current_climate_setting}
             />
           </div>
         </div>
-        <ChevronRightIcon className='chevron' />
       </div>
+      <ChevronRightIcon className='chevron' />
     </div>
   )
 }
