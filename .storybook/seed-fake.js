@@ -484,7 +484,7 @@ export const seedFake = (db) => {
     automatic_cooling_enabled: true,
     hvac_mode_setting: 'cool',
     cooling_set_point_fahrenheit: 72,
-    cooling_set_point_celsius: 22,
+    cooling_set_point_celsius: 22.2222,
   })
 
   db.addClientSession({
