@@ -3,9 +3,6 @@ import { type ChangeEventHandler, useEffect, useRef } from 'react'
 import { TemperatureAddIcon } from 'lib/icons/TemperatureAdd.js'
 import { TemperatureSubtractIcon } from 'lib/icons/TemperatureSubtract.js'
 
-const DEFAULT_MIN = 50
-const DEFAULT_MAX = 90
-
 interface TemperatureControlProps {
   variant: 'heat' | 'cool'
   value: number
@@ -19,8 +16,8 @@ export function TemperatureControl({
   variant,
   value,
   onChange,
-  min = DEFAULT_MIN,
-  max = DEFAULT_MAX,
+  min = 50,
+  max = 90,
   unit = 'fahrenheit',
 }: TemperatureControlProps): JSX.Element {
   const increment = (): void => {
