@@ -3,6 +3,9 @@ import { type ChangeEventHandler, useEffect, useRef } from 'react'
 import { TemperatureAddIcon } from 'lib/icons/TemperatureAdd.js'
 import { TemperatureSubtractIcon } from 'lib/icons/TemperatureSubtract.js'
 
+const DEFAULT_MIN = 50
+const DEFAULT_MAX = 90
+
 interface TemperatureControlProps {
   variant: 'heat' | 'cool'
   temperature: number
@@ -15,8 +18,8 @@ export function TemperatureControl({
   variant,
   temperature,
   onChange,
-  min = 50,
-  max = 90,
+  min = DEFAULT_MIN,
+  max = DEFAULT_MAX,
 }: TemperatureControlProps) {
   const increment = () => {
     onChange(temperature + 1)
@@ -73,11 +76,11 @@ function RangeSlider({
       wrap.style.setProperty('--temperature-current', input.value)
       wrap.style.setProperty(
         '--temperature-min',
-        input.min === '' ? '50' : input.min
+        input.min === '' ? String(DEFAULT_MIN) : input.min
       )
       wrap.style.setProperty(
         '--temperature-max',
-        input.max === '' ? '90' : input.max
+        input.max === '' ? String(DEFAULT_MAX) : input.max
       )
     }
   }, [temperature])
