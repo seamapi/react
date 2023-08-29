@@ -87,11 +87,12 @@ function RangeSlider({
 
   const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const wrap = wrapRef.current
-    if (wrap == null) return
 
-    const temperature = event.target.value
-    wrap.style.setProperty('--temperature-current', temperature)
-    onChange(Number(temperature))
+    if (wrap != null) {
+      const temperature = event.target.value
+      wrap.style.setProperty('--temperature-current', temperature)
+      onChange(Number(temperature))
+    }
   }
 
   return (
