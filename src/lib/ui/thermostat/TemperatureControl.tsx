@@ -5,18 +5,18 @@ import { TemperatureSubtractIcon } from 'lib/icons/TemperatureSubtract.js'
 
 interface TemperatureControlProps {
   variant: 'heat' | 'cool'
-  min?: number
-  max?: number
   temperature: number
   onChange: (temperature: number) => void
+  min?: number
+  max?: number
 }
 
 export function TemperatureControl({
   variant,
-  min,
-  max,
   temperature,
   onChange,
+  min,
+  max,
 }: TemperatureControlProps) {
   const increment = () => {
     onChange(temperature + 1)
