@@ -31,13 +31,17 @@ export const Content: Story = {
         <TemperatureControl
           variant='heat'
           temperature={heat}
-          onChange={(temperature) => { setHeat(temperature); }}
+          onChange={(temperature) => {
+            setHeat(temperature)
+          }}
         />
 
         <TemperatureControl
           variant='cool'
           temperature={cool}
-          onChange={(temperature) => { setCool(temperature); }}
+          onChange={(temperature) => {
+            setCool(temperature)
+          }}
         />
       </Box>
     )
