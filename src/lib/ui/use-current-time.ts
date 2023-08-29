@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { useInterval } from 'lib/ui/use-interval.js'
 
