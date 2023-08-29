@@ -86,7 +86,7 @@ function ClimateSettingScheduleTiming(props: {
   if (startTime <= currentTime && currentTime <= endTime)
     return (
       <span>
-        {t.ends} {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
+        {t.ends}{' '}{formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
       </span>
     )
 
