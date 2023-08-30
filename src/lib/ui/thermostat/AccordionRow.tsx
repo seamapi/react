@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
