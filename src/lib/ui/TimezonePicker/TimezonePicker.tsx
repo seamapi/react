@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import {
   getSystemZone,
   getZoneLabel,
-  getZoneOffset,
   getZoneNames,
+  getZoneOffset,
 } from 'lib/dates.js'
 import { Checkbox } from 'lib/ui/Checkbox.js'
 import { handleString } from 'lib/ui/TextField/TextField.js'
