@@ -1,6 +1,7 @@
-import { type PropsWithChildren, useState } from 'react'
+import { type PropsWithChildren } from 'react'
 
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
+import { useToggle } from 'lib/ui/use-toggle.js'
 
 interface AccordionRowProps extends PropsWithChildren {
   label: string
@@ -12,17 +13,13 @@ export function AccordionRow({
   rightCollapsedContent,
   children,
 }: AccordionRowProps): JSX.Element {
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const toggleExpanded = (): void => {
-    setIsExpanded((isExpanded) => !isExpanded)
-  }
+  const [isExpanded, toggle] = useToggle()
 
   return (
     <div className='seam-thermostat-accordion-row' aria-expanded={isExpanded}>
       <button
         className='seam-thermostat-accordion-row-trigger'
-        onClick={toggleExpanded}
+        onClick={toggle}
       >
         <p className='seam-thermostat-row-label'>{label}</p>
         <div className='seam-thermostat-row-inner-wrap'>
