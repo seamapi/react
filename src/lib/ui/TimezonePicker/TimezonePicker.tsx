@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 import {
   getSystemZone,
-  getTimezoneLabel,
-  getTimezoneOffset,
-  getTimezones,
+  getZoneLabel,
+  getZoneOffset,
+  getZoneNames,
 } from 'lib/dates.js'
 import { Checkbox } from 'lib/ui/Checkbox.js'
 import { handleString } from 'lib/ui/TextField/TextField.js'
@@ -54,9 +54,9 @@ export function TimezonePicker({
         onChange={handleString(onChange)}
         className='seam-timezone-select'
       >
-        {getTimezones().map((timezone) => (
+        {getZoneNames().map((timezone) => (
           <option value={timezone} key={timezone}>
-            {t.utc} {getTimezoneOffset(timezone)} {getTimezoneLabel(timezone)}
+            {t.utc} {getZoneOffset(timezone)} {getZoneLabel(timezone)}
           </option>
         ))}
       </select>

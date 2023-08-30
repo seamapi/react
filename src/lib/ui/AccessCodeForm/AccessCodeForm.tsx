@@ -7,7 +7,7 @@ import {
   get24HoursLater,
   getSystemZone,
   getNow,
-  getTimezoneFromIsoDate,
+  getZoneNameFromIsoDate,
 } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
 import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-access-code-code.js'
@@ -319,7 +319,7 @@ function getAccessCodeTimezone(
 
   const date = accessCode.starts_at
 
-  const timezone = getTimezoneFromIsoDate(date)
+  const timezone = getZoneNameFromIsoDate(date)
   if (timezone == null) {
     return undefined
   }

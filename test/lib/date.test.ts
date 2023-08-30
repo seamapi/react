@@ -6,14 +6,14 @@ import {
   formatDateTimeReadable,
   get24HoursLater,
   getNow,
-  getTimezoneLabel,
-  getTimezoneOffset,
+  getZoneLabel,
+  getZoneOffset,
 } from 'lib/dates.js'
 
 it('should return a timezone label', () => {
   expect(true).toBe(true)
 
-  expect(getTimezoneLabel('America/Los_angeles')).toBe('Los angeles (America)')
+  expect(getZoneLabel('America/Los_angeles')).toBe('Los angeles (America)')
 })
 
 it('should compare 2 timezones by minutes', () => {
@@ -27,7 +27,7 @@ it('should compare 2 timezones by minutes', () => {
 })
 
 it('should return offset mintues', () => {
-  expect(getTimezoneOffset('America/Los_angeles')).toBe('-07:00')
+  expect(getZoneOffset('America/Los_angeles')).toBe('-07:00')
 })
 
 it('should return a readable date, and time', () => {
