@@ -11,9 +11,7 @@ export function DetailRow({
   return (
     <div className='seam-detail-row'>
       <p className='seam-row-label'>{label}</p>
-      <div className='seam-detail-row-right-area-content'>
-        {children}
-      </div>
+      <div className='seam-detail-row-right-area-content'>{children}</div>
     </div>
   )
 }
