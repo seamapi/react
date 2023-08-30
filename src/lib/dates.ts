@@ -22,7 +22,7 @@ export function getTimezones(): string[] {
 /**
  * Get the default browser time zone.
  */
-export function getBrowserTimezone(): string {
+export function getSystemZone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone
 }
 

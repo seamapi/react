@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import {
-  getBrowserTimezone,
+  getSystemZone,
   getTimezoneLabel,
   getTimezoneOffset,
   getTimezones,
@@ -22,7 +22,7 @@ export function TimezonePicker({
 }: TimezonePickerProps): JSX.Element {
   const [manualTimezoneEnabled, setManualTimezoneEnabled] = useState(false)
 
-  const isBrowserTimezoneSelected = value === getBrowserTimezone()
+  const isBrowserTimezoneSelected = value === getSystemZone()
   const isManualTimezoneSelected =
     !isBrowserTimezoneSelected || manualTimezoneEnabled
 
@@ -34,7 +34,7 @@ export function TimezonePicker({
   const handleChangeManualTimezone = (enabled: boolean): void => {
     setManualTimezoneEnabled(enabled)
     if (!enabled) {
-      onChange(getBrowserTimezone())
+      onChange(getSystemZone())
     }
   }
 

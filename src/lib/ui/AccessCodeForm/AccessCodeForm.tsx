@@ -5,7 +5,7 @@ import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 
 import {
   get24HoursLater,
-  getBrowserTimezone,
+  getSystemZone,
   getNow,
   getTimezoneFromIsoDate,
 } from 'lib/dates.js'
@@ -72,7 +72,7 @@ function Content({
   )
   const [datePickerVisible, setDatePickerVisible] = useState(false)
   const [timezone, setTimezone] = useState<string>(
-    getAccessCodeTimezone(accessCode) ?? getBrowserTimezone()
+    getAccessCodeTimezone(accessCode) ?? getSystemZone()
   )
   const [startDate, setStartDate] = useState<string>(
     getAccessCodeDate('starts_at', accessCode) ?? getNow()
