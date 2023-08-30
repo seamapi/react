@@ -74,9 +74,7 @@ export const TextField = forwardRef<
   }
 
   // Maintain a local ref, and still forward it along
-  useImperativeHandle(ref, () => (inputEl != null ? inputEl : undefined), [
-    inputEl,
-  ])
+  useImperativeHandle(ref, () => inputEl ?? undefined, [inputEl])
 
   const endAdornmentVisible = endAdornment != null || clearable
 

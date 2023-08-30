@@ -140,18 +140,18 @@ export const getTimezoneFromIsoDate = (date: string): string | null =>
   DateTime.fromISO(date).zoneName
 
 /**
- * Takes an ISO datetime string (2023-07-20T00:00:00.000-07:00) and returns a string of the format ${date} at ${time}
- * (Jul 20 at 12:00 AM).
+ * Takes an ISO datetime string (2023-07-20T00:00:00.000-07:00) and returns a string like
+ * (Jul 20, 12:00 AM PDT).
  *
  * @param date
  * @returns string
  *
  */
 export const formatDateAndTime = (date: string): string =>
-  `${DateTime.fromISO(date).toLocaleString({
+  DateTime.fromISO(date).toLocaleString({
     month: 'short',
     day: 'numeric',
-  })} at ${DateTime.fromISO(date).toLocaleString({
     hour: 'numeric',
     minute: '2-digit',
-  })}`
+    timeZoneName: 'short',
+  })

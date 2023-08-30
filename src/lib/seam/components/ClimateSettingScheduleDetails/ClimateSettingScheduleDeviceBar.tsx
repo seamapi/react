@@ -5,7 +5,7 @@ import { useDevice } from 'lib/seam/devices/use-device.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
-export function ClimateSettingDevice({
+export function ClimateSettingScheduleDeviceBar({
   deviceId,
 }: {
   deviceId: string
@@ -34,22 +34,25 @@ function Content(props: { device: ThermostatDevice }): JSX.Element {
 
   return (
     <div className='seam-climate-setting-schedule-device-bar'>
-      <div className='seam-device-image'>
-        <DeviceImage device={device} />
-      </div>
-      <div className='seam-climate-setting-schedule-device-details'>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5px' }}>
+      <div className='seam-climate-setting-schedule-device-content'>
+        <div className='seam-device-image'>
+          <DeviceImage device={device} />
+        </div>
+        <div className='seam-climate-setting-schedule-device-details'>
           <div className='seam-device-name'>{device.properties.name}</div>
           <div className='seam-device-current-climate-setting'>
-            {' '}
-            Current climate:{' '}
+            {t.currentClimate}:
             <ClimateSettingStatus
               climateSetting={device.properties.current_climate_setting}
             />
           </div>
         </div>
-        <ChevronRightIcon className='chevron' />
       </div>
+      <ChevronRightIcon />
     </div>
   )
+}
+
+const t = {
+  currentClimate: 'Current climate',
 }

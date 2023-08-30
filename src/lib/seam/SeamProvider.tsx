@@ -25,11 +25,10 @@ export interface SeamContext {
   clientSessionToken?: string | undefined
 }
 
-export type SeamProviderProps = PropsWithChildren<
+export type SeamProviderProps =
   | SeamProviderPropsWithClient
   | SeamProviderPropsWithPublishableKey
   | SeamProviderPropsWithClientSessionToken
->
 
 export interface SeamProviderPropsWithClient extends SeamProviderBaseProps {
   client: Seam
@@ -48,7 +47,7 @@ export interface SeamProviderPropsWithClientSessionToken
   clientSessionToken: string
 }
 
-interface SeamProviderBaseProps {
+interface SeamProviderBaseProps extends PropsWithChildren {
   disableCssInjection?: boolean | undefined
   disableFontInjection?: boolean | undefined
   unminifiyCss?: boolean | undefined
