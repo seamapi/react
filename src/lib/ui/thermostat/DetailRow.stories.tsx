@@ -15,13 +15,11 @@ type Story = StoryObj<typeof DetailRow>
 export const Content: Story = {
   render: () => {
     return (
-      <div className='seam-thermostat-details-sections'>
-        <DetailsSection title='Section' tooltipContent='I am a Section'>
-          <DetailRow title='Detail row'>
-            <p>Right area content</p>
-          </DetailRow>
-        </DetailsSection>
-      </div>
+      <DetailsSection title='Section'>
+        <DetailRow title='Detail row'>
+          <p>Right area content</p>
+        </DetailRow>
+      </DetailsSection>
     )
   },
 }
