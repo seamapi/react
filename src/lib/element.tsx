@@ -28,8 +28,10 @@ export type ElementProps<T> = Record<
   'string' | 'number' | 'boolean' | 'array' | 'function' | 'json' | 'object'
 >
 
-type ProviderProps = SeamProviderPropsWithPublishableKey &
-  SeamProviderPropsWithClientSessionToken
+type ProviderProps = Omit<
+  SeamProviderPropsWithPublishableKey & SeamProviderPropsWithClientSessionToken,
+  'children'
+>
 
 const providerProps: ElementProps<ProviderProps> = {
   publishableKey: 'string',
