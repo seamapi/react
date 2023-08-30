@@ -1,0 +1,53 @@
+@use './colors';
+
+@mixin all {
+  .seam-switch-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .seam-switch-label {
+      font-style: normal;
+      font-weight: 400;
+      line-height: 118%;
+      font-size: 14px;
+      color: colors.$text-gray-2-5;
+    }
+
+    .seam-switch {
+      position: relative;
+      cursor: pointer;
+
+      .seam-switch-slider::before {
+        position: absolute;
+        content: '';
+        height: 20px;
+        width: 20px;
+        left: 0;
+        bottom: -3px;
+        background-color: colors.$bg-aa;
+        transition: 0.4s;
+        border-radius: 50%;
+        filter: drop-shadow(0 1px 4px rgb(0 0 0 / 25%));
+      }
+
+      .seam-switch-slider {
+        inset: 0;
+        width: 34px;
+        height: 14px;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 20px;
+      }
+
+      &.seam-switch-checked .seam-switch-slider::before {
+        transform: translateX(14px);
+        background-color: colors.$primary;
+      }
+
+      &.seam-switch-checked .seam-switch-slider {
+        background-color: colors.$primary-dim;
+      }
+    }
+  }
+}

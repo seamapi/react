@@ -42,16 +42,19 @@ export const seedFake = (db) => {
       manufacturer: 'august',
       battery_level: 0.9999532347993827,
       serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
+      model: {
+        manufacturer_display_name: 'August',
+      },
       august_metadata: {
         lock_id: 'lock-1',
         house_id: 'house-1',
-        lock_name: 'FRONT DOOR',
+        lock_name: 'Front Door',
         has_keypad: true,
         house_name: 'My House',
         keypad_battery_level: 'Not Available',
       },
       supported_code_lengths: [4, 5, 6],
-      name: 'FRONT DOOR',
+      name: 'Front Door',
       battery: {
         level: 0.9999532347993827,
         status: 'full',
@@ -194,6 +197,9 @@ export const seedFake = (db) => {
       manufacturer: 'august',
       battery_level: 0.9999532347993827,
       serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
+      model: {
+        manufacturer_display_name: 'August',
+      },
       august_metadata: {
         lock_id: 'lock-3',
         house_id: 'house-1',
@@ -233,15 +239,19 @@ export const seedFake = (db) => {
       manufacturer: 'schlage',
       battery_level: 0.3,
       serial_number: 'device-1',
+      model: {
+        manufacturer_display_name: 'Schlage',
+        display_name: 'BE489WB',
+      },
       schlage_metadata: {
         model: 'BE489WB',
         device_id: 'device-1',
-        device_name: 'FRONT DOOR',
+        device_name: 'Front Door',
         access_code_length: 4,
       },
       supported_code_lengths: [4],
       max_active_codes_supported: 299,
-      name: 'FRONT DOOR',
+      name: 'Front Door',
       battery: {
         level: 0.3,
         status: 'low',
@@ -272,6 +282,9 @@ export const seedFake = (db) => {
       manufacturer: 'august',
       battery_level: 0.9999532347993827,
       serial_number: '00000004-992d-45a0-bea1-9128fdcd8d12',
+      model: {
+        manufacturer_display_name: 'August',
+      },
       august_metadata: {
         lock_id: 'lock-3',
         house_id: 'house-1',
@@ -323,6 +336,10 @@ export const seedFake = (db) => {
       is_heating: false,
       manufacturer: 'ecobee',
       is_fan_running: false,
+      model: {
+        manufacturer_display_name: 'Ecobee',
+        display_name: 'Thermostat',
+      },
       ecobee_metadata: {
         min_delta_heat_cool_set_points_fahrenheit: 5,
         max_cooling_set_point_fahrenheit: 92,
@@ -356,11 +373,8 @@ export const seedFake = (db) => {
       can_enable_automatic_heating: true,
       is_temporary_manual_override_active: false,
       name: 'Apartment 21A',
-      model: {
-        display_name: 'Unknown Thermostat',
-      },
       image_url:
-        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+        'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
       is_climate_setting_schedule_active: false,
     },
@@ -379,6 +393,10 @@ export const seedFake = (db) => {
       is_heating: false,
       manufacturer: 'ecobee',
       is_fan_running: false,
+      model: {
+        manufacturer_display_name: 'Ecobee',
+        display_name: 'Thermostat',
+      },
       ecobee_metadata: {
         min_delta_heat_cool_set_points_fahrenheit: 5,
         max_cooling_set_point_fahrenheit: 92,
@@ -410,11 +428,8 @@ export const seedFake = (db) => {
       can_enable_automatic_heating: true,
       is_temporary_manual_override_active: false,
       name: 'debating book',
-      model: {
-        display_name: 'Unknown Thermostat',
-      },
       image_url:
-        'https://connect.getseam.com/assets/images/devices/unknown-lock.png',
+        'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
       is_climate_setting_schedule_active: false,
     },
@@ -435,6 +450,7 @@ export const seedFake = (db) => {
     automatic_cooling_enabled: true,
     hvac_mode_setting: 'cool',
     cooling_set_point_fahrenheit: 70,
+    cooling_set_point_celsius: 21,
   })
 
   db.addClimateSettingSchedule({
@@ -450,7 +466,25 @@ export const seedFake = (db) => {
     automatic_cooling_enabled: true,
     hvac_mode_setting: 'heatcool',
     heating_set_point_fahrenheit: 65,
+    heating_set_point_celsius: 18,
     cooling_set_point_fahrenheit: 72,
+    cooling_set_point_celsius: 22,
+  })
+
+  db.addClimateSettingSchedule({
+    device_id: device5.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2022-05-17T00:16:12.000',
+    name: 'Guest - Robinson with a very long title to test truncation and text wrap',
+    schedule_starts_at: '2023-07-04T00:00:00.000Z',
+    schedule_ends_at: '2027-08-14T00:00:00.000Z',
+    schedule_type: 'time_bound',
+    manual_override_allowed: true,
+    automatic_heating_enabled: false,
+    automatic_cooling_enabled: true,
+    hvac_mode_setting: 'cool',
+    cooling_set_point_fahrenheit: 72,
+    cooling_set_point_celsius: 22.2222,
   })
 
   db.addClientSession({

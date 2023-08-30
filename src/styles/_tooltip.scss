@@ -1,0 +1,86 @@
+@use './colors';
+
+@mixin all {
+  .seam-tooltip {
+    position: relative;
+
+    .seam-tooltip-button {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: none;
+      box-shadow: none;
+      background: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 90px;
+      cursor: pointer;
+
+      & .seam-tooltip-button-icon {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.15s ease-in-out;
+      }
+
+      .seam-tooltip-button-icon-hover {
+        opacity: 0;
+      }
+
+      &:hover,
+      &:focus {
+        .seam-tooltip-button-icon-default {
+          opacity: 0;
+        }
+
+        .seam-tooltip-button-icon-hover {
+          opacity: 1;
+        }
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .seam-tooltip-popover {
+      width: 230px;
+      padding: 10px;
+      gap: 10px;
+      position: absolute;
+      bottom: 28px;
+      left: 2px;
+      display: flex;
+      border-radius: 8px;
+      background: colors.$white;
+      box-shadow:
+        0 2px 16px 2px rgb(15 22 28 / 15%),
+        0 0 1px 0 rgb(0 0 0 / 30%);
+      transform-origin: bottom left;
+      transition: 0.1s ease-in-out;
+      opacity: 0;
+      transform: scale(0.9);
+      visibility: hidden;
+      pointer-events: none;
+      z-index: -1;
+
+      &[aria-expanded='true'] {
+        opacity: 1;
+        transform: scale(1);
+        visibility: visible;
+        pointer-events: auto;
+        z-index: 9;
+      }
+    }
+
+    .seam-tooltip-text {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 134%;
+    }
+  }
+}

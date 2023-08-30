@@ -102,10 +102,10 @@ This is not recommended because the client session is now bound to this machine 
   }
 
   const fingerprint =
-    globalThis?.localStorage?.getItem('seam_user_fingerprint') ??
+    globalThis.localStorage?.getItem('seam_user_fingerprint') ??
     `fingerprint_${uuidv4()}`
 
-  globalThis?.localStorage?.setItem('seam_user_fingerprint', fingerprint)
+  globalThis.localStorage?.setItem('seam_user_fingerprint', fingerprint)
 
   return fingerprint
 }

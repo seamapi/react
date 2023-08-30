@@ -18,7 +18,9 @@
 @use './radio-field';
 @use './checkbox';
 @use './thermostat';
+@use './tooltip';
 @use './seam-table';
+@use './switch';
 
 .seam-components {
   // Reset
@@ -36,6 +38,8 @@
   @include menus.all;
   @include checkbox.all;
   @include radio-field.all;
+  @include tooltip.all;
+  @include switch.all;
 
   // Components
   @include device-details.all;

@@ -1,12 +1,294 @@
 @use './colors';
 
-@mixin all {
+@mixin temperature-control-thumb-hover(
+  $secondary-color: colors.$thermo-blue-faded
+) {
+  background-color: $secondary-color;
+}
+
+@mixin temperature-control-thumb(
+  $primary-color: colors.$thermo-blue,
+  $secondary-color: colors.$thermo-blue-faded
+) {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 1em;
+  background: colors.$white;
+  border: 2px solid $primary-color;
+  box-shadow: none;
+  cursor: grab;
+  transition: 0.15s ease-in-out;
+
+  &:hover {
+    @include temperature-control-thumb-hover($secondary-color);
+  }
+
+  &:active {
+    cursor: grabbing;
+    background-color: $primary-color !important;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 15%) !important;
+  }
+}
+
+@mixin temperature-control-ltr-track($primary-color: colors.$thermo-blue) {
+  background:
+    linear-gradient($primary-color, $primary-color) 0 / var(--slider-position)
+      100% no-repeat,
+    colors.$text-gray-3;
+}
+
+@mixin temperature-control-rtl-track($primary-color: colors.$thermo-blue) {
+  background:
+    linear-gradient($primary-color, $primary-color) 100% /
+      calc(var(--slider-position-rtl)) 100% no-repeat,
+    colors.$text-gray-3;
+}
+
+@mixin temperature-control-track($primary-color: colors.$thermo-blue) {
+  height: var(--track-height);
+  border-radius: 0.5em;
+  border: none;
+  box-shadow: none;
+}
+
+@mixin temperature-control {
+  .seam-temperature-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 7px;
+  }
+
+  .seam-temperature-range-wrap {
+    --thumb-size: 20px;
+    --track-height: 4px;
+    --temperature-min: 0;
+    --temperature-max: 100;
+    --temperature-current: 50;
+    --temperature-range: calc(var(--temperature-max) - var(--temperature-min));
+    --temperature-ratio: calc(
+      (var(--temperature-current) - var(--temperature-min)) /
+        var(--temperature-range)
+    );
+    --slider-position: calc(
+      0.5 * var(--thumb-size) + var(--temperature-ratio) *
+        (100% - var(--thumb-size))
+    );
+    --slider-position-rtl: calc(100% - var(--slider-position));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  input[type='range'].seam-temperature-range {
+    width: 160px;
+    appearance: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      margin-top: calc(var(--track-height) * 0.5 - var(--thumb-size) * 0.5);
+    }
+
+    &::-ms-thumb {
+      margin-top: 0;
+      box-sizing: border-box;
+    }
+
+    &::-ms-track {
+      box-sizing: border-box;
+    }
+
+    &::-ms-fill-upper {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    &::-ms-fill-lower {
+      border-color: transparent;
+      height: var(--track-height);
+      border-radius: 0.5em 0 0 0.5em;
+      margin: 0;
+      border: none;
+      border-right-width: 0;
+    }
+
+    &[data-variant='heat'] {
+      &::-webkit-slider-thumb {
+        @include temperature-control-thumb(
+          colors.$thermo-orange,
+          colors.$thermo-orange-faded
+        );
+      }
+
+      &::-moz-range-thumb {
+        @include temperature-control-thumb(
+          colors.$thermo-orange,
+          colors.$thermo-orange-faded
+        );
+      }
+
+      &::-ms-thumb {
+        @include temperature-control-thumb(
+          colors.$thermo-orange,
+          colors.$thermo-orange-faded
+        );
+      }
+
+      &:focus {
+        &::-webkit-slider-thumb {
+          @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
+        }
+
+        &::-moz-range-thumb {
+          @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
+        }
+
+        &::-ms-thumb {
+          @include temperature-control-thumb-hover(colors.$thermo-orange-faded);
+        }
+      }
+
+      &::-webkit-slider-runnable-track {
+        @include temperature-control-track(colors.$thermo-orange);
+        @include temperature-control-ltr-track(colors.$thermo-orange);
+      }
+
+      &::-moz-range-track {
+        @include temperature-control-track(colors.$thermo-orange);
+        @include temperature-control-ltr-track(colors.$thermo-orange);
+      }
+
+      &::-ms-track {
+        @include temperature-control-track(colors.$thermo-orange);
+        @include temperature-control-ltr-track(colors.$thermo-orange);
+      }
+
+      &::-ms-fill-lower {
+        background: colors.$thermo-orange;
+      }
+    }
+
+    &[data-variant='cool'] {
+      &::-webkit-slider-thumb {
+        @include temperature-control-thumb(
+          colors.$thermo-blue,
+          colors.$thermo-blue-faded
+        );
+      }
+
+      &::-moz-range-thumb {
+        @include temperature-control-thumb(
+          colors.$thermo-blue,
+          colors.$thermo-blue-faded
+        );
+      }
+
+      &::-ms-thumb {
+        @include temperature-control-thumb(
+          colors.$thermo-blue,
+          colors.$thermo-blue-faded
+        );
+      }
+
+      &:focus {
+        &::-webkit-slider-thumb {
+          @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
+        }
+
+        &::-moz-range-thumb {
+          @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
+        }
+
+        &::-ms-thumb {
+          @include temperature-control-thumb-hover(colors.$thermo-blue-faded);
+        }
+      }
+
+      &::-webkit-slider-runnable-track {
+        @include temperature-control-track(colors.$thermo-blue);
+        @include temperature-control-rtl-track(colors.$thermo-blue);
+      }
+
+      &::-moz-range-track {
+        @include temperature-control-track(colors.$thermo-blue);
+        @include temperature-control-rtl-track(colors.$thermo-blue);
+      }
+
+      &::-ms-track {
+        @include temperature-control-track(colors.$thermo-blue);
+        @include temperature-control-rtl-track(colors.$thermo-blue);
+      }
+
+      &::-ms-fill-lower {
+        background: colors.$thermo-blue;
+      }
+    }
+  }
+
+  .seam-floating-temperature {
+    position: absolute;
+    top: -28px;
+    left: calc(var(--slider-position) - 10px);
+
+    .seam-floating-temperature-value {
+      color: colors.$black;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .seam-floating-temperature-unit {
+      color: colors.$text-gray-2-5;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+    }
+  }
+
+  .seam-temperature-stepper-button {
+    appearance: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid colors.$text-gray-3;
+    background-color: colors.$white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: colors.$bg-a;
+      border-color: colors.$text-gray-2;
+    }
+
+    &:active {
+      background-color: colors.$bg-c;
+      border-color: colors.$text-gray-1;
+    }
+  }
+}
+
+@mixin climate-setting-status {
   .seam-climate-setting-status {
     display: flex;
     align-items: center;
     gap: 4px;
     color: colors.$text-gray-1;
-    font-size: 14px;
     line-height: 118%;
     white-space: nowrap;
   }
@@ -19,6 +301,103 @@
     align-items: center;
   }
 
+  .seam-climate-setting-schedule-card {
+    background: colors.$bg-a;
+    border-radius: 16px;
+    margin: 0 24px 16px;
+
+    .seam-climate-setting-schedule-content {
+      display: flex;
+      flex-direction: column;
+
+      .seam-climate-setting-schedule-summary-container {
+        padding: 16px;
+        display: flex;
+        width: 100%;
+        gap: 8px;
+
+        .seam-climate-setting-schedule-icon-block {
+          padding: 8px;
+        }
+
+        .seam-climate-setting-schedule-summary {
+          display: flex;
+          flex-direction: column;
+
+          .seam-climate-setting-schedule-heading {
+            font-weight: 600;
+            font-size: 21px;
+            line-height: 132%;
+            margin-bottom: 8px;
+          }
+
+          .seam-climate-setting-schedule-subheading {
+            display: flex;
+            align-items: center;
+            color: colors.$text-gray-1;
+            line-height: 118%;
+
+            .seam-dot-divider {
+              color: colors.$text-gray-3;
+              width: 16px;
+              display: flex;
+              justify-content: center;
+            }
+          }
+        }
+      }
+
+      .seam-climate-setting-schedule-device-bar {
+        border-top: 1px solid colors.$bg-c;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+
+        .seam-device-image {
+          width: 30px;
+          height: 30px;
+          margin-right: 16px;
+
+          img {
+            width: 100%;
+            max-height: 100%;
+          }
+        }
+
+        .seam-climate-setting-schedule-device-content {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 134%;
+
+          .seam-climate-setting-schedule-device-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5px;
+
+            .seam-device-name {
+              color: colors.$text-gray-1;
+            }
+
+            .seam-device-current-climate-setting {
+              line-height: 118%;
+              color: colors.$text-gray-2;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin thermostat-card {
   .seam-thermostat-card {
     background-color: colors.$bg-a;
     border-radius: 16px;
@@ -160,4 +539,9 @@
       }
     }
   }
+}
+
+@mixin all {
+  @include temperature-control;
+  @include climate-setting-status;
 }
