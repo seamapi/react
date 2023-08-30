@@ -2,88 +2,11 @@
 
 @mixin all {
   .seam-climate-setting-schedule-details {
-    > .seam-summary {
-      background: colors.$bg-a;
-      border-radius: 16px;
-      margin: 0 24px 16px;
 
-      > .seam-top {
-        padding: 16px;
-        display: flex;
-        width: 100%;
-        align-items: center;
-        gap: 8px;
-
-        &.seam-top-has-alerts {
-          padding-bottom: 8px;
-        }
-
-        > .seam-climate-setting-schedule-name-block {
-          display: flex;
-          flex-direction: column;
-
-          > .seam-climate-setting-schedule-name {
-            font-weight: 600;
-            font-size: 21px;
-            line-height: 132%;
-            margin-bottom: 8px;
-          }
-
-          > .seam-climate-setting-schedule-subheading {
-            display: flex;
-            flex-direction: row;
-            color: colors.$text-gray-1;
-            gap: 8px;
-
-            > .seam-dot-divider {
-              color: colors.$text-gray-3;
-            }
-          }
-        }
-      }
-
-      .seam-climate-setting-schedule-device {
-        border-top: 1px solid colors.$bg-c;
-        padding: 16px;
-        display: flex;
-        align-items: center;
-
-        .seam-device-name {
-          line-height: 134%;
-          color: colors.$text-gray-1;
-        }
-
-        .seam-device-current-climate-setting {
-          line-height: 118%;
-          color: colors.$text-gray-2;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .seam-device-image {
-          width: 30px;
-          height: 30px;
-          margin-right: 16px;
-
-          img {
-            width: 100%;
-            max-height: 100%;
-          }
-        }
-
-        .seam-body {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-          font-weight: 400;
-          font-size: 14px;
-          line-height: 134%;
-        }
-      }
+    .seam-climate-setting-schedule-details-content {
+      margin: 0 16px;
     }
-
+ 
     .seam-default-setting-message {
       display: flex;
       justify-content: center;
@@ -99,67 +22,6 @@
       }
     }
 
-    .seam-box {
-      border: 1px solid colors.$text-gray-3;
-      border-radius: 8px;
-      margin: 0 24px;
-
-      .seam-content {
-        display: flex;
-        align-items: center;
-
-        &.seam-start-end-toggle {
-          display: flex;
-          justify-content: space-between;
-          padding: 16px;
-        }
-
-        &.seam-climate-setting-toggle {
-          border-top: 1px solid colors.$text-gray-3;
-          justify-content: space-between;
-          padding: 20px 16px;
-        }
-
-        &.seam-allow-manual-override-toggle {
-          border-top: 1px solid colors.$text-gray-3;
-          justify-content: space-between;
-          padding: 20px 16px;
-        }
-
-        &.seam-creation-date {
-          justify-content: space-between;
-          padding: 20px 16px;
-        }
-
-        .seam-label {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          font-weight: 600;
-          font-size: 16px;
-          line-height: 134%;
-        }
-
-        .seam-value {
-          font-size: 14px;
-          line-height: 134%;
-          color: colors.$text-gray-1;
-          display: flex;
-          align-items: center;
-        }
-
-        > .seam-right {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-
-         
-        }
-      }
-    }
-
-    .chevron {
-      cursor: pointer;
-    }
+   
   }
 }
