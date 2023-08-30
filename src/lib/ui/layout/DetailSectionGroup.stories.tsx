@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { DetailRow } from './DetailRow.js'
 import { DetailSection } from './DetailSection.js'
-
 import { DetailSectionGroup } from './DetailSectionGroup.js'
 
 const meta: Meta<typeof DetailSectionGroup> = {
