@@ -7,7 +7,7 @@ import { ClimateSettingScheduleDeviceBar } from 'lib/seam/components/ClimateSett
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
-import { useCurrentTime } from 'lib/ui/use-current-time.js'
+import { useNow } from 'lib/ui/use-now.js'
 
 interface ClimateSettingScheduleCardProps {
   climateSettingScheduleId: string
@@ -74,14 +74,14 @@ function ClimateSettingScheduleTiming(props: {
 }): JSX.Element | null {
   const { climateSettingSchedule } = props
 
-  const currentTime = useCurrentTime()
+  const now = useNow()
 
-  if (currentTime === null) return null
+  if (now === null) return null
 
   const startTime = DateTime.fromISO(climateSettingSchedule.schedule_starts_at)
   const endTime = DateTime.fromISO(climateSettingSchedule.schedule_ends_at)
 
-  if (currentTime < startTime)
+  if (now < startTime)
     return (
       <span>
         {t.starts}{' '}
@@ -89,7 +89,7 @@ function ClimateSettingScheduleTiming(props: {
       </span>
     )
 
-  if (startTime <= currentTime && currentTime <= endTime)
+  if (startTime <= now && now <= endTime)
     return (
       <span>
         {t.ends} {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
