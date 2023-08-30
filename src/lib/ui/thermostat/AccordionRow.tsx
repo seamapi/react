@@ -14,7 +14,7 @@ export function AccordionRow({
 }: PropsWithChildren<AccordionRowProps>): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const toggleExpanded = () => {
+  const toggleExpanded = (): void => {
     setIsExpanded((isExpanded) => !isExpanded)
   }
 
