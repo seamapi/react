@@ -23,7 +23,7 @@ export const Content: Story = {
 
         <DetailSection
           title='Section (with tooltip)'
-          tooltipContent="Section with a tooltip."
+          tooltipContent='Section with a tooltip.'
         >
           <DetailRow title='Detail row 1' />
           <DetailRow title='Detail row 2' />
