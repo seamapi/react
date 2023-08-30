@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DetailRow } from 'lib/ui/thermostat/DetailRow.js'
-import { DetailSection } from 'lib/ui/thermostat/DetailSection.js'
-import { DetailSectionGroup } from 'lib/ui/thermostat/DetailSectionGroup.js'
+import { DetailRow } from './DetailRow.js'
+import { DetailSection } from './DetailSection.js'
+import { DetailSectionGroup } from './DetailSectionGroup.js'
 
 const meta: Meta<typeof DetailSection> = {
   title: 'Library/DetailSection',
