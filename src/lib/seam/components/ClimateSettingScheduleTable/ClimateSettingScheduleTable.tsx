@@ -51,7 +51,7 @@ const defaultClimateSettingScheduleFilter = (
 export function ClimateSettingScheduleTable({
   deviceId,
   disableSearch = false,
-  disableCreateClimateSettingSchedule = true,
+  disableCreateClimateSettingSchedule = false,
   climateSettingScheduleFilter = defaultClimateSettingScheduleFilter,
   climateSettingScheduleComparator = compareByCreatedAtDesc,
   onBack,

@@ -8,10 +8,6 @@ import {
   getNow,
   getTimezoneFromIsoDate,
 } from 'lib/dates.js'
-// import type { UseClimateSettingScheduleData } from 'lib/seam/access-codes/use-access-code.js'
-// import { ClimateSettingScheduleFormDatePicker } from 'lib/ui/ClimateSettingScheduleForm/ClimateSettingScheduleFormDatePicker.js'
-// import { ClimateSettingScheduleFormTimes } from 'lib/ui/ClimateSettingScheduleForm/ClimateSettingScheduleFormTimes.js'
-// import { ClimateSettingScheduleFormTimezonePicker } from 'lib/ui/ClimateSettingScheduleForm/ClimateSettingScheduleFormTimezonePicker.js'
 import type { UseClimateSettingScheduleData } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 

@@ -6,13 +6,11 @@ import type { UseDevicesData } from '../../../hooks.js'
 
 interface ClimateSettingScheduleDeviceSelectProps {
   // devices: NonNullable<UseDeviceData>[]
-  // onBack?: () => void
   onSelect: (deviceId: string) => void
 }
 
 export function ClimateSettingScheduleDeviceSelect({
   // devices,
-  // onBack,
   onSelect,
 }: ClimateSettingScheduleDeviceSelectProps) {
   const deviceFilter = (

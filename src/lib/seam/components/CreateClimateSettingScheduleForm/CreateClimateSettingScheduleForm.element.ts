@@ -1,7 +1,7 @@
 import type { ElementProps } from 'lib/element.js'
 import type { CreateClimateSettingScheduleFormProps } from 'lib/seam/components/CreateClimateSettingScheduleForm/CreateClimateSettingScheduleForm.js'
 
-export const name = 'seam-create-access-code-form'
+export const name = 'seam-create-climate-setting-schedule-form'
 
 export const props: ElementProps<CreateClimateSettingScheduleFormProps> = {
   className: 'string',

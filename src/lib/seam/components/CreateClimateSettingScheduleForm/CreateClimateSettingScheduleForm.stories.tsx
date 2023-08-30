@@ -5,18 +5,18 @@ import { CreateClimateSettingScheduleForm } from 'lib/seam/components/CreateClim
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
- * These stories showcase creating an access code.
+ * These stories showcase creating a climate setting schedule
  */
 const meta: Meta<typeof CreateClimateSettingScheduleForm> = {
   title: 'Example/CreateClimateSettingScheduleForm (Coming Soon)',
   component: CreateClimateSettingScheduleForm,
   tags: ['autodocs'],
-  // parameters: {
-  //   design: {
-  //     type: 'figma',
-  //     url: 'https://www.figma.com/file/Su3VO6yupz4yxe88fv0Uqa/Seam-Components?node-id=240%3A37367&mode=dev',
-  //   },
-  // },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/WTdzEh4CudGdQFOtuVR3Eh/Thermostat%2FNoise-components?type=design&node-id=1052-90947&mode=design&t=0A3IQFDW4owsQE0f-0',
+    },
+  },
 }
 
 export default meta
