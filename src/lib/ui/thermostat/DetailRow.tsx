@@ -11,6 +11,9 @@ export function DetailRow({
   return (
     <div className='seam-thermostat-detail-row'>
       <p className='seam-thermostat-row-title'>{title}</p>
+      <div className='seam-thermostat-detail-row-right-area-content'>
+        {children}
+      </div>
     </div>
   )
 }

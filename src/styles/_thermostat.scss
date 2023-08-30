@@ -433,7 +433,7 @@
   }
 }
 
-@mixin thermostat-detail-row {
+@mixin thermostat-detail-row-common {
   .seam-thermostat-detail-row,
   .seam-thermostat-accordion-row {
     background-color: colors.$white;
@@ -458,7 +458,19 @@
     font-weight: 600;
     line-height: 118%;
   }
+}
 
+@mixin thermostat-detail-row {
+  .seam-thermostat-detail-row-right-area-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+  }
+}
+
+@mixin thermostat-accordion-row {
   .seam-thermostat-accordion-row {
     overflow: hidden;
 
@@ -530,5 +542,7 @@
   @include temperature-control;
   @include climate-setting-status;
   @include thermostat-detail-section;
+  @include thermostat-detail-row-common;
   @include thermostat-detail-row;
+  @include thermostat-accordion-row;
 }
