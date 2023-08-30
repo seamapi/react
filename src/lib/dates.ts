@@ -31,7 +31,9 @@ export function getSystemZone(): string {
  * string: Los Angeles (America).
  */
 export function getZoneLabel(timezone: string): string {
-  const [region = '', city = ''] = timezone.replace(/_/g, ' ').split('/')
+  const [region, city = ''] = timezone.replace(/_/g, ' ').split('/')
+  if (region == null) return city
+  if (city == null) return region
   return `${city} (${region})`
 }
 
