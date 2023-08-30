@@ -20,7 +20,6 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { title } from 'process'
 import type { ClimateSetting } from 'seamapi'
 import type { UseDeviceData } from '../../../hooks.js'
-import { useToggle } from '../use-toggle.js'
 import { ClimateSettingScheduleDeviceSelect } from './ClimateSettingScheduleDeviceSelect.js'
 import { ClimateSettingScheduleFormDatePicker } from './ClimateSettingScheduleFormDatePicker.js'
 import { ClimateSettingScheduleFormTimezonePicker } from './ClimateSettingScheduleFormTimezonePicker.js'
@@ -86,10 +85,12 @@ function Content({
     {}
   )
 
-  const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
-
   const [page, setPage] = useState<
-    'device_select' | 'default_setting' | 'name_and_time' | 'climate_setting'
+    | 'device_select'
+    | 'default_setting'
+    | 'name_and_time'
+    | 'timezone_select'
+    | 'climate_setting'
   >('device_select')
 
   // const [datePickerVisible, setDatePickerVisible] = useState(false)
@@ -126,6 +127,16 @@ function Content({
     )
   }
 
+  if (page === 'timezone_select') {
+    return (
+      <ClimateSettingScheduleFormTimezonePicker
+        value={timezone}
+        onChange={setTimezone}
+        onClose={() => setPage('name_and_time')}
+      />
+    )
+  }
+
   if (page === 'name_and_time') {
     return (
       <>
@@ -142,22 +153,11 @@ function Content({
           endDate={endDate}
           setEndDate={setEndDate}
           timezone={timezone}
-          onChangeTimezone={toggleTimezonePicker}
-          onBack={() => {
-            setPage('device_select')
+          onChangeTimezone={() => {
+            setPage('timezone_select')
           }}
         />
       </>
-    )
-  }
-
-  if (timezonePickerVisible) {
-    return (
-      <ClimateSettingScheduleFormTimezonePicker
-        value={timezone}
-        onChange={setTimezone}
-        onClose={toggleTimezonePicker}
-      />
     )
   }
 

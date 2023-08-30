@@ -14,12 +14,10 @@ interface ClimateSettingScheduleFormDatePickerProps {
   timezone: string
   onChangeTimezone: () => void
   className?: string
-  onBack?: () => void
 }
 
 export function ClimateSettingScheduleFormDatePicker({
   timezone,
-  onBack,
   className,
   startDate,
   setStartDate,
