@@ -126,7 +126,9 @@ function Content({
         <ClimateSettingScheduleFormTimezonePicker
           value={timezone}
           onChange={setTimezone}
-          onClose={() => { setPage('name_and_time'); }}
+          onClose={() => {
+            setPage('name_and_time')
+          }}
         />
       </div>
     )
@@ -140,7 +142,9 @@ function Content({
           subheading={
             devices.find((d) => d.device_id === deviceId)?.properties.name
           }
-          onBack={() => { setPage('device_select'); }}
+          onBack={() => {
+            setPage('device_select')
+          }}
         />
 
         <ClimateSettingScheduleFormDateAndName
@@ -178,7 +182,9 @@ function Content({
           subheading={
             devices.find((d) => d.device_id === deviceId)?.properties.name
           }
-          onBack={() => { setPage('name_and_time'); }}
+          onBack={() => {
+            setPage('name_and_time')
+          }}
         />
         <div className='seam-actions'>
           <Button onClick={onBack}>{t.cancel}</Button>
