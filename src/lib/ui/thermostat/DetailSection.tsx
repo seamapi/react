@@ -11,7 +11,7 @@ export function DetailSection({
   title,
   tooltipContent,
   children,
-}: PropsWithChildren<DetailSectionProps>) {
+}: PropsWithChildren<DetailSectionProps>): JSX.Element {
   return (
     <div className='seam-thermostat-detail-section'>
       <div className='seam-thermostat-detail-label-wrap'>

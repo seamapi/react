@@ -11,7 +11,7 @@ export function AccordionRow({
   title,
   triggerRightContent,
   children,
-}: PropsWithChildren<AccordionRowProps>) {
+}: PropsWithChildren<AccordionRowProps>): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const toggleExpanded = () => {

@@ -7,7 +7,7 @@ interface DetailRowProps {
 export function DetailRow({
   title,
   children,
-}: PropsWithChildren<DetailRowProps>) {
+}: PropsWithChildren<DetailRowProps>): JSX.Element {
   return (
     <div className='seam-thermostat-detail-row'>
       <p className='seam-thermostat-row-title'>{title}</p>
