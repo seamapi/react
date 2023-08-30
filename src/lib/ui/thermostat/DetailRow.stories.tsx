@@ -16,7 +16,7 @@ export const Content: Story = {
   render: () => {
     return (
       <div className='seam-thermostat-details-sections'>
-        <DetailsSection title='Section'>
+        <DetailsSection title='Section' tooltipContent='I am a Section'>
           <DetailRow title='Detail row'>
             <p>Right area content</p>
           </DetailRow>
