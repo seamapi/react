@@ -491,12 +491,14 @@
       flex-direction: column;
 
       max-height: 0;
-      transition: max-height 0.2s ease-in-out;
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
     }
 
     &[aria-expanded='true'] {
       .seam-thermostat-accordion-row-content {
         max-height: 64px;
+        opacity: 1;
       }
 
       .seam-thermostat-accordion-icon-wrap {

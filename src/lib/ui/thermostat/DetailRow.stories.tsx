@@ -17,7 +17,9 @@ export const Content: Story = {
     return (
       <div className='seam-thermostat-details-sections'>
         <DetailsSection title='Section'>
-          <DetailRow title='Detail row' />
+          <DetailRow title='Detail row'>
+            <p>Right area content</p>
+          </DetailRow>
         </DetailsSection>
       </div>
     )

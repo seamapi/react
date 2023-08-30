@@ -17,7 +17,9 @@ export const Content: Story = {
     return (
       <div className='seam-thermostat-details-sections'>
         <DetailsSection title='Section'>
-          <AccordionRow title='Accordion row' />
+          <AccordionRow title='Accordion row'>
+            <p>The content of the accordion row.</p>
+          </AccordionRow>
         </DetailsSection>
       </div>
     )
