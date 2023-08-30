@@ -448,7 +448,7 @@
       height: 22px;
       box-shadow: none;
       border-radius: 5px;
-      border: 1px solid var(--text-text-gray-3, #d5d8dc);
+      border: 1px solid colors.$text-gray-3;
       background-color: transparent;
       display: flex;
       justify-content: center;
@@ -515,11 +515,11 @@
       align-items: center;
 
       &.seam-thermostat-property-tag-cooling {
-        background-color: colors.$thermo-cool;
+        background-color: colors.$thermo-blue;
       }
 
       &.seam-thermostat-property-tag-heating {
-        background-color: colors.$thermo-heat;
+        background-color: colors.$thermo-orange;
       }
 
       &.seam-thermostat-property-tag-fan-only {
@@ -544,4 +544,5 @@
 @mixin all {
   @include temperature-control;
   @include climate-setting-status;
+  @include thermostat-card;
 }
