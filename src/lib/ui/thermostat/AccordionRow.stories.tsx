@@ -17,8 +17,16 @@ export const Content: Story = {
     return (
       <div className='seam-thermostat-details-sections'>
         <DetailsSection title='Section'>
-          <AccordionRow title='Accordion row'>
-            <p>The content of the accordion row.</p>
+          <AccordionRow
+            title='Accordion row'
+            triggerRightContent={<p>Right area content</p>}
+          >
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              aliquam, nisl quis tincidunt aliquet, diam nunc aliquam nunc, nec
+              aliquam diam nunc eget nisl. Donec euismod, nisl eget aliquam
+              aliquam, nisl nisl aliquam diam, nec aliquam diam nunc eget nisl.
+            </p>
           </AccordionRow>
         </DetailsSection>
       </div>
