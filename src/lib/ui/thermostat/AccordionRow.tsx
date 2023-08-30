@@ -1,5 +1,6 @@
+import { type PropsWithChildren,useState } from 'react'
+
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
-import { useState, type PropsWithChildren } from 'react'
 
 interface AccordionRowProps {
   title: string
