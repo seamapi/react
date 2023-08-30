@@ -11,7 +11,7 @@ import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
 import { formatDateAndTime } from 'lib/dates.js'
 import Switch from 'lib/ui/Switch.js'
-import { ClimateSettingScheduleCard } from 'lib/ui/thermostat/ClimateSettingScheduleCard.js'
+import { ClimateSettingScheduleCard } from './ClimateSettingScheduleCard.js'
 
 export interface ClimateSettingScheduleDetailsProps {
   climateSettingScheduleId: string
