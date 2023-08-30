@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { DetailRow } from 'lib/ui/thermostat/DetailRow.js'
 import { DetailSection } from 'lib/ui/thermostat/DetailSection.js'
-import { DetailSections } from 'lib/ui/thermostat/DetailSections.js'
+import { DetailSectionGroup } from 'lib/ui/thermostat/DetailSectionGroup.js'
 
 const meta: Meta<typeof DetailSection> = {
   title: 'Library/DetailSection',
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof DetailSection>
 export const Content: Story = {
   render: () => {
     return (
-      <DetailSections>
+      <DetailSectionGroup>
         <DetailSection title='Section'>
           <DetailRow title='Detail row 1' />
           <DetailRow title='Detail row 2' />
@@ -23,12 +23,12 @@ export const Content: Story = {
 
         <DetailSection
           title='Section (with tooltip)'
-          tooltipContent="Section with a tooltip."
+          tooltipContent='Section with a tooltip.'
         >
           <DetailRow title='Detail row 1' />
           <DetailRow title='Detail row 2' />
         </DetailSection>
-      </DetailSections>
+      </DetailSectionGroup>
     )
   },
 }
