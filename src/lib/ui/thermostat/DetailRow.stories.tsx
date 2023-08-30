@@ -15,8 +15,8 @@ type Story = StoryObj<typeof DetailRow>
 export const Content: Story = {
   render: () => {
     return (
-      <DetailSection title='Section'>
-        <DetailRow title='Detail row'>
+      <DetailSection label='Section'>
+        <DetailRow label='Detail row'>
           <p>Right area content</p>
         </DetailRow>
       </DetailSection>

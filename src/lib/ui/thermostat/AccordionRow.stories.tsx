@@ -15,9 +15,9 @@ type Story = StoryObj<typeof AccordionRow>
 export const Content: Story = {
   render: () => {
     return (
-      <DetailSection title='Section'>
+      <DetailSection label='Section'>
         <AccordionRow
-          title='Accordion row'
+          label='Accordion row'
           triggerRightContent={<p>Right area content</p>}
         >
           <p>

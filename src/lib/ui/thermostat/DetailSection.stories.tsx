@@ -16,17 +16,17 @@ export const Content: Story = {
   render: () => {
     return (
       <DetailSectionGroup>
-        <DetailSection title='Section'>
-          <DetailRow title='Detail row 1' />
-          <DetailRow title='Detail row 2' />
+        <DetailSection label='Section'>
+          <DetailRow label='Detail row 1' />
+          <DetailRow label='Detail row 2' />
         </DetailSection>
 
         <DetailSection
-          title='Section (with tooltip)'
+          label='Section (with tooltip)'
           tooltipContent='Section with a tooltip.'
         >
-          <DetailRow title='Detail row 1' />
-          <DetailRow title='Detail row 2' />
+          <DetailRow label='Detail row 1' />
+          <DetailRow label='Detail row 2' />
         </DetailSection>
       </DetailSectionGroup>
     )

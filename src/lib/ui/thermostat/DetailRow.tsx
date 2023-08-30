@@ -1,16 +1,16 @@
 import type { PropsWithChildren } from 'react'
 
 interface DetailRowProps {
-  title: string
+  label: string
 }
 
 export function DetailRow({
-  title,
+  label,
   children,
 }: PropsWithChildren<DetailRowProps>): JSX.Element {
   return (
     <div className='seam-thermostat-detail-row'>
-      <p className='seam-thermostat-row-title'>{title}</p>
+      <p className='seam-thermostat-row-label'>{label}</p>
       <div className='seam-thermostat-detail-row-right-area-content'>
         {children}
       </div>

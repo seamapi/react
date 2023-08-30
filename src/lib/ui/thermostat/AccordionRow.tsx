@@ -3,12 +3,12 @@ import { type PropsWithChildren, useState } from 'react'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 
 interface AccordionRowProps extends PropsWithChildren {
-  title: string
+  label: string
   triggerRightContent?: JSX.Element
 }
 
 export function AccordionRow({
-  title,
+  label,
   triggerRightContent,
   children,
 }: AccordionRowProps): JSX.Element {
@@ -24,7 +24,7 @@ export function AccordionRow({
         className='seam-thermostat-accordion-row-trigger'
         onClick={toggleExpanded}
       >
-        <p className='seam-thermostat-row-title'>{title}</p>
+        <p className='seam-thermostat-row-label'>{label}</p>
         <div className='seam-thermostat-row-inner-wrap'>
           <div className='seam-thermostat-row-trigger-right-content'>
             {triggerRightContent}
