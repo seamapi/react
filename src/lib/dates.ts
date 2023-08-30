@@ -30,8 +30,8 @@ export function getSystemZone(): string {
  * Takes an IANA time zone, like America/Los_Angeles, into a more readable
  * string: Los Angeles (America).
  */
-export function getZoneLabel(timezone: string): string {
-  const [region, city = ''] = timezone.replace(/_/g, ' ').split('/')
+export function getZoneLabel(zoneName: string): string {
+  const [region, city = ''] = zoneName.replace(/_/g, ' ').split('/')
   if (region == null) return city
   if (city == null) return region
   return `${city} (${region})`
@@ -40,25 +40,25 @@ export function getZoneLabel(timezone: string): string {
 /**
  * Get a time zones offset from UTC in minutes.
  */
-function getZoneOffsetMinutes(timezone: string): number {
-  return DateTime.now().setZone(timezone).offset
+function getZoneOffsetMinutes(zoneName: string): number {
+  return DateTime.now().setZone(zoneName).offset
 }
 
 /**
- * Compares 2 timezones (America/Los_angeles) by their offset
+ * Compares 2 time zones (America/Los_angeles) by their offset
  * minutes in ascending order.
  */
-export const compareByTimezoneOffsetAsc = (
-  timezoneA: string,
-  timezonB: string
-): number => getZoneOffsetMinutes(timezoneA) - getZoneOffsetMinutes(timezonB)
+export const compareByZoneOffsetAsc = (
+  zoneNameA: string,
+  zoneNameB: string
+): number => getZoneOffsetMinutes(zoneNameA) - getZoneOffsetMinutes(zoneNameB)
 
 /**
  * Get the time zone offset
  * America/Los_angeles -> -07:00
  */
-export function getZoneOffset(timezone: string): string {
-  return IANAZone.create(timezone).formatOffset(Date.now(), 'short')
+export function getZoneOffset(zoneName: string): string {
+  return IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
 }
 
 const formatDateReadable = (
@@ -105,8 +105,8 @@ function getDateTimeOnly(dateTime: DateTime): string {
  * Takes a date (2023-07-20T00:00:00), and a time zone (America/Los_angeles), and
  * returns an ISO8601 Date (2023-07-20T00:00:00.000-07:00).
  */
-export const createIsoDate = (date: string, timezone: string): string => {
-  const offset = getZoneOffset(timezone)
+export const createIsoDate = (date: string, zoneName: string): string => {
+  const offset = getZoneOffset(zoneName)
   return `${date}.000${offset}`
 }
 

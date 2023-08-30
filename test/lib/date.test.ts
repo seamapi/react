@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
 
 import {
-  compareByTimezoneOffsetAsc,
+  compareByZoneOffsetAsc,
   createIsoDate,
   formatDateTimeReadable,
   get24HoursLater,
@@ -21,7 +21,7 @@ it('should compare 2 timezones by minutes', () => {
 
   const losAngeles = -7 * 60 // -7 = -420 minutes
 
-  expect(compareByTimezoneOffsetAsc('Asia/Tokyo', 'America/Los_angeles')).toBe(
+  expect(compareByZoneOffsetAsc('Asia/Tokyo', 'America/Los_angeles')).toBe(
     tokyo - losAngeles
   )
 })
