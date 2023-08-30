@@ -16,7 +16,7 @@ export function DetailSection({
     <div className='seam-thermostat-detail-section'>
       <div className='seam-thermostat-detail-label-wrap'>
         <p className='seam-thermostat-detail-label'>{title}</p>
-        {tooltipContent && <Tooltip>{tooltipContent}</Tooltip>}
+        {tooltipContent != null && <Tooltip>{tooltipContent}</Tooltip>}
       </div>
 
       <div className='seam-thermostat-detail-group'>{children}</div>
