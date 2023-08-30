@@ -15,11 +15,16 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
+import { AddIcon } from 'lib/icons/Add.js'
+import { IconButton } from 'lib/ui/IconButton.js'
+import { useToggle } from 'lib/ui/use-toggle.js'
+import { CreateClimateSettingScheduleForm } from '../CreateClimateSettingScheduleForm/CreateClimateSettingScheduleForm.js'
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
 export interface ClimateSettingScheduleTableProps {
   deviceId: string
   disableSearch?: boolean
+  disableCreateClimateSettingSchedule?: boolean
   climateSettingScheduleFilter?: (
     climateSettingSchedule: ClimateSettingSchedule,
     searchInputValue: string
@@ -46,6 +51,7 @@ const defaultClimateSettingScheduleFilter = (
 export function ClimateSettingScheduleTable({
   deviceId,
   disableSearch = false,
+  disableCreateClimateSettingSchedule = true,
   climateSettingScheduleFilter = defaultClimateSettingScheduleFilter,
   climateSettingScheduleComparator = compareByCreatedAtDesc,
   onBack,
@@ -58,6 +64,10 @@ export function ClimateSettingScheduleTable({
     })
 
   const [searchInputValue, setSearchInputValue] = useState('')
+  const [
+    addClimateSettingScheduleFormVisible,
+    toggleAddClimateSettingScheduleForm,
+  ] = useToggle()
 
   const filteredClimateSettingSchedules = useMemo(
     () =>
@@ -82,18 +92,37 @@ export function ClimateSettingScheduleTable({
     return <p className={className}>{error?.message}</p>
   }
 
+  if (addClimateSettingScheduleFormVisible) {
+    return (
+      <CreateClimateSettingScheduleForm
+        className={className}
+        onBack={toggleAddClimateSettingScheduleForm}
+      />
+    )
+  }
+
   return (
     <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
-        {heading != null ? (
-          <TableTitle>
-            {heading ?? t.climateSettingSchedules}{' '}
-            <Caption>({filteredClimateSettingSchedules.length})</Caption>
-          </TableTitle>
-        ) : (
-          <div className='seam-fragment' />
-        )}
+        <div className='seam-left'>
+          {heading != null ? (
+            <TableTitle>
+              {heading ?? t.climateSettingSchedules}{' '}
+              <Caption>({filteredClimateSettingSchedules.length})</Caption>
+            </TableTitle>
+          ) : (
+            <div className='seam-fragment' />
+          )}
+          {!disableCreateClimateSettingSchedule && (
+            <IconButton
+              onClick={toggleAddClimateSettingScheduleForm}
+              className='seam-add-button'
+            >
+              <AddIcon />
+            </IconButton>
+          )}
+        </div>
         {!disableSearch && (
           <SearchTextField
             value={searchInputValue}

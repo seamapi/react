@@ -109,7 +109,7 @@ function Content({
       <div className='seam-main'>
         <ContentHeader title={t.addNewClimateSettingSchedule} onBack={onBack} />
         <ClimateSettingScheduleDeviceSelect
-          devices={devices}
+          // devices={devices}
           onSelect={(deviceId) => {
             setDeviceId(deviceId)
             setPage('name_and_time')
