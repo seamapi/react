@@ -2,7 +2,7 @@ import { type PropsWithChildren, useState } from 'react'
 
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 
-interface AccordionRowProps {
+interface AccordionRowProps extends PropsWithChildren {
   title: string
   triggerRightContent?: JSX.Element
 }
@@ -11,7 +11,7 @@ export function AccordionRow({
   title,
   triggerRightContent,
   children,
-}: PropsWithChildren<AccordionRowProps>): JSX.Element {
+}: AccordionRowProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const toggleExpanded = (): void => {
