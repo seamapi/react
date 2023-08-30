@@ -9,9 +9,9 @@ export function DetailRow({
   children,
 }: PropsWithChildren<DetailRowProps>): JSX.Element {
   return (
-    <div className='seam-thermostat-detail-row'>
-      <p className='seam-thermostat-row-label'>{label}</p>
-      <div className='seam-thermostat-detail-row-right-area-content'>
+    <div className='seam-detail-row'>
+      <p className='seam-row-label'>{label}</p>
+      <div className='seam-detail-row-right-area-content'>
         {children}
       </div>
     </div>

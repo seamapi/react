@@ -16,23 +16,23 @@ export function AccordionRow({
   const [isExpanded, toggle] = useToggle()
 
   return (
-    <div className='seam-thermostat-accordion-row' aria-expanded={isExpanded}>
+    <div className='seam-accordion-row' aria-expanded={isExpanded}>
       <button
-        className='seam-thermostat-accordion-row-trigger'
+        className='seam-accordion-row-trigger'
         onClick={toggle}
       >
-        <p className='seam-thermostat-row-label'>{label}</p>
-        <div className='seam-thermostat-row-inner-wrap'>
-          <div className='seam-thermostat-row-trigger-right-content'>
+        <p className='seam-row-label'>{label}</p>
+        <div className='seam-row-inner-wrap'>
+          <div className='seam-row-trigger-right-content'>
             {rightCollapsedContent}
           </div>
-          <div className='seam-thermostat-accordion-icon-wrap'>
+          <div className='seam-accordion-icon-wrap'>
             <ChevronWideIcon />
           </div>
         </div>
       </button>
-      <div className='seam-thermostat-accordion-row-content'>
-        <div className='seam-thermostat-accordion-row-inner-content'>
+      <div className='seam-accordion-row-content'>
+        <div className='seam-accordion-row-inner-content'>
           {children}
         </div>
       </div>

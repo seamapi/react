@@ -13,13 +13,13 @@ export function DetailSection({
   children,
 }: PropsWithChildren<DetailSectionProps>): JSX.Element {
   return (
-    <div className='seam-thermostat-detail-section'>
-      <div className='seam-thermostat-detail-label-wrap'>
-        <p className='seam-thermostat-detail-label'>{label}</p>
+    <div className='seam-detail-section'>
+      <div className='seam-detail-label-wrap'>
+        <p className='seam-detail-label'>{label}</p>
         {tooltipContent != null && <Tooltip>{tooltipContent}</Tooltip>}
       </div>
 
-      <div className='seam-thermostat-detail-group'>{children}</div>
+      <div className='seam-detail-group'>{children}</div>
     </div>
   )
 }
