@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { DetailRow } from 'lib/ui/thermostat/DetailRow.js'
-import { DetailsSection } from 'lib/ui/thermostat/DetailsSection.js'
+import { DetailSection } from 'lib/ui/thermostat/DetailSection.js'
 
 import { DetailSections } from './DetailSections.js'
 
@@ -17,23 +17,23 @@ export const Content: Story = {
   render: () => {
     return (
       <DetailSections>
-        <DetailsSection title='Section 1'>
+        <DetailSection title='Section 1'>
           <DetailRow title='Row 1' />
           <DetailRow title='Row 2' />
           <DetailRow title='Row 3' />
-        </DetailsSection>
+        </DetailSection>
 
-        <DetailsSection title='Section 2'>
+        <DetailSection title='Section 2'>
           <DetailRow title='Row 1' />
           <DetailRow title='Row 2' />
           <DetailRow title='Row 3' />
-        </DetailsSection>
+        </DetailSection>
 
-        <DetailsSection title='Section 3'>
+        <DetailSection title='Section 3'>
           <DetailRow title='Row 1' />
           <DetailRow title='Row 2' />
           <DetailRow title='Row 3' />
-        </DetailsSection>
+        </DetailSection>
       </DetailSections>
     )
   },

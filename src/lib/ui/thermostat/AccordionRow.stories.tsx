@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DetailsSection } from 'lib/ui/thermostat/DetailsSection.js'
+import { DetailSection } from 'lib/ui/thermostat/DetailSection.js'
 
 import { AccordionRow } from './AccordionRow.js'
 
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof AccordionRow>
 export const Content: Story = {
   render: () => {
     return (
-      <DetailsSection title='Section'>
+      <DetailSection title='Section'>
         <AccordionRow
           title='Accordion row'
           triggerRightContent={<p>Right area content</p>}
@@ -27,7 +27,7 @@ export const Content: Story = {
             aliquam, nisl nisl aliquam diam, nec aliquam diam nunc eget nisl.
           </p>
         </AccordionRow>
-      </DetailsSection>
+      </DetailSection>
     )
   },
 }

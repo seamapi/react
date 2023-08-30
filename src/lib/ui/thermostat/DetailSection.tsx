@@ -2,16 +2,16 @@ import type { PropsWithChildren } from 'react'
 
 import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
-interface DetailsSectionProps {
+interface DetailSectionProps {
   title: string
   tooltipContent?: string
 }
 
-export function DetailsSection({
+export function DetailSection({
   title,
   tooltipContent,
   children,
-}: PropsWithChildren<DetailsSectionProps>) {
+}: PropsWithChildren<DetailSectionProps>) {
   return (
     <div className='seam-thermostat-detail-section'>
       <div className='seam-thermostat-detail-label-wrap'>

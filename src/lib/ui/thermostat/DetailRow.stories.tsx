@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DetailsSection } from 'lib/ui/thermostat/DetailsSection.js'
+import { DetailSection } from 'lib/ui/thermostat/DetailSection.js'
 
 import { DetailRow } from './DetailRow.js'
 
@@ -15,11 +15,11 @@ type Story = StoryObj<typeof DetailRow>
 export const Content: Story = {
   render: () => {
     return (
-      <DetailsSection title='Section'>
+      <DetailSection title='Section'>
         <DetailRow title='Detail row'>
           <p>Right area content</p>
         </DetailRow>
-      </DetailsSection>
+      </DetailSection>
     )
   },
 }
