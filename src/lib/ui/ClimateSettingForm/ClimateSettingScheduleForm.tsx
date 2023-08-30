@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { useState } from 'react'
+import type { ClimateSetting } from 'seamapi'
 
 import {
   get24HoursLater,
@@ -13,7 +14,7 @@ import {
 // import { ClimateSettingScheduleFormTimezonePicker } from 'lib/ui/ClimateSettingScheduleForm/ClimateSettingScheduleFormTimezonePicker.js'
 import type { UseClimateSettingScheduleData } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import type { ClimateSetting } from 'seamapi'
+
 import type { UseDeviceData } from '../../../hooks.js'
 import { Button } from '../Button.js'
 import { ClimateSettingScheduleDeviceSelect } from './ClimateSettingScheduleDeviceSelect.js'
@@ -32,7 +33,7 @@ export interface ClimateSettingScheduleFormSubmitData {
 export interface ClimateSettingScheduleFormProps {
   className?: string
   onBack?: () => void
-  devices: NonNullable<UseDeviceData>[]
+  devices: Array<NonNullable<UseDeviceData>>
   climateSettingSchedule?: NonNullable<UseClimateSettingScheduleData>
   isSubmitting: boolean
   onSubmit: (data: ClimateSettingScheduleFormSubmitData) => void
@@ -125,7 +126,7 @@ function Content({
         <ClimateSettingScheduleFormTimezonePicker
           value={timezone}
           onChange={setTimezone}
-          onClose={() => setPage('name_and_time')}
+          onClose={() => { setPage('name_and_time'); }}
         />
       </div>
     )
@@ -139,7 +140,7 @@ function Content({
           subheading={
             devices.find((d) => d.device_id === deviceId)?.properties.name
           }
-          onBack={() => setPage('device_select')}
+          onBack={() => { setPage('device_select'); }}
         />
 
         <ClimateSettingScheduleFormDateAndName
@@ -177,7 +178,7 @@ function Content({
           subheading={
             devices.find((d) => d.device_id === deviceId)?.properties.name
           }
-          onBack={() => setPage('name_and_time')}
+          onBack={() => { setPage('name_and_time'); }}
         />
         <div className='seam-actions'>
           <Button onClick={onBack}>{t.cancel}</Button>

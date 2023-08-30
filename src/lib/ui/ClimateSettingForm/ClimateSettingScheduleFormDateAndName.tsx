@@ -1,11 +1,11 @@
 import classNames from 'classnames'
-import { TextField } from 'lib/ui/TextField/TextField.js'
 
 import { getTimezoneLabel } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
+import { TextField } from 'lib/ui/TextField/TextField.js'
 
 interface ClimateSettingScheduleFormDatePickerProps {
   name: string

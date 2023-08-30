@@ -1,6 +1,8 @@
-import { DeviceTable } from 'lib/index.js'
 import { isThermostatDevice } from 'seamapi'
-import type { UseDeviceData, UseDevicesData } from '../../../hooks.js'
+
+import { DeviceTable } from 'lib/index.js'
+
+import type { UseDevicesData } from '../../../hooks.js'
 
 interface ClimateSettingScheduleDeviceSelectProps {
   // devices: NonNullable<UseDeviceData>[]
@@ -8,11 +10,11 @@ interface ClimateSettingScheduleDeviceSelectProps {
   onSelect: (deviceId: string) => void
 }
 
-export const ClimateSettingScheduleDeviceSelect = ({
+export function ClimateSettingScheduleDeviceSelect({
   // devices,
   // onBack,
   onSelect,
-}: ClimateSettingScheduleDeviceSelectProps) => {
+}: ClimateSettingScheduleDeviceSelectProps) {
   const deviceFilter = (
     device: UseDevicesData[number],
     searchInputValue: string

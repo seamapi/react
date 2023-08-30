@@ -3,10 +3,12 @@ import { useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
+import { AddIcon } from 'lib/icons/Add.js'
 import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
 } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
@@ -14,10 +16,8 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-
-import { AddIcon } from 'lib/icons/Add.js'
-import { IconButton } from 'lib/ui/IconButton.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
+
 import { CreateClimateSettingScheduleForm } from '../CreateClimateSettingScheduleForm/CreateClimateSettingScheduleForm.js'
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
