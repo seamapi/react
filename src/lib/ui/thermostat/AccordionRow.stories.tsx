@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { AccordionRow } from './AccordionRow.js'
 import { DetailsSection } from 'lib/ui/thermostat/DetailsSection.js'
+
+import { AccordionRow } from './AccordionRow.js'
 
 const meta: Meta<typeof AccordionRow> = {
   title: 'Library/AccordionRow',
@@ -16,7 +17,7 @@ export const Content: Story = {
     return (
       <div className='seam-thermostat-details-sections'>
         <DetailsSection title='Section'>
-          <AccordionRow title='Accordion row'></AccordionRow>
+          <AccordionRow title='Accordion row' />
         </DetailsSection>
       </div>
     )
