@@ -1,4 +1,4 @@
-import { DateTime, IANAZone } from 'luxon'
+import { DateTime, IANAZone, SystemZone } from 'luxon'
 
 export const compareByCreatedAtDesc = (
   a: { created_at: string },
@@ -23,7 +23,7 @@ export function getZoneNames(): string[] {
  * Get the default browser time zone.
  */
 export function getSystemZone(): string {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone
+  return SystemZone.name
 }
 
 /**
