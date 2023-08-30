@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { TextField } from 'lib/ui/TextField/TextField.js'
 
 import { getTimezoneLabel } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
@@ -7,6 +8,8 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 
 interface ClimateSettingScheduleFormDatePickerProps {
+  name: string
+  setName: (name: string) => void
   startDate: string
   setStartDate: (date: string) => void
   endDate: string
@@ -16,7 +19,9 @@ interface ClimateSettingScheduleFormDatePickerProps {
   className?: string
 }
 
-export function ClimateSettingScheduleFormDatePicker({
+export function ClimateSettingScheduleFormDateAndName({
+  name,
+  setName,
   timezone,
   className,
   startDate,
@@ -25,9 +30,24 @@ export function ClimateSettingScheduleFormDatePicker({
   setEndDate,
   onChangeTimezone,
 }: ClimateSettingScheduleFormDatePickerProps): JSX.Element {
+  const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
+
+  // TODO: validation
+
   return (
     <div className={classNames('seam-schedule-picker', className)}>
       <div className='seam-content'>
+        <FormField>
+          <InputLabel>{t.nameInputLabel}</InputLabel>
+          <TextField
+            size='large'
+            clearable
+            value={name}
+            onChange={setName}
+            hasError={nameError != null}
+            helperText={nameError}
+          />
+        </FormField>
         <div className='seam-timezone'>
           <span className='seam-label'>{t.selectedTimezoneLabel}</span>
           <span className='seam-selected' onClick={onChangeTimezone}>
@@ -57,7 +77,8 @@ export function ClimateSettingScheduleFormDatePicker({
 }
 
 const t = {
-  timingTitle: 'Timing',
+  overCharacterLimitError: '60 characters max',
+  nameInputLabel: 'Name the climate setting',
   selectedTimezoneLabel: 'All times in',
   startTimeLabel: 'Start time',
   endTimeLabel: 'End time',

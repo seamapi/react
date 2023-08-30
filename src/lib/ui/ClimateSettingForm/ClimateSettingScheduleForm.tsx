@@ -8,20 +8,16 @@ import {
   getTimezoneFromIsoDate,
 } from 'lib/dates.js'
 // import type { UseClimateSettingScheduleData } from 'lib/seam/access-codes/use-access-code.js'
-import { Button } from 'lib/ui/Button.js'
 // import { ClimateSettingScheduleFormDatePicker } from 'lib/ui/ClimateSettingScheduleForm/ClimateSettingScheduleFormDatePicker.js'
 // import { ClimateSettingScheduleFormTimes } from 'lib/ui/ClimateSettingScheduleForm/ClimateSettingScheduleFormTimes.js'
 // import { ClimateSettingScheduleFormTimezonePicker } from 'lib/ui/ClimateSettingScheduleForm/ClimateSettingScheduleFormTimezonePicker.js'
 import type { UseClimateSettingScheduleData } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
-import { FormField } from 'lib/ui/FormField.js'
-import { InputLabel } from 'lib/ui/InputLabel.js'
-import { TextField } from 'lib/ui/TextField/TextField.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { title } from 'process'
 import type { ClimateSetting } from 'seamapi'
 import type { UseDeviceData } from '../../../hooks.js'
+import { Button } from '../Button.js'
 import { ClimateSettingScheduleDeviceSelect } from './ClimateSettingScheduleDeviceSelect.js'
-import { ClimateSettingScheduleFormDatePicker } from './ClimateSettingScheduleFormDatePicker.js'
+import { ClimateSettingScheduleFormDateAndName } from './ClimateSettingScheduleFormDateAndName.js'
 import { ClimateSettingScheduleFormTimezonePicker } from './ClimateSettingScheduleFormTimezonePicker.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
@@ -91,10 +87,7 @@ function Content({
     | 'name_and_time'
     | 'timezone_select'
     | 'climate_setting'
-  >('device_select')
-
-  // const [datePickerVisible, setDatePickerVisible] = useState(false)
-  // const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+  >('name_and_time')
 
   const submit = (): void => {
     if (isSubmitting) {
@@ -113,17 +106,16 @@ function Content({
 
   if (page === 'device_select') {
     return (
-      <>
+      <div className='seam-main'>
         <ContentHeader title={t.addNewClimateSettingSchedule} onBack={onBack} />
         <ClimateSettingScheduleDeviceSelect
           devices={devices}
-          // onBack={() => console.log('TODO: back to scheduled climate list')}
           onSelect={(deviceId) => {
             setDeviceId(deviceId)
             setPage('name_and_time')
           }}
         />
-      </>
+      </div>
     )
   }
 
@@ -139,7 +131,7 @@ function Content({
 
   if (page === 'name_and_time') {
     return (
-      <>
+      <div className='seam-main'>
         <ContentHeader
           title={t.addNewClimateSettingSchedule}
           subheading={
@@ -147,7 +139,10 @@ function Content({
           }
           onBack={() => setPage('device_select')}
         />
-        <ClimateSettingScheduleFormDatePicker
+
+        <ClimateSettingScheduleFormDateAndName
+          name={name}
+          setName={setName}
           startDate={startDate}
           setStartDate={setStartDate}
           endDate={endDate}
@@ -157,39 +152,54 @@ function Content({
             setPage('timezone_select')
           }}
         />
-      </>
+        <div className='seam-actions'>
+          <Button
+            onClick={() => {
+              console.log('TODO: back to scheduled climate list')
+            }}
+          >
+            {t.cancel}
+          </Button>
+          <Button
+            variant='solid'
+            onClick={() => {
+              setPage('climate_setting')
+            }}
+          >
+            {t.next}
+          </Button>
+        </div>
+      </div>
     )
   }
 
-  const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
-
-  const isFormValid =
-    name.trim().length > 0 && nameError === undefined && !isSubmitting
-
-  return (
-    <>
-      <ContentHeader title={title} onBack={onBack} />
+  if (page === 'climate_setting') {
+    return (
       <div className='seam-main'>
-        <FormField>
-          <InputLabel>{t.nameInputLabel}</InputLabel>
-          <TextField
-            size='large'
-            clearable
-            value={name}
-            onChange={setName}
-            hasError={nameError != null}
-            helperText={nameError}
-          />
-        </FormField>
+        <ContentHeader
+          title={t.addNewClimateSettingSchedule}
+          subheading={
+            devices.find((d) => d.device_id === deviceId)?.properties.name
+          }
+          onBack={() => setPage('name_and_time')}
+        />
         <div className='seam-actions'>
-          <Button onClick={onBack}>{t.cancel}</Button>
-          <Button variant='solid' disabled={!isFormValid} onMouseDown={submit}>
+          <Button
+            onClick={() => {
+              console.log('TODO: back to scheduled climate list')
+            }}
+          >
+            {t.cancel}
+          </Button>
+          <Button variant='solid' onClick={submit}>
             {t.save}
           </Button>
         </div>
       </div>
-    </>
-  )
+    )
+  }
+
+  return <></>
 }
 
 function getClimateSettingScheduleTimezone(
@@ -223,9 +233,9 @@ function getClimateSettingScheduleDate(
 const t = {
   addNewClimateSettingSchedule: 'Add a climate setting schedule',
   editClimateSettingSchedule: 'Edit climate setting schedule',
-  overCharacterLimitError: '60 characters max',
   nameInputLabel: 'Name the climate setting scheduled',
   cancel: 'Cancel',
   save: 'Save',
+  next: 'Next',
   typeTimeBoundLabel: 'Start/end times',
 }
