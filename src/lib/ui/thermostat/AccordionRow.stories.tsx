@@ -18,7 +18,7 @@ export const Content: Story = {
       <DetailSection label='Section'>
         <AccordionRow
           label='Accordion row'
-          triggerRightContent={<p>Right area content</p>}
+          rightCollapsedContent={<p>Right area content</p>}
         >
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
