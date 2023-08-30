@@ -87,7 +87,7 @@ function Content({
     | 'name_and_time'
     | 'timezone_select'
     | 'climate_setting'
-  >('name_and_time')
+  >('device_select')
 
   const submit = (): void => {
     if (isSubmitting) {
@@ -121,11 +121,13 @@ function Content({
 
   if (page === 'timezone_select') {
     return (
-      <ClimateSettingScheduleFormTimezonePicker
-        value={timezone}
-        onChange={setTimezone}
-        onClose={() => setPage('name_and_time')}
-      />
+      <div className='seam-main'>
+        <ClimateSettingScheduleFormTimezonePicker
+          value={timezone}
+          onChange={setTimezone}
+          onClose={() => setPage('name_and_time')}
+        />
+      </div>
     )
   }
 
@@ -153,13 +155,7 @@ function Content({
           }}
         />
         <div className='seam-actions'>
-          <Button
-            onClick={() => {
-              console.log('TODO: back to scheduled climate list')
-            }}
-          >
-            {t.cancel}
-          </Button>
+          <Button onClick={onBack}>{t.cancel}</Button>
           <Button
             variant='solid'
             onClick={() => {
@@ -184,13 +180,7 @@ function Content({
           onBack={() => setPage('name_and_time')}
         />
         <div className='seam-actions'>
-          <Button
-            onClick={() => {
-              console.log('TODO: back to scheduled climate list')
-            }}
-          >
-            {t.cancel}
-          </Button>
+          <Button onClick={onBack}>{t.cancel}</Button>
           <Button variant='solid' onClick={submit}>
             {t.save}
           </Button>
