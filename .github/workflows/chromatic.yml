@@ -21,6 +21,9 @@ jobs:
           fetch-depth: 0
       - name: Setup
         uses: ./.github/actions/setup
+      - name: Wait for Vercel
+        if: github.run_attempt == '1'
+        run: sleep 20
       - name: Get Vercel preview
         uses: ViktorJT/Get-vercel-preview-url@1.2.2
         if: github.ref_name != 'main'
