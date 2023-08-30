@@ -11,7 +11,7 @@ export const compareByCreatedAtDesc = (
 }
 
 /**
- * Get the timezone strings supported by the user's browser.
+ * Get the time zone strings supported by the browser.
  *
  * @returns string[]
  */
@@ -20,14 +20,14 @@ export function getTimezones(): string[] {
 }
 
 /**
- * Get the default browser timezone.
+ * Get the default browser time zone.
  */
 export function getBrowserTimezone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone
 }
 
 /**
- * Takes an IANA timezone, like America/Los_Angeles, into a more readable
+ * Takes an IANA time zone, like America/Los_Angeles, into a more readable
  * string: Los Angeles (America).
  */
 export function getTimezoneLabel(timezone: string): string {
@@ -36,7 +36,7 @@ export function getTimezoneLabel(timezone: string): string {
 }
 
 /**
- * Get a timezones offset from UTC in minutes.
+ * Get a time zones offset from UTC in minutes.
  */
 function getTimezoneOffsetMinutes(timezone: string): number {
   return DateTime.local().setZone(timezone).offset
@@ -53,7 +53,7 @@ export const compareByTimezoneOffsetAsc = (
   getTimezoneOffsetMinutes(timezoneA) - getTimezoneOffsetMinutes(timezonB)
 
 /**
- * Get the timezone offset
+ * Get the time zone offset
  * America/Los_angeles -> -07:00
  */
 export function getTimezoneOffset(timezone: string): string {
@@ -101,7 +101,7 @@ function getDateTimeOnly(dateTime: DateTime): string {
 }
 
 /**
- * Takes a date (2023-07-20T00:00:00), and a timezone (America/Los_angeles), and
+ * Takes a date (2023-07-20T00:00:00), and a time zone (America/Los_angeles), and
  * returns an ISO8601 Date (2023-07-20T00:00:00.000-07:00).
  */
 export const createIsoDate = (date: string, timezone: string): string => {
@@ -111,7 +111,7 @@ export const createIsoDate = (date: string, timezone: string): string => {
 
 /**
  * Takes a ISO datetime string (2023-07-20T00:00:00.000-07:00) and returns
- * the IANA timezone (America/Los_angeles).
+ * the IANA time zone (America/Los_angeles).
  */
 export const getTimezoneFromIsoDate = (date: string): string | null =>
   DateTime.fromISO(date).zoneName
