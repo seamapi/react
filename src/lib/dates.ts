@@ -39,7 +39,7 @@ export function getZoneLabel(timezone: string): string {
  * Get a time zones offset from UTC in minutes.
  */
 function getZoneOffsetMinutes(timezone: string): number {
-  return DateTime.local().setZone(timezone).offset
+  return DateTime.now().setZone(timezone).offset
 }
 
 /**
