@@ -52,7 +52,7 @@ export function ClimateSettingScheduleDetails({
     <div
       className={classNames('seam-climate-setting-schedule-details', className)}
     >
-      <ContentHeader title='Climate setting schedule' onBack={onBack} />
+      <ContentHeader title={t.climateSettingSchedule} onBack={onBack} />
       <div className='seam-climate-setting-schedule-details-content'>
         <ClimateSettingScheduleCard
           climateSettingScheduleId={climateSettingScheduleId}
@@ -97,8 +97,7 @@ export function ClimateSettingScheduleDetails({
 }
 
 const t = {
-  climateSettingSchedule: 'Climate Setting Schedule',
-  fallbackName: 'Climate Setting Schedule',
+  climateSettingSchedule: 'Climate setting schedule',
   startEndTime: 'Start/End Time',
   climateSetting: 'Climate setting',
   allowManualOverride: 'Allow manual override',
