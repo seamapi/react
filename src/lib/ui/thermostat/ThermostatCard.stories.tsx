@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import type { ThermostatDevice } from 'seamapi'
+import { isThermostatDevice } from 'seamapi'
 
 import { useDevice } from '../../../hooks.js'
 import { ThermostatCard } from './ThermostatCard.js'
@@ -19,9 +19,13 @@ export const Content: Story = {
       device_id: 'device5',
     })
 
+    if (device == null || (device != null && !isThermostatDevice(device))) {
+      return <></>
+    }
+
     return (
       <Box display='grid' gap={4} gridTemplateColumns='repeat(4, min-content)'>
-        <ThermostatCard device={device as ThermostatDevice} />
+        <ThermostatCard device={device} />
       </Box>
     )
   },
