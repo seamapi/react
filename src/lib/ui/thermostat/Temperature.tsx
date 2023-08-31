@@ -2,20 +2,20 @@ interface TemperatureProps {
   fahrenheit: number
   celsius: number
   unit: 'fahrenheit' | 'celsius'
-  hideUnit?: boolean
+  disableUnit?: boolean
 }
 
 export function Temperature({
   fahrenheit,
   celsius,
   unit,
-  hideUnit,
+  disableUnit,
 }: TemperatureProps): JSX.Element {
   const temperature = unit === 'fahrenheit' ? fahrenheit : celsius
   const degree = unit === 'fahrenheit' ? t.degreeFahrenheit : t.degreeCelsius
   return (
     <span>
-      {Math.trunc(temperature)}°{hideUnit != null && degree}
+      {Math.trunc(temperature)}°{disableUnit != null && degree}
     </span>
   )
 }
