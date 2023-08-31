@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
+import { ClimateSettingScheduleDetails } from '../index.js'
+
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
   useClimateSettingSchedules,
@@ -15,7 +17,6 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
-import { ClimateSettingScheduleDetails } from '../index.js'
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
 export interface ClimateSettingScheduleTableProps {
