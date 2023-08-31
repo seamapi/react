@@ -1,9 +1,9 @@
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-
-import { ThermostatCard } from './ThermostatCard.js'
-import { useDevice } from '../../../hooks.js'
 import type { ThermostatDevice } from 'seamapi'
+
+import { useDevice } from '../../../hooks.js'
+import { ThermostatCard } from './ThermostatCard.js'
 
 const meta: Meta<typeof ThermostatCard> = {
   title: 'Library/ThermostatCard',
