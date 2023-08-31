@@ -15,8 +15,8 @@ export function DetailSection({
   return (
     <div className='seam-detail-section'>
       <div className='seam-detail-label-wrap'>
-        {label && <p className='seam-detail-label'>{label}</p>}
-        {tooltipContent != null && <Tooltip>{tooltipContent}</Tooltip>}
+        {label !== undefined && <p className='seam-detail-label'>{label}</p>}
+        {tooltipContent !== undefined && <Tooltip>{tooltipContent}</Tooltip>}
       </div>
 
       <div className='seam-detail-group'>{children}</div>
