@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 import { formatDateAndTime } from 'lib/dates.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
-import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
@@ -54,16 +53,13 @@ export function ClimateSettingScheduleDetails({
         </div>
         <DetailSectionGroup>
           <DetailSection>
-            <AccordionRow label={t.startEndTime} />
-            <AccordionRow
-              label={t.climateSetting}
-              rightCollapsedContent={
-                <ClimateSettingStatus
-                  climateSetting={climateSettingSchedule}
-                  iconPlacement='right'
-                />
-              }
-            />
+            <DetailRow label={t.startEndTime} />
+            <DetailRow label={t.climateSetting}>
+              <ClimateSettingStatus
+                climateSetting={climateSettingSchedule}
+                iconPlacement='right'
+              />
+            </DetailRow>
             <DetailRow label={t.allowManualOverride}>
               <Switch
                 checked={allowManualOverride}
