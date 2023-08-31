@@ -60,9 +60,9 @@ export function ClimateSettingScheduleDetails({
               />
             </DetailRow>
             <DetailRow label={t.allowManualOverride}>
-              <label className='seam-allow-manual-override-text'>
+              <span className='seam-allow-manual-override-text'>
                 {isManualOverrideAllowed ? t.on : t.off}
-              </label>
+              </span>
             </DetailRow>
           </DetailSection>
           <DetailSection>
