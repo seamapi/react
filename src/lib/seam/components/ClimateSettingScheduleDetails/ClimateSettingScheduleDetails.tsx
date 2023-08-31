@@ -11,6 +11,7 @@ import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ClimateSettingScheduleCard } from './ClimateSettingScheduleCard.js'
 
 export interface ClimateSettingScheduleDetailsProps {
@@ -65,7 +66,15 @@ export function ClimateSettingScheduleDetails({
         <DetailSectionGroup>
           <DetailSection>
             <AccordionRow label={t.startEndTime} />
-            <AccordionRow label={t.climateSetting} />
+            <AccordionRow
+              label={t.climateSetting}
+              rightCollapsedContent={
+                <ClimateSettingStatus
+                  climateSetting={climateSettingSchedule}
+                  iconPlacement='right'
+                />
+              }
+            />
             <DetailRow label={t.allowManualOverride}>
               <Switch
                 checked={allowManualOverride}
@@ -76,7 +85,9 @@ export function ClimateSettingScheduleDetails({
           </DetailSection>
           <DetailSection>
             <DetailRow label={t.creationDate}>
-              {formatDateAndTime(climateSettingSchedule.created_at)}
+              <div className='seam-creation-date'>
+                {formatDateAndTime(climateSettingSchedule.created_at)}
+              </div>
             </DetailRow>
           </DetailSection>
         </DetailSectionGroup>
@@ -88,19 +99,9 @@ export function ClimateSettingScheduleDetails({
 const t = {
   climateSettingSchedule: 'Climate Setting Schedule',
   fallbackName: 'Climate Setting Schedule',
-  id: 'ID',
   startEndTime: 'Start/End Time',
-  startEndTimeTooltip:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.',
-
   climateSetting: 'Climate setting',
-  climateSettingTooltip:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.',
-
   allowManualOverride: 'Allow manual override',
-  allowManualOverrideTooltip:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur, nisl ut sodales ultricies, elit elit vehicula nunc, eget blandit nunc tortor eu nibh.',
-
   creationDate: 'Creation date',
   starts: 'Starts',
   defaultSettingMessagePart1: 'Thermostat will return to its',
