@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
@@ -15,11 +15,14 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
+import { ClimateSettingScheduleDetails } from '../index.js'
 import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
 export interface ClimateSettingScheduleTableProps {
   deviceId: string
   disableSearch?: boolean
+  onClimateSettingScheduleClick?: (climateSettingScheduleId: string) => void
+  preventDefaultOnClimateSettingScheduleClick?: boolean
   climateSettingScheduleFilter?: (
     climateSettingSchedule: ClimateSettingSchedule,
     searchInputValue: string
@@ -46,8 +49,11 @@ const defaultClimateSettingScheduleFilter = (
 export function ClimateSettingScheduleTable({
   deviceId,
   disableSearch = false,
+  onClimateSettingScheduleClick = () => {},
+  preventDefaultOnClimateSettingScheduleClick = false,
   climateSettingScheduleFilter = defaultClimateSettingScheduleFilter,
   climateSettingScheduleComparator = compareByCreatedAtDesc,
+
   onBack,
   heading = t.climateSettingSchedules,
   className,
@@ -58,6 +64,10 @@ export function ClimateSettingScheduleTable({
     })
 
   const [searchInputValue, setSearchInputValue] = useState('')
+  const [
+    selectedViewClimateSettingScheduleId,
+    setSelectedViewClimateSettingScheduleId,
+  ] = useState<string | null>(null)
 
   const filteredClimateSettingSchedules = useMemo(
     () =>
@@ -73,6 +83,31 @@ export function ClimateSettingScheduleTable({
       climateSettingScheduleComparator,
     ]
   )
+
+  const handleClimateSettingScheduleClick = useCallback(
+    (climateSettingScheduleId: string): void => {
+      onClimateSettingScheduleClick(climateSettingScheduleId)
+      if (preventDefaultOnClimateSettingScheduleClick) return
+      setSelectedViewClimateSettingScheduleId(climateSettingScheduleId)
+    },
+    [
+      onClimateSettingScheduleClick,
+      preventDefaultOnClimateSettingScheduleClick,
+      setSelectedViewClimateSettingScheduleId,
+    ]
+  )
+
+  if (selectedViewClimateSettingScheduleId != null) {
+    return (
+      <ClimateSettingScheduleDetails
+        className={className}
+        climateSettingScheduleId={selectedViewClimateSettingScheduleId}
+        onBack={() => {
+          setSelectedViewClimateSettingScheduleId(null)
+        }}
+      />
+    )
+  }
 
   if (isLoading) {
     return <p className={className}>...</p>
@@ -105,7 +140,7 @@ export function ClimateSettingScheduleTable({
       <TableBody>
         <Content
           climateSettingSchedules={filteredClimateSettingSchedules}
-          onClimateSettingScheduleClick={() => {}}
+          onClimateSettingScheduleClick={handleClimateSettingScheduleClick}
         />
       </TableBody>
     </div>
@@ -131,6 +166,7 @@ function Content(props: {
           climateSettingSchedule={schedule}
           key={schedule.climate_setting_schedule_id}
           onClick={() => {
+            console.log('hey')
             onClimateSettingScheduleClick(schedule.climate_setting_schedule_id)
           }}
         />
