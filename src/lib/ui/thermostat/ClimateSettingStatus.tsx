@@ -80,37 +80,17 @@ function Content(props: {
   const hasHeatingSetPoint = heatingSetPoint !== undefined
 
   if (mode === 'cool' && hasCoolingSetPoint)
-    return (
-      <Temperature
-        fahrenheit={coolingSetPoint.fahrenheit}
-        celsius={coolingSetPoint.celsius}
-        unit={temperatureUnit}
-      />
-    )
+    return <Temperature {...coolingSetPoint} unit={temperatureUnit} />
 
   if (mode === 'heat' && hasHeatingSetPoint)
-    return (
-      <Temperature
-        fahrenheit={heatingSetPoint.fahrenheit}
-        celsius={heatingSetPoint.celsius}
-        unit={temperatureUnit}
-      />
-    )
+    return <Temperature {...heatingSetPoint} unit={temperatureUnit} />
 
   if (mode === 'heatcool' && hasHeatingSetPoint && hasCoolingSetPoint)
     return (
       <span>
-        <Temperature
-          fahrenheit={heatingSetPoint.fahrenheit}
-          celsius={heatingSetPoint.celsius}
-          unit={temperatureUnit}
-        />
+        <Temperature {...heatingSetPoint} unit={temperatureUnit} />
         {' - '}
-        <Temperature
-          fahrenheit={coolingSetPoint.fahrenheit}
-          celsius={coolingSetPoint.celsius}
-          unit={temperatureUnit}
-        />
+        <Temperature {...coolingSetPoint} unit={temperatureUnit} />
       </span>
     )
 
