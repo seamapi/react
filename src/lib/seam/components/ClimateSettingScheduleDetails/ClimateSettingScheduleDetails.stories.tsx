@@ -4,9 +4,6 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { ClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
-/**
- * These stories showcase access code details.
- */
 const meta: Meta<typeof ClimateSettingScheduleDetails> = {
   title: 'Example/ClimateSettingScheduleDetails (Coming Soon)',
   component: ClimateSettingScheduleDetails,
@@ -36,7 +33,6 @@ export const Content: Story = {
 
 export const InsideModal: Story = {
   render: (props) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [open, toggleOpen] = useToggle()
     return (
       <>
