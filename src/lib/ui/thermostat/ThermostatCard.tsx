@@ -1,9 +1,6 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import type {
-  ThermostatDevice,
-  ThermostatDeviceProperties,
-} from 'seamapi'
+import type { ThermostatDevice, ThermostatDeviceProperties } from 'seamapi'
 
 import { FanIcon } from 'lib/icons/Fan.js'
 import { OffIcon } from 'lib/icons/Off.js'
