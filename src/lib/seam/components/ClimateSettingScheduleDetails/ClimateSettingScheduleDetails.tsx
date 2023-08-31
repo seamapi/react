@@ -45,9 +45,11 @@ export function ClimateSettingScheduleDetails({
         />
         <div className='seam-default-setting-message-container'>
           <span className='seam-default-setting-message'>
-          {t.defaultSettingMessagePart1}
-          {' '}<span className='seam-default-setting-text'>{t.defaultSetting}</span>
-          {' '} {t.defaultSettingMessagePart2}
+            {t.defaultSettingMessagePart1}{' '}
+            <span className='seam-default-setting-text'>
+              {t.defaultSetting}
+            </span>{' '}
+            {t.defaultSettingMessagePart2}
           </span>
         </div>
         <DetailSectionGroup>

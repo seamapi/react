@@ -10,7 +10,7 @@
       display: flex;
       justify-content: center;
       margin: 16px 0;
-    
+
       .seam-default-setting-message {
         font-size: 14px;
         font-style: normal;
@@ -18,13 +18,10 @@
         line-height: 115%;
         color: colors.$text-gray-2;
 
-
         .seam-default-setting-text {
           color: colors.$text-gray-1;
         }
       }
-
-      
     }
 
     .seam-creation-date {
