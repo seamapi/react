@@ -1,9 +1,6 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import {
-  isThermostatDevice,
-  type ThermostatDevice,
-} from 'seamapi'
+import { isThermostatDevice, type ThermostatDevice } from 'seamapi'
 
 import { FanIcon } from 'lib/icons/Fan.js'
 import { OffIcon } from 'lib/icons/Off.js'
@@ -45,7 +42,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     current_climate_setting: currentClimateSetting,
     is_fan_running: isFanRunning,
     relative_humidity: relativeHumidity,
-  } = device.properties 
+  } = device.properties
 
   return (
     <div className='seam-thermostat-card-content'>
