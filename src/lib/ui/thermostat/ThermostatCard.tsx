@@ -46,7 +46,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     current_climate_setting: currentClimateSetting,
     is_fan_running: isFanRunning,
     current_climate_setting: { hvac_mode_setting: hvacModeSetting },
-  } = device.properties 
+  } = device.properties
 
   return (
     <div className='seam-thermostat-card-content'>
