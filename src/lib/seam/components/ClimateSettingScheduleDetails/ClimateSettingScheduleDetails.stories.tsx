@@ -14,7 +14,7 @@ const meta: Meta<typeof ClimateSettingScheduleDetails> = {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/WTdzEh4CudGdQFOtuVR3Eh/Thermostat%2FNoise-components?type=design&node-id=830-88257&mode=design&t=K16ip3RYLpmOfTxM-0',
+      url: 'https://www.figma.com/file/WTdzEh4CudGdQFOtuVR3Eh/Thermostat%2FNoise-components?type=design&node-id=830-88257&mode=design&t=PEFHm2uapLILRbqf-0',
     },
   },
 }

@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import { useState } from 'react'
 
 import { formatDateAndTime } from 'lib/dates.js'
-import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -28,24 +27,11 @@ export function ClimateSettingScheduleDetails({
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
   )
-  const [selectedDeviceId, selectDevice] = useState<string | null>(null)
 
   const [allowManualOverride, setAllowManualOverride] = useState(false)
 
   if (climateSettingSchedule == null) {
     return null
-  }
-
-  if (selectedDeviceId != null) {
-    return (
-      <DeviceDetails
-        className={className}
-        deviceId={selectedDeviceId}
-        onBack={() => {
-          selectDevice(null)
-        }}
-      />
-    )
   }
 
   return (
