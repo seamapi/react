@@ -93,7 +93,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
             <p className='seam-thermostat-property-value'>|</p>
             <p className='seam-thermostat-property-label'>{t.humidity}:</p>
             <p className='seam-thermostat-property-value'>
-              {Number(relativeHumidity) * 100}%
+              {relativeHumidity * 100}%
             </p>
           </div>
 
