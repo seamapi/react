@@ -2,9 +2,8 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
-import { ClimateSettingScheduleDetails } from '../index.js'
-
 import { compareByCreatedAtDesc } from 'lib/dates.js'
+import { ClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
 import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
