@@ -1,32 +1,26 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import type { ClimateSetting } from 'seamapi'
+import type { ClimateSetting, ThermostatDevice } from 'seamapi'
 
 import { FanIcon } from 'lib/icons/Fan.js'
 import { OffIcon } from 'lib/icons/Off.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
-import { useDevice } from '../../../hooks.js'
-
 interface ThermostatCardProps {
-  deviceId: string
+  device: ThermostatDevice
 }
 
-export function ThermostatCard({ deviceId }: ThermostatCardProps): JSX.Element {
+export function ThermostatCard({ device }: ThermostatCardProps): JSX.Element {
   return (
     <div className='seam-thermostat-card'>
-      <Content deviceId={deviceId} />
+      <Content device={device} />
     </div>
   )
 }
 
-function Content(props: { deviceId: string }): JSX.Element | null {
-  const { deviceId } = props
-
-  const { device } = useDevice({
-    device_id: deviceId,
-  })
+function Content(props: { device: ThermostatDevice }): JSX.Element | null {
+  const { device } = props
 
   const [temperatureUnit, setTemperatureUnit] = useState<
     'fahrenheit' | 'celsius'
