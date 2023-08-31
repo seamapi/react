@@ -43,12 +43,13 @@ export function ClimateSettingScheduleDetails({
         <ClimateSettingScheduleCard
           climateSettingScheduleId={climateSettingScheduleId}
         />
-        <span className='seam-default-setting-message'>
+        <div className='seam-default-setting-message-container'>
+          <span className='seam-default-setting-message'>
           {t.defaultSettingMessagePart1}
-          &nbsp;<span className='seam-default-setting'>{t.defaultSetting}</span>
-          &nbsp;
-          {t.defaultSettingMessagePart2}
-        </span>
+          {' '}<span className='seam-default-setting-text'>{t.defaultSetting}</span>
+          {' '} {t.defaultSettingMessagePart2}
+          </span>
+        </div>
         <DetailSectionGroup>
           <DetailSection>
             <AccordionRow label={t.startEndTime} />
