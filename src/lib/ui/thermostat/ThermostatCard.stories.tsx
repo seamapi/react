@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import { isThermostatDevice } from 'seamapi'
 
 import { useDevice } from '../../../hooks.js'
 import { ThermostatCard } from './ThermostatCard.js'
