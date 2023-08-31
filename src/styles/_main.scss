@@ -20,6 +20,7 @@
 @use './thermostat';
 @use './tooltip';
 @use './seam-table';
+@use './climate-setting-schedule-details';
 @use './switch';
 
 .seam-components {
@@ -50,4 +51,5 @@
   @include supported-device-table.all;
   @include thermostat.all;
   @include seam-table.all;
+  @include climate-setting-schedule-details.all;
 }

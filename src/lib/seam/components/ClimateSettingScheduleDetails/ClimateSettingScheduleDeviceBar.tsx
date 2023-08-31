@@ -1,6 +1,6 @@
 import { isThermostatDevice, type ThermostatDevice } from 'seamapi'
 
-import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
+import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
@@ -48,7 +48,9 @@ function Content(props: { device: ThermostatDevice }): JSX.Element {
           </div>
         </div>
       </div>
-      <ChevronRightIcon />
+      <div className='seam-climate-setting-schedule-device-chevron'>
+        <ChevronWideIcon />
+      </div>
     </div>
   )
 }
