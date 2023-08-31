@@ -88,7 +88,6 @@ const t = {
   climateSetting: 'Climate setting',
   allowManualOverride: 'Allow manual override',
   creationDate: 'Creation date',
-  starts: 'Starts',
   defaultSettingMessagePart1: 'Thermostat will return to its',
   defaultSetting: 'default setting',
   defaultSettingMessagePart2: 'at end time.',
