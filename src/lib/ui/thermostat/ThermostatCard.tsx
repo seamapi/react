@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import {
   isThermostatDevice,
-  type ClimateSetting,
   type ThermostatDevice,
   type ThermostatDeviceProperties,
 } from 'seamapi'
@@ -46,7 +45,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     temperature_celsius: temperatureCelsius,
     current_climate_setting: currentClimateSetting,
     is_fan_running: isFanRunning,
-    current_climate_setting: { hvac_mode_setting: hvacModeSetting },
+    relative_humidity: relativeHumidity,
   } = device.properties as ThermostatDeviceProperties
 
   return (
@@ -70,75 +69,49 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
         </div>
 
         <div className='seam-thermostat-properties'>
-          {'temperature_fahrenheit' in device.properties &&
-            'temperature_celsius' in device.properties && (
-              <>
-                <div className='seam-thermostat-property-block'>
-                  <p className='seam-thermostat-property-label'>
-                    {t.temperature}:
-                  </p>
-                </div>
-                <div className='seam-thermostat-property-block'>
-                  <p className='seam-thermostat-property-value'>
-                    {Math.trunc(
-                      Number(
-                        temperatureUnit === 'fahrenheit'
-                          ? device.properties.temperature_fahrenheit
-                          : device.properties.temperature_celsius
-                      )
-                    )}
-                    º
-                  </p>
-                  {'relative_humidity' in device.properties && (
-                    <>
-                      <p className='seam-thermostat-property-value'>|</p>
-                      <p className='seam-thermostat-property-label'>
-                        {t.humidity}:
-                      </p>
-                      <p className='seam-thermostat-property-value'>
-                        {Number(device.properties.relative_humidity) * 100}%
-                      </p>
-                    </>
-                  )}
-                </div>
-              </>
-            )}
+          <div className='seam-thermostat-property-block'>
+            <p className='seam-thermostat-property-label'>{t.temperature}:</p>
+          </div>
+          <div className='seam-thermostat-property-block'>
+            <p className='seam-thermostat-property-value'>
+              {Math.trunc(
+                Number(
+                  temperatureUnit === 'fahrenheit'
+                    ? temperatureFahrenheit
+                    : temperatureCelsius
+                )
+              )}
+              º
+            </p>
 
-          {'current_climate_setting' in device.properties &&
-            'hvac_mode_setting' in
-              (device.properties
-                ?.current_climate_setting as ClimateSetting) && (
-              <>
-                <div className='seam-thermostat-property-block'>
-                  <p className='seam-thermostat-property-label'>{t.setting}:</p>
-                </div>
-                <div className='seam-thermostat-property-block'>
-                  <ClimateSettingStatus
-                    climateSetting={
-                      device.properties
-                        .current_climate_setting as ClimateSetting
-                    }
-                    temperatureUnit={temperatureUnit}
-                  />
-                </div>
-              </>
-            )}
+            <p className='seam-thermostat-property-value'>|</p>
+            <p className='seam-thermostat-property-label'>{t.humidity}:</p>
+            <p className='seam-thermostat-property-value'>
+              {Number(relativeHumidity) * 100}%
+            </p>
+          </div>
 
-          {'is_fan_running' in device.properties && (
-            <>
-              <div className='seam-thermostat-property-block'>
-                <p className='seam-thermostat-property-label'>{t.fanMode}:</p>
-              </div>
-              <div className='seam-thermostat-property-block seam-thermostat-property-icon-block'>
-                <div className='seam-thermostat-property-icon'>
-                  {device.properties.is_fan_running ? <FanIcon /> : <OffIcon />}
-                </div>
-                <p className='seam-thermostat-property-value'>
-                  {device.properties.is_fan_running ? t.auto : t.off}
-                </p>
-              </div>
-            </>
-          )}
+          <div className='seam-thermostat-property-block'>
+            <p className='seam-thermostat-property-label'>{t.setting}:</p>
+          </div>
+          <div className='seam-thermostat-property-block'>
+            <ClimateSettingStatus
+              climateSetting={currentClimateSetting}
+              temperatureUnit={temperatureUnit}
+            />
+          </div>
+
+          <div className='seam-thermostat-property-block'>
+            <p className='seam-thermostat-property-label'>{t.fanMode}:</p>
+          </div>
+          <div className='seam-thermostat-property-block seam-thermostat-property-icon-block'>
+            <div className='seam-thermostat-property-icon'>
+              {isFanRunning ? <FanIcon /> : <OffIcon />}
+            </div>
+            <p className='seam-thermostat-property-value'>
+              {isFanRunning ? t.auto : t.off}
+            </p>
+          </div>
 
           <div className='seam-thermostat-property-block'>
             <p className='seam-thermostat-property-label'>{t.systemStatus}:</p>
