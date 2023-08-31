@@ -25,12 +25,12 @@ export function ClimateSettingScheduleDetails({
     climateSettingScheduleId
   )
 
-  const isManualOverrideAllowed =
-    climateSettingSchedule?.manual_override_allowed
-
   if (climateSettingSchedule == null) {
     return null
   }
+
+  const isManualOverrideAllowed =
+    climateSettingSchedule.manual_override_allowed ?? false
 
   return (
     <div
