@@ -118,14 +118,10 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
               </div>
               <div className='seam-thermostat-property-block seam-thermostat-property-icon-block'>
                 <div className='seam-thermostat-property-icon'>
-                  {device.properties.is_fan_running === true ? (
-                    <FanIcon />
-                  ) : (
-                    <OffIcon />
-                  )}
+                  {device.properties.is_fan_running ? <FanIcon /> : <OffIcon />}
                 </div>
                 <p className='seam-thermostat-property-value'>
-                  {device.properties.is_fan_running === true ? t.auto : t.off}
+                  {device.properties.is_fan_running ? t.auto : t.off}
                 </p>
               </div>
             </>
