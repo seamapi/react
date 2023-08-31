@@ -17,13 +17,6 @@ export const Content: Story = {
       <Box display='grid' gap={4} gridTemplateColumns='repeat(4, min-content)'>
         <Temperature fahrenheit={72} celsius={22} unit='fahrenheit' />
         <Temperature fahrenheit={72} celsius={22} unit='celsius' />
-        <Temperature
-          fahrenheit={72}
-          celsius={22}
-          unit='fahrenheit'
-          disableUnit
-        />
-        <Temperature fahrenheit={72} celsius={22} unit='celsius' disableUnit />
       </Box>
     )
   },

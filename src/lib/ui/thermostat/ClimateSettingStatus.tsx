@@ -30,20 +30,12 @@ export function ClimateSettingStatus({
       <Content
         mode={climateSetting.hvac_mode_setting}
         coolingSetPoint={{
-          fahrenheit: formatTemperatureValue(
-            climateSetting.cooling_set_point_fahrenheit
-          ),
-          celsius: formatTemperatureValue(
-            climateSetting.cooling_set_point_celsius
-          ),
+          fahrenheit: climateSetting.cooling_set_point_fahrenheit ?? 0,
+          celsius: climateSetting.cooling_set_point_celsius ?? 0,
         }}
         heatingSetPoint={{
-          fahrenheit: formatTemperatureValue(
-            climateSetting.heating_set_point_fahrenheit
-          ),
-          celsius: formatTemperatureValue(
-            climateSetting.heating_set_point_celsius
-          ),
+          fahrenheit: climateSetting.heating_set_point_fahrenheit ?? 0,
+          celsius: climateSetting.heating_set_point_celsius ?? 0,
         }}
         temperatureUnit={temperatureUnit}
       />
@@ -97,12 +89,6 @@ function Content(props: {
   if (mode === 'off') return <span>{t.off}</span>
 
   return null
-}
-
-const formatTemperatureValue = (value: number | undefined): number => {
-  if (value == null) return 0
-  if (Number.isInteger(value)) return parseFloat(value.toFixed())
-  return parseFloat(value.toFixed(1))
 }
 
 const t = {
