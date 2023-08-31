@@ -91,7 +91,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
                     : temperatureCelsius
                 )
               )}
-              º
+              {t.degree}
             </p>
 
             <p className='seam-thermostat-property-value'>|</p>
@@ -145,8 +145,8 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
 }
 
 const t = {
-  fahrenheit: '˚F',
-  celsius: '˚C',
+  fahrenheit: 'ºF',
+  celsius: 'ºC',
   auto: 'Auto',
   off: 'Off',
   temperature: 'Temperature',
@@ -157,4 +157,5 @@ const t = {
   cooling: 'Cooling',
   heating: 'Heating',
   fan: 'Fan only',
+  degree: 'º',
 }
