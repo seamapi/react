@@ -19,9 +19,7 @@ export const Content: Story = {
       device_id: 'device5',
     })
 
-    if (device == null || (device != null && !isThermostatDevice(device))) {
-      return <></>
-    }
+    if (device == null) return <></>
 
     return (
       <Box display='grid' gap={4} gridTemplateColumns='repeat(4, min-content)'>
