@@ -38,10 +38,6 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     )
   }
 
-  if (device == null || (device != null && !isThermostatDevice(device))) {
-    return null
-  }
-
   const {
     temperature_fahrenheit: temperatureFahrenheit,
     temperature_celsius: temperatureCelsius,
