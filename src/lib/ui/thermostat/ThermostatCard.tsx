@@ -1,6 +1,11 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import type { ClimateSetting, ThermostatDevice } from 'seamapi'
+import {
+  isThermostatDevice,
+  type ClimateSetting,
+  type ThermostatDevice,
+  type ThermostatDeviceProperties,
+} from 'seamapi'
 
 import { FanIcon } from 'lib/icons/Fan.js'
 import { OffIcon } from 'lib/icons/Off.js'
@@ -32,9 +37,17 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     )
   }
 
-  if (device == null) {
+  if (!isThermostatDevice(device)) {
     return null
   }
+
+  const {
+    temperature_fahrenheit: temperatureFahrenheit,
+    temperature_celsius: temperatureCelsius,
+    current_climate_setting: currentClimateSetting,
+    is_fan_running: isFanRunning,
+    current_climate_setting: { hvac_mode_setting: hvacModeSetting },
+  } = device.properties as ThermostatDeviceProperties
 
   return (
     <div className='seam-thermostat-card-content'>
@@ -51,7 +64,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
             className='seam-thermostat-temperature-toggle'
           >
             <span className='seam-thermostat-temperature-toggle-label'>
-              º{temperatureUnit.slice(0, 1).toUpperCase()}
+              {temperatureUnit === 'fahrenheit' ? t.fahrenheit : t.celsius}
             </span>
           </button>
         </div>
@@ -147,8 +160,8 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
 }
 
 const t = {
-  fahrenheit: 'F',
-  celsius: 'C',
+  fahrenheit: 'F˚',
+  celsius: 'C˚',
   auto: 'Auto',
   off: 'Off',
   temperature: 'Temperature',
