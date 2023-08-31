@@ -167,7 +167,6 @@ function Content(props: {
           climateSettingSchedule={schedule}
           key={schedule.climate_setting_schedule_id}
           onClick={() => {
-            console.log('hey')
             onClimateSettingScheduleClick(schedule.climate_setting_schedule_id)
           }}
         />
