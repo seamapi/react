@@ -6,6 +6,7 @@ import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 import { formatDateAndTime } from 'lib/dates.js'
+import Switch from 'lib/ui/Switch/Switch.js'
 import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
@@ -27,6 +28,8 @@ export function ClimateSettingScheduleDetails({
     climateSettingScheduleId
   )
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
+
+  const [allowManualOverride, setAllowManualOverride] = useState(false)
 
   if (climateSettingSchedule == null) {
     return null
@@ -63,19 +66,20 @@ export function ClimateSettingScheduleDetails({
           <DetailSection>
             <AccordionRow label={t.startEndTime} />
             <AccordionRow label={t.climateSetting} />
-            <DetailRow label={t.allowManualOverride} />
+            <DetailRow label={t.allowManualOverride}>
+              <Switch
+                checked={allowManualOverride}
+                onChange={setAllowManualOverride}
+                enableLabel
+              />
+            </DetailRow>
+          </DetailSection>
+          <DetailSection>
+            <DetailRow label={t.creationDate}>
+              {formatDateAndTime(climateSettingSchedule.created_at)}
+            </DetailRow>
           </DetailSection>
         </DetailSectionGroup>
-
-        <div style={{ height: '16px' }} />
-        <div className='seam-box'>
-          <div className='seam-content seam-creation-date'>
-            <span className='seam-label'>{t.creationDate}</span>
-            <span className='seam-right seam-value'>
-              {formatDateAndTime(climateSettingSchedule.created_at)}
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   )
