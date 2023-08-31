@@ -32,7 +32,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     'fahrenheit' | 'celsius'
   >('fahrenheit')
 
-  const toggleTemperatureScale = (): void => {
+  const toggleTemperatureUnit = (): void => {
     setTemperatureUnit(
       temperatureUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit'
     )
@@ -73,7 +73,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
             {device.properties.name}
           </h4>
           <button
-            onClick={toggleTemperatureScale}
+            onClick={toggleTemperatureUnit}
             className='seam-thermostat-temperature-toggle'
           >
             <span className='seam-thermostat-temperature-toggle-label'>
