@@ -2,11 +2,10 @@
 
 @mixin all {
   .seam-climate-setting-schedule-details {
-
     .seam-climate-setting-schedule-details-content {
       margin: 0 16px;
     }
- 
+
     .seam-default-setting-message {
       display: flex;
       justify-content: center;
@@ -25,7 +24,5 @@
     .seam-creation-date {
       color: colors.$text-gray-1;
     }
-
-   
   }
 }
