@@ -46,7 +46,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     current_climate_setting: currentClimateSetting,
     is_fan_running: isFanRunning,
     relative_humidity: relativeHumidity,
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   } = device.properties as ThermostatDeviceProperties
 
