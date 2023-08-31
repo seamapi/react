@@ -121,7 +121,8 @@ function Content(props: {
 
 const formatTemperatureValue = (value: number | undefined): number => {
   if (value == null) return 0
-  return Math.trunc(value)
+  if (Number.isInteger(value)) return parseFloat(value.toFixed())
+  return parseFloat(value.toFixed(1))
 }
 
 const t = {
