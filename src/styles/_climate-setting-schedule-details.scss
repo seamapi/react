@@ -6,13 +6,19 @@
       margin: 0 16px;
     }
 
-    .seam-allow-manual-override-text {
+    .seam-climate-setting-details-value {
       font-style: normal;
       font-weight: 400;
       line-height: 118%;
       font-size: 14px;
       color: colors.$text-gray-1;
+
+      &.seam-climate-setting-details-schedule-range {
+        display: flex;
+        align-items: center;
+      }
     }
+
 
     .seam-default-setting-message-container {
       display: flex;

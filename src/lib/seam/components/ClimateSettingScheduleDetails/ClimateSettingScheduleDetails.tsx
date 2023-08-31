@@ -8,6 +8,7 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
+import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ClimateSettingScheduleCard } from './ClimateSettingScheduleCard.js'
 
 export interface ClimateSettingScheduleDetailsProps {
@@ -52,7 +53,17 @@ export function ClimateSettingScheduleDetails({
         </div>
         <DetailSectionGroup>
           <DetailSection>
-            <DetailRow label={t.startEndTime} />
+            <DetailRow label={t.startEndTime}>
+              <span className='seam-climate-setting-details-value seam-climate-setting-details-schedule-range'>
+                {`${formatDateAndTime(
+                  climateSettingSchedule.schedule_starts_at
+                )}`}
+                <ArrowRightIcon />
+                {`${formatDateAndTime(
+                  climateSettingSchedule.schedule_ends_at
+                )}`}
+              </span>
+            </DetailRow>
             <DetailRow label={t.climateSetting}>
               <ClimateSettingStatus
                 climateSetting={climateSettingSchedule}
@@ -60,7 +71,7 @@ export function ClimateSettingScheduleDetails({
               />
             </DetailRow>
             <DetailRow label={t.allowManualOverride}>
-              <span className='seam-allow-manual-override-text'>
+              <span className='seam-climate-setting-details-value'>
                 {isManualOverrideAllowed ? t.on : t.off}
               </span>
             </DetailRow>
