@@ -11,6 +11,8 @@ import { OffIcon } from 'lib/icons/Off.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
+type SystemStatus = 'heating' | 'cooling' | 'fan' | 'off'
+
 interface ThermostatCardProps {
   device: ThermostatDevice
 }
@@ -44,11 +46,21 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     temperature_fahrenheit: temperatureFahrenheit,
     temperature_celsius: temperatureCelsius,
     current_climate_setting: currentClimateSetting,
+    is_heating: isHeating,
+    is_cooling: isCooling,
     is_fan_running: isFanRunning,
     relative_humidity: relativeHumidity,
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   } = device.properties as ThermostatDeviceProperties
+
+  const systemStatus = ((): SystemStatus => {
+    if (isHeating) return 'heating'
+    if (isCooling) return 'cooling'
+    if (isFanRunning) return 'fan'
+
+    return 'off'
+  })()
 
   return (
     <div className='seam-thermostat-card-content'>
@@ -122,10 +134,12 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
             <div
               className={classNames(
                 'seam-thermostat-property-tag',
-                `seam-thermostat-property-tag-${'cooling'}`
+                `seam-thermostat-property-tag-${systemStatus}`
               )}
             >
-              <p className='seam-thermostat-property-tag-label'>{t.cooling}</p>
+              <p className='seam-thermostat-property-tag-label'>
+                {systemStatus === 'off' ? '--' : t[systemStatus]}
+              </p>
             </div>
           </div>
         </div>
@@ -146,4 +160,5 @@ const t = {
   systemStatus: 'System status',
   cooling: 'Cooling',
   heating: 'Heating',
+  fan: 'Fan only',
 }
