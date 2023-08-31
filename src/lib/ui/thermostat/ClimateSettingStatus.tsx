@@ -78,8 +78,6 @@ function Content(props: {
   const { mode, coolingSetPoint, heatingSetPoint, temperatureUnit } = props
   const hasCoolingSetPoint = coolingSetPoint !== undefined
   const hasHeatingSetPoint = heatingSetPoint !== undefined
-  const unit =
-    temperatureUnit === 'fahrenheit' ? t.degreeFahrenheit : t.degreeCelsius
 
   if (mode === 'cool' && hasCoolingSetPoint)
     return (
@@ -127,7 +125,5 @@ const formatTemperatureValue = (value: number | undefined): number => {
 }
 
 const t = {
-  degreeFahrenheit: '°F',
-  degreeCelsius: '°C',
   off: 'Off',
 }

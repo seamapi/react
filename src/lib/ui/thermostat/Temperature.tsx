@@ -15,7 +15,7 @@ export function Temperature({
   const degree = unit === 'fahrenheit' ? t.degreeFahrenheit : t.degreeCelsius
   return (
     <span>
-      {Math.trunc(temperature)}°{!hideUnit && degree}
+      {Math.trunc(temperature)}°{hideUnit != null && degree}
     </span>
   )
 }
