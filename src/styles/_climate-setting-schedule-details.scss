@@ -6,6 +6,15 @@
       margin: 0 16px;
     }
 
+
+    .seam-allow-manual-override-text {
+      font-style: normal;
+      font-weight: 400;
+      line-height: 118%;
+      font-size: 14px;
+      color: colors.$text-gray-1;
+    }
+
     .seam-default-setting-message-container {
       display: flex;
       justify-content: center;
