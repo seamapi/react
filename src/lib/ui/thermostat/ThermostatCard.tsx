@@ -36,7 +36,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     )
   }
 
-  if (!isThermostatDevice(device)) {
+  if (device == null || (device != null && !isThermostatDevice(device))) {
     return null
   }
 
