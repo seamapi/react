@@ -1,14 +1,12 @@
 import classNames from 'classnames'
-import { useState } from 'react'
 
 import { formatDateAndTime } from 'lib/dates.js'
+import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
-import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
-import Switch from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 import { ClimateSettingScheduleCard } from './ClimateSettingScheduleCard.js'
@@ -28,11 +26,12 @@ export function ClimateSettingScheduleDetails({
     climateSettingScheduleId
   )
 
-  const [allowManualOverride, setAllowManualOverride] = useState(false)
-
   if (climateSettingSchedule == null) {
     return null
   }
+
+  const isManualOverrideAllowed =
+    climateSettingSchedule.manual_override_allowed ?? false
 
   return (
     <div
@@ -54,22 +53,27 @@ export function ClimateSettingScheduleDetails({
         </div>
         <DetailSectionGroup>
           <DetailSection>
-            <AccordionRow label={t.startEndTime} />
-            <AccordionRow
-              label={t.climateSetting}
-              rightCollapsedContent={
-                <ClimateSettingStatus
-                  climateSetting={climateSettingSchedule}
-                  iconPlacement='right'
-                />
-              }
-            />
-            <DetailRow label={t.allowManualOverride}>
-              <Switch
-                checked={allowManualOverride}
-                onChange={setAllowManualOverride}
-                enableLabel
+            <DetailRow label={t.startEndTime}>
+              <span className='seam-climate-setting-details-value seam-climate-setting-details-schedule-range'>
+                {`${formatDateAndTime(
+                  climateSettingSchedule.schedule_starts_at
+                )}`}
+                <ArrowRightIcon />
+                {`${formatDateAndTime(
+                  climateSettingSchedule.schedule_ends_at
+                )}`}
+              </span>
+            </DetailRow>
+            <DetailRow label={t.climateSetting}>
+              <ClimateSettingStatus
+                climateSetting={climateSettingSchedule}
+                iconPlacement='right'
               />
+            </DetailRow>
+            <DetailRow label={t.allowManualOverride}>
+              <span className='seam-climate-setting-details-value'>
+                {isManualOverrideAllowed ? t.on : t.off}
+              </span>
             </DetailRow>
           </DetailSection>
           <DetailSection>
@@ -94,4 +98,6 @@ const t = {
   defaultSettingMessagePart1: 'Thermostat will return to its',
   defaultSetting: 'default setting',
   defaultSettingMessagePart2: 'at end time.',
+  on: 'On',
+  off: 'Off',
 }
