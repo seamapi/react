@@ -35,12 +35,16 @@ export function FanModeMenu({ mode, onChange }: FanModeMenuProps): JSX.Element {
       <Option
         mode='auto'
         isSelected={mode === 'auto'}
-        onClick={() => { onChange('auto'); }}
+        onClick={() => {
+          onChange('auto')
+        }}
       />
       <Option
         mode='on'
         isSelected={mode === 'on'}
-        onClick={() => { onChange('on'); }}
+        onClick={() => {
+          onChange('on')
+        }}
       />
     </Menu>
   )
