@@ -402,6 +402,7 @@
 
 @mixin thermostat-card {
   .seam-thermostat-card {
+    width: 100%;
     background-color: colors.$bg-a;
     border-radius: 16px;
     display: flex;
@@ -465,13 +466,19 @@
     }
 
     .seam-thermostat-card-details {
+      width: 100%;
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
       gap: 8px;
     }
 
+    .seam-thermostat-properties-wrap {
+      display: flex;
+    }
+
     .seam-thermostat-properties {
+      width: auto;
       display: grid;
       grid-template-columns: auto auto;
       column-gap: 16px;

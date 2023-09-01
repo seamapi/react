@@ -75,61 +75,65 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
           </button>
         </div>
 
-        <div className='seam-thermostat-properties'>
-          <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>{t.temperature}:</p>
-          </div>
-          <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-value'>
-              <Temperature
-                fahrenheit={temperatureFahrenheit}
-                celsius={temperatureCelsius}
-                unit={temperatureUnit}
-              />
-            </p>
-
-            <p className='seam-thermostat-property-value'>|</p>
-            <p className='seam-thermostat-property-label'>{t.humidity}:</p>
-            <p className='seam-thermostat-property-value'>
-              {relativeHumidity * 100}%
-            </p>
-          </div>
-
-          <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>{t.setting}:</p>
-          </div>
-          <div className='seam-thermostat-property-block'>
-            <ClimateSettingStatus
-              climateSetting={currentClimateSetting}
-              temperatureUnit={temperatureUnit}
-            />
-          </div>
-
-          <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>{t.fanMode}:</p>
-          </div>
-          <div className='seam-thermostat-property-block seam-thermostat-property-icon-block'>
-            <div className='seam-thermostat-property-icon'>
-              {isFanRunning ? <FanIcon /> : <OffIcon />}
+        <div className='seam-thermostat-properties-wrap'>
+          <div className='seam-thermostat-properties'>
+            <div className='seam-thermostat-property-block'>
+              <p className='seam-thermostat-property-label'>{t.temperature}:</p>
             </div>
-            <p className='seam-thermostat-property-value'>
-              {isFanRunning ? t.auto : t.off}
-            </p>
-          </div>
-
-          <div className='seam-thermostat-property-block'>
-            <p className='seam-thermostat-property-label'>{t.systemStatus}:</p>
-          </div>
-          <div className='seam-thermostat-property-block'>
-            <div
-              className={classNames(
-                'seam-thermostat-property-tag',
-                `seam-thermostat-property-tag-${systemStatus}`
-              )}
-            >
-              <p className='seam-thermostat-property-tag-label'>
-                {systemStatus === 'off' ? '--' : t[systemStatus]}
+            <div className='seam-thermostat-property-block'>
+              <p className='seam-thermostat-property-value'>
+                <Temperature
+                  fahrenheit={temperatureFahrenheit}
+                  celsius={temperatureCelsius}
+                  unit={temperatureUnit}
+                />
               </p>
+
+              <p className='seam-thermostat-property-value'>|</p>
+              <p className='seam-thermostat-property-label'>{t.humidity}:</p>
+              <p className='seam-thermostat-property-value'>
+                {relativeHumidity * 100}%
+              </p>
+            </div>
+
+            <div className='seam-thermostat-property-block'>
+              <p className='seam-thermostat-property-label'>{t.setting}:</p>
+            </div>
+            <div className='seam-thermostat-property-block'>
+              <ClimateSettingStatus
+                climateSetting={currentClimateSetting}
+                temperatureUnit={temperatureUnit}
+              />
+            </div>
+
+            <div className='seam-thermostat-property-block'>
+              <p className='seam-thermostat-property-label'>{t.fanMode}:</p>
+            </div>
+            <div className='seam-thermostat-property-block seam-thermostat-property-icon-block'>
+              <div className='seam-thermostat-property-icon'>
+                {isFanRunning ? <FanIcon /> : <OffIcon />}
+              </div>
+              <p className='seam-thermostat-property-value'>
+                {isFanRunning ? t.auto : t.off}
+              </p>
+            </div>
+
+            <div className='seam-thermostat-property-block'>
+              <p className='seam-thermostat-property-label'>
+                {t.systemStatus}:
+              </p>
+            </div>
+            <div className='seam-thermostat-property-block'>
+              <div
+                className={classNames(
+                  'seam-thermostat-property-tag',
+                  `seam-thermostat-property-tag-${systemStatus}`
+                )}
+              >
+                <p className='seam-thermostat-property-tag-label'>
+                  {systemStatus === 'off' ? '--' : t[systemStatus]}
+                </p>
+              </div>
             </div>
           </div>
         </div>

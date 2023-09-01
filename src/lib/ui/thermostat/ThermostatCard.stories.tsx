@@ -21,7 +21,7 @@ export const Content: Story = {
     if (device == null) return <></>
 
     return (
-      <Box display='grid' gap={4} gridTemplateColumns='repeat(4, min-content)'>
+      <Box maxWidth={468}>
         <ThermostatCard device={device} />
       </Box>
     )
