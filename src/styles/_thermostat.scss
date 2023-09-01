@@ -400,7 +400,167 @@
   }
 }
 
+@mixin thermostat-card {
+  .seam-thermostat-card {
+    width: 100%;
+    background-color: colors.$bg-a;
+    border-radius: 16px;
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+
+    .seam-thermostat-card-content {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: row;
+      gap: 8px;
+      align-self: stretch;
+    }
+
+    .seam-thermostat-card-image-wrap {
+      padding: 24px;
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+      }
+    }
+
+    .seam-thermostat-heading-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      gap: 16px;
+    }
+
+    .seam-thermostat-card-heading {
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 132%;
+      white-space: nowrap;
+    }
+
+    .seam-thermostat-temperature-toggle {
+      appearance: none;
+      width: 32px;
+      height: 22px;
+      box-shadow: none;
+      border-radius: 5px;
+      border: 1px solid colors.$text-gray-3;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: colors.$text-gray-1;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .seam-thermostat-card-details {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .seam-thermostat-properties-wrap {
+      display: flex;
+    }
+
+    .seam-thermostat-properties {
+      width: auto;
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 16px;
+      row-gap: 8px;
+    }
+
+    .seam-thermostat-property-block {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+
+      &.seam-thermostat-property-icon-block {
+        gap: 4px;
+      }
+    }
+
+    .seam-thermostat-property-label {
+      color: colors.$text-gray-2;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 118%;
+      white-space: nowrap;
+    }
+
+    .seam-thermostat-property-value {
+      color: colors.$text-gray-1;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 118%;
+      white-space: nowrap;
+    }
+
+    .seam-thermostat-property-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .seam-thermostat-property-tag {
+      height: 18px;
+      padding: 0 8px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.seam-thermostat-property-tag-cooling {
+        background-color: colors.$thermo-blue;
+      }
+
+      &.seam-thermostat-property-tag-heating {
+        background-color: colors.$thermo-orange;
+      }
+
+      &.seam-thermostat-property-tag-fan {
+        border: 1px solid colors.$text-gray-2-5;
+        background-color: transparent;
+
+        .seam-thermostat-property-tag-label {
+          color: colors.$text-gray-1;
+        }
+      }
+
+      &.seam-thermostat-property-tag-off {
+        background-color: transparent;
+
+        .seam-thermostat-property-tag-label {
+          color: colors.$text-gray-1;
+        }
+      }
+
+      .seam-thermostat-property-tag-label {
+        color: colors.$white;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1;
+      }
+    }
+  }
+}
+
 @mixin all {
   @include temperature-control;
   @include climate-setting-status;
+  @include thermostat-card;
 }
