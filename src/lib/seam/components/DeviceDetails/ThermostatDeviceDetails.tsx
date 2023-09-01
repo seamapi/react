@@ -26,7 +26,7 @@ export function ThermostatDeviceDetails(props: {
             <DetailSection
               label='Scheduled climates'
               tooltipContent="Scheduled climates let you automatically change the thermostat's climate at a set time."
-             />
+            />
 
             <DetailSection
               label='Current settings'
