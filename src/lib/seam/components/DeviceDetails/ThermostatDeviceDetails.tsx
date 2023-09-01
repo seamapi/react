@@ -53,7 +53,7 @@ export function ThermostatDeviceDetails(props: {
 
   return (
     <div className={classNames('seam-device-details', className)}>
-      <ContentHeader title='Thermostat' onBack={onBack} />
+      <ContentHeader title={t.thermostat} onBack={onBack} />
 
       <div className='seam-body'>
         <ThermostatCard device={device} />
@@ -149,6 +149,7 @@ export function ThermostatDeviceDetails(props: {
 }
 
 const t = {
+  thermostat: 'Thermostat',
   climateSchedule: 'scheduled climate',
   climateSchedules: 'scheduled climates',
   viewingClimateSchedules: 'View scheduled climates',
