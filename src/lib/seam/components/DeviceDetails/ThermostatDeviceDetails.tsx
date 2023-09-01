@@ -157,7 +157,7 @@ const t = {
     "Scheduled climates let you automatically change the thermostat's climate at a set time.",
   currentSettings: 'Current settings',
   currentSettingsTooltip:
-    'These are the settings currently on the device. If you change them here, they change ont he device.',
+    'These are the settings currently on the device. If you change them here, they change on the device.',
   climate: 'Climate',
   defaultSettings: 'Default settings',
   defaultSettingsTooltip:
