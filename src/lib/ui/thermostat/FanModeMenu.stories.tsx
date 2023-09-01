@@ -1,8 +1,8 @@
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
 import { FanModeMenu } from './FanModeMenu.js'
-import { useState } from 'react'
 
 const meta: Meta<typeof FanModeMenu> = {
   title: 'Library/FanModeMenu',
