@@ -139,8 +139,8 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
 }
 
 const t = {
-  fahrenheit: 'ºF',
-  celsius: 'ºC',
+  fahrenheit: '˚F',
+  celsius: '˚C',
   auto: 'Auto',
   off: 'Off',
   temperature: 'Temperature',
