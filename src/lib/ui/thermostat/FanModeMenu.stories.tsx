@@ -14,7 +14,12 @@ type Story = StoryObj<typeof FanModeMenu>
 export const Content: Story = {
   render: () => {
     return (
-      <Box display='grid' gap={4} gridTemplateColumns='repeat(4, min-content)' height={400}>
+      <Box
+        display='grid'
+        gap={4}
+        gridTemplateColumns='repeat(4, min-content)'
+        height={400}
+      >
         <FanModeMenu />
       </Box>
     )

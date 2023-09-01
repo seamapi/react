@@ -1,10 +1,11 @@
+import { useState } from 'react'
+
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import { FanIcon } from 'lib/icons/Fan.js'
 import { FanOutlineIcon } from 'lib/icons/FanOutline.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
-import { useState } from 'react'
 
 type Mode = 'auto' | 'on'
 
@@ -39,12 +40,12 @@ export function FanModeMenu() {
       <Option
         mode='auto'
         isSelected={currentMode === 'auto'}
-        onClick={() => handleModeChange('auto')}
+        onClick={() => { handleModeChange('auto'); }}
       />
       <Option
         mode='on'
         isSelected={currentMode === 'on'}
-        onClick={() => handleModeChange('on')}
+        onClick={() => { handleModeChange('on'); }}
       />
     </Menu>
   )
