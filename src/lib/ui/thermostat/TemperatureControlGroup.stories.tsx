@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { TemperatureControlGroup } from './TemperatureControlGroup.js'
 
 const meta: Meta<typeof TemperatureControlGroup> = {
@@ -19,7 +20,7 @@ export const Content: Story = {
           justifyContent: 'center',
           alignItems: 'flex-start',
           flexDirection: 'column',
-          gap: "64px",
+          gap: '64px',
         }}
       >
         <Box
