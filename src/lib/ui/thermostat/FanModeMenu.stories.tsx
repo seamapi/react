@@ -21,7 +21,7 @@ export const Content: Story = {
         display='grid'
         gap={4}
         gridTemplateColumns='repeat(4, min-content)'
-        height={400}
+        height={120}
       >
         <FanModeMenu mode={mode} onChange={(mode) => setMode(mode)} />
       </Box>
