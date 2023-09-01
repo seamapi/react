@@ -8,7 +8,7 @@ import {
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const meta: Meta<typeof DeviceTable> = {
-  title: 'Example/DeviceTable',
+  title: 'Components/DeviceTable',
   component: DeviceTable,
   tags: ['autodocs'],
   parameters: {

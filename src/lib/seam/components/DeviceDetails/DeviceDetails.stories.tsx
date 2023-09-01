@@ -9,7 +9,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  * These stories showcase the device details.
  */
 const meta: Meta<typeof DeviceDetails> = {
-  title: 'Example/DeviceDetails',
+  title: 'Components/DeviceDetails',
   component: DeviceDetails,
   tags: ['autodocs'],
   parameters: {
