@@ -31,7 +31,9 @@ export function TemperatureControlGroup({
           <TemperatureControl
             variant='heat'
             value={heat}
-            onChange={(t) => { setHeat(t); }}
+            onChange={(t) => {
+              setHeat(t)
+            }}
           />
         </div>
       )}
@@ -42,7 +44,9 @@ export function TemperatureControlGroup({
           <TemperatureControl
             variant='cool'
             value={cool}
-            onChange={(t) => { setCool(t); }}
+            onChange={(t) => {
+              setCool(t)
+            }}
           />
         </div>
       )}
