@@ -88,9 +88,24 @@
     padding: 8px 16px;
   }
 
+  .seam-detail-row-label-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   .seam-row-label {
     font-size: 16px;
     font-weight: 600;
+    line-height: 118%;
+  }
+
+  .seam-row-sublabel {
+    color: colors.$text-gray-1;
+    font-size: 14px;
+    font-weight: 400;
     line-height: 118%;
   }
 
