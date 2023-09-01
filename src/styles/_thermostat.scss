@@ -400,7 +400,78 @@
   }
 }
 
+@mixin fan-mode-menu {
+  .seam-fan-mode-menu-bg {
+    .seam-menu-content {
+      max-width: 180px;
+      box-shadow:
+        0px 2px 16px 2px rgba(15, 22, 28, 0.15),
+        0px 0px 1px 0px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .seam-fan-mode-menu-button {
+    width: 130px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 6px;
+    border: 1px solid colors.$text-gray-3;
+    background: colors.$white;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+      border-color: colors.$text-gray-2;
+    }
+
+    &:active {
+      border: 1px solid colors.$text-gray-2;
+      background: colors.$bg-c;
+    }
+
+    .seam-fan-mode-menu-button-block {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .seam-fan-mode-menu-button-text {
+      color: colors.$text-gray-1;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 120%;
+    }
+  }
+
+  .seam-fan-mode-menu-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .seam-fan-mode-menu-item-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .seam-thermostat-icon-grayscale {
+    filter: grayscale(100%);
+  }
+}
+
 @mixin all {
   @include temperature-control;
   @include climate-setting-status;
+  @include fan-mode-menu;
 }
