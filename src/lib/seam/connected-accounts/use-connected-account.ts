@@ -13,7 +13,7 @@ export type UseConnectedAccountData = ConnectedAccount | null
 
 export function useConnectedAccount(
   params: ConnectedAccountsGetRequest
-): UseSeamQueryResult<'connected_account', UseConnectedAccountData> {
+): UseSeamQueryResult<'connectedAccount', UseConnectedAccountData> {
   const normalizedParams =
     typeof params === 'string' ? { connected_account_id: params } : params
 
@@ -30,5 +30,5 @@ export function useConnectedAccount(
     },
   })
 
-  return { ...rest, connected_account: data }
+  return { ...rest, connectedAccount: data }
 }
