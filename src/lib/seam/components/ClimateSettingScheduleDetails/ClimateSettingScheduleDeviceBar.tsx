@@ -40,7 +40,9 @@ function Content(props: {
   return (
     <div
       className='seam-climate-setting-schedule-device-bar'
-      onClick={() => { onSelectDevice(device.device_id); }}
+      onClick={() => {
+        onSelectDevice(device.device_id)
+      }}
     >
       <div className='seam-climate-setting-schedule-device-content'>
         <div className='seam-device-image'>
