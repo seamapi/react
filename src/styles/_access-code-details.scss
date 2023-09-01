@@ -132,6 +132,23 @@
           display: flex;
           flex: 1;
 
+          &.seam-code-id {
+            display: flex;
+            justify-content: space-between;
+
+            .seam-icon-btn {
+              border: 0;
+
+              &:hover {
+                background: transparent;
+              }
+
+              svg {
+                scale: 0.83333333;
+              }
+            }
+          }
+
           .seam-times {
             display: flex;
             flex: 1;
