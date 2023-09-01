@@ -9,6 +9,10 @@ import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 import { useConnectedAccount } from '../../../../hooks.js'
+import { useState } from 'react'
+import { ClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
+import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
+import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
@@ -17,7 +21,28 @@ export function ThermostatDeviceDetails(props: {
 }): JSX.Element | null {
   const { device, onBack, className } = props
 
+  const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
+
   const { connectedAccount } = useConnectedAccount(device.connected_account_id)
+
+  const {
+    climateSettingSchedules,
+    isLoading: isLoadingClimateSchedules,
+    isError: isErrorClimateSchedules,
+  } = useClimateSettingSchedules({
+    device_id: device.device_id,
+  })
+
+  const isClimateSchedulesPlural = climateSettingSchedules?.length !== 1
+
+  if (climateSettingsOpen) {
+    return (
+      <ClimateSettingScheduleTable
+        deviceId={device.device_id}
+        onBack={() => setClimateSettingsOpen(false)}
+      />
+    )
+  }
 
   if (device == null) {
     return null
@@ -26,6 +51,7 @@ export function ThermostatDeviceDetails(props: {
   return (
     <div className={classNames('seam-device-details', className)}>
       <ContentHeader title='Thermostat' onBack={onBack} />
+
       <div className='seam-body'>
         <ThermostatCard device={device} />
 
@@ -34,7 +60,24 @@ export function ThermostatDeviceDetails(props: {
             <DetailSection
               label='Scheduled climates'
               tooltipContent="Scheduled climates let you automatically change the thermostat's climate at a set time."
-            />
+            >
+              <DetailRow
+                label={
+                  isLoadingClimateSchedules || isErrorClimateSchedules
+                    ? 'View scheduled climates'
+                    : `${climateSettingSchedules?.length} ${
+                        isClimateSchedulesPlural
+                          ? t.climateSchedules
+                          : t.climateSchedule
+                      }`
+                }
+                onClick={() => setClimateSettingsOpen(true)}
+              >
+                <div className='seam-detail-row-rotated-icon'>
+                  <ChevronWideIcon />
+                </div>
+              </DetailRow>
+            </DetailSection>
 
             <DetailSection
               label='Current settings'
@@ -101,4 +144,7 @@ export function ThermostatDeviceDetails(props: {
   )
 }
 
-const t = {}
+const t = {
+  climateSchedule: 'scheduled climate',
+  climateSchedules: 'scheduled climates',
+}

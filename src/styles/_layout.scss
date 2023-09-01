@@ -76,6 +76,15 @@
     &:not(:last-of-type) {
       border-bottom: 1px solid colors.$divider-stroke-light;
     }
+
+    &.seam-detail-row-clickable {
+      cursor: pointer;
+      transition: 0.2s ease;
+
+      &:hover {
+        background-color: colors.$bg-a;
+      }
+    }
   }
 
   .seam-detail-row,
@@ -115,6 +124,10 @@
     align-items: center;
     flex-direction: row;
     gap: 8px;
+  }
+
+  .seam-detail-row-rotated-icon {
+    transform: rotate(-90deg);
   }
 }
 
