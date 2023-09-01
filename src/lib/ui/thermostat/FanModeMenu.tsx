@@ -48,8 +48,8 @@ export function FanModeMenu({ mode, onChange }: FanModeMenuProps): JSX.Element {
 
 interface OptionProps {
   mode: Mode
-  isSelected: boolean
   onClick: () => void
+  isSelected: boolean
 }
 
 function Option({ mode, isSelected, onClick }: OptionProps) {
