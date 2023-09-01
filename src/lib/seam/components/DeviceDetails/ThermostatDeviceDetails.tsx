@@ -1,7 +1,11 @@
 import classNames from 'classnames'
+import { useState } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
+import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
+import { ClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
+import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
@@ -10,10 +14,6 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 import { useConnectedAccount } from '../../../../hooks.js'
-import { useState } from 'react'
-import { ClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
-import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
-import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
@@ -40,7 +40,9 @@ export function ThermostatDeviceDetails(props: {
     return (
       <ClimateSettingScheduleTable
         deviceId={device.device_id}
-        onBack={() => setClimateSettingsOpen(false)}
+        onBack={() => {
+          setClimateSettingsOpen(false)
+        }}
       />
     )
   }
@@ -72,7 +74,9 @@ export function ThermostatDeviceDetails(props: {
                           : t.climateSchedule
                       }`
                 }
-                onClick={() => setClimateSettingsOpen(true)}
+                onClick={() => {
+                  setClimateSettingsOpen(true)
+                }}
               >
                 <div className='seam-detail-row-rotated-icon'>
                   <ChevronWideIcon />
