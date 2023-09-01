@@ -14,19 +14,10 @@ export function Temperature({
 
   return (
     <span>
-      {formatTemperatureValue(temperature, unit)}
+      {Math.trunc(temperature)}
       {degree}
     </span>
   )
-}
-
-const formatTemperatureValue = (
-  value: number,
-  unit: 'fahrenheit' | 'celsius'
-): string => {
-  if (unit === 'fahrenheit') return Math.trunc(value).toString()
-  if (Number.isInteger(value)) return value.toFixed()
-  return value.toFixed(1)
 }
 
 const t = {
