@@ -25,15 +25,9 @@ export function ThermostatDeviceDetails(props: {
 
   const { connectedAccount } = useConnectedAccount(device.connected_account_id)
 
-  const {
-    climateSettingSchedules,
-    isLoading: isLoadingClimateSchedules,
-    isError: isErrorClimateSchedules,
-  } = useClimateSettingSchedules({
+  const { climateSettingSchedules } = useClimateSettingSchedules({
     device_id: device.device_id,
   })
-
-  const isClimateSchedulesPlural = climateSettingSchedules?.length !== 1
 
   if (climateSettingsOpen) {
     return (
@@ -50,6 +44,11 @@ export function ThermostatDeviceDetails(props: {
     return null
   }
 
+  const climateSettingSchedulesLabel =
+    climateSettingSchedules?.length !== 1
+      ? t.climateSchedules
+      : t.climateSchedule
+
   return (
     <div className={classNames('seam-device-details', className)}>
       <ContentHeader title={t.thermostat} onBack={onBack} />
@@ -65,13 +64,9 @@ export function ThermostatDeviceDetails(props: {
             >
               <DetailRow
                 label={
-                  isLoadingClimateSchedules || isErrorClimateSchedules
+                  climateSettingSchedules == null
                     ? t.viewingClimateSchedules
-                    : `${climateSettingSchedules?.length} ${
-                        isClimateSchedulesPlural
-                          ? t.climateSchedules
-                          : t.climateSchedule
-                      }`
+                    : `${climateSettingSchedules.length} ${climateSettingSchedulesLabel}`
                 }
                 onClick={() => {
                   setClimateSettingsOpen(true)
