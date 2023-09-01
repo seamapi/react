@@ -12,22 +12,28 @@ import { ClimateSettingScheduleDeviceBar } from './ClimateSettingScheduleDeviceB
 
 interface ClimateSettingScheduleCardProps {
   climateSettingScheduleId: string
+  onSelectDevice: (deviceId: string) => void
 }
 
 export function ClimateSettingScheduleCard({
   climateSettingScheduleId,
+  onSelectDevice,
 }: ClimateSettingScheduleCardProps): JSX.Element {
   return (
     <div className='seam-climate-setting-schedule-card'>
-      <Content climateSettingScheduleId={climateSettingScheduleId} />
+      <Content
+        climateSettingScheduleId={climateSettingScheduleId}
+        onSelectDevice={onSelectDevice}
+      />
     </div>
   )
 }
 
 function Content(props: {
   climateSettingScheduleId: string
+  onSelectDevice: (deviceId: string) => void
 }): JSX.Element | null {
-  const { climateSettingScheduleId } = props
+  const { climateSettingScheduleId, onSelectDevice } = props
 
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
@@ -57,6 +63,7 @@ function Content(props: {
         </div>
       </div>
       <ClimateSettingScheduleDeviceBar
+        onSelectDevice={onSelectDevice}
         deviceId={climateSettingSchedule.device_id}
       />
     </div>
