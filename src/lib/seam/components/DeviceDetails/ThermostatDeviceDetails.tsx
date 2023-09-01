@@ -94,9 +94,6 @@ export function ThermostatDeviceDetails(props: {
                   temperatureUnit='fahrenheit'
                 />
               </DetailRow>
-              <DetailRow label={t.fanMode}>
-                {device.properties.current_fan_mode}
-              </DetailRow>
             </DetailSection>
 
             <DetailSection
@@ -159,7 +156,6 @@ const t = {
   currentSettings: 'Current settings',
   currentSettingsTooltip:
     'These are the settings currently on the device. If you change them here, they change ont he device.',
-  fanMode: 'Fan mode',
   defaultSettings: 'Default settings',
   defaultSettingsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
