@@ -1,11 +1,12 @@
 import classNames from 'classnames'
-import { type PropsWithChildren, useState } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
-import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { DetailSection } from 'lib/ui/layout/DetailSection.js'
+import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
-import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
@@ -18,106 +19,26 @@ export function ThermostatDeviceDetails(props: {
     <div className={classNames('seam-device-details', className)}>
       <ContentHeader title='Thermostat' onBack={onBack} />
       <div className='seam-body'>
-        {/* ThermostatCard */}
+        <ThermostatCard device={device} />
 
-        <div className='seam-thermostat-details-sections'>
-          <Section
-            title='Scheduling'
-            tooltipContent="Scheduled climates let you automatically change the thermostat's climate at a set time."
-          >
-            <div className='seam-thermostat-detail-row'>
-              <p className='seam-thermostat-row-title'>11 Scheduled climates</p>
-            </div>
-          </Section>
+        <div className='seam-thermostat-device-details'>
+          <DetailSectionGroup>
+            <DetailSection
+              label='Scheduled climates'
+              tooltipContent="Scheduled climates let you automatically change the thermostat's climate at a set time."
+            ></DetailSection>
 
-          <Section
-            title='Current settings'
-            tooltipContent='These are the settings currently on the device. If you change them here, they change on the device.'
-          >
-            <AccordionRow
-              title='Climate'
-              triggerRightContent={
-                <ClimateSettingStatus
-                  climateSetting={device.properties.current_climate_setting}
-                />
-              }
+            <DetailSection
+              label='Current settings'
+              tooltipContent='These are the settings currently on the device. If you change them here, they change ont he device.'
             >
-              Hi!
-            </AccordionRow>
-            <div className='seam-thermostat-detail-row'>
-              <p className='seam-thermostat-row-title'>Fan mode</p>
-            </div>
-          </Section>
-
-          <Section
-            title='Default settings'
-            tooltipContent='When a scheduled climate reaches its end time, the default settings will kick in.'
-          />
-
-          <Section title='Device details' />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-interface SectionProps {
-  title: string
-  tooltipContent?: string
-}
-
-function Section({
-  title,
-  tooltipContent,
-  children,
-}: PropsWithChildren<SectionProps>) {
-  return (
-    <div className='seam-thermostat-detail-section'>
-      <div className='seam-thermostat-detail-label-wrap'>
-        <p className='seam-thermostat-detail-label'>{title}</p>
-        {tooltipContent && <Tooltip>{tooltipContent}</Tooltip>}
-      </div>
-
-      <div className='seam-thermostat-detail-group'>{children}</div>
-    </div>
-  )
-}
-
-interface AccordionRowProps {
-  title: string
-  triggerRightContent?: JSX.Element
-}
-
-function AccordionRow({
-  title,
-  triggerRightContent,
-  children,
-}: PropsWithChildren<AccordionRowProps>) {
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const toggleExpanded = () => {
-    setIsExpanded((isExpanded) => !isExpanded)
-  }
-
-  return (
-    <div className='seam-thermostat-accordion-row' aria-expanded={isExpanded}>
-      <button
-        className='seam-thermostat-accordion-row-trigger'
-        onClick={toggleExpanded}
-      >
-        <p className='seam-thermostat-row-title'>{title}</p>
-        <div className='seam-thermostat-row-inner-wrap'>
-          <div className='seam-thermostat-row-trigger-right-content'>
-            {triggerRightContent}
-          </div>
-          <div className='seam-thermostat-accordion-icon-wrap'>
-            <ChevronWideIcon />
-          </div>
-        </div>
-      </button>
-      <div className='seam-thermostat-accordion-row-content'>
-        <div className='seam-thermostat-accordion-row-inner-content'>
-          {children}
+              <DetailRow label='Climate'>
+                <ClimateSettingStatus
+                  climateSetting={device.properties.climate_setting}
+                />
+              </DetailRow>
+            </DetailSection>
+          </DetailSectionGroup>
         </div>
       </div>
     </div>
