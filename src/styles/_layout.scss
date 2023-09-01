@@ -93,6 +93,14 @@
     font-weight: 600;
     line-height: 118%;
   }
+
+  .seam-detail-row-hstack {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+  }
 }
 
 @mixin detail-row {

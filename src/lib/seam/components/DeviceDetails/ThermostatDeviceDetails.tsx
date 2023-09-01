@@ -7,6 +7,7 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { BeeIcon } from 'lib/icons/Bee.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
@@ -76,7 +77,10 @@ export function ThermostatDeviceDetails(props: {
               tooltipContent='When a scheduled climate reaches its end time, the default settings will kick in.'
             >
               <DetailRow label='Brand'>
-                {device.properties.model.manufacturer_display_name}
+                <div className='seam-detail-row-hstack'>
+                  {device.properties.model.manufacturer_display_name}
+                  <BeeIcon />
+                </div>
               </DetailRow>
             </DetailSection>
           </DetailSectionGroup>
