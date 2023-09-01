@@ -101,7 +101,7 @@ export function ThermostatDeviceDetails(props: {
               tooltipContent={t.defaultSettingsTooltip}
             >
               <DetailRow label='Default climate'>
-                {/* @ts-expect-error */}
+                {/* @ts-expect-error not currently included in sdk */}
                 {device.properties.default_climate_setting != null ? (
                   <ClimateSettingStatus
                     climateSetting={device.properties.current_climate_setting}
