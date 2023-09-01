@@ -128,8 +128,7 @@ export function ThermostatDeviceDetails(props: {
               <DetailRow label={t.brand}>
                 <div className='seam-detail-row-hstack'>
                   {device.properties.model.manufacturer_display_name}
-                  {device.properties.model.manufacturer_display_name ===
-                    'Ecobee' && <BeeIcon />}
+                  {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
                 </div>
               </DetailRow>
               <DetailRow
