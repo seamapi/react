@@ -18,7 +18,7 @@ export const Content: Story = {
 
     return (
       <Box height={120}>
-        <FanModeMenu mode={mode} onChange={(mode) => setMode(mode)} />
+        <FanModeMenu mode={mode} onChange={(mode) => { setMode(mode); }} />
       </Box>
     )
   },
