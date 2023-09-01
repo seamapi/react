@@ -151,5 +151,4 @@ const t = {
   cooling: 'Cooling',
   heating: 'Heating',
   fan: 'Fan only',
-  degree: 'º',
 }
