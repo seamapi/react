@@ -6,13 +6,8 @@ import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { ThermostatOffIcon } from 'lib/icons/ThermostatOff.js'
 import { Temperature } from 'lib/ui/thermostat/Temperature.js'
 
-interface SetPoint {
-  fahrenheit?: number
-  celsius?: number
-}
-
 interface ClimateSettingStatusProps {
-  climateSetting: Partial<ClimateSetting>
+  climateSetting: ClimateSetting
   temperatureUnit?: 'fahrenheit' | 'celsius'
   iconPlacement?: 'left' | 'right'
 }
@@ -55,30 +50,35 @@ function ClimateSettingIcon(props: {
     <div className='seam-climate-setting-status-icon'>
       {mode === 'cool' && <ThermostatCoolIcon />}
       {mode === 'heat' && <ThermostatHeatIcon />}
-      {mode === 'heatcool' && <ThermostatHeatCoolIcon />}
+      {mode === 'heat_cool' && <ThermostatHeatCoolIcon />}
       {mode === 'off' && <ThermostatOffIcon />}
     </div>
   )
 }
 
+interface SetPoint {
+  fahrenheit: number
+  celsius: number
+}
+
 function Content(props: {
   mode: ClimateSetting['hvac_mode_setting']
-  coolingSetPoint: SetPoint
-  heatingSetPoint: SetPoint
+  coolingSetPoint: Partial<SetPoint>
+  heatingSetPoint: Partial<SetPoint>
   temperatureUnit: 'fahrenheit' | 'celsius'
 }): JSX.Element | null {
   const { mode, coolingSetPoint, heatingSetPoint, temperatureUnit } = props
 
-  if (mode === 'cool' && checkSetPoint(coolingSetPoint))
+  if (mode === 'cool' && isSetPoint(coolingSetPoint))
     return <Temperature {...coolingSetPoint} unit={temperatureUnit} />
 
-  if (mode === 'heat' && checkSetPoint(heatingSetPoint))
+  if (mode === 'heat' && isSetPoint(heatingSetPoint))
     return <Temperature {...heatingSetPoint} unit={temperatureUnit} />
 
   if (
-    mode === 'heatcool' &&
-    checkSetPoint(heatingSetPoint) &&
-    checkSetPoint(coolingSetPoint)
+    mode === 'heat_cool' &&
+    isSetPoint(heatingSetPoint) &&
+    isSetPoint(coolingSetPoint)
   )
     return (
       <span>
@@ -93,8 +93,8 @@ function Content(props: {
   return null
 }
 
-function checkSetPoint(setPoint: SetPoint): setPoint is Required<SetPoint> {
-  return setPoint.fahrenheit !== undefined && setPoint.celsius !== undefined
+function isSetPoint(setPoint: Partial<SetPoint>): setPoint is SetPoint {
+  return setPoint.fahrenheit != null && setPoint.celsius != null
 }
 
 const t = {

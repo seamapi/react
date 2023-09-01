@@ -95,7 +95,7 @@ export const Content: Story = {
 
         <ClimateSettingStatus
           climateSetting={{
-            hvac_mode_setting: 'heatcool',
+            hvac_mode_setting: 'heat_cool',
             cooling_set_point_fahrenheit: 70,
             cooling_set_point_celsius: 21,
             heating_set_point_fahrenheit: 60,
@@ -106,7 +106,7 @@ export const Content: Story = {
 
         <ClimateSettingStatus
           climateSetting={{
-            hvac_mode_setting: 'heatcool',
+            hvac_mode_setting: 'heat_cool',
             cooling_set_point_fahrenheit: 70,
             cooling_set_point_celsius: 21,
             heating_set_point_fahrenheit: 60,
@@ -118,7 +118,7 @@ export const Content: Story = {
 
         <ClimateSettingStatus
           climateSetting={{
-            hvac_mode_setting: 'heatcool',
+            hvac_mode_setting: 'heat_cool',
             cooling_set_point_fahrenheit: 70,
             cooling_set_point_celsius: 21,
             heating_set_point_fahrenheit: 60,
@@ -130,7 +130,7 @@ export const Content: Story = {
 
         <ClimateSettingStatus
           climateSetting={{
-            hvac_mode_setting: 'heatcool',
+            hvac_mode_setting: 'heat_cool',
             cooling_set_point_fahrenheit: 70,
             cooling_set_point_celsius: 21,
             heating_set_point_fahrenheit: 60,
