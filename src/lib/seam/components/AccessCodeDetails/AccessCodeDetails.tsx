@@ -8,12 +8,15 @@ import type {
   DeviceError,
 } from 'seamapi'
 
+import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
+import { copyToClipboard } from 'lib/ui/clipboard.js'
+import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
@@ -82,7 +85,16 @@ export function AccessCodeDetails({
         >
           <span className='seam-label'>{t.accessCode}</span>
           <h5 className='seam-access-code-name'>{name}</h5>
-          <div className='seam-code'>{accessCode.code}</div>
+          <div className='seam-code'>
+            <span>{accessCode.code}</span>
+            <IconButton
+              onClick={() => {
+                void copyToClipboard(accessCode.code ?? '')
+              }}
+            >
+              <CopyIcon />
+            </IconButton>
+          </div>
           <div className='seam-duration'>
             <Duration accessCode={accessCode} />
           </div>
@@ -117,7 +129,16 @@ export function AccessCodeDetails({
       <div className='seam-details'>
         <div className='seam-row'>
           <div className='seam-heading'>{t.id}:</div>
-          <div className='seam-content'>{accessCode.access_code_id}</div>
+          <div className='seam-content seam-code-id'>
+            <span>{accessCode.access_code_id}</span>
+            <IconButton
+              onClick={() => {
+                void copyToClipboard(accessCode.access_code_id)
+              }}
+            >
+              <CopyIcon />
+            </IconButton>
+          </div>
         </div>
         <div className='seam-row'>
           <div className='seam-heading'>{t.created}:</div>

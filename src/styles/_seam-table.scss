@@ -99,6 +99,14 @@
       align-items: center;
       justify-content: space-between;
       flex: 1;
+
+      svg {
+        scale: 0.75;
+
+        * {
+          fill: colors.$primary;
+        }
+      }
     }
   }
 }
