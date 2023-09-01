@@ -33,11 +33,38 @@
           background: colors.$white;
           border: 1px solid colors.$text-gray-2;
           border-radius: 8px;
-          padding: 10px 16px;
           font-weight: 600;
           font-size: 24px;
           line-height: 134%;
           margin-bottom: 8px;
+          display: flex;
+          justify-content: space-between;
+
+          > span {
+            padding: 10px 16px;
+          }
+
+          > .seam-icon-btn {
+            height: auto;
+            border: 0;
+            overflow: visible;
+            padding: 0;
+            padding: 16px 10px;
+            flex: 0 0 48px;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+            border-left: 1px solid colors.$divider-stroke-light;
+
+            &:hover {
+              background: colors.$item-hover-bg;
+            }
+
+            svg {
+              scale: 0.83333333;
+            }
+          }
         }
 
         .seam-duration {
