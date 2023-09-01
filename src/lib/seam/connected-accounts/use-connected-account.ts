@@ -23,7 +23,7 @@ export function useConnectedAccount(
     SeamError
   >({
     enabled: client != null,
-    queryKey: ['devices', 'get', normalizedParams],
+    queryKey: ['connected_accounts', 'get', normalizedParams],
     queryFn: async () => {
       if (client == null) return null
       return await client.connectedAccounts.get(normalizedParams)
