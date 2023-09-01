@@ -15,10 +15,9 @@ export function DetailRow({
 }: PropsWithChildren<DetailRowProps>): JSX.Element {
   return (
     <div
-      className={classNames(
-        'seam-detail-row',
-        onClick != null && 'seam-detail-row-clickable'
-      )}
+      className={classNames('seam-detail-row', {
+        'seam-detail-row-clickable': onClick != null,
+      })}
       onClick={onClick}
     >
       <div className='seam-detail-row-label-wrap'>
