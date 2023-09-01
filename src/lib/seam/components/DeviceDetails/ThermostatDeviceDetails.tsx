@@ -100,7 +100,7 @@ export function ThermostatDeviceDetails(props: {
               label={t.defaultSettings}
               tooltipContent={t.defaultSettingsTooltip}
             >
-              <DetailRow label='Default climate'>
+              <DetailRow label={t.defaultClimate}>
                 {/* @ts-expect-error not currently included in sdk */}
                 {device.properties.default_climate_setting != null ? (
                   <ClimateSettingStatus
@@ -111,7 +111,7 @@ export function ThermostatDeviceDetails(props: {
                   <p>{t.none}</p>
                 )}
               </DetailRow>
-              <DetailRow label='Allow manual override'>
+              <DetailRow label={t.allowManualOverride}>
                 <p>
                   {device.properties.current_climate_setting
                     .manual_override_allowed
@@ -161,6 +161,8 @@ const t = {
   defaultSettings: 'Default settings',
   defaultSettingsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
+  defaultClimate: 'Default climate',
+  allowManualOverride: 'Allow manual override',
   deviceDetails: 'Device details',
   deviceDetailsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
