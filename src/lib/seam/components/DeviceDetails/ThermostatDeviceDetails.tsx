@@ -40,7 +40,9 @@ export function ThermostatDeviceDetails(props: {
     return (
       <ClimateSettingScheduleTable
         deviceId={device.device_id}
-        onBack={() => { setClimateSettingsOpen(false); }}
+        onBack={() => {
+          setClimateSettingsOpen(false)
+        }}
       />
     )
   }
@@ -72,7 +74,9 @@ export function ThermostatDeviceDetails(props: {
                           : t.climateSchedule
                       }`
                 }
-                onClick={() => { setClimateSettingsOpen(true); }}
+                onClick={() => {
+                  setClimateSettingsOpen(true)
+                }}
               >
                 <div className='seam-detail-row-rotated-icon'>
                   <ChevronWideIcon />
