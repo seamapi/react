@@ -14,7 +14,7 @@ export function DetailRow({
     <div className='seam-detail-row'>
       <div className='seam-detail-row-label-wrap'>
         <p className='seam-row-label'>{label}</p>
-        {sublabel != undefined && (
+        {sublabel !== undefined && (
           <p className='seam-row-sublabel'>{sublabel}</p>
         )}
       </div>
