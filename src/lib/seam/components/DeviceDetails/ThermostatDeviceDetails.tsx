@@ -82,7 +82,7 @@ export function ThermostatDeviceDetails(props: {
                   <BeeIcon />
                 </div>
               </DetailRow>
-              <DetailRow label="Linked account" />
+              <DetailRow label='Linked account' />
             </DetailSection>
           </DetailSectionGroup>
         </div>
