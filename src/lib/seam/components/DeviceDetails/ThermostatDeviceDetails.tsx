@@ -8,6 +8,7 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { useConnectedAccount } from '../../../../hooks.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
@@ -15,6 +16,8 @@ export function ThermostatDeviceDetails(props: {
   className?: string
 }): JSX.Element | null {
   const { device, onBack, className } = props
+
+  const { connectedAccount } = useConnectedAccount(device.connected_account_id)
 
   if (device == null) {
     return null
@@ -82,7 +85,13 @@ export function ThermostatDeviceDetails(props: {
                   <BeeIcon />
                 </div>
               </DetailRow>
-              <DetailRow label='Linked account' />
+              <DetailRow
+                label='Linked account'
+                sublabel={
+                  connectedAccount?.user_identifier?.email ??
+                  device.connected_account_id
+                }
+              />
               <DetailRow label='Device ID' sublabel={device.device_id} />
             </DetailSection>
           </DetailSectionGroup>
