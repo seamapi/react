@@ -59,13 +59,13 @@ export function ThermostatDeviceDetails(props: {
         <div className='seam-thermostat-device-details'>
           <DetailSectionGroup>
             <DetailSection
-              label='Scheduled climates'
-              tooltipContent="Scheduled climates let you automatically change the thermostat's climate at a set time."
+              label={t.scheduledClimates}
+              tooltipContent={t.scheduledClimatesTooltip}
             >
               <DetailRow
                 label={
                   isLoadingClimateSchedules || isErrorClimateSchedules
-                    ? 'View scheduled climates'
+                    ? t.viewingClimateSchedules
                     : `${climateSettingSchedules?.length} ${
                         isClimateSchedulesPlural
                           ? t.climateSchedules
@@ -81,8 +81,8 @@ export function ThermostatDeviceDetails(props: {
             </DetailSection>
 
             <DetailSection
-              label='Current settings'
-              tooltipContent='These are the settings currently on the device. If you change them here, they change ont he device.'
+              label={t.currentSettings}
+              tooltipContent={t.currentSettingsTooltip}
             >
               <DetailRow label='Climate'>
                 <ClimateSettingStatus
@@ -90,14 +90,14 @@ export function ThermostatDeviceDetails(props: {
                   temperatureUnit='fahrenheit'
                 />
               </DetailRow>
-              <DetailRow label='Fan mode'>
+              <DetailRow label={t.fanMode}>
                 {device.properties.current_fan_mode}
               </DetailRow>
             </DetailSection>
 
             <DetailSection
-              label='Default settings'
-              tooltipContent='When a scheduled climate reaches its end time, the default settings will kick in.'
+              label={t.defaultSettings}
+              tooltipContent={t.defaultSettingsTooltip}
             >
               <DetailRow label='Default climate'>
                 {device.properties.default_climate_setting != null ? (
@@ -106,22 +106,22 @@ export function ThermostatDeviceDetails(props: {
                     temperatureUnit='fahrenheit'
                   />
                 ) : (
-                  <p>None</p>
+                  <p>{t.none}</p>
                 )}
               </DetailRow>
               <DetailRow label='Allow manual override'>
                 <p>
                   {device.properties.current_climate_setting
                     .manual_override_allowed
-                    ? 'Yes'
-                    : 'No'}
+                    ? t.yes
+                    : t.no}
                 </p>
               </DetailRow>
             </DetailSection>
 
             <DetailSection
-              label='Device details'
-              tooltipContent='When a scheduled climate reaches its end time, the default settings will kick in.'
+              label={t.deviceDetails}
+              tooltipContent={t.deviceDetailsTooltip}
             >
               <DetailRow label='Brand'>
                 <div className='seam-detail-row-hstack'>
@@ -130,13 +130,13 @@ export function ThermostatDeviceDetails(props: {
                 </div>
               </DetailRow>
               <DetailRow
-                label='Linked account'
+                label={t.linkedAccount}
                 sublabel={
                   connectedAccount?.user_identifier?.email ??
                   device.connected_account_id
                 }
               />
-              <DetailRow label='Device ID' sublabel={device.device_id} />
+              <DetailRow label={t.deviceId} sublabel={device.device_id} />
             </DetailSection>
           </DetailSectionGroup>
         </div>
@@ -148,4 +148,23 @@ export function ThermostatDeviceDetails(props: {
 const t = {
   climateSchedule: 'scheduled climate',
   climateSchedules: 'scheduled climates',
+  viewingClimateSchedules: 'View scheduled climates',
+  scheduledClimates: 'Scheduled climates',
+  scheduledClimatesTooltip:
+    "Scheduled climates let you automatically change the thermostat's climate at a set time.",
+  currentSettings: 'Current settings',
+  currentSettingsTooltip:
+    'These are the settings currently on the device. If you change them here, they change ont he device.',
+  fanMode: 'Fan mode',
+  defaultSettings: 'Default settings',
+  defaultSettingsTooltip:
+    'When a scheduled climate reaches its end time, the default settings will kick in.',
+  deviceDetails: 'Device details',
+  deviceDetailsTooltip:
+    'When a scheduled climate reaches its end time, the default settings will kick in.',
+  linkedAccount: 'Linked account',
+  deviceId: 'Device ID',
+  none: 'None',
+  yes: 'Yes',
+  no: 'No',
 }
