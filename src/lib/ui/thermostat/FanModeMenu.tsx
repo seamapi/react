@@ -35,12 +35,12 @@ export function FanModeMenu({ mode, onChange }: FanModeMenuProps): JSX.Element {
       <Option
         mode='auto'
         isSelected={mode === 'auto'}
-        onClick={() => onChange('auto')}
+        onClick={() => { onChange('auto'); }}
       />
       <Option
         mode='on'
         isSelected={mode === 'on'}
-        onClick={() => onChange('on')}
+        onClick={() => { onChange('on'); }}
       />
     </Menu>
   )
@@ -52,7 +52,7 @@ interface OptionProps {
   isSelected: boolean
 }
 
-function Option({ mode, isSelected, onClick }: OptionProps) {
+function Option({ mode, isSelected, onClick }: OptionProps): JSX.Element {
   return (
     <MenuItem onClick={onClick}>
       <div className='seam-fan-mode-menu-item'>
