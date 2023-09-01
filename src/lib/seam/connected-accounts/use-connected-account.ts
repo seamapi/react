@@ -9,10 +9,11 @@ import type {
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
+export type UseConnectedAccountParams = ConnectedAccountsGetRequest | string
 export type UseConnectedAccountData = ConnectedAccount | null
 
 export function useConnectedAccount(
-  params: ConnectedAccountsGetRequest
+  params: UseConnectedAccountParams
 ): UseSeamQueryResult<'connectedAccount', UseConnectedAccountData> {
   const normalizedParams =
     typeof params === 'string' ? { connected_account_id: params } : params
