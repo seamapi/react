@@ -13,7 +13,7 @@ import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
-import { useConnectedAccount } from '../../../../hooks.js'
+import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
