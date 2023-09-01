@@ -2,11 +2,11 @@ import classNames from 'classnames'
 import type { ThermostatDevice } from 'seamapi'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
-import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
@@ -30,7 +30,7 @@ export function ThermostatDeviceDetails(props: {
             <DetailSection
               label='Scheduled climates'
               tooltipContent="Scheduled climates let you automatically change the thermostat's climate at a set time."
-            ></DetailSection>
+            />
 
             <DetailSection
               label='Current settings'
