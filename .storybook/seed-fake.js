@@ -21,9 +21,6 @@ export const seedFake = (db) => {
     provider: 'august',
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-15T15:08:50.000',
-    user_identifier: {
-      email: 'seam@example.com',
-    },
   })
 
   db.updateConnectWebview({
