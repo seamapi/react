@@ -18,6 +18,9 @@ export const Content: Story = {
         <DetailRow label='Detail row'>
           <p>Right area content</p>
         </DetailRow>
+        <DetailRow label='Detail row' sublabel='With a sublabel'>
+          <p>Right area content</p>
+        </DetailRow>
       </DetailSection>
     )
   },
