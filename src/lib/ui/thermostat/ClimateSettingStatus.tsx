@@ -7,8 +7,8 @@ import { ThermostatOffIcon } from 'lib/icons/ThermostatOff.js'
 import { Temperature } from 'lib/ui/thermostat/Temperature.js'
 
 interface SetPoint {
-  fahrenheit: number
-  celsius: number
+  fahrenheit?: number
+  celsius?: number
 }
 
 interface ClimateSettingStatusProps {
@@ -30,12 +30,12 @@ export function ClimateSettingStatus({
       <Content
         mode={climateSetting.hvac_mode_setting}
         coolingSetPoint={{
-          fahrenheit: climateSetting.cooling_set_point_fahrenheit ?? 0,
-          celsius: climateSetting.cooling_set_point_celsius ?? 0,
+          fahrenheit: climateSetting.cooling_set_point_fahrenheit,
+          celsius: climateSetting.cooling_set_point_celsius,
         }}
         heatingSetPoint={{
-          fahrenheit: climateSetting.heating_set_point_fahrenheit ?? 0,
-          celsius: climateSetting.heating_set_point_celsius ?? 0,
+          fahrenheit: climateSetting.heating_set_point_fahrenheit,
+          celsius: climateSetting.heating_set_point_celsius,
         }}
         temperatureUnit={temperatureUnit}
       />
@@ -68,16 +68,18 @@ function Content(props: {
   temperatureUnit: 'fahrenheit' | 'celsius'
 }): JSX.Element | null {
   const { mode, coolingSetPoint, heatingSetPoint, temperatureUnit } = props
-  const hasCoolingSetPoint = coolingSetPoint !== undefined
-  const hasHeatingSetPoint = heatingSetPoint !== undefined
 
-  if (mode === 'cool' && hasCoolingSetPoint)
+  if (mode === 'cool' && checkSetPoint(coolingSetPoint))
     return <Temperature {...coolingSetPoint} unit={temperatureUnit} />
 
-  if (mode === 'heat' && hasHeatingSetPoint)
+  if (mode === 'heat' && checkSetPoint(heatingSetPoint))
     return <Temperature {...heatingSetPoint} unit={temperatureUnit} />
 
-  if (mode === 'heatcool' && hasHeatingSetPoint && hasCoolingSetPoint)
+  if (
+    mode === 'heatcool' &&
+    checkSetPoint(heatingSetPoint) &&
+    checkSetPoint(coolingSetPoint)
+  )
     return (
       <span>
         <Temperature {...heatingSetPoint} unit={temperatureUnit} />
@@ -89,6 +91,10 @@ function Content(props: {
   if (mode === 'off') return <span>{t.off}</span>
 
   return null
+}
+
+function checkSetPoint(setPoint: SetPoint): setPoint is Required<SetPoint> {
+  return setPoint.fahrenheit !== undefined && setPoint.celsius !== undefined
 }
 
 const t = {
