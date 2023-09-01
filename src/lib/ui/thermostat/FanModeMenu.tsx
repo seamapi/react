@@ -40,12 +40,16 @@ export function FanModeMenu() {
       <Option
         mode='auto'
         isSelected={currentMode === 'auto'}
-        onClick={() => { handleModeChange('auto'); }}
+        onClick={() => {
+          handleModeChange('auto')
+        }}
       />
       <Option
         mode='on'
         isSelected={currentMode === 'on'}
-        onClick={() => { handleModeChange('on'); }}
+        onClick={() => {
+          handleModeChange('on')
+        }}
       />
     </Menu>
   )
