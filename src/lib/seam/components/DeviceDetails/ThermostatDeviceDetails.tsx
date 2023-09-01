@@ -15,6 +15,10 @@ export function ThermostatDeviceDetails(props: {
 }): JSX.Element | null {
   const { device, onBack, className } = props
 
+  if (device == null) {
+    return null
+  }
+
   return (
     <div className={classNames('seam-device-details', className)}>
       <ContentHeader title='Thermostat' onBack={onBack} />
@@ -34,8 +38,45 @@ export function ThermostatDeviceDetails(props: {
             >
               <DetailRow label='Climate'>
                 <ClimateSettingStatus
-                  climateSetting={device.properties.climate_setting}
+                  climateSetting={device.properties.current_climate_setting}
+                  temperatureUnit='fahrenheit'
                 />
+              </DetailRow>
+              <DetailRow label='Fan mode'>
+                {device.properties.current_fan_mode}
+              </DetailRow>
+            </DetailSection>
+
+            <DetailSection
+              label='Default settings'
+              tooltipContent='When a scheduled climate reaches its end time, the default settings will kick in.'
+            >
+              <DetailRow label='Default climate'>
+                {device.properties.default_climate_setting != null ? (
+                  <ClimateSettingStatus
+                    climateSetting={device.properties.current_climate_setting}
+                    temperatureUnit='fahrenheit'
+                  />
+                ) : (
+                  <p>None</p>
+                )}
+              </DetailRow>
+              <DetailRow label='Allow manual override'>
+                <p>
+                  {device.properties.current_climate_setting
+                    .manual_override_allowed
+                    ? 'Yes'
+                    : 'No'}
+                </p>
+              </DetailRow>
+            </DetailSection>
+
+            <DetailSection
+              label='Device details'
+              tooltipContent='When a scheduled climate reaches its end time, the default settings will kick in.'
+            >
+              <DetailRow label='Brand'>
+                {device.properties.model.manufacturer_display_name}
               </DetailRow>
             </DetailSection>
           </DetailSectionGroup>
