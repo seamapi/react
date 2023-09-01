@@ -1,4 +1,7 @@
 import classNames from 'classnames'
+import { useState } from 'react'
+
+import { DeviceDetails } from '../index.js'
 
 import { formatDateAndTime } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
@@ -9,8 +12,6 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
-import { useState } from 'react'
-import { DeviceDetails } from '../index.js'
 import { ClimateSettingScheduleCard } from './ClimateSettingScheduleCard.js'
 
 export interface ClimateSettingScheduleDetailsProps {
