@@ -125,7 +125,7 @@ export function ThermostatDeviceDetails(props: {
               label={t.deviceDetails}
               tooltipContent={t.deviceDetailsTooltip}
             >
-              <DetailRow label='Brand'>
+              <DetailRow label={t.brand}>
                 <div className='seam-detail-row-hstack'>
                   {device.properties.model.manufacturer_display_name}
                   {device.properties.model.manufacturer_display_name ===
@@ -167,6 +167,7 @@ const t = {
   deviceDetails: 'Device details',
   deviceDetailsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
+  brand: 'Brand',
   linkedAccount: 'Linked account',
   deviceId: 'Device ID',
   none: 'None',
