@@ -88,7 +88,7 @@ export function ThermostatDeviceDetails(props: {
               label={t.currentSettings}
               tooltipContent={t.currentSettingsTooltip}
             >
-              <DetailRow label='Climate'>
+              <DetailRow label={t.climate}>
                 <ClimateSettingStatus
                   climateSetting={device.properties.current_climate_setting}
                   temperatureUnit='fahrenheit'
@@ -158,6 +158,7 @@ const t = {
   currentSettings: 'Current settings',
   currentSettingsTooltip:
     'These are the settings currently on the device. If you change them here, they change ont he device.',
+  climate: 'Climate',
   defaultSettings: 'Default settings',
   defaultSettingsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
