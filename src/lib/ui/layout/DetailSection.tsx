@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react'
 import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
 interface DetailSectionProps {
-  label: string
+  label?: string
   tooltipContent?: string
 }
 
@@ -15,7 +15,7 @@ export function DetailSection({
   return (
     <div className='seam-detail-section'>
       <div className='seam-detail-label-wrap'>
-        <p className='seam-detail-label'>{label}</p>
+        {label != null && <p className='seam-detail-label'>{label}</p>}
         {tooltipContent != null && <Tooltip>{tooltipContent}</Tooltip>}
       </div>
 

@@ -28,7 +28,7 @@ export const Content: Story = {
           <DetailRow label='Row 3' />
         </DetailSection>
 
-        <DetailSection label='Section 3'>
+        <DetailSection>
           <DetailRow label='Row 1' />
           <DetailRow label='Row 2' />
           <DetailRow label='Row 3' />
