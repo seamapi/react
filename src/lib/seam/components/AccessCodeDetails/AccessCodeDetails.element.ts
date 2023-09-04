@@ -8,6 +8,7 @@ export const props: ElementProps<AccessCodeDetailsProps> = {
   accessCodeId: 'string',
   disableLockUnlock: 'boolean',
   disableDeleteAccessCode: 'boolean',
+  disableEditAccessCode: 'boolean',
   onBack: 'object',
   onEdit: 'object',
   className: 'string',

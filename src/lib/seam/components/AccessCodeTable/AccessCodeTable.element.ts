@@ -7,6 +7,8 @@ export const name = 'seam-access-code-table'
 export const props: ElementProps<Omit<AccessCodeTableProps, 'title'>> = {
   deviceId: 'string',
   disableLockUnlock: 'boolean',
+  disableCreateAccessCode: 'boolean',
+  disableEditAccessCode: 'boolean',
   disableDeleteAccessCode: 'boolean',
   disableSearch: 'boolean',
   accessCodeFilter: 'object',
