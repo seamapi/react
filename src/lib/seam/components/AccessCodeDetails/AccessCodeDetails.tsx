@@ -20,14 +20,13 @@ import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
-const disableEditAccessCode = true
-
 export interface AccessCodeDetailsProps {
   accessCodeId: string
   disableLockUnlock?: boolean
   onBack?: () => void
   onEdit: () => void
   className?: string
+  disableEditAccessCode?: boolean
   disableDeleteAccessCode?: boolean
 }
 
@@ -37,6 +36,7 @@ export function AccessCodeDetails({
   onBack,
   onEdit,
   className,
+  disableEditAccessCode = false,
   disableDeleteAccessCode = false,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
