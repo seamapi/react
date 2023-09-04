@@ -7,7 +7,7 @@ import type {
   AccessCodeUpdateRequest,
   AccessCodeUpdateResponse,
   ActionAttempt,
-  SeamError,
+  SeamAPIError,
 } from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
@@ -18,7 +18,7 @@ export type UseUpdateAccessCodeMutationParams = AccessCodeUpdateRequest
 
 export function useUpdateAccessCode(): UseMutationResult<
   UseUpdateAccessCodeData,
-  SeamError,
+  SeamAPIError,
   UseUpdateAccessCodeMutationParams
 > {
   const { client } = useSeamClient()
@@ -26,7 +26,7 @@ export function useUpdateAccessCode(): UseMutationResult<
 
   return useMutation<
     AccessCodeUpdateResponse['action_attempt'],
-    SeamError,
+    SeamAPIError,
     AccessCodeUpdateRequest
   >({
     mutationFn: async (mutationParams: UseUpdateAccessCodeMutationParams) => {

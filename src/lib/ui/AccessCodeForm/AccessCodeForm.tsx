@@ -23,6 +23,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 
 export interface AccessCodeFormSubmitData {
   name: string
+  code: string
   type: AccessCode['type']
   device: NonNullable<UseDeviceData>
   startDate: string
@@ -37,6 +38,7 @@ export interface AccessCodeFormProps {
   device: NonNullable<UseDeviceData>
   isSubmitting: boolean
   onSubmit: (data: AccessCodeFormSubmitData) => void
+  codeError: string | null
 }
 
 export function AccessCodeForm({
@@ -56,8 +58,10 @@ function Content({
   device,
   onSubmit,
   isSubmitting,
+  codeError,
 }: Omit<AccessCodeFormProps, 'className'>): JSX.Element {
   const [name, setName] = useState(accessCode?.name ?? '')
+  const [code, setCode] = useState(accessCode?.code ?? '')
   const [type, setType] = useState<AccessCode['type']>(
     accessCode?.type ?? 'ongoing'
   )
@@ -80,6 +84,7 @@ function Content({
 
     onSubmit({
       name,
+      code,
       type,
       device,
       startDate,
@@ -117,9 +122,16 @@ function Content({
   const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
 
   const isFormValid =
-    name.trim().length > 0 && nameError === undefined && !isSubmitting
+    name.trim().length > 0 &&
+    nameError === undefined &&
+    code.trim().length > 0 &&
+    !isSubmitting
 
   const title = accessCode == null ? t.addNewAccessCode : t.editAccessCode
+
+  const generateCode = (): void => {
+    //
+  }
 
   return (
     <>
@@ -139,6 +151,28 @@ function Content({
             hasError={nameError != null}
             helperText={nameError}
           />
+        </FormField>
+        <FormField className='seam-code-field'>
+          <InputLabel>{t.codeInputLabel}</InputLabel>
+          <TextField
+            size='large'
+            clearable
+            value={code}
+            onChange={setCode}
+            hasError={codeError != null}
+            helperText={codeError ?? undefined}
+          />
+          <div className='seam-bottom'>
+            <Button
+              size='small'
+              onMouseDown={(e) => {
+                e.preventDefault() // Disable stealing input focus
+                generateCode()
+              }}
+            >
+              {t.codeGenerateButton}
+            </Button>
+          </div>
         </FormField>
         <FormField>
           <InputLabel>{t.timingInputLabel}</InputLabel>
@@ -221,6 +255,8 @@ const t = {
   editAccessCode: 'Edit access code',
   overCharacterLimitError: '60 characters max',
   nameInputLabel: 'Name the new code',
+  codeGenerateButton: 'Generate code',
+  codeInputLabel: 'Enter the code (PIN)',
   cancel: 'Cancel',
   save: 'Save',
   timingInputLabel: 'Timing',
