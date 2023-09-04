@@ -3,7 +3,7 @@ import type {
   AccessCode,
   AccessCodeGenerateCodeRequest,
   AccessCodeGenerateCodeResponse,
-  SeamError,
+  SeamAPIError,
 } from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
@@ -18,20 +18,21 @@ export type UseGenerateAccessCodeCodeMutationParams =
 
 export function useGenerateAccessCodeCode(): UseMutationResult<
   UseGenerateAccessCodeCodeData,
-  SeamError,
+  SeamAPIError,
   UseGenerateAccessCodeCodeMutationParams
 > {
   const { client } = useSeamClient()
 
   return useMutation<
     AccessCodeGenerateCodeResponse['generated_code'],
-    SeamError,
+    SeamAPIError,
     AccessCodeGenerateCodeRequest
   >({
     mutationFn: async (
       mutationParams: UseGenerateAccessCodeCodeMutationParams
     ) => {
       if (client === null) throw new NullSeamClientError()
+
       return await client.accessCodes.generateCode(mutationParams)
     },
   })

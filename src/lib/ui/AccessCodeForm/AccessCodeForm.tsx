@@ -9,6 +9,7 @@ import {
   getTimezoneFromIsoDate,
 } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
+import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-access-code-code.js'
 import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { AccessCodeFormDatePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { AccessCodeFormTimes } from 'lib/ui/AccessCodeForm/AccessCodeFormTimes.js'
@@ -77,6 +78,9 @@ function Content({
   )
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
 
+  const { isLoading: isGeneratingCode, mutate: generateCode } =
+    useGenerateAccessCodeCode()
+
   const submit = (): void => {
     if (isSubmitting) {
       return
@@ -129,8 +133,19 @@ function Content({
 
   const title = accessCode == null ? t.addNewAccessCode : t.editAccessCode
 
-  const generateCode = (): void => {
-    //
+  const handleGenerateCode = (): void => {
+    generateCode(
+      {
+        device_id: device.device_id,
+      },
+      {
+        onSuccess: ({ code: generatedCode }) => {
+          if (generatedCode != null) {
+            setCode(generatedCode)
+          }
+        },
+      }
+    )
   }
 
   return (
@@ -167,8 +182,9 @@ function Content({
               size='small'
               onMouseDown={(e) => {
                 e.preventDefault() // Disable stealing input focus
-                generateCode()
+                handleGenerateCode()
               }}
+              disabled={isGeneratingCode}
             >
               {t.codeGenerateButton}
             </Button>
