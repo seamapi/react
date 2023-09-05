@@ -13,14 +13,18 @@ export function TemperatureControlGroup({
   mode,
   delta = 5,
 }: TemperatureControlGroupProps): JSX.Element {
-  const [heat, setHeat] = useState(75)
-  const [cool, setCool] = useState(70)
+  const [heat, setHeat] = useState(70)
+  const [cool, setCool] = useState(75)
 
   const showHeat = mode === 'heat' || mode === 'heatcool'
   const showCool = mode === 'cool' || mode === 'heatcool'
 
   useEffect(() => {
-    if (heat < cool + delta) setCool(heat - delta)
+    if (cool < heat + delta) setHeat(cool - delta)
+  }, [cool, delta])
+
+  useEffect(() => {
+    if (heat > cool - delta) setCool(heat + delta)
   }, [heat, delta])
 
   return (

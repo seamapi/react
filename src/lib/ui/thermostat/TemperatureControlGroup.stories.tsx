@@ -23,33 +23,9 @@ export const Content: Story = {
           gap: '64px',
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            padding: '16px',
-            backgroundColor: '#f7f7f7',
-          }}
-        >
-          <TemperatureControlGroup mode='heatcool' />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            padding: '16px',
-            backgroundColor: '#f7f7f7',
-          }}
-        >
-          <TemperatureControlGroup mode='heat' />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            padding: '16px',
-            backgroundColor: '#f7f7f7',
-          }}
-        >
-          <TemperatureControlGroup mode='cool' />
-        </Box>
+        <TemperatureControlGroup mode='heatcool' />
+        <TemperatureControlGroup mode='heat' />
+        <TemperatureControlGroup mode='cool' />
       </Box>
     )
   },
