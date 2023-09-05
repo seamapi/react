@@ -1,6 +1,6 @@
+import { useArgs } from '@storybook/preview-api'
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
 
 import { FanModeMenu } from './FanModeMenu.js'
 
@@ -13,15 +13,15 @@ const meta: Meta<typeof FanModeMenu> = {
 type Story = StoryObj<typeof FanModeMenu>
 
 export const Content: Story = {
-  render: () => {
-    const [mode, setMode] = useState<'auto' | 'on'>('auto')
+  render: (props) => {
+    const [, setArgs] = useArgs()
 
     return (
       <Box height={120}>
         <FanModeMenu
-          mode={mode}
+          mode={props.mode}
           onChange={(mode) => {
-            setMode(mode)
+            setArgs({ mode })
           }}
         />
       </Box>
