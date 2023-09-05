@@ -1,5 +1,5 @@
-import { useArgs } from '@storybook/preview-api'
 import { Box } from '@mui/material'
+import { useArgs } from '@storybook/preview-api'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { FanModeMenu } from './FanModeMenu.js'
