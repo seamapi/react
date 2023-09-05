@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react'
+
 import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
 import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
 import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
-import { useEffect, useState } from 'react'
 
 interface TemperatureControlGroupProps {
   mode: 'heat' | 'cool' | 'heatcool'
@@ -20,7 +21,6 @@ export function TemperatureControlGroup({
 
   useEffect(() => {
     if (heat < cool + delta) setCool(heat - delta)
-    
   }, [heat, delta])
 
   return (
@@ -31,7 +31,9 @@ export function TemperatureControlGroup({
           <TemperatureControl
             variant='heat'
             value={heat}
-            onChange={(t) => setHeat(t)}
+            onChange={(t) => {
+              setHeat(t)
+            }}
           />
         </div>
       )}
@@ -42,7 +44,9 @@ export function TemperatureControlGroup({
           <TemperatureControl
             variant='cool'
             value={cool}
-            onChange={(t) => setCool(t)}
+            onChange={(t) => {
+              setCool(t)
+            }}
           />
         </div>
       )}
