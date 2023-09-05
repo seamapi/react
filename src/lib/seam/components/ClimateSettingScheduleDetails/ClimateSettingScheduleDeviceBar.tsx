@@ -7,8 +7,10 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 export function ClimateSettingScheduleDeviceBar({
   deviceId,
+  onSelectDevice,
 }: {
   deviceId: string
+  onSelectDevice: (deviceId: string) => void
 }): JSX.Element | null {
   const { isLoading, device } = useDevice({
     device_id: deviceId,
@@ -26,14 +28,22 @@ export function ClimateSettingScheduleDeviceBar({
     return null
   }
 
-  return <Content device={device} />
+  return <Content device={device} onSelectDevice={onSelectDevice} />
 }
 
-function Content(props: { device: ThermostatDevice }): JSX.Element {
-  const { device } = props
+function Content(props: {
+  device: ThermostatDevice
+  onSelectDevice: (deviceId: string) => void
+}): JSX.Element {
+  const { device, onSelectDevice } = props
 
   return (
-    <div className='seam-climate-setting-schedule-device-bar'>
+    <div
+      className='seam-climate-setting-schedule-device-bar'
+      onClick={() => {
+        onSelectDevice(device.device_id)
+      }}
+    >
       <div className='seam-climate-setting-schedule-device-content'>
         <div className='seam-device-image'>
           <DeviceImage device={device} />

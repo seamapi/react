@@ -1,4 +1,7 @@
 import classNames from 'classnames'
+import { useState } from 'react'
+
+import { DeviceDetails } from '../index.js'
 
 import { formatDateAndTime } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
@@ -26,12 +29,26 @@ export function ClimateSettingScheduleDetails({
     climateSettingScheduleId
   )
 
+  const [selectedDeviceId, selectDevice] = useState<string | null>(null)
+
   if (climateSettingSchedule == null) {
     return null
   }
 
   const isManualOverrideAllowed =
     climateSettingSchedule.manual_override_allowed ?? false
+
+  if (selectedDeviceId != null) {
+    return (
+      <DeviceDetails
+        className={className}
+        deviceId={selectedDeviceId}
+        onBack={() => {
+          selectDevice(null)
+        }}
+      />
+    )
+  }
 
   return (
     <div
@@ -41,6 +58,7 @@ export function ClimateSettingScheduleDetails({
       <div className='seam-climate-setting-schedule-details-content'>
         <ClimateSettingScheduleCard
           climateSettingScheduleId={climateSettingScheduleId}
+          onSelectDevice={selectDevice}
         />
         <div className='seam-default-setting-message-container'>
           <span className='seam-default-setting-message'>
