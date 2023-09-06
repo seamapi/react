@@ -1,5 +1,4 @@
 import { createIsoDate } from 'lib/dates.js'
-import { useDevices } from 'lib/seam/devices/use-devices.js'
 import { useCreateClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-create-climate-setting-schedule.js'
 import {
   ClimateSettingScheduleForm,
@@ -23,17 +22,12 @@ function Content({
   onBack,
 }: CreateClimateSettingScheduleFormProps): JSX.Element {
   const { submit, isSubmitting } = useSubmitCreateClimateSettingSchedule(onBack)
-  // TODO: shouldn't there be a more general way to get thermostats? useThermostats?
-  const { devices } = useDevices({
-    device_type: 'ecobee_thermostat',
-  })
 
   return (
     <ClimateSettingScheduleForm
       className={className}
       onBack={onBack}
       onSubmit={submit}
-      devices={devices ?? []}
       isSubmitting={isSubmitting}
     />
   )
