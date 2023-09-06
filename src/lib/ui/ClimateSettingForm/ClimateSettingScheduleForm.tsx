@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
-import type { UseClimateSettingScheduleData } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 import { ClimateSettingScheduleDeviceSelect } from './ClimateSettingScheduleDeviceSelect.js'
@@ -20,7 +19,6 @@ export interface ClimateSettingScheduleFormSubmitData {
 export interface ClimateSettingScheduleFormProps {
   className?: string
   onBack?: () => void
-  climateSettingSchedule?: NonNullable<UseClimateSettingScheduleData>
   isSubmitting: boolean
   onSubmit: (data: ClimateSettingScheduleFormSubmitData) => void
 }
@@ -40,13 +38,8 @@ export function ClimateSettingScheduleForm({
 
 function Content({
   onBack,
-  climateSettingSchedule,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control } = useForm({
-    defaultValues: {
-      deviceId: climateSettingSchedule?.device_id ?? '',
-    },
-  })
+  const { control } = useForm()
 
   const [page, setPage] = useState<
     | 'device_select'
