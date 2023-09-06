@@ -72,7 +72,7 @@
     "docs:start": "concurrently --raw --kill-others npm:examples:storybook npm:storybook:docs",
     "docs:build": "storybook build --docs --output-dir docs",
     "predocs:build": "npm run examples:build",
-    "postdocs:docs": "typedoc",
+    "postdocs:build": "typedoc",
     "typecheck": "tsc",
     "test": "jest --collect-coverage",
     "test:update": "jest --updateSnapshot",
