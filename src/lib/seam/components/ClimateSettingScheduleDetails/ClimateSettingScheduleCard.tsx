@@ -3,12 +3,11 @@ import type { ClimateSettingSchedule } from 'seamapi'
 
 import { formatDateAndTime } from 'lib/dates.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
+import { ClimateSettingScheduleDeviceBar } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDeviceBar.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { useCurrentTime } from 'lib/ui/use-current-time.js'
-
-import { ClimateSettingScheduleDeviceBar } from './ClimateSettingScheduleDeviceBar.js'
 
 interface ClimateSettingScheduleCardProps {
   climateSettingScheduleId: string

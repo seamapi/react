@@ -8,7 +8,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  * These stories showcase editing an access code.
  */
 const meta: Meta<typeof EditAccessCodeForm> = {
-  title: 'Example/EditAccessCodeForm',
+  title: 'Components/EditAccessCodeForm',
   component: EditAccessCodeForm,
   tags: ['autodocs'],
   parameters: {

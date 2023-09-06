@@ -4,8 +4,6 @@ import type { CreateAccessCodeFormProps } from 'lib/seam/components/CreateAccess
 export const name = 'seam-create-access-code-form'
 
 export const props: ElementProps<CreateAccessCodeFormProps> = {
-  className: 'string',
-  onBack: 'object',
   deviceId: 'string',
 }
 

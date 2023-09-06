@@ -3,7 +3,11 @@ import { useCallback, useMemo, useState } from 'react'
 import { isLockDevice, isThermostatDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
-import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
+import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
   type AccountFilter,
   type DeviceFilter,
@@ -24,22 +28,19 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 
 type Device = UseDevicesData[number]
 
-export interface DeviceTableProps {
+export interface DeviceTableProps extends CommonProps {
   deviceIds?: string[]
   connectedAccountIds?: string[]
-  disableLockUnlock?: boolean
   disableSearch?: boolean
   deviceFilter?: (device: Device, searchInputValue: string) => boolean
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
-  onBack?: () => void
   heading?: string | null
   /**
    * @deprecated Use heading.
    */
   title?: string | null
-  className?: string
 }
 
 const defaultDeviceFilter = (
@@ -51,18 +52,21 @@ const defaultDeviceFilter = (
   return device.properties.name.toLowerCase().includes(value)
 }
 
+export const NestedDeviceTable = withRequiredCommonProps(DeviceTable)
+
 export function DeviceTable({
   deviceIds,
   connectedAccountIds,
-  disableLockUnlock = false,
   disableSearch = false,
   onDeviceClick = () => {},
   preventDefaultOnDeviceClick = false,
-  onBack,
   deviceFilter = defaultDeviceFilter,
   deviceComparator = compareByCreatedAtDesc,
   heading = t.devices,
   title = t.devices,
+  disableLockUnlock = false,
+  disableDeleteAccessCode = false,
+  onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element {
   const { devices, isLoading, isError, error } = useDevices({
@@ -93,13 +97,14 @@ export function DeviceTable({
 
   if (selectedDeviceId != null) {
     return (
-      <DeviceDetails
-        className={className}
+      <NestedDeviceDetails
         deviceId={selectedDeviceId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedDeviceId(null)
         }}
-        disableLockUnlock={disableLockUnlock}
+        className={className}
       />
     )
   }

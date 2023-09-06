@@ -8,7 +8,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  * These stories showcase the supported devices table.
  */
 const meta: Meta<typeof SupportedDeviceTable> = {
-  title: 'Example/SupportedDeviceTable',
+  title: 'Components/SupportedDeviceTable',
   component: SupportedDeviceTable,
   tags: ['autodocs'],
   parameters: {

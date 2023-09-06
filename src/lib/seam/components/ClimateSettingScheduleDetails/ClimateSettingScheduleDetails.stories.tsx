@@ -5,7 +5,7 @@ import { ClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettin
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const meta: Meta<typeof ClimateSettingScheduleDetails> = {
-  title: 'Example/ClimateSettingScheduleDetails',
+  title: 'Components/ClimateSettingScheduleDetails',
   component: ClimateSettingScheduleDetails,
   tags: ['autodocs'],
   parameters: {
