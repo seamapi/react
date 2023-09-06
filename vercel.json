@@ -89,6 +89,24 @@
       ]
     },
     {
+      "source": "/v/(.*)/docs",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://img.shields.io https://github.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com"
+        }
+      ]
+    },
+    {
+      "source": "/v/(.*)/docs/api-docs",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' data:; img-src 'self' https://img.shields.io https://github.com; style-src 'self' 'unsafe-inline'"
+        }
+      ]
+    },
+    {
       "source": "/api-docs/(.*)",
       "headers": [
         {
