@@ -4,17 +4,22 @@ import {
   type UseAccessCodeData,
 } from 'lib/seam/access-codes/use-access-code.js'
 import { useUpdateAccessCode } from 'lib/seam/access-codes/use-update-access-code.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
 
-export interface EditAccessCodeFormProps {
-  className?: string
-  onBack?: () => void
+export interface EditAccessCodeFormProps extends CommonProps {
   accessCodeId: string
 }
+
+export const NestedEditAccessCodeForm =
+  withRequiredCommonProps(EditAccessCodeForm)
 
 export function EditAccessCodeForm({
   accessCodeId,

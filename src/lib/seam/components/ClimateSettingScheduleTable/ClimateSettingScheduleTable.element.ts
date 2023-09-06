@@ -11,9 +11,7 @@ export const props: ElementProps<ClimateSettingScheduleTableProps> = {
   preventDefaultOnClimateSettingScheduleClick: 'boolean',
   climateSettingScheduleFilter: 'object',
   climateSettingScheduleComparator: 'object',
-  onBack: 'object',
   heading: 'string',
-  className: 'string',
 }
 
 export { ClimateSettingScheduleTable as Component } from './ClimateSettingScheduleTable.js'

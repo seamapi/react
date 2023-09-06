@@ -1,19 +1,23 @@
 import { isLockDevice, isThermostatDevice } from 'seamapi'
 
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
 import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 
-export interface DeviceDetailsProps {
+export interface DeviceDetailsProps extends CommonProps {
   deviceId: string
-  disableLockUnlock?: boolean
-  onBack?: () => void
-  className?: string
 }
+
+export const NestedDeviceDetails = withRequiredCommonProps(DeviceDetails)
 
 export function DeviceDetails({
   deviceId,
   disableLockUnlock = false,
+  disableDeleteAccessCode = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
@@ -25,19 +29,19 @@ export function DeviceDetails({
     return null
   }
 
+  const props = {
+    disableLockUnlock,
+    disableDeleteAccessCode,
+    onBack,
+    className,
+  }
+
   if (isLockDevice(device)) {
-    return (
-      <LockDeviceDetails
-        className={className}
-        device={device}
-        disableLockUnlock={disableLockUnlock}
-        onBack={onBack}
-      />
-    )
+    return <LockDeviceDetails device={device} {...props} />
   }
 
   if (isThermostatDevice(device)) {
-    return <ThermostatDeviceDetails device={device} />
+    return <ThermostatDeviceDetails device={device} {...props} />
   }
 
   return null

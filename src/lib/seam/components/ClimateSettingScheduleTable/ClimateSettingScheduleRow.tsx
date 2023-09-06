@@ -1,10 +1,9 @@
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
+import { ClimateSettingScheduleRowDetails } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleRowDetails.js'
 import type { UseClimateSettingSchedulesData } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
 import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
-
-import { ClimateSettingScheduleRowDetails } from './ClimateSettingScheduleRowDetails.js'
 
 interface ClimateSettingScheduleRowProps {
   climateSettingSchedule: UseClimateSettingSchedulesData[number]

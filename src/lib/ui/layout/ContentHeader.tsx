@@ -1,7 +1,7 @@
 import { ArrowBackIcon } from 'lib/icons/ArrowBack.js'
 
 interface ContentHeaderProps {
-  onBack?: () => void
+  onBack: (() => void) | undefined
   title?: string
   subheading?: string
 }
