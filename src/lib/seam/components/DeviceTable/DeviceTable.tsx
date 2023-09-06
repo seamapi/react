@@ -13,7 +13,7 @@ import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
 import {
   type CommonProps,
   withRequiredCommonProps,
-} from 'lib/seam/components/props.js'
+} from 'lib/seam/components/common-props.js'
 import {
   useDevices,
   type UseDevicesData,

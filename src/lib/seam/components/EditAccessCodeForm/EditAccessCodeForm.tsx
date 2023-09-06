@@ -7,7 +7,7 @@ import { useUpdateAccessCode } from 'lib/seam/access-codes/use-update-access-cod
 import {
   type CommonProps,
   withRequiredCommonProps,
-} from 'lib/seam/components/props.js'
+} from 'lib/seam/components/common-props.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import {
   AccessCodeForm,

@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import {
   type CommonProps,
   withRequiredCommonProps,
-} from 'lib/seam/components/props.js'
+} from 'lib/seam/components/common-props.js'
 import { useCreateConnectWebview } from 'lib/seam/connect-webviews/use-create-connect-webview.js'
 import { Button } from 'lib/ui/Button.js'
 

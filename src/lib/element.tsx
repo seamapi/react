@@ -2,7 +2,7 @@ import r2wc from '@rxfork/r2wc-react-to-web-component'
 import type { ComponentType } from 'react'
 import type { Container } from 'react-dom'
 
-import type { CommonProps } from 'lib/seam/components/props.js'
+import type { CommonProps } from 'lib/seam/components/common-props.js'
 import {
   SeamProvider,
   type SeamProviderPropsWithClientSessionToken,

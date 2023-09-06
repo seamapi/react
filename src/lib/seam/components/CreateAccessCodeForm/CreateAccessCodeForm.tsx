@@ -3,7 +3,7 @@ import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-cod
 import {
   type CommonProps,
   withRequiredCommonProps,
-} from 'lib/seam/components/props.js'
+} from 'lib/seam/components/common-props.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import {
   AccessCodeForm,

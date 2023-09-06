@@ -8,7 +8,7 @@ import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.j
 import {
   type CommonProps,
   withRequiredCommonProps,
-} from 'lib/seam/components/props.js'
+} from 'lib/seam/components/common-props.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'

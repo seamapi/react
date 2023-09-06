@@ -8,7 +8,7 @@ import { ClimateSettingScheduleRow } from 'lib/seam/components/ClimateSettingSch
 import {
   type CommonProps,
   withRequiredCommonProps,
-} from 'lib/seam/components/props.js'
+} from 'lib/seam/components/common-props.js'
 import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,

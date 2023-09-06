@@ -5,7 +5,7 @@ import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/Therm
 import {
   type CommonProps,
   withRequiredCommonProps,
-} from 'lib/seam/components/props.js'
+} from 'lib/seam/components/common-props.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 
 export interface DeviceDetailsProps extends CommonProps {
