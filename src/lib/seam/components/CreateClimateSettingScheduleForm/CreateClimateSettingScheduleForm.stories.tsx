@@ -5,10 +5,11 @@ import { CreateClimateSettingScheduleForm } from 'lib/seam/components/CreateClim
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
- * These stories showcase creating a climate setting schedule
+ * Coming Soon
+ * These stories showcase creating a climate setting schedule.
  */
 const meta: Meta<typeof CreateClimateSettingScheduleForm> = {
-  title: 'Example/CreateClimateSettingScheduleForm (Coming Soon)',
+  title: 'Components/CreateClimateSettingScheduleForm',
   component: CreateClimateSettingScheduleForm,
   tags: ['autodocs'],
   parameters: {
