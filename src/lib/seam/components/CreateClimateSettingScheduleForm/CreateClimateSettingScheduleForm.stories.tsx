@@ -24,13 +24,11 @@ export default meta
 type Story = StoryObj<typeof CreateClimateSettingScheduleForm>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
-    <CreateClimateSettingScheduleForm {...props} />
-  ),
+  render: (props) => <CreateClimateSettingScheduleForm {...props} />,
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
