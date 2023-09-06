@@ -55,15 +55,17 @@ function Content({
 
   if (page === 'device_select') {
     return (
-      <div className='seam-main'>
+      <>
         <ContentHeader title={t.addNewClimateSettingSchedule} onBack={onBack} />
-        <ClimateSettingScheduleDeviceSelect
-          onSelect={(deviceId) => {
-            setDeviceId(deviceId)
-            setPage('name_and_time')
-          }}
-        />
-      </div>
+        <div className='seam-main'>
+          <ClimateSettingScheduleDeviceSelect
+            onSelect={(deviceId) => {
+              setDeviceId(deviceId)
+              setPage('name_and_time')
+            }}
+          />
+        </div>
+      </>
     )
   }
 

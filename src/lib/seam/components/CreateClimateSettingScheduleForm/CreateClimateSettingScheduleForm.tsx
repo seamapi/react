@@ -41,9 +41,6 @@ function useSubmitCreateClimateSettingSchedule(onSuccess?: () => void): {
   const submit = (data: ClimateSettingScheduleFormSubmitData): void => {
     const { name, deviceId, startDate, endDate, timezone, climateSetting } =
       data
-    if (name === '') {
-      return
-    }
 
     if (isSubmitting) {
       return

@@ -1,0 +1,14 @@
+@use './colors';
+
+@mixin all {
+  .seam-climate-setting-schedule-form {
+    @include main;
+  }
+}
+
+@mixin main {
+  > .seam-main {
+    padding: 24px 24px 0;
+  }
+}
+
