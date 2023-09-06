@@ -1,7 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "includeVersion": true,
-  "entryPoints": ["src/index.ts"],
+  "entryPoints": ["src/index.ts", "src/hooks.ts"],
   "out": "docs/api-docs",
   "tsconfig": "./tsconfig.build.json",
   "navigationLinks": {
