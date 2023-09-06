@@ -17,6 +17,7 @@ export const NestedDeviceDetails = withRequiredCommonProps(DeviceDetails)
 export function DeviceDetails({
   deviceId,
   disableLockUnlock = false,
+  disableDeleteAccessCode = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
@@ -28,25 +29,19 @@ export function DeviceDetails({
     return null
   }
 
+  const props = {
+    disableLockUnlock,
+    disableDeleteAccessCode,
+    onBack,
+    className,
+  }
+
   if (isLockDevice(device)) {
-    return (
-      <LockDeviceDetails
-        device={device}
-        disableLockUnlock={disableLockUnlock}
-        onBack={onBack}
-        className={className}
-      />
-    )
+    return <LockDeviceDetails device={device} {...props} />
   }
 
   if (isThermostatDevice(device)) {
-    return (
-      <ThermostatDeviceDetails
-        device={device}
-        onBack={onBack}
-        className={className}
-      />
-    )
+    return <ThermostatDeviceDetails device={device} {...props} />
   }
 
   return null

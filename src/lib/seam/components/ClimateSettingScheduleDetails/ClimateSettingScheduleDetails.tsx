@@ -26,6 +26,8 @@ export const NestedClimateSettingScheduleDetails = withRequiredCommonProps(
 
 export function ClimateSettingScheduleDetails({
   climateSettingScheduleId,
+  disableLockUnlock = false,
+  disableDeleteAccessCode = false,
   onBack,
   className,
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
@@ -45,11 +47,13 @@ export function ClimateSettingScheduleDetails({
   if (selectedDeviceId != null) {
     return (
       <NestedDeviceDetails
-        className={className}
         deviceId={selectedDeviceId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           selectDevice(null)
         }}
+        className={className}
       />
     )
   }

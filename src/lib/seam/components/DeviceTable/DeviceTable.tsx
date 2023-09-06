@@ -57,15 +57,16 @@ export const NestedDeviceTable = withRequiredCommonProps(DeviceTable)
 export function DeviceTable({
   deviceIds,
   connectedAccountIds,
-  disableLockUnlock = false,
   disableSearch = false,
   onDeviceClick = () => {},
   preventDefaultOnDeviceClick = false,
-  onBack,
   deviceFilter = defaultDeviceFilter,
   deviceComparator = compareByCreatedAtDesc,
   heading = t.devices,
   title = t.devices,
+  disableLockUnlock = false,
+  disableDeleteAccessCode = false,
+  onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element {
   const { devices, isLoading, isError, error } = useDevices({
@@ -97,12 +98,13 @@ export function DeviceTable({
   if (selectedDeviceId != null) {
     return (
       <NestedDeviceDetails
-        className={className}
         deviceId={selectedDeviceId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedDeviceId(null)
         }}
-        disableLockUnlock={disableLockUnlock}
+        className={className}
       />
     )
   }

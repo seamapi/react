@@ -16,6 +16,8 @@ import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
+  disableLockUnlock: boolean
+  disableDeleteAccessCode: boolean
   onBack: (() => void) | undefined
   className: string | undefined
 }): JSX.Element | null {
@@ -33,9 +35,12 @@ export function ThermostatDeviceDetails(props: {
     return (
       <NestedClimateSettingScheduleTable
         deviceId={device.device_id}
+        disableLockUnlock={props.disableLockUnlock}
+        disableDeleteAccessCode={props.disableDeleteAccessCode}
         onBack={() => {
           setClimateSettingsOpen(false)
         }}
+        className={className}
       />
     )
   }

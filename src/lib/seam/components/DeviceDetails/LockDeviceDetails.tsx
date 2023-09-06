@@ -17,10 +17,17 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 export function LockDeviceDetails(props: {
   device: LockDevice
   disableLockUnlock: boolean
+  disableDeleteAccessCode: boolean
   onBack: (() => void) | undefined
   className: string | undefined
 }): JSX.Element | null {
-  const { device, disableLockUnlock, onBack, className } = props
+  const {
+    device,
+    disableLockUnlock,
+    disableDeleteAccessCode,
+    onBack,
+    className,
+  } = props
 
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
@@ -40,10 +47,11 @@ export function LockDeviceDetails(props: {
   if (accessCodesOpen) {
     return (
       <NestedAccessCodeTable
-        className={className}
         deviceId={device.device_id}
-        onBack={toggleAccessCodesOpen}
         disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        onBack={toggleAccessCodesOpen}
+        className={className}
       />
     )
   }

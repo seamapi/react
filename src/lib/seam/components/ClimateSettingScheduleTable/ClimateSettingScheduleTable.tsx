@@ -58,8 +58,10 @@ export function ClimateSettingScheduleTable({
   preventDefaultOnClimateSettingScheduleClick = false,
   climateSettingScheduleFilter = defaultClimateSettingScheduleFilter,
   climateSettingScheduleComparator = compareByCreatedAtDesc,
-  onBack,
   heading = t.climateSettingSchedules,
+  disableLockUnlock = false,
+  disableDeleteAccessCode = false,
+  onBack,
   className,
 }: ClimateSettingScheduleTableProps): JSX.Element {
   const { climateSettingSchedules, isLoading, isError, error } =
@@ -104,11 +106,13 @@ export function ClimateSettingScheduleTable({
   if (selectedViewClimateSettingScheduleId != null) {
     return (
       <NestedClimateSettingScheduleDetails
-        className={className}
         climateSettingScheduleId={selectedViewClimateSettingScheduleId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedViewClimateSettingScheduleId(null)
         }}
+        className={className}
       />
     )
   }

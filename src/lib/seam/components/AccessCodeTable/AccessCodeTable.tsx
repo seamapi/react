@@ -72,7 +72,6 @@ const defaultAccessCodeFilter = (
 
 export function AccessCodeTable({
   deviceId,
-  disableLockUnlock = false,
   disableSearch = false,
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
@@ -82,6 +81,7 @@ export function AccessCodeTable({
   heading = t.accessCodes,
   title = t.accessCodes,
   className,
+  disableLockUnlock = false,
   disableDeleteAccessCode = false,
 }: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
@@ -130,10 +130,12 @@ export function AccessCodeTable({
     return (
       <NestedEditAccessCodeForm
         accessCodeId={selectedEditAccessCodeId}
-        className={className}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedEditAccessCodeId(null)
         }}
+        className={className}
       />
     )
   }
@@ -141,16 +143,16 @@ export function AccessCodeTable({
   if (selectedViewAccessCodeId != null) {
     return (
       <NestedAccessCodeDetails
-        className={className}
         accessCodeId={selectedViewAccessCodeId}
-        onBack={() => {
-          setSelectedViewAccessCodeId(null)
-        }}
-        disableLockUnlock={disableLockUnlock}
         onEdit={() => {
           setSelectedEditAccessCodeId(selectedViewAccessCodeId)
         }}
+        disableLockUnlock={disableLockUnlock}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        onBack={() => {
+          setSelectedViewAccessCodeId(null)
+        }}
+        className={className}
       />
     )
   }
@@ -158,9 +160,11 @@ export function AccessCodeTable({
   if (addAccessCodeFormVisible) {
     return (
       <NestedCreateAccessCodeForm
-        className={className}
-        onBack={toggleAddAccessCodeForm}
         deviceId={deviceId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        onBack={toggleAddAccessCodeForm}
+        className={className}
       />
     )
   }

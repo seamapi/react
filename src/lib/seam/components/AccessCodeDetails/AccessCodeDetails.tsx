@@ -36,11 +36,11 @@ export const NestedAccessCodeDetails =
 
 export function AccessCodeDetails({
   accessCodeId,
-  disableLockUnlock = false,
-  onBack,
   onEdit,
-  className,
+  disableLockUnlock = false,
   disableDeleteAccessCode = false,
+  onBack,
+  className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
@@ -55,12 +55,13 @@ export function AccessCodeDetails({
   if (selectedDeviceId != null) {
     return (
       <NestedDeviceDetails
-        className={className}
         deviceId={selectedDeviceId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           selectDevice(null)
         }}
-        disableLockUnlock={disableLockUnlock}
+        className={className}
       />
     )
   }

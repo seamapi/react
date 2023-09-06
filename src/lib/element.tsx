@@ -37,10 +37,10 @@ type ProviderProps = Omit<
 >
 
 const commonProps: R2wcProps<CommonProps> = {
-  className: 'string',
-  onBack: 'object',
   disableLockUnlock: 'boolean',
   disableDeleteAccessCode: 'boolean',
+  onBack: 'object',
+  className: 'string',
 }
 
 const providerProps: R2wcProps<ProviderProps> = {
