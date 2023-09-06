@@ -22,6 +22,7 @@
 @use './seam-table';
 @use './switch';
 @use './climate-setting-schedule-form';
+@use './climate-setting-schedule-details';
 
 .seam-components {
   // Reset
@@ -52,4 +53,5 @@
   @include supported-device-table.all;
   @include thermostat.all;
   @include seam-table.all;
+  @include climate-setting-schedule-details.all;
 }
