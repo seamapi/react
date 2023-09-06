@@ -22,7 +22,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com data:; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://img.shields.io https://github.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com"
+          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co https://img.shields.io https://github.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com"
         },
         {
           "key": "X-DNS-Prefetch-Control",
@@ -85,6 +85,15 @@
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com https://seam.co https://www.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"
+        }
+      ]
+    },
+    {
+      "source": "/api-docs/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' data:; img-src 'self'; style-src 'self' 'unsafe-inline'"
         }
       ]
     }
