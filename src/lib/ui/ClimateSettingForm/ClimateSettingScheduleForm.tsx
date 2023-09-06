@@ -5,6 +5,7 @@ import type { ClimateSetting } from 'seamapi'
 import type { UseClimateSettingScheduleData } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
+import { Controller, useForm } from 'react-hook-form'
 import { ClimateSettingScheduleDeviceSelect } from './ClimateSettingScheduleDeviceSelect.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
@@ -41,9 +42,11 @@ function Content({
   onBack,
   climateSettingSchedule,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const [_, setDeviceId] = useState<string>(
-    climateSettingSchedule?.device_id ?? ''
-  )
+  const { control } = useForm({
+    defaultValues: {
+      deviceId: climateSettingSchedule?.device_id ?? '',
+    },
+  })
 
   const [page, setPage] = useState<
     | 'device_select'
@@ -58,11 +61,17 @@ function Content({
       <>
         <ContentHeader title={t.addNewClimateSettingSchedule} onBack={onBack} />
         <div className='seam-main'>
-          <ClimateSettingScheduleDeviceSelect
-            onSelect={(deviceId) => {
-              setDeviceId(deviceId)
-              setPage('name_and_time')
-            }}
+          <Controller
+            name='deviceId'
+            control={control}
+            render={({ field: { onChange } }) => (
+              <ClimateSettingScheduleDeviceSelect
+                onSelect={(deviceId) => {
+                  onChange(deviceId)
+                  setPage('name_and_time')
+                }}
+              />
+            )}
           />
         </div>
       </>
