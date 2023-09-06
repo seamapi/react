@@ -13,6 +13,10 @@ import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/props.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
@@ -22,14 +26,13 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 const disableEditAccessCode = true
 
-export interface AccessCodeDetailsProps {
+export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
-  disableLockUnlock?: boolean
-  onBack?: () => void
   onEdit: () => void
-  className?: string
-  disableDeleteAccessCode?: boolean
 }
+
+export const NestedAccessCodeDetails =
+  withRequiredCommonProps(AccessCodeDetails)
 
 export function AccessCodeDetails({
   accessCodeId,

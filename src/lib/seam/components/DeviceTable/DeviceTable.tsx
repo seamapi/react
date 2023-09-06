@@ -11,6 +11,10 @@ import {
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
 import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/props.js'
+import {
   useDevices,
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
@@ -24,22 +28,19 @@ import { Caption } from 'lib/ui/typography/Caption.js'
 
 type Device = UseDevicesData[number]
 
-export interface DeviceTableProps {
+export interface DeviceTableProps extends CommonProps {
   deviceIds?: string[]
   connectedAccountIds?: string[]
-  disableLockUnlock?: boolean
   disableSearch?: boolean
   deviceFilter?: (device: Device, searchInputValue: string) => boolean
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
-  onBack?: () => void
   heading?: string | null
   /**
    * @deprecated Use heading.
    */
   title?: string | null
-  className?: string
 }
 
 const defaultDeviceFilter = (
@@ -50,6 +51,8 @@ const defaultDeviceFilter = (
   if (value === '') return true
   return device.properties.name.toLowerCase().includes(value)
 }
+
+export const NestedDeviceTable = withRequiredCommonProps(DeviceTable)
 
 export function DeviceTable({
   deviceIds,

@@ -15,6 +15,10 @@ import {
 import { AccessCodeRow } from 'lib/seam/components/AccessCodeTable/AccessCodeRow.js'
 import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { EditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/props.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
@@ -28,9 +32,10 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 const disableCreateAccessCode = true
 const disableEditAccessCode = true
 
-export interface AccessCodeTableProps {
+export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
+
+export interface AccessCodeTableProps extends CommonProps {
   deviceId: string
-  disableLockUnlock?: boolean
   disableSearch?: boolean
   accessCodeFilter?: (
     accessCode: AccessCode,
@@ -42,14 +47,11 @@ export interface AccessCodeTableProps {
   ) => number
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
-  onBack?: () => void
   heading?: string | null
   /**
    * @deprecated Use heading.
    */
   title?: string | null
-  className?: string
-  disableDeleteAccessCode?: boolean
 }
 
 type AccessCode = UseAccessCodesData[number]
