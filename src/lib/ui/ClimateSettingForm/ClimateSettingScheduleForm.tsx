@@ -1,11 +1,11 @@
 import classNames from 'classnames'
 import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
 import type { UseClimateSettingScheduleData } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
-import { Controller, useForm } from 'react-hook-form'
 import { ClimateSettingScheduleDeviceSelect } from './ClimateSettingScheduleDeviceSelect.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
