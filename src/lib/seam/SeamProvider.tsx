@@ -43,7 +43,7 @@ export interface SeamProviderPropsWithPublishableKey
 
 export interface SeamProviderPropsWithClientSessionToken
   extends SeamProviderBaseProps,
-    SeamProviderClientOptions  {
+    SeamProviderClientOptions {
   clientSessionToken: string
 }
 
@@ -172,7 +172,7 @@ const isSeamProviderPropsWithClient = (
 
 const isSeamProviderPropsWithPublishableKey = (
   props: SeamProviderProps
-): props is SeamProviderPropsWithPublishableKey & SeamProviderClientOptions  => {
+): props is SeamProviderPropsWithPublishableKey & SeamProviderClientOptions => {
   if (!('publishableKey' in props)) return false
 
   const { publishableKey } = props
@@ -196,7 +196,7 @@ const isSeamProviderPropsWithPublishableKey = (
 const isSeamProviderPropsWithClientSessionToken = (
   props: SeamProviderProps
 ): props is SeamProviderPropsWithClientSessionToken &
-  SeamProviderClientOptions  => {
+  SeamProviderClientOptions => {
   if (!('clientSessionToken' in props)) return false
 
   const { clientSessionToken } = props
