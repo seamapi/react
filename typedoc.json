@@ -1,0 +1,10 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "includeVersion": true,
+  "entryPoints": ["src/index.ts"],
+  "out": "docs/api",
+  "tsconfig": "./tsconfig.build.json",
+  "navigationLinks": {
+    "GitHub": "https://github.com/seamapi/react"
+  }
+}

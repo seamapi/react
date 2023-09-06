@@ -54,7 +54,7 @@ interface SeamProviderBaseProps extends PropsWithChildren {
   queryClient?: QueryClient | undefined
 }
 
-type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
+export type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 const defaultQueryClient = new QueryClient()
 
