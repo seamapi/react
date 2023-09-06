@@ -93,3 +93,30 @@ jobs:
           AWS_S3_ENDPOINT: https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
           SOURCE_DIR: package
           DEST_DIR: v/${{ steps.version.outputs.result }}
+  docs:
+    name: Docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Build docs
+        run: npm run docs:build
+      - name: Get version
+        uses: actions/github-script@v6
+        id: version
+        with:
+          result-encoding: string
+          script: return context.ref.split('/')[2].slice(1)
+      - name: Sync to R2
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        env:
+          AWS_S3_BUCKET: ${{ vars.CLOUDFLARE_R2_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ vars.CLOUDFLARE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ vars.CLOUDFLARE_R2_BUCKET_REGION }}
+          AWS_S3_ENDPOINT: https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+          SOURCE_DIR: docs
+          DEST_DIR: v/${{ steps.version.outputs.result }}/docs
