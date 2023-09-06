@@ -8,7 +8,7 @@ interface ClimateSettingScheduleDeviceSelectProps {
 
 export function ClimateSettingScheduleDeviceSelect({
   onSelect,
-}: ClimateSettingScheduleDeviceSelectProps) {
+}: ClimateSettingScheduleDeviceSelectProps): JSX.Element {
   const deviceFilter = (
     device: UseDevicesData[number],
     searchInputValue: string
@@ -20,12 +20,10 @@ export function ClimateSettingScheduleDeviceSelect({
   }
 
   return (
-    <>
-      <DeviceTable
-        deviceFilter={deviceFilter}
-        preventDefaultOnDeviceClick
-        onDeviceClick={onSelect}
-      />
-    </>
+    <DeviceTable
+      deviceFilter={deviceFilter}
+      preventDefaultOnDeviceClick
+      onDeviceClick={onSelect}
+    />
   )
 }
