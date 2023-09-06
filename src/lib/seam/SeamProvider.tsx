@@ -19,7 +19,7 @@ declare global {
 
 export interface SeamContext {
   client: Seam | null
-  clientOptions?: AllowedSeamClientOptions | undefined
+  clientOptions?: SeamProviderClientOptions | undefined
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
   clientSessionToken?: string | undefined
@@ -36,14 +36,14 @@ export interface SeamProviderPropsWithClient extends SeamProviderBaseProps {
 
 export interface SeamProviderPropsWithPublishableKey
   extends SeamProviderBaseProps,
-    AllowedSeamClientOptions {
+    SeamProviderClientOptions {
   publishableKey: string
   userIdentifierKey?: string
 }
 
 export interface SeamProviderPropsWithClientSessionToken
   extends SeamProviderBaseProps,
-    AllowedSeamClientOptions {
+    SeamProviderClientOptions {
   clientSessionToken: string
 }
 
@@ -54,7 +54,7 @@ interface SeamProviderBaseProps extends PropsWithChildren {
   queryClient?: QueryClient | undefined
 }
 
-type AllowedSeamClientOptions = Pick<SeamClientOptions, 'endpoint'>
+export type SeamProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 const defaultQueryClient = new QueryClient()
 
@@ -172,7 +172,7 @@ const isSeamProviderPropsWithClient = (
 
 const isSeamProviderPropsWithPublishableKey = (
   props: SeamProviderProps
-): props is SeamProviderPropsWithPublishableKey & AllowedSeamClientOptions => {
+): props is SeamProviderPropsWithPublishableKey & SeamProviderClientOptions => {
   if (!('publishableKey' in props)) return false
 
   const { publishableKey } = props
@@ -196,7 +196,7 @@ const isSeamProviderPropsWithPublishableKey = (
 const isSeamProviderPropsWithClientSessionToken = (
   props: SeamProviderProps
 ): props is SeamProviderPropsWithClientSessionToken &
-  AllowedSeamClientOptions => {
+  SeamProviderClientOptions => {
   if (!('clientSessionToken' in props)) return false
 
   const { clientSessionToken } = props
