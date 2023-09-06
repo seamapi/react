@@ -9,7 +9,6 @@ export const props: ElementProps<SupportedDeviceTableProps> = {
   disableFilter: 'boolean',
   brands: 'array',
   excludedBrands: 'array',
-  className: 'string',
 }
 
 export { SupportedDeviceTable as Component } from './SupportedDeviceTable.js'

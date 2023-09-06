@@ -2,6 +2,7 @@ import r2wc from '@rxfork/r2wc-react-to-web-component'
 import type { ComponentType } from 'react'
 import type { Container } from 'react-dom'
 
+import type { CommonProps } from 'lib/seam/components/props.js'
 import {
   SeamProvider,
   type SeamProviderPropsWithClientSessionToken,
@@ -20,10 +21,12 @@ declare global {
 export interface ElementDefinition {
   name: string
   Component: Parameters<typeof r2wc>[0]
-  props?: ElementProps<Record<string, object>>
+  props?: R2wcProps<Record<string, object>>
 }
 
-export type ElementProps<T> = Record<
+export type ElementProps<T> = R2wcProps<Omit<T, keyof CommonProps>>
+
+type R2wcProps<T> = Record<
   keyof T,
   'string' | 'number' | 'boolean' | 'array' | 'function' | 'json' | 'object'
 >
@@ -33,7 +36,14 @@ type ProviderProps = Omit<
   'children'
 >
 
-const providerProps: ElementProps<ProviderProps> = {
+const commonProps: R2wcProps<CommonProps> = {
+  className: 'string',
+  onBack: 'object',
+  disableLockUnlock: 'boolean',
+  disableDeleteAccessCode: 'boolean',
+}
+
+const providerProps: R2wcProps<ProviderProps> = {
   publishableKey: 'string',
   userIdentifierKey: 'string',
   clientSessionToken: 'string',
@@ -53,6 +63,7 @@ export const defineCustomElement = ({
     props: {
       ...props,
       ...providerProps,
+      ...commonProps,
     },
   })
   globalThis.customElements?.define(name, element)
