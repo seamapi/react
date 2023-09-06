@@ -31,12 +31,12 @@ export interface AccessCodeFormSubmitData {
 }
 
 export interface AccessCodeFormProps {
-  className?: string
-  onBack?: () => void
   accessCode?: NonNullable<UseAccessCodeData>
   device: NonNullable<UseDeviceData>
   isSubmitting: boolean
   onSubmit: (data: AccessCodeFormSubmitData) => void
+  onBack: (() => void) | undefined
+  className: string | undefined
 }
 
 export function AccessCodeForm({

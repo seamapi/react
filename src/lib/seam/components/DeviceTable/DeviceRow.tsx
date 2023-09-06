@@ -18,7 +18,7 @@ import { Title } from 'lib/ui/typography/Title.js'
 export type DeviceTableProps = Props & UseDevicesParams
 
 interface Props {
-  onBack?: () => void
+  onBack: (() => void) | undefined
 }
 
 interface DeviceRowProps {

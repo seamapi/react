@@ -17,8 +17,8 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 export function LockDeviceDetails(props: {
   device: LockDevice
   disableLockUnlock: boolean
-  onBack?: () => void
-  className?: string
+  onBack: (() => void) | undefined
+  className: string | undefined
 }): JSX.Element | null {
   const { device, disableLockUnlock, onBack, className } = props
 

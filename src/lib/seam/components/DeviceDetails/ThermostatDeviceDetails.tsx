@@ -16,8 +16,8 @@ import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
-  onBack?: () => void
-  className?: string
+  onBack: (() => void) | undefined
+  className: string | undefined
 }): JSX.Element | null {
   const { device, onBack, className } = props
 

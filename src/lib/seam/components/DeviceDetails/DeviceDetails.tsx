@@ -31,16 +31,22 @@ export function DeviceDetails({
   if (isLockDevice(device)) {
     return (
       <LockDeviceDetails
-        className={className}
         device={device}
         disableLockUnlock={disableLockUnlock}
         onBack={onBack}
+        className={className}
       />
     )
   }
 
   if (isThermostatDevice(device)) {
-    return <ThermostatDeviceDetails device={device} />
+    return (
+      <ThermostatDeviceDetails
+        device={device}
+        onBack={onBack}
+        className={className}
+      />
+    )
   }
 
   return null

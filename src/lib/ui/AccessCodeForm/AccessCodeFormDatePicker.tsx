@@ -1,5 +1,3 @@
-import classNames from 'classnames'
-
 import { getTimezoneLabel } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
@@ -14,14 +12,12 @@ interface AccessCodeFormDatePickerProps {
   setEndDate: (date: string) => void
   timezone: string
   onChangeTimezone: () => void
-  className?: string
-  onBack?: () => void
+  onBack: (() => void) | undefined
 }
 
 export function AccessCodeFormDatePicker({
   timezone,
   onBack,
-  className,
   startDate,
   setStartDate,
   endDate,
@@ -29,7 +25,7 @@ export function AccessCodeFormDatePicker({
   onChangeTimezone,
 }: AccessCodeFormDatePickerProps): JSX.Element {
   return (
-    <div className={classNames('seam-schedule-picker', className)}>
+    <div className='seam-schedule-picker'>
       <ContentHeader title={t.timingTitle} onBack={onBack} />
       <div className='seam-content'>
         <div className='seam-timezone'>
