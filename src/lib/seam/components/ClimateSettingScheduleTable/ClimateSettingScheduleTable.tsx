@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
-import { ClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
+import { NestedClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
 import { ClimateSettingScheduleRow } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleRow.js'
 import {
   type CommonProps,
@@ -103,7 +103,7 @@ export function ClimateSettingScheduleTable({
 
   if (selectedViewClimateSettingScheduleId != null) {
     return (
-      <ClimateSettingScheduleDetails
+      <NestedClimateSettingScheduleDetails
         className={className}
         climateSettingScheduleId={selectedViewClimateSettingScheduleId}
         onBack={() => {

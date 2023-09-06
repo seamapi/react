@@ -12,11 +12,11 @@ import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
-import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
+import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
@@ -54,7 +54,7 @@ export function AccessCodeDetails({
 
   if (selectedDeviceId != null) {
     return (
-      <DeviceDetails
+      <NestedDeviceDetails
         className={className}
         deviceId={selectedDeviceId}
         onBack={() => {

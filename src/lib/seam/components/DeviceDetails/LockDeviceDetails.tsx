@@ -3,7 +3,7 @@ import type { LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
-import { AccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
+import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
@@ -39,7 +39,7 @@ export function LockDeviceDetails(props: {
 
   if (accessCodesOpen) {
     return (
-      <AccessCodeTable
+      <NestedAccessCodeTable
         className={className}
         deviceId={device.device_id}
         onBack={toggleAccessCodesOpen}

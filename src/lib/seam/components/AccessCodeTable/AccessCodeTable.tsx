@@ -7,18 +7,18 @@ import {
   useAccessCodes,
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
-import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import { NestedAccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
 import {
   type AccessCodeFilter,
   AccessCodeHealthBar,
 } from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { AccessCodeRow } from 'lib/seam/components/AccessCodeTable/AccessCodeRow.js'
-import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
-import { EditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
 import {
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
+import { NestedCreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
+import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
@@ -128,7 +128,7 @@ export function AccessCodeTable({
 
   if (selectedEditAccessCodeId != null) {
     return (
-      <EditAccessCodeForm
+      <NestedEditAccessCodeForm
         accessCodeId={selectedEditAccessCodeId}
         className={className}
         onBack={() => {
@@ -140,7 +140,7 @@ export function AccessCodeTable({
 
   if (selectedViewAccessCodeId != null) {
     return (
-      <AccessCodeDetails
+      <NestedAccessCodeDetails
         className={className}
         accessCodeId={selectedViewAccessCodeId}
         onBack={() => {
@@ -157,7 +157,7 @@ export function AccessCodeTable({
 
   if (addAccessCodeFormVisible) {
     return (
-      <CreateAccessCodeForm
+      <NestedCreateAccessCodeForm
         className={className}
         onBack={toggleAddAccessCodeForm}
         deviceId={deviceId}

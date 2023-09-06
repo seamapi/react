@@ -3,17 +3,17 @@ import { useCallback, useMemo, useState } from 'react'
 import { isLockDevice, isThermostatDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
-import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
+import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
   type AccountFilter,
   type DeviceFilter,
   DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
-import {
-  type CommonProps,
-  withRequiredCommonProps,
-} from 'lib/seam/components/common-props.js'
 import {
   useDevices,
   type UseDevicesData,
@@ -96,7 +96,7 @@ export function DeviceTable({
 
   if (selectedDeviceId != null) {
     return (
-      <DeviceDetails
+      <NestedDeviceDetails
         className={className}
         deviceId={selectedDeviceId}
         onBack={() => {
