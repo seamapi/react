@@ -4,11 +4,9 @@ import {
   ClimateSettingScheduleForm,
   type ClimateSettingScheduleFormSubmitData,
 } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
+import type { CommonProps } from '../common-props.js'
 
-export interface CreateClimateSettingScheduleFormProps {
-  className?: string
-  onBack?: () => void
-}
+export type CreateClimateSettingScheduleFormProps = CommonProps
 
 export function CreateClimateSettingScheduleForm({
   className,
