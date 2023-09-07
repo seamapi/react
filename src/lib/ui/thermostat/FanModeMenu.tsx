@@ -29,7 +29,7 @@ export function FanModeMenu({ mode, onChange }: FanModeMenuProps): JSX.Element {
       verticalOffset={-180}
       horizontalOffset={-32}
       backgroundProps={{
-        className: 'seam-fan-mode-menu-bg seam-thermo-mode-menu',
+        className: 'seam-thermo-mode-menu',
       }}
     >
       {modes.map((m) => (
