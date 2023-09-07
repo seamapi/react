@@ -68,34 +68,25 @@ function RangeSlider({
   unit,
 }: RangeSliderProps): JSX.Element {
   const wrapRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (wrapRef.current == null || inputRef.current == null) return
-
+    if (wrapRef.current == null) return
     const wrap = wrapRef.current
-    const input = inputRef.current
 
-    wrap.style.setProperty('--temperature-current', input.value)
-    wrap.style.setProperty('--temperature-min', input.min)
-    wrap.style.setProperty('--temperature-max', input.max)
-  }, [value])
+    wrap.style.setProperty('--temperature-current', value.toString())
+    wrap.style.setProperty('--temperature-min', min.toString())
+    wrap.style.setProperty('--temperature-max', max.toString())
+  }, [value, min, max])
 
   const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (
     event
   ): void => {
-    const wrap = wrapRef.current
-
-    if (wrap == null) return
-    const temperature = event.target.value
-    wrap.style.setProperty('--temperature-current', temperature)
-    onChange(Number(temperature))
+    onChange(Number(event.target.value))
   }
 
   return (
     <div ref={wrapRef} className='seam-temperature-range-wrap'>
       <input
-        ref={inputRef}
         type='range'
         min={min}
         max={max}

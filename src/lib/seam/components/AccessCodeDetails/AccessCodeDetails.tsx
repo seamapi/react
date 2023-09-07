@@ -12,7 +12,11 @@ import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
-import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
+import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
@@ -22,22 +26,21 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 const disableEditAccessCode = true
 
-export interface AccessCodeDetailsProps {
+export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
-  disableLockUnlock?: boolean
-  onBack?: () => void
   onEdit: () => void
-  className?: string
-  disableDeleteAccessCode?: boolean
 }
+
+export const NestedAccessCodeDetails =
+  withRequiredCommonProps(AccessCodeDetails)
 
 export function AccessCodeDetails({
   accessCodeId,
-  disableLockUnlock = false,
-  onBack,
   onEdit,
-  className,
+  disableLockUnlock = false,
   disableDeleteAccessCode = false,
+  onBack,
+  className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
@@ -51,13 +54,14 @@ export function AccessCodeDetails({
 
   if (selectedDeviceId != null) {
     return (
-      <DeviceDetails
-        className={className}
+      <NestedDeviceDetails
         deviceId={selectedDeviceId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           selectDevice(null)
         }}
-        disableLockUnlock={disableLockUnlock}
+        className={className}
       />
     )
   }

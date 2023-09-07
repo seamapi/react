@@ -8,7 +8,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  * These stories showcase the access code table.
  */
 const meta: Meta<typeof AccessCodeTable> = {
-  title: 'Example/AccessCodeTable',
+  title: 'Components/AccessCodeTable',
   component: AccessCodeTable,
   tags: ['autodocs'],
   parameters: {

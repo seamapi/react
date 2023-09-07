@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/react",
-  "version": "1.52.1",
+  "version": "1.53.1",
   "description": "Seam Components.",
   "type": "module",
   "main": "index.js",
@@ -72,6 +72,7 @@
     "docs:start": "concurrently --raw --kill-others npm:examples:storybook npm:storybook:docs",
     "docs:build": "storybook build --docs --output-dir docs",
     "predocs:build": "npm run examples:build",
+    "postdocs:build": "typedoc",
     "typecheck": "tsc",
     "test": "jest --collect-coverage",
     "test:update": "jest --updateSnapshot",
@@ -182,6 +183,7 @@
     "tsc-alias": "^1.8.5",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "tsx": "^3.12.7",
+    "typedoc": "^0.25.1",
     "typescript": "~5.1.0",
     "vite": "^4.2.1",
     "vite-tsconfig-paths": "^4.0.8",

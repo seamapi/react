@@ -1,16 +1,21 @@
 import { createIsoDate } from 'lib/dates.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
 
-export interface CreateAccessCodeFormProps {
-  className?: string
-  onBack?: () => void
+export interface CreateAccessCodeFormProps extends CommonProps {
   deviceId: string
 }
+
+export const NestedCreateAccessCodeForm =
+  withRequiredCommonProps(CreateAccessCodeForm)
 
 export function CreateAccessCodeForm({
   className,

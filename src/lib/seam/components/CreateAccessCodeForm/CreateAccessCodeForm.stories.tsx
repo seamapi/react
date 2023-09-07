@@ -8,7 +8,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
  * Coming soon.
  */
 const meta: Meta<typeof CreateAccessCodeForm> = {
-  title: 'Example/CreateAccessCodeForm',
+  title: 'Components/CreateAccessCodeForm',
   component: CreateAccessCodeForm,
   tags: ['autodocs'],
   parameters: {
