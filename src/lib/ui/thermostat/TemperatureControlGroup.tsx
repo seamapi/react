@@ -11,11 +11,11 @@ interface TemperatureControlGroupProps {
   onHeatValueChange: (t: number) => void
   coolValue: number
   onCoolValueChange: (t: number) => void
-  delta?: number
-  minHeat?: number
-  maxHeat?: number
-  minCool?: number
-  maxCool?: number
+  delta: number
+  minHeat: number
+  maxHeat: number
+  minCool: number
+  maxCool: number
 }
 
 export function TemperatureControlGroup({
@@ -24,11 +24,11 @@ export function TemperatureControlGroup({
   onHeatValueChange,
   coolValue,
   onCoolValueChange,
-  delta = 5,
-  minHeat = 70,
-  maxHeat = 100,
-  minCool = 50,
-  maxCool = 90,
+  delta,
+  minHeat,
+  maxHeat,
+  minCool,
+  maxCool,
 }: TemperatureControlGroupProps): JSX.Element {
   const showHeat = mode === 'heat' || mode === 'heat_cool'
   const showCool = mode === 'cool' || mode === 'heat_cool'
