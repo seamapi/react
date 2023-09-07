@@ -29,7 +29,7 @@ export function FanModeMenu({ mode, onChange }: FanModeMenuProps): JSX.Element {
       verticalOffset={-180}
       horizontalOffset={-32}
       backgroundProps={{
-        className: 'seam-fan-mode-menu-bg',
+        className: 'seam-fan-mode-menu-bg seam-thermo-mode-menu',
       }}
     >
       <Option
@@ -59,12 +59,12 @@ interface OptionProps {
 function Option({ mode, isSelected, onClick }: OptionProps): JSX.Element {
   return (
     <MenuItem onClick={onClick}>
-      <div className='seam-fan-mode-menu-item'>
-        <div className='seam-fan-mode-menu-item-block'>
+      <div className='seam-thermo-mode-menu-item'>
+        <div className='seam-thermo-mode-menu-item-block'>
           <FanIcon />
           <span>{mode === 'auto' ? t.auto : t.on}</span>
         </div>
-        <div className='seam-fan-mode-menu-item-block'>
+        <div className='seam-thermo-mode-menu-item-block'>
           {isSelected && <CheckBlackIcon />}
         </div>
       </div>

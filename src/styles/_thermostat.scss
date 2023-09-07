@@ -1,15 +1,11 @@
 @use './colors';
 
-@mixin temperature-control-thumb-hover(
-  $secondary-color: colors.$thermo-blue-faded
-) {
+@mixin temperature-control-thumb-hover($secondary-color: colors.$thermo-blue-faded) {
   background-color: $secondary-color;
 }
 
-@mixin temperature-control-thumb(
-  $primary-color: colors.$thermo-blue,
-  $secondary-color: colors.$thermo-blue-faded
-) {
+@mixin temperature-control-thumb($primary-color: colors.$thermo-blue,
+  $secondary-color: colors.$thermo-blue-faded) {
   width: var(--thumb-size);
   height: var(--thumb-size);
   border-radius: 1em;
@@ -32,15 +28,13 @@
 
 @mixin temperature-control-ltr-track($primary-color: colors.$thermo-blue) {
   background:
-    linear-gradient($primary-color, $primary-color) 0 / var(--slider-position)
-      100% no-repeat,
+    linear-gradient($primary-color, $primary-color) 0 / var(--slider-position) 100% no-repeat,
     colors.$text-gray-3;
 }
 
 @mixin temperature-control-rtl-track($primary-color: colors.$thermo-blue) {
   background:
-    linear-gradient($primary-color, $primary-color) 100% /
-      calc(var(--slider-position-rtl)) 100% no-repeat,
+    linear-gradient($primary-color, $primary-color) 100% / calc(var(--slider-position-rtl)) 100% no-repeat,
     colors.$text-gray-3;
 }
 
@@ -67,14 +61,8 @@
     --temperature-max: 100;
     --temperature-current: 50;
     --temperature-range: calc(var(--temperature-max) - var(--temperature-min));
-    --temperature-ratio: calc(
-      (var(--temperature-current) - var(--temperature-min)) /
-        var(--temperature-range)
-    );
-    --slider-position: calc(
-      0.5 * var(--thumb-size) + var(--temperature-ratio) *
-        (100% - var(--thumb-size))
-    );
+    --temperature-ratio: calc((var(--temperature-current) - var(--temperature-min)) / var(--temperature-range));
+    --slider-position: calc(0.5 * var(--thumb-size) + var(--temperature-ratio) * (100% - var(--thumb-size)));
     --slider-position-rtl: calc(100% - var(--slider-position));
 
     display: flex;
@@ -121,24 +109,18 @@
 
     &[data-variant='heat'] {
       &::-webkit-slider-thumb {
-        @include temperature-control-thumb(
-          colors.$thermo-orange,
-          colors.$thermo-orange-faded
-        );
+        @include temperature-control-thumb(colors.$thermo-orange,
+          colors.$thermo-orange-faded );
       }
 
       &::-moz-range-thumb {
-        @include temperature-control-thumb(
-          colors.$thermo-orange,
-          colors.$thermo-orange-faded
-        );
+        @include temperature-control-thumb(colors.$thermo-orange,
+          colors.$thermo-orange-faded );
       }
 
       &::-ms-thumb {
-        @include temperature-control-thumb(
-          colors.$thermo-orange,
-          colors.$thermo-orange-faded
-        );
+        @include temperature-control-thumb(colors.$thermo-orange,
+          colors.$thermo-orange-faded );
       }
 
       &:focus {
@@ -177,24 +159,18 @@
 
     &[data-variant='cool'] {
       &::-webkit-slider-thumb {
-        @include temperature-control-thumb(
-          colors.$thermo-blue,
-          colors.$thermo-blue-faded
-        );
+        @include temperature-control-thumb(colors.$thermo-blue,
+          colors.$thermo-blue-faded );
       }
 
       &::-moz-range-thumb {
-        @include temperature-control-thumb(
-          colors.$thermo-blue,
-          colors.$thermo-blue-faded
-        );
+        @include temperature-control-thumb(colors.$thermo-blue,
+          colors.$thermo-blue-faded );
       }
 
       &::-ms-thumb {
-        @include temperature-control-thumb(
-          colors.$thermo-blue,
-          colors.$thermo-blue-faded
-        );
+        @include temperature-control-thumb(colors.$thermo-blue,
+          colors.$thermo-blue-faded );
       }
 
       &:focus {
@@ -559,6 +535,26 @@
   }
 }
 
+@mixin mode-menu-common {
+  .seam-thermo-mode-menu {
+    .seam-thermo-mode-menu-item {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .seam-thermo-mode-menu-item-block {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      gap: 12px;
+    }
+  }
+}
+
 @mixin fan-mode-menu {
   .seam-fan-mode-menu-bg {
     .seam-menu-content {
@@ -607,21 +603,39 @@
       line-height: 120%;
     }
   }
+}
 
-  .seam-fan-mode-menu-item {
-    width: 100%;
+@mixin climate-mode-menu {
+  .seam-climate-mode-menu-button {
+    width: 72px;
+    height: 32px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid colors.$text-gray-3;
+    background: colors.$white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+      border-color: colors.$text-gray-2;
+    }
+
+    &:active {
+      background-color: colors.$bg-c;
+      border-color: colors.$text-gray-2;
+    }
   }
 
-  .seam-fan-mode-menu-item-block {
+  .seam-climate-mode-menu-button-icon {
+    width: 22px;
+    height: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
-    gap: 12px;
   }
 }
 
@@ -629,5 +643,7 @@
   @include temperature-control;
   @include climate-setting-status;
   @include thermostat-card;
+  @include mode-menu-common;
   @include fan-mode-menu;
+  @include climate-mode-menu;
 }
