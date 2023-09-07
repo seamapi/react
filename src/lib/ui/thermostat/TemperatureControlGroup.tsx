@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import type { HvacModeSetting } from 'seamapi'
 
 import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
 import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
 import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
-import type { HvacModeSetting } from 'seamapi'
 
 interface TemperatureControlGroupProps {
   mode: Exclude<HvacModeSetting, 'off'>
@@ -20,16 +20,19 @@ interface TemperatureControlGroupProps {
 
 export function TemperatureControlGroup({
   mode,
-  heatValue,
-  onHeatValueChange,
-  coolValue,
-  onCoolValueChange,
+  // heatValue,
+  // onHeatValueChange,
+  // coolValue,
+  // onCoolValueChange,
   delta,
   minHeat,
   maxHeat,
   minCool,
   maxCool,
 }: TemperatureControlGroupProps): JSX.Element {
+  const [heatValue, setHeatValue] = useState(75)
+  const [coolValue, setCoolValue] = useState(80)
+
   const showHeat = mode === 'heat' || mode === 'heat_cool'
   const showCool = mode === 'cool' || mode === 'heat_cool'
 
@@ -39,29 +42,41 @@ export function TemperatureControlGroup({
   const cMax = Math.min(maxCool, maxHeat)
   const cMin = Math.max(minCool + delta, minHeat + delta)
 
-  const updateHeat = (t: number) => {
-    if (mode === 'heat_cool') {
-      onHeatValueChange(Math.min(Math.max(t, hMin), hMax))
-    } else {
-      onHeatValueChange(Math.min(Math.max(t, minHeat), maxHeat))
-    }
-  }
+  const updateHeat = useCallback(
+    (tfunc: (t: number) => number): void => {
+      if (mode === 'heat_cool') {
+        setHeatValue((t) => Math.min(Math.max(tfunc(t), hMin), hMax))
+      } else {
+        setHeatValue((t) => Math.min(Math.max(tfunc(t), minHeat), maxHeat))
+      }
+    },
+    [mode, hMax, hMin, minHeat, maxHeat]
+  )
 
-  const updateCool = (t: number) => {
-    if (mode === 'heat_cool') {
-      onCoolValueChange(Math.min(Math.max(t, cMin), cMax))
-    } else {
-      onCoolValueChange(Math.min(Math.max(t, minCool), maxCool))
-    }
-  }
+  const updateCool = useCallback(
+    (tfunc: (t: number) => number): void => {
+      if (mode === 'heat_cool') {
+        setCoolValue((t) => Math.min(Math.max(tfunc(t), cMin), cMax))
+      } else {
+        setCoolValue((t) => Math.min(Math.max(tfunc(t), minCool), maxCool))
+      }
+    },
+    [mode, cMax, cMin, minCool, maxCool]
+  )
 
   useEffect(() => {
-    if (coolValue < heatValue + delta) updateHeat(coolValue - delta)
-  }, [coolValue, delta])
+    updateHeat((currentHeat) => {
+      if (coolValue < currentHeat + delta) return coolValue - delta
+      return currentHeat
+    })
+  }, [coolValue, delta, updateHeat])
 
   useEffect(() => {
-    if (heatValue > coolValue - delta) updateCool(heatValue + delta)
-  }, [heatValue, delta])
+    updateCool((currentCool) => {
+      if (heatValue > currentCool - delta) return heatValue + delta
+      return currentCool
+    })
+  }, [heatValue, delta, updateCool])
 
   return (
     <div className='seam-temperature-control-group'>
@@ -72,7 +87,7 @@ export function TemperatureControlGroup({
             variant='heat'
             value={heatValue}
             onChange={(t) => {
-              updateHeat(t)
+              updateHeat((_) => t)
             }}
             min={minHeat}
             max={maxHeat}
@@ -87,7 +102,7 @@ export function TemperatureControlGroup({
             variant='cool'
             value={coolValue}
             onChange={(t) => {
-              updateCool(t)
+              updateCool((_) => t)
             }}
             min={minCool}
             max={maxCool}
