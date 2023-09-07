@@ -19,7 +19,7 @@ export const Content: Story = {
     return (
       <Box height={190}>
         <ClimateModeMenu
-          mode={props.mode}
+          mode={props.mode ?? 'heat'}
           onChange={(mode) => {
             setArgs({ mode })
           }}
