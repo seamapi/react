@@ -42,20 +42,6 @@ export const Content: Story = {
           maxCool={props.maxCool ?? 90}
           delta={props.delta ?? 5}
         />
-
-        {/* <div>
-          <p>Same range; delta = 5</p>
-          <TemperatureControlGroup
-            mode='heatcool'
-            minHeat={60}
-            maxHeat={90}
-            minCool={60}
-            maxCool={90}
-          />
-        </div>
-
-        <TemperatureControlGroup mode='heat' />
-        <TemperatureControlGroup mode='cool' /> */}
       </Box>
     )
   },
