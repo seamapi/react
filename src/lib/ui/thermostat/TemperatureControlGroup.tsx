@@ -102,6 +102,26 @@ export function TemperatureControlGroup({
         onCoolValueChange(maxCool)
       }
     }
+
+    if (mode === 'heat') {
+      const { min: minHeat, max: maxHeat } = getHeatBounds()
+
+      if (heatValue < minHeat) {
+        onHeatValueChange(minHeat)
+      } else if (heatValue > maxHeat) {
+        onHeatValueChange(maxHeat)
+      }
+    }
+
+    if (mode === 'cool') {
+      const { min: minCool, max: maxCool } = getCoolBounds()
+
+      if (coolValue < minCool) {
+        onCoolValueChange(minCool)
+      } else if (coolValue > maxCool) {
+        onCoolValueChange(maxCool)
+      }
+    }
   }, [
     mode,
     heatValue,
