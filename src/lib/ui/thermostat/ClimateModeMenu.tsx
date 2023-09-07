@@ -5,13 +5,13 @@ import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { ThermoModeMenuOption } from 'lib/ui/thermostat/ThermoModeMenuOption.js'
+import { type HvacModeSetting } from 'seamapi'
 
-const modes = ['heat', 'cool', 'heatcool', 'off'] as const
-type Mode = (typeof modes)[number]
+const modes: HvacModeSetting[] = ['heat', 'cool', 'heat_cool', 'off']
 
 interface ClimateModeMenuProps {
-  mode: Mode
-  onChange: (mode: Mode) => void
+  mode: HvacModeSetting
+  onChange: (mode: HvacModeSetting) => void
 }
 
 export function ClimateModeMenu({
@@ -49,13 +49,13 @@ export function ClimateModeMenu({
   )
 }
 
-function ModeIcon(mode: Mode): JSX.Element {
+function ModeIcon(mode: HvacModeSetting): JSX.Element {
   switch (mode) {
     case 'heat':
       return <ThermostatHeatIcon />
     case 'cool':
       return <ThermostatCoolIcon />
-    case 'heatcool':
+    case 'heat_cool':
       return <ThermostatHeatCoolIcon />
     case 'off':
       return <OffIcon />
@@ -65,6 +65,6 @@ function ModeIcon(mode: Mode): JSX.Element {
 const t = {
   heat: 'Heat',
   cool: 'Cool',
-  heatcool: 'Heat & Cool',
+  heat_cool: 'Heat & Cool',
   off: 'Off',
 }
