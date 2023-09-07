@@ -561,6 +561,13 @@
 
 @mixin mode-menu-common {
   .seam-thermo-mode-menu {
+    .seam-menu-content {
+      max-width: 180px;
+      box-shadow:
+        0 2px 16px 2px rgb(15 22 28 / 15%),
+        0 0 1px 0 rgb(0 0 0 / 30%);
+    }
+
     .seam-thermo-mode-menu-item {
       width: 100%;
       display: flex;
@@ -588,15 +595,6 @@
 }
 
 @mixin fan-mode-menu {
-  .seam-fan-mode-menu-bg {
-    .seam-menu-content {
-      max-width: 180px;
-      box-shadow:
-        0 2px 16px 2px rgb(15 22 28 / 15%),
-        0 0 1px 0 rgb(0 0 0 / 30%);
-    }
-  }
-
   .seam-fan-mode-menu-button {
     width: 130px;
     height: 32px;

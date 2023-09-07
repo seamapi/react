@@ -1,11 +1,10 @@
-import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import { OffIcon } from 'lib/icons/Off.js'
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
-import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
+import { ThermoModeMenuOption } from 'lib/ui/thermostat/ThermoModeMenuOption.js'
 
 const modes = ['heat', 'cool', 'heatcool', 'off'] as const
 type Mode = (typeof modes)[number]
@@ -36,9 +35,10 @@ export function ClimateModeMenu({
       }}
     >
       {modes.map((m) => (
-        <Option
+        <ThermoModeMenuOption
           key={m}
-          mode={m}
+          label={t[m]}
+          icon={getModeIcon(m)}
           isSelected={mode === m}
           onClick={() => {
             onChange(m)
@@ -46,28 +46,6 @@ export function ClimateModeMenu({
         />
       ))}
     </Menu>
-  )
-}
-
-interface OptionProps {
-  mode: Mode
-  onClick: () => void
-  isSelected: boolean
-}
-
-function Option({ mode, isSelected, onClick }: OptionProps): JSX.Element {
-  return (
-    <MenuItem onClick={onClick}>
-      <div className='seam-thermo-mode-menu-item'>
-        <div className='seam-thermo-mode-menu-item-block'>
-          <div className='seam-thermo-mode-menu-icon'>{getModeIcon(mode)}</div>
-          <span>{t[mode]}</span>
-        </div>
-        <div className='seam-thermo-mode-menu-item-block'>
-          {isSelected && <CheckBlackIcon />}
-        </div>
-      </div>
-    </MenuItem>
   )
 }
 
