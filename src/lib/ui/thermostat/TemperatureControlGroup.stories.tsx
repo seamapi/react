@@ -33,9 +33,13 @@ export const Content: Story = {
         <TemperatureControlGroup
           mode={props.mode ?? 'heat_cool'}
           heatValue={props.heatValue ?? 75}
-          onHeatValueChange={(t) => { setArgs({ heatValue: t }); }}
+          onHeatValueChange={(t) => {
+            setArgs({ heatValue: t })
+          }}
           coolValue={props.coolValue ?? 80}
-          onCoolValueChange={(t) => { setArgs({ coolValue: t }); }}
+          onCoolValueChange={(t) => {
+            setArgs({ coolValue: t })
+          }}
           minHeat={props.minHeat ?? 70}
           maxHeat={props.maxHeat ?? 100}
           minCool={props.minCool ?? 50}
