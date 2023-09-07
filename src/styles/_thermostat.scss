@@ -577,6 +577,14 @@
       gap: 12px;
     }
   }
+
+  .seam-thermo-mode-menu-icon {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @mixin fan-mode-menu {
@@ -646,6 +654,10 @@
 
     &:hover {
       border-color: colors.$text-gray-2;
+    }
+
+    &:focus {
+      outline-color: colors.$text-gray-2;
     }
 
     &:active {

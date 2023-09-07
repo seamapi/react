@@ -7,7 +7,8 @@ import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 
-type Mode = 'heat' | 'cool' | 'heatcool' | 'off'
+const modes = ['heat', 'cool', 'heatcool', 'off'] as const
+type Mode = (typeof modes)[number]
 
 interface ClimateModeMenuProps {
   mode: Mode
@@ -34,34 +35,16 @@ export function ClimateModeMenu({
         className: 'seam-climate-mode-menu-bg seam-thermo-mode-menu',
       }}
     >
-      <Option
-        mode='heat'
-        isSelected={mode === 'heat'}
-        onClick={() => {
-          onChange('heat')
-        }}
-      />
-      <Option
-        mode='cool'
-        isSelected={mode === 'cool'}
-        onClick={() => {
-          onChange('cool')
-        }}
-      />
-      <Option
-        mode='heatcool'
-        isSelected={mode === 'heatcool'}
-        onClick={() => {
-          onChange('heatcool')
-        }}
-      />
-      <Option
-        mode='off'
-        isSelected={mode === 'off'}
-        onClick={() => {
-          onChange('off')
-        }}
-      />
+      {modes.map((m) => (
+        <Option
+          key={m}
+          mode={m}
+          isSelected={mode === m}
+          onClick={() => {
+            onChange(m)
+          }}
+        />
+      ))}
     </Menu>
   )
 }
@@ -77,7 +60,7 @@ function Option({ mode, isSelected, onClick }: OptionProps): JSX.Element {
     <MenuItem onClick={onClick}>
       <div className='seam-thermo-mode-menu-item'>
         <div className='seam-thermo-mode-menu-item-block'>
-          {getModeIcon(mode)}
+          <div className='seam-thermo-mode-menu-icon'>{getModeIcon(mode)}</div>
           <span>{t[mode]}</span>
         </div>
         <div className='seam-thermo-mode-menu-item-block'>
