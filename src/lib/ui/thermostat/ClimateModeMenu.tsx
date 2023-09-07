@@ -31,7 +31,7 @@ export function ClimateModeMenu({
       verticalOffset={-180}
       horizontalOffset={-32}
       backgroundProps={{
-        className: 'seam-climate-mode-menu-bg seam-thermo-mode-menu',
+        className: 'seam-thermo-mode-menu',
       }}
     >
       {modes.map((m) => (
