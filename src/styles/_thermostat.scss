@@ -559,16 +559,42 @@
   }
 }
 
-@mixin fan-mode-menu {
-  .seam-fan-mode-menu-bg {
+@mixin mode-menu-common {
+  .seam-thermo-mode-menu {
     .seam-menu-content {
       max-width: 180px;
       box-shadow:
         0 2px 16px 2px rgb(15 22 28 / 15%),
         0 0 1px 0 rgb(0 0 0 / 30%);
     }
+
+    .seam-thermo-mode-menu-item {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .seam-thermo-mode-menu-item-block {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      gap: 12px;
+    }
   }
 
+  .seam-thermo-mode-menu-icon {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@mixin fan-mode-menu {
   .seam-fan-mode-menu-button {
     width: 130px;
     height: 32px;
@@ -607,21 +633,43 @@
       line-height: 120%;
     }
   }
+}
 
-  .seam-fan-mode-menu-item {
-    width: 100%;
+@mixin climate-mode-menu {
+  .seam-climate-mode-menu-button {
+    width: 72px;
+    height: 32px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid colors.$text-gray-3;
+    background: colors.$white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+      border-color: colors.$text-gray-2;
+    }
+
+    &:focus {
+      outline-color: colors.$text-gray-2;
+    }
+
+    &:active {
+      background-color: colors.$bg-c;
+      border-color: colors.$text-gray-2;
+    }
   }
 
-  .seam-fan-mode-menu-item-block {
+  .seam-climate-mode-menu-button-icon {
+    width: 22px;
+    height: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
-    gap: 12px;
   }
 }
 
@@ -629,5 +677,7 @@
   @include temperature-control;
   @include climate-setting-status;
   @include thermostat-card;
+  @include mode-menu-common;
   @include fan-mode-menu;
+  @include climate-mode-menu;
 }
