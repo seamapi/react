@@ -1,7 +1,5 @@
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
-import { FanIcon } from 'lib/icons/Fan.js'
-import { FanOutlineIcon } from 'lib/icons/FanOutline.js'
 import { OffIcon } from 'lib/icons/Off.js'
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
@@ -80,7 +78,7 @@ function Option({ mode, isSelected, onClick }: OptionProps): JSX.Element {
       <div className='seam-thermo-mode-menu-item'>
         <div className='seam-thermo-mode-menu-item-block'>
           {getModeIcon(mode)}
-          <span>{mode}</span>
+          <span>{t[mode]}</span>
         </div>
         <div className='seam-thermo-mode-menu-item-block'>
           {isSelected && <CheckBlackIcon />}
@@ -104,6 +102,8 @@ function getModeIcon(mode: Mode): JSX.Element {
 }
 
 const t = {
-  auto: 'Auto',
-  on: 'On',
+  heat: 'Heat',
+  cool: 'Cool',
+  heatcool: 'Heat & Cool',
+  off: 'Off',
 }
