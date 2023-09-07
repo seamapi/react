@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
+import type { HvacModeSetting } from 'seamapi'
 
 import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
 import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
 import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
-import type { HvacModeSetting } from 'seamapi'
 
 interface TemperatureControlGroupProps {
   mode: Exclude<HvacModeSetting, 'off'>
