@@ -3,13 +3,13 @@ import { FanIcon } from 'lib/icons/Fan.js'
 import { FanOutlineIcon } from 'lib/icons/FanOutline.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { ThermoModeMenuOption } from 'lib/ui/thermostat/ThermoModeMenuOption.js'
+import type { FanModeSetting } from 'seamapi'
 
-const modes = ['auto', 'on'] as const
-type Mode = (typeof modes)[number]
+const modes: FanModeSetting[] = ['auto', 'on']
 
 interface FanModeMenuProps {
-  mode: Mode
-  onChange: (mode: Mode) => void
+  mode: FanModeSetting
+  onChange: (mode: FanModeSetting) => void
 }
 
 export function FanModeMenu({ mode, onChange }: FanModeMenuProps): JSX.Element {
