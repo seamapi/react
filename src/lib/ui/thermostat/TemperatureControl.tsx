@@ -71,21 +71,17 @@ function RangeSlider({
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (wrapRef.current == null || inputRef.current == null) return
-
+    if (wrapRef.current == null) return
     const wrap = wrapRef.current
-    const input = inputRef.current
 
     wrap.style.setProperty('--temperature-current', value.toString())
-    wrap.style.setProperty('--temperature-min', input.min)
-    wrap.style.setProperty('--temperature-max', input.max)
-  }, [value])
+    wrap.style.setProperty('--temperature-min', min.toString())
+    wrap.style.setProperty('--temperature-max', max.toString())
+  }, [value, min, max])
 
   const handleRangeChange: ChangeEventHandler<HTMLInputElement> = (
     event
   ): void => {
-    const wrap = wrapRef.current
-    if (wrap == null) return
     onChange(Number(event.target.value))
   }
 
