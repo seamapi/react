@@ -1,7 +1,5 @@
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
-import { FanIcon } from 'lib/icons/Fan.js'
-import { FanOutlineIcon } from 'lib/icons/FanOutline.js'
 import { OffIcon } from 'lib/icons/Off.js'
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
