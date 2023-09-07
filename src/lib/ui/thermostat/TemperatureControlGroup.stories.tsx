@@ -17,19 +17,7 @@ export const Content: Story = {
     const [_, setArgs] = useArgs()
 
     return (
-      <Box
-        sx={{
-          gap: '64px !important',
-
-          '&, & > div': {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            flexDirection: 'column',
-            gap: '24px',
-          },
-        }}
-      >
+      <Box>
         <TemperatureControlGroup
           mode={props.mode ?? 'heat_cool'}
           heatValue={props.heatValue ?? 75}
