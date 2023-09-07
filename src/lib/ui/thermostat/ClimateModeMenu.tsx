@@ -23,7 +23,7 @@ export function ClimateModeMenu({
       renderButton={({ onOpen }) => (
         <button onClick={onOpen} className='seam-climate-mode-menu-button'>
           <div className='seam-climate-mode-menu-button-icon'>
-            {getModeIcon(mode)}
+            {ModeIcon(mode)}
           </div>
           <ChevronDownIcon />
         </button>
@@ -38,7 +38,7 @@ export function ClimateModeMenu({
         <ThermoModeMenuOption
           key={m}
           label={t[m]}
-          icon={getModeIcon(m)}
+          icon={ModeIcon(m)}
           isSelected={mode === m}
           onClick={() => {
             onChange(m)
@@ -49,7 +49,7 @@ export function ClimateModeMenu({
   )
 }
 
-function getModeIcon(mode: Mode): JSX.Element {
+function ModeIcon(mode: Mode): JSX.Element {
   switch (mode) {
     case 'heat':
       return <ThermostatHeatIcon />
