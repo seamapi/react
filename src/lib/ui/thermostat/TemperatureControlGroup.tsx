@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
 import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
 import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
 
 interface TemperatureControlGroupProps {
-  mode: 'heat' | 'cool' | 'heatcool'
+  mode: 'heat' | 'cool' | 'heat_cool'
+  heatValue: number
+  onHeatValueChange: (t: number) => void
+  coolValue: number
+  onCoolValueChange: (t: number) => void
   delta?: number
   minHeat?: number
   maxHeat?: number
@@ -15,17 +19,18 @@ interface TemperatureControlGroupProps {
 
 export function TemperatureControlGroup({
   mode,
+  heatValue,
+  onHeatValueChange,
+  coolValue,
+  onCoolValueChange,
   delta = 5,
   minHeat = 70,
   maxHeat = 100,
   minCool = 50,
   maxCool = 90,
 }: TemperatureControlGroupProps): JSX.Element {
-  const [heat, setHeat] = useState(70)
-  const [cool, setCool] = useState(75)
-
-  const showHeat = mode === 'heat' || mode === 'heatcool'
-  const showCool = mode === 'cool' || mode === 'heatcool'
+  const showHeat = mode === 'heat' || mode === 'heat_cool'
+  const showCool = mode === 'cool' || mode === 'heat_cool'
 
   const hMax = Math.min(maxHeat - delta, maxCool - delta)
   const hMin = Math.max(minHeat, minCool)
@@ -34,28 +39,28 @@ export function TemperatureControlGroup({
   const cMin = Math.max(minCool + delta, minHeat + delta)
 
   const updateHeat = (t: number) => {
-    if (mode === 'heatcool') {
-      setHeat(Math.min(Math.max(t, hMin), hMax))
+    if (mode === 'heat_cool') {
+      onHeatValueChange(Math.min(Math.max(t, hMin), hMax))
     } else {
-      setHeat(Math.min(Math.max(t, minHeat), maxHeat))
+      onHeatValueChange(Math.min(Math.max(t, minHeat), maxHeat))
     }
   }
 
   const updateCool = (t: number) => {
-    if (mode === 'heatcool') {
-      setCool(Math.min(Math.max(t, cMin), cMax))
+    if (mode === 'heat_cool') {
+      onCoolValueChange(Math.min(Math.max(t, cMin), cMax))
     } else {
-      setCool(Math.min(Math.max(t, minCool), maxCool))
+      onCoolValueChange(Math.min(Math.max(t, minCool), maxCool))
     }
   }
 
   useEffect(() => {
-    if (cool < heat + delta) updateHeat(cool - delta)
-  }, [cool, delta])
+    if (coolValue < heatValue + delta) updateHeat(coolValue - delta)
+  }, [coolValue, delta])
 
   useEffect(() => {
-    if (heat > cool - delta) updateCool(heat + delta)
-  }, [heat, delta])
+    if (heatValue > coolValue - delta) updateCool(heatValue + delta)
+  }, [heatValue, delta])
 
   return (
     <div className='seam-temperature-control-group'>
@@ -64,7 +69,7 @@ export function TemperatureControlGroup({
           <ThermostatHeatLargeIcon />
           <TemperatureControl
             variant='heat'
-            value={heat}
+            value={heatValue}
             onChange={(t) => {
               updateHeat(t)
             }}
@@ -79,7 +84,7 @@ export function TemperatureControlGroup({
           <ThermostatCoolLargeIcon />
           <TemperatureControl
             variant='cool'
-            value={cool}
+            value={coolValue}
             onChange={(t) => {
               updateCool(t)
             }}
