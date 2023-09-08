@@ -1,11 +1,10 @@
 import classNames from 'classnames'
 import type { LockDevice } from 'seamapi'
 
-import type { CommonProps } from 'lib/seam/components/common-props.js'
-
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
+import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'

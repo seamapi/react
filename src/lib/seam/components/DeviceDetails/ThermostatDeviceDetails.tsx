@@ -2,11 +2,10 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
-import type { CommonProps } from 'lib/seam/components/common-props.js'
-
 import { BeeIcon } from 'lib/icons/Bee.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
+import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
