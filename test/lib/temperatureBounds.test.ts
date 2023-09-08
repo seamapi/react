@@ -1,7 +1,7 @@
 import {
-  getHeatBounds,
   type ControlBounds,
   getCoolBounds,
+  getHeatBounds,
   getTemperatureBounds,
 } from 'lib/temperatureBounds.js'
 

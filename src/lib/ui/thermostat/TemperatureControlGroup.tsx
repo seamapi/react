@@ -1,14 +1,14 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import type { HvacModeSetting } from 'seamapi'
 
 import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
 import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
-import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
 import {
   getCoolBounds,
   getHeatBounds,
   getTemperatureBounds,
 } from 'lib/temperatureBounds.js'
+import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
 
 interface TemperatureControlGroupProps {
   mode: Exclude<HvacModeSetting, 'off'>
@@ -38,14 +38,17 @@ export function TemperatureControlGroup({
   const showHeat = mode === 'heat' || mode === 'heat_cool'
   const showCool = mode === 'cool' || mode === 'heat_cool'
 
-  const controlBounds = {
-    mode,
-    minHeat,
-    maxHeat,
-    minCool,
-    maxCool,
-    delta,
-  }
+  const controlBounds = useMemo(
+    () => ({
+      mode,
+      minHeat,
+      maxHeat,
+      minCool,
+      maxCool,
+      delta,
+    }),
+    [mode, minHeat, maxHeat, minCool, maxCool, delta]
+  )
 
   const adjustHeat = useCallback(
     (temperature: number) => {
@@ -58,7 +61,7 @@ export function TemperatureControlGroup({
         onCoolValueChange(adjustedHeat + delta)
       }
     },
-    [getHeatBounds, coolValue, delta, onHeatValueChange, onCoolValueChange]
+    [controlBounds, coolValue, delta, onHeatValueChange, onCoolValueChange]
   )
 
   const adjustCool = useCallback(
@@ -72,7 +75,7 @@ export function TemperatureControlGroup({
         onHeatValueChange(adjustedCool - delta)
       }
     },
-    [getCoolBounds, heatValue, delta, onCoolValueChange, onHeatValueChange]
+    [controlBounds, heatValue, delta, onCoolValueChange, onHeatValueChange]
   )
 
   useEffect(() => {
@@ -122,8 +125,7 @@ export function TemperatureControlGroup({
     mode,
     heatValue,
     coolValue,
-    getHeatBounds,
-    getCoolBounds,
+    controlBounds,
     onHeatValueChange,
     onCoolValueChange,
   ])
