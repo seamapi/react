@@ -24,13 +24,10 @@ import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
-
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
-  className?: string
   disableEditAccessCode?: boolean
-  disableDeleteAccessCode?: boolean
 }
 
 export const NestedAccessCodeDetails =
