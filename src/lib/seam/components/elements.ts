@@ -5,4 +5,5 @@ export * as ClimateSettingScheduleTable from './ClimateSettingScheduleTable/Clim
 export * as ConnectAccountButton from './ConnectAccountButton/ConnectAccountButton.element.js'
 export * as DeviceDetails from './DeviceDetails/DeviceDetails.element.js'
 export * as DeviceTable from './DeviceTable/DeviceTable.element.js'
+export * as EditAccessCodeForm from './EditAccessCodeForm/EditAccessCodeForm.element.js'
 export * as SupportedDeviceTable from './SupportedDeviceTable/SupportedDeviceTable.element.js'
