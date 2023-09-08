@@ -4,6 +4,11 @@ import type { HvacModeSetting } from 'seamapi'
 import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
 import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
 import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
+import {
+  getCoolBounds,
+  getHeatBounds,
+  getTemperatureBounds,
+} from 'lib/temperatureBounds.js'
 
 interface TemperatureControlGroupProps {
   mode: Exclude<HvacModeSetting, 'off'>
@@ -33,33 +38,18 @@ export function TemperatureControlGroup({
   const showHeat = mode === 'heat' || mode === 'heat_cool'
   const showCool = mode === 'cool' || mode === 'heat_cool'
 
-  const getHeatBounds = useCallback(() => {
-    const actualMaxHeat =
-      mode === 'heat_cool'
-        ? Math.min(maxHeat - delta, maxCool - delta)
-        : maxHeat
-
-    const actualMinHeat =
-      mode === 'heat_cool' ? Math.max(minHeat, minCool) : minHeat
-
-    return { min: actualMinHeat, max: actualMaxHeat }
-  }, [mode, minHeat, maxHeat, minCool, maxCool, delta])
-
-  const getCoolBounds = useCallback(() => {
-    const actualMaxCool =
-      mode === 'heat_cool' ? Math.min(maxCool, maxHeat) : maxCool
-
-    const actualMinCool =
-      mode === 'heat_cool'
-        ? Math.max(minCool + delta, minHeat + delta)
-        : minCool
-
-    return { min: actualMinCool, max: actualMaxCool }
-  }, [mode, minCool, maxCool, minHeat, maxHeat, delta])
+  const controlBounds = {
+    mode,
+    minHeat,
+    maxHeat,
+    minCool,
+    maxCool,
+    delta,
+  }
 
   const adjustHeat = useCallback(
     (temperature: number) => {
-      const { min, max } = getHeatBounds()
+      const { min, max } = getHeatBounds(controlBounds)
       const adjustedHeat = Math.min(Math.max(temperature, min), max)
 
       onHeatValueChange(adjustedHeat)
@@ -73,7 +63,7 @@ export function TemperatureControlGroup({
 
   const adjustCool = useCallback(
     (temperature: number) => {
-      const { min, max } = getCoolBounds()
+      const { min, max } = getCoolBounds(controlBounds)
       const adjustedCool = Math.min(Math.max(temperature, min), max)
 
       onCoolValueChange(adjustedCool)
@@ -86,10 +76,12 @@ export function TemperatureControlGroup({
   )
 
   useEffect(() => {
-    if (mode === 'heat_cool') {
-      const { min: minHeat, max: maxHeat } = getHeatBounds()
-      const { min: minCool, max: maxCool } = getCoolBounds()
+    const {
+      heat: { min: minHeat, max: maxHeat },
+      cool: { min: minCool, max: maxCool },
+    } = getTemperatureBounds(controlBounds)
 
+    if (mode === 'heat_cool') {
       if (heatValue < minHeat) {
         onHeatValueChange(minHeat)
       }
@@ -108,8 +100,6 @@ export function TemperatureControlGroup({
     }
 
     if (mode === 'heat') {
-      const { min: minHeat, max: maxHeat } = getHeatBounds()
-
       if (heatValue < minHeat) {
         onHeatValueChange(minHeat)
       }
@@ -120,8 +110,6 @@ export function TemperatureControlGroup({
     }
 
     if (mode === 'cool') {
-      const { min: minCool, max: maxCool } = getCoolBounds()
-
       if (coolValue < minCool) {
         onCoolValueChange(minCool)
       }
