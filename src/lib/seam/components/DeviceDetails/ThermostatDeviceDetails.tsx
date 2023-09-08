@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
+import type { CommonProps } from 'lib/index.js'
+
 import { BeeIcon } from 'lib/icons/Bee.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
@@ -14,14 +16,20 @@ import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
-export function ThermostatDeviceDetails(props: {
+interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
-  disableLockUnlock: boolean
-  disableDeleteAccessCode: boolean
-  onBack: (() => void) | undefined
-  className: string | undefined
-}): JSX.Element | null {
-  const { device, onBack, className } = props
+}
+
+export function ThermostatDeviceDetails(
+  props: ThermostatDeviceDetailsProps
+): JSX.Element | null {
+  const {
+    device,
+    onBack,
+    className,
+    disableCreateAccessCode,
+    disableEditAccessCode,
+  } = props
 
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
@@ -36,6 +44,8 @@ export function ThermostatDeviceDetails(props: {
       <NestedClimateSettingScheduleTable
         deviceId={device.device_id}
         disableLockUnlock={props.disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={props.disableDeleteAccessCode}
         onBack={() => {
           setClimateSettingsOpen(false)

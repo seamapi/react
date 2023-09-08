@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import type { LockDevice } from 'seamapi'
 
+import type { CommonProps } from 'lib/index.js'
+
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
@@ -14,16 +16,18 @@ import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
-export function LockDeviceDetails(props: {
+interface LockDeviceDetailsProps extends CommonProps {
   device: LockDevice
-  disableLockUnlock: boolean
-  disableDeleteAccessCode: boolean
-  onBack: (() => void) | undefined
-  className: string | undefined
-}): JSX.Element | null {
+}
+
+export function LockDeviceDetails(
+  props: LockDeviceDetailsProps
+): JSX.Element | null {
   const {
     device,
     disableLockUnlock,
+    disableCreateAccessCode,
+    disableEditAccessCode,
     disableDeleteAccessCode,
     onBack,
     className,
@@ -49,6 +53,8 @@ export function LockDeviceDetails(props: {
       <NestedAccessCodeTable
         deviceId={device.device_id}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={toggleAccessCodesOpen}
         className={className}
@@ -109,7 +115,7 @@ export function LockDeviceDetails(props: {
               <span className='seam-value'>{lockStatus}</span>
             </div>
             <div className='seam-right'>
-              {!disableLockUnlock && (
+              {disableLockUnlock !== true && (
                 <Button
                   size='small'
                   onClick={() => {

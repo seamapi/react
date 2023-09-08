@@ -38,6 +38,8 @@ type ProviderProps = Omit<
 
 const commonProps: R2wcProps<CommonProps> = {
   disableLockUnlock: 'boolean',
+  disableCreateAccessCode: 'boolean',
+  disableEditAccessCode: 'boolean',
   disableDeleteAccessCode: 'boolean',
   onBack: 'object',
   className: 'string',

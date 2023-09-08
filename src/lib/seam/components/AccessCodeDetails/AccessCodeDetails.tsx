@@ -36,6 +36,7 @@ export const NestedAccessCodeDetails =
 export function AccessCodeDetails({
   accessCodeId,
   onEdit,
+  disableCreateAccessCode = false,
   disableEditAccessCode = false,
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
@@ -57,6 +58,8 @@ export function AccessCodeDetails({
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           selectDevice(null)

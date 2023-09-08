@@ -63,6 +63,8 @@ export function ClimateSettingScheduleTable({
   disableDeleteAccessCode = false,
   onBack,
   className,
+  disableCreateAccessCode,
+  disableEditAccessCode,
 }: ClimateSettingScheduleTableProps): JSX.Element {
   const { climateSettingSchedules, isLoading, isError, error } =
     useClimateSettingSchedules({
@@ -108,6 +110,8 @@ export function ClimateSettingScheduleTable({
       <NestedClimateSettingScheduleDetails
         climateSettingScheduleId={selectedViewClimateSettingScheduleId}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedViewClimateSettingScheduleId(null)
