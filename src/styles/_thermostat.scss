@@ -1,5 +1,22 @@
 @use './colors';
 
+@mixin temperature-control-group {
+  .seam-temperature-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .seam-temperature-control-group-block {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+  }
+}
+
 @mixin temperature-control-thumb-hover(
   $secondary-color: colors.$thermo-blue-faded
 ) {
@@ -674,6 +691,7 @@
 }
 
 @mixin all {
+  @include temperature-control-group;
   @include temperature-control;
   @include climate-setting-status;
   @include thermostat-card;
