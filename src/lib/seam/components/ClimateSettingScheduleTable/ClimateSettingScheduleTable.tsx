@@ -3,7 +3,12 @@ import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
-import { ClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
+import { NestedClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
+import { ClimateSettingScheduleRow } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleRow.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
 import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
@@ -16,9 +21,11 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 
-import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
+export const NestedClimateSettingScheduleTable = withRequiredCommonProps(
+  ClimateSettingScheduleTable
+)
 
-export interface ClimateSettingScheduleTableProps {
+export interface ClimateSettingScheduleTableProps extends CommonProps {
   deviceId: string
   disableSearch?: boolean
   onClimateSettingScheduleClick?: (climateSettingScheduleId: string) => void
@@ -31,9 +38,7 @@ export interface ClimateSettingScheduleTableProps {
     climateSettingScheduleA: ClimateSettingSchedule,
     climateSettingScheduleB: ClimateSettingSchedule
   ) => number
-  onBack?: () => void
   heading?: string | null
-  className?: string
 }
 
 const defaultClimateSettingScheduleFilter = (
@@ -53,9 +58,10 @@ export function ClimateSettingScheduleTable({
   preventDefaultOnClimateSettingScheduleClick = false,
   climateSettingScheduleFilter = defaultClimateSettingScheduleFilter,
   climateSettingScheduleComparator = compareByCreatedAtDesc,
-
-  onBack,
   heading = t.climateSettingSchedules,
+  disableLockUnlock = false,
+  disableDeleteAccessCode = false,
+  onBack,
   className,
 }: ClimateSettingScheduleTableProps): JSX.Element {
   const { climateSettingSchedules, isLoading, isError, error } =
@@ -99,12 +105,14 @@ export function ClimateSettingScheduleTable({
 
   if (selectedViewClimateSettingScheduleId != null) {
     return (
-      <ClimateSettingScheduleDetails
-        className={className}
+      <NestedClimateSettingScheduleDetails
         climateSettingScheduleId={selectedViewClimateSettingScheduleId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedViewClimateSettingScheduleId(null)
         }}
+        className={className}
       />
     )
   }

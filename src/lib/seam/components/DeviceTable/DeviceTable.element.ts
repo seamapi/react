@@ -7,15 +7,12 @@ export const name = 'seam-device-table'
 export const props: ElementProps<Omit<DeviceTableProps, 'title'>> = {
   deviceIds: 'array',
   connectedAccountIds: 'array',
-  disableLockUnlock: 'boolean',
   disableSearch: 'boolean',
   deviceFilter: 'object',
   deviceComparator: 'object',
   onDeviceClick: 'object',
   preventDefaultOnDeviceClick: 'boolean',
-  onBack: 'object',
   heading: 'string',
-  className: 'string',
 }
 
 export { DeviceTable as Component } from './DeviceTable.js'

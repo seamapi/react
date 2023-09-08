@@ -7,14 +7,18 @@ import {
   useAccessCodes,
   type UseAccessCodesData,
 } from 'lib/seam/access-codes/use-access-codes.js'
-import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import { NestedAccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
 import {
   type AccessCodeFilter,
   AccessCodeHealthBar,
 } from 'lib/seam/components/AccessCodeTable/AccessCodeHealthBar.js'
 import { AccessCodeRow } from 'lib/seam/components/AccessCodeTable/AccessCodeRow.js'
-import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
-import { EditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
+import { NestedCreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
+import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
@@ -25,9 +29,10 @@ import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
-export interface AccessCodeTableProps {
+export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
+
+export interface AccessCodeTableProps extends CommonProps {
   deviceId: string
-  disableLockUnlock?: boolean
   disableSearch?: boolean
   accessCodeFilter?: (
     accessCode: AccessCode,
@@ -39,7 +44,6 @@ export interface AccessCodeTableProps {
   ) => number
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
-  onBack?: () => void
   heading?: string | null
   /**
    * @deprecated Use heading.
@@ -48,7 +52,6 @@ export interface AccessCodeTableProps {
   className?: string
   disableCreateAccessCode?: boolean
   disableEditAccessCode?: boolean
-  disableDeleteAccessCode?: boolean
 }
 
 type AccessCode = UseAccessCodesData[number]
@@ -69,7 +72,6 @@ const defaultAccessCodeFilter = (
 
 export function AccessCodeTable({
   deviceId,
-  disableLockUnlock = false,
   disableSearch = false,
   onAccessCodeClick = () => {},
   preventDefaultOnAccessCodeClick = false,
@@ -81,6 +83,7 @@ export function AccessCodeTable({
   className,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
+  disableLockUnlock = false,
   disableDeleteAccessCode = false,
 }: AccessCodeTableProps): JSX.Element {
   const { accessCodes } = useAccessCodes({
@@ -127,39 +130,43 @@ export function AccessCodeTable({
 
   if (selectedEditAccessCodeId != null) {
     return (
-      <EditAccessCodeForm
+      <NestedEditAccessCodeForm
         accessCodeId={selectedEditAccessCodeId}
-        className={className}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedEditAccessCodeId(null)
         }}
+        className={className}
       />
     )
   }
 
   if (selectedViewAccessCodeId != null) {
     return (
-      <AccessCodeDetails
-        className={className}
+      <NestedAccessCodeDetails
         accessCodeId={selectedViewAccessCodeId}
-        onBack={() => {
-          setSelectedViewAccessCodeId(null)
-        }}
-        disableLockUnlock={disableLockUnlock}
         onEdit={() => {
           setSelectedEditAccessCodeId(selectedViewAccessCodeId)
         }}
+        disableLockUnlock={disableLockUnlock}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        onBack={() => {
+          setSelectedViewAccessCodeId(null)
+        }}
+        className={className}
       />
     )
   }
 
   if (addAccessCodeFormVisible) {
     return (
-      <CreateAccessCodeForm
-        className={className}
-        onBack={toggleAddAccessCodeForm}
+      <NestedCreateAccessCodeForm
         deviceId={deviceId}
+        disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        onBack={toggleAddAccessCodeForm}
+        className={className}
       />
     )
   }

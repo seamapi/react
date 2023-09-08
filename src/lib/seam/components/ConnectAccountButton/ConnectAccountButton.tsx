@@ -1,11 +1,16 @@
 import { useCallback } from 'react'
 
+import {
+  type CommonProps,
+  withRequiredCommonProps,
+} from 'lib/seam/components/common-props.js'
 import { useCreateConnectWebview } from 'lib/seam/connect-webviews/use-create-connect-webview.js'
 import { Button } from 'lib/ui/Button.js'
 
-export interface ConnectAccountButtonProps {
-  className?: string
-}
+export interface ConnectAccountButtonProps extends CommonProps {}
+
+export const NestedConnectAccountButton =
+  withRequiredCommonProps(ConnectAccountButton)
 
 export function ConnectAccountButton({
   className,

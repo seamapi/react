@@ -4,7 +4,7 @@ import type { ThermostatDevice } from 'seamapi'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
-import { ClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
+import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
 import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -16,8 +16,10 @@ import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 export function ThermostatDeviceDetails(props: {
   device: ThermostatDevice
-  onBack?: () => void
-  className?: string
+  disableLockUnlock: boolean
+  disableDeleteAccessCode: boolean
+  onBack: (() => void) | undefined
+  className: string | undefined
 }): JSX.Element | null {
   const { device, onBack, className } = props
 
@@ -31,11 +33,14 @@ export function ThermostatDeviceDetails(props: {
 
   if (climateSettingsOpen) {
     return (
-      <ClimateSettingScheduleTable
+      <NestedClimateSettingScheduleTable
         deviceId={device.device_id}
+        disableLockUnlock={props.disableLockUnlock}
+        disableDeleteAccessCode={props.disableDeleteAccessCode}
         onBack={() => {
           setClimateSettingsOpen(false)
         }}
+        className={className}
       />
     )
   }

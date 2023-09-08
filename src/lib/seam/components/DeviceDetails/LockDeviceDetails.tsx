@@ -3,7 +3,7 @@ import type { LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
-import { AccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
+import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
@@ -17,10 +17,17 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 export function LockDeviceDetails(props: {
   device: LockDevice
   disableLockUnlock: boolean
-  onBack?: () => void
-  className?: string
+  disableDeleteAccessCode: boolean
+  onBack: (() => void) | undefined
+  className: string | undefined
 }): JSX.Element | null {
-  const { device, disableLockUnlock, onBack, className } = props
+  const {
+    device,
+    disableLockUnlock,
+    disableDeleteAccessCode,
+    onBack,
+    className,
+  } = props
 
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
@@ -39,11 +46,12 @@ export function LockDeviceDetails(props: {
 
   if (accessCodesOpen) {
     return (
-      <AccessCodeTable
-        className={className}
+      <NestedAccessCodeTable
         deviceId={device.device_id}
-        onBack={toggleAccessCodesOpen}
         disableLockUnlock={disableLockUnlock}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        onBack={toggleAccessCodesOpen}
+        className={className}
       />
     )
   }
