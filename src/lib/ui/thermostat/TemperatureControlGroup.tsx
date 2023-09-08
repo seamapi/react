@@ -92,13 +92,17 @@ export function TemperatureControlGroup({
 
       if (heatValue < minHeat) {
         onHeatValueChange(minHeat)
-      } else if (heatValue > maxHeat) {
+      }
+
+      if (heatValue > maxHeat) {
         onHeatValueChange(maxHeat)
       }
 
       if (coolValue < minCool) {
         onCoolValueChange(minCool)
-      } else if (coolValue > maxCool) {
+      }
+
+      if (coolValue > maxCool) {
         onCoolValueChange(maxCool)
       }
     }
@@ -108,7 +112,9 @@ export function TemperatureControlGroup({
 
       if (heatValue < minHeat) {
         onHeatValueChange(minHeat)
-      } else if (heatValue > maxHeat) {
+      }
+
+      if (heatValue > maxHeat) {
         onHeatValueChange(maxHeat)
       }
     }
@@ -118,7 +124,9 @@ export function TemperatureControlGroup({
 
       if (coolValue < minCool) {
         onCoolValueChange(minCool)
-      } else if (coolValue > maxCool) {
+      }
+
+      if (coolValue > maxCool) {
         onCoolValueChange(maxCool)
       }
     }
