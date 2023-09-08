@@ -49,9 +49,6 @@ export interface AccessCodeTableProps extends CommonProps {
    * @deprecated Use heading.
    */
   title?: string | null
-  className?: string
-  disableCreateAccessCode?: boolean
-  disableEditAccessCode?: boolean
 }
 
 type AccessCode = UseAccessCodesData[number]
