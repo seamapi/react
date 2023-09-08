@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
-import type { CommonProps } from 'lib/index.js'
+import type { CommonProps } from 'lib/seam/components/common-props.js'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
