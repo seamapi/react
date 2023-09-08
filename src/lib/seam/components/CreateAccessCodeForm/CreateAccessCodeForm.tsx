@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { SeamAPIError } from 'seamapi'
+import type { SeamError } from 'seamapi'
 
 import { createIsoDate } from 'lib/dates.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
@@ -8,6 +8,7 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
+import { getValidationError } from 'lib/seam/error-handlers.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
@@ -72,13 +73,10 @@ function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
   const { mutate, isLoading: isSubmitting } = useCreateAccessCode()
   const [codeError, setCodeError] = useState<string | null>(null)
 
-  const handleError = (error: SeamAPIError): void => {
-    if (error.metadata == null) {
-      return
-    }
-
-    if (error.metadata.type === 'invalid_access_code') {
-      setCodeError(error.metadata.message)
+  const handleError = (error: SeamError): void => {
+    const codeError = getValidationError({ error, property: 'code' })
+    if (codeError != null) {
+      setCodeError(codeError)
     }
   }
 
