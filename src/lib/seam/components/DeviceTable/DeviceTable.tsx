@@ -65,6 +65,8 @@ export function DeviceTable({
   heading = t.devices,
   title = t.devices,
   disableLockUnlock = false,
+  disableCreateAccessCode = false,
+  disableEditAccessCode = false,
   disableDeleteAccessCode = false,
   onBack,
   className,
@@ -100,6 +102,8 @@ export function DeviceTable({
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedDeviceId(null)
