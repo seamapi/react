@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import type { LockDevice } from 'seamapi'
 
-import type { CommonProps } from 'lib/index.js'
+import type { CommonProps } from 'lib/seam/components/common-props.js'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
