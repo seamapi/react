@@ -3,12 +3,12 @@ import type { HvacModeSetting } from 'seamapi'
 
 import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
 import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
-import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
 import {
   getCoolBounds,
   getHeatBounds,
   getTemperatureBounds,
 } from 'lib/temperatureBounds.js'
+import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
 
 interface TemperatureControlGroupProps {
   mode: Exclude<HvacModeSetting, 'off'>
