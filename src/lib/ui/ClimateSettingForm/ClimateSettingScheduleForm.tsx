@@ -5,7 +5,7 @@ import type { ClimateSetting } from 'seamapi'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
-import { ClimateSettingScheduleDeviceSelect } from './ClimateSettingScheduleDeviceSelect.js'
+import { ClimateSettingScheduleDeviceSelect } from 'src/lib/ui/ClimateSettingForm/ClimateSettingScheduleDeviceSelect.tsx'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
