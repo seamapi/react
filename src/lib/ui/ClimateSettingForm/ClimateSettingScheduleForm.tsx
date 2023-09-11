@@ -2,10 +2,9 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
+import { ClimateSettingScheduleDeviceSelect } from 'src/lib/ui/ClimateSettingForm/ClimateSettingScheduleDeviceSelect.tsx'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-
-import { ClimateSettingScheduleDeviceSelect } from 'src/lib/ui/ClimateSettingForm/ClimateSettingScheduleDeviceSelect.tsx'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
