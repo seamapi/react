@@ -1,6 +1,6 @@
 import { isThermostatDevice } from 'seamapi'
 
-import { DeviceTable, type UseDevicesData } from 'lib/index.js'
+import { DeviceTable, type UseDevicesData } from 'lib/seam/devices/use-devices.js'
 
 interface ClimateSettingScheduleDeviceSelectProps {
   onSelect: (deviceId: string) => void
