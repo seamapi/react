@@ -57,7 +57,7 @@ export function useSeamClient(): {
       })
 
       if (!res.ok || res.client_session?.token == null) {
-        throw new Error('Failed to get client access token')
+        throw new Error('Failed to get client session token')
       }
 
       return new Seam({
