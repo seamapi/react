@@ -7,7 +7,7 @@ import {
 
 import type { CommonProps } from '../common-props.js'
 
-export type CreateClimateSettingScheduleFormProps = CommonProps
+export interface CreateClimateSettingScheduleFormProps extends CommonProps {}
 
 export function CreateClimateSettingScheduleForm({
   className,
