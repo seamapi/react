@@ -1,17 +1,17 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import { isLockDevice, isThermostatDevice, type CommonDevice } from 'seamapi'
+import { type CommonDevice,isLockDevice, isThermostatDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
-  withRequiredCommonProps,
   type CommonProps,
+  withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
-  DeviceHealthBar,
   type AccountFilter,
   type DeviceFilter,
+  DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
 import {
