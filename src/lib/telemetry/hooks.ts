@@ -11,6 +11,9 @@ export function useTelemetryClient(): GenericTelemetryClient {
 export function useTelemetryOnMount(name: string): void {
   const telemetry = useTelemetryClient()
   useEffect(() => {
-    telemetry.track('component_mounted', { component_name: name })
+    telemetry.track('component_mounted', {
+      component_name: name,
+      is_custom_element: globalThis.seamCustomElementNames?.length > 0,
+    })
   }, [name, telemetry])
 }

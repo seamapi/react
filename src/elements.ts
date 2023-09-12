@@ -1,6 +1,11 @@
 import { defineCustomElement, type ElementDefinition } from 'lib/element.js'
 import * as components from 'lib/seam/components/elements.js'
 
+declare global {
+  // eslint-disable-next-line no-var
+  var seamCustomElementNames: string[]
+}
+
 const elementDefinitions = components as unknown as Record<
   string,
   Partial<ElementDefinition>
@@ -30,3 +35,5 @@ for (const key of Object.keys(elementDefinitions)) {
   elementNames.push(name)
   defineCustomElement({ name, Component, props })
 }
+
+globalThis.seamCustomElementNames = elementNames
