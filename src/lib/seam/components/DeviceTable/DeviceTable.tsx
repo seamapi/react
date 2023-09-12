@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import { type CommonDevice,isLockDevice, isThermostatDevice } from 'seamapi'
+import { type CommonDevice, isLockDevice, isThermostatDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
