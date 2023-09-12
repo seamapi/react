@@ -138,19 +138,18 @@ export class TelemetryClient {
   }
 }
 
-interface User {
-  userId: string
-  traits: Traits
+// https://segment.com/docs/connections/spec/track/
+interface TrackSpec {
+  type: 'track'
+  event: string
+  properties: Properties
 }
 
-type Traits = TelemetryRecord
-
-type Properties = TelemetryRecord
-
-type TelemetryRecord = Record<
-  string,
-  string | number | boolean | null | undefined
->
+// https://segment.com/docs/connections/spec/identify/
+interface IdentifySpec {
+  type: 'identify'
+  traits: Traits
+}
 
 // https://segment.com/docs/connections/spec/common/
 interface CommonSpec {
@@ -170,19 +169,20 @@ interface Context {
   }
 }
 
-// https://segment.com/docs/connections/spec/identify/
-interface IdentifySpec {
-  type: 'identify'
+interface User {
+  userId: string
   traits: Traits
-}
-
-// https://segment.com/docs/connections/spec/track/
-interface TrackSpec {
-  type: 'track'
-  event: string
-  properties: Properties
 }
 
 type Payload = Message & CommonSpec
 
 type Message = IdentifySpec | TrackSpec
+
+type Traits = TelemetryRecord
+
+type Properties = TelemetryRecord
+
+type TelemetryRecord = Record<
+  string,
+  string | number | boolean | null | undefined
+>
