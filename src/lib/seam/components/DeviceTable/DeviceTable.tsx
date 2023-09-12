@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import { isLockDevice, isThermostatDevice } from 'seamapi'
+import { type CommonDevice, isLockDevice, isThermostatDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
@@ -43,8 +43,8 @@ export interface DeviceTableProps extends CommonProps {
   title?: string | null
 }
 
-const defaultDeviceFilter = (
-  device: Device,
+export const defaultDeviceFilter = (
+  device: CommonDevice,
   searchInputValue: string
 ): boolean => {
   const value = searchInputValue.trim()
