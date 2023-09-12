@@ -29,7 +29,15 @@ export class TelemetryClient {
   }
 
   identify(userId: string, traits: TelemetryRecord = {}): void {
-    this.#user = { userId, traits }
+    if (this.#user?.userId !== userId) {
+      this.#user = { userId, traits: {} }
+    }
+    this.#user = {
+      userId,
+      traits: {
+        ...this.#user?.traits ?? {},
+        ...traits
+      } }
     this.#push({
       type: 'identify',
       userId: this.#user.userId,
