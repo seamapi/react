@@ -13,10 +13,7 @@ export class TelemetryClient {
   #endpoint: string
   #loaded: boolean = false
   #debug: boolean
-  #user: {
-    userId: string
-    traits: TelemetryRecord
-  } | null = null
+  #user: User | null = null
 
   constructor({
     queue,
@@ -35,9 +32,10 @@ export class TelemetryClient {
     this.#user = {
       userId,
       traits: {
-        ...this.#user?.traits ?? {},
-        ...traits
-      } }
+        ...(this.#user?.traits ?? {}),
+        ...traits,
+      },
+    }
     this.#push({
       type: 'identify',
       userId: this.#user.userId,
@@ -58,9 +56,12 @@ export class TelemetryClient {
 
   #push = (message: QueueMessage): void => {
     this.#queue.push(async () => {
+      const user = this.#user
+      if (user === null) return
+      const payload: Payload = { ...message, user }
       const response = await fetch(this.#endpoint, {
         method: 'POST',
-        body: JSON.stringify(message),
+        body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json' },
       })
       if (!response.ok) {
@@ -131,4 +132,13 @@ interface TrackMessage {
   type: 'track'
   event: string
   properties: TelemetryRecord
+}
+
+type Payload = QueueMessage & {
+  user: User
+}
+
+interface User {
+  userId: string
+  traits: TelemetryRecord
 }
