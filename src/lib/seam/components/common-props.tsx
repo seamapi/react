@@ -4,6 +4,8 @@ export interface RequiredCommonProps {
   className: string | undefined
   onBack: (() => void) | undefined
   disableDeleteAccessCode: boolean | undefined
+  disableCreateAccessCode: boolean | undefined
+  disableEditAccessCode: boolean | undefined
   disableLockUnlock: boolean | undefined
 }
 

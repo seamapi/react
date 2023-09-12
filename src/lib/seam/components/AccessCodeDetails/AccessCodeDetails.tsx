@@ -24,8 +24,6 @@ import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
-const disableEditAccessCode = true
-
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
@@ -37,6 +35,8 @@ export const NestedAccessCodeDetails =
 export function AccessCodeDetails({
   accessCodeId,
   onEdit,
+  disableCreateAccessCode = false,
+  disableEditAccessCode = false,
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   onBack,
@@ -57,6 +57,8 @@ export function AccessCodeDetails({
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           selectDevice(null)

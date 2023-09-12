@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import type { SeamError } from 'seamapi'
+
 import { createIsoDate } from 'lib/dates.js'
 import {
   useAccessCode,
@@ -9,6 +12,7 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { getValidationError } from 'lib/seam/error-handlers.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
@@ -50,7 +54,10 @@ function Content({
     device_id: accessCode.device_id,
   })
 
-  const { submit, isSubmitting } = useSubmitEditAccessCode(accessCode, onBack)
+  const { submit, isSubmitting, codeError } = useSubmitEditAccessCode(
+    accessCode,
+    onBack
+  )
 
   if (device == null) {
     return null
@@ -64,6 +71,7 @@ function Content({
       device={device}
       onSubmit={submit}
       isSubmitting={isSubmitting}
+      codeError={codeError}
     />
   )
 }
@@ -74,11 +82,22 @@ function useSubmitEditAccessCode(
 ): {
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
+  codeError: string | null
 } {
   const { mutate, isLoading: isSubmitting } = useUpdateAccessCode()
+  const [codeError, setCodeError] = useState<string | null>(null)
+
+  const handleError = (error: SeamError): void => {
+    const codeError = getValidationError({ error, property: 'code' })
+    if (codeError != null) {
+      setCodeError(codeError)
+    }
+  }
 
   const submit = (data: AccessCodeFormSubmitData): void => {
-    const { name, type, device, startDate, endDate, timezone } = data
+    setCodeError(null)
+
+    const { name, code, type, device, startDate, endDate, timezone } = data
     if (name === '') {
       return
     }
@@ -92,6 +111,7 @@ function useSubmitEditAccessCode(
         {
           access_code_id: accessCode.access_code_id,
           name,
+          code,
           device_id: device.device_id,
           type: 'time_bound',
           starts_at: createIsoDate(startDate, timezone),
@@ -99,6 +119,7 @@ function useSubmitEditAccessCode(
         },
         {
           onSuccess,
+          onError: handleError,
         }
       )
 
@@ -114,9 +135,10 @@ function useSubmitEditAccessCode(
       },
       {
         onSuccess,
+        onError: handleError,
       }
     )
   }
 
-  return { submit, isSubmitting }
+  return { submit, isSubmitting, codeError }
 }

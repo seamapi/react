@@ -30,6 +30,8 @@ export function ClimateSettingScheduleDetails({
   disableDeleteAccessCode = false,
   onBack,
   className,
+  disableCreateAccessCode,
+  disableEditAccessCode,
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
@@ -49,6 +51,8 @@ export function ClimateSettingScheduleDetails({
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           selectDevice(null)

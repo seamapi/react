@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import type { SeamError } from 'seamapi'
+
 import { createIsoDate } from 'lib/dates.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import {
@@ -5,6 +8,7 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
+import { getValidationError } from 'lib/seam/error-handlers.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
@@ -40,7 +44,13 @@ function Content({
 }: Omit<CreateAccessCodeFormProps, 'deviceId'> & {
   device: NonNullable<UseDeviceData>
 }): JSX.Element {
-  const { submit, isSubmitting } = useSubmitCreateAccessCode(onBack)
+  const { submit, isSubmitting, codeError } = useSubmitCreateAccessCode({
+    onSuccess: () => {
+      if (onBack != null) {
+        onBack()
+      }
+    },
+  })
 
   return (
     <AccessCodeForm
@@ -49,17 +59,31 @@ function Content({
       onBack={onBack}
       onSubmit={submit}
       isSubmitting={isSubmitting}
+      codeError={codeError}
     />
   )
 }
 
-function useSubmitCreateAccessCode(onSuccess?: () => void): {
+function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
+  codeError: string | null
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
 } {
+  const { onSuccess } = params
   const { mutate, isLoading: isSubmitting } = useCreateAccessCode()
+  const [codeError, setCodeError] = useState<string | null>(null)
+
+  const handleError = (error: SeamError): void => {
+    const codeError = getValidationError({ error, property: 'code' })
+    if (codeError != null) {
+      setCodeError(codeError)
+    }
+  }
+
   const submit = (data: AccessCodeFormSubmitData): void => {
-    const { name, type, device, startDate, endDate, timezone } = data
+    setCodeError(null)
+
+    const { name, code, type, device, startDate, endDate, timezone } = data
     if (name === '') {
       return
     }
@@ -72,12 +96,14 @@ function useSubmitCreateAccessCode(onSuccess?: () => void): {
       mutate(
         {
           name,
+          code,
           device_id: device.device_id,
           starts_at: createIsoDate(startDate, timezone),
           ends_at: createIsoDate(endDate, timezone),
         },
         {
           onSuccess,
+          onError: handleError,
         }
       )
 
@@ -87,13 +113,15 @@ function useSubmitCreateAccessCode(onSuccess?: () => void): {
     mutate(
       {
         name,
+        code,
         device_id: device.device_id,
       },
       {
         onSuccess,
+        onError: handleError,
       }
     )
   }
 
-  return { submit, isSubmitting }
+  return { submit, isSubmitting, codeError }
 }

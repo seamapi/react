@@ -29,9 +29,6 @@ import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
-const disableCreateAccessCode = true
-const disableEditAccessCode = true
-
 export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
 
 export interface AccessCodeTableProps extends CommonProps {
@@ -81,6 +78,8 @@ export function AccessCodeTable({
   heading = t.accessCodes,
   title = t.accessCodes,
   className,
+  disableCreateAccessCode = false,
+  disableEditAccessCode = false,
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
 }: AccessCodeTableProps): JSX.Element {
@@ -131,6 +130,8 @@ export function AccessCodeTable({
       <NestedEditAccessCodeForm
         accessCodeId={selectedEditAccessCodeId}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedEditAccessCodeId(null)
@@ -148,6 +149,8 @@ export function AccessCodeTable({
           setSelectedEditAccessCodeId(selectedViewAccessCodeId)
         }}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={() => {
           setSelectedViewAccessCodeId(null)
@@ -162,6 +165,8 @@ export function AccessCodeTable({
       <NestedCreateAccessCodeForm
         deviceId={deviceId}
         disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={toggleAddAccessCodeForm}
         className={className}
