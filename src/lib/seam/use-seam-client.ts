@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
+import { useTelemetryClient } from 'lib/telemetry/index.js'
+
 import { useSeamContext } from 'lib/seam/SeamProvider.js'
 
 export function useSeamClient(): {
@@ -11,6 +13,7 @@ export function useSeamClient(): {
   isError: boolean
   error: unknown
 } {
+  const telemtry = useTelemetryClient()
   const {
     client,
     clientOptions,
@@ -22,7 +25,7 @@ export function useSeamClient(): {
     clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
-  const { isLoading, isError, error, data } = useQuery<Seam>({
+  const { isLoading, isError, isSuccess, error, data } = useQuery<Seam>({
     queryKey: [
       'client',
       {
@@ -34,6 +37,8 @@ export function useSeamClient(): {
       },
     ],
     queryFn: async () => {
+      telemtry.identify(`anonymous_${uuidv4()}`)
+
       if (client != null) return client
 
       if (clientSessionToken != null) {
@@ -60,6 +65,8 @@ export function useSeamClient(): {
         throw new Error('Failed to get client session token')
       }
 
+      telemtry.identify(userIdentifierKey, { publishable_key: publishableKey })
+
       return new Seam({
         ...clientOptions,
         apiKey: undefined,
@@ -67,6 +74,10 @@ export function useSeamClient(): {
       })
     },
   })
+
+  useEffect(() => {
+    if (isSuccess) telemtry.load()
+  }, [telemtry, isSuccess])
 
   return { client: data ?? null, isLoading, isError, error }
 }
