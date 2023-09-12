@@ -10,13 +10,14 @@ import {
   NoopTelemetryClient,
   TelemetryClient,
   TelemetryQueue,
-} from 'lib/telemetry/client.js'
+} from './client.js'
 
 export interface TelemetryContext {
   client: GenericTelemetryClient
 }
 
 export interface TelemetryProviderProps extends PropsWithChildren {
+  disabled?: boolean
   queue?: TelemetryQueue
   endpoint?: string
   debug?: boolean
@@ -43,13 +44,13 @@ export function TelemetryProvider({
 
 const createTelemetryContextValue = ({
   queue,
+  disabled = false,
   ...options
 }: TelemetryProviderProps): TelemetryContext => {
   return {
-    client: new TelemetryClient({
-      ...options,
-      queue: queue ?? defaultQueue,
-    }),
+    client: disabled
+      ? new NoopTelemetryClient(options)
+      : new TelemetryClient({ ...options, queue: queue ?? defaultQueue }),
   }
 }
 

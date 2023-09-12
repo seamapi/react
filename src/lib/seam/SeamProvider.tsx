@@ -7,6 +7,8 @@ import {
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
+import { TelemetryProvider, TelemetryQueue } from 'lib/telemetry/index.js'
+
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
 
@@ -15,6 +17,8 @@ declare global {
   var seam: SeamProviderProps | undefined
   // eslint-disable-next-line no-var
   var seamQueryClient: QueryClient | undefined
+  // eslint-disable-next-line no-var
+  var seamTelemetryQueue: TelemetryQueue | undefined
 }
 
 export interface SeamContext {
@@ -48,22 +52,28 @@ export interface SeamProviderPropsWithClientSessionToken
 }
 
 interface SeamProviderBaseProps extends PropsWithChildren {
+  disableTelemetry?: boolean | undefined
   disableCssInjection?: boolean | undefined
   disableFontInjection?: boolean | undefined
   unminifiyCss?: boolean | undefined
   queryClient?: QueryClient | undefined
+  telemetryQueue?: TelemetryQueue | undefined
 }
 
 export type SeamProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 const defaultQueryClient = new QueryClient()
 
+const defaultTelemetryQueue = new TelemetryQueue()
+
 export function SeamProvider({
   children,
+  disableTelemetry = false,
   disableCssInjection = false,
   disableFontInjection = false,
   unminifiyCss = false,
   queryClient,
+  telemetryQueue,
   ...props
 }: SeamProviderProps): JSX.Element {
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
@@ -95,11 +105,22 @@ export function SeamProvider({
 
   return (
     <div className='seam-components'>
-      <QueryClientProvider
-        client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
+      <TelemetryProvider
+        disabled={disableTelemetry}
+        queue={
+          telemetryQueue ??
+          globalThis.seamTelemetryQueue ??
+          defaultTelemetryQueue
+        }
       >
-        <Provider value={value}>{children}</Provider>
-      </QueryClientProvider>
+        <QueryClientProvider
+          client={
+            queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient
+          }
+        >
+          <Provider value={value}>{children}</Provider>
+        </QueryClientProvider>
+      </TelemetryProvider>
     </div>
   )
 }

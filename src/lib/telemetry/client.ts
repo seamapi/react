@@ -20,7 +20,7 @@ export class TelemetryClient {
 
   constructor({
     queue,
-    endpoint = 'https://react.seam.co/_tlmtry',
+    endpoint = 'https://connect.getseam.com/_tlmtry',
     debug = false,
   }: TelemetryClientOptions) {
     this.#queue = queue
