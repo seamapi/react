@@ -12,13 +12,6 @@ export function CreateClimateSettingScheduleForm({
   className,
   onBack,
 }: CreateClimateSettingScheduleFormProps): JSX.Element | null {
-  return <Content className={className} onBack={onBack} />
-}
-
-function Content({
-  className,
-  onBack,
-}: CreateClimateSettingScheduleFormProps): JSX.Element {
   const { submit, isSubmitting } = useSubmitCreateClimateSettingSchedule(onBack)
 
   return (
