@@ -1,13 +1,15 @@
-import type Queue from 'queue'
+import Queue from 'queue'
+
+export class TelemetryQueue extends Queue {}
 
 export interface TelemetryClientOptions {
-  queue: Queue
+  queue: TelemetryQueue
   endpoint?: string
   debug?: boolean
 }
 
 export class TelemetryClient {
-  #queue: Queue
+  #queue: TelemetryQueue
   #endpoint: string
   #loaded: boolean = false
   #debug: boolean

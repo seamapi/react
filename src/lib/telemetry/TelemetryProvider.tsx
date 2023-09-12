@@ -1,4 +1,3 @@
-import Queue from 'queue'
 import {
   createContext,
   type PropsWithChildren,
@@ -10,6 +9,7 @@ import {
   type GenericTelemetryClient,
   NoopTelemetryClient,
   TelemetryClient,
+  TelemetryQueue,
 } from 'lib/telemetry/client.js'
 
 export interface TelemetryContext {
@@ -17,12 +17,12 @@ export interface TelemetryContext {
 }
 
 export interface TelemetryProviderProps extends PropsWithChildren {
-  queue?: Queue
+  queue?: TelemetryQueue
   endpoint?: string
   debug?: boolean
 }
 
-const defaultQueue = new Queue()
+const defaultQueue = new TelemetryQueue()
 
 export function TelemetryProvider({
   children,
