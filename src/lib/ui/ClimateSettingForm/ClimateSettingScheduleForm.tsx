@@ -4,8 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-
-import { ThermostatSelect } from '../thermostat/ThermostatSelect.js'
+import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string

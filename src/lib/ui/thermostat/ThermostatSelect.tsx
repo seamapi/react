@@ -1,6 +1,9 @@
+import {
+  DeviceTable,
+  defaultDeviceFilter,
+  type UseDevicesData,
+} from 'lib/index.js'
 import { isThermostatDevice } from 'seamapi'
-
-import { DeviceTable, type UseDevicesData } from 'lib/index.ts'
 
 interface ThermostatSelectProps {
   onSelect: (deviceId: string) => void
@@ -11,9 +14,7 @@ const deviceFilter = (
   searchInputValue: string
 ): boolean => {
   if (!isThermostatDevice(device)) return false
-  const value = searchInputValue.trim()
-  if (value === '') return true
-  return device.properties.name.toLowerCase().includes(value)
+  return defaultDeviceFilter(device, searchInputValue)
 }
 
 export function ThermostatSelect({
