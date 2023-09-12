@@ -1,9 +1,10 @@
+import { isThermostatDevice } from 'seamapi'
+
 import {
-  DeviceTable,
   defaultDeviceFilter,
+  DeviceTable,
   type UseDevicesData,
 } from 'lib/index.js'
-import { isThermostatDevice } from 'seamapi'
 
 interface ThermostatSelectProps {
   onSelect: (deviceId: string) => void
