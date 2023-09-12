@@ -1,4 +1,5 @@
 import Queue from 'queue'
+import { v4 as uuidv4 } from 'uuid'
 
 export interface TelemetryClientOptions {
   endpoint?: string
@@ -10,6 +11,7 @@ export interface TelemetryClientOptions {
 // https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/
 export class TelemetryClient {
   #queue: Queue
+  #anonymousId: string | null
 
   #endpoint: string
   #debug: boolean
@@ -24,6 +26,7 @@ export class TelemetryClient {
     disabled = false,
   }: TelemetryClientOptions = {}) {
     this.#queue = new Queue()
+    this.#anonymousId = uuidv4()
     this.#endpoint = endpoint
     this.#debug = debug
     this.#disabled = disabled
@@ -49,6 +52,7 @@ export class TelemetryClient {
   reset(): void {
     this.#log('reset')
     this.#queue.end()
+    this.#anonymousId = uuidv4()
     this.#user = null
     this.#loaded = false
   }
@@ -58,8 +62,9 @@ export class TelemetryClient {
     return this.#debug
   }
 
-  identify(userId: string, traits: TelemetryRecord = {}): void {
+  identify(userId: string, traits: Traits = {}): void {
     this.#log('identify', userId, traits)
+    this.#anonymousId = null
     if (this.#user?.userId !== userId) {
       this.#user = { userId, traits: {} }
     }
@@ -72,22 +77,36 @@ export class TelemetryClient {
     }
     this.#push({
       type: 'identify',
-      userId: this.#user.userId,
       traits: this.#user.traits,
     })
   }
 
-  track(event: string, properties: TelemetryRecord = {}): void {
+  track(event: string, properties: Properties = {}): void {
     this.#log('track', event, properties)
     this.#push({ type: 'track', event, properties })
   }
 
-  #push = (message: QueueMessage): void => {
+  get #context(): Context {
+    return {
+      ...(this.#user?.traits == null ? {} : { traits: this.#user.traits }),
+      app: {
+        name: '',
+        version: '',
+      },
+    }
+  }
+
+  #push = (message: Message): void => {
     if (this.#disabled) return
     this.#queue.push(async () => {
-      const user = this.#user
-      if (user === null) return
-      const payload: Payload = { ...message, user }
+      const payload: Payload = {
+        ...message,
+        userId: this.#user?.userId ?? undefined,
+        anonymousId: this.#anonymousId ?? undefined,
+        messageId: uuidv4(),
+        timestamp: new Date().toISOString(),
+        context: this.#context,
+      }
       const response = await fetch(this.#endpoint, {
         method: 'POST',
         body: JSON.stringify(payload),
@@ -101,7 +120,10 @@ export class TelemetryClient {
     })
   }
 
-  #log = (method: string, ...args: Array<string | TelemetryRecord>): void => {
+  #log = (
+    method: string,
+    ...args: Array<string | Traits | Properties>
+  ): void => {
     if (!this.#debug) return
     const strArgs =
       args.length > 0 ? args.map((arg) => JSON.stringify(arg)).join(', ') : ''
@@ -110,30 +132,51 @@ export class TelemetryClient {
   }
 }
 
+interface User {
+  userId: string
+  traits: Traits
+}
+
+type Traits = TelemetryRecord
+
+type Properties = TelemetryRecord
+
 type TelemetryRecord = Record<
   string,
   string | number | boolean | null | undefined
 >
 
-type QueueMessage = IdentifyMessage | TrackMessage
-
-interface IdentifyMessage {
-  type: 'identify'
-  userId: string
-  traits: TelemetryRecord
+// https://segment.com/docs/connections/spec/common/
+interface CommonSpec {
+  anonymousId: string | undefined
+  userId: string | undefined
+  messageId: string
+  timestamp: string
+  context: Context
 }
 
-interface TrackMessage {
+// https://segment.com/docs/connections/spec/common/#context
+interface Context {
+  traits?: Traits
+  app: {
+    name: string
+    version: string
+  }
+}
+
+// https://segment.com/docs/connections/spec/identify/
+interface IdentifySpec {
+  type: 'identify'
+  traits: Traits
+}
+
+// https://segment.com/docs/connections/spec/track/
+interface TrackSpec {
   type: 'track'
   event: string
-  properties: TelemetryRecord
+  properties: Properties
 }
 
-type Payload = QueueMessage & {
-  user: User
-}
+type Payload = Message & CommonSpec
 
-interface User {
-  userId: string
-  traits: TelemetryRecord
-}
+type Message = IdentifySpec | TrackSpec

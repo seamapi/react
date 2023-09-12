@@ -37,8 +37,6 @@ export function useSeamClient(): {
       },
     ],
     queryFn: async () => {
-      telemtry.identify(`anonymous_${uuidv4()}`)
-
       if (client != null) return client
 
       if (clientSessionToken != null) {
