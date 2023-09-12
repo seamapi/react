@@ -64,6 +64,25 @@ export class TelemetryClient {
     return this.#debug
   }
 
+  track(event: string, properties: Properties = {}): void {
+    this.#log('track', event, properties)
+    this.#push({ type: 'track', event, properties })
+  }
+
+  alias(userId: string, previousId?: string): void {
+    const resolvedPreviousId =
+      previousId ?? this.#user?.userId ?? this.#anonymousId
+    if (resolvedPreviousId == null) {
+      throw new Error('Cannot resolve previous id')
+    }
+    this.#log('alias', resolvedPreviousId, userId)
+    this.#push({
+      type: 'alias',
+      userId,
+      previousId: resolvedPreviousId,
+    })
+  }
+
   identify(userId: string, traits: Traits = {}): void {
     this.#log('identify', userId, traits)
     this.#anonymousId = null
@@ -79,13 +98,9 @@ export class TelemetryClient {
     }
     this.#push({
       type: 'identify',
+      userId,
       traits: this.#user.traits,
     })
-  }
-
-  track(event: string, properties: Properties = {}): void {
-    this.#log('track', event, properties)
-    this.#push({ type: 'track', event, properties })
   }
 
   get #context(): Context {
@@ -148,7 +163,15 @@ interface TrackSpec {
 // https://segment.com/docs/connections/spec/identify/
 interface IdentifySpec {
   type: 'identify'
+  userId: string
   traits: Traits
+}
+
+// https://segment.com/docs/connections/spec/identify/
+interface AliasSpec {
+  type: 'alias'
+  userId: string
+  previousId: string
 }
 
 // https://segment.com/docs/connections/spec/common/
@@ -174,9 +197,9 @@ interface User {
   traits: Traits
 }
 
-type Payload = Message & CommonSpec
+type Payload = Omit<Message, 'userId'> & CommonSpec
 
-type Message = IdentifySpec | TrackSpec
+type Message = TrackSpec | IdentifySpec | AliasSpec
 
 type Traits = TelemetryRecord
 

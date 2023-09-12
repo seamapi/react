@@ -63,7 +63,9 @@ export function useSeamClient(): {
         throw new Error('Failed to get client session token')
       }
 
-      telemtry.identify(userIdentifierKey, {
+      const telemtryUserId = userIdentifierKey
+      telemtry.alias(telemtryUserId)
+      telemtry.identify(telemtryUserId, {
         user_identifier_key: userIdentifierKey,
         publishable_key: publishableKey,
       })
