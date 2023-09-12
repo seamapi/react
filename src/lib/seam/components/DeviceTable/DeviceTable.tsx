@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import { isLockDevice, isThermostatDevice } from 'seamapi'
 
+import { useTelemetryOnMount } from 'lib/telemetry/index.js'
+
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
   type CommonProps,
@@ -71,6 +73,8 @@ export function DeviceTable({
   onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element {
+  useTelemetryOnMount(DeviceTable.name)
+
   const { devices, isLoading, isError, error } = useDevices({
     device_ids: deviceIds,
     connected_account_ids: connectedAccountIds,
