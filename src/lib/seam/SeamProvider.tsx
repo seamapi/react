@@ -105,6 +105,7 @@ export function SeamProvider({
     <div className='seam-components'>
       <TelemetryProvider
         client={telemetryClient ?? globalThis.seamTelemetryClient}
+        disabled={disableTelemetry}
       >
         <QueryClientProvider
           client={
