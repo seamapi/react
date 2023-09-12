@@ -107,7 +107,7 @@ export class NoopTelemetryClient implements GenericTelemetryClient {
   #log = (method: string, ...args: Array<string | TelemetryRecord>): void => {
     if (!this.#debug) return
     const strArgs =
-      args.length === 0 ? args.map((arg) => JSON.stringify(arg)).join(', ') : ''
+      args.length > 0 ? args.map((arg) => JSON.stringify(arg)).join(', ') : ''
     // eslint-disable-next-line no-console
     console.log(`NoopTelemetryClient.${method}(${strArgs})`)
   }
