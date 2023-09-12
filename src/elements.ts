@@ -3,8 +3,10 @@ import * as components from 'lib/seam/components/elements.js'
 
 declare global {
   // eslint-disable-next-line no-var
-  var seamCustomElementNames: string[]
+  var seamEntrypoint: string
 }
+
+globalThis.seamEntrypoint = '@seamapi/react/elements'
 
 const elementDefinitions = components as unknown as Record<
   string,
@@ -35,5 +37,3 @@ for (const key of Object.keys(elementDefinitions)) {
   elementNames.push(name)
   defineCustomElement({ name, Component, props })
 }
-
-globalThis.seamCustomElementNames = elementNames

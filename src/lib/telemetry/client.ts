@@ -3,6 +3,11 @@ import { v4 as uuidv4 } from 'uuid'
 
 import version from 'lib/version.js'
 
+declare global {
+  // eslint-disable-next-line no-var
+  var seamEntrypoint: string
+}
+
 export interface TelemetryClientOptions {
   endpoint?: string
   debug?: boolean
@@ -109,14 +114,10 @@ export class TelemetryClient {
   }
 
   get #context(): Context {
-    const name =
-      globalThis.seamCustomElementNames?.length === 0
-        ? '@seamapi/react'
-        : '@seamapi/react/elements'
     return {
       ...(this.#user?.traits == null ? {} : { traits: this.#user.traits }),
       app: {
-        name,
+        name: globalThis.seamEntrypoint ?? '@seamapi/react',
         version: version ?? undefined,
       },
     }
