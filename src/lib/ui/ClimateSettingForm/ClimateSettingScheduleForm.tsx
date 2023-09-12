@@ -2,9 +2,9 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
-import { ClimateSettingScheduleDeviceSelect } from 'src/lib/ui/ClimateSettingForm/ClimateSettingScheduleDeviceSelect.tsx'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { ThermostatSelect } from '../thermostat/ThermostatSelect.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
@@ -57,7 +57,7 @@ function Content({
             name='deviceId'
             control={control}
             render={({ field: { onChange } }) => (
-              <ClimateSettingScheduleDeviceSelect
+              <ThermostatSelect
                 onSelect={(deviceId) => {
                   onChange(deviceId)
                   setPage('name_and_time')

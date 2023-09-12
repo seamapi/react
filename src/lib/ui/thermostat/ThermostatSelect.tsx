@@ -1,11 +1,7 @@
+import { DeviceTable, type UseDevicesData } from 'lib/index.ts'
 import { isThermostatDevice } from 'seamapi'
 
-import {
-  DeviceTable,
-  type UseDevicesData,
-} from 'lib/seam/devices/use-devices.js'
-
-interface ClimateSettingScheduleDeviceSelectProps {
+interface ThermostatSelectProps {
   onSelect: (deviceId: string) => void
 }
 
@@ -19,9 +15,9 @@ const deviceFilter = (
   return device.properties.name.toLowerCase().includes(value)
 }
 
-export function ClimateSettingScheduleDeviceSelect({
+export function ThermostatSelect({
   onSelect,
-}: ClimateSettingScheduleDeviceSelectProps): JSX.Element {
+}: ThermostatSelectProps): JSX.Element {
   return (
     <DeviceTable
       deviceFilter={deviceFilter}
