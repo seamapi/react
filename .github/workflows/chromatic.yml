@@ -22,11 +22,11 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Wait for Vercel
-        if: github.run_attempt == '1'
+        if: github.run_attempt == '1' && github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name
         run: sleep 20
       - name: Get Vercel preview
         uses: ViktorJT/Get-vercel-preview-url@1.2.2
-        if: github.ref_name != 'main'
+        if: github.ref_name != 'main' && github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name
         id: vercel
         with:
           gh_token: ${{ secrets.GITHUB_TOKEN }}
@@ -38,13 +38,15 @@ jobs:
         id: seam_endpoint
         env:
           REF_NAME: ${{ github.ref_name }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          BASE_REPO: ${{ github.event.pull_request.base.repo.full_name }}
           STORYBOOK_SEAM_ENDPOINT: ${{ vars.STORYBOOK_SEAM_ENDPOINT }}
           VERCEL_PREVIEW_URL: ${{ steps.vercel.outputs.preview_url }}
         run: |
-          if [ $REF_NAME != 'main' ]; then
-            echo "url=${VERCEL_PREVIEW_URL}" >> $GITHUB_OUTPUT
-          else
+          if [ $REF_NAME == 'main' || $HEAD_REPO != $BASE_REPO ]; then
             echo "url=${STORYBOOK_SEAM_ENDPOINT}" >> $GITHUB_OUTPUT
+          else
+            echo "url=${VERCEL_PREVIEW_URL}" >> $GITHUB_OUTPUT
           fi
       - name: Publish to Chromatic
         uses: chromaui/action@v1
