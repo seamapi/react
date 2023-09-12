@@ -13,7 +13,7 @@ export function useSeamClient(): {
   isError: boolean
   error: unknown
 } {
-  const telemtry = useTelemetryClient()
+  const telemetry = useTelemetryClient()
   const {
     client,
     clientOptions,
@@ -63,9 +63,9 @@ export function useSeamClient(): {
         throw new Error('Failed to get client session token')
       }
 
-      const telemtryUserId = userIdentifierKey
-      telemtry.alias(telemtryUserId)
-      telemtry.identify(telemtryUserId, {
+      const telemetryUserId = userIdentifierKey
+      telemetry.alias(telemetryUserId)
+      telemetry.identify(telemetryUserId, {
         user_identifier_key: userIdentifierKey,
         publishable_key: publishableKey,
       })
