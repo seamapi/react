@@ -65,7 +65,10 @@ export function useSeamClient(): {
         throw new Error('Failed to get client session token')
       }
 
-      telemtry.identify(userIdentifierKey, { publishable_key: publishableKey })
+      telemtry.identify(userIdentifierKey, {
+        user_identifier_key: userIdentifierKey,
+        publishable_key: publishableKey,
+      })
 
       return new Seam({
         ...clientOptions,
