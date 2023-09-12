@@ -342,6 +342,16 @@ If changes are detected, follow the link in the status checks to approve the cha
 _Contributors must be granted access to approve changes on Chromatic;
 request access from another maintainer of this project._
 
+##### Note on PR from forks
+
+Pull requests from a public fork do not have access to the
+Vercel secrets required to retrieve the preview deployment URL.
+For these PRs, the Chromatic Storybook and Chromatic UI tests will run against the
+fake version and fake seed from the main branch.
+
+_If your PR is from a public fork and requires updates to the fake version or seed,
+reach out to a project maintainer for assistance._
+
 [Chromatic]: https://www.chromatic.com/
 
 ### Previews
