@@ -53,7 +53,7 @@ const providerProps: R2wcProps<ProviderProps> = {
   clientSessionToken: 'string',
   endpoint: 'string',
   queryClient: 'object',
-  telemetryQueue: 'object',
+  telemetryClient: 'object',
   disableTelemetry: 'boolean',
   disableCssInjection: 'boolean',
   disableFontInjection: 'boolean',

@@ -25,7 +25,7 @@ export function useSeamClient(): {
     clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
-  const { isLoading, isError, isSuccess, error, data } = useQuery<Seam>({
+  const { isLoading, isError, error, data } = useQuery<Seam>({
     queryKey: [
       'client',
       {
@@ -77,10 +77,6 @@ export function useSeamClient(): {
       })
     },
   })
-
-  useEffect(() => {
-    if (isSuccess) telemtry.load()
-  }, [telemtry, isSuccess])
 
   return { client: data ?? null, isLoading, isError, error }
 }

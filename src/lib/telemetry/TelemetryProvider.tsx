@@ -2,36 +2,38 @@ import {
   createContext,
   type PropsWithChildren,
   useContext,
+  useEffect,
   useMemo,
 } from 'react'
 
-import {
-  type GenericTelemetryClient,
-  NoopTelemetryClient,
-  TelemetryClient,
-  TelemetryQueue,
-} from './client.js'
+import { TelemetryClient } from './client.js'
 
 export interface TelemetryContext {
-  client: GenericTelemetryClient
+  client: TelemetryClient
 }
 
 export interface TelemetryProviderProps extends PropsWithChildren {
   disabled?: boolean
-  queue?: TelemetryQueue
+  client?: TelemetryClient
   endpoint?: string
   debug?: boolean
 }
 
-const defaultQueue = new TelemetryQueue()
-
 export function TelemetryProvider({
   children,
+  client,
   ...props
 }: TelemetryProviderProps): JSX.Element {
   const value = useMemo(() => {
-    return createTelemetryContextValue(props)
-  }, [props])
+    return { client: client ?? new TelemetryClient(props) }
+  }, [client, props])
+
+  useEffect(() => {
+    value.client.load(props)
+    return () => {
+      value.client.reset()
+    }
+  }, [props, value])
 
   if (value.client == null) {
     throw new Error(`Must provide a Telemetry client.`)
@@ -42,20 +44,8 @@ export function TelemetryProvider({
   return <Provider value={value}>{children}</Provider>
 }
 
-const createTelemetryContextValue = ({
-  queue,
-  disabled = false,
-  ...options
-}: TelemetryProviderProps): TelemetryContext => {
-  return {
-    client: disabled
-      ? new NoopTelemetryClient(options)
-      : new TelemetryClient({ ...options, queue: queue ?? defaultQueue }),
-  }
-}
-
 export const telemetryContext = createContext<TelemetryContext>({
-  client: new NoopTelemetryClient(),
+  client: new TelemetryClient(),
 })
 
 export function useTelemetryContext(): TelemetryContext {

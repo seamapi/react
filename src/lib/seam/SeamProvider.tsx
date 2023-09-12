@@ -7,7 +7,7 @@ import {
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
-import { TelemetryProvider, TelemetryQueue } from 'lib/telemetry/index.js'
+import { type TelemetryClient, TelemetryProvider } from 'lib/telemetry/index.js'
 
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
@@ -18,7 +18,7 @@ declare global {
   // eslint-disable-next-line no-var
   var seamQueryClient: QueryClient | undefined
   // eslint-disable-next-line no-var
-  var seamTelemetryQueue: TelemetryQueue | undefined
+  var seamTelemetryClient: TelemetryClient | undefined
 }
 
 export interface SeamContext {
@@ -57,14 +57,12 @@ interface SeamProviderBaseProps extends PropsWithChildren {
   disableFontInjection?: boolean | undefined
   unminifiyCss?: boolean | undefined
   queryClient?: QueryClient | undefined
-  telemetryQueue?: TelemetryQueue | undefined
+  telemetryClient?: TelemetryClient | undefined
 }
 
 export type SeamProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 const defaultQueryClient = new QueryClient()
-
-const defaultTelemetryQueue = new TelemetryQueue()
 
 export function SeamProvider({
   children,
@@ -73,7 +71,7 @@ export function SeamProvider({
   disableFontInjection = false,
   unminifiyCss = false,
   queryClient,
-  telemetryQueue,
+  telemetryClient,
   ...props
 }: SeamProviderProps): JSX.Element {
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
@@ -106,12 +104,7 @@ export function SeamProvider({
   return (
     <div className='seam-components'>
       <TelemetryProvider
-        disabled={disableTelemetry}
-        queue={
-          telemetryQueue ??
-          globalThis.seamTelemetryQueue ??
-          defaultTelemetryQueue
-        }
+        client={telemetryClient ?? globalThis.seamTelemetryClient}
       >
         <QueryClientProvider
           client={

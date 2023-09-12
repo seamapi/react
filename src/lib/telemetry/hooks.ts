@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 
-import type { GenericTelemetryClient } from './client.js'
+import type { TelemetryClient } from './client.js'
 import { useTelemetryContext } from './TelemetryProvider.js'
 
-export function useTelemetryClient(): GenericTelemetryClient {
+export function useTelemetryClient(): TelemetryClient {
   const { client } = useTelemetryContext()
   return client
 }
