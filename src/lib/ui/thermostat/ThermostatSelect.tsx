@@ -1,5 +1,6 @@
-import { DeviceTable, type UseDevicesData } from 'lib/index.ts'
 import { isThermostatDevice } from 'seamapi'
+
+import { DeviceTable, type UseDevicesData } from 'lib/index.ts'
 
 interface ThermostatSelectProps {
   onSelect: (deviceId: string) => void
