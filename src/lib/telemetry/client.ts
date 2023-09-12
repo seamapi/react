@@ -133,7 +133,7 @@ export class TelemetryClient {
         timestamp: new Date().toISOString(),
         context: this.#context,
       }
-      const response = await fetch(this.#endpoint, {
+      const response = await fetch(`${this.#endpoint}/${message.type}`, {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json' },
