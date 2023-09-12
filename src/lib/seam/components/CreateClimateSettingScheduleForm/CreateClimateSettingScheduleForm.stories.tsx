@@ -1,7 +1,7 @@
 import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CreateClimateSettingScheduleForm } from 'lib/seam/components/CreateClimateSettingScheduleForm/CreateClimateSettingScheduleForm.js'
+import { CreateClimateSettingScheduleForm } from './CreateClimateSettingScheduleForm.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
