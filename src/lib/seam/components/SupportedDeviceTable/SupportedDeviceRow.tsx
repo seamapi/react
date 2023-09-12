@@ -54,7 +54,12 @@ export function StatusColumn({
   return (
     <div className='seam-col seam-status-col'>
       <div className={classNames('seam-status-pill', `status-${statusColor}`)}>
-        <span>{status[deviceModel.support_level]}</span>
+        <span>
+          {/* TODO devicedb should support this eventually, hardcoded for now */}
+          {deviceModel.brand === 'lockly'
+            ? brandStatus[deviceModel.brand]
+            : status[deviceModel.support_level]}
+        </span>
       </div>
     </div>
   )
@@ -83,4 +88,9 @@ export const connectionTypeNames: Record<
   zwave: 'Z-Wave',
   zigbee: 'Zigbee',
   unknown: 'Unknown',
+}
+
+// Only brand override for now is lockly
+export const brandStatus: Record<DeviceModel['brand'], string> = {
+  lockly: 'LIVE/CONTACT SUPPORT',
 }
