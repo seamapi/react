@@ -1,6 +1,8 @@
 import Queue from 'queue'
 import { v4 as uuidv4 } from 'uuid'
 
+import version from 'lib/version.js'
+
 export interface TelemetryClientOptions {
   endpoint?: string
   debug?: boolean
@@ -87,11 +89,15 @@ export class TelemetryClient {
   }
 
   get #context(): Context {
+    const name =
+      globalThis.seamCustomElementNames?.length === 0
+        ? '@seamapi/react'
+        : '@seamapi/react/elements'
     return {
       ...(this.#user?.traits == null ? {} : { traits: this.#user.traits }),
       app: {
-        name: '',
-        version: '',
+        name,
+        version: version ?? undefined,
       },
     }
   }
@@ -160,7 +166,7 @@ interface Context {
   traits?: Traits
   app: {
     name: string
-    version: string
+    version: string | undefined
   }
 }
 
