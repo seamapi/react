@@ -5,7 +5,7 @@ import {
   type ClimateSettingScheduleFormSubmitData,
 } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 
-import type { CommonProps } from '../common-props.js'
+import type { CommonProps } from 'lib/seam/components/common-props.js'
 
 export interface CreateClimateSettingScheduleFormProps extends CommonProps {}
 
