@@ -90,7 +90,6 @@ export const connectionTypeNames: Record<
   unknown: 'Unknown',
 }
 
-// Only brand override for now is lockly
 export const brandStatus: Record<DeviceModel['brand'], string> = {
   lockly: 'LIVE/CONTACT SUPPORT',
 }
