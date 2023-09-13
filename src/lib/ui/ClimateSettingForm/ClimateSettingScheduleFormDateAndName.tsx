@@ -1,5 +1,6 @@
 import classNames from 'classnames'
-import type { Control,FieldValues  ,Controller} from 'react-hook-form'
+import {Controller} from 'react-hook-form';
+import type { Control,FieldValues } from 'react-hook-form'
 
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
