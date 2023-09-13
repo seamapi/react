@@ -3,6 +3,7 @@ import type { Dispatch, SetStateAction } from 'react'
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 import { useDeviceModels } from 'lib/seam/device-models/use-device-models.js'
+import { useDeviceProviders } from 'lib/seam/devices/use-device-providers.js'
 import { capitalize } from 'lib/strings.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
@@ -128,8 +129,9 @@ const useAvailableBrands = (
   excludedBrands: string[]
 ): string[] => {
   const { deviceModels } = useDeviceModels()
+  const { deviceProviders } = useDeviceProviders()
 
-  if (deviceModels == null) return []
+  if (deviceModels == null || deviceProviders == null) return []
 
   const availableBrands = deviceModels
     .map(({ brand }) => brand.trim())
@@ -137,6 +139,9 @@ const useAvailableBrands = (
       // UPSTREAM: API can return an empty value for brand.
       return brand !== ''
     })
+    .concat(
+      deviceProviders.map((deviceProvider) => deviceProvider.display_name)
+    )
     .filter((brand) => {
       if (brands === null) return true
       return brands.includes(brand)
@@ -145,7 +150,6 @@ const useAvailableBrands = (
       return !excludedBrands.includes(brand)
     })
     .map((brand) => capitalize(brand))
-
   return Array.from(new Set(availableBrands))
 }
 
