@@ -5,6 +5,7 @@ import type { ClimateSetting } from 'seamapi'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
+
 import { Button } from '../Button.js'
 import { ClimateSettingScheduleFormDateAndName } from './ClimateSettingScheduleFormDateAndName.js'
 
@@ -44,9 +45,9 @@ function Content({
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) =>
-      console.log(value, name, type)
+      { console.log(value, name, type); }
     )
-    return () => subscription.unsubscribe()
+    return () => { subscription.unsubscribe(); }
   }, [watch])
 
   const [page, setPage] = useState<
