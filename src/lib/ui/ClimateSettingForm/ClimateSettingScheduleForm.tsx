@@ -44,10 +44,12 @@ function Content({
   const { control, watch, register } = useForm()
 
   useEffect(() => {
-    const subscription = watch((value, { name, type }) =>
-      { console.log(value, name, type); }
-    )
-    return () => { subscription.unsubscribe(); }
+    const subscription = watch((value, { name, type }) => {
+      console.log(value, name, type)
+    })
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [watch])
 
   const [page, setPage] = useState<

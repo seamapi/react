@@ -1,5 +1,6 @@
 import classNames from 'classnames'
-import type { Control,FieldValues  ,Controller} from 'react-hook-form'
+import {Controller} from 'react-hook-form';
+import type { Control,FieldValues } from 'react-hook-form'
 
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
@@ -24,7 +25,7 @@ export function ClimateSettingScheduleFormDateAndName({
             name='name'
             control={control}
             rules={{ maxLength: 10 }}
-            defaultValue=""
+            defaultValue=''
             render={({ field, fieldState: { invalid, error } }) => {
               return (
                 <TextField
@@ -43,7 +44,7 @@ export function ClimateSettingScheduleFormDateAndName({
           <Controller
             name='startDate'
             control={control}
-            defaultValue=""
+            defaultValue=''
             render={({ field }) => <DateTimePicker {...field} size='large' />}
           />
         </FormField>
@@ -52,7 +53,7 @@ export function ClimateSettingScheduleFormDateAndName({
           <Controller
             name='endDate'
             control={control}
-            defaultValue=""
+            defaultValue=''
             render={({ field }) => <DateTimePicker {...field} size='large' />}
           />
         </FormField>
