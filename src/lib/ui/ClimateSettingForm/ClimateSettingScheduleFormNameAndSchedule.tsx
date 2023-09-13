@@ -7,19 +7,19 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 
-interface ClimateSettingScheduleFormDateAndScheduleProps {
+interface ClimateSettingScheduleFormNameAndScheduleProps {
   control: Control<FieldValues, any>
   className?: string
 }
 
-export function ClimateSettingScheduleFormDateAndSchedule({
+export function ClimateSettingScheduleFormNameAndSchedule({
   control,
   className,
-}: ClimateSettingScheduleFormDateAndScheduleProps): JSX.Element {
+}: ClimateSettingScheduleFormNameAndScheduleProps): JSX.Element {
   return (
     <div
       className={classNames(
-        'climate-setting-schedule-form-name-and-schedule',
+        'seam-climate-setting-schedule-form-name-and-schedule',
         className
       )}
     >
@@ -68,7 +68,7 @@ export function ClimateSettingScheduleFormDateAndSchedule({
 }
 
 const t = {
-  nameInputLabel: 'Name the climate setting',
+  nameInputLabel: 'Name the climate setting schedule',
   startTimeLabel: 'Start time',
   endTimeLabel: 'End time',
 }

@@ -8,7 +8,7 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 
 import { Button } from 'lib/ui/Button.js'
-import { ClimateSettingScheduleFormDateAndName } from './ClimateSettingScheduleFormDateAndName.js'
+import { ClimateSettingScheduleFormNameAndSchedule } from './ClimateSettingScheduleFormNameAndSchedule.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
@@ -53,7 +53,7 @@ function Content({
   const [page, setPage] = useState<
     | 'device_select'
     | 'default_setting'
-    | 'name_and_time'
+    | 'name_and_schedule'
     | 'timezone_select'
     | 'climate_setting'
   >('device_select')
@@ -70,7 +70,7 @@ function Content({
               <ThermostatSelect
                 onSelect={(deviceId) => {
                   onChange(deviceId)
-                  setPage('name_and_time')
+                  setPage('name_and_schedule')
                 }}
               />
             )}
@@ -80,7 +80,7 @@ function Content({
     )
   }
 
-  if (page === 'name_and_time') {
+  if (page === 'name_and_schedule') {
     return (
       <>
         <ContentHeader
@@ -91,7 +91,7 @@ function Content({
           subheading={device?.properties.name}
         />
         <div className='seam-main'>
-          <ClimateSettingScheduleFormDateAndName control={control} />
+          <ClimateSettingScheduleFormNameAndSchedule control={control} />
           <div className='seam-actions'>
             <Button onClick={onBack}>{t.cancel}</Button>
             <Button
