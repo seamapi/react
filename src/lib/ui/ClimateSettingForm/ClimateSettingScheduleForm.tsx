@@ -1,10 +1,12 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
+import { Button } from '../Button.js'
+import { ClimateSettingScheduleFormDateAndName } from './ClimateSettingScheduleFormDateAndName.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
@@ -38,7 +40,14 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control } = useForm()
+  const { control, watch, register } = useForm()
+
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) =>
+      console.log(value, name, type)
+    )
+    return () => subscription.unsubscribe()
+  }, [watch])
 
   const [page, setPage] = useState<
     | 'device_select'
@@ -70,9 +79,39 @@ function Content({
     )
   }
 
+  if (page === 'name_and_time') {
+    return (
+      <>
+        <ContentHeader
+          title={t.addNewClimateSettingSchedule}
+          onBack={() => {
+            setPage('device_select')
+          }}
+        />
+        <div className='seam-main'>
+          <ClimateSettingScheduleFormDateAndName control={control} />
+          <div className='seam-actions'>
+            <Button onClick={onBack}>{t.cancel}</Button>
+            <Button
+              variant='solid'
+              onClick={() => {
+                setPage('climate_setting')
+              }}
+            >
+              {t.next}
+            </Button>
+          </div>
+        </div>
+      </>
+    )
+  }
+
   return <></>
 }
 
 const t = {
   addNewClimateSettingSchedule: 'Add a climate setting schedule',
+  cancel: 'Cancel',
+  save: 'Save',
+  next: 'Next',
 }
