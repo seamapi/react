@@ -101,11 +101,14 @@ export function SeamProvider({
 
   const { Provider } = seamContext
 
+  const endpoint = 'endpoint' in props ? props.endpoint : undefined
+
   return (
     <div className='seam-components'>
       <TelemetryProvider
         client={telemetryClient ?? globalThis.seamTelemetryClient}
         disabled={disableTelemetry}
+        endpoint={endpoint}
       >
         <QueryClientProvider
           client={

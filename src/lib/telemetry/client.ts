@@ -28,7 +28,7 @@ export class TelemetryClient {
   #user: User | null = null
 
   constructor({
-    endpoint = 'https://connect.getseam.com/_tlmtry',
+    endpoint = 'https://connect.getseam.com',
     debug = false,
     disabled = false,
   }: TelemetryClientOptions = {}) {
@@ -134,7 +134,7 @@ export class TelemetryClient {
         timestamp: new Date().toISOString(),
         context: this.#context,
       }
-      const response = await fetch(this.#endpoint, {
+      const response = await fetch(`${this.#endpoint}/internal/tlmtry`, {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json' },
