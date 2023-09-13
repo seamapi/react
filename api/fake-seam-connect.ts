@@ -5,6 +5,7 @@ import { createFake } from '@seamapi/fake-seam-connect'
 import axios from 'axios'
 import getRawBody from 'raw-body'
 
+// eslint-disable-next-line import/no-relative-parent-imports
 import { seedFake } from '../.storybook/seed-fake.js'
 
 // Taken from seam-connect

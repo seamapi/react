@@ -2,9 +2,9 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
+import { NestedClimateSettingScheduleDetails } from 'lib/index.js'
+
 import { compareByCreatedAtDesc } from 'lib/dates.js'
-import { NestedClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
-import { ClimateSettingScheduleRow } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleRow.js'
 import {
   type CommonProps,
   withRequiredCommonProps,
@@ -20,6 +20,8 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
+
+import { ClimateSettingScheduleRow } from './ClimateSettingScheduleRow.js'
 
 export const NestedClimateSettingScheduleTable = withRequiredCommonProps(
   ClimateSettingScheduleTable

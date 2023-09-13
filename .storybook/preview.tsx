@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-relative-parent-imports
 import '../src/index.scss'
 
 import { SeamProvider } from '@seamapi/react'
