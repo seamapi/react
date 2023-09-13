@@ -70,7 +70,7 @@ function Content({
         onBack={() => {
           setPage('device_select')
         }}
-        onCancel={onBack ?? null}
+        onCancel={onBack}
         onNext={() => {
           setPage('climate_setting')
         }}
