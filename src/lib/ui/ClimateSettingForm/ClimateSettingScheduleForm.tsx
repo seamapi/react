@@ -7,7 +7,7 @@ import { useDevice } from 'lib/seam/devices/use-device.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 
-import { Button } from '../Button.js'
+import { Button } from 'lib/ui/Button.js'
 import { ClimateSettingScheduleFormDateAndName } from './ClimateSettingScheduleFormDateAndName.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
