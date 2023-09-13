@@ -1,7 +1,6 @@
-import type { Control, FieldValues } from 'react-hook-form'
-import { Controller } from 'react-hook-form'
-
 import classNames from 'classnames'
+import { type Control, Controller, type FieldValues } from 'react-hook-form'
+
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -29,7 +28,6 @@ export function ClimateSettingScheduleFormNameAndSchedule({
           <Controller
             name='name'
             control={control}
-            rules={{ maxLength: 10 }}
             defaultValue=''
             render={({ field, fieldState: { invalid, error } }) => {
               return (

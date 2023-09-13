@@ -4,10 +4,10 @@ import { Controller, useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { Button } from 'lib/ui/Button.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 
-import { Button } from 'lib/ui/Button.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from './ClimateSettingScheduleFormNameAndSchedule.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
