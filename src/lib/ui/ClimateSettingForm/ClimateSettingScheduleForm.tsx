@@ -1,8 +1,9 @@
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 
@@ -41,16 +42,13 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control, watch, register } = useForm()
+  const { control, watch } = useForm()
 
-  useEffect(() => {
-    const subscription = watch((value, { name, type }) => {
-      console.log(value, name, type)
-    })
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [watch])
+  const deviceId = watch('deviceId', null)
+
+  const { device } = useDevice({
+    device_id: deviceId,
+  })
 
   const [page, setPage] = useState<
     | 'device_select'
@@ -90,6 +88,7 @@ function Content({
           onBack={() => {
             setPage('device_select')
           }}
+          subheading={device?.properties.name}
         />
         <div className='seam-main'>
           <ClimateSettingScheduleFormDateAndName control={control} />
