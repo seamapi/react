@@ -1,6 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-
   "compilerOptions": {
     "noEmit": true,
     "strict": true,
