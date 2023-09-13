@@ -1,13 +1,9 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
-import { useDevice } from 'lib/seam/devices/use-device.js'
-import { Button } from 'lib/ui/Button.js'
-import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
-
+import { ClimateSettingScheduleFormDeviceSelect } from './ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from './ClimateSettingScheduleFormNameAndSchedule.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
@@ -46,10 +42,6 @@ function Content({
 
   const deviceId = watch('deviceId', null)
 
-  const { device } = useDevice({
-    device_id: deviceId,
-  })
-
   const [page, setPage] = useState<
     | 'device_select'
     | 'default_setting'
@@ -60,60 +52,35 @@ function Content({
 
   if (page === 'device_select') {
     return (
-      <>
-        <ContentHeader title={t.addNewClimateSettingSchedule} onBack={onBack} />
-        <div className='seam-main'>
-          <Controller
-            name='deviceId'
-            control={control}
-            render={({ field: { onChange } }) => (
-              <ThermostatSelect
-                onSelect={(deviceId) => {
-                  onChange(deviceId)
-                  setPage('name_and_schedule')
-                }}
-              />
-            )}
-          />
-        </div>
-      </>
+      <ClimateSettingScheduleFormDeviceSelect
+        control={control}
+        onBack={onBack}
+        onSelect={() => {
+          setPage('name_and_schedule')
+        }}
+      />
     )
   }
 
   if (page === 'name_and_schedule') {
     return (
-      <>
-        <ContentHeader
-          title={t.addNewClimateSettingSchedule}
-          onBack={() => {
-            setPage('device_select')
-          }}
-          subheading={device?.properties.name}
-        />
-        <div className='seam-main'>
-          <ClimateSettingScheduleFormNameAndSchedule control={control} />
-          <div className='seam-actions'>
-            <Button onClick={onBack}>{t.cancel}</Button>
-            <Button
-              variant='solid'
-              onClick={() => {
-                setPage('climate_setting')
-              }}
-            >
-              {t.next}
-            </Button>
-          </div>
-        </div>
-      </>
+      <ClimateSettingScheduleFormNameAndSchedule
+        control={control}
+        deviceId={deviceId}
+        onBack={() => {
+          setPage('device_select')
+        }}
+        onCancel={onBack ?? null}
+        onNext={() => {
+          setPage('climate_setting')
+        }}
+      />
     )
   }
 
   return <></>
 }
 
-const t = {
+export const t = {
   addNewClimateSettingSchedule: 'Add a climate setting schedule',
-  cancel: 'Cancel',
-  save: 'Save',
-  next: 'Next',
 }
