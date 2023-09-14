@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { Controller, type Control, type FieldValues } from 'react-hook-form'
 
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
@@ -26,7 +25,6 @@ export function ClimateSettingScheduleFormNameAndSchedule({
   onCancel,
   onNext,
   control,
-  className,
 }: ClimateSettingScheduleFormNameAndScheduleProps): JSX.Element {
   const { device } = useDevice({
     device_id: deviceId,
@@ -40,12 +38,7 @@ export function ClimateSettingScheduleFormNameAndSchedule({
         subheading={device?.properties.name}
       />
       <div className='seam-main'>
-        <div
-          className={classNames(
-            'seam-climate-setting-schedule-form-name-and-schedule',
-            className
-          )}
-        >
+        <div className='seam-climate-setting-schedule-form-name-and-schedule'>
           <div className='seam-content'>
             <FormField>
               <InputLabel>{t.nameInputLabel}</InputLabel>
