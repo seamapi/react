@@ -1,4 +1,4 @@
-import { Controller, type Control, type FieldValues } from 'react-hook-form'
+import { type Control, Controller, type FieldValues } from 'react-hook-form'
 
 import { ContentHeader } from '../layout/ContentHeader.js'
 import { ThermostatSelect } from '../thermostat/ThermostatSelect.js'
