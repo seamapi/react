@@ -45,7 +45,6 @@ const createProviders = ({ queryClient }: { queryClient: QueryClient }) => {
         endpoint={globalThis.JEST_SEAM_ENDPOINT}
         publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
         userIdentifierKey='some_user'
-        disableTelemetry
         disableCssInjection
         disableFontInjection
       >
