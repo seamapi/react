@@ -12,7 +12,7 @@ import { handleString } from 'lib/ui/TextField/TextField.js'
 interface TimezonePickerProps {
   value: string
   onChange: (timezone: string) => void
-  onManualTimezoneSelected: (manualTimezoneSelected: boolean) => void
+  onManualTimezoneSelected?: (manualTimezoneSelected: boolean) => void
 }
 
 export function TimezonePicker({
