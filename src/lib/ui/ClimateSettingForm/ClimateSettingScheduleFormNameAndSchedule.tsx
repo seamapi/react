@@ -1,29 +1,36 @@
-import { type Control, Controller, type FieldValues } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 
+import { getTimezoneLabel } from 'lib/dates.js'
+import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
+import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
-import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 interface ClimateSettingScheduleFormNameAndScheduleProps {
   title: string
-  control: Control<FieldValues>
+  control: Control<ClimateSettingScheduleFormFields, any>
   deviceId: string
+  timezone: string
   onBack: () => void
   onCancel: (() => void) | undefined
   onNext: () => void
+  onChangeTimezone: () => void
 }
 
 export function ClimateSettingScheduleFormNameAndSchedule({
   title,
+  control,
   deviceId,
+  timezone,
   onBack,
   onCancel,
   onNext,
-  control,
+  onChangeTimezone,
 }: ClimateSettingScheduleFormNameAndScheduleProps): JSX.Element {
   const { device } = useDevice({
     device_id: deviceId,
@@ -58,6 +65,13 @@ export function ClimateSettingScheduleFormNameAndSchedule({
                 }}
               />
             </FormField>
+            <div className='seam-timezone'>
+              <span className='seam-label'>{t.selectedTimezoneLabel}</span>
+              <span className='seam-selected' onClick={onChangeTimezone}>
+                {getTimezoneLabel(timezone)}
+                <ChevronRightIcon />
+              </span>
+            </div>
             <FormField>
               <InputLabel>{t.startTimeLabel}</InputLabel>
               <Controller
@@ -101,4 +115,5 @@ const t = {
   cancel: 'Cancel',
   save: 'Save',
   next: 'Next',
+  selectedTimezoneLabel: 'All times in',
 }

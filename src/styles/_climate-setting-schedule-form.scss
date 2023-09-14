@@ -3,6 +3,8 @@
 @mixin all {
   .seam-climate-setting-schedule-form {
     @include main;
+    @include name-and-schedule;
+    @include timezone-picker;
   }
 }
 
@@ -18,6 +20,64 @@
 
     .seam-btn {
       width: 96px;
+    }
+  }
+}
+
+
+@mixin name-and-schedule {
+  .seam-climate-setting-schedule-form-name-and-schedule {
+
+
+      .seam-timezone {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        margin-bottom: 24px;
+
+        .seam-label {
+          color: colors.$text-gray-2;
+          margin-right: 4px;
+        }
+
+        .seam-selected {
+          color: colors.$primary;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+
+          svg {
+            scale: 0.6667;
+            transform: translate(-6px, 2px);
+
+            * {
+              fill: colors.$primary;
+            }
+          }
+        }
+      }
+    
+  }
+}
+
+@mixin timezone-picker {
+  .seam-timezone-picker {
+    .seam-content {
+      padding: 0 24px;
+
+      .seam-manual-timezone-checkbox {
+        margin-bottom: 8px;
+      }
+
+      > .seam-timezone-select {
+        background: colors.$white;
+        padding: 0 12px;
+        width: 100%;
+        border: 1px solid colors.$text-gray-3;
+        border-radius: 8px;
+        height: 48px;
+        font-size: 16px;
+      }
     }
   }
 }

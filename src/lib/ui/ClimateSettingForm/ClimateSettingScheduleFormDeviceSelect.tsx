@@ -1,11 +1,12 @@
-import { type Control, Controller, type FieldValues } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 
+import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 
 interface ClimateSettingScheduleFormDeviceSelectProps {
   title: string
-  control: Control<FieldValues>
+  control: Control<ClimateSettingScheduleFormFields>
   onSelect: () => void
   onBack: (() => void) | undefined
 }
