@@ -34,7 +34,8 @@
         ]
       }
     ],
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "import/no-relative-parent-imports": "error"
   },
   "overrides": [
     {
