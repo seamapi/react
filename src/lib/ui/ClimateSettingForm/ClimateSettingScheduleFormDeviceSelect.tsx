@@ -5,7 +5,7 @@ import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 
 interface ClimateSettingScheduleFormDeviceSelectProps {
   title: string
-  control: Control<FieldValues, any>
+  control: Control<FieldValues>
   onSelect: () => void
   onBack: (() => void) | undefined
 }
