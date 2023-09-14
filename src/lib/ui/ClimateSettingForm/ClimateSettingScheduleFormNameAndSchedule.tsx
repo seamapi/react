@@ -16,7 +16,6 @@ interface ClimateSettingScheduleFormNameAndScheduleProps {
   onBack: () => void
   onCancel: (() => void) | undefined
   onNext: () => void
-  className?: string
 }
 
 export function ClimateSettingScheduleFormNameAndSchedule({
