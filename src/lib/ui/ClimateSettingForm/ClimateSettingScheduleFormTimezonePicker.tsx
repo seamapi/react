@@ -1,14 +1,7 @@
 import { useState } from 'react'
 
-import {
-  getBrowserTimezone,
-  getTimezoneLabel,
-  getTimezoneOffset,
-  getTimezones,
-} from 'lib/dates.js'
-import { Checkbox } from 'lib/ui/Checkbox.js'
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
-import { handleString } from 'lib/ui/TextField/TextField.js'
+import { TimezonePicker } from 'lib/ui/TimezonePicker/TimezonePicker.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Controller, type Control } from 'react-hook-form'
 
@@ -21,63 +14,30 @@ export function ClimateSettingScheduleFormTimezonePicker({
   control,
   onClose,
 }: ClimateSettingScheduleFormTimezonePickerProps): JSX.Element {
-  const [manualTimezoneEnabled, setManualTimezoneEnabled] = useState(false)
+  const [title, setTitle] = useState(t.titleAuto)
 
   return (
-    <Controller
-      name='timezone'
-      control={control}
-      render={({ field: { onChange, value } }) => {
-        const isBrowserTimezone = value === getBrowserTimezone()
-        const isManualTimezone = !isBrowserTimezone || manualTimezoneEnabled
-
-        const handleChangeManualTimezone = (enabled: boolean): void => {
-          setManualTimezoneEnabled(enabled)
-          if (!enabled) {
-            onChange(getBrowserTimezone())
-          }
-        }
-
-        const title = isManualTimezone ? t.titleManual : t.titleAuto
-
-        return (
-          <>
-            <ContentHeader title={title} onBack={onClose} />
-            <div className='seam-main'>
-              <div className='seam-timezone-picker'>
-                <Checkbox
-                  label={t.setTimezoneManuallyLabel}
-                  checked={!isManualTimezone}
-                  onChange={(manual) => {
-                    handleChangeManualTimezone(!manual)
-                  }}
-                  className='seam-manual-timezone-checkbox'
-                />
-
-                <select
-                  value={value}
-                  onChange={handleString(onChange)}
-                  className='seam-timezone-select'
-                >
-                  {getTimezones().map((timezone) => (
-                    <option value={timezone} key={timezone}>
-                      {t.utc} {getTimezoneOffset(timezone)}{' '}
-                      {getTimezoneLabel(timezone)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </>
-        )
-      }}
-    />
+    <>
+      <ContentHeader title={title} onBack={onClose} />
+      <div className='seam-main'>
+        <Controller
+          name='timezone'
+          control={control}
+          render={({ field }) => (
+            <TimezonePicker
+              {...field}
+              onManualTimezoneSelected={(manualTimezoneSelected) => {
+                setTitle(manualTimezoneSelected ? t.titleManual : t.titleAuto)
+              }}
+            />
+          )}
+        />
+      </div>
+    </>
   )
 }
 
 const t = {
   titleAuto: 'Time Zone (automatic)',
   titleManual: 'Time Zone (manual)',
-  utc: 'UTC',
-  setTimezoneManuallyLabel: 'Use local time zone',
 }
