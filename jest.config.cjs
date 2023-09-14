@@ -3,10 +3,10 @@ module.exports = async () => {
   return {
     // Any empty globals are set in global-setup.cjs.
     globals: {
-      JEST_SEAM_ENDPOINT: '',
-      JEST_SEAM_PUBLISHABLE_KEY_1: '',
-      JEST_SEAM_PUBLISHABLE_KEY_2: '',
-      JEST_SEAM_CLIENT_SESSION_TOKEN_2: '',
+      TEST_SEAM_ENDPOINT: '',
+      TEST_SEAM_PUBLISHABLE_KEY_1: '',
+      TEST_SEAM_PUBLISHABLE_KEY_2: '',
+      TEST_SEAM_CLIENT_SESSION_TOKEN_2: '',
     },
     globalSetup: '<rootDir>/test/jest/global-setup.cjs',
     globalTeardown: '<rootDir>/test/jest/global-teardown.cjs',
