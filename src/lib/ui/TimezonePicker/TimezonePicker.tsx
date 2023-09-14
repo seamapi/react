@@ -41,7 +41,7 @@ export function TimezonePicker({
   return (
     <div className='seam-timezone-picker'>
       <Checkbox
-        label={t.useLocalTimezoneLabel}
+        label={t.setTimezoneManuallyLabel}
         checked={!isManualTimezoneSelected}
         onChange={(manual) => {
           handleChangeManualTimezone(!manual)
@@ -66,5 +66,5 @@ export function TimezonePicker({
 
 const t = {
   utc: 'UTC',
-  useLocalTimezoneLabel: 'Use local time zone',
+  setTimezoneManuallyLabel: 'Use local time zone',
 }
