@@ -23,9 +23,9 @@ export function AccessCodeFormTimezonePicker({
         <TimezonePicker
           value={value}
           onChange={onChange}
-          onIsManualTimezoneChanged={(isManualTimezone) =>
-            { setTitle(isManualTimezone ? t.titleManual : t.titleAuto); }
-          }
+          onIsManualTimezoneChanged={(isManualTimezone) => {
+            setTitle(isManualTimezone ? t.titleManual : t.titleAuto)
+          }}
         />
       </div>
     </div>
