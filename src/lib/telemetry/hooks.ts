@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
 
+import { useClientSession } from 'lib/seam/client-sessions/use-client-session.js'
+
+import { useSeamContext } from '../../hooks.js'
 import type { TelemetryClient } from './client.js'
 import { useTelemetryContext } from './TelemetryProvider.js'
 
@@ -9,8 +12,31 @@ export function useTelemetryClient(): TelemetryClient {
 }
 
 export function useTelemetryOnMount(name: string): void {
+  useTelemetryIdentifyUser()
   const telemetry = useTelemetryClient()
   useEffect(() => {
     telemetry.screen(name)
   }, [name, telemetry])
+}
+
+export function useTelemetryIdentifyUser(): void {
+  const telemetry = useTelemetryClient()
+  const { publishableKey } = useSeamContext()
+  const { clientSession } = useClientSession()
+
+  useEffect(() => {
+    if (clientSession == null) return
+
+    const telemetryUserId = [
+      clientSession.workspace_id,
+      clientSession.user_identifier_key ?? `unknown`,
+    ].join('.')
+
+    telemetry.alias(telemetryUserId)
+
+    telemetry.identify(telemetryUserId, {
+      user_identifier_key: clientSession.user_identifier_key,
+      publishable_key: publishableKey,
+    })
+  }, [clientSession, publishableKey, telemetry])
 }

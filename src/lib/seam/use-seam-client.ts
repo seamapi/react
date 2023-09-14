@@ -3,8 +3,6 @@ import { useEffect } from 'react'
 import { Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
-import { useTelemetryClient } from 'lib/telemetry/index.js'
-
 import { useSeamContext } from 'lib/seam/SeamProvider.js'
 
 export function useSeamClient(): {
@@ -13,7 +11,6 @@ export function useSeamClient(): {
   isError: boolean
   error: unknown
 } {
-  const telemetry = useTelemetryClient()
   const {
     client,
     clientOptions,
@@ -62,13 +59,6 @@ export function useSeamClient(): {
       if (!res.ok || res.client_session?.token == null) {
         throw new Error('Failed to get client session token')
       }
-
-      const telemetryUserId = userIdentifierKey
-      telemetry.alias(telemetryUserId)
-      telemetry.identify(telemetryUserId, {
-        user_identifier_key: userIdentifierKey,
-        publishable_key: publishableKey,
-      })
 
       return new Seam({
         ...clientOptions,
