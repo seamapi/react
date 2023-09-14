@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { type Control, Controller, type FieldValues } from 'react-hook-form'
+import { Controller, type Control, type FieldValues } from 'react-hook-form'
 
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
@@ -11,6 +11,7 @@ import { Button } from '../Button.js'
 import { ContentHeader } from '../layout/ContentHeader.js'
 
 interface ClimateSettingScheduleFormNameAndScheduleProps {
+  title: string
   control: Control<FieldValues, any>
   deviceId: string
   onBack: () => void
@@ -19,6 +20,7 @@ interface ClimateSettingScheduleFormNameAndScheduleProps {
 }
 
 export function ClimateSettingScheduleFormNameAndSchedule({
+  title,
   deviceId,
   onBack,
   onCancel,
@@ -33,7 +35,7 @@ export function ClimateSettingScheduleFormNameAndSchedule({
   return (
     <>
       <ContentHeader
-        title={t.addNewClimateSettingSchedule}
+        title={title}
         onBack={onBack}
         subheading={device?.properties.name}
       />

@@ -53,6 +53,7 @@ function Content({
   if (page === 'device_select') {
     return (
       <ClimateSettingScheduleFormDeviceSelect
+        title={t.addNewClimateSettingSchedule}
         control={control}
         onBack={onBack}
         onSelect={() => {
@@ -65,6 +66,7 @@ function Content({
   if (page === 'name_and_schedule') {
     return (
       <ClimateSettingScheduleFormNameAndSchedule
+        title={t.addNewClimateSettingSchedule}
         control={control}
         deviceId={deviceId}
         onBack={() => {
