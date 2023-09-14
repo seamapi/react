@@ -12,13 +12,13 @@ import { handleString } from 'lib/ui/TextField/TextField.js'
 interface TimezonePickerProps {
   value: string
   onChange: (timezone: string) => void
-  onManualTimezoneSelected?: (isManualTimezone: boolean) => void
+  onTimezoneSelectedManually?: (isManualTimezone: boolean) => void
 }
 
 export function TimezonePicker({
   onChange,
   value,
-  onManualTimezoneSelected,
+  onTimezoneSelectedManually,
 }: TimezonePickerProps): JSX.Element {
   const [manualTimezoneEnabled, setManualTimezoneEnabled] = useState(false)
 
@@ -26,9 +26,9 @@ export function TimezonePicker({
   const isManualTimezone = !isBrowserTimezone || manualTimezoneEnabled
 
   useEffect(() => {
-    if (onManualTimezoneSelected != null)
-      onManualTimezoneSelected(isManualTimezone)
-  }, [isManualTimezone, onManualTimezoneSelected])
+    if (onTimezoneSelectedManually != null)
+      onTimezoneSelectedManually(isManualTimezone)
+  }, [isManualTimezone, onTimezoneSelectedManually])
 
   const handleChangeManualTimezone = (enabled: boolean): void => {
     setManualTimezoneEnabled(enabled)
