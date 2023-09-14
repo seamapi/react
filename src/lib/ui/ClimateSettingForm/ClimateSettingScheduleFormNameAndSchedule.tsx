@@ -10,7 +10,7 @@ import { TextField } from 'lib/ui/TextField/TextField.js'
 
 interface ClimateSettingScheduleFormNameAndScheduleProps {
   title: string
-  control: Control<FieldValues, any>
+  control: Control<FieldValues>
   deviceId: string
   onBack: () => void
   onCancel: (() => void) | undefined
