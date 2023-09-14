@@ -22,5 +22,13 @@
     "8080": { "label": "Example" }
   },
   "postCreateCommand": "npm install",
-  "remoteUser": "node"
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "typescript.preferences.importModuleSpecifier": "non-relative"
+      }
+    }
+  }
 }
+
