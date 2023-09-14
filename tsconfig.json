@@ -26,6 +26,8 @@
     "skipLibCheck": true,
     "paths": {
       "@seamapi/react": ["./src/index.ts"],
+      "@seamapi/react/elements": ["./src/elements.ts"],
+      "@seamapi/react/hooks": ["./src/hooks.ts"],
       "fixtures/*": ["./test/fixtures/*"],
       "lib/*": ["./src/lib/*"]
     }

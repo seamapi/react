@@ -372,13 +372,13 @@ to have deterministic responses for rendering views and running tests.
 Edit the seed data for the fake or find relevant ids for testing components here:
 
 - [Storybook fake seed](./.storybook/seed-fake.js).
-- [Jest test fake seed](./test/jest/global-setup.cjs).
+- [Vitest fake seed](./test/fixtures/seed-fake.ts).
 
 ### Tests
 
-Write tests with [Jest].
+Write tests with [Vitest].
 
-[Jest]: https://jestjs.io/
+[Vitest]: https://vitest.dev/
 
 ### Examples
 

@@ -1,11 +1,9 @@
-import type { ElementDefinition } from 'lib/element.js'
-import * as components from 'lib/seam/components/elements.js'
+import { expect, test } from 'vitest'
 
-test('unique element names', async () => {
-  const elementDefinitions = components as unknown as Record<
-    string,
-    Partial<ElementDefinition>
-  >
-  const elementNames = Object.values(elementDefinitions).map(({ name }) => name)
-  expect(elementNames).toEqual(Array.from(new Set(elementNames)))
+test('registers all custom elements', async () => {
+  const { elementNames } = await import('@seamapi/react/elements')
+  for (const elementName of elementNames) {
+    const element = globalThis.customElements.get(elementName)
+    expect(element).toBeDefined()
+  }
 })

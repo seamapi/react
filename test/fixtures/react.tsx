@@ -30,9 +30,6 @@ const createQueryClient = (): QueryClient =>
     defaultOptions: {
       queries: {
         retry: false,
-        // UPSTREAM: Prevent "Jest did not exit one second after the test run completed" error message.
-        // https://tanstack.com/query/v4/docs/react/guides/testing#set-cachetime-to-infinity-with-jest
-        cacheTime: Infinity,
       },
     },
   })
