@@ -12,23 +12,24 @@ import { handleString } from 'lib/ui/TextField/TextField.js'
 interface TimezonePickerProps {
   value: string
   onChange: (timezone: string) => void
-  onTimezoneSelectedManually?: (isManualTimezone: boolean) => void
+  onManualTimezoneSelected: (manualTimezoneSelected: boolean) => void
 }
 
 export function TimezonePicker({
   onChange,
   value,
-  onTimezoneSelectedManually,
+  onManualTimezoneSelected,
 }: TimezonePickerProps): JSX.Element {
   const [manualTimezoneEnabled, setManualTimezoneEnabled] = useState(false)
 
-  const isBrowserTimezone = value === getBrowserTimezone()
-  const isManualTimezone = !isBrowserTimezone || manualTimezoneEnabled
+  const isBrowserTimezoneSelected = value === getBrowserTimezone()
+  const isManualTimezoneSelected =
+    !isBrowserTimezoneSelected || manualTimezoneEnabled
 
   useEffect(() => {
-    if (onTimezoneSelectedManually != null)
-      onTimezoneSelectedManually(isManualTimezone)
-  }, [isManualTimezone, onTimezoneSelectedManually])
+    if (onManualTimezoneSelected != null)
+      onManualTimezoneSelected(isManualTimezoneSelected)
+  }, [isManualTimezoneSelected, onManualTimezoneSelected])
 
   const handleChangeManualTimezone = (enabled: boolean): void => {
     setManualTimezoneEnabled(enabled)
@@ -41,7 +42,7 @@ export function TimezonePicker({
     <div className='seam-timezone-picker'>
       <Checkbox
         label={t.setTimezoneManuallyLabel}
-        checked={!isManualTimezone}
+        checked={!isManualTimezoneSelected}
         onChange={(manual) => {
           handleChangeManualTimezone(!manual)
         }}
@@ -64,8 +65,6 @@ export function TimezonePicker({
 }
 
 const t = {
-  titleAuto: 'Time Zone (automatic)',
-  titleManual: 'Time Zone (manual)',
   utc: 'UTC',
   setTimezoneManuallyLabel: 'Use local time zone',
 }
