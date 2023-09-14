@@ -1,6 +1,7 @@
 import { type Control, Controller, type FieldValues } from 'react-hook-form'
-import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
+
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 
 interface ClimateSettingScheduleFormDeviceSelectProps {
   title: string

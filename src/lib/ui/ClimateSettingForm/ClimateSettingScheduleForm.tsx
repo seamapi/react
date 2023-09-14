@@ -1,9 +1,10 @@
 import classNames from 'classnames'
-import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
-import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
+
+import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
+import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
