@@ -27,7 +27,7 @@ export function TimezonePicker({
 
   useEffect(() => {
     onIsManualTimezoneChanged(isManualTimezone)
-  }, [isManualTimezone])
+  }, [isManualTimezone, onIsManualTimezoneChanged])
 
   const handleChangeManualTimezone = (enabled: boolean): void => {
     setManualTimezoneEnabled(enabled)
