@@ -89,7 +89,7 @@ export function ClimateSettingScheduleFormNameAndSchedule({
           </div>
         </div>
         <div className='seam-actions'>
-          <Button onClick={onCancel ?? undefined}>{t.cancel}</Button>
+          <Button onClick={onCancel}>{t.cancel}</Button>
           <Button variant='solid' onClick={onNext}>
             {t.next}
           </Button>
