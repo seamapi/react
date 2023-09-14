@@ -1,13 +1,13 @@
-import { type Control, Controller, type FieldValues } from 'react-hook-form'
+import { Controller, type Control, type FieldValues } from 'react-hook-form'
 
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 
-import { useDevice } from '../../../hooks.js'
-import { Button } from '../Button.js'
-import { ContentHeader } from '../layout/ContentHeader.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
+import { Button } from 'lib/ui/Button.js'
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 interface ClimateSettingScheduleFormNameAndScheduleProps {
   title: string
