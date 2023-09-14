@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { type Control,Controller } from 'react-hook-form'
 
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
-import { TimezonePicker } from 'lib/ui/TimezonePicker/TimezonePicker.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { Controller, type Control } from 'react-hook-form'
+import { TimezonePicker } from 'lib/ui/TimezonePicker/TimezonePicker.js'
 
 interface ClimateSettingScheduleFormTimezonePickerProps {
   control: Control<ClimateSettingScheduleFormFields>
