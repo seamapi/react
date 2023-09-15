@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { type Control,Controller } from 'react-hook-form'
+import { type Control, Controller } from 'react-hook-form'
 
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'

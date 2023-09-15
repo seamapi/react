@@ -1,4 +1,4 @@
-import { type Control,Controller } from 'react-hook-form'
+import { type Control, Controller } from 'react-hook-form'
 
 import { getTimezoneLabel } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
