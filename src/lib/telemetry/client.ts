@@ -66,6 +66,11 @@ export class TelemetryClient {
     return this.#debug
   }
 
+  page(name: string, properties: Properties = {}): void {
+    this.#log('page', name, properties)
+    this.#push({ type: 'page', name, properties })
+  }
+
   screen(name: string, properties: Properties = {}): void {
     this.#log('screen', name, properties)
     this.#push({ type: 'screen', name, properties })
@@ -174,6 +179,13 @@ export class TelemetryClient {
 }
 
 // https://segment.com/docs/connections/spec/screen/
+interface PageSpec {
+  type: 'page'
+  name: string
+  properties: Properties
+}
+
+// https://segment.com/docs/connections/spec/screen/
 interface ScreenSpec {
   type: 'screen'
   name: string
@@ -234,7 +246,13 @@ interface User {
 
 type Payload = Omit<Message, 'userId'> & CommonSpec
 
-type Message = ScreenSpec | TrackSpec | GroupSpec | IdentifySpec | AliasSpec
+type Message =
+  | PageSpec
+  | ScreenSpec
+  | TrackSpec
+  | GroupSpec
+  | IdentifySpec
+  | AliasSpec
 
 type Traits = TelemetryRecord
 
