@@ -24,7 +24,7 @@ export class TelemetryClient {
 
   constructor({
     endpoint = 'https://connect.getseam.com',
-    debug = true,
+    debug = false,
     disabled = false,
   }: TelemetryClientOptions = {}) {
     this.#queue = new Queue()
