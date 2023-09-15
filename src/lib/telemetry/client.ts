@@ -44,6 +44,7 @@ export class TelemetryClient {
     if (endpoint != null) this.#endpoint = endpoint
     if (debug != null) this.#debug = debug
     if (disabled != null) this.#disabled = disabled
+    this.#queue.autostart = true
     this.#queue.start((err) => {
       // eslint-disable-next-line no-console
       if (err != null && this.#debug) console.error(err)
@@ -53,6 +54,7 @@ export class TelemetryClient {
 
   reset(): void {
     this.#log('reset')
+    this.#queue.autostart = false
     this.#queue.end()
     this.#anonymousId = uuidv4()
     this.#user = null
