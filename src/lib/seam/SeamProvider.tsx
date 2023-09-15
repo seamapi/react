@@ -7,7 +7,11 @@ import {
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
-import { type TelemetryClient, TelemetryProvider } from 'lib/telemetry/index.js'
+import {
+  type TelemetryClient,
+  TelemetryProvider,
+  useTelemetryIdentifyUser,
+} from 'lib/telemetry/index.js'
 
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
@@ -115,11 +119,18 @@ export function SeamProvider({
             queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient
           }
         >
-          <Provider value={value}>{children}</Provider>
+          <Provider value={value}>
+            <Identify>{children}</Identify>
+          </Provider>
         </QueryClientProvider>
       </TelemetryProvider>
     </div>
   )
+}
+
+function Identify({ children }: PropsWithChildren): JSX.Element | null {
+  useTelemetryIdentifyUser()
+  return <>{children}</>
 }
 
 const createDefaultSeamContextValue = (): SeamContext => {

@@ -12,11 +12,13 @@ export function useTelemetryClient(): TelemetryClient {
 }
 
 export function useComponentTelemetry(name: string): void {
-  useTelemetryIdentifyUser()
+  const { clientSession } = useClientSession()
   const telemetry = useTelemetryClient()
   useEffect(() => {
+    // Ensure the client session loaded to avoid anonymous telemetry data.
+    if (clientSession == null) return
     telemetry.screen(name)
-  }, [name, telemetry])
+  }, [name, telemetry, clientSession])
 }
 
 export function useTelemetryIdentifyUser(): void {
@@ -24,8 +26,7 @@ export function useTelemetryIdentifyUser(): void {
   const { publishableKey } = useSeamContext()
   const { clientSession } = useClientSession()
 
-  // Ensure identify runs earlier than other effects
-  // to avoid anonymous telemetry data.
+  // Ensure identify runs earlier than other effects to avoid anonymous telemetry data.
   useLayoutEffect(() => {
     if (clientSession == null) return
 
