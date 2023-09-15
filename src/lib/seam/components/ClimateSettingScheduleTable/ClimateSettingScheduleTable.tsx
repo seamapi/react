@@ -13,7 +13,7 @@ import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
 } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
-import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'

@@ -18,7 +18,7 @@ import {
   useDevices,
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
-import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'

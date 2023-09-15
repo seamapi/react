@@ -17,7 +17,7 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
-import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'

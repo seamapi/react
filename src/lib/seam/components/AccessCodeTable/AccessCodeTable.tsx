@@ -19,7 +19,7 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { NestedCreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
-import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'

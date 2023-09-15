@@ -9,7 +9,7 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { getValidationError } from 'lib/seam/error-handlers.js'
-import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
