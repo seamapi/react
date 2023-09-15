@@ -29,7 +29,7 @@ export function useTelemetryIdentifyUser(): void {
 
     const telemetryUserId = [
       clientSession.workspace_id,
-      clientSession.user_identifier_key ?? `unknown`,
+      clientSession.user_identifier_key ?? 'unknown',
     ].join('.')
 
     telemetry.alias(telemetryUserId)
