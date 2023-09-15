@@ -77,8 +77,8 @@ export const defineCustomElement = ({
 
 function withProvider<P extends JSX.IntrinsicAttributes>(
   Component: ComponentType<P>
-) {
-  return function ({
+): (props: ProviderProps & { container: Container } & P) => JSX.Element | null {
+  function WithProvider({
     publishableKey,
     endpoint,
     userIdentifierKey,
@@ -109,4 +109,8 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
       </SeamProvider>
     )
   }
+  WithProvider.displayName = `WithProvider(${
+    Component.displayName ?? Component.name ?? 'Component'
+  })`
+  return WithProvider
 }
