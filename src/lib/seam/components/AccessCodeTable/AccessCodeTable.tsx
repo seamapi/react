@@ -19,6 +19,7 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { NestedCreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
@@ -28,7 +29,6 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
-import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
 

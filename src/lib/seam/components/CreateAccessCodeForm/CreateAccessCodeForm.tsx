@@ -9,11 +9,11 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { getValidationError } from 'lib/seam/error-handlers.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
-import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export interface CreateAccessCodeFormProps extends CommonProps {
   deviceId: string

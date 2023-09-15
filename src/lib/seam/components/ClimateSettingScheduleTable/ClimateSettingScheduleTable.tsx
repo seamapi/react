@@ -13,6 +13,7 @@ import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
 } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
@@ -20,7 +21,6 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export const NestedClimateSettingScheduleTable = withRequiredCommonProps(
   ClimateSettingScheduleTable

@@ -5,8 +5,8 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { useCreateConnectWebview } from 'lib/seam/connect-webviews/use-create-connect-webview.js'
-import { Button } from 'lib/ui/Button.js'
 import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
+import { Button } from 'lib/ui/Button.js'
 
 export interface ConnectAccountButtonProps extends CommonProps {}
 
