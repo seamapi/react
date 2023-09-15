@@ -1,4 +1,4 @@
-import { type Control, Controller } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 
 import { getTimezoneLabel } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
@@ -13,7 +13,7 @@ import { TextField } from 'lib/ui/TextField/TextField.js'
 
 interface ClimateSettingScheduleFormNameAndScheduleProps {
   title: string
-  control: Control<ClimateSettingScheduleFormFields, any>
+  control: Control<ClimateSettingScheduleFormFields>
   deviceId: string
   timezone: string
   onBack: () => void
