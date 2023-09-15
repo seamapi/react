@@ -35,8 +35,10 @@ export function useTelemetryIdentifyUser(): void {
     telemetry.alias(telemetryUserId)
 
     telemetry.identify(telemetryUserId, {
+      workspace_id: clientSession.workspace_id,
       user_identifier_key: clientSession.user_identifier_key,
       publishable_key: publishableKey,
+      connected_account_count: clientSession.connected_account_ids.length,
     })
   }, [clientSession, publishableKey, telemetry])
 }
