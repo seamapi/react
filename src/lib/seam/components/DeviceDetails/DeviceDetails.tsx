@@ -1,5 +1,7 @@
 import { isLockDevice, isThermostatDevice } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import {
   type CommonProps,
   withRequiredCommonProps,
@@ -7,7 +9,6 @@ import {
 import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
 export interface DeviceDetailsProps extends CommonProps {
   deviceId: string

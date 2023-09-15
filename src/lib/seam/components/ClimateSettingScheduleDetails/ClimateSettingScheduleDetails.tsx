@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { formatDateAndTime } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ClimateSettingScheduleCard } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleCard.js'
@@ -10,7 +12,6 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'

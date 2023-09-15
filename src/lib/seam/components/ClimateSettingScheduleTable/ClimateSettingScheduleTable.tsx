@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { NestedClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
 import { ClimateSettingScheduleRow } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleRow.js'
@@ -13,7 +15,6 @@ import {
   useClimateSettingSchedules,
   type UseClimateSettingSchedulesData,
 } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'

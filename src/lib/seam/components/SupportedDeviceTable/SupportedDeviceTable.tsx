@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import {
   type CommonProps,
   withRequiredCommonProps,
@@ -8,7 +10,6 @@ import {
 import { SupportedDeviceContent } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceContent.js'
 import { SupportedDeviceFilterArea } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterArea.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
 export interface SupportedDeviceTableProps extends CommonProps {
   disableFilter?: boolean

@@ -8,6 +8,8 @@ import type {
   DeviceError,
 } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
@@ -17,7 +19,6 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
