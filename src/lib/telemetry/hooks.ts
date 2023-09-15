@@ -42,5 +42,9 @@ export function useUserTelemetry(): void {
       user_identifier_key: clientSession.user_identifier_key,
       publishable_key: publishableKey,
     })
+
+    telemetry.group(clientSession.workspace_id, {
+      workspace_id: clientSession.workspace_id,
+    })
   }, [clientSession, publishableKey, telemetry])
 }
