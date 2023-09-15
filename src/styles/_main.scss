@@ -23,6 +23,7 @@
 @use './switch';
 @use './climate-setting-schedule-form';
 @use './climate-setting-schedule-details';
+@use './timezone-picker';
 
 .seam-components {
   // Reset
@@ -42,6 +43,7 @@
   @include radio-field.all;
   @include tooltip.all;
   @include switch.all;
+  @include timezone-picker.all;
 
   // Components
   @include device-details.all;
