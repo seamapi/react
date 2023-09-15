@@ -256,7 +256,7 @@ Before disabling telemetry, please consider the following:
 - Telemetry is sent directly to the Seam API and is never sold to third parties.
 - Telemetry is used by Seam for the sole purpose of improving Seam Components
   and directly enhancing the experience for your end users.
-- No data is persisted beyond the lifetime of the browser session: this library does not use cookies or local browser storage.
+- No data is persisted on the client beyond the lifetime of the browser session: this library does not use cookies or local browser storage.
 - Telemetry may be selectively disabled for some users to align with any existing data collection compliance requirements of your application.
 - Telemetry does not negatively impact performance and adds minimal background network overhead.
 - The implementation is small, simple to audit, and completely transparent: [src/lib/telemetry](src/lib/telemetry).
