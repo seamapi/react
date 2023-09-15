@@ -65,15 +65,16 @@ export function ClimateSettingScheduleFormNameAndSchedule({
                 }}
               />
             </FormField>
-            <div className='seam-timezone'>
-              <span className='seam-label'>{t.selectedTimezoneLabel}</span>
-              <span className='seam-selected' onClick={onChangeTimezone}>
-                {getTimezoneLabel(timezone)}
-                <ChevronRightIcon />
-              </span>
-            </div>
+
             <FormField>
               <InputLabel>{t.startTimeLabel}</InputLabel>
+              <div className='seam-timezone'>
+                <span className='seam-label'>{t.selectedTimezoneLabel}</span>
+                <span className='seam-selected' onClick={onChangeTimezone}>
+                  {getTimezoneLabel(timezone)}
+                  <ChevronRightIcon />
+                </span>
+              </div>
               <Controller
                 name='startDate'
                 control={control}
