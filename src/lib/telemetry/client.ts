@@ -87,6 +87,7 @@ export class TelemetryClient {
       type: 'alias',
       userId,
       previousId: resolvedPreviousId,
+      anonymousId: undefined,
     })
   }
 
@@ -131,9 +132,9 @@ export class TelemetryClient {
     if (this.#disabled) return
     this.#queue.push(async () => {
       const payload: Payload = {
-        ...message,
         userId: this.#user?.userId ?? undefined,
         anonymousId: this.#anonymousId ?? undefined,
+        ...message,
         messageId: uuidv4(),
         timestamp: new Date().toISOString(),
         context: this.#context,
@@ -189,6 +190,7 @@ interface AliasSpec {
   type: 'alias'
   userId: string
   previousId: string
+  anonymousId: undefined
 }
 
 // https://segment.com/docs/connections/spec/common/
