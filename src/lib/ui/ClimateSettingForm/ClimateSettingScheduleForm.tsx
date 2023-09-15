@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
-import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
+import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
+import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
@@ -38,41 +38,51 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control } = useForm()
+  const { control, watch } = useForm()
+
+  const deviceId = watch('deviceId', null)
 
   const [page, setPage] = useState<
     | 'device_select'
     | 'default_setting'
-    | 'name_and_time'
+    | 'name_and_schedule'
     | 'timezone_select'
     | 'climate_setting'
   >('device_select')
 
   if (page === 'device_select') {
     return (
-      <>
-        <ContentHeader title={t.addNewClimateSettingSchedule} onBack={onBack} />
-        <div className='seam-main'>
-          <Controller
-            name='deviceId'
-            control={control}
-            render={({ field: { onChange } }) => (
-              <ThermostatSelect
-                onSelect={(deviceId) => {
-                  onChange(deviceId)
-                  setPage('name_and_time')
-                }}
-              />
-            )}
-          />
-        </div>
-      </>
+      <ClimateSettingScheduleFormDeviceSelect
+        title={t.addNewClimateSettingSchedule}
+        control={control}
+        onBack={onBack}
+        onSelect={() => {
+          setPage('name_and_schedule')
+        }}
+      />
+    )
+  }
+
+  if (page === 'name_and_schedule') {
+    return (
+      <ClimateSettingScheduleFormNameAndSchedule
+        title={t.addNewClimateSettingSchedule}
+        control={control}
+        deviceId={deviceId}
+        onBack={() => {
+          setPage('device_select')
+        }}
+        onCancel={onBack}
+        onNext={() => {
+          setPage('climate_setting')
+        }}
+      />
     )
   }
 
   return <></>
 }
 
-const t = {
+export const t = {
   addNewClimateSettingSchedule: 'Add a climate setting schedule',
 }

@@ -34,7 +34,8 @@
         ]
       }
     ],
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "import/no-relative-parent-imports": "error"
   },
   "overrides": [
     {
@@ -73,10 +74,6 @@
           "rules": {
             "react-hooks/rules-of-hooks": "off"
           }
-        },
-        {
-          "files": ["**/*.test.tsx?", "test/jest/setup-*.tsx?"],
-          "env": { "jest": true }
         }
       ]
     }

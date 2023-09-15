@@ -1,3 +1,5 @@
+import { test } from 'vitest'
+
 import { render, screen } from 'fixtures/react.js'
 
 test('render', async () => {

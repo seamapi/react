@@ -13,7 +13,7 @@ const elementDefinitions = components as unknown as Record<
   Partial<ElementDefinition>
 >
 
-const elementNames: string[] = []
+export const elementNames: string[] = []
 
 export default elementNames
 
