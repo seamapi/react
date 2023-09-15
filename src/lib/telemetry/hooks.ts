@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { useClientSession } from 'lib/seam/client-sessions/use-client-session.js'
-
 import { useSeamContext } from 'lib/seam/SeamProvider.js'
+
 import type { TelemetryClient } from './client.js'
 import { useTelemetryContext } from './TelemetryProvider.js'
 
