@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 
 import { useClientSession } from 'lib/seam/client-sessions/use-client-session.js'
 import { useSeamContext } from 'lib/seam/SeamProvider.js'
@@ -24,7 +24,9 @@ export function useTelemetryIdentifyUser(): void {
   const { publishableKey } = useSeamContext()
   const { clientSession } = useClientSession()
 
-  useEffect(() => {
+  // Ensure identify runs earlier than other effects
+  // to avoid anonymous telemetry data.
+  useLayoutEffect(() => {
     if (clientSession == null) return
 
     const telemetryUserId = [
@@ -38,7 +40,6 @@ export function useTelemetryIdentifyUser(): void {
       workspace_id: clientSession.workspace_id,
       user_identifier_key: clientSession.user_identifier_key,
       publishable_key: publishableKey,
-      connected_account_count: clientSession.connected_account_ids.length,
     })
   }, [clientSession, publishableKey, telemetry])
 }
