@@ -44,6 +44,7 @@ export function AccessCodeDetails({
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   useComponentTelemetry('AccessCodeDetails')
+
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isLoading: isDeleting } = useDeleteAccessCode()
