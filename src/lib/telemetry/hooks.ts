@@ -11,7 +11,7 @@ export function useTelemetryClient(): TelemetryClient {
   return client
 }
 
-export function useTelemetryOnMount(name: string): void {
+export function useComponentTelemetry(name: string): void {
   useTelemetryIdentifyUser()
   const telemetry = useTelemetryClient()
   useEffect(() => {

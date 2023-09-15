@@ -16,13 +16,15 @@ export function withRequiredCommonProps<
 >(
   Component: ComponentType<P>
 ): (props: P & RequiredCommonProps) => JSX.Element | null {
+  const name = Component.displayName ?? Component.name ?? 'Component'
+
   function WithRequiredCommonProps(
     props: P & RequiredCommonProps
   ): JSX.Element | null {
     return <Component {...props} />
   }
-  WithRequiredCommonProps.displayName = `WithRequiredCommonProps(${
-    Component.displayName ?? Component.name ?? 'Component'
-  })`
+
+  WithRequiredCommonProps.displayName = `WithRequiredCommonProps(${name})`
+
   return WithRequiredCommonProps
 }
