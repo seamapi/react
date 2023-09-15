@@ -10,7 +10,7 @@ import type { Seam, SeamClientOptions } from 'seamapi'
 import {
   type TelemetryClient,
   TelemetryProvider,
-  useTelemetryIdentifyUser,
+  useUserTelemetry,
 } from 'lib/telemetry/index.js'
 
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
@@ -120,7 +120,7 @@ export function SeamProvider({
           }
         >
           <Provider value={value}>
-            <Identify>{children}</Identify>
+            <Wrapper>{children}</Wrapper>
           </Provider>
         </QueryClientProvider>
       </TelemetryProvider>
@@ -128,8 +128,8 @@ export function SeamProvider({
   )
 }
 
-function Identify({ children }: PropsWithChildren): JSX.Element | null {
-  useTelemetryIdentifyUser()
+function Wrapper({ children }: PropsWithChildren): JSX.Element | null {
+  useUserTelemetry()
   return <>{children}</>
 }
 

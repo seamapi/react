@@ -21,7 +21,7 @@ export function useComponentTelemetry(name: string): void {
   }, [name, telemetry, clientSession])
 }
 
-export function useTelemetryIdentifyUser(): void {
+export function useUserTelemetry(): void {
   const telemetry = useTelemetryClient()
   const { publishableKey } = useSeamContext()
   const { clientSession } = useClientSession()
