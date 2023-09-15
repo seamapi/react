@@ -11,6 +11,8 @@ import {
 
 declare global {
   // eslint-disable-next-line no-var
+  var disableSeamTelemetry: boolean | undefined
+  // eslint-disable-next-line no-var
   var disableSeamCssInjection: boolean | undefined
   // eslint-disable-next-line no-var
   var disableSeamFontInjection: boolean | undefined
@@ -51,6 +53,8 @@ const providerProps: R2wcProps<ProviderProps> = {
   clientSessionToken: 'string',
   endpoint: 'string',
   queryClient: 'object',
+  telemetryClient: 'object',
+  disableTelemetry: 'boolean',
   disableCssInjection: 'boolean',
   disableFontInjection: 'boolean',
   unminifiyCss: 'boolean',
@@ -73,12 +77,15 @@ export const defineCustomElement = ({
 
 function withProvider<P extends JSX.IntrinsicAttributes>(
   Component: ComponentType<P>
-) {
-  return function ({
+): (props: ProviderProps & { container: Container } & P) => JSX.Element | null {
+  const name = Component.displayName ?? Component.name ?? 'Component'
+
+  function WithProvider({
     publishableKey,
     endpoint,
     userIdentifierKey,
     clientSessionToken,
+    disableTelemetry,
     disableCssInjection,
     disableFontInjection,
     unminifiyCss,
@@ -91,6 +98,7 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
         userIdentifierKey={userIdentifierKey}
         clientSessionToken={clientSessionToken}
         endpoint={endpoint}
+        disableTelemetry={disableTelemetry ?? globalThis.disableSeamTelemetry}
         disableCssInjection={
           disableCssInjection ?? globalThis.disableSeamCssInjection
         }
@@ -103,4 +111,8 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
       </SeamProvider>
     )
   }
+
+  WithProvider.displayName = `WithProvider(${name})`
+
+  return WithProvider
 }

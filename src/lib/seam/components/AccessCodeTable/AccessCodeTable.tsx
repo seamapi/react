@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AddIcon } from 'lib/icons/Add.js'
 import {
@@ -83,6 +85,8 @@ export function AccessCodeTable({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
 }: AccessCodeTableProps): JSX.Element {
+  useComponentTelemetry('AccessCodeTable')
+
   const { accessCodes } = useAccessCodes({
     device_id: deviceId,
   })

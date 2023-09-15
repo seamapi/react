@@ -8,6 +8,8 @@ import type {
   DeviceError,
 } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
@@ -42,6 +44,8 @@ export function AccessCodeDetails({
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
+  useComponentTelemetry('AccessCodeDetails')
+
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isLoading: isDeleting } = useDeleteAccessCode()

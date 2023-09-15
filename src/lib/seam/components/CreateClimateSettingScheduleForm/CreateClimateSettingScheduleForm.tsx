@@ -1,3 +1,5 @@
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { createIsoDate } from 'lib/dates.js'
 import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { useCreateClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-create-climate-setting-schedule.js'
@@ -12,6 +14,8 @@ export function CreateClimateSettingScheduleForm({
   className,
   onBack,
 }: CreateClimateSettingScheduleFormProps): JSX.Element | null {
+  useComponentTelemetry('CreateClimateSettingScheduleForm')
+
   const { submit, isSubmitting } = useSubmitCreateClimateSettingSchedule(onBack)
 
   return (

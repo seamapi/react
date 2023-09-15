@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { formatDateAndTime } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ClimateSettingScheduleCard } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleCard.js'
@@ -33,6 +35,8 @@ export function ClimateSettingScheduleDetails({
   disableCreateAccessCode,
   disableEditAccessCode,
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
+  useComponentTelemetry('ClimateSettingScheduleDetails')
+
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
   )

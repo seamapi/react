@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { SeamError } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { createIsoDate } from 'lib/dates.js'
 import {
   useAccessCode,
@@ -30,6 +32,8 @@ export function EditAccessCodeForm({
   onBack,
   className,
 }: EditAccessCodeFormProps): JSX.Element | null {
+  useComponentTelemetry('EditAccessCodeForm')
+
   const { accessCode } = useAccessCode({
     access_code_id: accessCodeId,
   })

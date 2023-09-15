@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { NestedClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
 import { ClimateSettingScheduleRow } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleRow.js'
@@ -66,6 +68,8 @@ export function ClimateSettingScheduleTable({
   disableCreateAccessCode,
   disableEditAccessCode,
 }: ClimateSettingScheduleTableProps): JSX.Element {
+  useComponentTelemetry('ClimateSettingScheduleTable')
+
   const { climateSettingSchedules, isLoading, isError, error } =
     useClimateSettingSchedules({
       device_id: deviceId,

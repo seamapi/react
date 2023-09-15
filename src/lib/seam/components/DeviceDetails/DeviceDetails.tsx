@@ -1,5 +1,7 @@
 import { isLockDevice, isThermostatDevice } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import {
   type CommonProps,
   withRequiredCommonProps,
@@ -21,6 +23,8 @@ export function DeviceDetails({
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
+  useComponentTelemetry('DeviceDetails')
+
   const { device } = useDevice({
     device_id: deviceId,
   })
