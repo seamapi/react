@@ -4,18 +4,18 @@ import { useState } from 'react'
 import { formatDateAndTime } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ClimateSettingScheduleCard } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleCard.js'
-import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
-  withRequiredCommonProps,
   type CommonProps,
+  withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
+import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { useUpdateClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-update-climate-setting-schedule.js'
-import Switch from 'lib/ui/Switch/Switch.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import Switch from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 
 export interface ClimateSettingScheduleDetailsProps extends CommonProps {
@@ -111,10 +111,10 @@ export function ClimateSettingScheduleDetails({
               <Switch
                 checked={climateSettingSchedule.manual_override_allowed}
                 onChange={(checked) =>
-                  mutate({
+                  { mutate({
                     climate_setting_schedule_id,
                     manual_override_allowed: checked,
-                  })
+                  }); }
                 }
               />
             </DetailRow>
