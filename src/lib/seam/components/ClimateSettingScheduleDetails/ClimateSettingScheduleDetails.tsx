@@ -4,12 +4,14 @@ import { useState } from 'react'
 import { formatDateAndTime } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ClimateSettingScheduleCard } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleCard.js'
-import {
-  type CommonProps,
-  withRequiredCommonProps,
-} from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import {
+  withRequiredCommonProps,
+  type CommonProps,
+} from 'lib/seam/components/common-props.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
+import { useUpdateClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-update-climate-setting-schedule.js'
+import Switch from 'lib/ui/Switch/Switch.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
@@ -37,14 +39,16 @@ export function ClimateSettingScheduleDetails({
     climateSettingScheduleId
   )
 
+  const { mutate, isLoading: isSubmitting } = useUpdateClimateSettingSchedule()
+
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
 
   if (climateSettingSchedule == null) {
     return null
   }
 
-  const isManualOverrideAllowed =
-    climateSettingSchedule.manual_override_allowed ?? false
+  const { climate_setting_schedule_id, manual_override_allowed } =
+    climateSettingSchedule
 
   if (selectedDeviceId != null) {
     return (
@@ -102,8 +106,17 @@ export function ClimateSettingScheduleDetails({
             </DetailRow>
             <DetailRow label={t.allowManualOverride}>
               <span className='seam-climate-setting-details-value'>
-                {isManualOverrideAllowed ? t.on : t.off}
+                {manual_override_allowed ? t.on : t.off}
               </span>
+              <Switch
+                checked={climateSettingSchedule.manual_override_allowed}
+                onChange={(checked) =>
+                  mutate({
+                    climate_setting_schedule_id,
+                    manual_override_allowed: checked,
+                  })
+                }
+              />
             </DetailRow>
           </DetailSection>
           <DetailSection>
