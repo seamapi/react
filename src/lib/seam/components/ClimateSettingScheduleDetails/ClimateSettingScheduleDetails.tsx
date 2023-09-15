@@ -110,12 +110,12 @@ export function ClimateSettingScheduleDetails({
               </span>
               <Switch
                 checked={climateSettingSchedule.manual_override_allowed}
-                onChange={(checked) =>
-                  { mutate({
+                onChange={(checked) => {
+                  mutate({
                     climate_setting_schedule_id,
                     manual_override_allowed: checked,
-                  }); }
-                }
+                  })
+                }}
               />
             </DetailRow>
           </DetailSection>
