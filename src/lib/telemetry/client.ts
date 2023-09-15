@@ -3,11 +3,6 @@ import { v4 as uuidv4 } from 'uuid'
 
 import version from 'lib/version.js'
 
-declare global {
-  // eslint-disable-next-line no-var
-  var seamEntrypoint: string
-}
-
 export interface TelemetryClientOptions {
   endpoint?: string
   debug?: boolean
@@ -85,7 +80,7 @@ export class TelemetryClient {
     if (resolvedPreviousId == null) {
       throw new Error('Cannot resolve previous id')
     }
-    this.#log('alias', resolvedPreviousId, userId)
+    this.#log('alias', userId, resolvedPreviousId)
     this.#push({
       type: 'alias',
       userId,
@@ -117,8 +112,15 @@ export class TelemetryClient {
     return {
       ...(this.#user?.traits == null ? {} : { traits: this.#user.traits }),
       app: {
-        name: globalThis.seamEntrypoint ?? '@seamapi/react',
         version: version ?? undefined,
+        name:
+          // Assume if one of the elements is defined then this is loaded inside a web component.
+          // This method will be inaccurate if the element bundle is loaded alongside
+          // an app using the React components, however this use case is unlikely.
+          // Choose seam-device-details as this component is unlikely to ever be removed.
+          globalThis.customElements.get('seam-device-details') != null
+            ? '@seamapi/react/elements'
+            : '@seamapi/react',
       },
     }
   }

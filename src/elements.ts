@@ -1,13 +1,6 @@
 import { defineCustomElement, type ElementDefinition } from 'lib/element.js'
 import * as components from 'lib/seam/components/elements.js'
 
-declare global {
-  // eslint-disable-next-line no-var
-  var seamEntrypoint: string
-}
-
-globalThis.seamEntrypoint = '@seamapi/react/elements'
-
 const elementDefinitions = components as unknown as Record<
   string,
   Partial<ElementDefinition>
