@@ -25,6 +25,7 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 type Device = UseDevicesData[number]
 
@@ -71,6 +72,8 @@ export function DeviceTable({
   onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element {
+  useComponentTelemetry('DeviceTable')
+
   const { devices, isLoading, isError, error } = useDevices({
     device_ids: deviceIds,
     connected_account_ids: connectedAccountIds,

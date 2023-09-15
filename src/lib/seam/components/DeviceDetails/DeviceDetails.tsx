@@ -7,6 +7,7 @@ import {
 import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export interface DeviceDetailsProps extends CommonProps {
   deviceId: string
@@ -21,6 +22,8 @@ export function DeviceDetails({
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
+  useComponentTelemetry('DeviceDetails')
+
   const { device } = useDevice({
     device_id: deviceId,
   })

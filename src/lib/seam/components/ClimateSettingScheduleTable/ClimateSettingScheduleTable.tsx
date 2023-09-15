@@ -20,6 +20,7 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export const NestedClimateSettingScheduleTable = withRequiredCommonProps(
   ClimateSettingScheduleTable
@@ -66,6 +67,8 @@ export function ClimateSettingScheduleTable({
   disableCreateAccessCode,
   disableEditAccessCode,
 }: ClimateSettingScheduleTableProps): JSX.Element {
+  useComponentTelemetry('ClimateSettingScheduleTable')
+
   const { climateSettingSchedules, isLoading, isError, error } =
     useClimateSettingSchedules({
       device_id: deviceId,

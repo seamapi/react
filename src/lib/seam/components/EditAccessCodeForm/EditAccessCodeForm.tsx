@@ -17,6 +17,7 @@ import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export interface EditAccessCodeFormProps extends CommonProps {
   accessCodeId: string
@@ -30,6 +31,8 @@ export function EditAccessCodeForm({
   onBack,
   className,
 }: EditAccessCodeFormProps): JSX.Element | null {
+  useComponentTelemetry('EditAccessCodeForm')
+
   const { accessCode } = useAccessCode({
     access_code_id: accessCodeId,
   })

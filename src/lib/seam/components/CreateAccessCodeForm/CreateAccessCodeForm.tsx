@@ -13,6 +13,7 @@ import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export interface CreateAccessCodeFormProps extends CommonProps {
   deviceId: string
@@ -26,6 +27,8 @@ export function CreateAccessCodeForm({
   onBack,
   deviceId,
 }: CreateAccessCodeFormProps): JSX.Element | null {
+  useComponentTelemetry('CreateAccessCodeForm')
+
   const { device } = useDevice({
     device_id: deviceId,
   })

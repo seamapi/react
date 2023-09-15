@@ -23,6 +23,7 @@ import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
@@ -42,6 +43,7 @@ export function AccessCodeDetails({
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
+  useComponentTelemetry('AccessCodeDetails')
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isLoading: isDeleting } = useDeleteAccessCode()

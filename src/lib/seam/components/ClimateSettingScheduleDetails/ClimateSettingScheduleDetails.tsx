@@ -15,6 +15,7 @@ import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export interface ClimateSettingScheduleDetailsProps extends CommonProps {
   climateSettingScheduleId: string
@@ -33,6 +34,8 @@ export function ClimateSettingScheduleDetails({
   disableCreateAccessCode,
   disableEditAccessCode,
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
+  useComponentTelemetry('ClimateSettingScheduleDetails')
+
   const { climateSettingSchedule } = useClimateSettingSchedule(
     climateSettingScheduleId
   )

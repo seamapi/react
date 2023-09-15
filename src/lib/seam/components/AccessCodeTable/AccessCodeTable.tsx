@@ -28,6 +28,7 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
+import { useComponentTelemetry } from 'lib/telemetry/hooks.js'
 
 export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
 
@@ -83,6 +84,8 @@ export function AccessCodeTable({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
 }: AccessCodeTableProps): JSX.Element {
+  useComponentTelemetry('AccessCodeTable')
+
   const { accessCodes } = useAccessCodes({
     device_id: deviceId,
   })
