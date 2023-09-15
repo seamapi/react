@@ -5,9 +5,10 @@ import react from '@vitejs/plugin-react'
 import { defineConfig, type UserConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-export default defineConfig(async () => {
-  const { version } = await readPackageJson()
-  if (version == null) {
+export default defineConfig(async ({ mode }) => {
+  const isBuild = mode === 'build'
+  const { version = null } = isBuild ? await readPackageJson() : {}
+  if (isBuild && version == null) {
     throw new Error('Missing version in package.json')
   }
   const config: UserConfig = {
@@ -16,10 +17,12 @@ export default defineConfig(async () => {
       // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
       react(),
     ],
-    define: {
-      'process.env.NODE_ENV': "'production'",
-      'const seamapiReactVersion = null': `const seamapiReactVersion = '${version}'`,
-    },
+    define: isBuild
+      ? {
+          'process.env.NODE_ENV': "'production'",
+          'const seamapiReactVersion = null': `const seamapiReactVersion = '${version}'`,
+        }
+      : {},
     build: {
       outDir: fileURLToPath(new URL('./dist', import.meta.url)),
       sourcemap: true,
@@ -28,6 +31,20 @@ export default defineConfig(async () => {
         entry: fileURLToPath(new URL('./src/elements.ts', import.meta.url)),
         fileName: 'elements',
         formats: ['es'],
+      },
+    },
+    test: {
+      setupFiles: ['./test/fixtures/api.ts'],
+      environment: 'jsdom',
+      deps: {
+        interopDefault: false,
+        web: {
+          transformCss: false,
+          transformAssets: false,
+        },
+      },
+      coverage: {
+        provider: 'v8',
       },
     },
   }

@@ -5,13 +5,13 @@ import type { PropsWithChildren } from 'react'
 
 declare global {
   // eslint-disable-next-line no-var
-  var JEST_SEAM_ENDPOINT: string
+  var TEST_SEAM_ENDPOINT: string
   // eslint-disable-next-line no-var
-  var JEST_SEAM_PUBLISHABLE_KEY_1: string
+  var TEST_SEAM_PUBLISHABLE_KEY_1: string
   // eslint-disable-next-line no-var
-  var JEST_SEAM_PUBLISHABLE_KEY_2: string
+  var TEST_SEAM_PUBLISHABLE_KEY_2: string
   // eslint-disable-next-line no-var
-  var JEST_SEAM_CLIENT_SESSION_TOKEN_2: string
+  var TEST_SEAM_CLIENT_SESSION_TOKEN_2: string
 }
 
 type Render = typeof render
@@ -30,9 +30,6 @@ const createQueryClient = (): QueryClient =>
     defaultOptions: {
       queries: {
         retry: false,
-        // UPSTREAM: Prevent "Jest did not exit one second after the test run completed" error message.
-        // https://tanstack.com/query/v4/docs/react/guides/testing#set-cachetime-to-infinity-with-jest
-        cacheTime: Infinity,
       },
     },
   })
@@ -42,8 +39,8 @@ const createProviders = ({ queryClient }: { queryClient: QueryClient }) => {
     return (
       <SeamProvider
         queryClient={queryClient}
-        endpoint={globalThis.JEST_SEAM_ENDPOINT}
-        publishableKey={globalThis.JEST_SEAM_PUBLISHABLE_KEY_1}
+        endpoint={globalThis.TEST_SEAM_ENDPOINT}
+        publishableKey={globalThis.TEST_SEAM_PUBLISHABLE_KEY_1}
         userIdentifierKey='some_user'
         disableCssInjection
         disableFontInjection

@@ -1,9 +1,11 @@
+import { expect, it } from 'vitest'
+
 import {
   type ControlBounds,
   getCoolBounds,
   getHeatBounds,
   getTemperatureBounds,
-} from 'lib/temperatureBounds.js'
+} from 'lib/temperature-bounds.js'
 
 const rootControlBounds: ControlBounds = {
   mode: 'heat_cool',
