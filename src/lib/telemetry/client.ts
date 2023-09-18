@@ -66,6 +66,11 @@ export class TelemetryClient {
     return this.#debug
   }
 
+  page(name: string, properties: Properties = {}): void {
+    this.#log('page', name, properties)
+    this.#push({ type: 'page', name, properties })
+  }
+
   screen(name: string, properties: Properties = {}): void {
     this.#log('screen', name, properties)
     this.#push({ type: 'screen', name, properties })
@@ -76,18 +81,12 @@ export class TelemetryClient {
     this.#push({ type: 'track', event, properties })
   }
 
-  alias(userId: string, previousId?: string): void {
-    const resolvedPreviousId =
-      previousId ?? this.#user?.userId ?? this.#anonymousId
-    if (resolvedPreviousId == null) {
-      throw new Error('Cannot resolve previous id')
-    }
-    this.#log('alias', userId, resolvedPreviousId)
+  group(groupId: string, traits: Traits = {}): void {
+    this.#log('group', groupId, traits)
     this.#push({
-      type: 'alias',
-      userId,
-      previousId: resolvedPreviousId,
-      anonymousId: undefined,
+      type: 'group',
+      groupId,
+      traits,
     })
   }
 
@@ -108,6 +107,21 @@ export class TelemetryClient {
       type: 'identify',
       userId,
       traits: this.#user.traits,
+    })
+  }
+
+  alias(userId: string, previousId?: string): void {
+    const resolvedPreviousId =
+      previousId ?? this.#user?.userId ?? this.#anonymousId
+    if (resolvedPreviousId == null) {
+      throw new Error('Cannot resolve previous id')
+    }
+    this.#log('alias', userId, resolvedPreviousId)
+    this.#push({
+      type: 'alias',
+      userId,
+      previousId: resolvedPreviousId,
+      anonymousId: undefined,
     })
   }
 
@@ -165,6 +179,13 @@ export class TelemetryClient {
 }
 
 // https://segment.com/docs/connections/spec/screen/
+interface PageSpec {
+  type: 'page'
+  name: string
+  properties: Properties
+}
+
+// https://segment.com/docs/connections/spec/screen/
 interface ScreenSpec {
   type: 'screen'
   name: string
@@ -176,6 +197,13 @@ interface TrackSpec {
   type: 'track'
   event: string
   properties: Properties
+}
+
+// https://segment.com/docs/connections/spec/group/
+interface GroupSpec {
+  type: 'group'
+  groupId: string
+  traits: Traits
 }
 
 // https://segment.com/docs/connections/spec/identify/
@@ -218,7 +246,13 @@ interface User {
 
 type Payload = Omit<Message, 'userId'> & CommonSpec
 
-type Message = ScreenSpec | TrackSpec | IdentifySpec | AliasSpec
+type Message =
+  | PageSpec
+  | ScreenSpec
+  | TrackSpec
+  | GroupSpec
+  | IdentifySpec
+  | AliasSpec
 
 type Traits = TelemetryRecord
 
