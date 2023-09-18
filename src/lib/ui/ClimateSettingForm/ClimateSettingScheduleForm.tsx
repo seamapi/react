@@ -3,8 +3,10 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
+import { getBrowserTimezone } from 'lib/dates.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
+import { ClimateSettingScheduleFormTimezonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimezonePicker.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
@@ -20,6 +22,14 @@ export interface ClimateSettingScheduleFormProps {
   onBack?: () => void
   isSubmitting: boolean
   onSubmit: (data: ClimateSettingScheduleFormSubmitData) => void
+}
+
+export interface ClimateSettingScheduleFormFields {
+  name: string
+  deviceId: string
+  startDate: string
+  endDate: string
+  timezone: string
 }
 
 export function ClimateSettingScheduleForm({
@@ -38,9 +48,18 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control, watch } = useForm()
+  const { control, watch } = useForm({
+    defaultValues: {
+      deviceId: '',
+      name: '',
+      startDate: '',
+      endDate: '',
+      timezone: getBrowserTimezone(),
+    },
+  })
 
-  const deviceId = watch('deviceId', null)
+  const deviceId = watch('deviceId')
+  const timezone = watch('timezone')
 
   const [page, setPage] = useState<
     | 'device_select'
@@ -75,6 +94,21 @@ function Content({
         onCancel={onBack}
         onNext={() => {
           setPage('climate_setting')
+        }}
+        onChangeTimezone={() => {
+          setPage('timezone_select')
+        }}
+        timezone={timezone}
+      />
+    )
+  }
+
+  if (page === 'timezone_select') {
+    return (
+      <ClimateSettingScheduleFormTimezonePicker
+        control={control}
+        onClose={() => {
+          setPage('name_and_schedule')
         }}
       />
     )
