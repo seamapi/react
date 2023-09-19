@@ -313,11 +313,19 @@ $row-padding: 8px;
 
       .seam-model-name {
         font-size: 14px;
+
+        .seam-truncated-text {
+          width: 270px;
+        }
       }
 
       .seam-model-id {
         color: colors.$text-gray-2;
         font-size: 12px;
+
+        .seam-truncated-text {
+          width: 220px;
+        }
 
         .seam-dot-divider {
           margin: 0 4px;
@@ -348,7 +356,12 @@ $row-padding: 8px;
         .seam-model-id {
           flex: 0 0 40%;
           font-size: 14px;
-          text-align: right;
+          display: flex;
+          justify-content: flex-end;
+
+          .seam-truncated-text {
+            text-align: right;
+          }
         }
 
       }

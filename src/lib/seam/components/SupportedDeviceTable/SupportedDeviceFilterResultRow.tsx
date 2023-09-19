@@ -37,12 +37,14 @@ export function ModelColumn({
           alt={deviceModel.brand}
           className='seam-brand-image'
         />{' '}
-        {deviceModel.model_name}
+        <div className='seam-truncated-text'>{deviceModel.model_name}</div>
       </div>
       <div className='seam-model-id'>
-        {deviceModel.manufacturer_model_id}
-        <DotDivider />
-        {connectionTypeNames[deviceModel.connection_type]}
+        <div className='seam-truncated-text'>
+          {deviceModel.manufacturer_model_id}
+          <DotDivider />
+          {connectionTypeNames[deviceModel.connection_type]}
+        </div>
       </div>
     </div>
   )
