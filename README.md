@@ -185,6 +185,56 @@ This makes them compatible with native CSS and most CSS-in-JS systems, e.g., [Em
 [Emotion]: https://emotion.sh/
 [styled-components]: https://styled-components.com/
 
+#### Using inside a modal dialog
+
+A Seam Component must be a child of a DOM element with the `seam-components` class name
+for the CSS styles to work properly.
+Normally, all Seam Components are rendered as child of the `<SeamProvider />`
+which ensures this condition.
+
+React implementations of the modal dialog pattern often allow specifying
+the contents of the modal as a child element, yet render the contents of the modal
+in the DOM under a different parent element outside of the current branch of the DOM tree.
+Thus, even when a Seam Component is logically rendered as a child of the `<SeamProvider />`
+in the React tree, it will be rendered outside of that branch of tree in the actual DOM.
+
+> This concern does not apply when using the Seam Components as web components.
+> Each custom element already wraps the underlying component inside a container element with the correct class name.
+> The lack of a default container element for each React component
+> is an intentional decision to align with the standard React provider design pattern.
+
+To handle this special case, use the `seamComponentsClassName` on the container that will
+wrap the dialog content, e.g.,
+
+
+```ts
+import { useState } from "react"
+import { Button, Dialog } from "@mui/material"
+import { seamComponentsClassName, DeviceTable } from "@seam/react"
+
+function DeviceTableInsideModal() {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
+  return (
+    <>
+      <Button onClick={handleOpen}>Open</Button>
+      <Dialog
+        className={seamComponentsClassName}
+        open={open}
+        onClose={handleClose}
+      >
+        <DeviceTable />
+      </Dialog>
+    </>
+  )
+}
+```
+
 ### Fonts
 
 > Fonts are automatically included unless using `<SeamProvider disableFontInjection />`.
