@@ -206,7 +206,6 @@ in the React tree, it will be rendered outside of that branch of tree in the act
 To handle this special case, use the `seamComponentsClassName` on the container that will
 wrap the dialog content, e.g.,
 
-
 ```ts
 import { useState } from "react"
 import { Button, Dialog } from "@mui/material"
