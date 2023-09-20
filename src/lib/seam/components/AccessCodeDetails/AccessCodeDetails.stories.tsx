@@ -2,6 +2,7 @@ import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import { seamComponentsClassName } from 'lib/seam/SeamProvider.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
@@ -38,13 +39,17 @@ export const InsideModal: Story = {
     return (
       <>
         <Button onClick={toggleOpen}>Open Modal</Button>
-        <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
-          <div className='seam-components'>
-            <AccessCodeDetails
-              {...props}
-              accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
-            />
-          </div>
+        <Dialog
+          className={seamComponentsClassName}
+          open={open}
+          fullWidth
+          maxWidth='sm'
+          onClose={toggleOpen}
+        >
+          <AccessCodeDetails
+            {...props}
+            accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+          />
         </Dialog>
       </>
     )
