@@ -68,6 +68,8 @@ export type SeamProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 const defaultQueryClient = new QueryClient()
 
+export const seamComponentsClassName = 'seam-components'
+
 export function SeamProvider({
   children,
   disableTelemetry = false,
@@ -108,7 +110,7 @@ export function SeamProvider({
   const endpoint = 'endpoint' in props ? props.endpoint : undefined
 
   return (
-    <div className='seam-components'>
+    <div className={seamComponentsClassName}>
       <TelemetryProvider
         client={telemetryClient ?? globalThis.seamTelemetryClient}
         disabled={disableTelemetry}

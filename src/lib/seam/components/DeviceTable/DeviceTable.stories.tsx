@@ -5,6 +5,7 @@ import {
   DeviceTable,
   type DeviceTableProps,
 } from 'lib/seam/components/DeviceTable/DeviceTable.js'
+import { seamComponentsClassName } from 'lib/seam/SeamProvider.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const meta: Meta<typeof DeviceTable> = {
@@ -39,10 +40,14 @@ function InsideModalComponent({
   return (
     <>
       <Button onClick={toggleOpen}>Open Modal</Button>
-      <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
-        <div className='seam-components'>
-          <DeviceTable {...props} />
-        </div>
+      <Dialog
+        className={seamComponentsClassName}
+        open={open}
+        fullWidth
+        maxWidth='sm'
+        onClose={toggleOpen}
+      >
+        <DeviceTable {...props} />
         <DialogActions
           sx={{
             justifyContent: 'center',
