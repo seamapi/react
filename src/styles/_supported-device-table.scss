@@ -313,11 +313,19 @@ $row-padding: 8px;
 
       .seam-model-name {
         font-size: 14px;
+
+        .seam-truncated-text {
+          width: 270px;
+        }
       }
 
       .seam-model-id {
         color: colors.$text-gray-2;
         font-size: 12px;
+
+        .seam-truncated-text {
+          width: 220px;
+        }
 
         .seam-dot-divider {
           margin: 0 4px;
@@ -335,22 +343,31 @@ $row-padding: 8px;
         }
       }
 
-      @media only screen and (width >= 700px) {
+      @media only screen and (width >= 768px) {
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
 
         .seam-model-name {
-          flex: 0 0 75%;
+          flex: 1;
+          font-size: 14px;
         }
 
         .seam-model-id {
-          font-size: 16px;
+          flex: 0 0 40%;
+          font-size: 14px;
+          display: flex;
+          justify-content: flex-end;
+
+          .seam-truncated-text {
+            text-align: right;
+          }
         }
       }
     }
 
     .seam-status-col {
+      width: 70px;
       text-align: center;
       align-items: center;
     }
