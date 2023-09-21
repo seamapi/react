@@ -133,10 +133,10 @@ export class TelemetryClient {
         Intl?.DateTimeFormat()?.resolvedOptions()?.timeZone ?? undefined,
       userAgent: globalThis.navigator?.userAgent ?? undefined,
       screen: {
-        width: globalThis?.screen?.width ?? undefined,
-        height: globalThis?.screen?.height ?? undefined,
+        width: globalThis.screen?.width ?? undefined,
+        height: globalThis.screen?.height ?? undefined,
         density:
-          globalThis?.devicePixelRatio != null
+          globalThis.devicePixelRatio != null
             ? Math.round(globalThis.devicePixelRatio * 100) / 100
             : undefined,
       },
@@ -147,7 +147,7 @@ export class TelemetryClient {
           // This method will be inaccurate if the element bundle is loaded alongside
           // an app using the React components, however this use case is unlikely.
           // Choose seam-device-details as this component is unlikely to ever be removed.
-          globalThis.customElements.get('seam-device-details') != null
+          globalThis.customElements?.get('seam-device-details') != null
             ? '@seamapi/react/elements'
             : '@seamapi/react',
       },
