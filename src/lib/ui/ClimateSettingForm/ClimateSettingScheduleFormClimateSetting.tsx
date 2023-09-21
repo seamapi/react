@@ -1,0 +1,102 @@
+import { Controller, type Control } from 'react-hook-form'
+
+import { useDevice } from 'lib/seam/devices/use-device.js'
+import { Button } from 'lib/ui/Button.js'
+import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
+import { FormField } from 'lib/ui/FormField.js'
+import { InputLabel } from 'lib/ui/InputLabel.js'
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
+import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
+import type { HvacModeSetting } from 'seamapi'
+
+interface ClimateSettingScheduleFormClimateSettingProps {
+  title: string
+  control: Control<ClimateSettingScheduleFormFields>
+  deviceId: string
+  onBack: () => void
+  onCancel: (() => void) | undefined
+  onSave: () => void
+}
+
+export function ClimateSettingScheduleFormClimateSetting({
+  title,
+  control,
+  deviceId,
+  onBack,
+  onCancel,
+  onSave,
+}: ClimateSettingScheduleFormClimateSettingProps): JSX.Element {
+  const { device } = useDevice({
+    device_id: deviceId,
+  })
+
+  return (
+    <>
+      <ContentHeader
+        title={title}
+        onBack={onBack}
+        subheading={device?.properties.name}
+      />
+      <div className='seam-main'>
+        <div className='seam-climate-setting-schedule-form-climate-setting'>
+          <div className='seam-content'>
+            <div>
+              <InputLabel>{t.climateSetting}</InputLabel>
+              <span
+                className='seam-label'
+                style={{
+                  fontSize: '14px',
+                }}
+              >
+                {t.climateSettingSubHeading}
+              </span>
+            </div>
+            <FormField>
+              <Controller
+                name='hvacModeSetting'
+                control={control}
+                defaultValue={'heat' as HvacModeSetting}
+                render={({
+                  field: { value, onChange },
+                  fieldState: { invalid, error },
+                }) => {
+                  return <ClimateModeMenu mode={value} onChange={onChange} />
+                }}
+              />
+            </FormField>
+
+            <FormField className='seam-climate-setting-slider-container'>
+              <TemperatureControlGroup
+                coolValue={80}
+                delta={5}
+                heatValue={75}
+                maxCool={90}
+                maxHeat={100}
+                minCool={50}
+                minHeat={70}
+                mode='heat_cool'
+                onCoolValueChange={function noRefCheck() {}}
+                onHeatValueChange={function noRefCheck() {}}
+              />
+            </FormField>
+          </div>
+        </div>
+        <div className='seam-actions'>
+          <Button onClick={onCancel}>{t.cancel}</Button>
+          <Button variant='solid' onClick={onSave}>
+            {t.save}
+          </Button>
+        </div>
+      </div>
+    </>
+  )
+}
+
+const t = {
+  climateSetting: 'Climate setting',
+  climateSettingSubHeading: 'Choose mode and adjust the climate',
+  cancel: 'Cancel',
+  save: 'Save',
+  next: 'Next',
+}

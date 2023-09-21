@@ -1,9 +1,10 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type { ClimateSetting } from 'seamapi'
+import type { ClimateSetting, HvacModeSetting } from 'seamapi'
 
 import { getBrowserTimezone } from 'lib/dates.js'
+import { ClimateSettingScheduleFormClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
 import { ClimateSettingScheduleFormTimezonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimezonePicker.js'
@@ -30,6 +31,7 @@ export interface ClimateSettingScheduleFormFields {
   startDate: string
   endDate: string
   timezone: string
+  hvacModeSetting: HvacModeSetting
 }
 
 export function ClimateSettingScheduleForm({
@@ -67,7 +69,7 @@ function Content({
     | 'name_and_schedule'
     | 'timezone_select'
     | 'climate_setting'
-  >('device_select')
+  >('climate_setting')
 
   if (page === 'device_select') {
     return (
@@ -109,6 +111,23 @@ function Content({
         control={control}
         onClose={() => {
           setPage('name_and_schedule')
+        }}
+      />
+    )
+  }
+
+  if (page === 'climate_setting') {
+    return (
+      <ClimateSettingScheduleFormClimateSetting
+        title={t.addNewClimateSettingSchedule}
+        control={control}
+        deviceId={deviceId}
+        onBack={() => {
+          setPage('name_and_schedule')
+        }}
+        onCancel={onBack}
+        onSave={() => {
+          console.log('saving')
         }}
       />
     )
