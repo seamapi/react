@@ -99,8 +99,8 @@ function Content({
     setValue,
   } = useForm({
     defaultValues: {
-      name: '',
-      code: '',
+      name: accessCode?.name ?? '',
+      code: accessCode?.code ?? '',
     },
   })
   const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
