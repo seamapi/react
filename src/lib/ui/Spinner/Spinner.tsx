@@ -5,5 +5,5 @@ interface SpinnerProps {
 }
 
 export function Spinner({ size }: SpinnerProps) {
-  return <div className={classNames('seam-spinner', size)}></div>
+  return <div className={classNames('seam-spinner', size)} />
 }

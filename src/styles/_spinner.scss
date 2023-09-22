@@ -1,33 +1,33 @@
 @use './colors';
 
 @keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
+  0% {
+    transform: rotate(0deg);
+  }
 
-	100% {
-		transform: rotate(360deg);
-	}
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @mixin all {
-	$default-size: 16px;
-	$default-border-width: 2px;
+  $default-size: 16px;
+  $default-border-width: 2px;
 
-	.seam-spinner {
-		width: $default-size;
-		height: $default-size;
-		border: $default-border-width solid colors.$primary;
-		border-top: $default-border-width solid colors.$white;
-		display: inline-block;
-		border-radius: 50%;
-		animation: spin 0.5s linear infinite;
+  .seam-spinner {
+    width: $default-size;
+    height: $default-size;
+    border: $default-border-width solid colors.$primary;
+    border-top: $default-border-width solid colors.$white;
+    display: inline-block;
+    border-radius: 50%;
+    animation: spin 0.5s linear infinite;
 
-		&.small {
-			width: $default-size;
-			height: $default-size;
-			border-width: $default-border-width;
-		}
+    &.small {
+      width: $default-size;
+      height: $default-size;
+      border-width: $default-border-width;
+    }
 
 		&.medium {
 			width: 24px;
