@@ -29,16 +29,16 @@
       border-width: $default-border-width;
     }
 
-		&.size-medium {
-			width: 24px;
-			height: 24px;
-			border-width: 3px;
-		}
+    &.size-medium {
+      width: 24px;
+      height: 24px;
+      border-width: 3px;
+    }
 
-		&.size-large {
-			width: 32px;
-			height: 32px;
-			border-width: 3px;
-		}
-	}
+    &.size-large {
+      width: 32px;
+      height: 32px;
+      border-width: 3px;
+    }
+  }
 }
