@@ -178,5 +178,5 @@ export function useResponseErrors(): {
 }
 
 const t = {
-  genericResponseError: 'The code could not be saved. Please try again',
+  genericResponseError: 'The code could not be saved. Please try again.',
 }
