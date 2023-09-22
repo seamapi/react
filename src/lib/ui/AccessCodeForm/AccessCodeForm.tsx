@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { type AccessCode, isLockDevice } from 'seamapi'
+import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 
 import {
   get24HoursLater,
@@ -171,6 +171,15 @@ function Content({
     )
   }
 
+  const hasCodeError = errors.code != null || codeError != null
+
+  const codeLengthRequirement = getCodeLengthRequirement(device)
+
+  const codeLengthRequirementMessage =
+    codeLengthRequirement != null
+      ? t.codeLengthRequirement(codeLengthRequirement)
+      : null
+
   return (
     <>
       <ContentHeader
@@ -207,7 +216,7 @@ function Content({
             <TextField
               size='large'
               clearable
-              hasError={errors.code != null || codeError != null}
+              hasError={hasCodeError}
               helperText={codeError ?? errors.code?.message}
               inputProps={{
                 ...register('code', {
@@ -216,7 +225,21 @@ function Content({
                 }),
               }}
             />
-            <div className='seam-bottom'>
+            <div
+              className={classNames('seam-bottom', {
+                'has-hints': codeLengthRequirementMessage != null,
+              })}
+            >
+              {codeLengthRequirementMessage != null && (
+                <ul
+                  className={classNames('seam-requirements', {
+                    'seam-error': hasCodeError,
+                  })}
+                >
+                  <li>{codeLengthRequirementMessage}</li>
+                  <li>{t.codeNumbersOnlyRequirement}</li>
+                </ul>
+              )}
               <Button
                 size='small'
                 onMouseDown={(e) => {
@@ -296,6 +319,38 @@ function getAccessCodeTimezone(
   return timezone
 }
 
+function getCodeLengthRequirement(device: CommonDevice): string | null {
+  if (!isLockDevice(device)) {
+    return null
+  }
+
+  const codeLengths = device.properties.supported_code_lengths
+  if (codeLengths == null) {
+    return null
+  }
+
+  if (codeLengths.length === 1) {
+    return `${codeLengths[0]}`
+  }
+
+  if (isSequential(codeLengths.join(''))) {
+    return `${codeLengths[0]}-${codeLengths[codeLengths.length - 1]}`
+  }
+
+  return codeLengths.join(', ')
+}
+
+function isSequential(numbers: string): boolean {
+  // 0 - 99 in a string
+  // 0123456789101112...99
+  const sequentialNumbers = Array.from(
+    { length: 100 },
+    (_, index) => index
+  ).join('')
+
+  return sequentialNumbers.includes(numbers)
+}
+
 function getAccessCodeDate(
   date: 'starts_at' | 'ends_at',
   accessCode?: NonNullable<UseAccessCodeData>
@@ -322,6 +377,8 @@ const t = {
   codeRequiredError: 'Code is required',
   codeLengthError: (lengths: string) =>
     `Code length must be one of the following: ${lengths}`,
+  codeLengthRequirement: (lengths: string) => `${lengths} digit code`,
+  codeNumbersOnlyRequirement: 'Numbers only',
   cancel: 'Cancel',
   save: 'Save',
   timingInputLabel: 'Timing',
