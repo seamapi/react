@@ -20,6 +20,7 @@
 @use './thermostat';
 @use './tooltip';
 @use './seam-table';
+@use './spinner';
 @use './switch';
 @use './climate-setting-schedule-form';
 @use './climate-setting-schedule-details';
@@ -42,6 +43,7 @@
   @include checkbox.all;
   @include radio-field.all;
   @include tooltip.all;
+  @include spinner.all;
   @include switch.all;
   @include timezone-picker.all;
 
