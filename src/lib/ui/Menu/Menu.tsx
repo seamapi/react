@@ -73,11 +73,10 @@ export function Menu({
     const { right: containerRight, bottom: containerBottom } =
       documentEl.getBoundingClientRect()
 
-    const {
-      top: anchorTop,
-      left: anchorLeft,
-      height: anchorHeight,
-    } = anchorEl.getBoundingClientRect()
+    const { height: anchorHeight } = anchorEl.getBoundingClientRect()
+
+    const anchorTop = anchorEl.offsetTop
+    const anchorLeft = anchorEl.offsetLeft
 
     const { width: contentWidth, height: contentHeight } =
       contentEl.getBoundingClientRect()
