@@ -2,6 +2,7 @@ import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { ClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
+import { seamComponentsClassName } from 'lib/seam/SeamProvider.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 const meta: Meta<typeof ClimateSettingScheduleDetails> = {
@@ -37,15 +38,19 @@ export const InsideModal: Story = {
     return (
       <>
         <Button onClick={toggleOpen}>Open Modal</Button>
-        <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
-          <div className='seam-components'>
-            <ClimateSettingScheduleDetails
-              {...props}
-              climateSettingScheduleId={
-                props.climateSettingScheduleId ?? 'climate_setting_schedule1'
-              }
-            />
-          </div>
+        <Dialog
+          className={seamComponentsClassName}
+          open={open}
+          fullWidth
+          maxWidth='sm'
+          onClose={toggleOpen}
+        >
+          <ClimateSettingScheduleDetails
+            {...props}
+            climateSettingScheduleId={
+              props.climateSettingScheduleId ?? 'climate_setting_schedule1'
+            }
+          />
         </Dialog>
       </>
     )
