@@ -11,6 +11,8 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 
+import { seamComponentsClassName } from 'lib/seam/SeamProvider.js'
+
 export interface MenuProps extends PropsWithChildren {
   verticalOffset?: number
   horizontalOffset?: number
@@ -47,7 +49,9 @@ export function Menu({
   const [left, setLeft] = useState(0)
 
   useEffect(() => {
-    const containers = globalThis.document?.querySelectorAll('.seam-components')
+    const containers = globalThis.document?.querySelectorAll(
+      seamComponentsClassName
+    )
     if (containers == null) return
     const el = containers[containers.length - 1]
     if (el != null) {
@@ -69,11 +73,10 @@ export function Menu({
     const { right: containerRight, bottom: containerBottom } =
       documentEl.getBoundingClientRect()
 
-    const {
-      top: anchorTop,
-      left: anchorLeft,
-      height: anchorHeight,
-    } = anchorEl.getBoundingClientRect()
+    const { height: anchorHeight } = anchorEl.getBoundingClientRect()
+
+    const anchorTop = anchorEl.offsetTop
+    const anchorLeft = anchorEl.offsetLeft
 
     const { width: contentWidth, height: contentHeight } =
       contentEl.getBoundingClientRect()
