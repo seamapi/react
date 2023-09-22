@@ -23,19 +23,19 @@
     border-radius: 50%;
     animation: spin 0.5s linear infinite;
 
-    &.small {
+    &.size-small {
       width: $default-size;
       height: $default-size;
       border-width: $default-border-width;
     }
 
-		&.medium {
+		&.size-medium {
 			width: 24px;
 			height: 24px;
 			border-width: 3px;
 		}
 
-		&.large {
+		&.size-large {
 			width: 32px;
 			height: 32px;
 			border-width: 3px;
