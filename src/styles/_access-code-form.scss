@@ -68,6 +68,13 @@
       }
     }
 
+    .seam-unknown-error {
+      text-align: center;
+      margin-bottom: 16px;
+      line-height: 134%;
+      color: colors.$status-red;
+    }
+
     .seam-actions {
       display: flex;
       gap: 8px;

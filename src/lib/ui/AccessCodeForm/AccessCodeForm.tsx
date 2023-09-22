@@ -32,12 +32,15 @@ export interface AccessCodeFormSubmitData {
   timezone: string
 }
 
+export type ResponseErrors = Record<string, string | undefined>
+
 export interface AccessCodeFormProps {
   accessCode?: NonNullable<UseAccessCodeData>
   device: NonNullable<UseDeviceData>
   isSubmitting: boolean
   onSubmit: (data: AccessCodeFormSubmitData) => void
   codeError: string | null
+  responseErrors: ResponseErrors | null
   onBack: (() => void) | undefined
   className: string | undefined
 }
@@ -60,6 +63,7 @@ function Content({
   onSubmit,
   isSubmitting,
   codeError,
+  responseErrors,
 }: Omit<AccessCodeFormProps, 'className'>): JSX.Element {
   const [name, setName] = useState(accessCode?.name ?? '')
   const [code, setCode] = useState(accessCode?.code ?? '')
@@ -219,6 +223,11 @@ function Content({
             )}
           </>
         </FormField>
+        {responseErrors?.['unknown'] != null && (
+          <div className='seam-unknown-error'>
+            {responseErrors?.['unknown']}
+          </div>
+        )}
         <div className='seam-actions'>
           <Button onClick={onBack}>{t.cancel}</Button>
           <Button variant='solid' disabled={!isFormValid} onMouseDown={submit}>

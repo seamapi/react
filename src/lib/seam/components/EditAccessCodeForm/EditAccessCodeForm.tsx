@@ -13,11 +13,13 @@ import {
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
+import { useResponseErrors } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { getValidationError } from 'lib/seam/error-handlers.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
+  type ResponseErrors,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
 
 export interface EditAccessCodeFormProps extends CommonProps {
@@ -58,10 +60,8 @@ function Content({
     device_id: accessCode.device_id,
   })
 
-  const { submit, isSubmitting, codeError } = useSubmitEditAccessCode(
-    accessCode,
-    onBack
-  )
+  const { submit, isSubmitting, codeError, responseErrors } =
+    useSubmitEditAccessCode(accessCode, onBack)
 
   if (device == null) {
     return null
@@ -76,6 +76,7 @@ function Content({
       onSubmit={submit}
       isSubmitting={isSubmitting}
       codeError={codeError}
+      responseErrors={responseErrors}
     />
   )
 }
@@ -87,11 +88,15 @@ function useSubmitEditAccessCode(
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
   codeError: string | null
+  responseErrors: ResponseErrors | null
 } {
   const { mutate, isLoading: isSubmitting } = useUpdateAccessCode()
   const [codeError, setCodeError] = useState<string | null>(null)
+  const { responseErrors, handleResponseError, resetResponseErrors } =
+    useResponseErrors()
 
   const handleError = (error: SeamError): void => {
+    handleResponseError(error)
     const codeError = getValidationError({ error, property: 'code' })
     if (codeError != null) {
       setCodeError(codeError)
@@ -100,6 +105,7 @@ function useSubmitEditAccessCode(
 
   const submit = (data: AccessCodeFormSubmitData): void => {
     setCodeError(null)
+    resetResponseErrors()
 
     const { name, code, type, device, startDate, endDate, timezone } = data
     if (name === '') {
@@ -144,5 +150,5 @@ function useSubmitEditAccessCode(
     )
   }
 
-  return { submit, isSubmitting, codeError }
+  return { submit, isSubmitting, codeError, responseErrors }
 }
