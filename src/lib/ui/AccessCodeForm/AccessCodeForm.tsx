@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import type { AccessCode } from 'seamapi'
+import { useForm } from 'react-hook-form'
+import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 
 import {
   get24HoursLater,
@@ -65,8 +66,6 @@ function Content({
   codeError,
   responseErrors,
 }: Omit<AccessCodeFormProps, 'className'>): JSX.Element {
-  const [name, setName] = useState(accessCode?.name ?? '')
-  const [code, setCode] = useState(accessCode?.code ?? '')
   const [type, setType] = useState<AccessCode['type']>(
     accessCode?.type ?? 'ongoing'
   )
@@ -80,19 +79,15 @@ function Content({
   const [endDate, setEndDate] = useState<string>(
     getAccessCodeDate('ends_at', accessCode) ?? get24HoursLater()
   )
-  const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
 
-  const { isLoading: isGeneratingCode, mutate: generateCode } =
-    useGenerateAccessCodeCode()
-
-  const submit = (): void => {
+  const save = (data: { name: string; code: string }): void => {
     if (isSubmitting) {
       return
     }
 
     onSubmit({
-      name,
-      code,
+      name: data.name,
+      code: data.code,
       type,
       device,
       startDate,
@@ -100,6 +95,24 @@ function Content({
       timezone,
     })
   }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: {
+      name: accessCode?.name ?? '',
+      code: accessCode?.code ?? '',
+    },
+  })
+  const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+
+  const { isLoading: isGeneratingCode, mutate: generateCode } =
+    useGenerateAccessCodeCode()
+
+  const submit = (): void => {}
 
   if (timezonePickerVisible) {
     return (
@@ -127,14 +140,6 @@ function Content({
     )
   }
 
-  const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
-
-  const isFormValid =
-    name.trim().length > 0 &&
-    nameError === undefined &&
-    code.trim().length > 0 &&
-    !isSubmitting
-
   const title = accessCode == null ? t.addNewAccessCode : t.editAccessCode
 
   const handleGenerateCode = (): void => {
@@ -145,12 +150,39 @@ function Content({
       {
         onSuccess: ({ code: generatedCode }) => {
           if (generatedCode != null) {
-            setCode(generatedCode)
+            setValue('code', generatedCode)
           }
         },
       }
     )
   }
+
+  const validateCodeLength = (value: string): boolean | string => {
+    if (!isLockDevice(device)) {
+      return true
+    }
+
+    if (device.properties.supported_code_lengths == null) {
+      return true
+    }
+
+    if (device.properties.supported_code_lengths.includes(value.length)) {
+      return true
+    }
+
+    return t.codeLengthError(
+      device.properties.supported_code_lengths.join(', ')
+    )
+  }
+
+  const hasCodeError = errors.code != null || codeError != null
+
+  const codeLengthRequirement = getCodeLengthRequirement(device)
+
+  const codeLengthRequirementMessage =
+    codeLengthRequirement != null
+      ? t.codeLengthRequirement(codeLengthRequirement)
+      : null
 
   return (
     <>
@@ -160,80 +192,116 @@ function Content({
         onBack={onBack}
       />
       <div className='seam-main'>
-        <FormField>
-          <InputLabel>{t.nameInputLabel}</InputLabel>
-          <TextField
-            size='large'
-            clearable
-            value={name}
-            onChange={setName}
-            hasError={nameError != null}
-            helperText={nameError}
-          />
-        </FormField>
-        <FormField className='seam-code-field'>
-          <InputLabel>{t.codeInputLabel}</InputLabel>
-          <TextField
-            size='large'
-            clearable
-            value={code}
-            onChange={setCode}
-            hasError={codeError != null}
-            helperText={codeError ?? undefined}
-          />
-          <div className='seam-bottom'>
-            <Button
-              size='small'
-              onMouseDown={(e) => {
-                e.preventDefault() // Disable stealing input focus
-                handleGenerateCode()
+        <form
+          onSubmit={(event) => {
+            void handleSubmit(save)(event)
+          }}
+        >
+          <FormField>
+            <InputLabel>{t.nameInputLabel}</InputLabel>
+            <TextField
+              size='large'
+              clearable
+              hasError={errors.name != null}
+              helperText={errors.name?.message}
+              inputProps={{
+                ...register('name', {
+                  required: t.nameRequiredError,
+                  maxLength: {
+                    value: 60,
+                    message: t.nameOverCharacterLimitError,
+                  },
+                }),
               }}
-              disabled={isGeneratingCode}
+            />
+          </FormField>
+          <FormField className='seam-code-field'>
+            <InputLabel>{t.codeInputLabel}</InputLabel>
+            <TextField
+              size='large'
+              clearable
+              hasError={hasCodeError}
+              helperText={codeError ?? errors.code?.message}
+              inputProps={{
+                ...register('code', {
+                  required: t.codeRequiredError,
+                  validate: validateCodeLength,
+                }),
+              }}
+            />
+            <div
+              className={classNames('seam-bottom', {
+                'has-hints': codeLengthRequirementMessage != null,
+              })}
             >
-              {t.codeGenerateButton}
+              {codeLengthRequirementMessage != null && (
+                <ul
+                  className={classNames('seam-requirements', {
+                    'seam-error': hasCodeError,
+                  })}
+                >
+                  <li>{codeLengthRequirementMessage}</li>
+                  <li>{t.codeNumbersOnlyRequirement}</li>
+                </ul>
+              )}
+              <Button
+                size='small'
+                onMouseDown={(e) => {
+                  e.preventDefault() // Disable stealing input focus
+                  handleGenerateCode()
+                }}
+                disabled={isGeneratingCode}
+              >
+                {t.codeGenerateButton}
+              </Button>
+            </div>
+          </FormField>
+          <FormField>
+            <InputLabel>{t.timingInputLabel}</InputLabel>
+            <RadioField
+              value={type}
+              onChange={setType}
+              name='type'
+              options={[
+                {
+                  label: t.typeOngoingLabel,
+                  value: 'ongoing',
+                },
+                {
+                  label: t.typeTimeBoundLabel,
+                  value: 'time_bound',
+                },
+              ]}
+            />
+            <>
+              {type === 'time_bound' && (
+                <AccessCodeFormTimes
+                  startDate={startDate}
+                  endDate={endDate}
+                  onEdit={() => {
+                    setDatePickerVisible(true)
+                  }}
+                />
+              )}
+            </>
+          </FormField>
+          {responseErrors?.['unknown'] != null && (
+            <div className='seam-unknown-error'>
+              {responseErrors?.['unknown']}
+            </div>
+          )}
+          <div className='seam-actions'>
+            <Button onClick={onBack}>{t.cancel}</Button>
+            <Button
+              variant='solid'
+              disabled={isSubmitting}
+              onMouseDown={submit}
+              type='submit'
+            >
+              {t.save}
             </Button>
           </div>
-        </FormField>
-        <FormField>
-          <InputLabel>{t.timingInputLabel}</InputLabel>
-          <RadioField
-            value={type}
-            onChange={setType}
-            name='type'
-            options={[
-              {
-                label: t.typeOngoingLabel,
-                value: 'ongoing',
-              },
-              {
-                label: t.typeTimeBoundLabel,
-                value: 'time_bound',
-              },
-            ]}
-          />
-          <>
-            {type === 'time_bound' && (
-              <AccessCodeFormTimes
-                startDate={startDate}
-                endDate={endDate}
-                onEdit={() => {
-                  setDatePickerVisible(true)
-                }}
-              />
-            )}
-          </>
-        </FormField>
-        {responseErrors?.['unknown'] != null && (
-          <div className='seam-unknown-error'>
-            {responseErrors?.['unknown']}
-          </div>
-        )}
-        <div className='seam-actions'>
-          <Button onClick={onBack}>{t.cancel}</Button>
-          <Button variant='solid' disabled={!isFormValid} onMouseDown={submit}>
-            {t.save}
-          </Button>
-        </div>
+        </form>
       </div>
     </>
   )
@@ -260,6 +328,37 @@ function getAccessCodeTimezone(
   return timezone
 }
 
+function getCodeLengthRequirement(device: CommonDevice): string | null {
+  if (!isLockDevice(device)) {
+    return null
+  }
+
+  const codeLengths = device.properties.supported_code_lengths
+  if (codeLengths == null) {
+    return null
+  }
+
+  if (codeLengths.length === 1) {
+    return `${codeLengths[0]}`
+  }
+
+  if (isSequential(codeLengths.join(''))) {
+    return `${codeLengths[0]}-${codeLengths[codeLengths.length - 1]}`
+  }
+
+  return codeLengths.join(', ')
+}
+
+// 0 - 99 in a string
+// 0123456789101112...99
+const sequentialNumbers = Array.from({ length: 100 }, (_, index) => index).join(
+  ''
+)
+
+function isSequential(numbers: string): boolean {
+  return sequentialNumbers.includes(numbers)
+}
+
 function getAccessCodeDate(
   date: 'starts_at' | 'ends_at',
   accessCode?: NonNullable<UseAccessCodeData>
@@ -278,10 +377,16 @@ function getAccessCodeDate(
 const t = {
   addNewAccessCode: 'Add new access code',
   editAccessCode: 'Edit access code',
-  overCharacterLimitError: '60 characters max',
+  nameOverCharacterLimitError: '60 characters max',
+  nameRequiredError: 'Name is required',
   nameInputLabel: 'Name the new code',
   codeGenerateButton: 'Generate code',
   codeInputLabel: 'Enter the code (PIN)',
+  codeRequiredError: 'Code is required',
+  codeLengthError: (lengths: string) =>
+    `Code length must be one of the following: ${lengths}`,
+  codeLengthRequirement: (lengths: string) => `${lengths} digit code`,
+  codeNumbersOnlyRequirement: 'Numbers only',
   cancel: 'Cancel',
   save: 'Save',
   timingInputLabel: 'Timing',
