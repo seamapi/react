@@ -34,7 +34,9 @@ export const Content: Story = {
           size='small'
           onClick={() => {
             setShouldRender(false)
-            setTimeout(() => { setShouldRender(true); }, 500)
+            setTimeout(() => {
+              setShouldRender(true)
+            }, 500)
           }}
         >
           Animate
