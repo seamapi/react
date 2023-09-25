@@ -33,14 +33,16 @@ export interface AccessCodeFormSubmitData {
   timezone: string
 }
 
-export type ResponseErrors = Record<string, string | undefined>
+export interface ResponseErrors {
+  unknown?: string | undefined
+  code?: string | undefined
+}
 
 export interface AccessCodeFormProps {
   accessCode?: NonNullable<UseAccessCodeData>
   device: NonNullable<UseDeviceData>
   isSubmitting: boolean
   onSubmit: (data: AccessCodeFormSubmitData) => void
-  codeError: string | null
   responseErrors: ResponseErrors | null
   onBack: (() => void) | undefined
   className: string | undefined
@@ -63,7 +65,6 @@ function Content({
   device,
   onSubmit,
   isSubmitting,
-  codeError,
   responseErrors,
 }: Omit<AccessCodeFormProps, 'className'>): JSX.Element {
   const [type, setType] = useState<AccessCode['type']>(
@@ -175,7 +176,7 @@ function Content({
     )
   }
 
-  const hasCodeError = errors.code != null || codeError != null
+  const hasCodeError = errors.code != null || responseErrors?.code != null
 
   const codeLengthRequirement = getCodeLengthRequirement(device)
 
@@ -221,7 +222,7 @@ function Content({
               size='large'
               clearable
               hasError={hasCodeError}
-              helperText={codeError ?? errors.code?.message}
+              helperText={responseErrors?.code ?? errors.code?.message}
               inputProps={{
                 ...register('code', {
                   required: t.codeRequiredError,
@@ -285,10 +286,8 @@ function Content({
               )}
             </>
           </FormField>
-          {responseErrors?.['unknown'] != null && (
-            <div className='seam-unknown-error'>
-              {responseErrors?.['unknown']}
-            </div>
+          {responseErrors?.unknown != null && (
+            <div className='seam-unknown-error'>{responseErrors?.unknown}</div>
           )}
           <div className='seam-actions'>
             <Button onClick={onBack}>{t.cancel}</Button>
