@@ -127,15 +127,27 @@ export class TelemetryClient {
 
   get #context(): Context {
     return {
-      ...(this.#user?.traits == null ? {} : { traits: this.#user.traits }),
-      app: {
+      traits: this.#user?.traits ?? undefined,
+      locale: globalThis.navigator?.language ?? undefined,
+      timezone:
+        Intl?.DateTimeFormat()?.resolvedOptions()?.timeZone ?? undefined,
+      userAgent: globalThis.navigator?.userAgent ?? undefined,
+      screen: {
+        width: globalThis.screen?.width ?? undefined,
+        height: globalThis.screen?.height ?? undefined,
+        density:
+          globalThis.devicePixelRatio != null
+            ? Math.round(globalThis.devicePixelRatio * 100) / 100
+            : undefined,
+      },
+      library: {
         version: version ?? undefined,
         name:
           // Assume if one of the elements is defined then this is loaded inside a web component.
           // This method will be inaccurate if the element bundle is loaded alongside
           // an app using the React components, however this use case is unlikely.
           // Choose seam-device-details as this component is unlikely to ever be removed.
-          globalThis.customElements.get('seam-device-details') != null
+          globalThis.customElements?.get('seam-device-details') != null
             ? '@seamapi/react/elements'
             : '@seamapi/react',
       },
@@ -233,7 +245,16 @@ interface CommonSpec {
 // https://segment.com/docs/connections/spec/common/#context
 interface Context {
   traits?: Traits
-  app: {
+  locale?: string
+  timezone?: string
+  userAgent?: string
+  userAgentData?: string
+  screen: {
+    width?: number
+    height?: number
+    density?: number
+  }
+  library: {
     name: string
     version: string | undefined
   }
