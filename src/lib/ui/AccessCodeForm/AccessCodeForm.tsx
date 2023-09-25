@@ -340,14 +340,13 @@ function getCodeLengthRequirement(device: CommonDevice): string | null {
   return codeLengths.join(', ')
 }
 
-function isSequential(numbers: string): boolean {
-  // 0 - 99 in a string
-  // 0123456789101112...99
-  const sequentialNumbers = Array.from(
-    { length: 100 },
-    (_, index) => index
-  ).join('')
+// 0 - 99 in a string
+// 0123456789101112...99
+const sequentialNumbers = Array.from({ length: 100 }, (_, index) => index).join(
+  ''
+)
 
+function isSequential(numbers: string): boolean {
   return sequentialNumbers.includes(numbers)
 }
 
