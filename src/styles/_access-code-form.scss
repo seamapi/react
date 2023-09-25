@@ -26,6 +26,10 @@
         justify-content: flex-end;
         display: flex;
 
+        &.has-hints {
+          justify-content: space-between;
+        }
+
         .seam-requirements {
           color: colors.$text-gray-2;
           font-size: 14px;
