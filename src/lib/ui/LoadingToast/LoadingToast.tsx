@@ -27,7 +27,7 @@ export function LoadingToast({
     let timeout: ReturnType<typeof globalThis.setTimeout>
 
     if (isDoneLoading) {
-      timeout = setTimeout(() => {
+      timeout = globalThis.setTimeout(() => {
         setShouldRender(false)
       }, 1000)
     }
