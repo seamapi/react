@@ -20,11 +20,7 @@ export function LoadingToast({
   const [shouldRender, setShouldRender] = useState(true)
 
   useEffect(() => {
-    if (isLoading) {
-      setShouldRender(true)
-    } else {
-      setShouldRender(false)
-    }
+    setShouldRender(isLoading)
   }, [isLoading])
 
   useEffect(() => {
