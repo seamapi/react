@@ -32,7 +32,7 @@ export const Content: Story = {
 
       setTimeout(() => {
         setArgs({ isLoading: true })
-      }, 3000)
+      }, 2000)
     }
 
     return (
