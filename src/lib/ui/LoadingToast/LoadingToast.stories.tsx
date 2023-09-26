@@ -17,7 +17,23 @@ type Story = StoryObj<typeof LoadingToast>
 
 export const Content: Story = {
   render: () => {
-    const [shouldRender, setShouldRender] = useState(true)
+    const [isLoading, setIsLoading] = useState(true)
+    const [isDoneLoading, setIsDoneLoading] = useState(false)
+
+    const reset = () => {
+      setIsLoading(true)
+      setIsDoneLoading(false)
+    }
+
+    const rerender = () => {
+      reset()
+      setIsLoading(false)
+      setTimeout(() => setIsLoading(true), 500)
+    }
+
+    const finishLoading = () => {
+      setIsDoneLoading(true)
+    }
 
     return (
       <Box
@@ -28,17 +44,24 @@ export const Content: Story = {
           gap: '1rem',
         }}
       >
-        <Box height={32}>{shouldRender && <LoadingToast />}</Box>
+        <Box height={32}>
+          <LoadingToast isLoading={isLoading} isDoneLoading={isDoneLoading} />
+        </Box>
 
-        <Button
-          size='small'
-          onClick={() => {
-            setShouldRender(false)
-            setTimeout(() => setShouldRender(true), 500)
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '0.5rem',
           }}
         >
-          Animate
-        </Button>
+          <Button size='small' onClick={rerender}>
+            Rerender
+          </Button>
+
+          <Button size='small' onClick={finishLoading}>
+            Finish loading
+          </Button>
+        </Box>
       </Box>
     )
   },
