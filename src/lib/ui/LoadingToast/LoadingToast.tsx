@@ -17,10 +17,10 @@ export function LoadingToast({
   top,
   left,
 }: LoadingToastProps): JSX.Element {
-  const [shouldRender, setShouldRender] = useState(true)
+  const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
-    setShouldRender(isLoading)
+    setHidden(!isLoading)
   }, [isLoading])
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export function LoadingToast({
 
     if (isDoneLoading) {
       timeout = globalThis.setTimeout(() => {
-        setShouldRender(false)
+        setHidden(true)
       }, 1000)
     }
 
@@ -41,7 +41,7 @@ export function LoadingToast({
     <div
       className={classNames(
         'seam-loading-toast',
-        !shouldRender && 'seam-loading-toast-hide'
+        hidden && 'seam-loading-toast-hide'
       )}
       style={{ top, left }}
     >
