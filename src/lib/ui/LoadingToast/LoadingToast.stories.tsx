@@ -1,9 +1,9 @@
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Button } from 'lib/ui/Button.js'
-
-import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 import { useState } from 'react'
+
+import { Button } from 'lib/ui/Button.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 
 const meta: Meta<typeof LoadingToast> = {
   title: 'Library/LoadingToast',
