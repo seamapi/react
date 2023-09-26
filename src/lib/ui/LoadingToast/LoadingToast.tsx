@@ -6,36 +6,32 @@ import { Spinner } from 'lib/ui/Spinner/Spinner.js'
 
 interface LoadingToastProps {
   isLoading: boolean
-  isDoneLoading?: boolean
   top?: number
   left?: number
 }
 
 export function LoadingToast({
-  isLoading,
-  isDoneLoading = false,
+  isLoading = true,
   top,
   left,
 }: LoadingToastProps): JSX.Element {
   const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
-    setHidden(!isLoading)
-  }, [isLoading])
-
-  useEffect(() => {
     let timeout: ReturnType<typeof globalThis.setTimeout>
 
-    if (isDoneLoading) {
+    if (!isLoading) {
       timeout = globalThis.setTimeout(() => {
         setHidden(true)
       }, 1000)
+    } else {
+      setHidden(false)
     }
 
     return () => {
       clearTimeout(timeout)
     }
-  }, [isDoneLoading])
+  }, [isLoading])
 
   return (
     <div
@@ -46,7 +42,7 @@ export function LoadingToast({
       style={{ top, left }}
     >
       <div className='seam-loading-toast-icon-wrap'>
-        {isDoneLoading ? <CheckBlackIcon /> : <Spinner size='small' />}
+        {!isLoading ? <CheckBlackIcon /> : <Spinner size='small' />}
       </div>
       <p className='seam-loading-toast-text'>Loading devices</p>
     </div>

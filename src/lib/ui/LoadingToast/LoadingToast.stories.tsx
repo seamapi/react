@@ -11,15 +11,9 @@ const meta: Meta<typeof LoadingToast> = {
   tags: ['autodocs'],
   args: {
     isLoading: true,
-    isDoneLoading: false,
   },
   argTypes: {
     isLoading: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    isDoneLoading: {
       control: {
         type: 'boolean',
       },
@@ -32,21 +26,13 @@ type Story = StoryObj<typeof LoadingToast>
 export const Content: Story = {
   render: (props) => {
     const [, setArgs] = useArgs()
-    const reset = (): void => {
-      setArgs({ isLoading: true })
-      setArgs({ isDoneLoading: false })
-    }
 
     const rerender = (): void => {
-      reset()
       setArgs({ isLoading: false })
+
       setTimeout(() => {
         setArgs({ isLoading: true })
-      }, 500)
-    }
-
-    const finishLoading = (): void => {
-      setArgs({ isDoneLoading: true })
+      }, 3000)
     }
 
     return (
@@ -59,26 +45,12 @@ export const Content: Story = {
         }}
       >
         <Box height={32}>
-          <LoadingToast
-            isLoading={props.isLoading}
-            isDoneLoading={props.isDoneLoading}
-          />
+          <LoadingToast isLoading={props.isLoading} />
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            gap: '0.5rem',
-          }}
-        >
-          <Button size='small' onClick={rerender}>
-            Rerender
-          </Button>
-
-          <Button size='small' onClick={finishLoading}>
-            Finish loading
-          </Button>
-        </Box>
+        <Button size='small' onClick={rerender}>
+          Rerender
+        </Button>
       </Box>
     )
   },
