@@ -13,10 +13,10 @@ interface LoadingToastProps {
 
 export function LoadingToast({
   isLoading,
-  isDoneLoading,
+  isDoneLoading = false,
   top,
   left,
-}: LoadingToastProps) {
+}: LoadingToastProps): JSX.Element {
   const [shouldRender, setShouldRender] = useState(true)
 
   useEffect(() => {

@@ -20,12 +20,12 @@ export const Content: Story = {
     const [isLoading, setIsLoading] = useState(true)
     const [isDoneLoading, setIsDoneLoading] = useState(false)
 
-    const reset = () => {
+    const reset = (): void => {
       setIsLoading(true)
       setIsDoneLoading(false)
     }
 
-    const rerender = () => {
+    const rerender = (): void => {
       reset()
       setIsLoading(false)
       setTimeout(() => {
@@ -33,7 +33,7 @@ export const Content: Story = {
       }, 500)
     }
 
-    const finishLoading = () => {
+    const finishLoading = (): void => {
       setIsDoneLoading(true)
     }
 
