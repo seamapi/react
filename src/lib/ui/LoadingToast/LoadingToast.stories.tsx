@@ -1,6 +1,6 @@
+import { useArgs } from '@storybook/preview-api'
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
 
 import { Button } from 'lib/ui/Button.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
@@ -8,33 +8,45 @@ import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 const meta: Meta<typeof LoadingToast> = {
   title: 'Library/LoadingToast',
   component: LoadingToast,
-  args: {},
   tags: ['autodocs'],
-  argTypes: {},
+  args: {
+    isLoading: true,
+    isDoneLoading: false,
+  },
+  argTypes: {
+    isLoading: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    isDoneLoading: {
+      control: {
+        type: 'boolean',
+      },
+    },
+  },
 }
 
 type Story = StoryObj<typeof LoadingToast>
 
 export const Content: Story = {
-  render: () => {
-    const [isLoading, setIsLoading] = useState(true)
-    const [isDoneLoading, setIsDoneLoading] = useState(false)
-
+  render: (props) => {
+    const [, setArgs] = useArgs()
     const reset = (): void => {
-      setIsLoading(true)
-      setIsDoneLoading(false)
+      setArgs({ isLoading: true })
+      setArgs({ isDoneLoading: false })
     }
 
     const rerender = (): void => {
       reset()
-      setIsLoading(false)
+      setArgs({ isLoading: false })
       setTimeout(() => {
-        setIsLoading(true)
+        setArgs({ isLoading: true })
       }, 500)
     }
 
     const finishLoading = (): void => {
-      setIsDoneLoading(true)
+      setArgs({ isDoneLoading: true })
     }
 
     return (
@@ -47,7 +59,10 @@ export const Content: Story = {
         }}
       >
         <Box height={32}>
-          <LoadingToast isLoading={isLoading} isDoneLoading={isDoneLoading} />
+          <LoadingToast
+            isLoading={props.isLoading}
+            isDoneLoading={props.isDoneLoading}
+          />
         </Box>
 
         <Box
