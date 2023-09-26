@@ -28,7 +28,9 @@ export const Content: Story = {
     const rerender = () => {
       reset()
       setIsLoading(false)
-      setTimeout(() => { setIsLoading(true); }, 500)
+      setTimeout(() => {
+        setIsLoading(true)
+      }, 500)
     }
 
     const finishLoading = () => {

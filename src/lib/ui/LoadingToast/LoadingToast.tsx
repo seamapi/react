@@ -31,7 +31,9 @@ export function LoadingToast({
     let timeout: NodeJS.Timeout
 
     if (isDoneLoading) {
-      timeout = setTimeout(() => { setShouldRender(false); }, 1000)
+      timeout = setTimeout(() => {
+        setShouldRender(false)
+      }, 1000)
     }
 
     return () => {
