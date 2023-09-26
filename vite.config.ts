@@ -6,7 +6,7 @@ import { defineConfig, type UserConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(async ({ mode }) => {
-  const isBuild = mode === 'build'
+  const isBuild = mode === 'production'
   const { version = null } = isBuild ? await readPackageJson() : {}
   if (isBuild && version == null) {
     throw new Error('Missing version in package.json')
