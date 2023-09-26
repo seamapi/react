@@ -24,7 +24,7 @@ export function LoadingToast({
   }, [isLoading])
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout
+    let timeout: ReturnType<typeof globalThis.setTimeout>
 
     if (isDoneLoading) {
       timeout = setTimeout(() => {
