@@ -1,7 +1,8 @@
 import classNames from 'classnames'
+import { useEffect, useState } from 'react'
+
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
 import { Spinner } from 'lib/ui/Spinner/Spinner.js'
-import { useEffect, useState } from 'react'
 
 interface LoadingToastProps {
   isLoading: boolean
@@ -30,7 +31,7 @@ export function LoadingToast({
     let timeout: NodeJS.Timeout
 
     if (isDoneLoading) {
-      timeout = setTimeout(() => setShouldRender(false), 1000)
+      timeout = setTimeout(() => { setShouldRender(false); }, 1000)
     }
 
     return () => {
