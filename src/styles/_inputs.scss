@@ -4,6 +4,7 @@
 @mixin text-field {
   .seam-text-field {
     > .seam-main {
+      background: colors.$white;
       border: 1px solid colors.$text-gray-3;
       border-radius: 8px;
       display: flex;
