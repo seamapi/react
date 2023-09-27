@@ -118,10 +118,6 @@ export function DeviceTable({
     )
   }
 
-  // if (isLoading) {
-  //   return <p className={className}>...</p>
-  // }
-
   if (isError) {
     return <p className={className}>{error?.message}</p>
   }
