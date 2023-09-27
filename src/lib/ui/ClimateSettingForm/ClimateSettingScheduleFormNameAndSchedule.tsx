@@ -15,7 +15,7 @@ interface ClimateSettingScheduleFormNameAndScheduleProps {
   title: string
   control: Control<ClimateSettingScheduleFormFields>
   deviceId: string
-  timezone: string
+  timeZone: string
   onBack: () => void
   onCancel: (() => void) | undefined
   onNext: () => void
@@ -26,7 +26,7 @@ export function ClimateSettingScheduleFormNameAndSchedule({
   title,
   control,
   deviceId,
-  timezone,
+  timeZone,
   onBack,
   onCancel,
   onNext,
@@ -71,7 +71,7 @@ export function ClimateSettingScheduleFormNameAndSchedule({
               <div className='seam-timezone'>
                 <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
                 <span className='seam-selected' onClick={onChangeTimeZone}>
-                  {getZoneLabel(timezone)}
+                  {getZoneLabel(timeZone)}
                   <ChevronRightIcon />
                 </span>
               </div>

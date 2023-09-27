@@ -10,13 +10,13 @@ import {
   getZoneOffset,
 } from 'lib/dates.js'
 
-it('should return a timezone label', () => {
+it('should return a time zone label', () => {
   expect(true).toBe(true)
 
   expect(getZoneLabel('America/Los_angeles')).toBe('Los angeles (America)')
 })
 
-it('should compare 2 timezones by minutes', () => {
+it('should compare 2 time zones by minutes', () => {
   const tokyo = 9 * 60 // +9 = 540 minutes
 
   const losAngeles = -7 * 60 // -7 = -420 minutes
@@ -37,7 +37,7 @@ it('should return a readable date, and time', () => {
 })
 
 it('should only show current date and time', () => {
-  // Assert doesn't contain any timezone, or milliseconds
+  // Assert doesn't contain any time zone, or milliseconds
 
   expect(getNow()).not.toContain('Z')
   expect(getNow()).not.toContain('.')

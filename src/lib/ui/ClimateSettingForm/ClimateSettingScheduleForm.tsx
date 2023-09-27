@@ -13,7 +13,7 @@ export interface ClimateSettingScheduleFormSubmitData {
   deviceId: string
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
   climateSetting: ClimateSetting
 }
 
@@ -29,7 +29,7 @@ export interface ClimateSettingScheduleFormFields {
   deviceId: string
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
 }
 
 export function ClimateSettingScheduleForm({
@@ -54,18 +54,18 @@ function Content({
       name: '',
       startDate: '',
       endDate: '',
-      timezone: getSystemZone(),
+      timeZone: getSystemZone(),
     },
   })
 
   const deviceId = watch('deviceId')
-  const timezone = watch('timezone')
+  const timeZone = watch('timeZone')
 
   const [page, setPage] = useState<
     | 'device_select'
     | 'default_setting'
     | 'name_and_schedule'
-    | 'timezone_select'
+    | 'time_zone_select'
     | 'climate_setting'
   >('device_select')
 
@@ -96,14 +96,14 @@ function Content({
           setPage('climate_setting')
         }}
         onChangeTimeZone={() => {
-          setPage('timezone_select')
+          setPage('time_zone_select')
         }}
-        timezone={timezone}
+        timeZone={timeZone}
       />
     )
   }
 
-  if (page === 'timezone_select') {
+  if (page === 'time_zone_select') {
     return (
       <ClimateSettingScheduleFormTimeZonePicker
         control={control}

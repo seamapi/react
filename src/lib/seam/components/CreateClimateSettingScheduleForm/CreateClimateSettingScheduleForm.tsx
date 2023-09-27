@@ -34,7 +34,7 @@ function useSubmitCreateClimateSettingSchedule(onSuccess?: () => void): {
 } {
   const { mutate, isLoading: isSubmitting } = useCreateClimateSettingSchedule()
   const submit = (data: ClimateSettingScheduleFormSubmitData): void => {
-    const { name, deviceId, startDate, endDate, timezone, climateSetting } =
+    const { name, deviceId, startDate, endDate, timeZone, climateSetting } =
       data
 
     if (isSubmitting) {
@@ -45,8 +45,8 @@ function useSubmitCreateClimateSettingSchedule(onSuccess?: () => void): {
       {
         name,
         device_id: deviceId,
-        schedule_starts_at: createIsoDate(startDate, timezone),
-        schedule_ends_at: createIsoDate(endDate, timezone),
+        schedule_starts_at: createIsoDate(startDate, timeZone),
+        schedule_ends_at: createIsoDate(endDate, timeZone),
         ...climateSetting,
       },
       {

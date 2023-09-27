@@ -246,6 +246,7 @@ interface CommonSpec {
 interface Context {
   traits?: Traits
   locale?: string
+  // According to the Common Spec this is timezone and not timeZone.
   timezone?: string
   userAgent?: string
   userAgentData?: string

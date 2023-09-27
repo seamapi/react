@@ -11,7 +11,7 @@ import { handleString } from 'lib/ui/TextField/TextField.js'
 
 interface TimeZonePickerProps {
   value: string
-  onChange: (timezone: string) => void
+  onChange: (timeZone: string) => void
   onManualTimeZoneSelected?: (manualTimeZoneSelected: boolean) => void
 }
 
@@ -54,9 +54,9 @@ export function TimeZonePicker({
         onChange={handleString(onChange)}
         className='seam-timezone-select'
       >
-        {getZoneNames().map((timezone) => (
-          <option value={timezone} key={timezone}>
-            {t.utc} {getZoneOffset(timezone)} {getZoneLabel(timezone)}
+        {getZoneNames().map((timeZone) => (
+          <option value={timeZone} key={timeZone}>
+            {t.utc} {getZoneOffset(timeZone)} {getZoneLabel(timeZone)}
           </option>
         ))}
       </select>

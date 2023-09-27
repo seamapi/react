@@ -16,8 +16,8 @@ export const Content: Story = {
   render: (props) => {
     const [, setArgs] = useArgs()
 
-    const onChange = (timezone: string): void => {
-      setArgs({ value: timezone })
+    const onChange = (timeZone: string): void => {
+      setArgs({ value: timeZone })
     }
 
     return <TimeZonePicker value={props.value} onChange={onChange} />

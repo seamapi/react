@@ -21,7 +21,7 @@ export function ClimateSettingScheduleFormTimeZonePicker({
       <ContentHeader title={title} onBack={onClose} />
       <div className='seam-main'>
         <Controller
-          name='timezone'
+          name='timeZone'
           control={control}
           render={({ field }) => (
             <TimeZonePicker

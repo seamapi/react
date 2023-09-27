@@ -5,7 +5,7 @@ import { TimeZonePicker } from 'lib/ui/TimeZonePicker/TimeZonePicker.js'
 
 interface AccessCodeFormTimeZonePickerProps {
   value: string
-  onChange: (timezone: string) => void
+  onChange: (timeZone: string) => void
   onClose: () => void
 }
 

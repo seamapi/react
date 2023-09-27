@@ -30,7 +30,7 @@ export interface AccessCodeFormSubmitData {
   device: NonNullable<UseDeviceData>
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
 }
 
 export interface ResponseErrors {
@@ -71,7 +71,7 @@ function Content({
     accessCode?.type ?? 'ongoing'
   )
   const [datePickerVisible, setDatePickerVisible] = useState(false)
-  const [timezone, setTimeZone] = useState<string>(
+  const [timeZone, setTimeZone] = useState<string>(
     getAccessCodeTimeZone(accessCode) ?? getSystemZone()
   )
   const [startDate, setStartDate] = useState<string>(
@@ -93,7 +93,7 @@ function Content({
       device,
       startDate,
       endDate,
-      timezone,
+      timeZone,
     })
   }
 
@@ -108,17 +108,17 @@ function Content({
       code: accessCode?.code ?? '',
     },
   })
-  const [timezonePickerVisible, toggleTimeZonePicker] = useToggle()
+  const [timeZonePickerVisible, toggleTimeZonePicker] = useToggle()
 
   const { isLoading: isGeneratingCode, mutate: generateCode } =
     useGenerateAccessCodeCode()
 
   const submit = (): void => {}
 
-  if (timezonePickerVisible) {
+  if (timeZonePickerVisible) {
     return (
       <AccessCodeFormTimeZonePicker
-        value={timezone}
+        value={timeZone}
         onChange={setTimeZone}
         onClose={toggleTimeZonePicker}
       />
@@ -132,7 +132,7 @@ function Content({
         setStartDate={setStartDate}
         endDate={endDate}
         setEndDate={setEndDate}
-        timezone={timezone}
+        timeZone={timeZone}
         onChangeTimeZone={toggleTimeZonePicker}
         onBack={() => {
           setDatePickerVisible(false)
@@ -319,12 +319,12 @@ function getAccessCodeTimeZone(
 
   const date = accessCode.starts_at
 
-  const timezone = getZoneNameFromIsoDate(date)
-  if (timezone == null) {
+  const timeZone = getZoneNameFromIsoDate(date)
+  if (timeZone == null) {
     return undefined
   }
 
-  return timezone
+  return timeZone
 }
 
 function getCodeLengthRequirement(device: CommonDevice): string | null {

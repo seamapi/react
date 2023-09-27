@@ -82,7 +82,7 @@ function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
   const submit = (data: AccessCodeFormSubmitData): void => {
     resetResponseErrors()
 
-    const { name, code, type, device, startDate, endDate, timezone } = data
+    const { name, code, type, device, startDate, endDate, timeZone } = data
     if (name === '') {
       return
     }
@@ -97,8 +97,8 @@ function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
           name,
           code,
           device_id: device.device_id,
-          starts_at: createIsoDate(startDate, timezone),
-          ends_at: createIsoDate(endDate, timezone),
+          starts_at: createIsoDate(startDate, timeZone),
+          ends_at: createIsoDate(endDate, timeZone),
         },
         {
           onSuccess,

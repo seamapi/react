@@ -10,13 +10,13 @@ interface AccessCodeFormDatePickerProps {
   setStartDate: (date: string) => void
   endDate: string
   setEndDate: (date: string) => void
-  timezone: string
+  timeZone: string
   onChangeTimeZone: () => void
   onBack: (() => void) | undefined
 }
 
 export function AccessCodeFormDatePicker({
-  timezone,
+  timeZone,
   onBack,
   startDate,
   setStartDate,
@@ -31,7 +31,7 @@ export function AccessCodeFormDatePicker({
         <div className='seam-timezone'>
           <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
           <span className='seam-selected' onClick={onChangeTimeZone}>
-            {getZoneLabel(timezone)}
+            {getZoneLabel(timeZone)}
             <ChevronRightIcon />
           </span>
         </div>
