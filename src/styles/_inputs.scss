@@ -25,6 +25,7 @@
       border: 0;
       width: 100%;
       border-radius: 8px;
+      font-size: 16px;
 
       @include typography.font-family;
 
@@ -93,7 +94,6 @@
 
         > .seam-text-field-input {
           height: 48px;
-          font-size: 16px;
         }
       }
     }
