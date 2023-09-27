@@ -42,7 +42,7 @@ export const compareByTimeZoneOffsetAsc = (
   getTimeZoneOffsetMinutes(zoneNameA) - getTimeZoneOffsetMinutes(zoneNameB)
 
 /**
- * Get the time zone offset in short format, e.g., America/Los_angeles as -07:00.
+ * Get the time zone offset in short format, e.g., America/Los_Angeles as -07:00.
  */
 export const formatTimeZoneOffset = (zoneName: string): string =>
   IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
@@ -77,12 +77,11 @@ export const formatDateTimeReadable = (date: string): string => {
   }`
 }
 
-export const formaDateTimeWithoutZone = (date: string): string => {
-  return DateTime.fromISO(date).toFormat("yyyy-MM-dd'T'HH:mm:ss")
-}
+export const formaDateTimeWithoutZone = (date: string): string =>
+  DateTime.fromISO(date).toFormat("yyyy-MM-dd'T'HH:mm:ss")
 
 /**
- * Takes a date (2023-07-20T00:00:00), and a time zone (America/Los_angeles), and
+ * Takes a date (2023-07-20T00:00:00), and a time zone (America/Los_Angeles), and
  * returns an ISO8601 Date (2023-07-20T00:00:00.000-07:00).
  */
 export const createIsoDate = (date: string, zoneName: string): string => {
@@ -92,7 +91,7 @@ export const createIsoDate = (date: string, zoneName: string): string => {
 
 /**
  * Takes a ISO datetime string (2023-07-20T00:00:00.000-07:00) and returns
- * the IANA time zone (America/Los_angeles).
+ * the IANA time zone (America/Los_Angeles).
  */
 export const getTimeZoneNameFromIsoDate = (date: string): string | null =>
   DateTime.fromISO(date).zoneName
