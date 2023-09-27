@@ -48,31 +48,6 @@ export const formatTimeZoneOffset = (zoneName: string): string =>
   IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
 
 // TODO
-const formatDateReadable = (
-  date: string,
-  options: {
-    showWeekday?: boolean
-  } = {}
-): string => {
-  const { showWeekday = true } = options
-
-  // '2023-04-17' to 'Mon Apr 17, 2023' / 'Apr 17, 2023'
-  const format = showWeekday ? 'EEE MMM d, yyyy' : 'MMM d, yyyy'
-
-  return DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat(format)
-}
-
-// TODO
-const formatTimeReadable = (time: string): string | null => {
-  const dateTime = DateTime.fromFormat(time, 'HH:mm:ss')
-  if (!dateTime.isValid) {
-    return null
-  }
-
-  return dateTime.toFormat('h:mm a')
-}
-
-// TODO
 export const formatDateTimeReadable = (date: string): string => {
   const [datePart = '', timePart = ''] = date.split('T')
   return `${formatDateReadable(datePart, { showWeekday: false })} at ${
@@ -80,9 +55,43 @@ export const formatDateTimeReadable = (date: string): string => {
   }`
 }
 
-// TODO
-export const formaDateTimeWithoutZone = (date: string): string =>
-  DateTime.fromISO(date).toFormat("yyyy-MM-dd'T'HH:mm:ss")
+const formatDateReadable = (
+  date: string,
+  options: {
+    showWeekday?: boolean
+  } = {}
+): string | null => {
+  const { showWeekday = true } = options
+  // '2023-04-17' to 'Mon Apr 17, 2023' / 'Apr 17, 2023'
+  const format = showWeekday ? 'EEE MMM d, yyyy' : 'MMM d, yyyy'
+  const dateTime = DateTime.fromFormat(date, 'yyyy-MM-dd')
+
+  if (!dateTime.isValid) {
+    return null
+  }
+
+  return dateTime.toFormat(format)
+}
+
+const formatTimeReadable = (time: string): string | null => {
+  const dateTime = DateTime.fromFormat(time, 'HH:mm:ss')
+
+  if (!dateTime.isValid) {
+    return null
+  }
+
+  return dateTime.toFormat('h:mm a')
+}
+
+export const formaDateTimeWithoutZone = (date: string): string | null => {
+  const dateTime = DateTime.fromISO(date)
+
+  if (!dateTime.isValid) {
+    return null
+  }
+
+  return dateTime.toFormat("yyyy-MM-dd'T'HH:mm:ss")
+}
 
 /**
  * Takes a date (2023-07-20T00:00:00), and a time zone (America/Los_Angeles), and

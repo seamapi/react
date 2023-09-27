@@ -394,7 +394,9 @@ const t = {
 }
 
 const getNow = (): string =>
-  formaDateTimeWithoutZone(DateTime.now().toISO() ?? '')
+  formaDateTimeWithoutZone(DateTime.now().toISO() ?? '') ??
+  '2022-01-01T12:00:00'
 
 const get24HoursLater = (): string =>
-  formaDateTimeWithoutZone(DateTime.now().plus({ days: 1 }).toISO() ?? '')
+  formaDateTimeWithoutZone(DateTime.now().plus({ days: 1 }).toISO() ?? '') ??
+  '2022-01-01T12:00:00'

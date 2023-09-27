@@ -12,9 +12,7 @@ import {
 
 describe('formatTimeZoneOffset', () => {
   it('should return city and region ', () => {
-    expect(formatTimeZone('America/Los_Angeles')).toBe(
-      'Los Angeles (America)'
-    )
+    expect(formatTimeZone('America/Los_Angeles')).toBe('Los Angeles (America)')
     expect(formatTimeZone('Etc/GMT-3')).toBe('GMT-3 (Etc)')
   })
 
@@ -56,12 +54,16 @@ describe('formatDateTimeReadable', () => {
   })
 
   it('should format without time zone', () => {
-    expect(DateTime.fromISO('2023-09-27T22:44:52Z')).not.toBe(
-      '2023-09-27T22:44:52'
-    )
-    expect(DateTime.fromISO('2023-09-27T22:44:52+0300')).not.toBe(
-      '2023-09-27T22:44:52'
-    )
+    expect(
+      formaDateTimeWithoutZone(
+        DateTime.fromISO('2023-09-27T22:44:52Z').toISO() ?? ''
+      )
+    ).toBe('2023-09-27T15:44:52')
+    expect(
+      formaDateTimeWithoutZone(
+        DateTime.fromISO('2023-09-27T22:44:52+0300').toISO() ?? ''
+      )
+    ).toBe('2023-09-27T12:44:52')
   })
 })
 
