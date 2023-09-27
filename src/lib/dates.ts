@@ -10,25 +10,17 @@ export const compareByCreatedAtDesc = (
   return t1.toMillis() - t2.toMillis()
 }
 
-/**
- * Get the time zone strings supported by the browser.
- *
- * @returns string[]
- */
 export function getTimeZoneNames(): string[] {
   return Intl.supportedValuesOf('timeZone')
 }
 
-/**
- * Get the default browser time zone.
- */
 export function getSystemTimeZone(): string {
   return SystemZone.name
 }
 
 /**
- * Takes an IANA time zone, like America/Los_Angeles, into a more readable
- * string: Los Angeles (America).
+ * Transforms an IANA time zone, like America/Los_Angeles, into a more readable
+ * format: Los Angeles (America).
  */
 export function getTimeZoneLabel(zoneName: string): string {
   const [region, city = ''] = zoneName.replace(/_/g, ' ').split('/')
@@ -38,15 +30,14 @@ export function getTimeZoneLabel(zoneName: string): string {
 }
 
 /**
- * Get a time zones offset from UTC in minutes.
+ * Get a time zone's offset from UTC in minutes.
  */
 function getTimeZoneOffsetMinutes(zoneName: string): number {
   return DateTime.now().setZone(zoneName).offset
 }
 
 /**
- * Compares 2 time zones (America/Los_angeles) by their offset
- * minutes in ascending order.
+ * Compares two time zones (America/Los_Angeles) by their offset in ascending order.
  */
 export const compareByTimeZoneOffsetAsc = (
   zoneNameA: string,
@@ -55,8 +46,7 @@ export const compareByTimeZoneOffsetAsc = (
   getTimeZoneOffsetMinutes(zoneNameA) - getTimeZoneOffsetMinutes(zoneNameB)
 
 /**
- * Get the time zone offset
- * America/Los_angeles -> -07:00
+ * Get the time zone offset in short format, e.g., America/Los_angeles as -07:00.
  */
 export function getTimeZoneOffset(zoneName: string): string {
   return IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
@@ -93,6 +83,7 @@ export const formatDateTimeReadable = (dateTime: string): string => {
 }
 
 export const getNow = (): string => getDateTimeOnly(DateTime.now())
+
 export const get24HoursLater = (): string =>
   getDateTimeOnly(DateTime.now().plus({ days: 1 }))
 
