@@ -28,5 +28,5 @@ export function ShowAllDevicesButton({
 
 const t = {
   showLess: 'Show less',
-  showAll: (count: number) => `See all ${count} devices`,
+  showAll: (count: number) => `See all ${count}`,
 }
