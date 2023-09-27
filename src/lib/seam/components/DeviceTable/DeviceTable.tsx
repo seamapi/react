@@ -76,7 +76,7 @@ export function DeviceTable({
 }: DeviceTableProps = {}): JSX.Element {
   useComponentTelemetry('DeviceTable')
 
-  const { devices, isLoading, isError, error } = useDevices({
+  const { devices, isLoading, isError, error, isRefetching } = useDevices({
     device_ids: deviceIds,
     connected_account_ids: connectedAccountIds,
   })
@@ -135,7 +135,7 @@ export function DeviceTable({
           <div className='seam-fragment' />
         )}
         <div className='seam-table-header-loading-wrap'>
-          <LoadingToast isLoading={isLoading} label={t.loading} top={-20} />
+          <LoadingToast isLoading={isLoading && !isRefetching} label={t.loading} top={-20} />
         </div>
         {!disableSearch && (
           <SearchTextField

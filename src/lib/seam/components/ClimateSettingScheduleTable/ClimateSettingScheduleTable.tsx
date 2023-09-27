@@ -71,7 +71,7 @@ export function ClimateSettingScheduleTable({
 }: ClimateSettingScheduleTableProps): JSX.Element {
   useComponentTelemetry('ClimateSettingScheduleTable')
 
-  const { climateSettingSchedules, isLoading, isError, error } =
+  const { climateSettingSchedules, isLoading, isError, error, isRefetching } =
     useClimateSettingSchedules({
       device_id: deviceId,
     })
@@ -143,7 +143,11 @@ export function ClimateSettingScheduleTable({
           <div className='seam-fragment' />
         )}
         <div className='seam-table-header-loading-wrap'>
-          <LoadingToast isLoading={isLoading} label={t.loading} top={-20} />
+          <LoadingToast
+            isLoading={isLoading && !isRefetching}
+            label={t.loading}
+            top={-20}
+          />
         </div>
         {!disableSearch && (
           <SearchTextField
