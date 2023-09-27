@@ -35,10 +35,9 @@ export function LoadingToast({
 
   return (
     <div
-      className={classNames(
-        'seam-loading-toast',
-        hidden && 'seam-loading-toast-hide'
-      )}
+      className={classNames('seam-loading-toast', {
+        'seam-loading-toast-hide': hidden,
+      })}
       style={{ top, left }}
     >
       <div className='seam-loading-toast-icon-wrap'>
