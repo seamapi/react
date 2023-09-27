@@ -135,7 +135,11 @@ export function DeviceTable({
           <div className='seam-fragment' />
         )}
         <div className='seam-table-header-loading-wrap'>
-          <LoadingToast isLoading={isLoading} top={-20} />
+          <LoadingToast
+            isLoading={isLoading}
+            label='Loading devices'
+            top={-20}
+          />
         </div>
         {!disableSearch && (
           <SearchTextField

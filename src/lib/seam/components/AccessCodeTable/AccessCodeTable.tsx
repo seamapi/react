@@ -206,7 +206,11 @@ export function AccessCodeTable({
           )}
         </div>
         <div className='seam-table-header-loading-wrap'>
-          <LoadingToast isLoading={isLoading} top={-20} />
+          <LoadingToast
+            isLoading={isLoading}
+            label='Loading access codes'
+            top={-20}
+          />
         </div>
         {!disableSearch && (
           <SearchTextField
