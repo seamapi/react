@@ -22,6 +22,7 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 
 export const NestedClimateSettingScheduleTable = withRequiredCommonProps(
   ClimateSettingScheduleTable
@@ -125,10 +126,6 @@ export function ClimateSettingScheduleTable({
     )
   }
 
-  if (isLoading) {
-    return <p className={className}>...</p>
-  }
-
   if (isError) {
     return <p className={className}>{error?.message}</p>
   }
@@ -145,6 +142,9 @@ export function ClimateSettingScheduleTable({
         ) : (
           <div className='seam-fragment' />
         )}
+        <div className='seam-table-header-loading-wrap'>
+          <LoadingToast isLoading={isLoading} label={t.loading} top={-20} />
+        </div>
         {!disableSearch && (
           <SearchTextField
             value={searchInputValue}
@@ -194,4 +194,5 @@ const t = {
   climateSettingSchedules: 'Climate setting schedules',
   noClimateSettingSchedulesMessage:
     'Sorry, no climate setting schedules were found',
+  loading: 'Loading schedules',
 }
