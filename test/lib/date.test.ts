@@ -1,19 +1,19 @@
 import { expect, it } from 'vitest'
 
 import {
-  compareByZoneOffsetAsc,
+  compareByTimeZoneOffsetAsc,
   createIsoDate,
   formatDateTimeReadable,
   get24HoursLater,
   getNow,
-  getZoneLabel,
-  getZoneOffset,
+  getTimeZoneLabel,
+  getTimeZoneOffset,
 } from 'lib/dates.js'
 
 it('should return a time zone label', () => {
   expect(true).toBe(true)
 
-  expect(getZoneLabel('America/Los_angeles')).toBe('Los angeles (America)')
+  expect(getTimeZoneLabel('America/Los_angeles')).toBe('Los angeles (America)')
 })
 
 it('should compare 2 time zones by minutes', () => {
@@ -21,13 +21,13 @@ it('should compare 2 time zones by minutes', () => {
 
   const losAngeles = -7 * 60 // -7 = -420 minutes
 
-  expect(compareByZoneOffsetAsc('Asia/Tokyo', 'America/Los_angeles')).toBe(
+  expect(compareByTimeZoneOffsetAsc('Asia/Tokyo', 'America/Los_angeles')).toBe(
     tokyo - losAngeles
   )
 })
 
 it('should return offset mintues', () => {
-  expect(getZoneOffset('America/Los_angeles')).toBe('-07:00')
+  expect(getTimeZoneOffset('America/Los_angeles')).toBe('-07:00')
 })
 
 it('should return a readable date, and time', () => {

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
-import { getSystemZone } from 'lib/dates.js'
+import { getSystemTimeZone } from 'lib/dates.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
 import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
@@ -54,7 +54,7 @@ function Content({
       name: '',
       startDate: '',
       endDate: '',
-      timeZone: getSystemZone(),
+      timeZone: getSystemTimeZone(),
     },
   })
 

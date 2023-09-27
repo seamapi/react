@@ -6,8 +6,8 @@ import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 import {
   get24HoursLater,
   getNow,
-  getSystemZone,
-  getZoneNameFromIsoDate,
+  getSystemTimeZone,
+  getTimeZoneNameFromIsoDate,
 } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
 import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-access-code-code.js'
@@ -72,7 +72,7 @@ function Content({
   )
   const [datePickerVisible, setDatePickerVisible] = useState(false)
   const [timeZone, setTimeZone] = useState<string>(
-    getAccessCodeTimeZone(accessCode) ?? getSystemZone()
+    getAccessCodeTimeZone(accessCode) ?? getSystemTimeZone()
   )
   const [startDate, setStartDate] = useState<string>(
     getAccessCodeDate('starts_at', accessCode) ?? getNow()
@@ -319,7 +319,7 @@ function getAccessCodeTimeZone(
 
   const date = accessCode.starts_at
 
-  const timeZone = getZoneNameFromIsoDate(date)
+  const timeZone = getTimeZoneNameFromIsoDate(date)
   if (timeZone == null) {
     return undefined
   }

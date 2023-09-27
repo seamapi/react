@@ -1,7 +1,7 @@
 import { useArgs } from '@storybook/preview-api'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { getSystemZone } from 'lib/dates.js'
+import { getSystemTimeZone } from 'lib/dates.js'
 import { TimeZonePicker } from 'lib/ui/TimeZonePicker/TimeZonePicker.js'
 
 const meta: Meta<typeof TimeZonePicker> = {
@@ -25,7 +25,7 @@ export const Content: Story = {
 }
 
 Content.args = {
-  value: getSystemZone(),
+  value: getSystemTimeZone(),
 }
 
 export default meta

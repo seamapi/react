@@ -15,14 +15,14 @@ export const compareByCreatedAtDesc = (
  *
  * @returns string[]
  */
-export function getZoneNames(): string[] {
+export function getTimeZoneNames(): string[] {
   return Intl.supportedValuesOf('timeZone')
 }
 
 /**
  * Get the default browser time zone.
  */
-export function getSystemZone(): string {
+export function getSystemTimeZone(): string {
   return SystemZone.name
 }
 
@@ -30,7 +30,7 @@ export function getSystemZone(): string {
  * Takes an IANA time zone, like America/Los_Angeles, into a more readable
  * string: Los Angeles (America).
  */
-export function getZoneLabel(zoneName: string): string {
+export function getTimeZoneLabel(zoneName: string): string {
   const [region, city = ''] = zoneName.replace(/_/g, ' ').split('/')
   if (region == null) return city
   if (city == null) return region
@@ -40,7 +40,7 @@ export function getZoneLabel(zoneName: string): string {
 /**
  * Get a time zones offset from UTC in minutes.
  */
-function getZoneOffsetMinutes(zoneName: string): number {
+function getTimeZoneOffsetMinutes(zoneName: string): number {
   return DateTime.now().setZone(zoneName).offset
 }
 
@@ -48,16 +48,17 @@ function getZoneOffsetMinutes(zoneName: string): number {
  * Compares 2 time zones (America/Los_angeles) by their offset
  * minutes in ascending order.
  */
-export const compareByZoneOffsetAsc = (
+export const compareByTimeZoneOffsetAsc = (
   zoneNameA: string,
   zoneNameB: string
-): number => getZoneOffsetMinutes(zoneNameA) - getZoneOffsetMinutes(zoneNameB)
+): number =>
+  getTimeZoneOffsetMinutes(zoneNameA) - getTimeZoneOffsetMinutes(zoneNameB)
 
 /**
  * Get the time zone offset
  * America/Los_angeles -> -07:00
  */
-export function getZoneOffset(zoneName: string): string {
+export function getTimeZoneOffset(zoneName: string): string {
   return IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
 }
 
@@ -106,7 +107,7 @@ function getDateTimeOnly(dateTime: DateTime): string {
  * returns an ISO8601 Date (2023-07-20T00:00:00.000-07:00).
  */
 export const createIsoDate = (date: string, zoneName: string): string => {
-  const offset = getZoneOffset(zoneName)
+  const offset = getTimeZoneOffset(zoneName)
   return `${date}.000${offset}`
 }
 
@@ -114,7 +115,7 @@ export const createIsoDate = (date: string, zoneName: string): string => {
  * Takes a ISO datetime string (2023-07-20T00:00:00.000-07:00) and returns
  * the IANA time zone (America/Los_angeles).
  */
-export const getZoneNameFromIsoDate = (date: string): string | null =>
+export const getTimeZoneNameFromIsoDate = (date: string): string | null =>
   DateTime.fromISO(date).zoneName
 
 /**

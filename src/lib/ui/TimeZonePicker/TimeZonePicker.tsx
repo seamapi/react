@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import {
-  getSystemZone,
-  getZoneLabel,
-  getZoneNames,
-  getZoneOffset,
+  getSystemTimeZone,
+  getTimeZoneLabel,
+  getTimeZoneNames,
+  getTimeZoneOffset,
 } from 'lib/dates.js'
 import { Checkbox } from 'lib/ui/Checkbox.js'
 import { handleString } from 'lib/ui/TextField/TextField.js'
@@ -22,7 +22,7 @@ export function TimeZonePicker({
 }: TimeZonePickerProps): JSX.Element {
   const [manualTimeZoneEnabled, setManualTimeZoneEnabled] = useState(false)
 
-  const isBrowserTimeZoneSelected = value === getSystemZone()
+  const isBrowserTimeZoneSelected = value === getSystemTimeZone()
   const isManualTimeZoneSelected =
     !isBrowserTimeZoneSelected || manualTimeZoneEnabled
 
@@ -34,7 +34,7 @@ export function TimeZonePicker({
   const handleChangeManualTimeZone = (enabled: boolean): void => {
     setManualTimeZoneEnabled(enabled)
     if (!enabled) {
-      onChange(getSystemZone())
+      onChange(getSystemTimeZone())
     }
   }
 
@@ -54,9 +54,9 @@ export function TimeZonePicker({
         onChange={handleString(onChange)}
         className='seam-time-zone-select'
       >
-        {getZoneNames().map((timeZone) => (
+        {getTimeZoneNames().map((timeZone) => (
           <option value={timeZone} key={timeZone}>
-            {t.utc} {getZoneOffset(timeZone)} {getZoneLabel(timeZone)}
+            {t.utc} {getTimeZoneOffset(timeZone)} {getTimeZoneLabel(timeZone)}
           </option>
         ))}
       </select>
