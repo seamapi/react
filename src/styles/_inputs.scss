@@ -1,6 +1,16 @@
 @use './colors';
 @use './typography';
 
+@mixin search-text-field {
+  .seam-search-text-field {
+    svg {
+      * {
+        fill: colors.$text-gray-2;
+      }
+    }
+  }
+}
+
 @mixin text-field {
   .seam-text-field {
     > .seam-main {
@@ -112,4 +122,5 @@
 
 @mixin all {
   @include text-field;
+  @include search-text-field;
 }
