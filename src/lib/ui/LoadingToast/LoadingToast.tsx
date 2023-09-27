@@ -6,12 +6,14 @@ import { Spinner } from 'lib/ui/Spinner/Spinner.js'
 
 interface LoadingToastProps {
   isLoading: boolean
+  label: string
   top?: number
   left?: number
 }
 
 export function LoadingToast({
   isLoading = true,
+  label,
   top,
   left,
 }: LoadingToastProps): JSX.Element {
@@ -45,7 +47,7 @@ export function LoadingToast({
       <div className='seam-loading-toast-icon-wrap'>
         {isLoading ? <Spinner size='small' /> : <CheckBlackIcon />}
       </div>
-      <p className='seam-loading-toast-text'>Loading devices</p>
+      <p className='seam-loading-toast-text'>{label}</p>
     </div>
   )
 }

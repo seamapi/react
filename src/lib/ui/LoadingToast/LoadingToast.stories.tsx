@@ -45,7 +45,7 @@ export const Content: Story = {
         }}
       >
         <Box height={32}>
-          <LoadingToast isLoading={props.isLoading} />
+          <LoadingToast isLoading={props.isLoading} label='Loading devices' />
         </Box>
 
         <Button size='small' onClick={rerender}>
