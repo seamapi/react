@@ -10,7 +10,7 @@ export const compareByCreatedAtDesc = (
   return t1.toMillis() - t2.toMillis()
 }
 
-export const getTimeZoneNames = (): string[] =>
+export const getSupportedTimeZones = (): string[] =>
   Intl.supportedValuesOf('timeZone')
 
 export const getSystemTimeZone = (): string => SystemZone.name
