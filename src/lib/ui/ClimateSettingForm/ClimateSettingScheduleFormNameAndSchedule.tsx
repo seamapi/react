@@ -1,6 +1,6 @@
 import { type Control, Controller } from 'react-hook-form'
 
-import { getTimeZoneLabel } from 'lib/dates.js'
+import { formatTimeZone } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -71,7 +71,7 @@ export function ClimateSettingScheduleFormNameAndSchedule({
               <div className='seam-time-zone'>
                 <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
                 <span className='seam-selected' onClick={onChangeTimeZone}>
-                  {getTimeZoneLabel(timeZone)}
+                  {formatTimeZone(timeZone)}
                   <ChevronRightIcon />
                 </span>
               </div>

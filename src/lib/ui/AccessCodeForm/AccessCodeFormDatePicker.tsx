@@ -1,4 +1,4 @@
-import { getTimeZoneLabel } from 'lib/dates.js'
+import { formatTimeZone } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
@@ -31,7 +31,7 @@ export function AccessCodeFormDatePicker({
         <div className='seam-time-zone'>
           <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
           <span className='seam-selected' onClick={onChangeTimeZone}>
-            {getTimeZoneLabel(timeZone)}
+            {formatTimeZone(timeZone)}
             <ChevronRightIcon />
           </span>
         </div>

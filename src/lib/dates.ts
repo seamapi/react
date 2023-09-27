@@ -19,7 +19,7 @@ export const getSystemTimeZone = (): string => SystemZone.name
  * Transforms an IANA time zone, like America/Los_Angeles, into a more readable
  * format: Los Angeles (America).
  */
-export const getTimeZoneLabel = (zoneName: string): string => {
+export const formatTimeZone = (zoneName: string): string => {
   const [region, city] = zoneName.replace(/_/g, ' ').split('/')
   if (region == null) return zoneName
   if (city == null) return region

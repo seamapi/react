@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import {
   getSystemTimeZone,
-  getTimeZoneLabel,
+  formatTimeZone,
   getTimeZoneNames,
   getTimeZoneOffset,
 } from 'lib/dates.js'
@@ -56,7 +56,7 @@ export function TimeZonePicker({
       >
         {getTimeZoneNames().map((timeZone) => (
           <option value={timeZone} key={timeZone}>
-            {t.utc} {getTimeZoneOffset(timeZone)} {getTimeZoneLabel(timeZone)}
+            {t.utc} {getTimeZoneOffset(timeZone)} {formatTimeZone(timeZone)}
           </option>
         ))}
       </select>
