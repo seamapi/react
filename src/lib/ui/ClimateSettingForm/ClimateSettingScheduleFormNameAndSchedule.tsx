@@ -68,7 +68,7 @@ export function ClimateSettingScheduleFormNameAndSchedule({
 
             <FormField>
               <InputLabel>{t.startTimeLabel}</InputLabel>
-              <div className='seam-timezone'>
+              <div className='seam-time-zone'>
                 <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
                 <span className='seam-selected' onClick={onChangeTimeZone}>
                   {getZoneLabel(timeZone)}

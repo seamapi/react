@@ -39,20 +39,20 @@ export function TimeZonePicker({
   }
 
   return (
-    <div className='seam-timezone-picker'>
+    <div className='seam-time-zone-picker'>
       <Checkbox
         label={t.setTimeZoneManuallyLabel}
         checked={!isManualTimeZoneSelected}
         onChange={(manual) => {
           handleChangeManualTimeZone(!manual)
         }}
-        className='seam-manual-timezone-checkbox'
+        className='seam-manual-time-zone-checkbox'
       />
 
       <select
         value={value}
         onChange={handleString(onChange)}
-        className='seam-timezone-select'
+        className='seam-time-zone-select'
       >
         {getZoneNames().map((timeZone) => (
           <option value={timeZone} key={timeZone}>

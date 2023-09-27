@@ -17,7 +17,7 @@ export function AccessCodeFormTimeZonePicker({
   const [title, setTitle] = useState(t.titleAuto)
 
   return (
-    <div className='seam-access-code-timezone-picker'>
+    <div className='seam-access-code-time-zone-picker'>
       <ContentHeader title={title} onBack={onClose} />
       <div className='seam-content'>
         <TimeZonePicker

@@ -28,7 +28,7 @@ export function AccessCodeFormDatePicker({
     <div className='seam-schedule-picker'>
       <ContentHeader title={t.timingTitle} onBack={onBack} />
       <div className='seam-content'>
-        <div className='seam-timezone'>
+        <div className='seam-time-zone'>
           <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
           <span className='seam-selected' onClick={onChangeTimeZone}>
             {getZoneLabel(timeZone)}
