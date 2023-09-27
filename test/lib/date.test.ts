@@ -70,5 +70,8 @@ describe('createIsoDate', () => {
     const now = DateTime.now().toISO() ?? ''
     expect(now).not.toBe('')
     expect(createIsoDate(now, 'America/Los_Angeles')).toContain('.000-07:00')
+    expect(createIsoDate('2023-09-27T22:44:52+0300', 'America/New_York')).toBe(
+      '2023-09-27T22:44:52+0300.000-04:00'
+    )
   })
 })
