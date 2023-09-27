@@ -18,7 +18,7 @@
     width: $default-size;
     height: $default-size;
     border: $default-border-width solid colors.$primary;
-    border-top: $default-border-width solid colors.$white;
+    border-top: $default-border-width solid transparent;
     display: inline-block;
     border-radius: 50%;
     animation: spin 0.5s linear infinite;
