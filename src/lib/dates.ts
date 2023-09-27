@@ -23,8 +23,8 @@ export function getSystemTimeZone(): string {
  * format: Los Angeles (America).
  */
 export function getTimeZoneLabel(zoneName: string): string {
-  const [region, city = ''] = zoneName.replace(/_/g, ' ').split('/')
-  if (region == null) return city
+  const [region, city] = zoneName.replace(/_/g, ' ').split('/')
+  if (region == null) return zoneName
   if (city == null) return region
   return `${city} (${region})`
 }

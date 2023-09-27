@@ -11,10 +11,15 @@ import {
 } from 'lib/dates.js'
 
 describe('getTimeZoneOffset', () => {
-  it('should return a time zone label', () => {
+  it('should return city and region ', () => {
     expect(getTimeZoneLabel('America/Los_Angeles')).toBe(
       'Los Angeles (America)'
     )
+    expect(getTimeZoneLabel('Etc/GMT-3')).toBe('GMT-3 (Etc)')
+  })
+
+  it('should return the time zone if no region', () => {
+    expect(getTimeZoneLabel('Egypt')).toBe('Egypt')
   })
 })
 
