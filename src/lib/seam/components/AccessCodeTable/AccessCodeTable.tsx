@@ -206,11 +206,7 @@ export function AccessCodeTable({
           )}
         </div>
         <div className='seam-table-header-loading-wrap'>
-          <LoadingToast
-            isLoading={isLoading}
-            label='Loading access codes'
-            top={-20}
-          />
+          <LoadingToast isLoading={isLoading} label={t.loading} top={-20} />
         </div>
         {!disableSearch && (
           <SearchTextField
@@ -295,4 +291,5 @@ function Content(props: {
 const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
+  loading: 'Loading access codes',
 }

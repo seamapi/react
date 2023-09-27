@@ -135,11 +135,7 @@ export function DeviceTable({
           <div className='seam-fragment' />
         )}
         <div className='seam-table-header-loading-wrap'>
-          <LoadingToast
-            isLoading={isLoading}
-            label='Loading devices'
-            top={-20}
-          />
+          <LoadingToast isLoading={isLoading} label={t.loading} top={-20} />
         </div>
         {!disableSearch && (
           <SearchTextField
@@ -213,4 +209,5 @@ function Content(props: {
 const t = {
   devices: 'Devices',
   noDevicesMessage: 'Sorry, no devices were found',
+  loading: 'Loading devices',
 }
