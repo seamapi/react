@@ -30,6 +30,7 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 
 export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
 
@@ -87,7 +88,7 @@ export function AccessCodeTable({
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 
-  const { accessCodes } = useAccessCodes({
+  const { accessCodes, isLoading, isError, error } = useAccessCodes({
     device_id: deviceId,
   })
 
@@ -178,6 +179,10 @@ export function AccessCodeTable({
     )
   }
 
+  if (isError) {
+    return <p className={className}>{error?.message}</p>
+  }
+
   return (
     <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
@@ -199,6 +204,9 @@ export function AccessCodeTable({
               <AddIcon />
             </IconButton>
           )}
+        </div>
+        <div className='seam-table-header-loading-wrap'>
+          <LoadingToast isLoading={isLoading} top={-20} />
         </div>
         {!disableSearch && (
           <SearchTextField
