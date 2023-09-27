@@ -7,10 +7,10 @@ import {
   formaDateTimeWithoutZone,
   formatDateTimeReadable,
   formatTimeZone,
-  getTimeZoneOffset,
+  formatTimeZoneOffset,
 } from 'lib/dates.js'
 
-describe('getTimeZoneOffset', () => {
+describe('formatTimeZoneOffset', () => {
   it('should return city and region ', () => {
     expect(formatTimeZone('America/Los_Angeles')).toBe(
       'Los Angeles (America)'
@@ -33,9 +33,9 @@ describe('compareByTimeZoneOffsetAsc', () => {
   })
 })
 
-describe('getTimeZoneOffset', () => {
+describe('formatTimeZoneOffset', () => {
   it('should return offset mintues', () => {
-    expect(getTimeZoneOffset('America/Los_Angeles')).toBe('-07:00')
+    expect(formatTimeZoneOffset('America/Los_Angeles')).toBe('-07:00')
   })
 })
 

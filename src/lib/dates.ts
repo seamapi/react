@@ -44,7 +44,7 @@ export const compareByTimeZoneOffsetAsc = (
 /**
  * Get the time zone offset in short format, e.g., America/Los_angeles as -07:00.
  */
-export const getTimeZoneOffset = (zoneName: string): string =>
+export const formatTimeZoneOffset = (zoneName: string): string =>
   IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
 
 const formatDateReadable = (
@@ -86,7 +86,7 @@ export const formaDateTimeWithoutZone = (date: string): string => {
  * returns an ISO8601 Date (2023-07-20T00:00:00.000-07:00).
  */
 export const createIsoDate = (date: string, zoneName: string): string => {
-  const offset = getTimeZoneOffset(zoneName)
+  const offset = formatTimeZoneOffset(zoneName)
   return `${date}.000${offset}`
 }
 

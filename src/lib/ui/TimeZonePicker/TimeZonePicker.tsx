@@ -4,7 +4,7 @@ import {
   getSystemTimeZone,
   formatTimeZone,
   getSupportedTimeZones,
-  getTimeZoneOffset,
+  formatTimeZoneOffset,
 } from 'lib/dates.js'
 import { Checkbox } from 'lib/ui/Checkbox.js'
 import { handleString } from 'lib/ui/TextField/TextField.js'
@@ -56,7 +56,7 @@ export function TimeZonePicker({
       >
         {getSupportedTimeZones().map((timeZone) => (
           <option value={timeZone} key={timeZone}>
-            {t.utc} {getTimeZoneOffset(timeZone)} {formatTimeZone(timeZone)}
+            {t.utc} {formatTimeZoneOffset(timeZone)} {formatTimeZone(timeZone)}
           </option>
         ))}
       </select>
