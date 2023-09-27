@@ -1,30 +1,30 @@
 import { useState } from 'react'
 
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { TimezonePicker } from 'lib/ui/TimezonePicker/TimezonePicker.js'
+import { TimeZonePicker } from 'lib/ui/TimeZonePicker/TimeZonePicker.js'
 
-interface AccessCodeFormTimezonePickerProps {
+interface AccessCodeFormTimeZonePickerProps {
   value: string
   onChange: (timezone: string) => void
   onClose: () => void
 }
 
-export function AccessCodeFormTimezonePicker({
+export function AccessCodeFormTimeZonePicker({
   onChange,
   value,
   onClose,
-}: AccessCodeFormTimezonePickerProps): JSX.Element {
+}: AccessCodeFormTimeZonePickerProps): JSX.Element {
   const [title, setTitle] = useState(t.titleAuto)
 
   return (
     <div className='seam-access-code-timezone-picker'>
       <ContentHeader title={title} onBack={onClose} />
       <div className='seam-content'>
-        <TimezonePicker
+        <TimeZonePicker
           value={value}
           onChange={onChange}
-          onManualTimezoneSelected={(manualTimezoneSelected) => {
-            setTitle(manualTimezoneSelected ? t.titleManual : t.titleAuto)
+          onManualTimeZoneSelected={(manualTimeZoneSelected) => {
+            setTitle(manualTimeZoneSelected ? t.titleManual : t.titleAuto)
           }}
         />
       </div>
@@ -36,5 +36,5 @@ const t = {
   titleAuto: 'Time Zone (automatic)',
   titleManual: 'Time Zone (manual)',
   utc: 'UTC',
-  setTimezoneManuallyLabel: 'Use local time zone',
+  setTimeZoneManuallyLabel: 'Use local time zone',
 }

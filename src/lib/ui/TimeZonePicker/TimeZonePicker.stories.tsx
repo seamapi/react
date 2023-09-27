@@ -2,15 +2,15 @@ import { useArgs } from '@storybook/preview-api'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { getSystemZone } from 'lib/dates.js'
-import { TimezonePicker } from 'lib/ui/TimezonePicker/TimezonePicker.js'
+import { TimeZonePicker } from 'lib/ui/TimeZonePicker/TimeZonePicker.js'
 
-const meta: Meta<typeof TimezonePicker> = {
-  title: 'Library/TimezonePicker',
+const meta: Meta<typeof TimeZonePicker> = {
+  title: 'Library/TimeZonePicker',
   tags: ['autodocs'],
-  component: TimezonePicker,
+  component: TimeZonePicker,
 }
 
-type Story = StoryObj<typeof TimezonePicker>
+type Story = StoryObj<typeof TimeZonePicker>
 
 export const Content: Story = {
   render: (props) => {
@@ -20,7 +20,7 @@ export const Content: Story = {
       setArgs({ value: timezone })
     }
 
-    return <TimezonePicker value={props.value} onChange={onChange} />
+    return <TimeZonePicker value={props.value} onChange={onChange} />
   },
 }
 

@@ -6,7 +6,7 @@ import type { ClimateSetting } from 'seamapi'
 import { getSystemZone } from 'lib/dates.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
-import { ClimateSettingScheduleFormTimezonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimezonePicker.js'
+import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
@@ -95,7 +95,7 @@ function Content({
         onNext={() => {
           setPage('climate_setting')
         }}
-        onChangeTimezone={() => {
+        onChangeTimeZone={() => {
           setPage('timezone_select')
         }}
         timezone={timezone}
@@ -105,7 +105,7 @@ function Content({
 
   if (page === 'timezone_select') {
     return (
-      <ClimateSettingScheduleFormTimezonePicker
+      <ClimateSettingScheduleFormTimeZonePicker
         control={control}
         onClose={() => {
           setPage('name_and_schedule')

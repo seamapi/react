@@ -14,7 +14,7 @@ import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-ac
 import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { AccessCodeFormDatePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { AccessCodeFormTimes } from 'lib/ui/AccessCodeForm/AccessCodeFormTimes.js'
-import { AccessCodeFormTimezonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimezonePicker.js'
+import { AccessCodeFormTimeZonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimeZonePicker.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -71,8 +71,8 @@ function Content({
     accessCode?.type ?? 'ongoing'
   )
   const [datePickerVisible, setDatePickerVisible] = useState(false)
-  const [timezone, setTimezone] = useState<string>(
-    getAccessCodeTimezone(accessCode) ?? getSystemZone()
+  const [timezone, setTimeZone] = useState<string>(
+    getAccessCodeTimeZone(accessCode) ?? getSystemZone()
   )
   const [startDate, setStartDate] = useState<string>(
     getAccessCodeDate('starts_at', accessCode) ?? getNow()
@@ -108,7 +108,7 @@ function Content({
       code: accessCode?.code ?? '',
     },
   })
-  const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+  const [timezonePickerVisible, toggleTimeZonePicker] = useToggle()
 
   const { isLoading: isGeneratingCode, mutate: generateCode } =
     useGenerateAccessCodeCode()
@@ -117,10 +117,10 @@ function Content({
 
   if (timezonePickerVisible) {
     return (
-      <AccessCodeFormTimezonePicker
+      <AccessCodeFormTimeZonePicker
         value={timezone}
-        onChange={setTimezone}
-        onClose={toggleTimezonePicker}
+        onChange={setTimeZone}
+        onClose={toggleTimeZonePicker}
       />
     )
   }
@@ -133,7 +133,7 @@ function Content({
         endDate={endDate}
         setEndDate={setEndDate}
         timezone={timezone}
-        onChangeTimezone={toggleTimezonePicker}
+        onChangeTimeZone={toggleTimeZonePicker}
         onBack={() => {
           setDatePickerVisible(false)
         }}
@@ -306,7 +306,7 @@ function Content({
   )
 }
 
-function getAccessCodeTimezone(
+function getAccessCodeTimeZone(
   accessCode?: NonNullable<UseAccessCodeData>
 ): undefined | string {
   if (accessCode == null) {

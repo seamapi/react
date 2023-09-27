@@ -3,17 +3,17 @@ import { type Control, Controller } from 'react-hook-form'
 
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { TimezonePicker } from 'lib/ui/TimezonePicker/TimezonePicker.js'
+import { TimeZonePicker } from 'lib/ui/TimeZonePicker/TimeZonePicker.js'
 
-interface ClimateSettingScheduleFormTimezonePickerProps {
+interface ClimateSettingScheduleFormTimeZonePickerProps {
   control: Control<ClimateSettingScheduleFormFields>
   onClose: () => void
 }
 
-export function ClimateSettingScheduleFormTimezonePicker({
+export function ClimateSettingScheduleFormTimeZonePicker({
   control,
   onClose,
-}: ClimateSettingScheduleFormTimezonePickerProps): JSX.Element {
+}: ClimateSettingScheduleFormTimeZonePickerProps): JSX.Element {
   const [title, setTitle] = useState(t.titleAuto)
 
   return (
@@ -24,10 +24,10 @@ export function ClimateSettingScheduleFormTimezonePicker({
           name='timezone'
           control={control}
           render={({ field }) => (
-            <TimezonePicker
+            <TimeZonePicker
               {...field}
-              onManualTimezoneSelected={(manualTimezoneSelected) => {
-                setTitle(manualTimezoneSelected ? t.titleManual : t.titleAuto)
+              onManualTimeZoneSelected={(manualTimeZoneSelected) => {
+                setTitle(manualTimeZoneSelected ? t.titleManual : t.titleAuto)
               }}
             />
           )}

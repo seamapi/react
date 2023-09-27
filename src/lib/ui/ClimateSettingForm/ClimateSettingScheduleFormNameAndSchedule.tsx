@@ -19,7 +19,7 @@ interface ClimateSettingScheduleFormNameAndScheduleProps {
   onBack: () => void
   onCancel: (() => void) | undefined
   onNext: () => void
-  onChangeTimezone: () => void
+  onChangeTimeZone: () => void
 }
 
 export function ClimateSettingScheduleFormNameAndSchedule({
@@ -30,7 +30,7 @@ export function ClimateSettingScheduleFormNameAndSchedule({
   onBack,
   onCancel,
   onNext,
-  onChangeTimezone,
+  onChangeTimeZone,
 }: ClimateSettingScheduleFormNameAndScheduleProps): JSX.Element {
   const { device } = useDevice({
     device_id: deviceId,
@@ -69,8 +69,8 @@ export function ClimateSettingScheduleFormNameAndSchedule({
             <FormField>
               <InputLabel>{t.startTimeLabel}</InputLabel>
               <div className='seam-timezone'>
-                <span className='seam-label'>{t.selectedTimezoneLabel}</span>
-                <span className='seam-selected' onClick={onChangeTimezone}>
+                <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
+                <span className='seam-selected' onClick={onChangeTimeZone}>
                   {getZoneLabel(timezone)}
                   <ChevronRightIcon />
                 </span>
@@ -116,5 +116,5 @@ const t = {
   cancel: 'Cancel',
   save: 'Save',
   next: 'Next',
-  selectedTimezoneLabel: 'All times in',
+  selectedTimeZoneLabel: 'All times in',
 }

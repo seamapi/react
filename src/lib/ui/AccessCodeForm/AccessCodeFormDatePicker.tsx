@@ -11,7 +11,7 @@ interface AccessCodeFormDatePickerProps {
   endDate: string
   setEndDate: (date: string) => void
   timezone: string
-  onChangeTimezone: () => void
+  onChangeTimeZone: () => void
   onBack: (() => void) | undefined
 }
 
@@ -22,15 +22,15 @@ export function AccessCodeFormDatePicker({
   setStartDate,
   endDate,
   setEndDate,
-  onChangeTimezone,
+  onChangeTimeZone,
 }: AccessCodeFormDatePickerProps): JSX.Element {
   return (
     <div className='seam-schedule-picker'>
       <ContentHeader title={t.timingTitle} onBack={onBack} />
       <div className='seam-content'>
         <div className='seam-timezone'>
-          <span className='seam-label'>{t.selectedTimezoneLabel}</span>
-          <span className='seam-selected' onClick={onChangeTimezone}>
+          <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
+          <span className='seam-selected' onClick={onChangeTimeZone}>
             {getZoneLabel(timezone)}
             <ChevronRightIcon />
           </span>
@@ -58,7 +58,7 @@ export function AccessCodeFormDatePicker({
 
 const t = {
   timingTitle: 'Timing',
-  selectedTimezoneLabel: 'All times in',
+  selectedTimeZoneLabel: 'All times in',
   startTimeLabel: 'Start',
   endTimeLabel: 'End',
 }
