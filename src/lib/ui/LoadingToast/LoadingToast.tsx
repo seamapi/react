@@ -18,18 +18,20 @@ export function LoadingToast({
   const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
-    let timeout: ReturnType<typeof globalThis.setTimeout>
-
     if (!isLoading) {
-      timeout = globalThis.setTimeout(() => {
+      const timeout = globalThis.setTimeout(() => {
         setHidden(true)
       }, 1000)
-    } else {
-      setHidden(false)
+
+      return () => {
+        globalThis.clearTimeout(timeout)
+      }
     }
 
+    setHidden(false)
+
     return () => {
-      clearTimeout(timeout)
+      // noop
     }
   }, [isLoading])
 
