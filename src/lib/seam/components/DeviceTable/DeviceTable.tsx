@@ -21,13 +21,13 @@ import {
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 
 type Device = UseDevicesData[number]
 
