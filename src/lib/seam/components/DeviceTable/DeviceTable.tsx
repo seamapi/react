@@ -27,6 +27,7 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 
 type Device = UseDevicesData[number]
 
@@ -117,9 +118,9 @@ export function DeviceTable({
     )
   }
 
-  if (isLoading) {
-    return <p className={className}>...</p>
-  }
+  // if (isLoading) {
+  //   return <p className={className}>...</p>
+  // }
 
   if (isError) {
     return <p className={className}>{error?.message}</p>
@@ -132,6 +133,7 @@ export function DeviceTable({
         {title != null ? (
           <TableTitle>
             {heading ?? title ?? t.devices}{' '}
+            <LoadingToast isLoading={true} />
             <Caption>({filteredDevices.length})</Caption>
           </TableTitle>
         ) : (
