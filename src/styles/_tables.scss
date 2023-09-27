@@ -16,7 +16,9 @@
     }
 
     .seam-table-header-loading-wrap {
-      position: relative;
+      width: 100%;
+      position: absolute;
+      left: 0;
       display: flex;
       justify-content: center;
       align-items: center;

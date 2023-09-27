@@ -7,8 +7,8 @@ import { Spinner } from 'lib/ui/Spinner/Spinner.js'
 interface LoadingToastProps {
   isLoading: boolean
   label: string
-  top?: number
-  left?: number
+  top?: string | number
+  left?: string | number
 }
 
 export function LoadingToast({
