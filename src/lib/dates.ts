@@ -10,19 +10,16 @@ export const compareByCreatedAtDesc = (
   return t1.toMillis() - t2.toMillis()
 }
 
-export function getTimeZoneNames(): string[] {
-  return Intl.supportedValuesOf('timeZone')
-}
+export const getTimeZoneNames = (): string[] =>
+  Intl.supportedValuesOf('timeZone')
 
-export function getSystemTimeZone(): string {
-  return SystemZone.name
-}
+export const getSystemTimeZone = (): string => SystemZone.name
 
 /**
  * Transforms an IANA time zone, like America/Los_Angeles, into a more readable
  * format: Los Angeles (America).
  */
-export function getTimeZoneLabel(zoneName: string): string {
+export const getTimeZoneLabel = (zoneName: string): string => {
   const [region, city] = zoneName.replace(/_/g, ' ').split('/')
   if (region == null) return zoneName
   if (city == null) return region
@@ -32,9 +29,8 @@ export function getTimeZoneLabel(zoneName: string): string {
 /**
  * Get a time zone's offset from UTC in minutes.
  */
-function getTimeZoneOffsetMinutes(zoneName: string): number {
-  return DateTime.now().setZone(zoneName).offset
-}
+export const getTimeZoneOffsetMinutes = (zoneName: string): number =>
+  DateTime.now().setZone(zoneName).offset
 
 /**
  * Compares two time zones (America/Los_Angeles) by their offset in ascending order.
@@ -48,9 +44,8 @@ export const compareByTimeZoneOffsetAsc = (
 /**
  * Get the time zone offset in short format, e.g., America/Los_angeles as -07:00.
  */
-export function getTimeZoneOffset(zoneName: string): string {
-  return IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
-}
+export const getTimeZoneOffset = (zoneName: string): string =>
+  IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
 
 const formatDateReadable = (
   date: string,
@@ -87,7 +82,7 @@ export const getNow = (): string => getDateTimeOnly(DateTime.now())
 export const get24HoursLater = (): string =>
   getDateTimeOnly(DateTime.now().plus({ days: 1 }))
 
-function getDateTimeOnly(dateTime: DateTime): string {
+const getDateTimeOnly = (dateTime: DateTime): string => {
   const date = dateTime.toFormat('yyyy-MM-dd')
   const time = dateTime.toFormat('HH:mm:ss')
   return `${date}T${time}`
