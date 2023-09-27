@@ -42,7 +42,7 @@ export function LoadingToast({
       style={{ top, left }}
     >
       <div className='seam-loading-toast-icon-wrap'>
-        {!isLoading ? <CheckBlackIcon /> : <Spinner size='small' />}
+        {isLoading ? <Spinner size='small' /> : <CheckBlackIcon />}
       </div>
       <p className='seam-loading-toast-text'>Loading devices</p>
     </div>
