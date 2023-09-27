@@ -1,11 +1,11 @@
+import { DateTime } from 'luxon'
 import { describe, expect, it } from 'vitest'
 
 import {
   compareByTimeZoneOffsetAsc,
   createIsoDate,
+  formaDateTimeWithoutZone,
   formatDateTimeReadable,
-  get24HoursLater,
-  getNow,
   getTimeZoneLabel,
   getTimeZoneOffset,
 } from 'lib/dates.js'
@@ -47,24 +47,28 @@ describe('formatDateTimeReadable', () => {
   })
 })
 
-describe('getNow', () => {
-  it('should only show current date and time', () => {
-    expect(getNow()).not.toContain('Z')
-    expect(getNow()).not.toContain('.')
+describe('formatDateTimeReadable', () => {
+  it('should format without time zone', () => {
+    const now = DateTime.now().toISO() ?? ''
+    expect(now).not.toBe('')
+    expect(formaDateTimeWithoutZone(now)).not.toContain('Z')
+    expect(formaDateTimeWithoutZone(now)).not.toContain('.')
   })
-})
 
-describe('get24HoursLater', () => {
-  it('should only show current date and time', () => {
-    expect(get24HoursLater()).not.toContain('Z')
-    expect(get24HoursLater()).not.toContain('.')
+  it('should format without time zone', () => {
+    expect(DateTime.fromISO('2023-09-27T22:44:52Z')).not.toBe(
+      '2023-09-27T22:44:52'
+    )
+    expect(DateTime.fromISO('2023-09-27T22:44:52+0300')).not.toBe(
+      '2023-09-27T22:44:52'
+    )
   })
 })
 
 describe('createIsoDate', () => {
   it('should create an ISO8601 date', () => {
-    expect(createIsoDate(getNow(), 'America/Los_Angeles')).toContain(
-      '.000-07:00'
-    )
+    const now = DateTime.now().toISO() ?? ''
+    expect(now).not.toBe('')
+    expect(createIsoDate(now, 'America/Los_Angeles')).toContain('.000-07:00')
   })
 })

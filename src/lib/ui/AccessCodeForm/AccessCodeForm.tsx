@@ -1,11 +1,11 @@
 import classNames from 'classnames'
+import { DateTime } from 'luxon'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 
 import {
-  get24HoursLater,
-  getNow,
+  formaDateTimeWithoutZone,
   getSystemTimeZone,
   getTimeZoneNameFromIsoDate,
 } from 'lib/dates.js'
@@ -392,3 +392,9 @@ const t = {
   typeOngoingLabel: 'Ongoing',
   typeTimeBoundLabel: 'Start/end times',
 }
+
+const getNow = (): string =>
+  formaDateTimeWithoutZone(DateTime.now().toISO() ?? '')
+
+const get24HoursLater = (): string =>
+  formaDateTimeWithoutZone(DateTime.now().plus({ days: 1 }).toISO() ?? '')

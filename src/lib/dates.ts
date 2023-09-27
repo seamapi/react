@@ -70,22 +70,15 @@ const formatTimeReadable = (time: string): string | null => {
   return dateTime.toFormat('h:mm a')
 }
 
-export const formatDateTimeReadable = (dateTime: string): string => {
-  const [date = '', time = ''] = dateTime.split('T')
-  return `${formatDateReadable(date, { showWeekday: false })} at ${
-    formatTimeReadable(time) ?? ''
+export const formatDateTimeReadable = (date: string): string => {
+  const [datePart = '', timePart = ''] = date.split('T')
+  return `${formatDateReadable(datePart, { showWeekday: false })} at ${
+    formatTimeReadable(timePart) ?? ''
   }`
 }
 
-export const getNow = (): string => getDateTimeOnly(DateTime.now())
-
-export const get24HoursLater = (): string =>
-  getDateTimeOnly(DateTime.now().plus({ days: 1 }))
-
-const getDateTimeOnly = (dateTime: DateTime): string => {
-  const date = dateTime.toFormat('yyyy-MM-dd')
-  const time = dateTime.toFormat('HH:mm:ss')
-  return `${date}T${time}`
+export const formaDateTimeWithoutZone = (date: string): string => {
+  return DateTime.fromISO(date).toFormat("yyyy-MM-dd'T'HH:mm:ss")
 }
 
 /**
