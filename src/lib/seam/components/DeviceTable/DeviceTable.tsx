@@ -133,12 +133,14 @@ export function DeviceTable({
         {title != null ? (
           <TableTitle>
             {heading ?? title ?? t.devices}{' '}
-            <LoadingToast isLoading={true} />
             <Caption>({filteredDevices.length})</Caption>
           </TableTitle>
         ) : (
           <div className='seam-fragment' />
         )}
+        <div className='seam-table-header-loading-wrap'>
+          <LoadingToast isLoading={isLoading} top={-20} />
+        </div>
         {!disableSearch && (
           <SearchTextField
             value={searchInputValue}
