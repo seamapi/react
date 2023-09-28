@@ -12,7 +12,7 @@ import {
 } from 'lib/dates.js'
 
 describe('compareByCreatedAtDesc', () => {
-  it('should compare two valid dates', () => {
+  it('compares two valid dates', () => {
     expect(
       compareByCreatedAtDesc(
         { created_at: '2023-09-27T22:44:52Z' },
@@ -30,7 +30,7 @@ describe('compareByCreatedAtDesc', () => {
 })
 
 describe('compareByTimeZoneOffsetAsc', () => {
-  it('should compare two time zones by minutes', () => {
+  it('compares two time zones by minutes', () => {
     const tokyo = 9 * 60 // +9 = 540 minutes
     const maputo = 2 * 60 // -7 = -420 minutes
     expect(compareByTimeZoneOffsetAsc('Asia/Tokyo', 'Africa/Maputo')).toBe(
@@ -57,18 +57,18 @@ describe('getSystemTimeZone', () => {
 })
 
 describe('formatTimeZone', () => {
-  it('should return city, region, and offset', () => {
+  it('returns zone name and offset', () => {
     expect(formatTimeZone('Africa/Maputo')).toBe('Africa/Maputo (UTC+2)')
     expect(formatTimeZone('UTC')).toBe('UTC (UTC+0)')
   })
 
-  it('should handle case with no region', () => {
+  it('handles the case with no region', () => {
     expect(formatTimeZone('Egypt')).toBe('Egypt (UTC+3)')
   })
 })
 
 describe('serializeDateTimePickerValue', () => {
-  it('should format without time zone', () => {
+  it('formats without time zone', () => {
     expect(
       serializeDateTimePickerValue(
         DateTime.fromISO('2023-09-27T22:44:52Z'),
@@ -85,7 +85,7 @@ describe('serializeDateTimePickerValue', () => {
 })
 
 describe('parseDateTimePickerValue', () => {
-  it('should keep time with new zone', () => {
+  it('keeps time with the new zone', () => {
     expect(parseDateTimePickerValue('2023-09-27T22:44:52', 'UTC').toISO()).toBe(
       '2023-09-27T22:44:52.000Z'
     )
