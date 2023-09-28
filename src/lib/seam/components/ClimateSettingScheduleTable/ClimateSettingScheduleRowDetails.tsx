@@ -48,12 +48,11 @@ function Duration(props: {
   )
 }
 
-function formatDate(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
+const formatDate = (date: string): string =>
+  DateTime.fromISO(date).toLocaleString({
     month: 'long',
     day: 'numeric',
   })
-}
 
 const t = {
   starts: 'Starts',
