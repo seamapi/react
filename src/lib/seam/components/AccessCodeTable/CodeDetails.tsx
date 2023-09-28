@@ -52,11 +52,11 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
   )
 }
 
-const formatDate = (date: string): string => DateTime.fromISO(date).toLocaleString({
-  month: 'long',
-  day: 'numeric',
-})
-
+const formatDate = (date: string): string =>
+  DateTime.fromISO(date).toLocaleString({
+    month: 'long',
+    day: 'numeric',
+  })
 
 const t = {
   code: 'Code',
