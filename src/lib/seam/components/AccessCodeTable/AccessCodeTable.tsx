@@ -88,10 +88,9 @@ export function AccessCodeTable({
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 
-  const { accessCodes, isLoading, isError, error, isRefetching } =
-    useAccessCodes({
-      device_id: deviceId,
-    })
+  const { accessCodes, isInitialLoading, isError, error } = useAccessCodes({
+    device_id: deviceId,
+  })
 
   const [selectedViewAccessCodeId, setSelectedViewAccessCodeId] = useState<
     string | null
@@ -208,7 +207,7 @@ export function AccessCodeTable({
         </div>
         <div className='seam-table-header-loading-wrap'>
           <LoadingToast
-            isLoading={isLoading && !isRefetching}
+            isLoading={isInitialLoading}
             label={t.loading}
             top={-20}
           />
