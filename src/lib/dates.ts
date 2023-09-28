@@ -19,8 +19,11 @@ export const compareByTimeZoneOffsetAsc = (
 const getTimeZoneOffsetMinutes = (timeZone: string): number =>
   DateTime.now().setZone(timeZone).offset
 
-export const getSupportedTimeZones = (): string[] =>
-  [...Intl.supportedValuesOf('timeZone')].sort()
+export const getSupportedTimeZones = (): string[] => {
+  const timeZones = new Set(Intl.supportedValuesOf('timeZone'))
+  timeZones.add('UTC')
+  return Array.from(timeZones).sort()
+}
 
 export const getSystemTimeZone = (): string => DateTime.now().zoneName ?? 'UTC'
 

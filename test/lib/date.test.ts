@@ -48,6 +48,13 @@ describe('getSupportedTimeZones', () => {
   })
 })
 
+describe('getSystemTimeZone', () => {
+  it('is a supported time zone', () => {
+    const systemTimeZone = getSystemTimeZone()
+    expect(getSupportedTimeZones()).toContain(systemTimeZone)
+  })
+})
+
 describe('formatTimeZone', () => {
   it('should return city, region, and offset', () => {
     expect(formatTimeZone('Africa/Maputo')).toBe('Africa/Maputo (UTC+2)')
