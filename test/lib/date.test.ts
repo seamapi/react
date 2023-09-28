@@ -31,8 +31,8 @@ describe('compareByCreatedAtDesc', () => {
 
 describe('compareByTimeZoneOffsetAsc', () => {
   it('compares two time zones by minutes', () => {
-    const tokyo = 9 * 60 // +9 = 540 minutes
-    const maputo = 2 * 60 // -7 = -420 minutes
+    const tokyo = 9 * 60
+    const maputo = 2 * 60
     expect(compareByTimeZoneOffsetAsc('Asia/Tokyo', 'Africa/Maputo')).toBe(
       tokyo - maputo
     )
