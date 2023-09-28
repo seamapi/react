@@ -82,8 +82,14 @@ function Content({
     }
 
     const start = startDate.toISO()
+    if (start == null) {
+      throw new Error(`Invalid start date: ${startDate.invalidReason}`)
+    }
+
     const end = endDate.toISO()
-    if (start == null || end == null) return
+    if (end == null) {
+      throw new Error(`Invalid end date: ${endDate.invalidReason}`)
+    }
 
     onSubmit({
       name: data.name,
