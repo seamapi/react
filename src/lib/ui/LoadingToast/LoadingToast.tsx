@@ -31,10 +31,7 @@ export function LoadingToast({
     }
 
     setHidden(false)
-
-    return () => {
-      // noop
-    }
+    return () => {}
   }, [isLoading])
 
   return (
