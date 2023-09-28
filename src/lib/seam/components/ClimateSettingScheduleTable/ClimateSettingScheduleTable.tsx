@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
