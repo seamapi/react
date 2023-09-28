@@ -22,15 +22,13 @@ export function LoadingToast({
 
   useEffect(() => {
     if (!isLoading) {
-      let removeTimeout: ReturnType<typeof globalThis.setTimeout>
-
       const hideTimeout = globalThis.setTimeout(() => {
         setHidden(true)
-
-        removeTimeout = globalThis.setTimeout(() => {
-          setShowToast(false)
-        }, 500)
       }, 1000)
+
+      const removeTimeout = globalThis.setTimeout(() => {
+        setShowToast(false)
+      }, 1500)
 
       return () => {
         globalThis.clearTimeout(hideTimeout)
