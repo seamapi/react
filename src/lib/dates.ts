@@ -1,4 +1,4 @@
-import { DateTime, IANAZone, SystemZone } from 'luxon'
+import { DateTime } from 'luxon'
 
 export const compareByCreatedAtDesc = (
   a: { created_at: string },
@@ -10,115 +10,38 @@ export const compareByCreatedAtDesc = (
   return t1.toMillis() - t2.toMillis()
 }
 
-export const getSupportedTimeZones = (): string[] =>
-  Intl.supportedValuesOf('timeZone')
-
-export const getSystemTimeZone = (): string => SystemZone.name
-
-/**
- * Transforms an IANA time zone, like America/Los_Angeles, into a more readable
- * format: Los Angeles (America).
- */
-export const formatTimeZone = (zoneName: string): string => {
-  const [region, city] = zoneName.replace(/_/g, ' ').split('/')
-  if (region == null) return zoneName
-  if (city == null) return region
-  return `${city} (${region})`
-}
-
-/**
- * Get a time zone's offset from UTC in minutes.
- */
-export const getTimeZoneOffsetMinutes = (zoneName: string): number =>
-  DateTime.now().setZone(zoneName).offset
-
-/**
- * Compares two time zones (America/Los_Angeles) by their offset in ascending order.
- */
 export const compareByTimeZoneOffsetAsc = (
-  zoneNameA: string,
-  zoneNameB: string
+  timeZoneA: string,
+  timeZoneB: string
 ): number =>
-  getTimeZoneOffsetMinutes(zoneNameA) - getTimeZoneOffsetMinutes(zoneNameB)
+  getTimeZoneOffsetMinutes(timeZoneA) - getTimeZoneOffsetMinutes(timeZoneB)
 
-/**
- * Get the time zone offset in short format, e.g., America/Los_Angeles as -07:00.
- */
-export const formatTimeZoneOffset = (zoneName: string): string =>
-  IANAZone.create(zoneName).formatOffset(Date.now(), 'short')
+const getTimeZoneOffsetMinutes = (timeZone: string): number =>
+  DateTime.now().setZone(timeZone).offset
 
-// TODO
-export const formatDateTimeReadable = (date: string): string => {
-  const [datePart = '', timePart = ''] = date.split('T')
-  return `${formatDateReadable(datePart, { showWeekday: false })} at ${
-    formatTimeReadable(timePart) ?? ''
-  }`
+export const getSupportedTimeZones = (): string[] =>
+  [...Intl.supportedValuesOf('timeZone')].sort()
+
+export const getSystemTimeZone = (): string => DateTime.now().zoneName ?? 'UTC'
+
+export const formatTimeZone = (timeZone: string): string => {
+  const offset = DateTime.now().setZone(timeZone).toFormat("'UTC'Z")
+  return `${timeZone.replaceAll('_', ' ')} (${offset})`
 }
 
-const formatDateReadable = (
-  date: string,
-  options: {
-    showWeekday?: boolean
-  } = {}
+export const serializeDateTimePickerValue = (
+  dateTime: DateTime,
+  timeZone: string
 ): string | null => {
-  const { showWeekday = true } = options
-  // '2023-04-17' to 'Mon Apr 17, 2023' / 'Apr 17, 2023'
-  const format = showWeekday ? 'EEE MMM d, yyyy' : 'MMM d, yyyy'
-  const dateTime = DateTime.fromFormat(date, 'yyyy-MM-dd')
-
   if (!dateTime.isValid) {
     return null
   }
 
-  return dateTime.toFormat(format)
+  return dateTime.setZone(timeZone).toFormat("yyyy-MM-dd'T'HH:mm:ss")
 }
 
-const formatTimeReadable = (time: string): string | null => {
-  const dateTime = DateTime.fromFormat(time, 'HH:mm:ss')
-
-  if (!dateTime.isValid) {
-    return null
-  }
-
-  return dateTime.toFormat('h:mm a')
-}
-
-export const formaDateTimeWithoutZone = (date: string): string | null => {
-  const dateTime = DateTime.fromISO(date)
-
-  if (!dateTime.isValid) {
-    return null
-  }
-
-  return dateTime.toFormat("yyyy-MM-dd'T'HH:mm:ss")
-}
-
-/**
- * Takes a date (2023-07-20T00:00:00), and a time zone (America/Los_Angeles), and
- * returns an ISO8601 Date (2023-07-20T00:00:00.000-07:00).
- */
-// TODO
-export const createIsoDate = (date: string, zoneName: string): string => {
-  const offset = formatTimeZoneOffset(zoneName)
-  return `${date}.000${offset}`
-}
-
-/**
- * Takes a ISO datetime string (2023-07-20T00:00:00.000-07:00) and returns
- * the IANA time zone (America/Los_Angeles).
- */
-export const getTimeZoneNameFromIsoDate = (date: string): string | null =>
-  DateTime.fromISO(date).zoneName
-
-/**
- * Takes an ISO datetime string (2023-07-20T00:00:00.000-07:00) and returns a string like
- * (Jul 20, 12:00 AM PDT).
- */
-export const formatDateAndTime = (date: string): string =>
-  DateTime.fromISO(date).toLocaleString({
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    timeZoneName: 'short',
-  })
+export const parseDateTimePickerValue = (
+  value: string,
+  timeZone: string
+): DateTime =>
+  DateTime.fromISO(value).setZone(timeZone, { keepLocalTime: true })

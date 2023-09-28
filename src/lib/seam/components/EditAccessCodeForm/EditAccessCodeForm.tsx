@@ -1,6 +1,5 @@
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
-import { createIsoDate } from 'lib/dates.js'
 import {
   useAccessCode,
   type UseAccessCodeData,
@@ -93,7 +92,7 @@ function useSubmitEditAccessCode(
   const submit = (data: AccessCodeFormSubmitData): void => {
     resetResponseErrors()
 
-    const { name, code, type, device, startDate, endDate, timeZone } = data
+    const { name, code, type, device, startDate, endDate } = data
     if (name === '') {
       return
     }
@@ -110,8 +109,8 @@ function useSubmitEditAccessCode(
           code,
           device_id: device.device_id,
           type: 'time_bound',
-          starts_at: createIsoDate(startDate, timeZone),
-          ends_at: createIsoDate(endDate, timeZone),
+          starts_at: startDate,
+          ends_at: endDate,
         },
         {
           onSuccess,

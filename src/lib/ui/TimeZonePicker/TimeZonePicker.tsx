@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 
 import {
-  getSystemTimeZone,
   formatTimeZone,
   getSupportedTimeZones,
-  formatTimeZoneOffset,
+  getSystemTimeZone,
 } from 'lib/dates.js'
 import { Checkbox } from 'lib/ui/Checkbox.js'
 import { handleString } from 'lib/ui/TextField/TextField.js'
@@ -56,7 +55,7 @@ export function TimeZonePicker({
       >
         {getSupportedTimeZones().map((timeZone) => (
           <option value={timeZone} key={timeZone}>
-            {t.utc} {formatTimeZoneOffset(timeZone)} {formatTimeZone(timeZone)}
+            {formatTimeZone(timeZone)}
           </option>
         ))}
       </select>

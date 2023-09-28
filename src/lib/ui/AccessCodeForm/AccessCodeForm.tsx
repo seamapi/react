@@ -4,11 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 
-import {
-  formaDateTimeWithoutZone,
-  getSystemTimeZone,
-  getTimeZoneNameFromIsoDate,
-} from 'lib/dates.js'
+import { getSystemTimeZone } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
 import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-access-code-code.js'
 import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
@@ -71,14 +67,13 @@ function Content({
     accessCode?.type ?? 'ongoing'
   )
   const [datePickerVisible, setDatePickerVisible] = useState(false)
-  const [timeZone, setTimeZone] = useState<string>(
-    getAccessCodeTimeZone(accessCode) ?? getSystemTimeZone()
+  const [timeZone, setTimeZone] = useState<string>(getSystemTimeZone())
+
+  const [startDate, setStartDate] = useState<DateTime>(
+    getAccessCodeDate('starts_at', accessCode) ?? getNow(timeZone)
   )
-  const [startDate, setStartDate] = useState<string>(
-    getAccessCodeDate('starts_at', accessCode) ?? getNow()
-  )
-  const [endDate, setEndDate] = useState<string>(
-    getAccessCodeDate('ends_at', accessCode) ?? get24HoursLater()
+  const [endDate, setEndDate] = useState<DateTime>(
+    getAccessCodeDate('ends_at', accessCode) ?? getOneDayFromNow(timeZone)
   )
 
   const save = (data: { name: string; code: string }): void => {
@@ -86,13 +81,17 @@ function Content({
       return
     }
 
+    const start = startDate.toISO()
+    const end = endDate.toISO()
+    if (start == null || end == null) return
+
     onSubmit({
       name: data.name,
       code: data.code,
       type,
       device,
-      startDate,
-      endDate,
+      startDate: start,
+      endDate: end,
       timeZone,
     })
   }
@@ -306,28 +305,7 @@ function Content({
   )
 }
 
-function getAccessCodeTimeZone(
-  accessCode?: NonNullable<UseAccessCodeData>
-): undefined | string {
-  if (accessCode == null) {
-    return undefined
-  }
-
-  if (accessCode.type === 'ongoing') {
-    return undefined
-  }
-
-  const date = accessCode.starts_at
-
-  const timeZone = getTimeZoneNameFromIsoDate(date)
-  if (timeZone == null) {
-    return undefined
-  }
-
-  return timeZone
-}
-
-function getCodeLengthRequirement(device: CommonDevice): string | null {
+const getCodeLengthRequirement = (device: CommonDevice): string | null => {
   if (!isLockDevice(device)) {
     return null
   }
@@ -354,24 +332,28 @@ const sequentialNumbers = Array.from({ length: 100 }, (_, index) => index).join(
   ''
 )
 
-function isSequential(numbers: string): boolean {
-  return sequentialNumbers.includes(numbers)
-}
+const isSequential = (numbers: string): boolean =>
+  sequentialNumbers.includes(numbers)
 
-function getAccessCodeDate(
+const getAccessCodeDate = (
   date: 'starts_at' | 'ends_at',
   accessCode?: NonNullable<UseAccessCodeData>
-): string | undefined {
+): DateTime | null => {
   if (accessCode == null) {
-    return undefined
+    return null
   }
 
   if (accessCode.type !== 'time_bound') {
-    return undefined
+    return null
   }
 
-  return accessCode[date]
+  return DateTime.fromISO(accessCode[date])
 }
+
+const getNow = (timeZone: string): DateTime => DateTime.now().setZone(timeZone)
+
+const getOneDayFromNow = (timeZone: string): DateTime =>
+  DateTime.now().setZone(timeZone).plus({ days: 1 })
 
 const t = {
   addNewAccessCode: 'Add new access code',
@@ -392,11 +374,3 @@ const t = {
   typeOngoingLabel: 'Ongoing',
   typeTimeBoundLabel: 'Start/end times',
 }
-
-const getNow = (): string =>
-  formaDateTimeWithoutZone(DateTime.now().toISO() ?? '') ??
-  '2022-01-01T12:00:00'
-
-const get24HoursLater = (): string =>
-  formaDateTimeWithoutZone(DateTime.now().plus({ days: 1 }).toISO() ?? '') ??
-  '2022-01-01T12:00:00'

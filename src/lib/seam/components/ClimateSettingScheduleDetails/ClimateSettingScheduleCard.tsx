@@ -1,13 +1,14 @@
 import { DateTime } from 'luxon'
 import type { ClimateSettingSchedule } from 'seamapi'
 
-import { formatDateAndTime } from 'lib/dates.js'
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { ClimateSettingScheduleDeviceBar } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDeviceBar.js'
 import { useClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedule.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { useNow } from 'lib/ui/use-now.js'
+
+import { formatDateTime } from './dates.js'
 
 interface ClimateSettingScheduleCardProps {
   climateSettingScheduleId: string
@@ -84,15 +85,14 @@ function ClimateSettingScheduleTiming(props: {
   if (now < startTime)
     return (
       <span>
-        {t.starts}{' '}
-        {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
+        {t.starts} {formatDateTime(climateSettingSchedule.schedule_starts_at)}
       </span>
     )
 
   if (startTime <= now && now <= endTime)
     return (
       <span>
-        {t.ends} {formatDateAndTime(climateSettingSchedule.schedule_starts_at)}
+        {t.ends} {formatDateTime(climateSettingSchedule.schedule_starts_at)}
       </span>
     )
 

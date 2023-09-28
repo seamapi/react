@@ -2,78 +2,95 @@ import { DateTime } from 'luxon'
 import { describe, expect, it } from 'vitest'
 
 import {
+  compareByCreatedAtDesc,
   compareByTimeZoneOffsetAsc,
-  createIsoDate,
-  formaDateTimeWithoutZone,
-  formatDateTimeReadable,
   formatTimeZone,
-  formatTimeZoneOffset,
+  getSupportedTimeZones,
+  getSystemTimeZone,
+  parseDateTimePickerValue,
+  serializeDateTimePickerValue,
 } from 'lib/dates.js'
 
-describe('formatTimeZoneOffset', () => {
-  it('should return city and region ', () => {
-    expect(formatTimeZone('America/Los_Angeles')).toBe('Los Angeles (America)')
-    expect(formatTimeZone('Etc/GMT-3')).toBe('GMT-3 (Etc)')
-  })
+describe('compareByCreatedAtDesc', () => {
+  it('should compare two valid dates', () => {
+    expect(
+      compareByCreatedAtDesc(
+        { created_at: '2023-09-27T22:44:52Z' },
+        { created_at: '2022-09-27T22:44:52Z' }
+      )
+    ).toBe(31536000000)
 
-  it('should return the time zone if no region', () => {
-    expect(formatTimeZone('Egypt')).toBe('Egypt')
+    expect(
+      compareByCreatedAtDesc(
+        { created_at: '2022-09-27T22:44:52Z' },
+        { created_at: '2023-09-27T22:44:52Z' }
+      )
+    ).toBe(-31536000000)
   })
 })
 
 describe('compareByTimeZoneOffsetAsc', () => {
   it('should compare two time zones by minutes', () => {
     const tokyo = 9 * 60 // +9 = 540 minutes
-    const losAngeles = -7 * 60 // -7 = -420 minutes
-    expect(
-      compareByTimeZoneOffsetAsc('Asia/Tokyo', 'America/Los_Angeles')
-    ).toBe(tokyo - losAngeles)
-  })
-})
-
-describe('formatTimeZoneOffset', () => {
-  it('should return offset mintues', () => {
-    expect(formatTimeZoneOffset('America/Los_Angeles')).toBe('-07:00')
-  })
-})
-
-describe('formatDateTimeReadable', () => {
-  it('should return a readable date and time', () => {
-    expect(formatDateTimeReadable('2023-04-17T13:15:00')).toBe(
-      'Apr 17, 2023 at 1:15 PM'
+    const maputo = 2 * 60 // -7 = -420 minutes
+    expect(compareByTimeZoneOffsetAsc('Asia/Tokyo', 'Africa/Maputo')).toBe(
+      tokyo - maputo
+    )
+    expect(compareByTimeZoneOffsetAsc('Africa/Maputo', 'Asia/Tokyo')).toBe(
+      maputo - tokyo
     )
   })
 })
 
-describe('formatDateTimeReadable', () => {
-  it('should format without time zone', () => {
-    const now = DateTime.now().toISO() ?? ''
-    expect(now).not.toBe('')
-    expect(formaDateTimeWithoutZone(now)).not.toContain('Z')
-    expect(formaDateTimeWithoutZone(now)).not.toContain('.')
-  })
-
-  it('should format without time zone', () => {
-    expect(
-      formaDateTimeWithoutZone(
-        DateTime.fromISO('2023-09-27T22:44:52Z').toISO() ?? ''
-      )
-    ).toBe('2023-09-27T15:44:52')
-    expect(
-      formaDateTimeWithoutZone(
-        DateTime.fromISO('2023-09-27T22:44:52+0300').toISO() ?? ''
-      )
-    ).toBe('2023-09-27T12:44:52')
+describe('getSupportedTimeZones', () => {
+  it('contains time zones', () => {
+    expect(getSupportedTimeZones()).toContain('Africa/Maputo')
+    expect(getSupportedTimeZones()).toContain('Asia/Tokyo')
   })
 })
 
-describe('createIsoDate', () => {
-  it('should create an ISO8601 date', () => {
-    const now = DateTime.now().toISO() ?? ''
-    expect(now).not.toBe('')
-    expect(createIsoDate(now, 'America/Los_Angeles')).toContain('.000-07:00')
-    expect(createIsoDate('2023-09-27T22:44:52+0300', 'America/New_York')).toBe(
-      '2023-09-27T22:44:52+0300.000-04:00'
+describe('getSystemTimeZone', () => {
+  it('is a supported time zone', () => {
+    const systemTimeZone = getSystemTimeZone()
+    expect(getSupportedTimeZones()).toContain(systemTimeZone)
+  })
+})
+
+describe('formatTimeZone', () => {
+  it('should return city, region, and offset', () => {
+    expect(formatTimeZone('Africa/Maputo')).toBe('Africa/Maputo (UTC+2)')
+    expect(formatTimeZone('UTC')).toBe('UTC (UTC+0)')
+  })
+
+  it('should handle case with no region', () => {
+    expect(formatTimeZone('Egypt')).toBe('Egypt (UTC+3)')
+  })
+})
+
+describe('serializeDateTimePickerValue', () => {
+  it('should format without time zone', () => {
+    expect(
+      serializeDateTimePickerValue(
+        DateTime.fromISO('2023-09-27T22:44:52Z'),
+        'UTC'
+      )
+    ).toBe('2023-09-27T22:44:52')
+    expect(
+      serializeDateTimePickerValue(
+        DateTime.fromISO('2023-09-27T22:44:52+0300'),
+        'Asia/Tokyo'
+      )
+    ).toBe('2023-09-28T04:44:52')
+  })
+})
+
+describe('parseDateTimePickerValue', () => {
+  it('should keep time with new zone', () => {
+    expect(parseDateTimePickerValue('2023-09-27T22:44:52', 'UTC').toISO()).toBe(
+      '2023-09-27T22:44:52.000Z'
     )
+    expect(
+      parseDateTimePickerValue('2023-09-28T04:44:52', 'Asia/Tokyo').toISO()
+    ).toBe('2023-09-28T04:44:52.000+09:00')
   })
 })

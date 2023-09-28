@@ -1,4 +1,10 @@
-import { formatTimeZone } from 'lib/dates.js'
+import type { DateTime } from 'luxon'
+
+import {
+  formatTimeZone,
+  parseDateTimePickerValue,
+  serializeDateTimePickerValue,
+} from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { FormField } from 'lib/ui/FormField.js'
@@ -6,10 +12,10 @@ import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 
 interface AccessCodeFormDatePickerProps {
-  startDate: string
-  setStartDate: (date: string) => void
-  endDate: string
-  setEndDate: (date: string) => void
+  startDate: DateTime
+  setStartDate: (dateTime: DateTime) => void
+  endDate: DateTime
+  setEndDate: (dateTime: DateTime) => void
   timeZone: string
   onChangeTimeZone: () => void
   onBack: (() => void) | undefined
@@ -38,16 +44,20 @@ export function AccessCodeFormDatePicker({
         <FormField>
           <InputLabel>{t.startTimeLabel}</InputLabel>
           <DateTimePicker
-            value={startDate ?? ''}
-            onChange={setStartDate}
+            value={serializeDateTimePickerValue(startDate, timeZone) ?? ''}
+            onChange={(value: string) => {
+              setStartDate(parseDateTimePickerValue(value, timeZone))
+            }}
             size='large'
           />
         </FormField>
         <FormField>
           <InputLabel>{t.endTimeLabel}</InputLabel>
           <DateTimePicker
-            value={endDate ?? ''}
-            onChange={setEndDate}
+            value={serializeDateTimePickerValue(endDate, timeZone) ?? ''}
+            onChange={(value: string) => {
+              setEndDate(parseDateTimePickerValue(value, timeZone))
+            }}
             size='large'
           />
         </FormField>
