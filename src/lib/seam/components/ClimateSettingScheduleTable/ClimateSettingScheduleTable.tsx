@@ -16,6 +16,7 @@ import {
   type UseClimateSettingSchedulesData,
 } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -70,7 +71,7 @@ export function ClimateSettingScheduleTable({
 }: ClimateSettingScheduleTableProps): JSX.Element {
   useComponentTelemetry('ClimateSettingScheduleTable')
 
-  const { climateSettingSchedules, isLoading, isError, error } =
+  const { climateSettingSchedules, isInitialLoading, isError, error } =
     useClimateSettingSchedules({
       device_id: deviceId,
     })
@@ -125,10 +126,6 @@ export function ClimateSettingScheduleTable({
     )
   }
 
-  if (isLoading) {
-    return <p className={className}>...</p>
-  }
-
   if (isError) {
     return <p className={className}>{error?.message}</p>
   }
@@ -145,6 +142,13 @@ export function ClimateSettingScheduleTable({
         ) : (
           <div className='seam-fragment' />
         )}
+        <div className='seam-table-header-loading-wrap'>
+          <LoadingToast
+            isLoading={isInitialLoading}
+            label={t.loading}
+            top={-20}
+          />
+        </div>
         {!disableSearch && (
           <SearchTextField
             value={searchInputValue}
@@ -194,4 +198,5 @@ const t = {
   climateSettingSchedules: 'Climate setting schedules',
   noClimateSettingSchedulesMessage:
     'Sorry, no climate setting schedules were found',
+  loading: 'Loading schedules',
 }

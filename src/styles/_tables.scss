@@ -14,6 +14,15 @@
       align-items: center;
       width: 100%;
     }
+
+    .seam-table-header-loading-wrap {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .seam-table-title {
