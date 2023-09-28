@@ -6,7 +6,6 @@ import {
   compareByTimeZoneOffsetAsc,
   formatTimeZone,
   getSupportedTimeZones,
-  getSystemTimeZone,
   parseDateTimePickerValue,
   serializeDateTimePickerValue,
 } from 'lib/dates.js'
