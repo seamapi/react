@@ -124,7 +124,11 @@ function Content({
     return (
       <AccessCodeFormTimeZonePicker
         value={timeZone}
-        onChange={setTimeZone}
+        onChange={(timeZone: string) => {
+          setTimeZone(timeZone)
+          setStartDate(startDate.setZone(timeZone))
+          setEndDate(endDate.setZone(timeZone))
+        }}
         onClose={toggleTimeZonePicker}
       />
     )
