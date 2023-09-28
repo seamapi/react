@@ -10,15 +10,6 @@ export const compareByCreatedAtDesc = (
   return t1.toMillis() - t2.toMillis()
 }
 
-export const compareByTimeZoneOffsetAsc = (
-  timeZoneA: string,
-  timeZoneB: string
-): number =>
-  getTimeZoneOffsetMinutes(timeZoneA) - getTimeZoneOffsetMinutes(timeZoneB)
-
-const getTimeZoneOffsetMinutes = (timeZone: string): number =>
-  DateTime.now().setZone(timeZone).offset
-
 export const getSupportedTimeZones = (): string[] => {
   const timeZones = new Set(Intl.supportedValuesOf('timeZone'))
   timeZones.add('UTC')
