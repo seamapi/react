@@ -23,6 +23,7 @@ import { NestedCreateAccessCodeForm } from 'lib/seam/components/CreateAccessCode
 import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -87,7 +88,7 @@ export function AccessCodeTable({
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 
-  const { accessCodes } = useAccessCodes({
+  const { accessCodes, isInitialLoading, isError, error } = useAccessCodes({
     device_id: deviceId,
   })
 
@@ -178,6 +179,10 @@ export function AccessCodeTable({
     )
   }
 
+  if (isError) {
+    return <p className={className}>{error?.message}</p>
+  }
+
   return (
     <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
@@ -199,6 +204,13 @@ export function AccessCodeTable({
               <AddIcon />
             </IconButton>
           )}
+        </div>
+        <div className='seam-table-header-loading-wrap'>
+          <LoadingToast
+            isLoading={isInitialLoading}
+            label={t.loading}
+            top={-20}
+          />
         </div>
         {!disableSearch && (
           <SearchTextField
@@ -283,4 +295,5 @@ function Content(props: {
 const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
+  loading: 'Loading access codes',
 }

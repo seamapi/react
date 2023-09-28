@@ -7,8 +7,8 @@ import { Spinner } from 'lib/ui/Spinner/Spinner.js'
 interface LoadingToastProps {
   isLoading: boolean
   label: string
-  top?: number
-  left?: number
+  top?: string | number
+  left?: string | number
 }
 
 export function LoadingToast({
@@ -18,21 +18,30 @@ export function LoadingToast({
   left,
 }: LoadingToastProps): JSX.Element {
   const [hidden, setHidden] = useState(false)
+  const [showToast, setShowToast] = useState(isLoading)
 
   useEffect(() => {
-    if (!isLoading) {
-      const timeout = globalThis.setTimeout(() => {
-        setHidden(true)
-      }, 1000)
-
-      return () => {
-        globalThis.clearTimeout(timeout)
-      }
+    if (isLoading) {
+      setHidden(false)
+      setShowToast(true)
+      return () => {}
     }
 
-    setHidden(false)
-    return () => {}
+    const hideTimeout = globalThis.setTimeout(() => {
+      setHidden(true)
+    }, 1000)
+
+    const removeTimeout = globalThis.setTimeout(() => {
+      setShowToast(false)
+    }, 1500)
+
+    return () => {
+      globalThis.clearTimeout(hideTimeout)
+      globalThis.clearTimeout(removeTimeout)
+    }
   }, [isLoading])
+
+  if (!showToast) return <></>
 
   return (
     <div

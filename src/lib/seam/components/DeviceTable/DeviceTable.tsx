@@ -21,6 +21,7 @@ import {
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -75,7 +76,7 @@ export function DeviceTable({
 }: DeviceTableProps = {}): JSX.Element {
   useComponentTelemetry('DeviceTable')
 
-  const { devices, isLoading, isError, error } = useDevices({
+  const { devices, isInitialLoading, isError, error } = useDevices({
     device_ids: deviceIds,
     connected_account_ids: connectedAccountIds,
   })
@@ -117,10 +118,6 @@ export function DeviceTable({
     )
   }
 
-  if (isLoading) {
-    return <p className={className}>...</p>
-  }
-
   if (isError) {
     return <p className={className}>{error?.message}</p>
   }
@@ -137,6 +134,13 @@ export function DeviceTable({
         ) : (
           <div className='seam-fragment' />
         )}
+        <div className='seam-table-header-loading-wrap'>
+          <LoadingToast
+            isLoading={isInitialLoading}
+            label={t.loading}
+            top={-20}
+          />
+        </div>
         {!disableSearch && (
           <SearchTextField
             value={searchInputValue}
@@ -209,4 +213,5 @@ function Content(props: {
 const t = {
   devices: 'Devices',
   noDevicesMessage: 'Sorry, no devices were found',
+  loading: 'Loading devices',
 }
