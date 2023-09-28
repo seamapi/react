@@ -19,11 +19,7 @@ export default defineConfig(async ({ command, mode }) => {
   return {
     base: `/${base}`,
     envPrefix: 'SEAM_',
-    plugins: [
-      tsconfigPaths(),
-      // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
-      react(),
-    ],
+    plugins: [tsconfigPaths(), react()],
     resolve: {
       alias: {
         '@seamapi/react/elements.js': fileURLToPath(
