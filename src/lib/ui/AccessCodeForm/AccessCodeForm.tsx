@@ -1,20 +1,16 @@
 import classNames from 'classnames'
+import { DateTime } from 'luxon'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 
-import {
-  get24HoursLater,
-  getBrowserTimezone,
-  getNow,
-  getTimezoneFromIsoDate,
-} from 'lib/dates.js'
+import { getSystemTimeZone } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
 import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-access-code-code.js'
 import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { AccessCodeFormDatePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { AccessCodeFormTimes } from 'lib/ui/AccessCodeForm/AccessCodeFormTimes.js'
-import { AccessCodeFormTimezonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimezonePicker.js'
+import { AccessCodeFormTimeZonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimeZonePicker.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -30,7 +26,7 @@ export interface AccessCodeFormSubmitData {
   device: NonNullable<UseDeviceData>
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
 }
 
 export interface ResponseErrors {
@@ -71,14 +67,13 @@ function Content({
     accessCode?.type ?? 'ongoing'
   )
   const [datePickerVisible, setDatePickerVisible] = useState(false)
-  const [timezone, setTimezone] = useState<string>(
-    getAccessCodeTimezone(accessCode) ?? getBrowserTimezone()
+  const [timeZone, setTimeZone] = useState<string>(getSystemTimeZone())
+
+  const [startDate, setStartDate] = useState<DateTime>(
+    getAccessCodeDate('starts_at', accessCode) ?? getNow(timeZone)
   )
-  const [startDate, setStartDate] = useState<string>(
-    getAccessCodeDate('starts_at', accessCode) ?? getNow()
-  )
-  const [endDate, setEndDate] = useState<string>(
-    getAccessCodeDate('ends_at', accessCode) ?? get24HoursLater()
+  const [endDate, setEndDate] = useState<DateTime>(
+    getAccessCodeDate('ends_at', accessCode) ?? getOneDayFromNow(timeZone)
   )
 
   const save = (data: { name: string; code: string }): void => {
@@ -86,14 +81,24 @@ function Content({
       return
     }
 
+    const start = startDate.toISO()
+    if (start == null) {
+      throw new Error(`Invalid start date: ${startDate.invalidReason}`)
+    }
+
+    const end = endDate.toISO()
+    if (end == null) {
+      throw new Error(`Invalid end date: ${endDate.invalidReason}`)
+    }
+
     onSubmit({
       name: data.name,
       code: data.code,
       type,
       device,
-      startDate,
-      endDate,
-      timezone,
+      startDate: start,
+      endDate: end,
+      timeZone,
     })
   }
 
@@ -108,19 +113,23 @@ function Content({
       code: accessCode?.code ?? '',
     },
   })
-  const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+  const [timeZonePickerVisible, toggleTimeZonePicker] = useToggle()
 
   const { isLoading: isGeneratingCode, mutate: generateCode } =
     useGenerateAccessCodeCode()
 
   const submit = (): void => {}
 
-  if (timezonePickerVisible) {
+  if (timeZonePickerVisible) {
     return (
-      <AccessCodeFormTimezonePicker
-        value={timezone}
-        onChange={setTimezone}
-        onClose={toggleTimezonePicker}
+      <AccessCodeFormTimeZonePicker
+        value={timeZone}
+        onChange={(timeZone: string) => {
+          setTimeZone(timeZone)
+          setStartDate(startDate.setZone(timeZone))
+          setEndDate(endDate.setZone(timeZone))
+        }}
+        onClose={toggleTimeZonePicker}
       />
     )
   }
@@ -132,8 +141,8 @@ function Content({
         setStartDate={setStartDate}
         endDate={endDate}
         setEndDate={setEndDate}
-        timezone={timezone}
-        onChangeTimezone={toggleTimezonePicker}
+        timeZone={timeZone}
+        onChangeTimeZone={toggleTimeZonePicker}
         onBack={() => {
           setDatePickerVisible(false)
         }}
@@ -155,24 +164,6 @@ function Content({
           }
         },
       }
-    )
-  }
-
-  const validateCodeLength = (value: string): boolean | string => {
-    if (!isLockDevice(device)) {
-      return true
-    }
-
-    if (device.properties.supported_code_lengths == null) {
-      return true
-    }
-
-    if (device.properties.supported_code_lengths.includes(value.length)) {
-      return true
-    }
-
-    return t.codeLengthError(
-      device.properties.supported_code_lengths.join(', ')
     )
   }
 
@@ -226,7 +217,8 @@ function Content({
               inputProps={{
                 ...register('code', {
                   required: t.codeRequiredError,
-                  validate: validateCodeLength,
+                  validate: (value: string) =>
+                    validateCodeLength(device, value),
                 }),
               }}
             />
@@ -306,28 +298,26 @@ function Content({
   )
 }
 
-function getAccessCodeTimezone(
-  accessCode?: NonNullable<UseAccessCodeData>
-): undefined | string {
-  if (accessCode == null) {
-    return undefined
+const validateCodeLength = (
+  device: CommonDevice,
+  value: string
+): boolean | string => {
+  if (!isLockDevice(device)) {
+    return true
   }
 
-  if (accessCode.type === 'ongoing') {
-    return undefined
+  if (device.properties.supported_code_lengths == null) {
+    return true
   }
 
-  const date = accessCode.starts_at
-
-  const timezone = getTimezoneFromIsoDate(date)
-  if (timezone == null) {
-    return undefined
+  if (device.properties.supported_code_lengths.includes(value.length)) {
+    return true
   }
 
-  return timezone
+  return t.codeLengthError(device.properties.supported_code_lengths.join(', '))
 }
 
-function getCodeLengthRequirement(device: CommonDevice): string | null {
+const getCodeLengthRequirement = (device: CommonDevice): string | null => {
   if (!isLockDevice(device)) {
     return null
   }
@@ -354,24 +344,28 @@ const sequentialNumbers = Array.from({ length: 100 }, (_, index) => index).join(
   ''
 )
 
-function isSequential(numbers: string): boolean {
-  return sequentialNumbers.includes(numbers)
-}
+const isSequential = (numbers: string): boolean =>
+  sequentialNumbers.includes(numbers)
 
-function getAccessCodeDate(
+const getAccessCodeDate = (
   date: 'starts_at' | 'ends_at',
   accessCode?: NonNullable<UseAccessCodeData>
-): string | undefined {
+): DateTime | null => {
   if (accessCode == null) {
-    return undefined
+    return null
   }
 
   if (accessCode.type !== 'time_bound') {
-    return undefined
+    return null
   }
 
-  return accessCode[date]
+  return DateTime.fromISO(accessCode[date])
 }
+
+const getNow = (timeZone: string): DateTime => DateTime.now().setZone(timeZone)
+
+const getOneDayFromNow = (timeZone: string): DateTime =>
+  DateTime.now().setZone(timeZone).plus({ days: 1 })
 
 const t = {
   addNewAccessCode: 'Add new access code',

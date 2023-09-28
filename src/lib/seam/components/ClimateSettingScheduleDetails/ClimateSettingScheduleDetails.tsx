@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
-import { formatDateAndTime } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import { ClimateSettingScheduleCard } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleCard.js'
 import {
@@ -17,6 +16,8 @@ import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+
+import { formatDateTime } from './dates.js'
 
 export interface ClimateSettingScheduleDetailsProps extends CommonProps {
   climateSettingScheduleId: string
@@ -89,13 +90,9 @@ export function ClimateSettingScheduleDetails({
           <DetailSection>
             <DetailRow label={t.startEndTime}>
               <span className='seam-climate-setting-details-value seam-climate-setting-details-schedule-range'>
-                {`${formatDateAndTime(
-                  climateSettingSchedule.schedule_starts_at
-                )}`}
+                {formatDateTime(climateSettingSchedule.schedule_starts_at)}
                 <ArrowRightIcon />
-                {`${formatDateAndTime(
-                  climateSettingSchedule.schedule_ends_at
-                )}`}
+                {formatDateTime(climateSettingSchedule.schedule_ends_at)}
               </span>
             </DetailRow>
             <DetailRow label={t.climateSetting}>
@@ -113,7 +110,7 @@ export function ClimateSettingScheduleDetails({
           <DetailSection>
             <DetailRow label={t.creationDate}>
               <div className='seam-creation-date'>
-                {formatDateAndTime(climateSettingSchedule.created_at)}
+                {formatDateTime(climateSettingSchedule.created_at)}
               </div>
             </DetailRow>
           </DetailSection>

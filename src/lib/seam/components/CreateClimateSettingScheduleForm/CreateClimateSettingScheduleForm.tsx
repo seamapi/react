@@ -1,6 +1,5 @@
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
-import { createIsoDate } from 'lib/dates.js'
 import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { useCreateClimateSettingSchedule } from 'lib/seam/thermostats/climate-setting-schedules/use-create-climate-setting-schedule.js'
 import {
@@ -34,8 +33,7 @@ function useSubmitCreateClimateSettingSchedule(onSuccess?: () => void): {
 } {
   const { mutate, isLoading: isSubmitting } = useCreateClimateSettingSchedule()
   const submit = (data: ClimateSettingScheduleFormSubmitData): void => {
-    const { name, deviceId, startDate, endDate, timezone, climateSetting } =
-      data
+    const { name, deviceId, startDate, endDate, climateSetting } = data
 
     if (isSubmitting) {
       return
@@ -45,8 +43,8 @@ function useSubmitCreateClimateSettingSchedule(onSuccess?: () => void): {
       {
         name,
         device_id: deviceId,
-        schedule_starts_at: createIsoDate(startDate, timezone),
-        schedule_ends_at: createIsoDate(endDate, timezone),
+        schedule_starts_at: startDate,
+        schedule_ends_at: endDate,
         ...climateSetting,
       },
       {

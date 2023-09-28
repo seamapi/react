@@ -3,7 +3,6 @@ import type { SeamError } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
-import { createIsoDate } from 'lib/dates.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import {
   type CommonProps,
@@ -82,7 +81,7 @@ function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
   const submit = (data: AccessCodeFormSubmitData): void => {
     resetResponseErrors()
 
-    const { name, code, type, device, startDate, endDate, timezone } = data
+    const { name, code, type, device, startDate, endDate } = data
     if (name === '') {
       return
     }
@@ -97,8 +96,8 @@ function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
           name,
           code,
           device_id: device.device_id,
-          starts_at: createIsoDate(startDate, timezone),
-          ends_at: createIsoDate(endDate, timezone),
+          starts_at: startDate,
+          ends_at: endDate,
         },
         {
           onSuccess,

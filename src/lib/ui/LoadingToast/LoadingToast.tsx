@@ -21,26 +21,23 @@ export function LoadingToast({
   const [showToast, setShowToast] = useState(isLoading)
 
   useEffect(() => {
-    if (!isLoading) {
-      const hideTimeout = globalThis.setTimeout(() => {
-        setHidden(true)
-      }, 1000)
-
-      const removeTimeout = globalThis.setTimeout(() => {
-        setShowToast(false)
-      }, 1500)
-
-      return () => {
-        globalThis.clearTimeout(hideTimeout)
-        globalThis.clearTimeout(removeTimeout)
-      }
+    if (isLoading) {
+      setHidden(false)
+      setShowToast(true)
+      return () => {}
     }
 
-    setHidden(false)
-    setShowToast(true)
+    const hideTimeout = globalThis.setTimeout(() => {
+      setHidden(true)
+    }, 1000)
+
+    const removeTimeout = globalThis.setTimeout(() => {
+      setShowToast(false)
+    }, 1500)
 
     return () => {
-      // noop
+      globalThis.clearTimeout(hideTimeout)
+      globalThis.clearTimeout(removeTimeout)
     }
   }, [isLoading])
 

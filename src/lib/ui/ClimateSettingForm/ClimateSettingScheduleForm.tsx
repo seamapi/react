@@ -3,17 +3,17 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
-import { getBrowserTimezone } from 'lib/dates.js'
+import { getSystemTimeZone } from 'lib/dates.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
-import { ClimateSettingScheduleFormTimezonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimezonePicker.js'
+import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
   deviceId: string
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
   climateSetting: ClimateSetting
 }
 
@@ -29,7 +29,7 @@ export interface ClimateSettingScheduleFormFields {
   deviceId: string
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
 }
 
 export function ClimateSettingScheduleForm({
@@ -54,18 +54,18 @@ function Content({
       name: '',
       startDate: '',
       endDate: '',
-      timezone: getBrowserTimezone(),
+      timeZone: getSystemTimeZone(),
     },
   })
 
   const deviceId = watch('deviceId')
-  const timezone = watch('timezone')
+  const timeZone = watch('timeZone')
 
   const [page, setPage] = useState<
     | 'device_select'
     | 'default_setting'
     | 'name_and_schedule'
-    | 'timezone_select'
+    | 'time_zone_select'
     | 'climate_setting'
   >('device_select')
 
@@ -95,17 +95,17 @@ function Content({
         onNext={() => {
           setPage('climate_setting')
         }}
-        onChangeTimezone={() => {
-          setPage('timezone_select')
+        onChangeTimeZone={() => {
+          setPage('time_zone_select')
         }}
-        timezone={timezone}
+        timeZone={timeZone}
       />
     )
   }
 
-  if (page === 'timezone_select') {
+  if (page === 'time_zone_select') {
     return (
-      <ClimateSettingScheduleFormTimezonePicker
+      <ClimateSettingScheduleFormTimeZonePicker
         control={control}
         onClose={() => {
           setPage('name_and_schedule')

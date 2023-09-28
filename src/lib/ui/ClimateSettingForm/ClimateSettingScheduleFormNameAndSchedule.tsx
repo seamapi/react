@@ -1,6 +1,6 @@
 import { type Control, Controller } from 'react-hook-form'
 
-import { getTimezoneLabel } from 'lib/dates.js'
+import { formatTimeZone } from 'lib/dates.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -15,22 +15,22 @@ interface ClimateSettingScheduleFormNameAndScheduleProps {
   title: string
   control: Control<ClimateSettingScheduleFormFields>
   deviceId: string
-  timezone: string
+  timeZone: string
   onBack: () => void
   onCancel: (() => void) | undefined
   onNext: () => void
-  onChangeTimezone: () => void
+  onChangeTimeZone: () => void
 }
 
 export function ClimateSettingScheduleFormNameAndSchedule({
   title,
   control,
   deviceId,
-  timezone,
+  timeZone,
   onBack,
   onCancel,
   onNext,
-  onChangeTimezone,
+  onChangeTimeZone,
 }: ClimateSettingScheduleFormNameAndScheduleProps): JSX.Element {
   const { device } = useDevice({
     device_id: deviceId,
@@ -68,10 +68,10 @@ export function ClimateSettingScheduleFormNameAndSchedule({
 
             <FormField>
               <InputLabel>{t.startTimeLabel}</InputLabel>
-              <div className='seam-timezone'>
-                <span className='seam-label'>{t.selectedTimezoneLabel}</span>
-                <span className='seam-selected' onClick={onChangeTimezone}>
-                  {getTimezoneLabel(timezone)}
+              <div className='seam-time-zone'>
+                <span className='seam-label'>{t.selectedTimeZoneLabel}</span>
+                <span className='seam-selected' onClick={onChangeTimeZone}>
+                  {formatTimeZone(timeZone)}
                   <ChevronRightIcon />
                 </span>
               </div>
@@ -116,5 +116,5 @@ const t = {
   cancel: 'Cancel',
   save: 'Save',
   next: 'Next',
-  selectedTimezoneLabel: 'All times in',
+  selectedTimeZoneLabel: 'All times in',
 }

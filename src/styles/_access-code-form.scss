@@ -4,7 +4,7 @@
   .seam-access-code-form {
     @include main;
     @include schedule-picker;
-    @include timezone-picker;
+    @include time-zone-picker;
   }
 }
 
@@ -96,7 +96,7 @@
     .seam-content {
       padding: 0 24px;
 
-      .seam-timezone {
+      .seam-time-zone {
         display: flex;
         align-items: center;
         font-size: 14px;
@@ -127,8 +127,8 @@
   }
 }
 
-@mixin timezone-picker {
-  .seam-access-code-timezone-picker {
+@mixin time-zone-picker {
+  .seam-access-code-time-zone-picker {
     .seam-content {
       padding: 0 24px;
     }

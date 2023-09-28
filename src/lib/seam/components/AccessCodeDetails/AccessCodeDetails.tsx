@@ -221,28 +221,25 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
   )
 }
 
-function formatDurationDate(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
+const formatDurationDate = (date: string): string =>
+  DateTime.fromISO(date).toLocaleString({
     month: 'short',
     day: 'numeric',
   })
-}
 
-function formatTime(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
+const formatTime = (date: string): string =>
+  DateTime.fromISO(date).toLocaleString({
     hour: 'numeric',
     minute: '2-digit',
   })
-}
 
-function formatDate(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
+const formatDate = (date: string): string =>
+  DateTime.fromISO(date).toLocaleString({
     weekday: 'short',
     month: 'long',
     day: 'numeric',
     year: 'numeric',
   })
-}
 
 const errorFilter = (
   error: AccessCodeError | DeviceError | ConnectedAccountError

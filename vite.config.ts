@@ -12,11 +12,7 @@ export default defineConfig(async ({ mode }) => {
     throw new Error('Missing version in package.json')
   }
   const config: UserConfig = {
-    plugins: [
-      tsconfigPaths(),
-      // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
-      react(),
-    ],
+    plugins: [tsconfigPaths(), react()],
     define: isBuild
       ? {
           'process.env.NODE_ENV': "'production'",
