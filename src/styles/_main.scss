@@ -21,6 +21,7 @@
 @use './thermostat';
 @use './tooltip';
 @use './seam-table';
+@use './snackbar';
 @use './spinner';
 @use './switch';
 @use './climate-setting-schedule-form';
@@ -45,6 +46,7 @@
   @include checkbox.all;
   @include radio-field.all;
   @include tooltip.all;
+  @include snackbar.all;
   @include spinner.all;
   @include switch.all;
   @include time-zone-picker.all;
