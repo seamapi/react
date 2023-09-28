@@ -18,24 +18,35 @@ export function LoadingToast({
   left,
 }: LoadingToastProps): JSX.Element {
   const [hidden, setHidden] = useState(false)
+  const [showToast, setShowToast] = useState(isLoading)
 
   useEffect(() => {
     if (!isLoading) {
-      const timeout = globalThis.setTimeout(() => {
+      let removeTimeout: ReturnType<typeof globalThis.setTimeout>
+
+      const hideTimeout = globalThis.setTimeout(() => {
         setHidden(true)
+
+        removeTimeout = globalThis.setTimeout(() => {
+          setShowToast(false)
+        }, 500)
       }, 1000)
 
       return () => {
-        globalThis.clearTimeout(timeout)
+        globalThis.clearTimeout(hideTimeout)
+        globalThis.clearTimeout(removeTimeout)
       }
     }
 
     setHidden(false)
+    setShowToast(true)
 
     return () => {
       // noop
     }
   }, [isLoading])
+
+  if (!showToast) return <></>
 
   return (
     <div

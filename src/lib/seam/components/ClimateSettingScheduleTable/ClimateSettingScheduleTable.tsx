@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ClimateSettingSchedule } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
@@ -71,7 +71,7 @@ export function ClimateSettingScheduleTable({
 }: ClimateSettingScheduleTableProps): JSX.Element {
   useComponentTelemetry('ClimateSettingScheduleTable')
 
-  const { climateSettingSchedules, isLoading, isError, error, isRefetching } =
+  const { climateSettingSchedules, isInitialLoading, isError, error } =
     useClimateSettingSchedules({
       device_id: deviceId,
     })
@@ -144,7 +144,7 @@ export function ClimateSettingScheduleTable({
         )}
         <div className='seam-table-header-loading-wrap'>
           <LoadingToast
-            isLoading={isLoading && !isRefetching}
+            isLoading={isInitialLoading}
             label={t.loading}
             top={-20}
           />
