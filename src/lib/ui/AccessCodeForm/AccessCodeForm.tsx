@@ -157,24 +157,6 @@ function Content({
     )
   }
 
-  const validateCodeLength = (value: string): boolean | string => {
-    if (!isLockDevice(device)) {
-      return true
-    }
-
-    if (device.properties.supported_code_lengths == null) {
-      return true
-    }
-
-    if (device.properties.supported_code_lengths.includes(value.length)) {
-      return true
-    }
-
-    return t.codeLengthError(
-      device.properties.supported_code_lengths.join(', ')
-    )
-  }
-
   const hasCodeError = errors.code != null || responseErrors?.code != null
 
   const codeLengthRequirement = getCodeLengthRequirement(device)
@@ -225,7 +207,8 @@ function Content({
               inputProps={{
                 ...register('code', {
                   required: t.codeRequiredError,
-                  validate: validateCodeLength,
+                  validate: (value: string) =>
+                    validateCodeLength(device, value),
                 }),
               }}
             />
@@ -303,6 +286,25 @@ function Content({
       </div>
     </>
   )
+}
+
+const validateCodeLength = (
+  device: CommonDevice,
+  value: string
+): boolean | string => {
+  if (!isLockDevice(device)) {
+    return true
+  }
+
+  if (device.properties.supported_code_lengths == null) {
+    return true
+  }
+
+  if (device.properties.supported_code_lengths.includes(value.length)) {
+    return true
+  }
+
+  return t.codeLengthError(device.properties.supported_code_lengths.join(', '))
 }
 
 const getCodeLengthRequirement = (device: CommonDevice): string | null => {
