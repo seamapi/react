@@ -26,15 +26,16 @@ function Content(props: {
 }): JSX.Element | null {
   const { status, level } = props
 
-  const percentage = level != null ? ` (${Math.floor(level * 100)}%)` : null
+  const percentage = level != null ? `(${Math.floor(level * 100)}%)` : ''
 
   if (status === 'full') {
     return (
       <>
         <BatteryLevelFullIcon />
-        <span className='seam-status-text'>{`${t.full}${
-          percentage ?? ''
-        }`}</span>
+        <span className='seam-status-text'>
+          {t.full}
+          {percentage}
+        </span>
       </>
     )
   }
@@ -43,9 +44,10 @@ function Content(props: {
     return (
       <>
         <BatteryLevelHighIcon />
-        <span className='seam-status-text'>{`${t.high}${
-          percentage ?? ''
-        }`}</span>
+        <span className='seam-status-text'>
+          {t.high}
+          {percentage}
+        </span>
       </>
     )
   }
@@ -54,9 +56,10 @@ function Content(props: {
     return (
       <>
         <BatteryLevelLowIcon />
-        <span className='seam-status-text'>{`${t.low}${
-          percentage ?? ''
-        }`}</span>
+        <span className='seam-status-text'>
+          {t.low}
+          {percentage}
+        </span>
       </>
     )
   }
@@ -65,9 +68,10 @@ function Content(props: {
     return (
       <>
         <BatteryLevelCriticalIcon />
-        <span className='seam-text-danger'>{`${t.critical}${
-          percentage ?? ''
-        }`}</span>
+        <span className='seam-text-danger'>
+          {t.critical}
+          {percentage}
+        </span>
       </>
     )
   }

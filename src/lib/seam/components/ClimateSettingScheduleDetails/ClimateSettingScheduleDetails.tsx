@@ -90,9 +90,9 @@ export function ClimateSettingScheduleDetails({
           <DetailSection>
             <DetailRow label={t.startEndTime}>
               <span className='seam-climate-setting-details-value seam-climate-setting-details-schedule-range'>
-                {`${formatDateTime(climateSettingSchedule.schedule_starts_at)}`}
+                {formatDateTime(climateSettingSchedule.schedule_starts_at)}
                 <ArrowRightIcon />
-                {`${formatDateTime(climateSettingSchedule.schedule_ends_at)}`}
+                {formatDateTime(climateSettingSchedule.schedule_ends_at)}
               </span>
             </DetailRow>
             <DetailRow label={t.climateSetting}>
