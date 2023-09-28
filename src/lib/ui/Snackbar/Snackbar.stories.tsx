@@ -58,7 +58,9 @@ export const Content: Story = {
         <Snackbar
           {...props}
           isOpen={props.isOpen}
-          onClose={() => { setArgs({ isOpen: false }); }}
+          onClose={() => {
+            setArgs({ isOpen: false })
+          }}
         />
       </Box>
     )
