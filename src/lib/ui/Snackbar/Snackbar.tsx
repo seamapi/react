@@ -54,7 +54,7 @@ export function Snackbar({
       >
         {SnackbarIcon(variant)}
         <div className='seam-snackbar-message-wrap'>
-          <p className='seam-snackbar-message'>{message}</p>S
+          <p className='seam-snackbar-message'>{message}</p>
         </div>
         <div className='seam-snackbar-actions-wrap'>
           {action != null && (
