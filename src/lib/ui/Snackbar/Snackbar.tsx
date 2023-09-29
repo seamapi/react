@@ -46,24 +46,29 @@ export function Snackbar({
   })
 
   return (
-    <div
-      className={classNames('seam-snackbar', {
-        'seam-snackbar-hide': !isOpen,
-      })}
-    >
-      {SnackbarIcon(variant)}
-      <div className='seam-snackbar-message-wrap'>
-        <p className='seam-snackbar-message'>{message}</p>
-      </div>
-      <div className='seam-snackbar-actions-wrap'>
-        {action != null && (
-          <button className='seam-snackbar-action' onClick={handleActionClick}>
-            <span className='seam-snackbar-action-label'>{actionLabel}</span>
+    <div className='seam-snackbar-wrap'>
+      <div
+        className={classNames('seam-snackbar', {
+          'seam-snackbar-hide': !isOpen,
+        })}
+      >
+        {SnackbarIcon(variant)}
+        <div className='seam-snackbar-message-wrap'>
+          <p className='seam-snackbar-message'>{message}</p>
+        </div>
+        <div className='seam-snackbar-actions-wrap'>
+          {action != null && (
+            <button
+              className='seam-snackbar-action'
+              onClick={handleActionClick}
+            >
+              <span className='seam-snackbar-action-label'>{actionLabel}</span>
+            </button>
+          )}
+          <button className='seam-snackbar-close-button' onClick={onClose}>
+            <CloseWhiteIcon />
           </button>
-        )}
-        <button className='seam-snackbar-close-button' onClick={onClose}>
-          <CloseWhiteIcon />
-        </button>
+        </div>
       </div>
     </div>
   )
