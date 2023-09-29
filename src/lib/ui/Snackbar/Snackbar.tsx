@@ -3,6 +3,9 @@ import classNames from 'classnames'
 import { CheckGreenIcon } from 'lib/icons/CheckGreen.js'
 import { CloseWhiteIcon } from 'lib/icons/CloseWhite.js'
 import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
+import { useEffect } from 'react'
+
+const AUTO_DISMISS_MS = 5000
 
 type SnackbarVariant = 'success' | 'error'
 
@@ -15,6 +18,7 @@ interface SnackbarProps {
     label: string
     onClick: () => void
   }
+  autoDismiss?: boolean
 }
 
 export function Snackbar({
@@ -23,7 +27,22 @@ export function Snackbar({
   isOpen,
   onClose,
   action,
+  autoDismiss = false,
 }: SnackbarProps) {
+  useEffect(() => {
+    if (!autoDismiss) {
+      return () => {}
+    }
+
+    const timeout = globalThis.setTimeout(() => {
+      onClose()
+    }, AUTO_DISMISS_MS)
+
+    return () => {
+      globalThis.clearTimeout(timeout)
+    }
+  })
+
   return (
     <div
       className={classNames('seam-snackbar', {

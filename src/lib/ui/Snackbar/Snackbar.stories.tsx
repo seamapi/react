@@ -17,6 +17,7 @@ const meta: Meta<typeof Snackbar> = {
       label: 'Try again',
       onClick: () => {},
     },
+    autoDismiss: false,
   },
   argTypes: {
     message: {
@@ -36,6 +37,9 @@ const meta: Meta<typeof Snackbar> = {
     },
     action: {
       control: { type: 'object' },
+    },
+    autoDismiss: {
+      control: { type: 'boolean' },
     },
   },
 }
