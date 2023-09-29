@@ -1,8 +1,8 @@
-$easeOutQuint: cubic-bezier(0.22, 1, 0.36, 1);
-$easeInOutQuint: cubic-bezier(0.83, 0, 0.17, 1);
+$ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
 
-@mixin scaleIn {
-  @keyframes scaleIn {
+@mixin scale-in {
+  @keyframes scale-in {
     0% {
       transform: scale(0.5);
       opacity: 0;
@@ -17,8 +17,8 @@ $easeInOutQuint: cubic-bezier(0.83, 0, 0.17, 1);
   }
 }
 
-@mixin fadeInUp {
-  @keyframes fadeInUp {
+@mixin fade-in-up {
+  @keyframes fade-in-up {
     0% {
       transform: translateY(24px);
       opacity: 0;

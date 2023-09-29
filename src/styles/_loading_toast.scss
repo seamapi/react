@@ -3,7 +3,7 @@
 
 @mixin all {
   .seam-loading-toast {
-    @include motion.scaleIn;
+    @include motion.scale-in;
 
     height: 32px;
     padding: 0 10px;
@@ -18,8 +18,8 @@
       0 0 1px 0 rgb(24 29 37 / 25%);
     gap: 8px;
     will-change: transform;
-    animation: scaleIn 0.2s motion.$easeOutQuint;
-    transition: all 0.2s motion.$easeOutQuint;
+    animation: scale-in 0.2s motion.$ease-out-quint;
+    transition: all 0.2s motion.$ease-out-quint;
     pointer-events: none;
     position: absolute;
     z-index: 9;

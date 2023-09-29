@@ -1,9 +1,9 @@
 import classNames from 'classnames'
+import { useEffect } from 'react'
 
 import { CheckGreenIcon } from 'lib/icons/CheckGreen.js'
 import { CloseWhiteIcon } from 'lib/icons/CloseWhite.js'
 import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
-import { useEffect } from 'react'
 
 const AUTO_DISMISS_MS = 5000
 
@@ -28,7 +28,9 @@ export function Snackbar({
   onClose,
   action,
   autoDismiss = false,
-}: SnackbarProps) {
+}: SnackbarProps): JSX.Element {
+  const { label: actionLabel, onClick: handleActionClick } = action ?? {}
+
   useEffect(() => {
     if (!autoDismiss) {
       return () => {}
@@ -54,9 +56,9 @@ export function Snackbar({
         <p className='seam-snackbar-message'>{message}</p>
       </div>
       <div className='seam-snackbar-actions-wrap'>
-        {action && (
-          <button className='seam-snackbar-action' onClick={action.onClick}>
-            <span className='seam-snackbar-action-label'>{action.label}</span>
+        {action != null && (
+          <button className='seam-snackbar-action' onClick={handleActionClick}>
+            <span className='seam-snackbar-action-label'>{actionLabel}</span>
           </button>
         )}
         <button className='seam-snackbar-close-button' onClick={onClose}>
