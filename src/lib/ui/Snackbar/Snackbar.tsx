@@ -5,8 +5,6 @@ import { CheckGreenIcon } from 'lib/icons/CheckGreen.js'
 import { CloseWhiteIcon } from 'lib/icons/CloseWhite.js'
 import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
 
-const AUTO_DISMISS_MS = 5000
-
 type SnackbarVariant = 'success' | 'error'
 
 interface SnackbarProps {
@@ -19,6 +17,7 @@ interface SnackbarProps {
     onClick: () => void
   }
   autoDismiss?: boolean
+  dismissAfterMs?: number
 }
 
 export function Snackbar({
@@ -28,6 +27,7 @@ export function Snackbar({
   onClose,
   action,
   autoDismiss = false,
+  dismissAfterMs = 5000,
 }: SnackbarProps): JSX.Element {
   const { label: actionLabel, onClick: handleActionClick } = action ?? {}
 
@@ -38,7 +38,7 @@ export function Snackbar({
 
     const timeout = globalThis.setTimeout(() => {
       onClose()
-    }, AUTO_DISMISS_MS)
+    }, dismissAfterMs)
 
     return () => {
       globalThis.clearTimeout(timeout)
@@ -54,7 +54,7 @@ export function Snackbar({
       >
         {SnackbarIcon(variant)}
         <div className='seam-snackbar-message-wrap'>
-          <p className='seam-snackbar-message'>{message}</p>
+          <p className='seam-snackbar-message'>{message}</p>S
         </div>
         <div className='seam-snackbar-actions-wrap'>
           {action != null && (
