@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { CheckGreenIcon } from 'lib/icons/CheckGreen.js'
 import { CloseWhiteIcon } from 'lib/icons/CloseWhite.js'
 import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
@@ -23,19 +24,25 @@ export function Snackbar({
   action,
 }: SnackbarProps) {
   return (
-    <div className='seam-snackbar'>
+    <div
+      className={classNames('seam-snackbar', {
+        'seam-snackbar-hide': !isOpen,
+      })}
+    >
       {SnackbarIcon(variant)}
       <div className='seam-snackbar-message-wrap'>
-        <p className='seam-snackbar-message'>{message}</p>S
+        <p className='seam-snackbar-message'>{message}</p>
       </div>
-      {action && (
-        <button className='seam-snackbar-action' onClick={action.onClick}>
-          <span className='seam-snackbar-action-label'>{action.label}</span>
+      <div className='seam-snackbar-actions-wrap'>
+        {action && (
+          <button className='seam-snackbar-action' onClick={action.onClick}>
+            <span className='seam-snackbar-action-label'>{action.label}</span>
+          </button>
+        )}
+        <button className='seam-snackbar-close-button' onClick={onClose}>
+          <CloseWhiteIcon />
         </button>
-      )}
-      <button className='seam-snackbar-close-button' onClick={onClose}>
-        <CloseWhiteIcon />
-      </button>
+      </div>
     </div>
   )
 }

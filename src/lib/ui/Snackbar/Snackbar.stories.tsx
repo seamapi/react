@@ -14,7 +14,7 @@ const meta: Meta<typeof Snackbar> = {
     isOpen: true,
     onClose: () => {},
     action: {
-      label: 'Retry',
+      label: 'Try again',
       onClick: () => {},
     },
   },
