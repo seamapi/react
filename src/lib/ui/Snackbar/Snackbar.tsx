@@ -43,7 +43,7 @@ export function Snackbar({
     return () => {
       globalThis.clearTimeout(timeout)
     }
-  }, [autoDismiss, onClose])
+  }, [autoDismiss, dismissAfterMs, onClose])
 
   return (
     <div className='seam-snackbar-wrap'>
