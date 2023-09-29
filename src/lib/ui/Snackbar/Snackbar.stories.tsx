@@ -49,10 +49,7 @@ export const Content: Story = {
     return (
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          gap: '1rem',
+          minHeight: '100px',
         }}
       >
         <Snackbar

@@ -12,6 +12,8 @@
     background: colors.$feedback-bg;
     box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.25);
     gap: 10px;
+		position: fixed;
+		bottom: 24px;
     will-change: transform;
     animation: fadeInUp 0.2s motion.$easeInOutQuint;
     transition: all 0.2s motion.$easeInOutQuint;
@@ -48,7 +50,10 @@
       background-color: transparent;
       margin: 0;
       padding: 0;
-      padding-top: 2px;
+			padding-top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       box-shadow: none;
       border: none;
       cursor: pointer;
@@ -62,8 +67,8 @@
         color: colors.$text-hyperlink;
         font-size: 16px;
         font-weight: 600;
-        line-height: 1;
-				white-space: nowrap;
+        line-height: 0.8;
+        white-space: nowrap;
       }
     }
 
