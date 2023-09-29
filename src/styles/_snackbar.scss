@@ -1,0 +1,106 @@
+@use './colors';
+@use './motion';
+
+@mixin all {
+  .seam-snackbar-wrap {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    height: 0;
+    z-index: 9;
+  }
+
+  .seam-snackbar {
+    @include motion.fade-in-up;
+
+    pointer-events: auto;
+    display: flex;
+    padding: 16px;
+    align-items: flex-start;
+    border-radius: 12px;
+    background: colors.$feedback-bg;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 25%);
+    gap: 10px;
+    position: absolute;
+    bottom: 24px;
+    will-change: transform;
+    animation: fade-in-up 0.2s motion.$ease-in-out-quint;
+    transition: all 0.2s motion.$ease-in-out-quint;
+
+    &.seam-snackbar-hide {
+      transform: translateY(24px);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .seam-snackbar-message-wrap {
+      display: flex;
+      max-width: 300px;
+    }
+
+    .seam-snackbar-message {
+      color: colors.$white;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 134%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .seam-snackbar-actions-wrap {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      gap: 16px;
+    }
+
+    .seam-snackbar-action {
+      appearance: none;
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
+      padding-top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 0.75;
+      }
+
+      .seam-snackbar-action-label {
+        color: colors.$text-hyperlink;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 0.8;
+        white-space: nowrap;
+      }
+    }
+
+    .seam-snackbar-close-button {
+      appearance: none;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 0;
+      box-shadow: none;
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
+      transition: opacity 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+}
