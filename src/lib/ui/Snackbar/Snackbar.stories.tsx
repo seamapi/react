@@ -10,7 +10,7 @@ const meta: Meta<typeof Snackbar> = {
   tags: ['autodocs'],
   args: {
     message: 'An unknown error occurred.',
-    variant: 'success',
+    variant: 'error',
     isOpen: true,
     onClose: () => {},
     action: {

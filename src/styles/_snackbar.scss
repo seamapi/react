@@ -13,8 +13,8 @@
     box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.25);
     gap: 10px;
     will-change: transform;
-    animation: fadeInUp 0.2s motion.$easeOutQuint;
-    transition: all 0.2s motion.$easeOutQuint;
+    animation: fadeInUp 0.2s motion.$easeInOutQuint;
+    transition: all 0.2s motion.$easeInOutQuint;
 
     &.seam-snackbar-hide {
       transform: translateY(24px);
@@ -63,6 +63,7 @@
         font-size: 16px;
         font-weight: 600;
         line-height: 1;
+				white-space: nowrap;
       }
     }
 
