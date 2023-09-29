@@ -52,7 +52,7 @@ export function Snackbar({
           'seam-snackbar-hide': !isOpen,
         })}
       >
-        {SnackbarIcon(variant)}
+        <SnackbarIcon variant={variant} />
         <div className='seam-snackbar-message-wrap'>
           <p className='seam-snackbar-message'>{message}</p>
         </div>
@@ -74,8 +74,8 @@ export function Snackbar({
   )
 }
 
-function SnackbarIcon(variant: SnackbarVariant): JSX.Element {
-  switch (variant) {
+function SnackbarIcon(props: { variant: SnackbarVariant }): JSX.Element {
+  switch (props.variant) {
     case 'success':
       return <CheckGreenIcon />
     case 'error':
