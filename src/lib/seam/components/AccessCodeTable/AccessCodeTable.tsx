@@ -89,9 +89,10 @@ export function AccessCodeTable({
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 
-  const { accessCodes, isInitialLoading, isError, error } = useAccessCodes({
-    device_id: deviceId,
-  })
+  const { accessCodes, isInitialLoading, isError, error, refetch } =
+    useAccessCodes({
+      device_id: deviceId,
+    })
 
   const [selectedViewAccessCodeId, setSelectedViewAccessCodeId] = useState<
     string | null
@@ -229,11 +230,12 @@ export function AccessCodeTable({
 
       {isError && (
         <Snackbar
-          message={
-            error?.message ??
-            'An unknown error occurred fetching access codes. Please try again.'
-          }
           variant='error'
+          message={error?.message ?? 'Access codes could not be loaded'}
+          action={{
+            label: 'Try again',
+            onClick: refetch,
+          }}
           isOpen={isError}
           onClose={() => {}}
           disableCloseButton

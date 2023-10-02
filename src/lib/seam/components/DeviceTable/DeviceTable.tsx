@@ -77,7 +77,7 @@ export function DeviceTable({
 }: DeviceTableProps = {}): JSX.Element {
   useComponentTelemetry('DeviceTable')
 
-  const { devices, isInitialLoading, isError, error } = useDevices({
+  const { devices, isInitialLoading, isError, error, refetch } = useDevices({
     device_ids: deviceIds,
     connected_account_ids: connectedAccountIds,
   })
@@ -152,11 +152,12 @@ export function DeviceTable({
 
       {isError && (
         <Snackbar
-          message={
-            error?.message ??
-            'An unknown error occurred fetching devices. Please try again.'
-          }
           variant='error'
+          message={error?.message ?? 'Devices could not be loaded'}
+          action={{
+            label: 'Try again',
+            onClick: refetch,
+          }}
           isOpen={isError}
           onClose={() => {}}
           disableCloseButton

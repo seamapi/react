@@ -72,7 +72,7 @@ export function ClimateSettingScheduleTable({
 }: ClimateSettingScheduleTableProps): JSX.Element {
   useComponentTelemetry('ClimateSettingScheduleTable')
 
-  const { climateSettingSchedules, isInitialLoading, isError, error } =
+  const { climateSettingSchedules, isInitialLoading, isError, error, refetch } =
     useClimateSettingSchedules({
       device_id: deviceId,
     })
@@ -163,11 +163,12 @@ export function ClimateSettingScheduleTable({
 
       {isError && (
         <Snackbar
-          message={
-            error?.message ??
-            'An unknown error occurred fetching climate settings. Please try again.'
-          }
           variant='error'
+          message={error?.message ?? 'Climate settings could not be loaded'}
+          action={{
+            label: 'Try again',
+            onClick: refetch,
+          }}
           isOpen={isError}
           onClose={() => {}}
           disableCloseButton
