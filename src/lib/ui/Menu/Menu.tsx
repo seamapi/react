@@ -102,9 +102,11 @@ export function Menu({
 
     // If the content would overflow bottom, position it above the anchor.
     const isOverFlowingBottom = bottom > containerBottom
-    const visibleTop = isOverFlowingBottom
-      ? anchorTop - contentHeight - verticalOffset
-      : top
+    const topWhenAboveAnchor = anchorTop - contentHeight - verticalOffset
+
+    // We only want to open the menu above the anchor if it won't get clipped, ie. not < 0.
+    const visibleTop =
+      isOverFlowingBottom && topWhenAboveAnchor > 0 ? topWhenAboveAnchor : top
     setTop(visibleTop)
   }, [
     anchorEl,
