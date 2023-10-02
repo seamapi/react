@@ -42,12 +42,12 @@ export function Menu({
   backgroundProps,
 }: MenuProps): JSX.Element | null {
   const { Provider } = menuContext
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [documentEl, setDocumentEl] = useState<null | HTMLElement>(null)
+  const [bodyEl, setBodyEl] = useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null)
   const [top, setTop] = useState(0)
   const [left, setLeft] = useState(0)
-  const [bodyEl, setBodyEl] = useState<null | HTMLElement>(null)
 
   useEffect(() => {
     const documentEl = globalThis.document.documentElement
@@ -70,16 +70,17 @@ export function Menu({
     if (
       anchorEl == null ||
       contentEl == null ||
-      documentEl == null ||
-      bodyEl == null
+      bodyEl == null ||
+      documentEl == null
     )
       return
 
-    const containerRight = documentEl.offsetLeft + documentEl.offsetWidth
-    const containerBottom = documentEl.offsetTop + documentEl.offsetHeight
+    const containerRight = documentEl.offsetLeft + documentEl.clientWidth
+    const containerBottom = documentEl.offsetTop + documentEl.clientHeight
 
-    const anchorTop = anchorEl.offsetTop
-    const anchorLeft = anchorEl.offsetLeft
+    const anchorBox = anchorEl.getBoundingClientRect()
+    const anchorTop = anchorBox.top + bodyEl.clientTop
+    const anchorLeft = anchorBox.left + bodyEl.clientLeft
     const anchorHeight = anchorEl.offsetHeight
 
     const contentWidth = contentEl.offsetWidth
@@ -110,9 +111,9 @@ export function Menu({
     horizontalOffset,
     verticalOffset,
     contentEl,
-    documentEl,
     edgeOffset,
     bodyEl,
+    documentEl,
   ])
 
   useLayoutEffect(() => {
