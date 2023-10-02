@@ -165,7 +165,7 @@ export function ClimateSettingScheduleTable({
         <Snackbar
           message={
             error?.message ??
-            'An unknown error occurred fetching devices. Please try again.'
+            'An unknown error occurred fetching climate settings. Please try again.'
           }
           variant='error'
           isOpen={isError}

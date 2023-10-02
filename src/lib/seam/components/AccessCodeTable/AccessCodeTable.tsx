@@ -231,7 +231,7 @@ export function AccessCodeTable({
         <Snackbar
           message={
             error?.message ??
-            'An unknown error occurred fetching devices. Please try again.'
+            'An unknown error occurred fetching access codes. Please try again.'
           }
           variant='error'
           isOpen={isError}
