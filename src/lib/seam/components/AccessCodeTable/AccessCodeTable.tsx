@@ -24,6 +24,7 @@ import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -31,7 +32,6 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
-import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 
 export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
 
