@@ -50,7 +50,7 @@ export function Menu({
 
   useEffect(() => {
     const containers = globalThis.document?.querySelectorAll(
-      seamComponentsClassName
+      `.${seamComponentsClassName}`
     )
     if (containers == null) return
     const el = containers[containers.length - 1]
