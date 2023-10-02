@@ -23,6 +23,7 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 
 export const NestedClimateSettingScheduleTable = withRequiredCommonProps(
   ClimateSettingScheduleTable
@@ -126,10 +127,6 @@ export function ClimateSettingScheduleTable({
     )
   }
 
-  if (isError) {
-    return <p className={className}>{error?.message}</p>
-  }
-
   return (
     <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
@@ -163,6 +160,19 @@ export function ClimateSettingScheduleTable({
           onClimateSettingScheduleClick={handleClimateSettingScheduleClick}
         />
       </TableBody>
+
+      {isError && (
+        <Snackbar
+          message={
+            error?.message ??
+            'An unknown error occurred fetching devices. Please try again.'
+          }
+          variant='error'
+          isOpen={isError}
+          onClose={() => {}}
+          hideCloseButton
+        />
+      )}
     </div>
   )
 }
