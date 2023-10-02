@@ -85,6 +85,7 @@ export function AccessCodeTable({
   disableEditAccessCode = false,
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
+  disableResourceIds = false,
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 
@@ -138,6 +139,7 @@ export function AccessCodeTable({
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           setSelectedEditAccessCodeId(null)
         }}
@@ -157,6 +159,7 @@ export function AccessCodeTable({
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           setSelectedViewAccessCodeId(null)
         }}
@@ -173,6 +176,7 @@ export function AccessCodeTable({
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={toggleAddAccessCodeForm}
         className={className}
       />
