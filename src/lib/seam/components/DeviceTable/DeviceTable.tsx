@@ -156,7 +156,9 @@ export function DeviceTable({
           message={error?.message ?? 'Devices could not be loaded'}
           action={{
             label: 'Try again',
-            onClick: refetch,
+            onClick: () => {
+              void refetch()
+            },
           }}
           isOpen={isError}
           onClose={() => {}}

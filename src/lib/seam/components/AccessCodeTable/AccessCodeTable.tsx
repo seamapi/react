@@ -234,7 +234,9 @@ export function AccessCodeTable({
           message={error?.message ?? 'Access codes could not be loaded'}
           action={{
             label: 'Try again',
-            onClick: refetch,
+            onClick: () => {
+              void refetch()
+            },
           }}
           isOpen={isError}
           onClose={() => {}}

@@ -167,7 +167,9 @@ export function ClimateSettingScheduleTable({
           message={error?.message ?? 'Climate settings could not be loaded'}
           action={{
             label: 'Try again',
-            onClick: refetch,
+            onClick: () => {
+              void refetch()
+            },
           }}
           isOpen={isError}
           onClose={() => {}}
