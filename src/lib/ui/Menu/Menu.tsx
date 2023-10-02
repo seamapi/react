@@ -19,6 +19,7 @@ export interface MenuProps extends PropsWithChildren {
   edgeOffset?: number
   renderButton: (props: {
     onOpen: (event: MouseEvent<HTMLElement>) => void
+    ref: (button: HTMLButtonElement) => void
   }) => JSX.Element
   backgroundProps?: Partial<{
     className?: string
@@ -48,7 +49,17 @@ export function Menu({
   const [top, setTop] = useState(0)
   const [left, setLeft] = useState(0)
 
+  const [buttonEl, setButtonEl] = useState<null | HTMLButtonElement>(null)
+
   useEffect(() => {
+    if (buttonEl != null) {
+      const parent = buttonEl?.closest(`.${seamComponentsClassName}`)
+      if (parent == null) return
+      setDocumentEl(parent)
+
+      return
+    }
+
     const containers = globalThis.document?.querySelectorAll(
       `.${seamComponentsClassName}`
     )
@@ -57,7 +68,7 @@ export function Menu({
     if (el != null) {
       setDocumentEl(el)
     }
-  }, [setDocumentEl])
+  }, [setDocumentEl, buttonEl])
 
   const handleClose = (): void => {
     setAnchorEl(null)
@@ -134,7 +145,7 @@ export function Menu({
         close: handleClose,
       }}
     >
-      {renderButton({ onOpen: handleOpen })}
+      {renderButton({ onOpen: handleOpen, ref: setButtonEl })}
       {createPortal(
         <div
           className={classNames(
