@@ -26,8 +26,11 @@ export function ThermostatDeviceDetails(
     device,
     onBack,
     className,
+    disableLockUnlock,
     disableCreateAccessCode,
     disableEditAccessCode,
+    disableDeleteAccessCode,
+    disableResourceIds,
   } = props
 
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
@@ -42,10 +45,11 @@ export function ThermostatDeviceDetails(
     return (
       <NestedClimateSettingScheduleTable
         deviceId={device.device_id}
-        disableLockUnlock={props.disableLockUnlock}
+        disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
-        disableDeleteAccessCode={props.disableDeleteAccessCode}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           setClimateSettingsOpen(false)
         }}
