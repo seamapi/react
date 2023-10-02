@@ -42,8 +42,8 @@ export function FilterCategoryMenu({
     <div className='seam-supported-device-table-filter-menu-wrap'>
       <p>{label}</p>
       <Menu
-        renderButton={({ onOpen, ref }) => (
-          <button onClick={onOpen} ref={ref}>
+        renderButton={({ onOpen }) => (
+          <button onClick={onOpen}>
             <span>{buttonLabel}</span>
             <ChevronDownIcon />
           </button>
