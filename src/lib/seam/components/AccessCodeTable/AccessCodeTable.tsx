@@ -236,7 +236,7 @@ export function AccessCodeTable({
           variant='error'
           isOpen={isError}
           onClose={() => {}}
-          hideCloseButton
+          disableCloseButton
         />
       )}
     </div>

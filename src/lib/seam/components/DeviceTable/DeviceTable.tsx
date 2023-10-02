@@ -159,7 +159,7 @@ export function DeviceTable({
           variant='error'
           isOpen={isError}
           onClose={() => {}}
-          hideCloseButton
+          disableCloseButton
         />
       )}
     </div>

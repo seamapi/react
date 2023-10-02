@@ -170,7 +170,7 @@ export function ClimateSettingScheduleTable({
           variant='error'
           isOpen={isError}
           onClose={() => {}}
-          hideCloseButton
+          disableCloseButton
         />
       )}
     </div>
