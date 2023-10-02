@@ -18,6 +18,7 @@ interface SnackbarProps {
   }
   autoDismiss?: boolean
   dismissAfterMs?: number
+  disableCloseButton?: boolean
 }
 
 export function Snackbar({
@@ -28,6 +29,7 @@ export function Snackbar({
   action,
   autoDismiss = false,
   dismissAfterMs = 5000,
+  disableCloseButton = false,
 }: SnackbarProps): JSX.Element {
   const { label: actionLabel, onClick: handleActionClick } = action ?? {}
 
@@ -65,9 +67,11 @@ export function Snackbar({
               <span className='seam-snackbar-action-label'>{actionLabel}</span>
             </button>
           )}
-          <button className='seam-snackbar-close-button' onClick={onClose}>
-            <CloseWhiteIcon />
-          </button>
+          {!disableCloseButton && (
+            <button className='seam-snackbar-close-button' onClick={onClose}>
+              <CloseWhiteIcon />
+            </button>
+          )}
         </div>
       </div>
     </div>
