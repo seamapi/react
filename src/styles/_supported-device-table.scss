@@ -372,4 +372,9 @@ $row-padding: 8px;
       align-items: center;
     }
   }
+
+  .seam-supported-device-table-filter-menu-content {
+    max-height: 300px;
+    overflow: auto;
+  }
 }
