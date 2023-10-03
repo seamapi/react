@@ -1,10 +1,10 @@
 import classNames from 'classnames'
-import type { LockDevice } from 'seamapi'
+import type { LockDevice, SeamWarning } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
-import type { CommonProps } from 'lib/seam/components/common-props.js'
+import type { AnyError, CommonProps } from 'lib/seam/components/common-props.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
@@ -24,6 +24,8 @@ export function LockDeviceDetails(
 ): JSX.Element | null {
   const {
     device,
+    errorFilter: customErrorFilter = () => true,
+    warningFilter: customWarningFilter = () => true,
     disableLockUnlock,
     disableCreateAccessCode,
     disableEditAccessCode,
@@ -51,6 +53,8 @@ export function LockDeviceDetails(
     return (
       <NestedAccessCodeTable
         deviceId={device.device_id}
+        errorFilter={customErrorFilter}
+        warningFilter={customWarningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -62,14 +66,20 @@ export function LockDeviceDetails(
   }
 
   const alerts = [
-    ...device.errors.map((error) => ({
-      variant: 'error' as const,
-      message: error.message,
-    })),
-    ...device.warnings.map((warning) => ({
-      variant: 'warning' as const,
-      message: warning.message,
-    })),
+    ...device.errors
+      .filter(errorFilter)
+      .filter(customErrorFilter)
+      .map((error) => ({
+        variant: 'error' as const,
+        message: error.message,
+      })),
+    ...device.warnings
+      .filter(warningFilter)
+      .filter(customWarningFilter)
+      .map((warning) => ({
+        variant: 'warning' as const,
+        message: warning.message,
+      })),
   ]
 
   return (
@@ -159,6 +169,24 @@ function AccessCodeLength(props: {
       </span>
     </div>
   )
+}
+
+const errorFilter = (error: AnyError): boolean => {
+  if ('is_device_error' in error && error.is_device_error) return true
+  return false
+}
+
+const warningFilter = (warning: SeamWarning): boolean => {
+  const relevantWarnings = [
+    'device_has_flaky_connection',
+    'third_party_integration_detected',
+    'salto_office_mode',
+    'salto_privacy_mode',
+    'ttlock_lock_gateway_unlocking_not_enabled',
+  ]
+
+  if (relevantWarnings.includes(warning.warning_code)) return true
+  return false
 }
 
 const t = {
