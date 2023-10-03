@@ -3,6 +3,14 @@ import type { SeamWarning } from 'seamapi'
 
 export const accessCodeErrorFilter = (error: AnyError): boolean => {
   if ('is_access_code_error' in error && error.is_access_code_error) return true
+
+  if (
+    error.error_code === 'failed_to_set_on_device' ||
+    error.error_code === 'failed_to_remove_on_device'
+  ) {
+    return true
+  }
+
   return false
 }
 
@@ -17,8 +25,7 @@ export const accessCodeWarningFilter = (warning: SeamWarning): boolean => {
 }
 
 export const deviceErrorFilter = (error: AnyError): boolean => {
-  if ('is_device_error' in error && error.is_device_error) return true
-  return false
+  return 'is_device_error' in error && error.is_device_error
 }
 
 export const deviceWarningFilter = (warning: SeamWarning): boolean => {
