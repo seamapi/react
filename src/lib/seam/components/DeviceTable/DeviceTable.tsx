@@ -160,8 +160,7 @@ export function DeviceTable({
               void refetch()
             },
           }}
-          isOpen={isError}
-          onClose={() => {}}
+          visible={isError}
           disableCloseButton
         />
       )}
