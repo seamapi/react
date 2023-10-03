@@ -164,9 +164,9 @@ export function ClimateSettingScheduleTable({
       {isError && (
         <Snackbar
           variant='error'
-          message={error?.message ?? 'Climate settings could not be loaded'}
+          message={error?.message ?? t.fallbackErrorMessage}
           action={{
-            label: 'Try again',
+            label: t.tryAgain,
             onClick: () => {
               void refetch()
             },
@@ -212,4 +212,6 @@ const t = {
   noClimateSettingSchedulesMessage:
     'Sorry, no climate setting schedules were found',
   loading: 'Loading schedules',
+  tryAgain: 'Try again',
+  fallbackErrorMessage: 'Climate settings could not be loaded',
 }
