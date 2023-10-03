@@ -5,6 +5,7 @@ import type { AccessCode } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
+import { accessCodeErrorFilter, accessCodeWarningFilter } from 'lib/filters.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
@@ -20,7 +21,6 @@ import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
-import { accessCodeErrorFilter, accessCodeWarningFilter } from 'lib/filters.js'
 
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
