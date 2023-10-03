@@ -39,6 +39,8 @@ type ProviderProps = Omit<
 >
 
 const commonProps: R2wcProps<CommonProps> = {
+  errorFilter: 'object',
+  warningFilter: 'object',
   disableLockUnlock: 'boolean',
   disableCreateAccessCode: 'boolean',
   disableEditAccessCode: 'boolean',
