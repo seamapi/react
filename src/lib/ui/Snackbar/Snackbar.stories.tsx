@@ -18,6 +18,8 @@ const meta: Meta<typeof Snackbar> = {
       onClick: () => {},
     },
     autoDismiss: false,
+    dismissAfterMs: 5000,
+    disableCloseButton: false,
   },
   argTypes: {
     message: {
@@ -39,6 +41,12 @@ const meta: Meta<typeof Snackbar> = {
       control: { type: 'object' },
     },
     autoDismiss: {
+      control: { type: 'boolean' },
+    },
+    dismissAfterMs: {
+      control: { type: 'number' },
+    },
+    disableCloseButton: {
       control: { type: 'boolean' },
     },
   },
