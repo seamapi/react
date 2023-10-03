@@ -1,9 +1,6 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import type {
-  SeamWarning,
-  ThermostatDevice,
-} from 'seamapi'
+import type { SeamWarning, ThermostatDevice } from 'seamapi'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
