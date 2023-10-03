@@ -6,7 +6,10 @@ import type {
   SeamWarning,
 } from 'seamapi'
 
-export type SeamCompositeError = ConnectedAccountError | DeviceError | AccessCodeError
+export type SeamCompositeError =
+  | ConnectedAccountError
+  | DeviceError
+  | AccessCodeError
 
 export interface RequiredCommonProps {
   className: string | undefined
