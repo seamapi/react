@@ -1,13 +1,7 @@
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type {
-  AccessCode,
-  AccessCodeError,
-  ConnectedAccountError,
-  DeviceError,
-  SeamWarning,
-} from 'seamapi'
+import type { AccessCode, SeamWarning } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
@@ -16,6 +10,7 @@ import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
 import {
+  type AnyError,
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
@@ -30,6 +25,8 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
+  deviceErrorFilter?: (error: AnyError) => boolean
+  deviceWarningFilter?: (warning: SeamWarning) => boolean
 }
 
 export const NestedAccessCodeDetails =
@@ -38,6 +35,10 @@ export const NestedAccessCodeDetails =
 export function AccessCodeDetails({
   accessCodeId,
   onEdit,
+  errorFilter: customErrorFilter = () => true,
+  warningFilter: customWarningFilter = () => true,
+  deviceErrorFilter = () => true,
+  deviceWarningFilter = () => true,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
   disableLockUnlock = false,
@@ -61,6 +62,8 @@ export function AccessCodeDetails({
     return (
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
+        errorFilter={deviceErrorFilter}
+        warningFilter={deviceWarningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -74,14 +77,21 @@ export function AccessCodeDetails({
   }
 
   const alerts = [
-    ...accessCode.errors.filter(errorFilter).map((error) => ({
-      variant: 'error' as const,
-      message: error.message,
-    })),
-    ...accessCode.warnings.filter(warningFilter).map((warning) => ({
-      variant: 'warning' as const,
-      message: warning.message,
-    })),
+    ...accessCode.errors
+      .filter(errorFilter)
+      .filter(customErrorFilter)
+      .map((error) => ({
+        variant: 'error' as const,
+        message: error.message,
+      })),
+
+    ...accessCode.warnings
+      .filter(warningFilter)
+      .filter(customWarningFilter)
+      .map((warning) => ({
+        variant: 'warning' as const,
+        message: warning.message,
+      })),
   ]
 
   return (
@@ -242,15 +252,20 @@ const formatDate = (date: string): string =>
     year: 'numeric',
   })
 
-const errorFilter = (
-  error: AccessCodeError | DeviceError | ConnectedAccountError
-): boolean => {
+const errorFilter = (error: AnyError): boolean => {
   if ('is_access_code_error' in error && error.is_access_code_error) return true
   return false
 }
 
 const warningFilter = (warning: SeamWarning): boolean => {
-  return true
+  const relevantWarnings = [
+    'delay_in_removing_from_device',
+    'delay_in_setting_on_device',
+    'code_modified_external_to_seam',
+  ]
+
+  if (relevantWarnings.includes(warning.warning_code)) return true
+  return false
 }
 
 const t = {
