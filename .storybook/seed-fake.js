@@ -107,7 +107,7 @@ export const seedFake = (db) => {
         error_code: 'failed_to_set_on_device',
         is_access_code_error: true,
         message:
-          'An access code with the same pin already exists on the device.',
+          'An error occurred when we tried to set the access code on the device. We will continue to try and set the code on the device in case the error was temporary.',
         created_at: '2023-06-27T06:01:11.885Z',
       },
       {
