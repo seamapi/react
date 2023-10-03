@@ -231,9 +231,9 @@ export function AccessCodeTable({
       {isError && (
         <Snackbar
           variant='error'
-          message={error?.message ?? 'Access codes could not be loaded'}
+          message={error?.message ?? t.fallbackErrorMessage}
           action={{
-            label: 'Try again',
+            label: t.tryAgain,
             onClick: () => {
               void refetch()
             },
@@ -310,4 +310,6 @@ const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
   loading: 'Loading access codes',
+  tryAgain: 'Try again',
+  fallbackErrorMessage: 'Access codes could not be loaded',
 }
