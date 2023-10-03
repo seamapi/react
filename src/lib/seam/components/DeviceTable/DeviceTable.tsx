@@ -153,9 +153,9 @@ export function DeviceTable({
       {isError && (
         <Snackbar
           variant='error'
-          message={error?.message ?? 'Devices could not be loaded'}
+          message={error?.message ?? t.fallbackErrorMessage}
           action={{
-            label: 'Try again',
+            label: t.tryAgain,
             onClick: () => {
               void refetch()
             },
@@ -227,4 +227,6 @@ const t = {
   devices: 'Devices',
   noDevicesMessage: 'Sorry, no devices were found',
   loading: 'Loading devices',
+  tryAgain: 'Try again',
+  fallbackErrorMessage: 'Devices could not be loaded',
 }
