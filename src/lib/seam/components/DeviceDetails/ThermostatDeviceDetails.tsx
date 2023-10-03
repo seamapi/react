@@ -1,11 +1,11 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import type { SeamWarning, ThermostatDevice } from 'seamapi'
+import type { ThermostatDevice } from 'seamapi'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
-import type { AnyError, CommonProps } from 'lib/seam/components/common-props.js'
+import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -156,20 +156,6 @@ export function ThermostatDeviceDetails(
       </div>
     </div>
   )
-}
-
-const errorFilter = (error: AnyError): boolean => {
-  if ('is_device_error' in error && error.is_device_error) return true
-  return false
-}
-
-const warningFilter = (warning: SeamWarning): boolean => {
-  const relevantWarnings = [
-    'device_has_flaky_connection',
-    'third_party_integration_detected',
-  ]
-
-  return relevantWarnings.includes(warning.warning_code)
 }
 
 const t = {

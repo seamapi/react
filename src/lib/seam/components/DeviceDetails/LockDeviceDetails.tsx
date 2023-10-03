@@ -1,10 +1,10 @@
 import classNames from 'classnames'
-import type { LockDevice, SeamWarning } from 'seamapi'
+import type { LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
-import type { AnyError, CommonProps } from 'lib/seam/components/common-props.js'
+import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
@@ -14,6 +14,7 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
+import { deviceErrorFilter, deviceWarningFilter } from 'lib/filters.js'
 
 interface LockDeviceDetailsProps extends CommonProps {
   device: LockDevice
@@ -67,14 +68,14 @@ export function LockDeviceDetails(
 
   const alerts = [
     ...device.errors
-      .filter(errorFilter)
+      .filter(deviceErrorFilter)
       .filter(customErrorFilter)
       .map((error) => ({
         variant: 'error' as const,
         message: error.message,
       })),
     ...device.warnings
-      .filter(warningFilter)
+      .filter(deviceWarningFilter)
       .filter(customWarningFilter)
       .map((warning) => ({
         variant: 'warning' as const,
@@ -169,23 +170,6 @@ function AccessCodeLength(props: {
       </span>
     </div>
   )
-}
-
-const errorFilter = (error: AnyError): boolean => {
-  if ('is_device_error' in error && error.is_device_error) return true
-  return false
-}
-
-const warningFilter = (warning: SeamWarning): boolean => {
-  const relevantWarnings = [
-    'device_has_flaky_connection',
-    'third_party_integration_detected',
-    'salto_office_mode',
-    'salto_privacy_mode',
-    'ttlock_lock_gateway_unlocking_not_enabled',
-  ]
-
-  return relevantWarnings.includes(warning.warning_code)
 }
 
 const t = {

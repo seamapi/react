@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type { AccessCode, SeamWarning } from 'seamapi'
+import type { AccessCode } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
@@ -10,7 +10,6 @@ import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
 import { AccessCodeDevice } from 'lib/seam/components/AccessCodeDetails/AccessCodeDevice.js'
 import {
-  type AnyError,
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
@@ -21,6 +20,7 @@ import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
+import { accessCodeErrorFilter, accessCodeWarningFilter } from 'lib/filters.js'
 
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
@@ -74,7 +74,7 @@ export function AccessCodeDetails({
 
   const alerts = [
     ...accessCode.errors
-      .filter(errorFilter)
+      .filter(accessCodeErrorFilter)
       .filter(customErrorFilter)
       .map((error) => ({
         variant: 'error' as const,
@@ -82,7 +82,7 @@ export function AccessCodeDetails({
       })),
 
     ...accessCode.warnings
-      .filter(warningFilter)
+      .filter(accessCodeWarningFilter)
       .filter(customWarningFilter)
       .map((warning) => ({
         variant: 'warning' as const,
@@ -247,21 +247,6 @@ const formatDate = (date: string): string =>
     day: 'numeric',
     year: 'numeric',
   })
-
-const errorFilter = (error: AnyError): boolean => {
-  if ('is_access_code_error' in error && error.is_access_code_error) return true
-  return false
-}
-
-const warningFilter = (warning: SeamWarning): boolean => {
-  const relevantWarnings = [
-    'delay_in_removing_from_device',
-    'delay_in_setting_on_device',
-    'code_modified_external_to_seam',
-  ]
-
-  return relevantWarnings.includes(warning.warning_code)
-}
 
 const t = {
   accessCode: 'Access code',

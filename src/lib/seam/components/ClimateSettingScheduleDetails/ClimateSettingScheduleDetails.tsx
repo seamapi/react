@@ -33,6 +33,8 @@ export function ClimateSettingScheduleDetails({
   disableDeleteAccessCode = false,
   onBack,
   className,
+  errorFilter: customErrorFilter = () => true,
+  warningFilter: customWarningFilter = () => true,
   disableCreateAccessCode,
   disableEditAccessCode,
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
@@ -55,6 +57,8 @@ export function ClimateSettingScheduleDetails({
     return (
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
+        errorFilter={customErrorFilter}
+        warningFilter={customWarningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
