@@ -171,8 +171,7 @@ export function ClimateSettingScheduleTable({
               void refetch()
             },
           }}
-          isOpen={isError}
-          onClose={() => {}}
+          visible={isError}
           disableCloseButton
         />
       )}
