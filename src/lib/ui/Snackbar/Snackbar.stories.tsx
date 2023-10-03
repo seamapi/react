@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import { useArgs } from '@storybook/preview-api'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
@@ -52,8 +51,6 @@ type Story = StoryObj<typeof Snackbar>
 
 export const Content: Story = {
   render: (props) => {
-    useArgs()
-
     return (
       <Box
         sx={{
