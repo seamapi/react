@@ -1,8 +1,6 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 import type {
-  ConnectedAccountError,
-  DeviceError,
   SeamWarning,
   ThermostatDevice,
 } from 'seamapi'
