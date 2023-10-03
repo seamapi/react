@@ -3,6 +3,10 @@
 $row-padding: 8px;
 
 @mixin all {
+  .seam-supported-device-table-content-wrap {
+    background: colors.$white;
+  }
+
   .seam-supported-device-table-filter-area {
     width: 100%;
     display: flex;
@@ -371,5 +375,10 @@ $row-padding: 8px;
       text-align: center;
       align-items: center;
     }
+  }
+
+  .seam-supported-device-table-filter-menu-content {
+    max-height: 300px;
+    overflow: auto;
   }
 }
