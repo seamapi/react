@@ -185,8 +185,7 @@ const warningFilter = (warning: SeamWarning): boolean => {
     'ttlock_lock_gateway_unlocking_not_enabled',
   ]
 
-  if (relevantWarnings.includes(warning.warning_code)) return true
-  return false
+  return relevantWarnings.includes(warning.warning_code)
 }
 
 const t = {

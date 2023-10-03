@@ -260,8 +260,7 @@ const warningFilter = (warning: SeamWarning): boolean => {
     'code_modified_external_to_seam',
   ]
 
-  if (relevantWarnings.includes(warning.warning_code)) return true
-  return false
+  return relevantWarnings.includes(warning.warning_code)
 }
 
 const t = {

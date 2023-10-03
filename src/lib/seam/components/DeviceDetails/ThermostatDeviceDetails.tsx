@@ -169,9 +169,7 @@ const warningFilter = (warning: SeamWarning): boolean => {
     'third_party_integration_detected',
   ]
 
-  if (relevantWarnings.includes(warning.warning_code)) return true
-
-  return false
+  return relevantWarnings.includes(warning.warning_code)
 }
 
 const t = {
