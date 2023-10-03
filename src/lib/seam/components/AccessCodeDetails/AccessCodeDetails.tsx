@@ -6,6 +6,7 @@ import type {
   AccessCodeError,
   ConnectedAccountError,
   DeviceError,
+  SeamWarning,
 } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
@@ -77,7 +78,7 @@ export function AccessCodeDetails({
       variant: 'error' as const,
       message: error.message,
     })),
-    ...accessCode.warnings.map((warning) => ({
+    ...accessCode.warnings.filter(warningFilter).map((warning) => ({
       variant: 'warning' as const,
       message: warning.message,
     })),
@@ -244,17 +245,12 @@ const formatDate = (date: string): string =>
 const errorFilter = (
   error: AccessCodeError | DeviceError | ConnectedAccountError
 ): boolean => {
-  if ('is_access_code_error' in error && !error.is_access_code_error)
-    return true
-
-  if (
-    error.error_code === 'failed_to_set_on_device' ||
-    error.error_code === 'failed_to_remove_on_device'
-  ) {
-    return true
-  }
-
+  if ('is_access_code_error' in error && error.is_access_code_error) return true
   return false
+}
+
+const warningFilter = (warning: SeamWarning): boolean => {
+  return true
 }
 
 const t = {
