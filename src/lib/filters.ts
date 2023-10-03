@@ -1,8 +1,8 @@
 import type { SeamWarning } from 'seamapi'
 
-import type { AnyError } from 'lib/index.js'
+import type { SeamCompositieError } from 'lib/index.js'
 
-export const accessCodeErrorFilter = (error: AnyError): boolean => {
+export const accessCodeErrorFilter = (error: SeamCompositieError): boolean => {
   return 'is_access_code_error' in error && error.is_access_code_error
 }
 
@@ -16,7 +16,7 @@ export const accessCodeWarningFilter = (warning: SeamWarning): boolean => {
   return relevantWarnings.includes(warning.warning_code)
 }
 
-export const deviceErrorFilter = (error: AnyError): boolean => {
+export const deviceErrorFilter = (error: SeamCompositieError): boolean => {
   return 'is_device_error' in error && error.is_device_error
 }
 
