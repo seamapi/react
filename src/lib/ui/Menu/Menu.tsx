@@ -42,21 +42,20 @@ export function Menu({
   backgroundProps,
 }: MenuProps): JSX.Element | null {
   const { Provider } = menuContext
+  const [documentEl, setDocumentEl] = useState<null | HTMLElement>(null)
+  const [bodyEl, setBodyEl] = useState<null | HTMLElement>(null)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const [documentEl, setDocumentEl] = useState<null | Element>(null)
   const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null)
   const [top, setTop] = useState(0)
   const [left, setLeft] = useState(0)
 
   useEffect(() => {
-    const containers = globalThis.document?.querySelectorAll(
-      seamComponentsClassName
-    )
-    if (containers == null) return
-    const el = containers[containers.length - 1]
-    if (el != null) {
-      setDocumentEl(el)
-    }
+    const documentEl = globalThis.document.documentElement
+    setDocumentEl(documentEl)
+
+    const bodyElements = documentEl?.getElementsByTagName('body')
+    if (bodyElements[0] == null) return
+    setBodyEl(bodyElements[0])
   }, [setDocumentEl])
 
   const handleClose = (): void => {
@@ -68,18 +67,24 @@ export function Menu({
   }
 
   const setPositions = useCallback(() => {
-    if (anchorEl == null || contentEl == null || documentEl == null) return
+    if (
+      anchorEl == null ||
+      contentEl == null ||
+      bodyEl == null ||
+      documentEl == null
+    )
+      return
 
-    const { right: containerRight, bottom: containerBottom } =
-      documentEl.getBoundingClientRect()
+    const containerRight = documentEl.offsetLeft + documentEl.clientWidth
+    const containerBottom = documentEl.offsetTop + documentEl.clientHeight
 
-    const { height: anchorHeight } = anchorEl.getBoundingClientRect()
+    const anchorBox = anchorEl.getBoundingClientRect()
+    const anchorTop = anchorBox.top + bodyEl.clientTop
+    const anchorLeft = anchorBox.left + bodyEl.clientLeft
+    const anchorHeight = anchorEl.offsetHeight
 
-    const anchorTop = anchorEl.offsetTop
-    const anchorLeft = anchorEl.offsetLeft
-
-    const { width: contentWidth, height: contentHeight } =
-      contentEl.getBoundingClientRect()
+    const contentWidth = contentEl.offsetWidth
+    const contentHeight = contentEl.offsetHeight
 
     const anchorBottom = anchorTop + anchorHeight
 
@@ -97,17 +102,20 @@ export function Menu({
 
     // If the content would overflow bottom, position it above the anchor.
     const isOverFlowingBottom = bottom > containerBottom
-    const visibleTop = isOverFlowingBottom
-      ? anchorTop - contentHeight - verticalOffset
-      : top
+    const topWhenAboveAnchor = anchorTop - contentHeight - verticalOffset
+
+    // Only open the menu above the anchor if it won't get clipped, i.e., not < 0.
+    const visibleTop =
+      isOverFlowingBottom && topWhenAboveAnchor > 0 ? topWhenAboveAnchor : top
     setTop(visibleTop)
   }, [
     anchorEl,
     horizontalOffset,
     verticalOffset,
     contentEl,
-    documentEl,
     edgeOffset,
+    bodyEl,
+    documentEl,
   ])
 
   useLayoutEffect(() => {
@@ -124,7 +132,7 @@ export function Menu({
   const hasSetPosition = top !== 0 && left !== 0
   const visible = isOpen && hasSetPosition
 
-  if (documentEl == null) {
+  if (bodyEl == null) {
     return null
   }
 
@@ -136,28 +144,30 @@ export function Menu({
     >
       {renderButton({ onOpen: handleOpen })}
       {createPortal(
-        <div
-          className={classNames(
-            'seam-menu-bg',
-            backgroundProps?.className,
-            visible ? 'seam-menu-visible' : 'seam-menu-hidden'
-          )}
-          onClick={(event) => {
-            event.stopPropagation()
-            handleClose()
-          }}
-        >
+        <div className={seamComponentsClassName}>
           <div
-            className='seam-menu-content'
-            style={{
-              top,
-              left,
+            className={classNames(
+              'seam-menu-bg',
+              backgroundProps?.className,
+              visible ? 'seam-menu-visible' : 'seam-menu-hidden'
+            )}
+            onClick={(event) => {
+              event.stopPropagation()
+              handleClose()
             }}
           >
-            {children}
+            <div
+              className='seam-menu-content'
+              style={{
+                top,
+                left,
+              }}
+            >
+              {children}
+            </div>
           </div>
         </div>,
-        documentEl
+        bodyEl
       )}
 
       {/*

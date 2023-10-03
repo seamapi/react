@@ -36,7 +36,10 @@ export function FilterCategoryMenu({
   onAllOptionSelect,
   buttonLabel,
 }: FilterCategoryMenuProps): JSX.Element {
-  const usableOptions = hideAllOption ? options : [allLabel, ...options]
+  const sortedOptions = [...options].sort((a, b) => a.localeCompare(b))
+  const usableOptions = hideAllOption
+    ? sortedOptions
+    : [allLabel, ...sortedOptions]
 
   return (
     <div className='seam-supported-device-table-filter-menu-wrap'>
@@ -49,20 +52,22 @@ export function FilterCategoryMenu({
           </button>
         )}
       >
-        {usableOptions.map((option, index) => (
-          <MenuItem
-            key={`${index}:${option}`}
-            onClick={() => {
-              if (option === allLabel) {
-                onAllOptionSelect?.()
-              } else {
-                onSelect(option)
-              }
-            }}
-          >
-            <span>{option}</span>
-          </MenuItem>
-        ))}
+        <div className='seam-supported-device-table-filter-menu-content'>
+          {usableOptions.map((option, index) => (
+            <MenuItem
+              key={`${index}:${option}`}
+              onClick={() => {
+                if (option === allLabel) {
+                  onAllOptionSelect?.()
+                } else {
+                  onSelect(option)
+                }
+              }}
+            >
+              <span>{option}</span>
+            </MenuItem>
+          ))}
+        </div>
       </Menu>
     </div>
   )
