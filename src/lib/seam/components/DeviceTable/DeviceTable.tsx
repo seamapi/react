@@ -67,8 +67,8 @@ export function DeviceTable({
   deviceComparator = compareByCreatedAtDesc,
   heading = t.devices,
   title = t.devices,
-  errorFilter: customErrorFilter = () => true,
-  warningFilter: customWarningFilter = () => true,
+  errorFilter = () => true,
+  warningFilter = () => true,
   disableLockUnlock = false,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
@@ -108,8 +108,8 @@ export function DeviceTable({
     return (
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
-        errorFilter={customErrorFilter}
-        warningFilter={customWarningFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}

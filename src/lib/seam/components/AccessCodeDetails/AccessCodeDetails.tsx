@@ -33,8 +33,8 @@ export const NestedAccessCodeDetails =
 export function AccessCodeDetails({
   accessCodeId,
   onEdit,
-  errorFilter: customErrorFilter = () => true,
-  warningFilter: customWarningFilter = () => true,
+  errorFilter = () => true,
+  warningFilter = () => true,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
   disableLockUnlock = false,
@@ -58,8 +58,8 @@ export function AccessCodeDetails({
     return (
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
-        errorFilter={customErrorFilter}
-        warningFilter={customWarningFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -75,7 +75,7 @@ export function AccessCodeDetails({
   const alerts = [
     ...accessCode.errors
       .filter(accessCodeErrorFilter)
-      .filter(customErrorFilter)
+      .filter(errorFilter)
       .map((error) => ({
         variant: 'error' as const,
         message: error.message,
@@ -83,7 +83,7 @@ export function AccessCodeDetails({
 
     ...accessCode.warnings
       .filter(accessCodeWarningFilter)
-      .filter(customWarningFilter)
+      .filter(warningFilter)
       .map((warning) => ({
         variant: 'warning' as const,
         message: warning.message,

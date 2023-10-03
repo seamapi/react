@@ -25,8 +25,8 @@ export function LockDeviceDetails(
 ): JSX.Element | null {
   const {
     device,
-    errorFilter: customErrorFilter = () => true,
-    warningFilter: customWarningFilter = () => true,
+    errorFilter = () => true,
+    warningFilter = () => true,
     disableLockUnlock,
     disableCreateAccessCode,
     disableEditAccessCode,
@@ -54,8 +54,8 @@ export function LockDeviceDetails(
     return (
       <NestedAccessCodeTable
         deviceId={device.device_id}
-        errorFilter={customErrorFilter}
-        warningFilter={customWarningFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -69,14 +69,14 @@ export function LockDeviceDetails(
   const alerts = [
     ...device.errors
       .filter(deviceErrorFilter)
-      .filter(customErrorFilter)
+      .filter(errorFilter)
       .map((error) => ({
         variant: 'error' as const,
         message: error.message,
       })),
     ...device.warnings
       .filter(deviceWarningFilter)
-      .filter(customWarningFilter)
+      .filter(warningFilter)
       .map((warning) => ({
         variant: 'warning' as const,
         message: warning.message,

@@ -26,8 +26,8 @@ export function ThermostatDeviceDetails(
     device,
     onBack,
     className,
-    errorFilter: customErrorFilter = () => true,
-    warningFilter: customWarningFilter = () => true,
+    errorFilter = () => true,
+    warningFilter = () => true,
     disableCreateAccessCode,
     disableEditAccessCode,
   } = props
@@ -44,8 +44,8 @@ export function ThermostatDeviceDetails(
     return (
       <NestedClimateSettingScheduleTable
         deviceId={device.device_id}
-        errorFilter={customErrorFilter}
-        warningFilter={customWarningFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={props.disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}

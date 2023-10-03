@@ -78,8 +78,8 @@ export function AccessCodeTable({
   onBack,
   accessCodeFilter = defaultAccessCodeFilter,
   accessCodeComparator = compareByCreatedAtDesc,
-  errorFilter: customErrorFilter = () => true,
-  warningFilter: customWarningFilter = () => true,
+  errorFilter = () => true,
+  warningFilter = () => true,
   heading = t.accessCodes,
   title = t.accessCodes,
   className,
@@ -136,8 +136,8 @@ export function AccessCodeTable({
     return (
       <NestedEditAccessCodeForm
         accessCodeId={selectedEditAccessCodeId}
-        errorFilter={customErrorFilter}
-        warningFilter={customWarningFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -157,8 +157,8 @@ export function AccessCodeTable({
         onEdit={() => {
           setSelectedEditAccessCodeId(selectedViewAccessCodeId)
         }}
-        errorFilter={customErrorFilter}
-        warningFilter={customWarningFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -175,8 +175,8 @@ export function AccessCodeTable({
     return (
       <NestedCreateAccessCodeForm
         deviceId={deviceId}
-        errorFilter={customErrorFilter}
-        warningFilter={customWarningFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -233,8 +233,8 @@ export function AccessCodeTable({
           accessCodes={filteredAccessCodes}
           onAccessCodeClick={handleAccessCodeClick}
           onAccessCodeEdit={handleAccessCodeEdit}
-          customErrorFilter={customErrorFilter}
-          customWarningFilter={customWarningFilter}
+          errorFilter={errorFilter}
+          warningFilter={warningFilter}
           disableEditAccessCode={disableEditAccessCode}
           disableDeleteAccessCode={disableDeleteAccessCode}
         />
@@ -247,8 +247,8 @@ function Content(props: {
   accessCodes: Array<UseAccessCodesData[number]>
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
-  customErrorFilter: (error: AccessCode['errors'][number]) => boolean
-  customWarningFilter: (warning: AccessCode['warnings'][number]) => boolean
+  errorFilter: (error: AccessCode['errors'][number]) => boolean
+  warningFilter: (warning: AccessCode['warnings'][number]) => boolean
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
 }): JSX.Element {
@@ -256,8 +256,8 @@ function Content(props: {
     accessCodes,
     onAccessCodeClick,
     onAccessCodeEdit,
-    customErrorFilter,
-    customWarningFilter,
+    errorFilter,
+    warningFilter,
     disableEditAccessCode,
     disableDeleteAccessCode,
   } = props
@@ -287,8 +287,8 @@ function Content(props: {
         accessCodes={accessCodes}
         filter={filter}
         onFilterSelect={setFilter}
-        errorFilter={customErrorFilter}
-        warningFilter={customWarningFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
       />
       {filteredAccessCodes.map((accessCode) => (
         <AccessCodeRow
