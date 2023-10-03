@@ -6,14 +6,15 @@ import type {
   SeamWarning,
 } from 'seamapi'
 
-export type SeamCompositeError = ConnectedAccountError | DeviceError | AccessCodeError
+export type SeamCompositeError =
+  | ConnectedAccountError
+  | DeviceError
+  | AccessCodeError
 
 export interface RequiredCommonProps {
   className: string | undefined
   onBack: (() => void) | undefined
-  errorFilter: (
-    error: ConnectedAccountError | DeviceError | AccessCodeError
-  ) => boolean
+  errorFilter: (error: SeamCompositeError) => boolean
   warningFilter: (warning: SeamWarning) => boolean
   disableDeleteAccessCode: boolean | undefined
   disableCreateAccessCode: boolean | undefined
