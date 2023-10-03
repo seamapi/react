@@ -1,5 +1,6 @@
-import type { AnyError } from 'lib/index.js'
 import type { SeamWarning } from 'seamapi'
+
+import type { AnyError } from 'lib/index.js'
 
 export const accessCodeErrorFilter = (error: AnyError): boolean => {
   if ('is_access_code_error' in error && error.is_access_code_error) return true

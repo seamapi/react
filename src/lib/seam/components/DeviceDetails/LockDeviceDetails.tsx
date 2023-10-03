@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import type { LockDevice } from 'seamapi'
 
+import { deviceErrorFilter, deviceWarningFilter } from 'lib/filters.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
@@ -14,7 +15,6 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
-import { deviceErrorFilter, deviceWarningFilter } from 'lib/filters.js'
 
 interface LockDeviceDetailsProps extends CommonProps {
   device: LockDevice
