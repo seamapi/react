@@ -155,7 +155,7 @@ export const seedFake = (db) => {
     errors: [
       {
         error_code: 'failed_to_set_on_device',
-        is_device_error: true,
+        is_access_code_error: true,
         message:
           'An error occurred when we tried to set the access code on the device. We will continue to try and set the code on the device in case the error was temporary.',
       },
