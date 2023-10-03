@@ -3,16 +3,7 @@ import type { SeamWarning } from 'seamapi'
 import type { AnyError } from 'lib/index.js'
 
 export const accessCodeErrorFilter = (error: AnyError): boolean => {
-  if ('is_access_code_error' in error && error.is_access_code_error) return true
-
-  if (
-    error.error_code === 'failed_to_set_on_device' ||
-    error.error_code === 'failed_to_remove_on_device'
-  ) {
-    return true
-  }
-
-  return false
+  return 'is_access_code_error' in error && error.is_access_code_error
 }
 
 export const accessCodeWarningFilter = (warning: SeamWarning): boolean => {
