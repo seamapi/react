@@ -54,8 +54,8 @@ export function Menu({
     setDocumentEl(documentEl)
 
     const bodyElements = documentEl?.getElementsByTagName('body')
-    if (bodyElements.length === 0) return
-    setBodyEl(bodyElements[0] as HTMLElement)
+    if (bodyElements[0] == null) return
+    setBodyEl(bodyElements[0])
   }, [setDocumentEl])
 
   const handleClose = (): void => {
