@@ -29,12 +29,12 @@ export function Snackbar({
   dismissAfterMs = 5000,
   disableCloseButton = false,
 }: SnackbarProps): JSX.Element {
-  const [showSnackbar, setShowSnackbar] = useState(visible)
+  const [hidden, setHidden] = useState(visible)
 
   const { label: actionLabel, onClick: handleActionClick } = action ?? {}
 
   useEffect(() => {
-    setShowSnackbar(visible)
+    setHidden(!visible)
   }, [visible])
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export function Snackbar({
     }
 
     const timeout = globalThis.setTimeout(() => {
-      setShowSnackbar(false)
+      setHidden(false)
     }, dismissAfterMs)
 
     return () => {
@@ -55,7 +55,7 @@ export function Snackbar({
     <div className='seam-snackbar-wrap'>
       <div
         className={classNames('seam-snackbar', {
-          'seam-snackbar-hide': !showSnackbar,
+          'seam-snackbar-hide': hidden,
         })}
       >
         <SnackbarIcon variant={variant} />
@@ -74,7 +74,7 @@ export function Snackbar({
           {!disableCloseButton && (
             <button
               className='seam-snackbar-close-button'
-              onClick={() => setShowSnackbar(false)}
+              onClick={() => setHidden(true)}
             >
               <CloseWhiteIcon />
             </button>
