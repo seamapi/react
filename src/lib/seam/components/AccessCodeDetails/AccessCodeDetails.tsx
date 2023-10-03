@@ -25,8 +25,6 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
-  deviceErrorFilter?: (error: AnyError) => boolean
-  deviceWarningFilter?: (warning: SeamWarning) => boolean
 }
 
 export const NestedAccessCodeDetails =
@@ -37,8 +35,6 @@ export function AccessCodeDetails({
   onEdit,
   errorFilter: customErrorFilter = () => true,
   warningFilter: customWarningFilter = () => true,
-  deviceErrorFilter = () => true,
-  deviceWarningFilter = () => true,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
   disableLockUnlock = false,
@@ -62,8 +58,8 @@ export function AccessCodeDetails({
     return (
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
-        errorFilter={deviceErrorFilter}
-        warningFilter={deviceWarningFilter}
+        errorFilter={customErrorFilter}
+        warningFilter={customWarningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
