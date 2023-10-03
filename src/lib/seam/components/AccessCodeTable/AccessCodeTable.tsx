@@ -238,8 +238,7 @@ export function AccessCodeTable({
               void refetch()
             },
           }}
-          isOpen={isError}
-          onClose={() => {}}
+          visible={isError}
           disableCloseButton
         />
       )}
