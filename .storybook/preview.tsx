@@ -48,8 +48,8 @@ const preview: Preview = {
       toolbar: {
         icon: 'circlehollow',
         items: [
-          { value: false, icon: 'circlehollow', title: 'Normal' },
-          { value: true, icon: 'circle', title: 'Outage' },
+          { value: false, icon: 'lightning', title: 'Normal' },
+          { value: true, icon: 'lightningoff', title: 'Outage' },
         ],
       },
     },
