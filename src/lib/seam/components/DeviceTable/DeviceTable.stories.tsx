@@ -69,3 +69,10 @@ export const ReadOnlyCustomerSupportPanel: Story = {
     />
   ),
 }
+
+export const SimulatedOutage: Story = {
+  render: ({ onBack, ...props } = {}) => <DeviceTable {...props} />,
+  parameters: {
+    globals: { simulatedOutage: true },
+  },
+}

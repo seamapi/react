@@ -12,9 +12,17 @@ export const seedFake = (db) => {
     created_at: '2023-05-15T14:07:48.000',
   })
 
+  const ws3 = db.addWorkspace({
+    name: 'Seed Workspace 3 (simulated outage)',
+    publishable_key: 'seam_pk_3',
+    created_at: '2023-05-15T14:07:48.000',
+  })
+
+  db.simulateWorkspaceOutage(ws3.workspace_id)
+
   const cw = db.addConnectWebview({
     workspace_id: ws2.workspace_id,
-    created_at: '2023-05-15T15:08:49.000',
+    created_at: '2023-10-03T15:07:48.000',
   })
 
   const ca = db.addConnectedAccount({

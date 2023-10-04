@@ -42,6 +42,17 @@ const preview: Preview = {
       description: 'Seam Endpoint',
       defaultValue: process.env['STORYBOOK_SEAM_ENDPOINT'] ?? '/api',
     },
+    simulatedOutage: {
+      description: 'Simulate an outage',
+      defaultValue: false,
+      toolbar: {
+        icon: 'circlehollow',
+        items: [
+          { value: false, icon: 'circlehollow', title: 'Normal' },
+          { value: true, icon: 'circle', title: 'Outage' },
+        ],
+      },
+    },
   },
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -55,11 +66,18 @@ const preview: Preview = {
   decorators: [
     (
       Story,
-      { globals: { publishableKey, userIdentifierKey, seamEndpoint } }
+      {
+        globals: {
+          publishableKey,
+          userIdentifierKey,
+          seamEndpoint,
+          simulatedOutage,
+        },
+      }
     ) => {
       return (
         <SeamProvider
-          publishableKey={publishableKey}
+          publishableKey={simulatedOutage ? 'seam_pk_3' : publishableKey}
           userIdentifierKey={userIdentifierKey}
           endpoint={seamEndpoint}
           disableCssInjection
