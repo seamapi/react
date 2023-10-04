@@ -1,6 +1,11 @@
-import type { SeamWarning } from 'seamapi'
+import type {
+  AccessCodeError,
+  ConnectedAccountError,
+  DeviceError,
+  SeamWarning,
+} from 'seamapi'
 
-import type { SeamCompositeError } from 'lib/index.js'
+type SeamCompositeError = ConnectedAccountError | DeviceError | AccessCodeError
 
 export const accessCodeErrorFilter = (error: SeamCompositeError): boolean => {
   return 'is_access_code_error' in error && error.is_access_code_error
