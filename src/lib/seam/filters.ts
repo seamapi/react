@@ -6,28 +6,14 @@ export const accessCodeErrorFilter = (error: SeamCompositeError): boolean => {
   return 'is_access_code_error' in error && error.is_access_code_error
 }
 
-export const accessCodeWarningFilter = (warning: SeamWarning): boolean => {
-  const relevantWarnings = [
-    'delay_in_removing_from_device',
-    'delay_in_setting_on_device',
-    'code_modified_external_to_seam',
-  ]
-
-  return relevantWarnings.includes(warning.warning_code)
+export const accessCodeWarningFilter = (_: SeamWarning): boolean => {
+  return true
 }
 
 export const deviceErrorFilter = (error: SeamCompositeError): boolean => {
   return 'is_device_error' in error && error.is_device_error
 }
 
-export const deviceWarningFilter = (warning: SeamWarning): boolean => {
-  const relevantWarnings = [
-    'device_has_flaky_connection',
-    'third_party_integration_detected',
-    'salto_office_mode',
-    'salto_privacy_mode',
-    'ttlock_lock_gateway_unlocking_not_enabled',
-  ]
-
-  return relevantWarnings.includes(warning.warning_code)
+export const deviceWarningFilter = (_: SeamWarning): boolean => {
+  return true
 }
