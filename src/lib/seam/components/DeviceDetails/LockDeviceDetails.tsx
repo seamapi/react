@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import type { LockDevice } from 'seamapi'
 
-import { deviceErrorFilter, deviceWarningFilter } from 'lib/filters.js'
+import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'

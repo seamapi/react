@@ -5,7 +5,7 @@ import type { AccessCode } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
-import { accessCodeErrorFilter, accessCodeWarningFilter } from 'lib/filters.js'
+import { accessCodeErrorFilter, accessCodeWarningFilter } from 'lib/seam/filters.js'
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
