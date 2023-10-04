@@ -46,7 +46,7 @@ const preview: Preview = {
       description: 'Simulate an outage',
       defaultValue: false,
       toolbar: {
-        icon: 'circlehollow',
+        icon: 'lightning',
         items: [
           { value: false, icon: 'lightning', title: 'Normal' },
           { value: true, icon: 'lightningoff', title: 'Outage' },
