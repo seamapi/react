@@ -44,11 +44,11 @@ const preview: Preview = {
     },
     simulatedOutage: {
       description: 'Simulate an outage',
-      defaultValue: false,
+      defaultValue: 'normal',
       toolbar: {
         items: [
-          { value: false, icon: 'lightning', title: 'Normal' },
-          { value: true, icon: 'lightningoff', title: 'Outage' },
+          { value: 'normal', icon: 'lightning', title: 'Normal' },
+          { value: 'outage', icon: 'lightningoff', title: 'Outage' },
         ],
       },
     },
@@ -77,7 +77,7 @@ const preview: Preview = {
       return (
         <SeamProvider
           publishableKey={
-            simulatedOutage !== null ? 'seam_pk_3' : publishableKey
+            simulatedOutage === 'outage' ? 'seam_pk_3' : publishableKey
           }
           userIdentifierKey={userIdentifierKey}
           endpoint={seamEndpoint}
