@@ -77,7 +77,9 @@ const preview: Preview = {
     ) => {
       return (
         <SeamProvider
-          publishableKey={simulatedOutage ? 'seam_pk_3' : publishableKey}
+          publishableKey={
+            simulatedOutage !== null ? 'seam_pk_3' : publishableKey
+          }
           userIdentifierKey={userIdentifierKey}
           endpoint={seamEndpoint}
           disableCssInjection
