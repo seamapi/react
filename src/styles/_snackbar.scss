@@ -15,8 +15,6 @@
   }
 
   .seam-snackbar {
-    @include motion.fade-in-up;
-
     pointer-events: auto;
     display: flex;
     padding: 16px;
@@ -28,14 +26,7 @@
     position: absolute;
     bottom: 24px;
     will-change: transform;
-    animation: fade-in-up 0.2s motion.$ease-in-out-quint;
-    transition: all 0.2s motion.$ease-in-out-quint;
 
-    &.seam-snackbar-hide {
-      transform: translateY(24px);
-      opacity: 0;
-      visibility: hidden;
-    }
 
     .seam-snackbar-message-wrap {
       display: flex;

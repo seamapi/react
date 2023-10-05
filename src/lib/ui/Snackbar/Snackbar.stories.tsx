@@ -11,10 +11,8 @@ const meta: Meta<typeof Snackbar> = {
     message: 'An unknown error occurred.',
     variant: 'error',
     visible: true,
-    action: {
-      label: 'Try again',
-      onClick: () => {},
-    },
+    action: 'Try again',
+    onActionClick: () => {},
     autoDismiss: false,
     dismissAfterMs: 5000,
     disableCloseButton: false,

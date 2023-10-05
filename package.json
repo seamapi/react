@@ -124,6 +124,7 @@
     "@tanstack/react-query": "^4.28.0",
     "classnames": "^2.3.2",
     "luxon": "^3.3.0",
+    "notistack": "^3.0.1",
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
     "seamapi": "^8.13.0",

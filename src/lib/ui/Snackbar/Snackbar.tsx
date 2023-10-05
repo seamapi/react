@@ -1,5 +1,5 @@
-import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import type { SnackbarProviderProps } from 'notistack'
+import { forwardRef } from 'react'
 
 import { CheckGreenIcon } from 'lib/icons/CheckGreen.js'
 import { CloseWhiteIcon } from 'lib/icons/CloseWhite.js'
@@ -7,85 +7,58 @@ import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
 
 type SnackbarVariant = 'success' | 'error'
 
-interface SnackbarProps {
+export interface SnackbarProps
+  extends Pick<SnackbarProviderProps, 'autoHideDuration'> {
+  id: number | string
+  close: (id: number | string) => void
   message: string
   variant: SnackbarVariant
-  visible: boolean
-  action?: {
-    label: string
-    onClick: () => void
-  }
-  autoDismiss?: boolean
-  dismissAfterMs?: number
+  action?: string
+  onActionClick?: () => void
   disableCloseButton?: boolean
 }
-
-export function Snackbar({
-  message,
-  variant,
-  visible,
-  action,
-  autoDismiss = false,
-  dismissAfterMs = 5000,
-  disableCloseButton = false,
-}: SnackbarProps): JSX.Element {
-  const [hidden, setHidden] = useState(visible)
-
-  const { label: actionLabel, onClick: handleActionClick } = action ?? {}
-
-  useEffect(() => {
-    setHidden(!visible)
-  }, [visible])
-
-  useEffect(() => {
-    if (!autoDismiss) {
-      return () => {}
-    }
-
-    const timeout = globalThis.setTimeout(() => {
-      setHidden(false)
-    }, dismissAfterMs)
-
-    return () => {
-      globalThis.clearTimeout(timeout)
-    }
-  }, [autoDismiss, dismissAfterMs])
-
-  return (
-    <div className='seam-snackbar-wrap'>
-      <div
-        className={classNames('seam-snackbar', {
-          'seam-snackbar-hide': hidden,
-        })}
-      >
-        <SnackbarIcon variant={variant} />
-        <div className='seam-snackbar-message-wrap'>
-          <p className='seam-snackbar-message'>{message}</p>
-        </div>
-        <div className='seam-snackbar-actions-wrap'>
-          {action != null && (
-            <button
-              className='seam-snackbar-action'
-              onClick={handleActionClick}
-            >
-              <span className='seam-snackbar-action-label'>{actionLabel}</span>
-            </button>
-          )}
-          {!disableCloseButton && (
-            <button
-              className='seam-snackbar-close-button'
-              onClick={() => {
-                setHidden(true)
-              }}
-            >
-              <CloseWhiteIcon />
-            </button>
-          )}
+export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(
+  function Snackbar(
+    {
+      message,
+      variant,
+      action,
+      onActionClick,
+      disableCloseButton = false,
+      id,
+      close,
+    }: SnackbarProps,
+    ref
+  ): JSX.Element {
+    return (
+      <div className='seam-snackbar-wrap' ref={ref}>
+        <div className='seam-snackbar'>
+          <SnackbarIcon variant={variant} />
+          <div className='seam-snackbar-message-wrap'>
+            <p className='seam-snackbar-message'>{message}</p>
+          </div>
+          <div className='seam-snackbar-actions-wrap'>
+            {action != null && onActionClick != null && (
+              <button className='seam-snackbar-action' onClick={onActionClick}>
+                <span className='seam-snackbar-action-label'>{action}</span>
+              </button>
+            )}
+            {!disableCloseButton && (
+              <button
+                className='seam-snackbar-close-button'
+                onClick={() => {
+                  close(id)
+                }}
+              >
+                <CloseWhiteIcon />
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
+)
 
 function SnackbarIcon(props: { variant: SnackbarVariant }): JSX.Element {
   switch (props.variant) {

@@ -15,6 +15,7 @@ import {
 
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
+import { SnackbarProvider } from 'lib/ui/Snackbar/SnackbarProvider.js'
 
 declare global {
   // eslint-disable-next-line no-var
@@ -122,7 +123,9 @@ export function SeamProvider({
           }
         >
           <Provider value={value}>
-            <Wrapper>{children}</Wrapper>
+            <Wrapper>
+              <SnackbarProvider>{children}</SnackbarProvider>
+            </Wrapper>
           </Provider>
         </QueryClientProvider>
       </TelemetryProvider>
