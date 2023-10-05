@@ -35,7 +35,7 @@ export const useShowSnackbar = (): (({
     }: Pick<SnackbarProps, 'message'> &
       Partial<Omit<SnackbarProps, 'message'>>) => {
       enqueueSnackbar(message, {
-        close: (id: number) => closeSnackbar(id),
+        close: (id: number) => { closeSnackbar(id); },
         autoHideDuration: 5000,
         ...otherProps,
       })
