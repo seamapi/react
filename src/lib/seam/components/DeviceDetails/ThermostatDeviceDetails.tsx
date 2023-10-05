@@ -149,7 +149,9 @@ export function ThermostatDeviceDetails(
                   device.connected_account_id
                 }
               />
-              <DetailRow label={t.deviceId} sublabel={device.device_id} />
+              {!disableResourceIds && (
+                <DetailRow label={t.deviceId} sublabel={device.device_id} />
+              )}
             </DetailSection>
           </DetailSectionGroup>
         </div>
