@@ -15,6 +15,7 @@ import {
   type AccessCodeFormSubmitData,
   type ResponseErrors,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
+import { useShowSnackbar } from 'lib/ui/Snackbar/SnackbarProvider.js'
 
 export interface CreateAccessCodeFormProps extends CommonProps {
   deviceId: string
@@ -48,8 +49,15 @@ function Content({
 }: Omit<CreateAccessCodeFormProps, 'deviceId'> & {
   device: NonNullable<UseDeviceData>
 }): JSX.Element {
+  const showSnackbar = useShowSnackbar()
+
   const { submit, isSubmitting, responseErrors } = useSubmitCreateAccessCode({
     onSuccess: () => {
+      showSnackbar({
+        variant: 'success',
+        message: t.codeWasSaved,
+      })
+
       if (onBack != null) {
         onBack()
       }
@@ -165,4 +173,5 @@ export function useResponseErrors(): {
 
 const t = {
   genericResponseError: 'The code could not be saved. Please try again.',
+  codeWasSaved: 'Code was saved',
 }

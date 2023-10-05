@@ -16,6 +16,7 @@ import {
   type AccessCodeFormSubmitData,
   type ResponseErrors,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
+import { useShowSnackbar } from 'lib/ui/Snackbar/SnackbarProvider.js'
 
 export interface EditAccessCodeFormProps extends CommonProps {
   accessCodeId: string
@@ -54,10 +55,20 @@ function Content({
   const { device } = useDevice({
     device_id: accessCode.device_id,
   })
+  const showSnackbar = useShowSnackbar()
 
   const { submit, isSubmitting, responseErrors } = useSubmitEditAccessCode(
     accessCode,
-    onBack
+    () => {
+      showSnackbar({
+        variant: 'success',
+        message: t.codeWasSaved,
+      })
+
+      if (onBack != null) {
+        onBack()
+      }
+    }
   )
 
   if (device == null) {
@@ -79,7 +90,7 @@ function Content({
 
 function useSubmitEditAccessCode(
   accessCode: NonNullable<UseAccessCodeData>,
-  onSuccess?: () => void
+  onSuccess: () => void
 ): {
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
@@ -136,4 +147,8 @@ function useSubmitEditAccessCode(
   }
 
   return { submit, isSubmitting, responseErrors }
+}
+
+const t = {
+  codeWasSaved: 'Code was saved',
 }
