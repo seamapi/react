@@ -18,6 +18,7 @@ import {
 
 export interface CreateAccessCodeFormProps extends CommonProps {
   deviceId: string
+  onSuccess?: () => void
 }
 
 export const NestedCreateAccessCodeForm =
@@ -27,6 +28,7 @@ export function CreateAccessCodeForm({
   className,
   onBack,
   deviceId,
+  onSuccess,
 }: CreateAccessCodeFormProps): JSX.Element | null {
   useComponentTelemetry('CreateAccessCodeForm')
 
@@ -38,18 +40,30 @@ export function CreateAccessCodeForm({
     return null
   }
 
-  return <Content device={device} className={className} onBack={onBack} />
+  return (
+    <Content
+      device={device}
+      className={className}
+      onBack={onBack}
+      onSuccess={onSuccess}
+    />
+  )
 }
 
 function Content({
   device,
   className,
   onBack,
+  onSuccess,
 }: Omit<CreateAccessCodeFormProps, 'deviceId'> & {
   device: NonNullable<UseDeviceData>
 }): JSX.Element {
   const { submit, isSubmitting, responseErrors } = useSubmitCreateAccessCode({
     onSuccess: () => {
+      if (onSuccess != null) {
+        onSuccess()
+      }
+
       if (onBack != null) {
         onBack()
       }

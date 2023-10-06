@@ -24,6 +24,7 @@ import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -130,38 +131,57 @@ export function AccessCodeTable({
     [setSelectedEditAccessCodeId]
   )
 
+  const [successfullySavedAccessCode, setSuccessfullySavedAccessCode] =
+    useState(false)
+
   if (selectedEditAccessCodeId != null) {
     return (
-      <NestedEditAccessCodeForm
-        accessCodeId={selectedEditAccessCodeId}
-        disableLockUnlock={disableLockUnlock}
-        disableCreateAccessCode={disableCreateAccessCode}
-        disableEditAccessCode={disableEditAccessCode}
-        disableDeleteAccessCode={disableDeleteAccessCode}
-        onBack={() => {
-          setSelectedEditAccessCodeId(null)
-        }}
-        className={className}
-      />
+      <>
+        <NestedEditAccessCodeForm
+          accessCodeId={selectedEditAccessCodeId}
+          disableLockUnlock={disableLockUnlock}
+          disableCreateAccessCode={disableCreateAccessCode}
+          disableEditAccessCode={disableEditAccessCode}
+          disableDeleteAccessCode={disableDeleteAccessCode}
+          onBack={() => {
+            setSelectedEditAccessCodeId(null)
+          }}
+          onSuccess={() => {
+            setSuccessfullySavedAccessCode(true)
+          }}
+          className={className}
+        />
+      </>
     )
   }
 
   if (selectedViewAccessCodeId != null) {
     return (
-      <NestedAccessCodeDetails
-        accessCodeId={selectedViewAccessCodeId}
-        onEdit={() => {
-          setSelectedEditAccessCodeId(selectedViewAccessCodeId)
-        }}
-        disableLockUnlock={disableLockUnlock}
-        disableCreateAccessCode={disableCreateAccessCode}
-        disableEditAccessCode={disableEditAccessCode}
-        disableDeleteAccessCode={disableDeleteAccessCode}
-        onBack={() => {
-          setSelectedViewAccessCodeId(null)
-        }}
-        className={className}
-      />
+      <>
+        <Snackbar
+          variant='success'
+          message={t.codeWasSaved}
+          visible={successfullySavedAccessCode}
+          autoDismiss
+          onClose={() => {
+            setSuccessfullySavedAccessCode(false)
+          }}
+        />
+        <NestedAccessCodeDetails
+          accessCodeId={selectedViewAccessCodeId}
+          onEdit={() => {
+            setSelectedEditAccessCodeId(selectedViewAccessCodeId)
+          }}
+          disableLockUnlock={disableLockUnlock}
+          disableCreateAccessCode={disableCreateAccessCode}
+          disableEditAccessCode={disableEditAccessCode}
+          disableDeleteAccessCode={disableDeleteAccessCode}
+          onBack={() => {
+            setSelectedViewAccessCodeId(null)
+          }}
+          className={className}
+        />
+      </>
     )
   }
 
@@ -175,6 +195,9 @@ export function AccessCodeTable({
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={toggleAddAccessCodeForm}
         className={className}
+        onSuccess={() => {
+          setSuccessfullySavedAccessCode(true)
+        }}
       />
     )
   }
@@ -184,52 +207,63 @@ export function AccessCodeTable({
   }
 
   return (
-    <div className={classNames('seam-table', className)}>
-      <ContentHeader onBack={onBack} />
-      <TableHeader>
-        <div className='seam-left'>
-          {title != null ? (
-            <TableTitle>
-              {heading ?? title ?? t.accessCodes}{' '}
-              <Caption>({filteredAccessCodes.length})</Caption>
-            </TableTitle>
-          ) : (
-            <div className='seam-fragment' />
+    <>
+      <Snackbar
+        variant='success'
+        message={t.codeWasSaved}
+        visible={successfullySavedAccessCode}
+        autoDismiss
+        onClose={() => {
+          setSuccessfullySavedAccessCode(false)
+        }}
+      />
+      <div className={classNames('seam-table', className)}>
+        <ContentHeader onBack={onBack} />
+        <TableHeader>
+          <div className='seam-left'>
+            {title != null ? (
+              <TableTitle>
+                {heading ?? title ?? t.accessCodes}{' '}
+                <Caption>({filteredAccessCodes.length})</Caption>
+              </TableTitle>
+            ) : (
+              <div className='seam-fragment' />
+            )}
+            {!disableCreateAccessCode && (
+              <IconButton
+                onClick={toggleAddAccessCodeForm}
+                className='seam-add-button'
+              >
+                <AddIcon />
+              </IconButton>
+            )}
+          </div>
+          <div className='seam-table-header-loading-wrap'>
+            <LoadingToast
+              isLoading={isInitialLoading}
+              label={t.loading}
+              top={-20}
+            />
+          </div>
+          {!disableSearch && (
+            <SearchTextField
+              value={searchInputValue}
+              onChange={setSearchInputValue}
+              disabled={(accessCodes?.length ?? 0) === 0}
+            />
           )}
-          {!disableCreateAccessCode && (
-            <IconButton
-              onClick={toggleAddAccessCodeForm}
-              className='seam-add-button'
-            >
-              <AddIcon />
-            </IconButton>
-          )}
-        </div>
-        <div className='seam-table-header-loading-wrap'>
-          <LoadingToast
-            isLoading={isInitialLoading}
-            label={t.loading}
-            top={-20}
+        </TableHeader>
+        <TableBody>
+          <Content
+            accessCodes={filteredAccessCodes}
+            onAccessCodeClick={handleAccessCodeClick}
+            onAccessCodeEdit={handleAccessCodeEdit}
+            disableEditAccessCode={disableEditAccessCode}
+            disableDeleteAccessCode={disableDeleteAccessCode}
           />
-        </div>
-        {!disableSearch && (
-          <SearchTextField
-            value={searchInputValue}
-            onChange={setSearchInputValue}
-            disabled={(accessCodes?.length ?? 0) === 0}
-          />
-        )}
-      </TableHeader>
-      <TableBody>
-        <Content
-          accessCodes={filteredAccessCodes}
-          onAccessCodeClick={handleAccessCodeClick}
-          onAccessCodeEdit={handleAccessCodeEdit}
-          disableEditAccessCode={disableEditAccessCode}
-          disableDeleteAccessCode={disableDeleteAccessCode}
-        />
-      </TableBody>
-    </div>
+        </TableBody>
+      </div>
+    </>
   )
 }
 
@@ -296,4 +330,5 @@ const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
   loading: 'Loading access codes',
+  codeWasSaved: 'Code was saved',
 }

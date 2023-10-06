@@ -19,6 +19,7 @@ import {
 
 export interface EditAccessCodeFormProps extends CommonProps {
   accessCodeId: string
+  onSuccess?: () => void
 }
 
 export const NestedEditAccessCodeForm =
@@ -28,6 +29,7 @@ export function EditAccessCodeForm({
   accessCodeId,
   onBack,
   className,
+  onSuccess,
 }: EditAccessCodeFormProps): JSX.Element | null {
   useComponentTelemetry('EditAccessCodeForm')
 
@@ -40,7 +42,12 @@ export function EditAccessCodeForm({
   }
 
   return (
-    <Content accessCode={accessCode} className={className} onBack={onBack} />
+    <Content
+      accessCode={accessCode}
+      className={className}
+      onBack={onBack}
+      onSuccess={onSuccess}
+    />
   )
 }
 
@@ -48,6 +55,7 @@ function Content({
   className,
   onBack,
   accessCode,
+  onSuccess,
 }: Omit<EditAccessCodeFormProps, 'accessCodeId'> & {
   accessCode: NonNullable<UseAccessCodeData>
 }): JSX.Element | null {
@@ -57,7 +65,15 @@ function Content({
 
   const { submit, isSubmitting, responseErrors } = useSubmitEditAccessCode(
     accessCode,
-    onBack
+    () => {
+      if (onSuccess != null) {
+        onSuccess()
+      }
+
+      if (onBack != null) {
+        onBack()
+      }
+    }
   )
 
   if (device == null) {
