@@ -328,5 +328,5 @@ const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
   loading: 'Loading access codes',
-  codeWasSaved: 'Code was saved',
+  accessCodeSaved: 'Access code saved',
 }
