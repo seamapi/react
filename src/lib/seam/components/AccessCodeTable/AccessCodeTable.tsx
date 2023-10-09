@@ -136,22 +136,20 @@ export function AccessCodeTable({
 
   if (selectedEditAccessCodeId != null) {
     return (
-      <>
-        <NestedEditAccessCodeForm
-          accessCodeId={selectedEditAccessCodeId}
-          disableLockUnlock={disableLockUnlock}
-          disableCreateAccessCode={disableCreateAccessCode}
-          disableEditAccessCode={disableEditAccessCode}
-          disableDeleteAccessCode={disableDeleteAccessCode}
-          onBack={() => {
-            setSelectedEditAccessCodeId(null)
-          }}
-          onSuccess={() => {
-            setSuccessfullySavedAccessCode(true)
-          }}
-          className={className}
-        />
-      </>
+      <NestedEditAccessCodeForm
+        accessCodeId={selectedEditAccessCodeId}
+        disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        onBack={() => {
+          setSelectedEditAccessCodeId(null)
+        }}
+        onSuccess={() => {
+          setSuccessfullySavedAccessCode(true)
+        }}
+        className={className}
+      />
     )
   }
 
