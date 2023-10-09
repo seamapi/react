@@ -158,7 +158,7 @@ export function AccessCodeTable({
       <>
         <Snackbar
           variant='success'
-          message={t.codeWasSaved}
+          message={t.accessCodeSaved}
           visible={successfullySavedAccessCode}
           autoDismiss
           onClose={() => {
@@ -208,7 +208,7 @@ export function AccessCodeTable({
     <>
       <Snackbar
         variant='success'
-        message={t.codeWasSaved}
+        message={t.accessCodeSaved}
         visible={successfullySavedAccessCode}
         autoDismiss
         onClose={() => {
