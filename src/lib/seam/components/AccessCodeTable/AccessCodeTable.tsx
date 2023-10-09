@@ -131,8 +131,12 @@ export function AccessCodeTable({
     [setSelectedEditAccessCodeId]
   )
 
-  const [successfullySavedAccessCode, setSuccessfullySavedAccessCode] =
-    useState(false)
+  const [accessCodeResult, setAccessCodeResult] = useState<
+    'created' | 'updated' | null
+  >(null)
+
+  const accessCodeResultMessage =
+    accessCodeResult === 'created' ? t.accesCodeCreated : t.accesCodeUpdated
 
   if (selectedEditAccessCodeId != null) {
     return (
@@ -146,7 +150,7 @@ export function AccessCodeTable({
           setSelectedEditAccessCodeId(null)
         }}
         onSuccess={() => {
-          setSuccessfullySavedAccessCode(true)
+          setAccessCodeResult('updated')
         }}
         className={className}
       />
@@ -158,11 +162,11 @@ export function AccessCodeTable({
       <>
         <Snackbar
           variant='success'
-          message={t.accessCodeSaved}
-          visible={successfullySavedAccessCode}
+          message={accessCodeResultMessage}
+          visible={accessCodeResult != null}
           autoDismiss
           onClose={() => {
-            setSuccessfullySavedAccessCode(false)
+            setAccessCodeResult(null)
           }}
         />
         <NestedAccessCodeDetails
@@ -194,7 +198,7 @@ export function AccessCodeTable({
         onBack={toggleAddAccessCodeForm}
         className={className}
         onSuccess={() => {
-          setSuccessfullySavedAccessCode(true)
+          setAccessCodeResult('created')
         }}
       />
     )
@@ -208,11 +212,11 @@ export function AccessCodeTable({
     <>
       <Snackbar
         variant='success'
-        message={t.accessCodeSaved}
-        visible={successfullySavedAccessCode}
+        message={accessCodeResultMessage}
+        visible={accessCodeResult != null}
         autoDismiss
         onClose={() => {
-          setSuccessfullySavedAccessCode(false)
+          setAccessCodeResult(null)
         }}
       />
       <div className={classNames('seam-table', className)}>
@@ -328,5 +332,6 @@ const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
   loading: 'Loading access codes',
-  accessCodeSaved: 'Access code saved',
+  accesCodeUpdated: 'Access code updated',
+  accesCodeCreated: 'Access code created',
 }
