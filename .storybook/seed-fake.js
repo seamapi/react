@@ -12,6 +12,14 @@ export const seedFake = (db) => {
     created_at: '2023-05-15T14:07:48.000',
   })
 
+  const ws3 = db.addWorkspace({
+    name: 'Seed Workspace 3 (simulated outage)',
+    publishable_key: 'seam_pk_3',
+    created_at: '2023-05-15T14:07:48.000',
+  })
+
+  db.simulateWorkspaceOutage(ws3.workspace_id)
+
   const cw = db.addConnectWebview({
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-15T15:08:49.000',
@@ -107,7 +115,7 @@ export const seedFake = (db) => {
         error_code: 'failed_to_set_on_device',
         is_access_code_error: true,
         message:
-          'An access code with the same pin already exists on the device.',
+          'An error occurred when we tried to set the access code on the device. We will continue to try and set the code on the device in case the error was temporary.',
         created_at: '2023-06-27T06:01:11.885Z',
       },
       {
@@ -155,7 +163,7 @@ export const seedFake = (db) => {
     errors: [
       {
         error_code: 'failed_to_set_on_device',
-        is_device_error: true,
+        is_access_code_error: true,
         message:
           'An error occurred when we tried to set the access code on the device. We will continue to try and set the code on the device in case the error was temporary.',
       },
