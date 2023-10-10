@@ -89,10 +89,9 @@ export function AccessCodeTable({
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 
-  const { accessCodes, isInitialLoading, isError, refetch } =
-    useAccessCodes({
-      device_id: deviceId,
-    })
+  const { accessCodes, isInitialLoading, isError, refetch } = useAccessCodes({
+    device_id: deviceId,
+  })
 
   const [selectedViewAccessCodeId, setSelectedViewAccessCodeId] = useState<
     string | null
