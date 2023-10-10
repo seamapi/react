@@ -72,7 +72,7 @@ export function ClimateSettingScheduleTable({
 }: ClimateSettingScheduleTableProps): JSX.Element {
   useComponentTelemetry('ClimateSettingScheduleTable')
 
-  const { climateSettingSchedules, isInitialLoading, isError, error, refetch } =
+  const { climateSettingSchedules, isInitialLoading, isError, refetch } =
     useClimateSettingSchedules({
       device_id: deviceId,
     })

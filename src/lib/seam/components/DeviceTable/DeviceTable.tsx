@@ -77,7 +77,7 @@ export function DeviceTable({
 }: DeviceTableProps = {}): JSX.Element {
   useComponentTelemetry('DeviceTable')
 
-  const { devices, isInitialLoading, isError, error, refetch } = useDevices({
+  const { devices, isInitialLoading, isError, refetch } = useDevices({
     device_ids: deviceIds,
     connected_account_ids: connectedAccountIds,
   })
