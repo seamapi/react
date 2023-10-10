@@ -153,11 +153,7 @@ export function DeviceTable({
       {isError && (
         <Snackbar
           variant='error'
-          message={
-            error?.message === 'Unknown Error' || !error?.message
-              ? t.fallbackErrorMessage
-              : error?.message
-          }
+          message={t.fallbackErrorMessage}
           action={{
             label: t.tryAgain,
             onClick: () => {
