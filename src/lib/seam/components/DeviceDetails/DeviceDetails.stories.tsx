@@ -87,6 +87,6 @@ export const DeviceOffline: Story = {
 
 export const ThermostatDevice: Story = {
   render: (props) => (
-    <DeviceDetails {...props} deviceId='device5' disableResourceIds />
+    <DeviceDetails {...props} deviceId='device5' />
   ),
 }
