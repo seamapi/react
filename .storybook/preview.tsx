@@ -63,28 +63,34 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (
-      Story,
-      {
+    (Story, context) => {
+      const {
         globals: {
           publishableKey,
           userIdentifierKey,
           seamEndpoint,
           simulatedOutage,
         },
-      }
-    ) => {
+      } = context
+
+      const usableKey =
+        simulatedOutage === 'outage' ? 'seam_pk_3' : publishableKey
+
       return (
         <SeamProvider
-          publishableKey={
-            simulatedOutage === 'outage' ? 'seam_pk_3' : publishableKey
-          }
+          publishableKey={usableKey}
           userIdentifierKey={userIdentifierKey}
           endpoint={seamEndpoint}
           disableCssInjection
           disableFontInjection
         >
-          <Story />
+          <Story
+            {...context}
+            globals={{
+              ...context.globals,
+              publishableKey: usableKey,
+            }}
+          />
         </SeamProvider>
       )
     },

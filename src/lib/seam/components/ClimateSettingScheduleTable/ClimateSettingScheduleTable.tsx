@@ -164,7 +164,11 @@ export function ClimateSettingScheduleTable({
       {isError && (
         <Snackbar
           variant='error'
-          message={error?.message ?? t.fallbackErrorMessage}
+          message={
+            error?.message === 'Unknown Error' || !error?.message
+              ? t.fallbackErrorMessage
+              : error?.message
+          }
           action={{
             label: t.tryAgain,
             onClick: () => {

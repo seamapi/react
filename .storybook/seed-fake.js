@@ -18,7 +18,13 @@ export const seedFake = (db) => {
     created_at: '2023-05-15T14:07:48.000',
   })
 
-  db.simulateWorkspaceOutage(ws3.workspace_id)
+  db.simulateWorkspaceOutage(ws3.workspace_id, {
+    routes: [
+      '/devices/list',
+      '/access_codes/list',
+      '/thermostats/climate_setting_schedules/list',
+    ],
+  })
 
   const cw = db.addConnectWebview({
     workspace_id: ws2.workspace_id,

@@ -11,7 +11,13 @@ export const seedFake = async (db: Database): Promise<Seed> => {
   const ws2 = db.addWorkspace({ name: 'Seed Workspace 2 (starts populated)' })
   const ws3 = db.addWorkspace({ name: 'Seed Workspace 3 (simulated outage)' })
 
-  db.simulateWorkspaceOutage(ws3.workspace_id)
+  db.simulateWorkspaceOutage(ws3.workspace_id, {
+    routes: [
+      '/devices/list',
+      '/access_codes/list',
+      '/thermostats/climate_setting_schedules/list',
+    ],
+  })
 
   const cw = db.addConnectWebview({
     workspace_id: ws2.workspace_id,
