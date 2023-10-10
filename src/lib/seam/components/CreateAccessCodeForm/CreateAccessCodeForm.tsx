@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { SeamError } from 'seamapi'
+import type { AccessCode, SeamError } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
@@ -18,6 +18,7 @@ import {
 
 export interface CreateAccessCodeFormProps extends CommonProps {
   deviceId: string
+  onSuccess?: (accessCodeId: string) => void
 }
 
 export const NestedCreateAccessCodeForm =
@@ -27,6 +28,7 @@ export function CreateAccessCodeForm({
   className,
   onBack,
   deviceId,
+  onSuccess,
 }: CreateAccessCodeFormProps): JSX.Element | null {
   useComponentTelemetry('CreateAccessCodeForm')
 
@@ -38,18 +40,30 @@ export function CreateAccessCodeForm({
     return null
   }
 
-  return <Content device={device} className={className} onBack={onBack} />
+  return (
+    <Content
+      device={device}
+      className={className}
+      onBack={onBack}
+      onSuccess={onSuccess}
+    />
+  )
 }
 
 function Content({
   device,
   className,
   onBack,
+  onSuccess,
 }: Omit<CreateAccessCodeFormProps, 'deviceId'> & {
   device: NonNullable<UseDeviceData>
 }): JSX.Element {
   const { submit, isSubmitting, responseErrors } = useSubmitCreateAccessCode({
-    onSuccess: () => {
+    onSuccess: (accessCode: AccessCode) => {
+      if (onSuccess != null) {
+        onSuccess(accessCode.access_code_id)
+      }
+
       if (onBack != null) {
         onBack()
       }
@@ -68,7 +82,9 @@ function Content({
   )
 }
 
-function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
+function useSubmitCreateAccessCode(params: {
+  onSuccess: (accessCode: AccessCode) => void
+}): {
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
   responseErrors: ResponseErrors | null

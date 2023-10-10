@@ -5,6 +5,7 @@ export const name = 'seam-create-access-code-form'
 
 export const props: ElementProps<CreateAccessCodeFormProps> = {
   deviceId: 'string',
+  onSuccess: 'object',
 }
 
 export { CreateAccessCodeForm as Component } from './CreateAccessCodeForm.js'
