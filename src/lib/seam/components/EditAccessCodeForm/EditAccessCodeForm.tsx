@@ -19,7 +19,7 @@ import {
 
 export interface EditAccessCodeFormProps extends CommonProps {
   accessCodeId: string
-  onSuccess?: () => void
+  onSuccess?: (accessCodeId: string) => void
 }
 
 export const NestedEditAccessCodeForm =
@@ -67,7 +67,7 @@ function Content({
     accessCode,
     () => {
       if (onSuccess != null) {
-        onSuccess()
+        onSuccess(accessCode.access_code_id)
       }
 
       if (onBack != null) {

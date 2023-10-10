@@ -18,7 +18,7 @@ import {
 
 export interface CreateAccessCodeFormProps extends CommonProps {
   deviceId: string
-  onSuccess?: (accessCode: AccessCode) => void
+  onSuccess?: (accessCodeId: string) => void
 }
 
 export const NestedCreateAccessCodeForm =
@@ -61,7 +61,7 @@ function Content({
   const { submit, isSubmitting, responseErrors } = useSubmitCreateAccessCode({
     onSuccess: (accessCode: AccessCode) => {
       if (onSuccess != null) {
-        onSuccess(accessCode)
+        onSuccess(accessCode.access_code_id)
       }
 
       if (onBack != null) {
