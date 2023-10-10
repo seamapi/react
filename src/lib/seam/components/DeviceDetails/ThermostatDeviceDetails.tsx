@@ -20,9 +20,7 @@ interface ThermostatDeviceDetailsProps extends CommonProps {
 }
 
 export function ThermostatDeviceDetails(
-  props: ThermostatDeviceDetailsProps
-): JSX.Element | null {
-  const {
+  {
     device,
     onBack,
     className,
@@ -30,9 +28,9 @@ export function ThermostatDeviceDetails(
     disableCreateAccessCode,
     disableEditAccessCode,
     disableDeleteAccessCode,
-    disableResourceIds,
-  } = props
-
+    disableResourceIds = false,
+  }: ThermostatDeviceDetailsProps
+): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
   const { connectedAccount } = useConnectedAccount(device.connected_account_id)
