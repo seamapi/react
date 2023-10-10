@@ -131,6 +131,13 @@ export function AccessCodeTable({
     [setSelectedEditAccessCodeId]
   )
 
+  const [accessCodeResult, setAccessCodeResult] = useState<
+    'created' | 'updated' | null
+  >(null)
+
+  const accessCodeResultMessage =
+    accessCodeResult === 'created' ? t.accesCodeCreated : t.accesCodeUpdated
+
   if (selectedEditAccessCodeId != null) {
     return (
       <NestedEditAccessCodeForm
@@ -142,6 +149,9 @@ export function AccessCodeTable({
         onBack={() => {
           setSelectedEditAccessCodeId(null)
         }}
+        onSuccess={() => {
+          setAccessCodeResult('updated')
+        }}
         className={className}
       />
     )
@@ -149,20 +159,31 @@ export function AccessCodeTable({
 
   if (selectedViewAccessCodeId != null) {
     return (
-      <NestedAccessCodeDetails
-        accessCodeId={selectedViewAccessCodeId}
-        onEdit={() => {
-          setSelectedEditAccessCodeId(selectedViewAccessCodeId)
-        }}
-        disableLockUnlock={disableLockUnlock}
-        disableCreateAccessCode={disableCreateAccessCode}
-        disableEditAccessCode={disableEditAccessCode}
-        disableDeleteAccessCode={disableDeleteAccessCode}
-        onBack={() => {
-          setSelectedViewAccessCodeId(null)
-        }}
-        className={className}
-      />
+      <>
+        <Snackbar
+          variant='success'
+          message={accessCodeResultMessage}
+          visible={accessCodeResult != null}
+          autoDismiss
+          onClose={() => {
+            setAccessCodeResult(null)
+          }}
+        />
+        <NestedAccessCodeDetails
+          accessCodeId={selectedViewAccessCodeId}
+          onEdit={() => {
+            setSelectedEditAccessCodeId(selectedViewAccessCodeId)
+          }}
+          disableLockUnlock={disableLockUnlock}
+          disableCreateAccessCode={disableCreateAccessCode}
+          disableEditAccessCode={disableEditAccessCode}
+          disableDeleteAccessCode={disableDeleteAccessCode}
+          onBack={() => {
+            setSelectedViewAccessCodeId(null)
+          }}
+          className={className}
+        />
+      </>
     )
   }
 
@@ -176,60 +197,74 @@ export function AccessCodeTable({
         disableDeleteAccessCode={disableDeleteAccessCode}
         onBack={toggleAddAccessCodeForm}
         className={className}
+        onSuccess={() => {
+          setAccessCodeResult('created')
+        }}
       />
     )
   }
 
   return (
-    <div className={classNames('seam-table', className)}>
-      <ContentHeader onBack={onBack} />
-      <TableHeader>
-        <div className='seam-left'>
-          {title != null ? (
-            <TableTitle>
-              {heading ?? title ?? t.accessCodes}{' '}
-              <Caption>({filteredAccessCodes.length})</Caption>
-            </TableTitle>
-          ) : (
-            <div className='seam-fragment' />
+    <>
+      <Snackbar
+        variant='success'
+        message={accessCodeResultMessage}
+        visible={accessCodeResult != null}
+        autoDismiss
+        onClose={() => {
+          setAccessCodeResult(null)
+        }}
+      />
+      <div className={classNames('seam-table', className)}>
+        <ContentHeader onBack={onBack} />
+        <TableHeader>
+          <div className='seam-left'>
+            {title != null ? (
+              <TableTitle>
+                {heading ?? title ?? t.accessCodes}{' '}
+                <Caption>({filteredAccessCodes.length})</Caption>
+              </TableTitle>
+            ) : (
+              <div className='seam-fragment' />
+            )}
+            {!disableCreateAccessCode && (
+              <IconButton
+                onClick={toggleAddAccessCodeForm}
+                className='seam-add-button'
+              >
+                <AddIcon />
+              </IconButton>
+            )}
+          </div>
+          <div className='seam-table-header-loading-wrap'>
+            <LoadingToast
+              isLoading={isInitialLoading}
+              label={t.loading}
+              top={-20}
+            />
+          </div>
+          {!disableSearch && (
+            <SearchTextField
+              value={searchInputValue}
+              onChange={setSearchInputValue}
+              disabled={(accessCodes?.length ?? 0) === 0}
+            />
           )}
-          {!disableCreateAccessCode && (
-            <IconButton
-              onClick={toggleAddAccessCodeForm}
-              className='seam-add-button'
-            >
-              <AddIcon />
-            </IconButton>
-          )}
-        </div>
-        <div className='seam-table-header-loading-wrap'>
-          <LoadingToast
-            isLoading={isInitialLoading}
-            label={t.loading}
-            top={-20}
+        </TableHeader>
+        <TableBody>
+          <Content
+            accessCodes={filteredAccessCodes}
+            onAccessCodeClick={handleAccessCodeClick}
+            onAccessCodeEdit={handleAccessCodeEdit}
+            disableEditAccessCode={disableEditAccessCode}
+            disableDeleteAccessCode={disableDeleteAccessCode}
           />
-        </div>
-        {!disableSearch && (
-          <SearchTextField
-            value={searchInputValue}
-            onChange={setSearchInputValue}
-            disabled={(accessCodes?.length ?? 0) === 0}
-          />
-        )}
-      </TableHeader>
-      <TableBody>
-        <Content
-          accessCodes={filteredAccessCodes}
-          onAccessCodeClick={handleAccessCodeClick}
-          onAccessCodeEdit={handleAccessCodeEdit}
-          disableEditAccessCode={disableEditAccessCode}
-          disableDeleteAccessCode={disableDeleteAccessCode}
-        />
-      </TableBody>
+        </TableBody>
 
-      {isError && (
         <Snackbar
           variant='error'
+          visible={isError}
+          onClose={() => {}}
           message={t.fallbackErrorMessage}
           action={{
             label: t.tryAgain,
@@ -237,11 +272,10 @@ export function AccessCodeTable({
               void refetch()
             },
           }}
-          visible={isError}
           disableCloseButton
         />
-      )}
-    </div>
+      </div>
+    </>
   )
 }
 
@@ -308,6 +342,8 @@ const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
   loading: 'Loading access codes',
+  accesCodeUpdated: 'Access code updated',
+  accesCodeCreated: 'Access code created',
   tryAgain: 'Try again',
   fallbackErrorMessage: 'Access codes could not be loaded',
 }

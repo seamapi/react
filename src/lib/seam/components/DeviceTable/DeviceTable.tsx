@@ -150,20 +150,19 @@ export function DeviceTable({
         <Content devices={filteredDevices} onDeviceClick={handleDeviceClick} />
       </TableBody>
 
-      {isError && (
-        <Snackbar
-          variant='error'
-          message={t.fallbackErrorMessage}
-          action={{
-            label: t.tryAgain,
-            onClick: () => {
-              void refetch()
-            },
-          }}
-          visible={isError}
-          disableCloseButton
-        />
-      )}
+      <Snackbar
+        variant='error'
+        visible={isError}
+        onClose={() => {}}
+        message={t.fallbackErrorMessage}
+        action={{
+          label: t.tryAgain,
+          onClick: () => {
+            void refetch()
+          },
+        }}
+        disableCloseButton
+      />
     </div>
   )
 }
