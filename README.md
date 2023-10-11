@@ -96,7 +96,7 @@ export function App() {
 
 #### Web component attributes and properties
 
-Each React component is defined as a custom element
+Each React component is defined as a custom element:
 
 - The element name is in in kebab-case,
   e.g., `<DeviceTable>` becomes `<seam-device-table>`.
