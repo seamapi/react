@@ -30,7 +30,7 @@ export type ElementProps<T> = R2wcProps<Omit<T, keyof CommonProps>>
 
 type R2wcProps<T> = Record<
   keyof T,
-  'string' | 'number' | 'boolean' | 'array' | 'function' | 'json' | 'object'
+  'string' | 'number' | 'boolean' | 'array' | 'object'
 >
 
 type ProviderProps = Omit<
