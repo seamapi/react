@@ -96,24 +96,30 @@ export function App() {
 
 #### Web component attributes and properties
 
-Each React component is defined as a custom element with a matching name in kebab-case.
-Each element is wrapped in a `SeamProvider`.
-An attribute and custom property is defined for each `SeamProvider` prop and component prop.
-Attributes are in kebab-case and properties are in snakeCase.
+Each React component is defined as a custom element
+
+- The element name is in in kebab-case,
+  e.g., `<DeviceTable>` becomes `<seam-device-table>`.
+- Each element is wrapped in a `<SeamProvider />`.
+- An attribute and custom property is defined for each `<SeamProvider />` prop and component prop.
+- Attributes are in kebab-case and properties are in snakeCase.
 
 Attributes map directly to component props.
 All attributes are passed as strings, thus non-string props have some limitations:
 
 - Number props will be parsed using `parseFloat`.
-- Boolean props should be passed as `disable-css-injection="true"` or `disable-css-injection="false"`.
+- Boolean props should be passed as `true` or `false`, e.g., `disable-css-injection="true"` or `disable-css-injection="false"`.
 - Array props may be passed as JSON, e.g., `device-ids="["foo", "bar"]"`,
   or CSV, e.g., `device-ids="foo,bar"`.
 - Function and object props should not be passed as attributes.
   Set them as properties instead.
 
 Use custom properties to work directly with JavaScript objects and primitives.
-This will avoid any issues with string parsing and serialization.
-Set the `onSessionUpdate` prop to maintain a reference to the internal Seam client.
+
+- This will avoid any issues with string parsing and serialization.
+- Use the `onSessionUpdate` prop to maintain a reference to the internal Seam client.
+
+For example,
 
 ```js
 globalThis.customElements.whenDefined('seam-device-table').then(() => {
@@ -125,10 +131,10 @@ globalThis.customElements.whenDefined('seam-device-table').then(() => {
   let seam
   element.onSessionUpdate = (client) => {
     seam = client
-    seam.devices.list().then(console.log)
   }
   element.onDeviceClick = (deviceId) => {
-    console.log(deviceId)
+   if (seam == null) return
+   seam.devices.get({ device_id: deviceId }).then(console.log)
   }
 })
 ```
