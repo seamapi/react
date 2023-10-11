@@ -4,6 +4,8 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import type {
+  AccessCode,
+  AccessCodesListResponse,
   AccessCodeUpdateRequest,
   AccessCodeUpdateResponse,
   ActionAttempt,
@@ -35,12 +37,47 @@ export function useUpdateAccessCode(): UseMutationResult<
       return await client.accessCodes.update(mutationParams)
     },
     onSuccess: (_data, variables) => {
-      void queryClient.invalidateQueries([
-        'access_codes',
-        'get',
-        { access_code_id: variables.access_code_id },
-      ])
-      void queryClient.invalidateQueries(['access_codes', 'list'])
+      // There is no guarantee that the actual code has updated even if the
+      // request was succesful. To prevent stale data in the UI, the
+      // code below optimistically updates the data in cache.
+
+      queryClient.setQueryData<AccessCode | null>(
+        ['access_codes', 'get', { access_code_id: variables.access_code_id }],
+        (accessCode) => {
+          if (accessCode == null) {
+            return
+          }
+
+          return {
+            ...accessCode,
+            code: variables.code ?? accessCode.code,
+            name: variables.name ?? accessCode.name,
+          }
+        }
+      )
+
+      queryClient.setQueryData<AccessCodesListResponse['access_codes']>(
+        ['access_codes', 'list', { device_id: variables.device_id }],
+        (accessCodes) => {
+          if (accessCodes == null) {
+            return
+          }
+
+          return accessCodes.map((accessCode) => {
+            const isTarget =
+              accessCode.access_code_id === variables.access_code_id
+            if (isTarget) {
+              return {
+                ...accessCode,
+                code: variables.code ?? accessCode.code,
+                name: variables.name ?? accessCode.name,
+              }
+            }
+
+            return accessCode
+          })
+        }
+      )
     },
   })
 }
