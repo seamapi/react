@@ -7,6 +7,7 @@ export interface RequiredCommonProps {
   disableCreateAccessCode: boolean | undefined
   disableEditAccessCode: boolean | undefined
   disableLockUnlock: boolean | undefined
+  disableResourceIds: boolean | undefined
 }
 
 export type CommonProps = Partial<RequiredCommonProps>

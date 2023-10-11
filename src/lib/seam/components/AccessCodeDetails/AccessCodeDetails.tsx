@@ -41,6 +41,7 @@ export function AccessCodeDetails({
   disableEditAccessCode = false,
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
+  disableResourceIds = false,
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
@@ -64,6 +65,7 @@ export function AccessCodeDetails({
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           selectDevice(null)
         }}
@@ -137,19 +139,21 @@ export function AccessCodeDetails({
         </div>
       )}
       <div className='seam-details'>
-        <div className='seam-row'>
-          <div className='seam-heading'>{t.id}:</div>
-          <div className='seam-content seam-code-id'>
-            <span>{accessCode.access_code_id}</span>
-            <IconButton
-              onClick={() => {
-                void copyToClipboard(accessCode.access_code_id)
-              }}
-            >
-              <CopyIcon />
-            </IconButton>
+        {!disableResourceIds && (
+          <div className='seam-row'>
+            <div className='seam-heading'>{t.id}:</div>
+            <div className='seam-content seam-code-id'>
+              <span>{accessCode.access_code_id}</span>
+              <IconButton
+                onClick={() => {
+                  void copyToClipboard(accessCode.access_code_id)
+                }}
+              >
+                <CopyIcon />
+              </IconButton>
+            </div>
           </div>
-        </div>
+        )}
         <div className='seam-row'>
           <div className='seam-heading'>{t.created}:</div>
           <div className='seam-content'>
