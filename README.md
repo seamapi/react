@@ -133,8 +133,8 @@ globalThis.customElements.whenDefined('seam-device-table').then(() => {
     seam = client
   }
   element.onDeviceClick = (deviceId) => {
-   if (seam == null) return
-   seam.devices.get({ device_id: deviceId }).then(console.log)
+    if (seam == null) return
+    seam.devices.get({ device_id: deviceId }).then(console.log)
   }
 })
 ```
