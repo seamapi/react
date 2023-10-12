@@ -3,6 +3,7 @@ import {
   createContext,
   type PropsWithChildren,
   useContext,
+  useEffect,
   useMemo,
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
@@ -15,6 +16,8 @@ import {
 
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
+
+import { useSeamClient } from './use-seam-client.js'
 
 declare global {
   // eslint-disable-next-line no-var
@@ -62,6 +65,7 @@ interface SeamProviderBaseProps extends PropsWithChildren {
   unminifiyCss?: boolean | undefined
   queryClient?: QueryClient | undefined
   telemetryClient?: TelemetryClient | undefined
+  onSessionUpdate?: (client: Seam) => void
 }
 
 export type SeamProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
@@ -76,6 +80,7 @@ export function SeamProvider({
   disableCssInjection = false,
   disableFontInjection = false,
   unminifiyCss = false,
+  onSessionUpdate = () => {},
   queryClient,
   telemetryClient,
   ...props
@@ -122,7 +127,7 @@ export function SeamProvider({
           }
         >
           <Provider value={value}>
-            <Wrapper>{children}</Wrapper>
+            <Wrapper onSessionUpdate={onSessionUpdate}>{children}</Wrapper>
           </Provider>
         </QueryClientProvider>
       </TelemetryProvider>
@@ -130,8 +135,18 @@ export function SeamProvider({
   )
 }
 
-function Wrapper({ children }: PropsWithChildren): JSX.Element | null {
+function Wrapper({
+  onSessionUpdate,
+  children,
+}: Required<Pick<SeamProviderProps, 'onSessionUpdate'>> &
+  PropsWithChildren): JSX.Element | null {
   useUserTelemetry()
+
+  const { client } = useSeamClient()
+  useEffect(() => {
+    if (client != null) onSessionUpdate(client)
+  }, [onSessionUpdate, client])
+
   return <>{children}</>
 }
 

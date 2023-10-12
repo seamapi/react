@@ -19,17 +19,16 @@ interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
 }
 
-export function ThermostatDeviceDetails(
-  props: ThermostatDeviceDetailsProps
-): JSX.Element | null {
-  const {
-    device,
-    onBack,
-    className,
-    disableCreateAccessCode,
-    disableEditAccessCode,
-  } = props
-
+export function ThermostatDeviceDetails({
+  device,
+  onBack,
+  className,
+  disableLockUnlock,
+  disableCreateAccessCode,
+  disableEditAccessCode,
+  disableDeleteAccessCode,
+  disableResourceIds = false,
+}: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
   const { connectedAccount } = useConnectedAccount(device.connected_account_id)
@@ -42,10 +41,11 @@ export function ThermostatDeviceDetails(
     return (
       <NestedClimateSettingScheduleTable
         deviceId={device.device_id}
-        disableLockUnlock={props.disableLockUnlock}
+        disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
-        disableDeleteAccessCode={props.disableDeleteAccessCode}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           setClimateSettingsOpen(false)
         }}
@@ -142,7 +142,9 @@ export function ThermostatDeviceDetails(
                   device.connected_account_id
                 }
               />
-              <DetailRow label={t.deviceId} sublabel={device.device_id} />
+              {!disableResourceIds && (
+                <DetailRow label={t.deviceId} sublabel={device.device_id} />
+              )}
             </DetailSection>
           </DetailSectionGroup>
         </div>

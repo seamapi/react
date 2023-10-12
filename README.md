@@ -87,12 +87,57 @@ export function App() {
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/1.62.0/dist/elements.js"
+    src="https://react.seam.co/v/1.64.0/dist/elements.js"
   ></script>
 </body>
 ```
 
 > Update the version in the script tag above with the exact version of this package you would like to use.
+
+#### Web component attributes and properties
+
+Each React component is defined as a custom element:
+
+- The element name is in in kebab-case,
+  e.g., `<DeviceTable>` becomes `<seam-device-table>`.
+- Each element is wrapped in a `<SeamProvider />`.
+- An attribute and custom property is defined for each `<SeamProvider />` prop and component prop.
+- Attributes are in kebab-case and properties are in snakeCase.
+
+Attributes map directly to component props.
+All attributes are passed as strings, thus non-string props have some limitations:
+
+- Number props will be parsed using `parseFloat`.
+- Boolean props should be passed as `true` or `false`, e.g., `disable-css-injection="true"` or `disable-css-injection="false"`.
+- Array props may be passed as JSON, e.g., `device-ids="["foo", "bar"]"`,
+  or CSV, e.g., `device-ids="foo,bar"`.
+- Function and object props should not be passed as attributes.
+  Set them as properties instead.
+
+Use custom properties to work directly with JavaScript objects and primitives.
+
+- This will avoid any issues with string parsing and serialization.
+- Use the `onSessionUpdate` prop to maintain a reference to the internal Seam client.
+
+For example,
+
+```js
+globalThis.customElements.whenDefined('seam-device-table').then(() => {
+  const elements = globalThis.document.getElementsByTagName('seam-device-table')
+  const element = elements[0]
+  if (element == null) {
+    throw new Error('Cannot find seam-device-table in document')
+  }
+  let seam
+  element.onSessionUpdate = (client) => {
+    seam = client
+  }
+  element.onDeviceClick = (deviceId) => {
+    if (seam == null) return
+    seam.devices.get({ device_id: deviceId }).then(console.log)
+  }
+})
+```
 
 [Seam Console]: https://console.seam.co/
 

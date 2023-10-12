@@ -20,6 +20,7 @@ export function DeviceDetails({
   deviceId,
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
+  disableResourceIds = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
@@ -36,6 +37,7 @@ export function DeviceDetails({
   const props = {
     disableLockUnlock,
     disableDeleteAccessCode,
+    disableResourceIds,
     onBack,
     className,
   }

@@ -141,6 +141,7 @@ function useSubmitEditAccessCode(
       {
         access_code_id: accessCode.access_code_id,
         name,
+        code,
         type: 'ongoing',
         device_id: device.device_id,
       },

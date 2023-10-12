@@ -1,6 +1,6 @@
 {
   "name": "@seamapi/react",
-  "version": "1.62.0",
+  "version": "1.64.0",
   "description": "Seam Components.",
   "type": "module",
   "main": "index.js",
@@ -133,8 +133,8 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
-    "@rxfork/r2wc-react-to-web-component": "^2.3.0",
-    "@seamapi/fake-seam-connect": "^1.23.0",
+    "@rxfork/r2wc-react-to-web-component": "^2.4.0",
+    "@seamapi/fake-seam-connect": "^1.17.0",
     "@storybook/addon-designs": "^7.0.1",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
