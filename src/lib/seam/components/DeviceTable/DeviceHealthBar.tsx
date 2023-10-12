@@ -12,22 +12,27 @@ interface DeviceHealthBarProps {
   devices: Array<UseDevicesData[number]>
   filter: AccountFilter | DeviceFilter | null
   onFilterSelect: (filter: AccountFilter | DeviceFilter | null) => void
+  errorFilter: (error: any) => boolean
 }
 
 export function DeviceHealthBar({
   devices,
   filter,
   onFilterSelect,
+  errorFilter,
 }: DeviceHealthBarProps): JSX.Element {
   const erroredAccounts = devices.filter((device) => {
     return (
-      device.errors.filter((error) => 'is_connected_account_error' in error)
-        .length > 0
+      device.errors
+        .filter(errorFilter)
+        .filter((error) => 'is_connected_account_error' in error).length > 0
     )
   })
   const erroredDevices = devices.filter((device) => {
     return (
-      device.errors.filter((error) => 'is_device_error' in error).length > 0
+      device.errors
+        .filter(errorFilter)
+        .filter((error) => 'is_device_error' in error).length > 0
     )
   })
   const accountIssueCount = erroredAccounts.length

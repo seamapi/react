@@ -156,7 +156,11 @@ export function DeviceTable({
         )}
       </TableHeader>
       <TableBody>
-        <Content devices={filteredDevices} onDeviceClick={handleDeviceClick} />
+        <Content
+          devices={filteredDevices}
+          onDeviceClick={handleDeviceClick}
+          errorFilter={errorFilter}
+        />
       </TableBody>
     </div>
   )
@@ -165,8 +169,9 @@ export function DeviceTable({
 function Content(props: {
   devices: Array<UseDevicesData[number]>
   onDeviceClick: (deviceId: string) => void
+  errorFilter: (error: any) => boolean
 }): JSX.Element {
-  const { devices, onDeviceClick } = props
+  const { devices, onDeviceClick, errorFilter } = props
   const [filter, setFilter] = useState<AccountFilter | DeviceFilter | null>(
     null
   )
@@ -202,6 +207,7 @@ function Content(props: {
         devices={devices}
         filter={filter}
         onFilterSelect={setFilter}
+        errorFilter={errorFilter}
       />
       {filteredDevices.map((device) => (
         <DeviceRow
