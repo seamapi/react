@@ -19,19 +19,18 @@ interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
 }
 
-export function ThermostatDeviceDetails(
-  props: ThermostatDeviceDetailsProps
-): JSX.Element | null {
-  const {
-    device,
-    onBack,
-    className,
-    errorFilter = () => true,
-    warningFilter = () => true,
-    disableCreateAccessCode,
-    disableEditAccessCode,
-  } = props
-
+export function ThermostatDeviceDetails({
+  device,
+  onBack,
+  className,
+  errorFilter = () => true,
+  warningFilter = () => true,
+  disableLockUnlock,
+  disableCreateAccessCode,
+  disableEditAccessCode,
+  disableDeleteAccessCode,
+  disableResourceIds = false,
+}: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
   const { connectedAccount } = useConnectedAccount(device.connected_account_id)
@@ -46,10 +45,11 @@ export function ThermostatDeviceDetails(
         deviceId={device.device_id}
         errorFilter={errorFilter}
         warningFilter={warningFilter}
-        disableLockUnlock={props.disableLockUnlock}
+        disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
-        disableDeleteAccessCode={props.disableDeleteAccessCode}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           setClimateSettingsOpen(false)
         }}
@@ -132,10 +132,7 @@ export function ThermostatDeviceDetails(
               </DetailRow>
             </DetailSection>
 
-            <DetailSection
-              label={t.deviceDetails}
-              tooltipContent={t.deviceDetailsTooltip}
-            >
+            <DetailSection label={t.deviceDetails}>
               <DetailRow label={t.brand}>
                 <div className='seam-detail-row-hstack'>
                   {device.properties.model.manufacturer_display_name}
@@ -149,7 +146,9 @@ export function ThermostatDeviceDetails(
                   device.connected_account_id
                 }
               />
-              <DetailRow label={t.deviceId} sublabel={device.device_id} />
+              {!disableResourceIds && (
+                <DetailRow label={t.deviceId} sublabel={device.device_id} />
+              )}
             </DetailSection>
           </DetailSectionGroup>
         </div>
@@ -176,8 +175,6 @@ const t = {
   defaultClimate: 'Default climate',
   allowManualOverride: 'Allow manual override',
   deviceDetails: 'Device details',
-  deviceDetailsTooltip:
-    'When a scheduled climate reaches its end time, the default settings will kick in.',
   brand: 'Brand',
   linkedAccount: 'Linked account',
   deviceId: 'Device ID',

@@ -73,6 +73,7 @@ export function DeviceTable({
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
   disableDeleteAccessCode = false,
+  disableResourceIds = false,
   onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element {
@@ -114,6 +115,7 @@ export function DeviceTable({
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           setSelectedDeviceId(null)
         }}
