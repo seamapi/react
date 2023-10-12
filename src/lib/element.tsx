@@ -30,7 +30,7 @@ export type ElementProps<T> = R2wcProps<Omit<T, keyof CommonProps>>
 
 type R2wcProps<T> = Record<
   keyof T,
-  'string' | 'number' | 'boolean' | 'array' | 'function' | 'json' | 'object'
+  'string' | 'number' | 'boolean' | 'array' | 'object'
 >
 
 type ProviderProps = Omit<
@@ -59,6 +59,7 @@ const providerProps: R2wcProps<ProviderProps> = {
   disableCssInjection: 'boolean',
   disableFontInjection: 'boolean',
   unminifiyCss: 'boolean',
+  onSessionUpdate: 'object',
 }
 
 export const defineCustomElement = ({
@@ -90,6 +91,7 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
     disableCssInjection,
     disableFontInjection,
     unminifiyCss,
+    onSessionUpdate,
     container: _container,
     ...props
   }: ProviderProps & { container: Container } & P): JSX.Element | null {
@@ -107,6 +109,7 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
           disableFontInjection ?? globalThis.disableSeamFontInjection
         }
         unminifiyCss={unminifiyCss ?? globalThis.unminifiySeamCss}
+        onSessionUpdate={onSessionUpdate}
       >
         <Component {...(props as P)} />
       </SeamProvider>
