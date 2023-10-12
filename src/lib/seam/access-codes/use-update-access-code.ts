@@ -64,9 +64,7 @@ export function useUpdateAccessCode(): UseMutationResult<
           }
 
           return accessCodes.map((accessCode) => {
-            const isTarget =
-              accessCode.access_code_id === variables.access_code_id
-            if (isTarget) {
+            if (accessCode.access_code_id === variables.access_code_id) {
               return {
                 ...accessCode,
                 code: variables.code ?? accessCode.code,
