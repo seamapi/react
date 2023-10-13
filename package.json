@@ -134,7 +134,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
     "@rxfork/r2wc-react-to-web-component": "^2.4.0",
-    "@seamapi/fake-seam-connect": "^1.17.0",
+    "@seamapi/fake-seam-connect": "^1.30.0",
     "@storybook/addon-designs": "^7.0.1",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
