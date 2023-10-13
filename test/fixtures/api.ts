@@ -1,5 +1,5 @@
 import { createFake } from '@seamapi/fake-seam-connect'
-import { beforeAll } from 'vitest'
+import { beforeEach } from 'vitest'
 
 import { seedFake } from './seed-fake.js'
 
@@ -14,7 +14,7 @@ declare global {
   var TEST_SEAM_CLIENT_SESSION_TOKEN_2: string
 }
 
-beforeAll(async () => {
+beforeEach(async () => {
   const fake = await createFake()
   await fake.startServer()
   const endpoint = fake.serverUrl
