@@ -517,5 +517,5 @@ export const seedFake = (db) => {
   })
 }
 
-export const fakePublishableKey = 'seam_pk_1'
+export const fakePublishableKey = 'seam_pk_2'
 export const fakeUserIdentifierKey = 'some_user'
