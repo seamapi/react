@@ -90,6 +90,7 @@
     "storybook:docs": "storybook dev --docs --port 6007",
     "storybook:build": "storybook build",
     "prestorybook:build": "vite build examples",
+    "storybook:update-devicedb-seed": "tsx .storybook/update-devicedb-seed.ts",
     "examples": "vite examples --host",
     "examples:build": "vite build examples",
     "examples:preview": "vite preview examples",
@@ -130,7 +131,7 @@
     "luxon": "^3.3.0",
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
-    "seamapi": "^8.13.0",
+    "seamapi": "^8.13.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -138,7 +139,9 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
     "@rxfork/r2wc-react-to-web-component": "^2.4.0",
+    "@seamapi/fake-devicedb": "^1.0.0-rc.0",
     "@seamapi/fake-seam-connect": "^1.30.0",
+    "@seamapi/http": "^0.2.1",
     "@seamapi/types": "^1.26.2",
     "@storybook/addon-designs": "^7.0.1",
     "@storybook/addon-essentials": "^7.0.2",

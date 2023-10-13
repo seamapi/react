@@ -39,6 +39,7 @@
     "examples/**/*",
     "api/**/*",
     ".storybook/**/*",
+    "update-devicedb-seed.ts",
     "prepack.ts",
     "preversion.ts",
     "version.ts",
