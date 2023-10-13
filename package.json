@@ -91,6 +91,7 @@
     "storybook:build": "storybook build",
     "prestorybook:build": "vite build examples",
     "storybook:update-devicedb-seed": "tsx .storybook/update-devicedb-seed.ts",
+    "poststorybook:update-devicedb-seed": "npm run format",
     "examples": "vite examples --host",
     "examples:build": "vite build examples",
     "examples:preview": "vite preview examples",

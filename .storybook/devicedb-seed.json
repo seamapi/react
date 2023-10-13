@@ -366,9 +366,7 @@
       "is_device_supported": false,
       "product_url": "https://level.co/products/lock",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -510,9 +508,7 @@
       "is_device_supported": false,
       "product_url": "https://us.eufy.com/collections/smart-lock/products/t8502111",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -558,9 +554,7 @@
       "is_device_supported": false,
       "product_url": "https://us.eufy.com/products/e85301y1?ref=navimenu_3_img",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -606,9 +600,7 @@
       "is_device_supported": false,
       "product_url": "https://us.eufy.com/collections/smart-lock/products/t8504121",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -654,9 +646,7 @@
       "is_device_supported": false,
       "product_url": "https://us.eufy.com/products/t8520?ref=navimenu_3_img",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -751,9 +741,7 @@
       "is_device_supported": false,
       "product_url": "https://us.eufy.com/collections/smart-lock/products/t8503111",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -799,9 +787,7 @@
       "is_device_supported": false,
       "product_url": "https://us.eufy.com/collections/smart-lock/products/t8510",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -879,9 +865,7 @@
       "is_device_supported": false,
       "product_url": "https://www.wyze.com/products/wyze-lock?variant=40925869899938",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -932,9 +916,7 @@
       "is_device_supported": false,
       "product_url": "https://www.wyze.com/products/wyze-lock-bolt",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -990,10 +972,7 @@
       "is_device_supported": false,
       "product_url": "https://www.aqara.com/en/product/smart-lock-u100",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery",
-        "hardwired"
-      ],
+      "power_sources": ["battery", "hardwired"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1044,10 +1023,7 @@
       "is_device_supported": false,
       "product_url": "https://www.aqara.com/en/product/smart-door-lock-d100-zigbee",
       "main_connection_type": "zigbee",
-      "power_sources": [
-        "battery",
-        "hardwired"
-      ],
+      "power_sources": ["battery", "hardwired"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -1109,10 +1085,7 @@
       "is_device_supported": false,
       "product_url": "https://www.aqara.com/en/product/smart-door-lock-n100-zigbee",
       "main_connection_type": "zigbee",
-      "power_sources": [
-        "battery",
-        "hardwired"
-      ],
+      "power_sources": ["battery", "hardwired"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -1174,10 +1147,7 @@
       "is_device_supported": false,
       "product_url": "https://www.aqara.com/en/product/smart-door-lock-a100-zigbee",
       "main_connection_type": "zigbee",
-      "power_sources": [
-        "battery",
-        "hardwired"
-      ],
+      "power_sources": ["battery", "hardwired"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -1229,9 +1199,7 @@
       "is_device_supported": false,
       "product_url": "https://alfredinc.com/collections/products/products/ml2",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1277,9 +1245,7 @@
       "is_device_supported": false,
       "product_url": "https://alfredinc.com/collections/products/products/db1-with-bluetooth-and-z-wave?variant=38032721412289",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1326,9 +1292,7 @@
       "is_device_supported": false,
       "product_url": "https://alfredinc.com/collections/products/products/db1-with-bluetooth?variant=38032698179777",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1375,9 +1339,7 @@
       "is_device_supported": false,
       "product_url": "https://alfredinc.com/collections/products/products/db2b?variant=35219989168290",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1512,9 +1474,7 @@
       "is_device_supported": false,
       "product_url": "https://alfredinc.com/collections/products/products/db1-with-bluetooth?variant=38032698147009",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1561,9 +1521,7 @@
       "is_device_supported": false,
       "product_url": "https://alfredinc.com/collections/products/products/db1-with-bluetooth-and-z-wave?variant=38032721445057",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1610,9 +1568,7 @@
       "is_device_supported": false,
       "product_url": "https://alfredinc.com/collections/products/products/db2",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1707,10 +1663,7 @@
       "is_device_supported": false,
       "product_url": "https://www.latch.com/m-series",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery",
-        "wireless"
-      ],
+      "power_sources": ["battery", "wireless"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -1768,10 +1721,7 @@
       "is_device_supported": false,
       "product_url": "https://www.latch.com/egenius-powered-by-latch",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery",
-        "wireless"
-      ],
+      "power_sources": ["battery", "wireless"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1812,10 +1762,7 @@
       "is_device_supported": false,
       "product_url": "https://www.latch.com/c2",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery",
-        "wireless"
-      ],
+      "power_sources": ["battery", "wireless"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -1873,9 +1820,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/au/en/products/smart-products/unity-entrance-series/yale-unity-entrance-lock",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -1917,9 +1862,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/au/en/products/smart-products/unity-entrance-series/yale-unity-entrance-lock-fire-rated",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -1971,9 +1914,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/in/en/products/smart-products/digital-door-locks/connected-/ydm-3115",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -2025,9 +1966,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/ph/en/products/yale-smart-locks/yale-mortise-locks/ymi70a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -2079,9 +2018,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/in/en/products/smart-products/digital-door-locks/connected-/ydr41-vertibolt-lock",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lockbox",
@@ -2133,9 +2070,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lever-keypad-with-wi-fi?variant=41356967608452",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -2215,9 +2150,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/ae/en/products/smart-door-locks/smart-mortice-locks/smart-door-lock-ydm4109a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -2323,9 +2256,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/my/en/products/smart-lock/yale-access-app-smart-lock/ydf40a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -2377,9 +2308,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/sg/en/products/smart-door-locks/metal-gate-smart-locks/ydr50ga",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lockbox",
@@ -2431,9 +2360,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lock-touchscreen-with-z-wave-plus?variant=39341912326276",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -2546,9 +2473,7 @@
       "is_device_supported": true,
       "product_url": "",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -2655,9 +2580,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/my/en/products/smart-lock/yale-access-app-smart-lock/ymf40a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -2709,9 +2632,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/au/en/products/smart-products/unity-entrance-series/yale-unity-screen-door-lock",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -2762,9 +2683,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/collections/smart-locks/products/yale-assure-lever-keypad-with-wi-fi-and-bluetooth?variant=39341913735300",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -2821,9 +2740,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/id/en/products/smart-lock/yale-access-app-smart-lock/ymf30a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -2875,9 +2792,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/ae/en/products/smart-door-locks/smart-mortice-locks/smart-door-lock-ydm3109a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -2929,9 +2844,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/sg/en/products/smart-door-locks/wooden-door-smart-locks/yale-access-app-smart-locks/ydd424a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -2983,9 +2896,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/hk/en/products/digital-door-lock/yale-access-app-smart-lock/smart-lock-pro",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -3027,9 +2938,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lock-keypad-with-wi-fi-and-bluetooth?variant=39341913800836",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -3109,9 +3018,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/in/en/products/smart-products/digital-door-locks/connected-/ydr414-rim-lock",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -3173,9 +3080,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/pages/yale-assure-lock-2",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -3293,9 +3198,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/hk/en/products/digital-door-lock/yale-link-app-smart-lock/ydm7216",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -3347,9 +3250,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/pages/yale-assure-lock-2",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -3484,9 +3385,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lock-keypad-with-z-wave-plus?variant=39341912785028",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -3581,9 +3480,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/sg/en/products/smart-door-locks/metal-gate-smart-locks/ydr30ga",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lockbox",
@@ -3635,9 +3532,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lock-sl-with-z-wave-plus?variant=39341911834756",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -3760,9 +3655,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/ph/en/products/yale-smart-locks/yale-smart-rim-locks/j20a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lockbox",
@@ -3824,9 +3717,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/ph/en/products/yale-smart-locks/yale-mortise-locks/ydm7116a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -3883,9 +3774,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/se/sv/products/smart-locks/yale-doorman-l3",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -3993,9 +3882,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/hk/en/products/digital-door-lock/finger-print-digital-door-lock/ydm4115",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -4073,9 +3960,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lock-2-key-free-keypad-with-bluetooth?variant=41535299321988",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -4183,9 +4068,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/sg/en/products/smart-door-locks/wooden-door-smart-locks/yale-access-app-smart-locks/ydd724a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -4237,9 +4120,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/ph/en/products/yale-smart-locks/yale-mortise-locks/ydm7220",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -4296,9 +4177,7 @@
       "is_device_supported": true,
       "product_url": "https://yalehome.co.uk/linus-smart-door-lock/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -4368,9 +4247,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lever-touchscreen-with-wi-fi?variant=41415042760836",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -4422,9 +4299,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/my/en/products/smart-lock/yale-access-app-smart-lock/ydg413a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lockbox",
@@ -4486,9 +4361,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lock-2-touchscreen-with-bluetooth?variant=41535298863236",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -4616,9 +4489,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/collections/smart-locks/products/yale-assure-lever-touchscreen-with-wi-fi-and-bluetooth?variant=39341913440388",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -4708,9 +4579,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/collections/patio-door-locks/products/assure-lock-for-andersen-patio-doors-standalone?variant=39337803350148",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -4803,9 +4672,7 @@
       "is_device_supported": true,
       "product_url": "https://www.yalehome.com/sg/en/products/smart-door-locks/wooden-door-smart-locks/yale-access-app-smart-locks/ydr3110a",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -4857,9 +4724,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/pages/yale-assure-lock-2",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -4964,9 +4829,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/pages/yale-assure-lock-2",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -5084,9 +4947,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/products/yale-assure-lock-touchscreen-with-wi-fi-and-bluetooth?variant=39341913112708",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -5199,9 +5060,7 @@
       "is_device_supported": true,
       "product_url": "https://shopyalehome.com/collections/smart-locks/products/yale-assure-lever-touchscreen-with-wi-fi-and-bluetooth?variant=39341913473156",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -5276,9 +5135,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/smart-locks/connected-keypads.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -5325,9 +5182,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/BE369NXCAMFFF.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -5379,9 +5234,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/FBE469NXCAMFFFACC.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -5549,9 +5402,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/smart-locks/encode-lever.html",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -5688,9 +5539,7 @@
       "is_device_supported": false,
       "product_url": "https://www.schlage.com/en/home/products/BE479CENFFF.html",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -5846,9 +5695,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/FE469NXCAMFFFACC.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -6016,9 +5863,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/BE469ZPCENFFF.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -6217,9 +6062,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/BE469ZPCAMFFF.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -6443,9 +6286,7 @@
       "is_device_supported": false,
       "product_url": "https://www.schlage.com/en/home/products/BE479CAMFFF.html",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -6601,9 +6442,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/BE499WBCENFFF.html",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -6799,9 +6638,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/BE489WBCAMFFF.html",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -7179,9 +7016,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/BE469NXCAMFFF.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -7445,9 +7280,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/BE369NXCAMFFF.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -7527,9 +7360,7 @@
       "is_device_supported": true,
       "product_url": "https://www.schlage.com/en/home/products/FBE469NXCENFFFACC.html",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -7629,9 +7460,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/919-premis-contemporary-smart-lock?variant=919cnt-premis-15",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -7709,9 +7538,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/obsidian-keywayless-electronic-touchscreen-smart-deadbolt-with-z-wave-technology?variant=954-obn-zw-15",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -7786,9 +7613,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/home-connect-620-contemporary-keypad-connected-smart-lock-with-z-wave-technology?variant=hc620-cnt-zw700-15-smt-rcal-rcs-cp",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -7969,9 +7794,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/910-smartcode-traditional-electronic-deadbolt-with-z-wave-technology",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -8064,9 +7887,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/halo-touch-traditional-fingerprint-wi-fi-enabled-smart-lock?variant=959-trl-fprt-wifi-15",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -8166,9 +7987,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/halo-keypad-wi-fi-enabled-smart-lock?variant=938-wifi-kypd-15",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -8273,9 +8092,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/912-smartcode-electronic-tustin-lever-with-z-wave-technology?variant=912tnl-trl-zw-l03",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -8383,9 +8200,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/aura-bluetooth-enabled-smart-lock?variant=942-ble-db-15",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -8533,9 +8348,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/916-smartcode-contemporary-electronic-deadbolt-with-z-wave-technology?variant=916cnt-zw500-514",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -8711,9 +8524,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/home-connect-620-traditional-keypad-connected-smart-lock-with-z-wave-technology?variant=hc620-trl-zw700-11p-smt-rcal-rcs-cp",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -8856,9 +8667,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/halo-touchscreen-wi-fi-enabled-smart-lock?variant=939-wifi-tscr-11p",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -9039,9 +8848,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/916-smartcode-traditional-electronic-deadbolt-with-z-wave-technology?variant=916trl-zw-11p",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -9141,9 +8948,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/halo-touch-contemporary-fingerprint-wi-fi-enabled-smart-lock?variant=959-cnt-fprt-wifi-15",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -9258,9 +9063,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/888-smartcode-electronic-deadbolt-with-z-wave-technology?variant=888-zw-15",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -9383,9 +9186,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/910-smartcode-contemporary-electronic-deadbolt-with-z-wave-technology?variant=910-cnt-zw-15",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -9501,9 +9302,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/914-smartcode-contemporary-electronic-deadbolt-with-z-wave-technology?variant=914cnt-zw500-26",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -9689,9 +9488,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/914-smartcode-traditional-electronic-deadbolt-with-z-wave-technology?variant=914trl-zw-11p",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -9804,9 +9601,7 @@
       "is_device_supported": true,
       "product_url": "https://www.kwikset.com/products/detail/919-premis-traditional-smart-lock?variant=919trl-premis-15",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -9906,9 +9701,7 @@
       "is_device_supported": true,
       "product_url": "https://www.brivo.com/products/smart-locks/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -9937,9 +9730,7 @@
       "is_device_supported": true,
       "product_url": "https://www.brivo.com/products/smart-locks/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -9968,9 +9759,7 @@
       "is_device_supported": true,
       "product_url": "https://www.iglooworks.co/hardware/padlock-e",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "padlock",
@@ -10042,9 +9831,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/mortise-2-plus",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -10101,9 +9888,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/rim-lock-wooden-doors",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -10155,9 +9940,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/push-pull-mortise",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -10209,9 +9992,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/rim-lock",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -10268,9 +10049,7 @@
       "is_device_supported": true,
       "product_url": "https://www.iglooworks.co/hardware/iot-deadbolt",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -10326,9 +10105,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/lever-mortise",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -10370,10 +10147,7 @@
       "is_device_supported": true,
       "product_url": "https://www.iglooworks.co/hardware/swing-handle",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery",
-        "hardwired"
-      ],
+      "power_sources": ["battery", "hardwired"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "locker",
@@ -10440,9 +10214,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/padlock",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "padlock",
@@ -10489,9 +10261,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/mortise-2",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -10543,9 +10313,7 @@
       "is_device_supported": true,
       "product_url": "https://www.iglooworks.co/hardware/keybox-3e",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lockbox",
@@ -10617,9 +10385,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/deadbolt-2s-mg",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -10676,9 +10442,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/retrofit-lock",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -10725,9 +10489,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/keybox-3",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lockbox",
@@ -10789,9 +10551,7 @@
       "is_device_supported": true,
       "product_url": "https://www.iglooworks.co/hardware/deadbolt-2e",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -10848,9 +10608,7 @@
       "is_device_supported": true,
       "product_url": "https://www.igloohome.co/products/gate-lock",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -10930,9 +10688,7 @@
       "is_device_supported": false,
       "product_url": "https://akiles.app/en/products/smart-lock-system-room-lock",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -10983,9 +10739,7 @@
       "is_device_supported": false,
       "product_url": "https://akiles.app/en/products/smart-lock-system-cylinder",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -11249,9 +11003,7 @@
       "is_device_supported": true,
       "product_url": "",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -11297,9 +11049,7 @@
       "is_device_supported": false,
       "product_url": "https://www.4suiteshq.com/hotel-locks/",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -11340,9 +11090,7 @@
       "is_device_supported": false,
       "product_url": "https://www.4suiteshq.com/readers/",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "hardwired"
-      ],
+      "power_sources": ["hardwired"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "unknown",
@@ -11383,9 +11131,7 @@
       "is_device_supported": false,
       "product_url": "https://www.4suiteshq.com/hotel-locks/",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -11426,9 +11172,7 @@
       "is_device_supported": false,
       "product_url": "https://us.switch-bot.com/collections/all/products/switchbot-lock?variant=43991839932649",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -11506,9 +11250,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/228sl/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -11596,9 +11338,7 @@
       "is_device_supported": true,
       "product_url": "https://lockly.com/products/lockly-flex-touch-deadbolt",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -11645,9 +11385,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/228sw/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -11745,9 +11483,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/679l/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -11830,9 +11566,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/678w/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -11893,9 +11627,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/7a/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -11949,9 +11681,7 @@
       "is_device_supported": true,
       "product_url": "https://lockly.com/products/lockly-secure-pro?variant=19786767368251",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -12074,9 +11804,7 @@
       "is_device_supported": true,
       "product_url": "https://lockly.com/products/lockly-secure-advanced-smart-lock-door?variant=21228386549819",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -12164,9 +11892,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/238l/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -12200,9 +11926,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/698d/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -12270,9 +11994,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/728fz/",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -12360,9 +12082,7 @@
       "is_device_supported": true,
       "product_url": "https://lockly.com/collections/door-lock/products/lockly-vision-doorbell-camera-smart-lock",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -12480,9 +12200,7 @@
       "is_device_supported": true,
       "product_url": "https://lockly.com/products/lockly-secure-pro?variant=19786767368251",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -12615,9 +12333,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/679d/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lever",
@@ -12700,9 +12416,7 @@
       "is_device_supported": true,
       "product_url": "https://locklypro.com/728z/",
       "main_connection_type": "unknown",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -12805,9 +12519,7 @@
       "is_device_supported": true,
       "product_url": "https://august.com/products/august-wifi-smart-lock?view=wifi-smart-lock-2",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -12887,9 +12599,7 @@
       "is_device_supported": true,
       "product_url": "",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -12969,9 +12679,7 @@
       "is_device_supported": true,
       "product_url": "https://august.com/products/august-wifi-smart-lock",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -13041,9 +12749,7 @@
       "is_device_supported": true,
       "product_url": "",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -13126,9 +12832,7 @@
       "is_device_supported": true,
       "product_url": "https://august.com/products/august-smart-lock-3rd-generation",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -13251,9 +12955,7 @@
       "is_device_supported": true,
       "product_url": "",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -13338,9 +13040,7 @@
       "is_device_supported": true,
       "product_url": "",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -13435,9 +13135,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en-in/products/xs4-original-plus-eu/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -13478,9 +13176,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/aelement-fusion-eu-din/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -13521,9 +13217,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-deadbolt-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -13569,9 +13263,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-one-din/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -13622,9 +13314,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en-us/products/electronic-locks/xs4-original-ansi/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -13665,9 +13355,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-uk-oval-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -13730,9 +13418,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en-in/products/xs4-original-keypad-eu/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -13773,9 +13459,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-mini-finnish/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -13843,9 +13527,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-mini-scandinavian/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -13913,9 +13595,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/aelement-fusion-ansi/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -13956,9 +13636,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-australian-oval-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -14021,9 +13699,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-swing-handle-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -14069,9 +13745,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-mini-european-din/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -14139,9 +13813,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-original-wide-plus-eu/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -14182,9 +13854,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-original-plus-scandinavian/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -14225,9 +13895,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/electronic-locks/xs4-one/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -14273,9 +13941,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neoxx-padlock-g4/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "padlock",
@@ -14326,9 +13992,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-european-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -14391,9 +14055,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-original-plus-wide-scandinavian/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -14434,9 +14096,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en-in/products/xs4-locker-locks/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "locker",
@@ -14494,9 +14154,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-rim-us-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -14559,9 +14217,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-original-plus-din_satin-stainless-steel/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -14617,9 +14273,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/design-xs-ansi-keypad-wall-reader/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "hardwired"
-      ],
+      "power_sources": ["hardwired"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "lockbox",
@@ -14689,9 +14343,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-swiss-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -14754,9 +14406,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-cam-lock-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -14819,9 +14469,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/electronic-cylinders/neo-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -14884,9 +14532,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-mini-australia/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -14954,9 +14600,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-scandinavian-oval-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -15024,9 +14668,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-one-deadlatch/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -15072,9 +14714,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-original-keypad-scandinavian/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -15115,9 +14755,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-glass-door-din/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -15158,9 +14796,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-scandinavian-security-cylinder",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -15223,9 +14859,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-mortise-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -15288,9 +14922,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neo-rim-uk-cylinder/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "cylinder",
@@ -15353,9 +14985,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/xs4-mini-ansi/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -15413,9 +15043,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en/products/salto-neoxx-padlock-g3/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "padlock",
@@ -15461,9 +15089,7 @@
       "is_device_supported": true,
       "product_url": "https://saltosystems.com/en-in/products/xs4-original-keypad-ansi/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "mortise",
@@ -15504,9 +15130,7 @@
       "is_device_supported": true,
       "product_url": "https://www.amazon.ae/NUKi-Home-Solutions-Smart-220113/dp/B07F1PGYBW",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -15552,9 +15176,7 @@
       "is_device_supported": true,
       "product_url": "https://nuki.io/en/smart-lock-pro/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
@@ -15622,9 +15244,7 @@
       "is_device_supported": true,
       "product_url": "https://nuki.io/en/smart-lock/",
       "main_connection_type": "wifi",
-      "power_sources": [
-        "battery"
-      ],
+      "power_sources": ["battery"],
       "main_category": "smartlock",
       "physical_properties": {
         "lock_type": "deadbolt",
