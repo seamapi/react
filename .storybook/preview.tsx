@@ -4,6 +4,8 @@ import '../src/index.scss'
 import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
+import { fakePublishableKey } from './seed-fake.js'
+
 const useFake = !['1', 'true'].includes(
   process.env['STORYBOOK_DISABLE_FAKE']?.toLowerCase() ?? ''
 )
@@ -14,7 +16,7 @@ const preview: Preview = {
     publishableKey: {
       description: 'Seam publishable key',
       defaultValue: useFake
-        ? 'seam_pk_1'
+        ? fakePublishableKey
         : process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'],
     },
     /** @deprecated use "some_user" directly in your story **/

@@ -1,6 +1,5 @@
+import { render, screen } from '@testing-library/react'
 import { test } from 'vitest'
-
-import { render, screen } from 'fixtures/react.js'
 
 test('render', async () => {
   render(<p>Foo</p>)

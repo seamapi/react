@@ -3,8 +3,8 @@
   "compilerOptions": {
     "noEmit": true,
     "strict": true,
-    "module": "es2022",
-    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "target": "es2022",
     "jsx": "react-jsx",

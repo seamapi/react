@@ -3,25 +3,20 @@ import { QueryClient } from '@tanstack/react-query'
 import { render } from '@testing-library/react'
 import type { PropsWithChildren } from 'react'
 
-declare global {
-  // eslint-disable-next-line no-var
-  var TEST_SEAM_ENDPOINT: string
-  // eslint-disable-next-line no-var
-  var TEST_SEAM_PUBLISHABLE_KEY_1: string
-  // eslint-disable-next-line no-var
-  var TEST_SEAM_PUBLISHABLE_KEY_2: string
-  // eslint-disable-next-line no-var
-  var TEST_SEAM_CLIENT_SESSION_TOKEN_2: string
-}
+import type { ApiTestContext } from './api.js'
 
 type Render = typeof render
 
 const customRender = (
   ui: Parameters<Render>[0],
-  options?: Parameters<Render>[1]
+  { endpoint, seed, ...options }: Parameters<Render>[1] & ApiTestContext
 ): ReturnType<Render> => {
   const queryClient = createQueryClient()
-  const Providers = createProviders({ queryClient })
+  const Providers = createProviders({
+    queryClient,
+    endpoint,
+    publishableKey: seed.ws2PublishableKey,
+  })
   return render(ui, { wrapper: Providers, ...options })
 }
 
@@ -34,13 +29,21 @@ const createQueryClient = (): QueryClient =>
     },
   })
 
-const createProviders = ({ queryClient }: { queryClient: QueryClient }) => {
+const createProviders = ({
+  endpoint,
+  publishableKey,
+  queryClient,
+}: {
+  endpoint: string
+  publishableKey: string
+  queryClient: QueryClient
+}) => {
   return function Providers({ children }: PropsWithChildren): JSX.Element {
     return (
       <SeamProvider
         queryClient={queryClient}
-        endpoint={globalThis.TEST_SEAM_ENDPOINT}
-        publishableKey={globalThis.TEST_SEAM_PUBLISHABLE_KEY_1}
+        endpoint={endpoint}
+        publishableKey={publishableKey}
         userIdentifierKey='some_user'
         disableCssInjection
         disableFontInjection
