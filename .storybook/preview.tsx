@@ -3,6 +3,7 @@ import '../src/index.scss'
 
 import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
+
 import { fakePublishableKey } from './seed-fake.js'
 
 const useFake = !['1', 'true'].includes(
