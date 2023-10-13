@@ -1,9 +1,7 @@
+import { render, screen } from '@testing-library/react'
 import { test } from 'vitest'
 
-import type { ApiTestContext } from 'fixtures/api.js'
-import { render, screen } from 'fixtures/react.js'
-
-test<ApiTestContext>('render', async (ctx) => {
-  render(<p>Foo</p>, ctx)
+test('render', async () => {
+  render(<p>Foo</p>)
   await screen.findByText('Foo')
 })
