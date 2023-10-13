@@ -1,20 +1,14 @@
 import { createFake } from '@seamapi/fake-seam-connect'
 import { beforeEach } from 'vitest'
 
-import { seedFake } from './seed-fake.js'
+import { type Seed, seedFake } from './seed-fake.js'
 
-declare global {
-  // eslint-disable-next-line no-var
-  var TEST_SEAM_ENDPOINT: string
-  // eslint-disable-next-line no-var
-  var TEST_SEAM_PUBLISHABLE_KEY_1: string
-  // eslint-disable-next-line no-var
-  var TEST_SEAM_PUBLISHABLE_KEY_2: string
-  // eslint-disable-next-line no-var
-  var TEST_SEAM_CLIENT_SESSION_TOKEN_2: string
+export interface ApiTestContext {
+  endpoint: string
+  seed: Seed
 }
 
-beforeEach(async () => {
+beforeEach<ApiTestContext>(async (ctx) => {
   const fake = await createFake()
   await fake.startServer()
   const endpoint = fake.serverUrl
@@ -24,10 +18,8 @@ beforeEach(async () => {
   const res = await fetch(`${endpoint}/health`)
   if (!res.ok) throw new Error('Fake Seam Connect unhealthy')
 
-  globalThis.TEST_SEAM_ENDPOINT = endpoint
-  globalThis.TEST_SEAM_PUBLISHABLE_KEY_1 = seed.ws1PublishableKey
-  globalThis.TEST_SEAM_PUBLISHABLE_KEY_2 = seed.ws2PublishableKey
-  globalThis.TEST_SEAM_CLIENT_SESSION_TOKEN_2 = seed.clientSessionToken2
+  ctx.endpoint = endpoint
+  ctx.seed = seed
 
   return async () => {
     await fake.stopServer()

@@ -1,6 +1,6 @@
 import type { Database } from '@seamapi/fake-seam-connect'
 
-interface Seed {
+export interface Seed {
   ws1PublishableKey: string
   ws2PublishableKey: string
   clientSessionToken2: string
