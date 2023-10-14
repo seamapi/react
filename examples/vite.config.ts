@@ -32,7 +32,7 @@ export default defineConfig(async ({ command, mode }) => {
     },
     build: {
       rollupOptions: {
-        // UPSTREAM: Workaround to support multi-page app support on build.
+        // UPSTREAM: Workaround for Vite missing multi-page app support on build.
         // https://github.com/vitejs/vite/issues/3429
         input: Object.fromEntries(
           glob
