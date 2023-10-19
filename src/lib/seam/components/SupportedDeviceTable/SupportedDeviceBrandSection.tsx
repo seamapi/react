@@ -1,11 +1,11 @@
+import type { DeviceModelV1 } from '@seamapi/types/devicedb'
 import classNames from 'classnames'
-import type { DeviceModel } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { HiddenDevicesOverlay } from 'lib/seam/components/SupportedDeviceTable/HiddenDevicesOverlay.js'
 import { ShowAllDevicesButton } from 'lib/seam/components/SupportedDeviceTable/ShowAllDevicesButton.js'
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
-import { useDeviceProvider } from 'lib/seam/components/SupportedDeviceTable/use-device-provider.js'
+import { useManufacturer } from 'lib/seam/components/SupportedDeviceTable/use-manufacturer.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
@@ -16,15 +16,15 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 const maxDevicesBeforeCollapsing = 3
 
 interface SupportedDeviceBrandSectionProps {
-  brand: string
-  deviceModels: DeviceModel[]
+  manufacturerId: string
+  deviceModels: DeviceModelV1[]
 }
 
 export function SupportedDeviceBrandSection({
-  brand,
+  manufacturerId,
   deviceModels,
 }: SupportedDeviceBrandSectionProps): JSX.Element | null {
-  const deviceProvider = useDeviceProvider(brand)
+  const { manufacturer } = useManufacturer({ manufacturer_id: manufacturerId })
 
   const [expanded, toggleExpand] = useToggle()
 
@@ -54,25 +54,19 @@ export function SupportedDeviceBrandSection({
     >
       <div className='seam-header' onClick={handleHeaderClick}>
         <img
-          src={deviceProvider.image_url}
-          alt={brand}
+          src={manufacturer?.logo?.url}
+          alt={manufacturer?.display_name}
           className='seam-brand-image'
         />
         <h5 className='seam-brand-name'>
-          {deviceProvider.display_name} {t.devices}
+          {manufacturer?.display_name} {t.devices}
         </h5>
         {canExpand && <ChevronRightIcon className='chevron' />}
       </div>
       <div className='seam-supported-device-table-content'>
-        {visibleDevices.map((deviceModel, index) => (
+        {visibleDevices.map((deviceModel) => (
           <SupportedDeviceRow
-            key={[
-              deviceModel.main_category,
-              deviceModel.brand,
-              deviceModel.model_name,
-              deviceModel.manufacturer_model_id,
-              index,
-            ].join(':')}
+            key={deviceModel.device_model_id}
             deviceModel={deviceModel}
           />
         ))}
