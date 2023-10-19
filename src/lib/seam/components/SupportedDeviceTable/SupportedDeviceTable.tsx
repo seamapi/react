@@ -11,8 +11,6 @@ import { SupportedDeviceContent } from 'lib/seam/components/SupportedDeviceTable
 import { SupportedDeviceFilterArea } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterArea.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 
-import { useDeviceModels } from './use-device-models.js'
-
 export interface SupportedDeviceTableProps extends CommonProps {
   disableFilter?: boolean
   /**
@@ -35,8 +33,6 @@ export function SupportedDeviceTable({
 }: SupportedDeviceTableProps = {}): JSX.Element {
   useComponentTelemetry('SupportedDeviceTable')
 
-  const { deviceModels } = useDeviceModels()
-
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<DeviceModelFilters>({
     supportedOnly: true,
@@ -44,19 +40,6 @@ export function SupportedDeviceTable({
   })
 
   const hideFilter = cannotFilter ?? disableFilter
-
-  const deviceModel = deviceModels?.find(
-    (m) => m.aesthetic_variants[0]?.front_image != null
-  )
-  if (deviceModel != null) {
-    const image = deviceModel.aesthetic_variants[0]?.front_image
-    return (
-      <div>
-        <p>{deviceModel.display_name}</p>
-        <img src={image?.url} width={image?.width} height={image?.height} />
-      </div>
-    )
-  }
 
   return (
     <div
