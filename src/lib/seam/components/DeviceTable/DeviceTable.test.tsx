@@ -7,5 +7,5 @@ import { DeviceTable } from './DeviceTable.js'
 
 test<ApiTestContext>('DeviceTable', async (ctx) => {
   render(<DeviceTable />, ctx)
-  await screen.findByText('Front Door')
+  await screen.findByText('Fake August Lock 1')
 })

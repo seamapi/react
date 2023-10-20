@@ -2,10 +2,8 @@ import {
   createFake as createFakeDevicedb,
   type Fake as FakeDevicedb,
 } from '@seamapi/fake-devicedb'
-import { createFake, type Fake } from '@seamapi/fake-seam-connect'
+import { createFake, type Fake, type Seed } from '@seamapi/fake-seam-connect'
 import { beforeEach } from 'vitest'
-
-import { type Seed, seedFake } from './seed-fake.js'
 
 export interface ApiTestContext {
   endpoint: string
@@ -14,7 +12,7 @@ export interface ApiTestContext {
 
 beforeEach<ApiTestContext>(async (ctx) => {
   const fake = await getFakeSeamConnect()
-  const seed = seedFake(fake.database)
+  const seed = await fake.seed()
   const endpoint = fake.serverUrl
 
   if (endpoint == null) throw new Error('Fake endpoint is null')

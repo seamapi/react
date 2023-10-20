@@ -478,10 +478,10 @@ This is the same storybook published on [react.seam.co](https://react.seam.co).
 This project uses a [fake version of Seam Connect](https://github.com/seamapi/fake-seam-connect)
 to have deterministic responses for rendering views and running tests.
 
-Edit the seed data for the fake or find relevant ids for testing components here:
+The tests use the [default seed](https://github.com/seamapi/fake-seam-connect/blob/main/src/lib/database/seed.ts).
 
-- [Storybook fake seed](./.storybook/seed-fake.js).
-- [Vitest fake seed](./test/fixtures/seed-fake.ts).
+Edit the Storybook seed data for the fake or find relevant ids for testing components here:
+[Storybook fake seed](./.storybook/seed-fake.js).
 
 ### Fake Devicedb
 
