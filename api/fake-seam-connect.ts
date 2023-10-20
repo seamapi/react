@@ -57,7 +57,7 @@ export default async (
       fakeDevicedb.database.vercel_protection_bypass_secret,
   })
 
-  const server = await fake.startServer()
+  await fake.startServer()
 
   const requestBuffer = await getRawBody(req)
 
@@ -66,7 +66,7 @@ export default async (
   }
 
   const { status, data, headers } = await axios.request({
-    url: `${server.serverUrl}/${apipath}`,
+    url: `${fake.serverUrl}/${apipath}`,
     params: getParams,
     method: req.method,
     headers: { ...req.headers },
@@ -75,8 +75,6 @@ export default async (
     validateStatus: () => true,
     maxRedirects: 0,
   })
-
-  await Promise.all([fake.stopServer(), fakeDevicedb.stopServer()])
 
   res.status(status)
 
@@ -90,7 +88,8 @@ export default async (
     res.json(data)
   }
 
-  server.close()
+  fake.server?.close()
+  fakeDevicedb.server?.close()
 }
 
 const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
