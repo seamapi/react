@@ -23,8 +23,9 @@ beforeEach<ApiTestContext>(async (ctx) => {
   ctx.endpoint = endpoint
   ctx.seed = seed
 
-  return async () => {
-    await Promise.all([fake.stopServer(), fakeDevicedb.stopServer()])
+  return () => {
+    fake.server?.close()
+    fakeDevicedb.server?.close()
   }
 })
 
