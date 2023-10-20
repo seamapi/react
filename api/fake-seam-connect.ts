@@ -76,7 +76,7 @@ export default async (
     maxRedirects: 0,
   })
 
-  await fake.stopServer()
+  await Promise.all([fake.stopServer(), fakeDevicedb.stopServer()])
 
   res.status(status)
 

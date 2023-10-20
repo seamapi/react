@@ -11,7 +11,8 @@ export interface ApiTestContext {
 }
 
 beforeEach<ApiTestContext>(async (ctx) => {
-  const fake = await getFakeSeamConnect()
+  const fakeDevicedb = await getFakeDevicedb()
+  const fake = await getFakeSeamConnect(fakeDevicedb)
   const seed = await fake.seed()
   const endpoint = fake.serverUrl
 
@@ -23,14 +24,15 @@ beforeEach<ApiTestContext>(async (ctx) => {
   ctx.seed = seed
 
   return async () => {
-    await fake.stopServer()
+    await Promise.all([fake.stopServer(), fakeDevicedb.stopServer()])
   }
 })
 
-const getFakeSeamConnect = async (): Promise<Fake> => {
+const getFakeSeamConnect = async (
+  fakeDevicedb: FakeDevicedb
+): Promise<Fake> => {
   const fake = await createFake()
 
-  const fakeDevicedb = await getFakeDevicedb()
   const fakeDevicedbUrl = fakeDevicedb.serverUrl
   if (fakeDevicedbUrl == null) throw new Error('Missing fake devicedb url')
   fake.database.setDevicedbConfig({
