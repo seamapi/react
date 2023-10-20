@@ -483,7 +483,6 @@ Edit the seed data for the fake or find relevant ids for testing components here
 - [Storybook fake seed](./.storybook/seed-fake.js).
 - [Vitest fake seed](./test/fixtures/seed-fake.ts).
 
-
 ### Fake Devicedb
 
 Fake Seam Connect optionally depends on a [fake version of the Seam Devicedb](https://github.com/seamapi/fake-devicedb).
