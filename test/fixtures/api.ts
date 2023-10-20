@@ -1,5 +1,8 @@
-import { createFake as createFakeDevicedb } from '@seamapi/fake-devicedb'
-import { createFake } from '@seamapi/fake-seam-connect'
+import {
+  createFake as createFakeDevicedb,
+  type Fake as FakeDevicedb,
+} from '@seamapi/fake-devicedb'
+import { createFake, type Fake } from '@seamapi/fake-seam-connect'
 import { beforeEach } from 'vitest'
 
 import { type Seed, seedFake } from './seed-fake.js'
@@ -10,21 +13,8 @@ export interface ApiTestContext {
 }
 
 beforeEach<ApiTestContext>(async (ctx) => {
-  const fake = await createFake()
-  const seed = await seedFake(fake.database)
-
-  const fakeDevicedb = await createFakeDevicedb()
-  await fakeDevicedb.seed()
-  await fakeDevicedb.startServer()
-  const fakeDevicedbUrl = fakeDevicedb.serverUrl
-  if (fakeDevicedbUrl == null) throw new Error('Missing fake devicedb url')
-  fake.database.setDevicedbConfig({
-    url: fakeDevicedbUrl,
-    vercelProtectionBypassSecret:
-      fakeDevicedb.database.vercel_protection_bypass_secret,
-  })
-
-  await fake.startServer()
+  const fake = await getFakeSeamConnect()
+  const seed = seedFake(fake.database)
   const endpoint = fake.serverUrl
 
   if (endpoint == null) throw new Error('Fake endpoint is null')
@@ -38,3 +28,33 @@ beforeEach<ApiTestContext>(async (ctx) => {
     await fake.stopServer()
   }
 })
+
+const getFakeSeamConnect = async (): Promise<Fake> => {
+  const fake = await createFake()
+
+  const fakeDevicedb = await getFakeDevicedb()
+  const fakeDevicedbUrl = fakeDevicedb.serverUrl
+  if (fakeDevicedbUrl == null) throw new Error('Missing fake devicedb url')
+  fake.database.setDevicedbConfig({
+    url: fakeDevicedbUrl,
+    vercelProtectionBypassSecret:
+      fakeDevicedb.database.vercel_protection_bypass_secret,
+  })
+
+  await fake.startServer()
+
+  return fake
+}
+
+const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
+  const fake = await createFakeDevicedb()
+  await fake.seed()
+  await fake.startServer()
+
+  const endpoint = fake.serverUrl
+  if (endpoint == null) throw new Error('Fake devicedb endpoint is null')
+  const res = await fetch(`${endpoint}/health`)
+  if (!res.ok) throw new Error('Fake Devicedb unhealthy')
+
+  return fake
+}

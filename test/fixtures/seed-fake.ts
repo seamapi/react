@@ -6,7 +6,7 @@ export interface Seed {
   clientSessionToken2: string
 }
 
-export const seedFake = async (db: Database): Promise<Seed> => {
+export const seedFake = async (db: Database): Seed => {
   const ws1 = db.addWorkspace({ name: 'Seed Workspace 1 (starts empty)' })
   const ws2 = db.addWorkspace({ name: 'Seed Workspace 2 (starts populated)' })
   const ws3 = db.addWorkspace({ name: 'Seed Workspace 3 (simulated outage)' })
