@@ -61,7 +61,12 @@
       "display_name": "August",
       "integration": "stable",
       "is_connect_webview_supported": true,
-      "requires_seam_support_to_add_account": false
+      "requires_seam_support_to_add_account": false,
+      "logo": {
+        "image_id": "7b64586e-d3b5-4371-95e4-3b24ad847729",
+        "width": 1000,
+        "height": 1000
+      }
     },
     {
       "manufacturer_id": "1d4b7455-0116-4f05-be61-d1e024ecb942",
@@ -359,6 +364,622 @@
     }
   ],
   "device_models": [
+    {
+      "device_model_id": "57ede183-ff77-42c7-b622-851c3f54cf0c",
+      "display_name": "Wi-Fi Smart Lock",
+      "description": "The all-in-one Wi-Fi Smart Lock has all the convenience and intelligence you need in two colors: matte black and silver. It comes equipped with built-in Wi-Fi and smart features like remote access and auto-lock. In addition to being able to use your existing keys to lock and unlock the door, you can also use your smartphone or Apple Watch and the August App for added convenience.",
+      "is_device_supported": true,
+      "product_url": "https://august.com/products/august-wifi-smart-lock?view=wifi-smart-lock-2",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
+      "aesthetic_variants": [
+        {
+          "slug": "matte_black",
+          "display_name": "Matte Black",
+          "primary_color_hex": "#353537",
+          "manufacturer_sku": "AUG-SL05-M01-G01",
+          "front_image": {
+            "image_id": "4057b6c3-e3a7-49b6-9545-2e40e3fd0aa3",
+            "width": 1000,
+            "height": 1000
+          },
+          "images": [
+            {
+              "image_id": "4057b6c3-e3a7-49b6-9545-2e40e3fd0aa3",
+              "width": 1000,
+              "height": 1000
+            },
+            {
+              "image_id": "de448af6-7041-462d-9112-94707f967eec",
+              "width": 1000,
+              "height": 1000
+            },
+            {
+              "image_id": "37ebe5c4-7a96-44b7-a215-8ff1817fbd2c",
+              "width": 1000,
+              "height": 1000
+            }
+          ]
+        },
+        {
+          "slug": "silver",
+          "display_name": "Silver",
+          "primary_color_hex": "#c7c8cc",
+          "manufacturer_sku": "AUG-SL05-M01-S01",
+          "front_image": {
+            "image_id": "b9f6bd04-44d4-4709-8403-79bfcaad9c86",
+            "width": 1000,
+            "height": 1000
+          },
+          "images": [
+            {
+              "image_id": "b9f6bd04-44d4-4709-8403-79bfcaad9c86",
+              "width": 1000,
+              "height": 1000
+            },
+            {
+              "image_id": "0289ccb3-ee86-42f1-b246-70e42e7b1612",
+              "width": 1000,
+              "height": 1000
+            },
+            {
+              "image_id": "5ab46d13-5991-492e-ad43-e6251526c897",
+              "width": 1000,
+              "height": 1000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "3f664822-e33c-4eab-ba30-1c4a6496c344",
+      "display_name": "Smart Lock Pro 3rd Generation",
+      "description": "The August Smart Lock Pro 3rd Generation is available in dark gray and silver and allows you to unlock your home using your voice and a smart assistant such as Alexa, Siri, or Google Assistant. The lock also has a 24/7 activity feed that tracks activity at your doorstep. Additionally, you can keep your existing lock and keys and easily retrofit the smart lock to your existing deadbolt, and the lock will automatically lock behind you and unlock as you approach.",
+      "is_device_supported": true,
+      "product_url": "",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
+      "aesthetic_variants": [
+        {
+          "slug": "dark_gray",
+          "display_name": "Dark Gray",
+          "primary_color_hex": "#59575a",
+          "manufacturer_sku": "AUG-SL03-M03-G03",
+          "front_image": {
+            "image_id": "d0984ae1-8a11-4ca9-adf0-dc8f115a33f8",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "c5d03966-b00c-4406-ad06-47bc64d599ba",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "d0984ae1-8a11-4ca9-adf0-dc8f115a33f8",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "6894a8f2-5255-499a-a153-5a300653a00c",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "e05fc379-e077-4fce-873d-47aacaff65f0",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "c5d03966-b00c-4406-ad06-47bc64d599ba",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "silver",
+          "display_name": "Silver",
+          "primary_color_hex": "#939297",
+          "manufacturer_sku": "AUG-SL03-M03-S03",
+          "front_image": {
+            "image_id": "0d0bae71-1a3b-4dd3-9c29-2ec45e5b3b42",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "0d0bae71-1a3b-4dd3-9c29-2ec45e5b3b42",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "4cb1c0d5-3159-44a2-a12a-52b0cc399380",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "71fd666d-8eb6-436d-8b67-5928c333a824",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "4025cc3b-ba06-4dc6-9d65-80046f4227ae",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "a939848d-9d6b-412d-9f93-b5890b328afc",
+      "display_name": "Smart Lock 2nd Generation",
+      "description": "The August 2nd Generation Smart Lock comes in two colors; silver and dark gray, and allows you to access your home using Amazon Alexa, Apple HomeKit, or your smartphone. It automatically unlocks your door as you approach and automatically locks it after you enter. It also has a 24/7 activity log that lets you know who has accessed your door and when, and is designed to be installed quickly by replacing only the interior of your existing deadbolt.",
+      "is_device_supported": true,
+      "product_url": "",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
+      "aesthetic_variants": [
+        {
+          "slug": "silver",
+          "display_name": "Silver",
+          "primary_color_hex": "#d2d2d4",
+          "manufacturer_sku": "AUG-SL02-M02-S02-C",
+          "front_image": {
+            "image_id": "ef445d7d-be66-44bf-91c4-dbfb30f3711f",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "ef445d7d-be66-44bf-91c4-dbfb30f3711f",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "df9a8229-b47a-49a4-b23c-67a5ee3798c4",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "dark_gray",
+          "display_name": "Dark Gray",
+          "primary_color_hex": "#464447",
+          "manufacturer_sku": "AUG-SL02-M02-G02",
+          "front_image": {
+            "image_id": "14eac5db-8907-44ad-96cb-4a21e4733b34",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "14eac5db-8907-44ad-96cb-4a21e4733b34",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "76368b75-a791-48f8-a8f2-705c2d7db9f2",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "5d00ec94-f8d7-4dc4-b2bd-1ef015ba0d33",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "700f5131-ce1e-4481-9a0d-9235bb2754aa",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "58a6b9a0-0274-4aee-b159-112a736d0b96",
+      "display_name": "Smart Lock 4th Generation",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://august.com/products/august-wifi-smart-lock",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
+      "aesthetic_variants": [
+        {
+          "slug": "silver",
+          "display_name": "Silver",
+          "primary_color_hex": "#c9cbcf",
+          "manufacturer_sku": "AUG-SL05-M01-S01",
+          "front_image": {
+            "image_id": "6b8d37fc-5a31-4988-82c2-62b8f62e4103",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "6b8d37fc-5a31-4988-82c2-62b8f62e4103",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "0d28c00f-6bef-4ee6-9cdd-a83e6d20b5e2",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "matte_black",
+          "display_name": "Matte Black",
+          "primary_color_hex": "#343436",
+          "manufacturer_sku": "AUG-SL05-M01-G01",
+          "front_image": {
+            "image_id": "2beb6c23-4207-4b2e-8201-61d96768eecf",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "2beb6c23-4207-4b2e-8201-61d96768eecf",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "6ab14f86-25a8-4ec2-92a3-89aff8e2cc4d",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "5765ed5e-a2fa-4673-9ee4-7a5825329030",
+      "display_name": "Smart Lock 1st Generation",
+      "description": "August’s first smart lock offering comes in champagne and silver colors and provides secure keyless access to your home using iOS and Android smartphones. It is easy to install as a DIY retrofit, replacing the interior of your existing deadbolt while leaving the outside unchanged, and allows you total control over who has access to your home and can manage how long their access lasts. Additionally, the product is powered by batteries, ensuring that it is always on, even if your power, Wi-Fi, or cable go down.",
+      "is_device_supported": true,
+      "product_url": "",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
+      "aesthetic_variants": [
+        {
+          "slug": "champagne",
+          "display_name": "Champagne",
+          "primary_color_hex": "#a99182",
+          "manufacturer_sku": "AUG-SL01-M01-C01",
+          "front_image": {
+            "image_id": "76565793-8f5a-47f1-819b-19c4f662e483",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "76565793-8f5a-47f1-819b-19c4f662e483",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "dark_gray",
+          "display_name": "Dark Gray",
+          "primary_color_hex": "#424242",
+          "manufacturer_sku": "AUG-SL01-M01-G01",
+          "front_image": {
+            "image_id": "6c7429d1-13ca-4ea3-8ad8-f156b499b3b6",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "6c7429d1-13ca-4ea3-8ad8-f156b499b3b6",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "silver",
+          "display_name": "Silver",
+          "primary_color_hex": "#bfbfbf",
+          "manufacturer_sku": "AUG-SL01-M01-S01",
+          "front_image": {
+            "image_id": "12bf0c04-d6e7-44c3-99f5-6a933413474e",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "12bf0c04-d6e7-44c3-99f5-6a933413474e",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "3d2605ce-4ed8-4de7-8c86-4a44c4dcd5d9",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "b89e7e9a-1ba3-46ba-b05b-b20ec3133898",
+      "display_name": "Smart Lock 3rd Generation",
+      "description": "The August Smart Lock 3rd Generation allows you to remotely lock and unlock your door, and also allows you to provide secure digital keys to guests using your phone. It easily attaches to an existing deadbolt on the inside of your door, allowing you to continue using your physical keys. It can be controlled using voice commands with Amazon Alexa or Google Assistant, and comes in three colors: Silver, Satin Nickel, and Dark Gray.",
+      "is_device_supported": true,
+      "product_url": "https://august.com/products/august-smart-lock-3rd-generation",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
+      "aesthetic_variants": [
+        {
+          "slug": "silver",
+          "display_name": "Silver",
+          "primary_color_hex": "#c6c7cb",
+          "manufacturer_sku": "AUG-SL04-M01-S04",
+          "front_image": {
+            "image_id": "861dcf47-9afa-401a-8072-148883f778a7",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "a9f7b674-106c-414f-9cbe-ee72d99f8bf8",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "861dcf47-9afa-401a-8072-148883f778a7",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "e0a7f614-f148-4d69-9c4c-4959b255f18b",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "a9f7b674-106c-414f-9cbe-ee72d99f8bf8",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "e41dccb9-bfd7-41f7-a77d-8b167116b113",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "4bd22231-d2c9-4102-af1b-ddfebcb2e41a",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "ebc8fa71-8901-4dc2-a3be-0317211f1745",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "dark_gray",
+          "display_name": "Dark Gray",
+          "primary_color_hex": "#363435",
+          "manufacturer_sku": "AUG-SL04-M01-G04",
+          "front_image": {
+            "image_id": "f9944a70-c957-4682-a9fc-002d371b35b0",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "f9944a70-c957-4682-a9fc-002d371b35b0",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "0e3b01f3-0200-493f-852e-ee431c5b16d2",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "satin_nickel",
+          "display_name": "Satin Nickel",
+          "primary_color_hex": "#a7a3a2",
+          "manufacturer_sku": "AUG-SL04-C03-N04",
+          "front_image": {
+            "image_id": "dac7e7aa-0263-4f06-a3d6-03df01a5050a",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "dac7e7aa-0263-4f06-a3d6-03df01a5050a",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "19415a64-5141-4451-8143-b25cd6906ced",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "4489946b-570f-4fd3-8ae8-6d0a3d4d18b6",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "23baf3d3-5805-4ebc-8ec1-220aebf03984",
+      "display_name": "Smart Lock Pro",
+      "description": "Gorgeously designed by Fuse Project, the August Wi-Fi Smart Lock Pro offers a range of convenient and intelligent features such as access codes (requires pin pad accessory), unlock anywhere, monitor logs, battery level, and more. It comes with built-in wifi and lets you use your existing keys. The August App lets you unlock from anywhere and can be unlocked with your Apple Watch.",
+      "is_device_supported": true,
+      "product_url": "",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
+      "aesthetic_variants": [
+        {
+          "slug": "dark_gray",
+          "display_name": "Dark Gray",
+          "primary_color_hex": "#444144",
+          "manufacturer_sku": "AUG-SL03-C02-G03",
+          "front_image": {
+            "image_id": "3d26843b-4d7f-48ca-9b62-2320389fa406",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "3d26843b-4d7f-48ca-9b62-2320389fa406",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "e05fc379-e077-4fce-873d-47aacaff65f0",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "71f54486-27f2-4e12-bb6f-3b89a31241ee",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "silver",
+          "display_name": "Silver",
+          "primary_color_hex": "#c3c4c8",
+          "manufacturer_sku": "AUG-SL03-C02-S03",
+          "front_image": {
+            "image_id": "c0c127e1-ebcc-46e5-ac10-ac80f17c1c58",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "c0c127e1-ebcc-46e5-ac10-ac80f17c1c58",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "34e98a06-746b-46b8-8668-b0d82707a0b1",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "9ace4652-40ca-4dfc-b8e2-de4a5d381bbd",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "a7d7caa3-1784-4ce5-b474-bf6e177e3345",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
     {
       "device_model_id": "8bac86d7-23f5-4e04-ad03-7b91fc9e778b",
       "display_name": "Lock",
@@ -966,57 +1587,6 @@
       ]
     },
     {
-      "device_model_id": "148a97bd-7aaf-4c7d-aa4f-5534482bcbc3",
-      "display_name": "Smart Lock U100",
-      "description": "",
-      "is_device_supported": false,
-      "product_url": "https://www.aqara.com/en/product/smart-lock-u100",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery", "hardwired"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": true
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "1d2f1d14-c3ce-4605-8817-98c64a69d07c",
-      "aesthetic_variants": [
-        {
-          "slug": "silver",
-          "display_name": "Silver",
-          "primary_color_hex": "#a3a4a5",
-          "front_image": {
-            "image_id": "8a892ede-3b87-48a4-afd7-05e0dd7febc8",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "376a20d5-5d34-4d33-b4dd-5e1cfd67bb1e",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "8a892ede-3b87-48a4-afd7-05e0dd7febc8",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "376a20d5-5d34-4d33-b4dd-5e1cfd67bb1e",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
       "device_model_id": "d320021c-878f-43c3-96b6-dec4f57ebc70",
       "display_name": "Smart Door Lock D100 Zigbee",
       "description": "",
@@ -1071,6 +1641,57 @@
             },
             {
               "image_id": "b8fea2d3-d0dd-40b1-86dc-7af617a5080b",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "148a97bd-7aaf-4c7d-aa4f-5534482bcbc3",
+      "display_name": "Smart Lock U100",
+      "description": "",
+      "is_device_supported": false,
+      "product_url": "https://www.aqara.com/en/product/smart-lock-u100",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery", "hardwired"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": true
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "1d2f1d14-c3ce-4605-8817-98c64a69d07c",
+      "aesthetic_variants": [
+        {
+          "slug": "silver",
+          "display_name": "Silver",
+          "primary_color_hex": "#a3a4a5",
+          "front_image": {
+            "image_id": "8a892ede-3b87-48a4-afd7-05e0dd7febc8",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "376a20d5-5d34-4d33-b4dd-5e1cfd67bb1e",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "8a892ede-3b87-48a4-afd7-05e0dd7febc8",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "376a20d5-5d34-4d33-b4dd-5e1cfd67bb1e",
               "width": 1100,
               "height": 1100
             }
@@ -1848,6 +2469,63 @@
           "images": [
             {
               "image_id": "3b1edab1-cc7d-4e6b-b281-5d3fab2c58c8",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "d69f04d8-12f0-4f32-977b-f6ba5614fe26",
+      "display_name": "YDM7116A",
+      "description": "The Yale YDM7116 is a basic 3-in-1 smart lock that allows you to unlock your door using your fingerprint, PIN code, or mechanical key. This smart lock features a capacitive touch keypad, a smart screen, and a hidden fingerprint scanner for added security. It also has an operation status guide, a break-in/damage alarm, and an automatic locking function for added convenience. The YDM4115 also offers the option to purchase a remote control for added flexibility. It also comes in five colors; silver, gold, brown, matte black, and black.",
+      "is_device_supported": true,
+      "product_url": "https://www.yalehome.com/ph/en/products/yale-smart-locks/yale-mortise-locks/ydm7116a",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "mortise",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "efb72479-e592-4993-b848-1d7d18cc1f65",
+      "aesthetic_variants": [
+        {
+          "slug": "matte_black",
+          "display_name": "Matte Black",
+          "primary_color_hex": "#292929",
+          "manufacturer_sku": "YDM7116A",
+          "front_image": {
+            "image_id": "e28baa28-a7a2-4a8f-914a-3bcae7f89838",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "4be3484b-eef4-4fd0-9cc2-5b5323f05ed2",
+            "width": 1080,
+            "height": 1080
+          },
+          "images": [
+            {
+              "image_id": "e28baa28-a7a2-4a8f-914a-3bcae7f89838",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "4be3484b-eef4-4fd0-9cc2-5b5323f05ed2",
+              "width": 1080,
+              "height": 1080
+            },
+            {
+              "image_id": "170c5df6-0448-47c9-bf7f-e60dddbc397b",
               "width": 1100,
               "height": 1100
             }
@@ -2932,6 +3610,81 @@
       ]
     },
     {
+      "device_model_id": "97529db6-49b2-4bee-b830-7367fe4a534e",
+      "display_name": "Assure Lever Touchscreen with Z-Wave Plus (YRL226-ZW2)",
+      "description": "The Assure Lever is a smart lock that comes in satin nickel and oil rubbed bronze that can be installed on your door to provide key-free entry. It connects to your phone via Wi-Fi and Bluetooth, allowing you to lock and unlock your door, grant access to others, and monitor activity using the accompanying app. The lock also has a backlit keypad, which allows you to unlock it without your phone if needed. Additionally, you can use voice assistants such as Alexa, Google, and Siri to control the lock and check its status.",
+      "is_device_supported": true,
+      "product_url": "https://shopyalehome.com/collections/smart-locks/products/yale-assure-lever-touchscreen-with-wi-fi-and-bluetooth?variant=39341913473156",
+      "main_connection_type": "unknown",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "lever",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "efb72479-e592-4993-b848-1d7d18cc1f65",
+      "aesthetic_variants": [
+        {
+          "slug": "oil_rubbed_bronze",
+          "display_name": "Oil Rubbed Bronze",
+          "primary_color_hex": "#1d1d1d",
+          "manufacturer_sku": "YRL226-ZW2-0BP",
+          "front_image": {
+            "image_id": "40333bf1-6198-4ffc-ad06-7587c764568a",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "b3a3da2f-f701-474d-b893-208d7624fa35",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "40333bf1-6198-4ffc-ad06-7587c764568a",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "b3a3da2f-f701-474d-b893-208d7624fa35",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "satin_nickel",
+          "display_name": "Satin Nickel",
+          "primary_color_hex": "#cbcbcb",
+          "manufacturer_sku": "YRL226-ZW2-619",
+          "front_image": {
+            "image_id": "f39bcadf-770f-47cf-84b6-2ae89ef7a266",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "f39bcadf-770f-47cf-84b6-2ae89ef7a266",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "02117f50-ec1b-428c-b896-37941a4d1b6a",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
       "device_model_id": "e32de9c2-0161-43d7-9f9b-2b5f44c7b518",
       "display_name": "Assure Lock Keypad with Wi-Fi and Bluetooth (YRD216-CBA)",
       "description": "The Yale Assure Lock Keypad with WiFi and Bluetooth – an innovative door enhancement that transforms your home security. Control access, track entries, and enjoy keyless convenience through your smartphone, even from afar.With WiFi and Bluetooth connectivity, this smart lock seamlessly syncs with popular voice assistants like Amazon Alexa, Hey Google, and Siri. Voice-controlled locking and checking door status are now effortless. Experience hands-free entry as the Yale Assure Lock Keypad auto-unlocks upon your approach and relocks upon closure, ensuring unwavering security. Manage your door remotely using the intuitive Yale Access App, all without an extra hub. The Auto-Relock feature guarantees peace of mind, always keeping your door secure. Elevate your home's security with the Yale Assure Lock Keypad – where control meets cutting-edge technology. Explore keyless living today.",
@@ -3703,63 +4456,6 @@
             },
             {
               "image_id": "0f022320-399f-493e-89d7-a40c14e551a8",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "d69f04d8-12f0-4f32-977b-f6ba5614fe26",
-      "display_name": "YDM7116A",
-      "description": "The Yale YDM7116 is a basic 3-in-1 smart lock that allows you to unlock your door using your fingerprint, PIN code, or mechanical key. This smart lock features a capacitive touch keypad, a smart screen, and a hidden fingerprint scanner for added security. It also has an operation status guide, a break-in/damage alarm, and an automatic locking function for added convenience. The YDM4115 also offers the option to purchase a remote control for added flexibility. It also comes in five colors; silver, gold, brown, matte black, and black.",
-      "is_device_supported": true,
-      "product_url": "https://www.yalehome.com/ph/en/products/yale-smart-locks/yale-mortise-locks/ydm7116a",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "mortise",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "efb72479-e592-4993-b848-1d7d18cc1f65",
-      "aesthetic_variants": [
-        {
-          "slug": "matte_black",
-          "display_name": "Matte Black",
-          "primary_color_hex": "#292929",
-          "manufacturer_sku": "YDM7116A",
-          "front_image": {
-            "image_id": "e28baa28-a7a2-4a8f-914a-3bcae7f89838",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "4be3484b-eef4-4fd0-9cc2-5b5323f05ed2",
-            "width": 1080,
-            "height": 1080
-          },
-          "images": [
-            {
-              "image_id": "e28baa28-a7a2-4a8f-914a-3bcae7f89838",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "4be3484b-eef4-4fd0-9cc2-5b5323f05ed2",
-              "width": 1080,
-              "height": 1080
-            },
-            {
-              "image_id": "170c5df6-0448-47c9-bf7f-e60dddbc397b",
               "width": 1100,
               "height": 1100
             }
@@ -5054,81 +5750,6 @@
       ]
     },
     {
-      "device_model_id": "97529db6-49b2-4bee-b830-7367fe4a534e",
-      "display_name": "Assure Lever Touchscreen with Z-Wave Plus (YRL226-ZW2)",
-      "description": "The Assure Lever is a smart lock that comes in satin nickel and oil rubbed bronze that can be installed on your door to provide key-free entry. It connects to your phone via Wi-Fi and Bluetooth, allowing you to lock and unlock your door, grant access to others, and monitor activity using the accompanying app. The lock also has a backlit keypad, which allows you to unlock it without your phone if needed. Additionally, you can use voice assistants such as Alexa, Google, and Siri to control the lock and check its status.",
-      "is_device_supported": true,
-      "product_url": "https://shopyalehome.com/collections/smart-locks/products/yale-assure-lever-touchscreen-with-wi-fi-and-bluetooth?variant=39341913473156",
-      "main_connection_type": "unknown",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "lever",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "efb72479-e592-4993-b848-1d7d18cc1f65",
-      "aesthetic_variants": [
-        {
-          "slug": "oil_rubbed_bronze",
-          "display_name": "Oil Rubbed Bronze",
-          "primary_color_hex": "#1d1d1d",
-          "manufacturer_sku": "YRL226-ZW2-0BP",
-          "front_image": {
-            "image_id": "40333bf1-6198-4ffc-ad06-7587c764568a",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "b3a3da2f-f701-474d-b893-208d7624fa35",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "40333bf1-6198-4ffc-ad06-7587c764568a",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "b3a3da2f-f701-474d-b893-208d7624fa35",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "satin_nickel",
-          "display_name": "Satin Nickel",
-          "primary_color_hex": "#cbcbcb",
-          "manufacturer_sku": "YRL226-ZW2-619",
-          "front_image": {
-            "image_id": "f39bcadf-770f-47cf-84b6-2ae89ef7a266",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "f39bcadf-770f-47cf-84b6-2ae89ef7a266",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "02117f50-ec1b-428c-b896-37941a4d1b6a",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
       "device_model_id": "53766a51-b491-45f0-947d-9a51876d63fe",
       "display_name": "Connected Keypads",
       "description": "",
@@ -5732,16 +6353,6 @@
               "height": 1100
             },
             {
-              "image_id": "cae97d8d-a4c4-4ab7-8159-7e71d579cc4b",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "20af24fb-3364-4c61-8964-1dc3cd392ed5",
-              "width": 1100,
-              "height": 1100
-            },
-            {
               "image_id": "d04fb0c5-c5c2-4056-ab18-2c6e10e3afe4",
               "width": 1100,
               "height": 1100
@@ -5753,6 +6364,16 @@
             },
             {
               "image_id": "1cb02a8c-5eb7-4d05-b646-fa8b738b298a",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "cae97d8d-a4c4-4ab7-8159-7e71d579cc4b",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "20af24fb-3364-4c61-8964-1dc3cd392ed5",
               "width": 1100,
               "height": 1100
             }
@@ -6675,6 +7296,11 @@
               "height": 1000
             },
             {
+              "image_id": "96db2396-e80e-4676-b126-89b392a01707",
+              "width": 1100,
+              "height": 1100
+            },
+            {
               "image_id": "be7f60b3-ab83-4f11-a908-0da5078df811",
               "width": 1000,
               "height": 1000
@@ -6686,11 +7312,6 @@
             },
             {
               "image_id": "a33c9891-4d25-4e04-b96c-b4b6ced8e094",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "96db2396-e80e-4676-b126-89b392a01707",
               "width": 1100,
               "height": 1100
             }
@@ -6857,6 +7478,11 @@
               "height": 1000
             },
             {
+              "image_id": "96db2396-e80e-4676-b126-89b392a01707",
+              "width": 1100,
+              "height": 1100
+            },
+            {
               "image_id": "be7f60b3-ab83-4f11-a908-0da5078df811",
               "width": 1000,
               "height": 1000
@@ -6868,11 +7494,6 @@
             },
             {
               "image_id": "a33c9891-4d25-4e04-b96c-b4b6ced8e094",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "96db2396-e80e-4676-b126-89b392a01707",
               "width": 1100,
               "height": 1100
             }
@@ -7454,6 +8075,300 @@
       ]
     },
     {
+      "device_model_id": "6be68259-70f5-4021-a889-603cea8639cb",
+      "display_name": "912 SmartCode Electronic Tustin Lever with Z-Wave Technology",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://www.kwikset.com/products/detail/912-smartcode-electronic-tustin-lever-with-z-wave-technology?variant=912tnl-trl-zw-l03",
+      "main_connection_type": "unknown",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "lever",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "a8abff62-5354-4939-8838-db54417d2e55",
+      "aesthetic_variants": [
+        {
+          "slug": "lifetime_polished_brass",
+          "display_name": "Lifetime Polished Brass",
+          "primary_color_hex": "#ffedb4",
+          "manufacturer_sku": "912TNL TRL ZW L03",
+          "front_image": {
+            "image_id": "d6e883e3-a5da-40bf-9e2c-5987c0b126e8",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "d6e883e3-a5da-40bf-9e2c-5987c0b126e8",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "4ad731b2-016d-400b-8369-08fbb76b54f7",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "1437a532-a9eb-4bee-84db-a1c2f28f214c",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "venetian_bronze",
+          "display_name": "Venetian Bronze",
+          "primary_color_hex": "#5f595f",
+          "manufacturer_sku": "912TNL TRL ZW 11P",
+          "front_image": {
+            "image_id": "6cd128d7-1d0c-4820-aaa6-fe0aab4a9c1f",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "6cd128d7-1d0c-4820-aaa6-fe0aab4a9c1f",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "7f3a9d8f-7bf1-45f0-a4ee-e204c5bb6c59",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "37512601-77e5-49f5-9cf4-0cbaeeac4a21",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "satin_nickel",
+          "display_name": "Satin Nickel",
+          "primary_color_hex": "#e9e3de",
+          "manufacturer_sku": "912TNL TRL ZW 15",
+          "front_image": {
+            "image_id": "8ec9858d-8bbe-42ba-98ca-1a67b6973ed5",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "8ec9858d-8bbe-42ba-98ca-1a67b6973ed5",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "b356b03e-c92a-4b55-a490-fae380c1aa51",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "033042bc-0eae-4518-86b5-e42f41b9b274",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "b4b34a97-6336-44b9-8d33-a65c9d322e1d",
+      "display_name": "914 SmartCode Contemporary Electronic Deadbolt with Z-Wave Technology",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://www.kwikset.com/products/detail/914-smartcode-contemporary-electronic-deadbolt-with-z-wave-technology?variant=914cnt-zw500-26",
+      "main_connection_type": "unknown",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "a8abff62-5354-4939-8838-db54417d2e55",
+      "aesthetic_variants": [
+        {
+          "slug": "polished_chrome",
+          "display_name": "Polished Chrome",
+          "primary_color_hex": "#f7f7f7",
+          "manufacturer_sku": "914CNT ZW500 26",
+          "front_image": {
+            "image_id": "379cbb6f-dbfc-497f-8087-5aa8f294526d",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "e66bea5e-004f-402d-95ee-e9b037c706b7",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "379cbb6f-dbfc-497f-8087-5aa8f294526d",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "e66bea5e-004f-402d-95ee-e9b037c706b7",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "6cfc870f-2570-479f-b4eb-89dec554a2f3",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "84c0d156-72d8-44e1-bc30-ef8a6cf14a03",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "satin_nickel",
+          "display_name": "Satin Nickel",
+          "primary_color_hex": "#e2d8d1",
+          "manufacturer_sku": "914CNT ZW500 15",
+          "front_image": {
+            "image_id": "04f12d8a-f53c-4986-8a40-01726d829111",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "201ae167-446a-4d77-bf07-404308def67b",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "04f12d8a-f53c-4986-8a40-01726d829111",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "1d76dbe5-6c7b-46e6-9af1-595e4241d996",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "201ae167-446a-4d77-bf07-404308def67b",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "b915cfbb-ee13-47c2-9173-dc9399d79e4f",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "matte_black",
+          "display_name": "Matte Black",
+          "primary_color_hex": "#474142",
+          "manufacturer_sku": "914CNT ZW500 514",
+          "front_image": {
+            "image_id": "976a81a6-8bc4-420f-8682-fc60139d20db",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "864a6b50-901e-4258-802e-149c4b617e70",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "976a81a6-8bc4-420f-8682-fc60139d20db",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "864a6b50-901e-4258-802e-149c4b617e70",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "f12808fb-9c2a-44d6-bcd1-9b729226aacb",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "8aa6e4ab-a10f-4adf-aeb6-103824c4768d",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "43e5dcbb-c261-449b-8dbc-8ece315a65dc",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "venetian_bronze",
+          "display_name": "Venetian Bronze",
+          "primary_color_hex": "#2d2827",
+          "manufacturer_sku": "914CNT ZW500 11P",
+          "front_image": {
+            "image_id": "adaf88f2-c93d-439f-9046-4b06f1675a1a",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "8c313a0d-c1da-4b58-999f-b2469088309f",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "adaf88f2-c93d-439f-9046-4b06f1675a1a",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "8c313a0d-c1da-4b58-999f-b2469088309f",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "b0723bd0-771a-401b-9b74-726757510468",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "76dd5d14-6326-4698-b647-f67d9cf715fc",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "3360f2ff-0007-400b-a673-104e34846f96",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
       "device_model_id": "44d54203-7ec7-4fa1-9909-6a4332243398",
       "display_name": "919 Premis Contemporary Smart Lock",
       "description": "",
@@ -7788,6 +8703,119 @@
       ]
     },
     {
+      "device_model_id": "97352c90-0cdb-4df5-888c-19e5cfdb2e38",
+      "display_name": "914 SmartCode Traditional Electronic Deadbolt with Z-Wave Technology",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://www.kwikset.com/products/detail/914-smartcode-traditional-electronic-deadbolt-with-z-wave-technology?variant=914trl-zw-11p",
+      "main_connection_type": "unknown",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "a8abff62-5354-4939-8838-db54417d2e55",
+      "aesthetic_variants": [
+        {
+          "slug": "venetian_bronze",
+          "display_name": "Venetian Bronze",
+          "primary_color_hex": "#544240",
+          "manufacturer_sku": "914TRL ZW 11P",
+          "front_image": {
+            "image_id": "1472d1df-0972-4081-874e-0fe18242f71d",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "1472d1df-0972-4081-874e-0fe18242f71d",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "44911dde-c392-4484-be7a-ece40916b916",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "beeb4ab2-b740-4c9c-8164-cf49bb37c008",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "lifetime_polished_brass",
+          "display_name": "Lifetime Polished Brass",
+          "primary_color_hex": "#fbe5a2",
+          "manufacturer_sku": "914TRL ZW L03",
+          "front_image": {
+            "image_id": "71ee67e0-63b1-43ce-9e85-abb8ffb9a219",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "71ee67e0-63b1-43ce-9e85-abb8ffb9a219",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "ba5a102a-f506-4d95-8f12-74460820fa07",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "satin_nickel",
+          "display_name": "Satin Nickel",
+          "primary_color_hex": "#d8cfc6",
+          "manufacturer_sku": "914TRL ZW 15",
+          "front_image": {
+            "image_id": "a6bb740c-9967-4ce5-b319-da1be5332129",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "67aa975d-ce31-4869-ba33-08244d65a5f4",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "a6bb740c-9967-4ce5-b319-da1be5332129",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "67aa975d-ce31-4869-ba33-08244d65a5f4",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "68d006b3-8d38-4092-9043-4fde8e1becef",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "519a457a-01f9-4e90-820f-aa053f7576a4",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
       "device_model_id": "b6a3d133-7668-466f-897f-ee1ad91ab349",
       "display_name": "910 SmartCode Traditional Electronic Deadbolt with Z-Wave Technology",
       "description": "",
@@ -8078,114 +9106,6 @@
             },
             {
               "image_id": "72ff980d-c369-41d3-8f85-a25c635dec75",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "6be68259-70f5-4021-a889-603cea8639cb",
-      "display_name": "912 SmartCode Electronic Tustin Lever with Z-Wave Technology",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://www.kwikset.com/products/detail/912-smartcode-electronic-tustin-lever-with-z-wave-technology?variant=912tnl-trl-zw-l03",
-      "main_connection_type": "unknown",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "lever",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "a8abff62-5354-4939-8838-db54417d2e55",
-      "aesthetic_variants": [
-        {
-          "slug": "lifetime_polished_brass",
-          "display_name": "Lifetime Polished Brass",
-          "primary_color_hex": "#ffedb4",
-          "manufacturer_sku": "912TNL TRL ZW L03",
-          "front_image": {
-            "image_id": "d6e883e3-a5da-40bf-9e2c-5987c0b126e8",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "d6e883e3-a5da-40bf-9e2c-5987c0b126e8",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "4ad731b2-016d-400b-8369-08fbb76b54f7",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "1437a532-a9eb-4bee-84db-a1c2f28f214c",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "venetian_bronze",
-          "display_name": "Venetian Bronze",
-          "primary_color_hex": "#5f595f",
-          "manufacturer_sku": "912TNL TRL ZW 11P",
-          "front_image": {
-            "image_id": "6cd128d7-1d0c-4820-aaa6-fe0aab4a9c1f",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "6cd128d7-1d0c-4820-aaa6-fe0aab4a9c1f",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "7f3a9d8f-7bf1-45f0-a4ee-e204c5bb6c59",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "37512601-77e5-49f5-9cf4-0cbaeeac4a21",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "satin_nickel",
-          "display_name": "Satin Nickel",
-          "primary_color_hex": "#e9e3de",
-          "manufacturer_sku": "912TNL TRL ZW 15",
-          "front_image": {
-            "image_id": "8ec9858d-8bbe-42ba-98ca-1a67b6973ed5",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "8ec9858d-8bbe-42ba-98ca-1a67b6973ed5",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "b356b03e-c92a-4b55-a490-fae380c1aa51",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "033042bc-0eae-4518-86b5-e42f41b9b274",
               "width": 1100,
               "height": 1100
             }
@@ -8942,6 +9862,106 @@
       ]
     },
     {
+      "device_model_id": "9d9e84ab-9d95-4935-b2a2-1952aa62a4d7",
+      "display_name": "919 Premis Traditional Smart Lock",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://www.kwikset.com/products/detail/919-premis-traditional-smart-lock?variant=919trl-premis-15",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": false,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "a8abff62-5354-4939-8838-db54417d2e55",
+      "aesthetic_variants": [
+        {
+          "slug": "satin_nickel",
+          "display_name": "Satin Nickel",
+          "primary_color_hex": "#cfc5be",
+          "manufacturer_sku": "919TRL PREMIS 15",
+          "front_image": {
+            "image_id": "caf03a04-6b9e-401e-aa5b-e073b7b4c675",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "2481a8f2-30a7-4219-9efb-60b4075c48d4",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "caf03a04-6b9e-401e-aa5b-e073b7b4c675",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "14964af8-650a-47d2-b1b5-b43f62dfbe7b",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "2481a8f2-30a7-4219-9efb-60b4075c48d4",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "53dd2411-904b-4ea5-9b78-128290e632a3",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "venetian_bronze",
+          "display_name": "Venetian Bronze",
+          "primary_color_hex": "#000000",
+          "manufacturer_sku": "919TRL PREMIS 11P",
+          "front_image": {
+            "image_id": "a9150d30-64b8-45e3-87b6-085b6a6d688e",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "0454aa43-222a-4221-b948-e00af2177da6",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "a9150d30-64b8-45e3-87b6-085b6a6d688e",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "0454aa43-222a-4221-b948-e00af2177da6",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "9c85340b-cd14-4ddb-9853-6bc52875208b",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "f8519070-c3a2-4f71-a04a-cd2edb382c51",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
       "device_model_id": "adc24765-e75f-46fb-a484-e937ebde876b",
       "display_name": "Halo Touch Contemporary Fingerprint Wi-Fi Enabled Smart Lock",
       "description": "",
@@ -9288,405 +10308,6 @@
             },
             {
               "image_id": "56214a45-9785-42dc-abe6-66089381a095",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "b4b34a97-6336-44b9-8d33-a65c9d322e1d",
-      "display_name": "914 SmartCode Contemporary Electronic Deadbolt with Z-Wave Technology",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://www.kwikset.com/products/detail/914-smartcode-contemporary-electronic-deadbolt-with-z-wave-technology?variant=914cnt-zw500-26",
-      "main_connection_type": "unknown",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "a8abff62-5354-4939-8838-db54417d2e55",
-      "aesthetic_variants": [
-        {
-          "slug": "polished_chrome",
-          "display_name": "Polished Chrome",
-          "primary_color_hex": "#f7f7f7",
-          "manufacturer_sku": "914CNT ZW500 26",
-          "front_image": {
-            "image_id": "379cbb6f-dbfc-497f-8087-5aa8f294526d",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "e66bea5e-004f-402d-95ee-e9b037c706b7",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "379cbb6f-dbfc-497f-8087-5aa8f294526d",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "e66bea5e-004f-402d-95ee-e9b037c706b7",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "6cfc870f-2570-479f-b4eb-89dec554a2f3",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "84c0d156-72d8-44e1-bc30-ef8a6cf14a03",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "satin_nickel",
-          "display_name": "Satin Nickel",
-          "primary_color_hex": "#e2d8d1",
-          "manufacturer_sku": "914CNT ZW500 15",
-          "front_image": {
-            "image_id": "04f12d8a-f53c-4986-8a40-01726d829111",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "201ae167-446a-4d77-bf07-404308def67b",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "04f12d8a-f53c-4986-8a40-01726d829111",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "1d76dbe5-6c7b-46e6-9af1-595e4241d996",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "201ae167-446a-4d77-bf07-404308def67b",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "b915cfbb-ee13-47c2-9173-dc9399d79e4f",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "matte_black",
-          "display_name": "Matte Black",
-          "primary_color_hex": "#474142",
-          "manufacturer_sku": "914CNT ZW500 514",
-          "front_image": {
-            "image_id": "976a81a6-8bc4-420f-8682-fc60139d20db",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "864a6b50-901e-4258-802e-149c4b617e70",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "976a81a6-8bc4-420f-8682-fc60139d20db",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "864a6b50-901e-4258-802e-149c4b617e70",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "f12808fb-9c2a-44d6-bcd1-9b729226aacb",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "8aa6e4ab-a10f-4adf-aeb6-103824c4768d",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "43e5dcbb-c261-449b-8dbc-8ece315a65dc",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "venetian_bronze",
-          "display_name": "Venetian Bronze",
-          "primary_color_hex": "#2d2827",
-          "manufacturer_sku": "914CNT ZW500 11P",
-          "front_image": {
-            "image_id": "adaf88f2-c93d-439f-9046-4b06f1675a1a",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "8c313a0d-c1da-4b58-999f-b2469088309f",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "adaf88f2-c93d-439f-9046-4b06f1675a1a",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "8c313a0d-c1da-4b58-999f-b2469088309f",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "b0723bd0-771a-401b-9b74-726757510468",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "76dd5d14-6326-4698-b647-f67d9cf715fc",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "3360f2ff-0007-400b-a673-104e34846f96",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "97352c90-0cdb-4df5-888c-19e5cfdb2e38",
-      "display_name": "914 SmartCode Traditional Electronic Deadbolt with Z-Wave Technology",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://www.kwikset.com/products/detail/914-smartcode-traditional-electronic-deadbolt-with-z-wave-technology?variant=914trl-zw-11p",
-      "main_connection_type": "unknown",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "a8abff62-5354-4939-8838-db54417d2e55",
-      "aesthetic_variants": [
-        {
-          "slug": "venetian_bronze",
-          "display_name": "Venetian Bronze",
-          "primary_color_hex": "#544240",
-          "manufacturer_sku": "914TRL ZW 11P",
-          "front_image": {
-            "image_id": "1472d1df-0972-4081-874e-0fe18242f71d",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "1472d1df-0972-4081-874e-0fe18242f71d",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "44911dde-c392-4484-be7a-ece40916b916",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "beeb4ab2-b740-4c9c-8164-cf49bb37c008",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "lifetime_polished_brass",
-          "display_name": "Lifetime Polished Brass",
-          "primary_color_hex": "#fbe5a2",
-          "manufacturer_sku": "914TRL ZW L03",
-          "front_image": {
-            "image_id": "71ee67e0-63b1-43ce-9e85-abb8ffb9a219",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "71ee67e0-63b1-43ce-9e85-abb8ffb9a219",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "ba5a102a-f506-4d95-8f12-74460820fa07",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "satin_nickel",
-          "display_name": "Satin Nickel",
-          "primary_color_hex": "#d8cfc6",
-          "manufacturer_sku": "914TRL ZW 15",
-          "front_image": {
-            "image_id": "a6bb740c-9967-4ce5-b319-da1be5332129",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "67aa975d-ce31-4869-ba33-08244d65a5f4",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "a6bb740c-9967-4ce5-b319-da1be5332129",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "67aa975d-ce31-4869-ba33-08244d65a5f4",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "68d006b3-8d38-4092-9043-4fde8e1becef",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "519a457a-01f9-4e90-820f-aa053f7576a4",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "9d9e84ab-9d95-4935-b2a2-1952aa62a4d7",
-      "display_name": "919 Premis Traditional Smart Lock",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://www.kwikset.com/products/detail/919-premis-traditional-smart-lock?variant=919trl-premis-15",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": false,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "a8abff62-5354-4939-8838-db54417d2e55",
-      "aesthetic_variants": [
-        {
-          "slug": "satin_nickel",
-          "display_name": "Satin Nickel",
-          "primary_color_hex": "#cfc5be",
-          "manufacturer_sku": "919TRL PREMIS 15",
-          "front_image": {
-            "image_id": "caf03a04-6b9e-401e-aa5b-e073b7b4c675",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "2481a8f2-30a7-4219-9efb-60b4075c48d4",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "caf03a04-6b9e-401e-aa5b-e073b7b4c675",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "14964af8-650a-47d2-b1b5-b43f62dfbe7b",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "2481a8f2-30a7-4219-9efb-60b4075c48d4",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "53dd2411-904b-4ea5-9b78-128290e632a3",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "venetian_bronze",
-          "display_name": "Venetian Bronze",
-          "primary_color_hex": "#000000",
-          "manufacturer_sku": "919TRL PREMIS 11P",
-          "front_image": {
-            "image_id": "a9150d30-64b8-45e3-87b6-085b6a6d688e",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "0454aa43-222a-4221-b948-e00af2177da6",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "a9150d30-64b8-45e3-87b6-085b6a6d688e",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "0454aa43-222a-4221-b948-e00af2177da6",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "9c85340b-cd14-4ddb-9853-6bc52875208b",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "f8519070-c3a2-4f71-a04a-cd2edb382c51",
               "width": 1100,
               "height": 1100
             }
@@ -10255,6 +10876,86 @@
       ]
     },
     {
+      "device_model_id": "8f4da912-b33e-4770-8e44-1aa71b9e2028",
+      "display_name": "Gate Lock",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://www.igloohome.co/products/gate-lock",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "fba9c9bd-cbf9-4ea6-8cb9-7c724da8afed",
+      "aesthetic_variants": [
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#000000",
+          "manufacturer_sku": "RM2F",
+          "front_image": {
+            "image_id": "91d434ab-f0fd-471c-9ac1-47769c9f647b",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "91d434ab-f0fd-471c-9ac1-47769c9f647b",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#000000",
+          "manufacturer_sku": "RM2",
+          "front_image": {
+            "image_id": "91d434ab-f0fd-471c-9ac1-47769c9f647b",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "91d434ab-f0fd-471c-9ac1-47769c9f647b",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
       "device_model_id": "c8db65be-e3c3-4d96-96a9-1f52bc156e31",
       "display_name": "Mortise 2",
       "description": "",
@@ -10588,92 +11289,12 @@
               "height": 1100
             },
             {
-              "image_id": "89813d11-7b23-4369-ba29-43ebd153bc5b",
-              "width": 1100,
-              "height": 1100
-            },
-            {
               "image_id": "3a8c6ded-2595-4053-9ffe-3029a2c1dad3",
               "width": 1100,
               "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "8f4da912-b33e-4770-8e44-1aa71b9e2028",
-      "display_name": "Gate Lock",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://www.igloohome.co/products/gate-lock",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "fba9c9bd-cbf9-4ea6-8cb9-7c724da8afed",
-      "aesthetic_variants": [
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#000000",
-          "manufacturer_sku": "RM2F",
-          "front_image": {
-            "image_id": "91d434ab-f0fd-471c-9ac1-47769c9f647b",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "91d434ab-f0fd-471c-9ac1-47769c9f647b",
-              "width": 1100,
-              "height": 1100
             },
             {
-              "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#000000",
-          "manufacturer_sku": "RM2",
-          "front_image": {
-            "image_id": "91d434ab-f0fd-471c-9ac1-47769c9f647b",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "91d434ab-f0fd-471c-9ac1-47769c9f647b",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
+              "image_id": "89813d11-7b23-4369-ba29-43ebd153bc5b",
               "width": 1100,
               "height": 1100
             }
@@ -11244,6 +11865,123 @@
       ]
     },
     {
+      "device_model_id": "165ad520-262e-47bb-baf9-773e80cc0460",
+      "display_name": "Guard Defender (238l)",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://locklypro.com/238l/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "mortise",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "ec677c19-0cda-45bf-b50d-ee39e0e940a2",
+      "aesthetic_variants": [
+        {
+          "slug": "matte_black",
+          "display_name": "Matte Black",
+          "images": []
+        },
+        {
+          "slug": "stainless_steel",
+          "display_name": "Stainless Steel",
+          "images": []
+        }
+      ]
+    },
+    {
+      "device_model_id": "06161321-fd33-4fdc-9b81-8ba1a61f0921",
+      "display_name": "Guard Duo (679d)",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://locklypro.com/679d/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "lever",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "ec677c19-0cda-45bf-b50d-ee39e0e940a2",
+      "aesthetic_variants": [
+        {
+          "slug": "matte_black",
+          "display_name": "Matte Black",
+          "primary_color_hex": "#2d2d2d",
+          "front_image": {
+            "image_id": "5b583fa4-2538-4964-93b9-473ce7fbca72",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "fdd93eb0-9fb5-422b-a7f1-5ceb0cccf7eb",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "5b583fa4-2538-4964-93b9-473ce7fbca72",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "fdd93eb0-9fb5-422b-a7f1-5ceb0cccf7eb",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "f68964c2-a13b-43df-9e60-583193788644",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "satin_nickel",
+          "display_name": "Satin Nickel",
+          "primary_color_hex": "#323232",
+          "front_image": {
+            "image_id": "8128f372-edf1-4551-a08e-e68ee3c1743e",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "ee43ae33-7448-45b7-a0d5-d43eeeba29f7",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "8128f372-edf1-4551-a08e-e68ee3c1743e",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "ee43ae33-7448-45b7-a0d5-d43eeeba29f7",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
       "device_model_id": "1a4bdd4b-ed0e-43d7-9d29-93f9883b2a04",
       "display_name": "Guard Athena (228sl)",
       "description": "",
@@ -11324,6 +12062,109 @@
             },
             {
               "image_id": "baefb077-128f-43c0-81d5-222555633569",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "3c50a523-fcf9-4d99-baa6-d0f7d9d1ff19",
+      "display_name": "Guard deadbolt (728Z)",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://locklypro.com/728z/",
+      "main_connection_type": "unknown",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "ec677c19-0cda-45bf-b50d-ee39e0e940a2",
+      "aesthetic_variants": [
+        {
+          "slug": "satin_nickel",
+          "display_name": "Satin Nickel",
+          "primary_color_hex": "#afafa6",
+          "front_image": {
+            "image_id": "a7a7c967-bf15-40ec-aef0-0571ff4c6153",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "a7a7c967-bf15-40ec-aef0-0571ff4c6153",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "ee988f6c-cc98-4b04-9967-0b976f835201",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "0d8dbd0b-2e9d-43b0-bbe8-906566dda289",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "66ae0d4f-87cb-4d4d-89ca-954323cbd4c7",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "9cf9c6d7-cfe8-4b33-8a84-9f9b7820a5fc",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "venetian_bronze",
+          "display_name": "Venetian Bronze",
+          "images": []
+        },
+        {
+          "slug": "matte_black",
+          "display_name": "Matte Black",
+          "primary_color_hex": "#4c4c4c",
+          "front_image": {
+            "image_id": "5d438b1a-2a7b-494e-a32b-3933a0d37932",
+            "width": 1100,
+            "height": 1100
+          },
+          "back_image": {
+            "image_id": "2996b589-eedb-4e97-aad5-30e119d2c8be",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "5d438b1a-2a7b-494e-a32b-3933a0d37932",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "2996b589-eedb-4e97-aad5-30e119d2c8be",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "ae9f8c2a-02e6-4743-a754-93963230d57f",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "6ff760d0-b310-4af6-9467-442dece73a3f",
               "width": 1100,
               "height": 1100
             }
@@ -11774,11 +12615,6 @@
               "height": 1100
             },
             {
-              "image_id": "5527a406-6f10-4559-9746-c1df5f909622",
-              "width": 1100,
-              "height": 1100
-            },
-            {
               "image_id": "606bd183-a44d-4d22-8b33-6abe43bbda12",
               "width": 1100,
               "height": 1100
@@ -11790,6 +12626,11 @@
             },
             {
               "image_id": "2aaac0d0-b9e2-4bc4-a99f-d90032d12808",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "5527a406-6f10-4559-9746-c1df5f909622",
               "width": 1100,
               "height": 1100
             }
@@ -11882,40 +12723,6 @@
               "height": 1100
             }
           ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "165ad520-262e-47bb-baf9-773e80cc0460",
-      "display_name": "Guard Defender (238l)",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://locklypro.com/238l/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "mortise",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "ec677c19-0cda-45bf-b50d-ee39e0e940a2",
-      "aesthetic_variants": [
-        {
-          "slug": "matte_black",
-          "display_name": "Matte Black",
-          "images": []
-        },
-        {
-          "slug": "stainless_steel",
-          "display_name": "Stainless Steel",
-          "images": []
         }
       ]
     },
@@ -12327,813 +13134,11 @@
       ]
     },
     {
-      "device_model_id": "06161321-fd33-4fdc-9b81-8ba1a61f0921",
-      "display_name": "Guard Duo (679d)",
+      "device_model_id": "b514dee0-e8eb-426b-848b-b11c0b1933f6",
+      "display_name": "XS4 Original Keypad - EU",
       "description": "",
       "is_device_supported": true,
-      "product_url": "https://locklypro.com/679d/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "lever",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "ec677c19-0cda-45bf-b50d-ee39e0e940a2",
-      "aesthetic_variants": [
-        {
-          "slug": "matte_black",
-          "display_name": "Matte Black",
-          "primary_color_hex": "#2d2d2d",
-          "front_image": {
-            "image_id": "5b583fa4-2538-4964-93b9-473ce7fbca72",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "fdd93eb0-9fb5-422b-a7f1-5ceb0cccf7eb",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "5b583fa4-2538-4964-93b9-473ce7fbca72",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "fdd93eb0-9fb5-422b-a7f1-5ceb0cccf7eb",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "f68964c2-a13b-43df-9e60-583193788644",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "satin_nickel",
-          "display_name": "Satin Nickel",
-          "primary_color_hex": "#323232",
-          "front_image": {
-            "image_id": "8128f372-edf1-4551-a08e-e68ee3c1743e",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "ee43ae33-7448-45b7-a0d5-d43eeeba29f7",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "8128f372-edf1-4551-a08e-e68ee3c1743e",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "ee43ae33-7448-45b7-a0d5-d43eeeba29f7",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "3c50a523-fcf9-4d99-baa6-d0f7d9d1ff19",
-      "display_name": "Guard deadbolt (728Z)",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://locklypro.com/728z/",
-      "main_connection_type": "unknown",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "ec677c19-0cda-45bf-b50d-ee39e0e940a2",
-      "aesthetic_variants": [
-        {
-          "slug": "satin_nickel",
-          "display_name": "Satin Nickel",
-          "primary_color_hex": "#afafa6",
-          "front_image": {
-            "image_id": "a7a7c967-bf15-40ec-aef0-0571ff4c6153",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "a7a7c967-bf15-40ec-aef0-0571ff4c6153",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "ee988f6c-cc98-4b04-9967-0b976f835201",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "0d8dbd0b-2e9d-43b0-bbe8-906566dda289",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "66ae0d4f-87cb-4d4d-89ca-954323cbd4c7",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "9cf9c6d7-cfe8-4b33-8a84-9f9b7820a5fc",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "venetian_bronze",
-          "display_name": "Venetian Bronze",
-          "images": []
-        },
-        {
-          "slug": "matte_black",
-          "display_name": "Matte Black",
-          "primary_color_hex": "#4c4c4c",
-          "front_image": {
-            "image_id": "5d438b1a-2a7b-494e-a32b-3933a0d37932",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "2996b589-eedb-4e97-aad5-30e119d2c8be",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "5d438b1a-2a7b-494e-a32b-3933a0d37932",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "2996b589-eedb-4e97-aad5-30e119d2c8be",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "ae9f8c2a-02e6-4743-a754-93963230d57f",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "6ff760d0-b310-4af6-9467-442dece73a3f",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "57ede183-ff77-42c7-b622-851c3f54cf0c",
-      "display_name": "Wi-Fi Smart Lock",
-      "description": "The all-in-one Wi-Fi Smart Lock has all the convenience and intelligence you need in two colors: matte black and silver. It comes equipped with built-in Wi-Fi and smart features like remote access and auto-lock. In addition to being able to use your existing keys to lock and unlock the door, you can also use your smartphone or Apple Watch and the August App for added convenience.",
-      "is_device_supported": true,
-      "product_url": "https://august.com/products/august-wifi-smart-lock?view=wifi-smart-lock-2",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
-      "aesthetic_variants": [
-        {
-          "slug": "matte_black",
-          "display_name": "Matte Black",
-          "primary_color_hex": "#353537",
-          "manufacturer_sku": "AUG-SL05-M01-G01",
-          "front_image": {
-            "image_id": "4057b6c3-e3a7-49b6-9545-2e40e3fd0aa3",
-            "width": 1000,
-            "height": 1000
-          },
-          "images": [
-            {
-              "image_id": "4057b6c3-e3a7-49b6-9545-2e40e3fd0aa3",
-              "width": 1000,
-              "height": 1000
-            },
-            {
-              "image_id": "de448af6-7041-462d-9112-94707f967eec",
-              "width": 1000,
-              "height": 1000
-            },
-            {
-              "image_id": "37ebe5c4-7a96-44b7-a215-8ff1817fbd2c",
-              "width": 1000,
-              "height": 1000
-            }
-          ]
-        },
-        {
-          "slug": "silver",
-          "display_name": "Silver",
-          "primary_color_hex": "#c7c8cc",
-          "manufacturer_sku": "AUG-SL05-M01-S01",
-          "front_image": {
-            "image_id": "b9f6bd04-44d4-4709-8403-79bfcaad9c86",
-            "width": 1000,
-            "height": 1000
-          },
-          "images": [
-            {
-              "image_id": "b9f6bd04-44d4-4709-8403-79bfcaad9c86",
-              "width": 1000,
-              "height": 1000
-            },
-            {
-              "image_id": "0289ccb3-ee86-42f1-b246-70e42e7b1612",
-              "width": 1000,
-              "height": 1000
-            },
-            {
-              "image_id": "5ab46d13-5991-492e-ad43-e6251526c897",
-              "width": 1000,
-              "height": 1000
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "a939848d-9d6b-412d-9f93-b5890b328afc",
-      "display_name": "Smart Lock 2nd Generation",
-      "description": "The August 2nd Generation Smart Lock comes in two colors; silver and dark gray, and allows you to access your home using Amazon Alexa, Apple HomeKit, or your smartphone. It automatically unlocks your door as you approach and automatically locks it after you enter. It also has a 24/7 activity log that lets you know who has accessed your door and when, and is designed to be installed quickly by replacing only the interior of your existing deadbolt.",
-      "is_device_supported": true,
-      "product_url": "",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
-      "aesthetic_variants": [
-        {
-          "slug": "silver",
-          "display_name": "Silver",
-          "primary_color_hex": "#d2d2d4",
-          "manufacturer_sku": "AUG-SL02-M02-S02-C",
-          "front_image": {
-            "image_id": "ef445d7d-be66-44bf-91c4-dbfb30f3711f",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "ef445d7d-be66-44bf-91c4-dbfb30f3711f",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "df9a8229-b47a-49a4-b23c-67a5ee3798c4",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "dark_gray",
-          "display_name": "Dark Gray",
-          "primary_color_hex": "#464447",
-          "manufacturer_sku": "AUG-SL02-M02-G02",
-          "front_image": {
-            "image_id": "14eac5db-8907-44ad-96cb-4a21e4733b34",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "14eac5db-8907-44ad-96cb-4a21e4733b34",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "76368b75-a791-48f8-a8f2-705c2d7db9f2",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "5d00ec94-f8d7-4dc4-b2bd-1ef015ba0d33",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "700f5131-ce1e-4481-9a0d-9235bb2754aa",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "58a6b9a0-0274-4aee-b159-112a736d0b96",
-      "display_name": "Smart Lock 4th Generation",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://august.com/products/august-wifi-smart-lock",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
-      "aesthetic_variants": [
-        {
-          "slug": "silver",
-          "display_name": "Silver",
-          "primary_color_hex": "#c9cbcf",
-          "manufacturer_sku": "AUG-SL05-M01-S01",
-          "front_image": {
-            "image_id": "6b8d37fc-5a31-4988-82c2-62b8f62e4103",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "6b8d37fc-5a31-4988-82c2-62b8f62e4103",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "0d28c00f-6bef-4ee6-9cdd-a83e6d20b5e2",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "matte_black",
-          "display_name": "Matte Black",
-          "primary_color_hex": "#343436",
-          "manufacturer_sku": "AUG-SL05-M01-G01",
-          "front_image": {
-            "image_id": "2beb6c23-4207-4b2e-8201-61d96768eecf",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "2beb6c23-4207-4b2e-8201-61d96768eecf",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "6ab14f86-25a8-4ec2-92a3-89aff8e2cc4d",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "5765ed5e-a2fa-4673-9ee4-7a5825329030",
-      "display_name": "Smart Lock 1st Generation",
-      "description": "August’s first smart lock offering comes in champagne and silver colors and provides secure keyless access to your home using iOS and Android smartphones. It is easy to install as a DIY retrofit, replacing the interior of your existing deadbolt while leaving the outside unchanged, and allows you total control over who has access to your home and can manage how long their access lasts. Additionally, the product is powered by batteries, ensuring that it is always on, even if your power, Wi-Fi, or cable go down.",
-      "is_device_supported": true,
-      "product_url": "",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
-      "aesthetic_variants": [
-        {
-          "slug": "champagne",
-          "display_name": "Champagne",
-          "primary_color_hex": "#a99182",
-          "manufacturer_sku": "AUG-SL01-M01-C01",
-          "front_image": {
-            "image_id": "76565793-8f5a-47f1-819b-19c4f662e483",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "76565793-8f5a-47f1-819b-19c4f662e483",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "dark_gray",
-          "display_name": "Dark Gray",
-          "primary_color_hex": "#424242",
-          "manufacturer_sku": "AUG-SL01-M01-G01",
-          "front_image": {
-            "image_id": "6c7429d1-13ca-4ea3-8ad8-f156b499b3b6",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "6c7429d1-13ca-4ea3-8ad8-f156b499b3b6",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "silver",
-          "display_name": "Silver",
-          "primary_color_hex": "#bfbfbf",
-          "manufacturer_sku": "AUG-SL01-M01-S01",
-          "front_image": {
-            "image_id": "12bf0c04-d6e7-44c3-99f5-6a933413474e",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "12bf0c04-d6e7-44c3-99f5-6a933413474e",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "3d2605ce-4ed8-4de7-8c86-4a44c4dcd5d9",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "b89e7e9a-1ba3-46ba-b05b-b20ec3133898",
-      "display_name": "Smart Lock 3rd Generation",
-      "description": "The August Smart Lock 3rd Generation allows you to remotely lock and unlock your door, and also allows you to provide secure digital keys to guests using your phone. It easily attaches to an existing deadbolt on the inside of your door, allowing you to continue using your physical keys. It can be controlled using voice commands with Amazon Alexa or Google Assistant, and comes in three colors: Silver, Satin Nickel, and Dark Gray.",
-      "is_device_supported": true,
-      "product_url": "https://august.com/products/august-smart-lock-3rd-generation",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
-      "aesthetic_variants": [
-        {
-          "slug": "silver",
-          "display_name": "Silver",
-          "primary_color_hex": "#c6c7cb",
-          "manufacturer_sku": "AUG-SL04-M01-S04",
-          "front_image": {
-            "image_id": "861dcf47-9afa-401a-8072-148883f778a7",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "a9f7b674-106c-414f-9cbe-ee72d99f8bf8",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "861dcf47-9afa-401a-8072-148883f778a7",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "e0a7f614-f148-4d69-9c4c-4959b255f18b",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "a9f7b674-106c-414f-9cbe-ee72d99f8bf8",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "e41dccb9-bfd7-41f7-a77d-8b167116b113",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "4bd22231-d2c9-4102-af1b-ddfebcb2e41a",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "ebc8fa71-8901-4dc2-a3be-0317211f1745",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "dark_gray",
-          "display_name": "Dark Gray",
-          "primary_color_hex": "#363435",
-          "manufacturer_sku": "AUG-SL04-M01-G04",
-          "front_image": {
-            "image_id": "f9944a70-c957-4682-a9fc-002d371b35b0",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "f9944a70-c957-4682-a9fc-002d371b35b0",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "0e3b01f3-0200-493f-852e-ee431c5b16d2",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "satin_nickel",
-          "display_name": "Satin Nickel",
-          "primary_color_hex": "#a7a3a2",
-          "manufacturer_sku": "AUG-SL04-C03-N04",
-          "front_image": {
-            "image_id": "dac7e7aa-0263-4f06-a3d6-03df01a5050a",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "dac7e7aa-0263-4f06-a3d6-03df01a5050a",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "19415a64-5141-4451-8143-b25cd6906ced",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "4489946b-570f-4fd3-8ae8-6d0a3d4d18b6",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "23baf3d3-5805-4ebc-8ec1-220aebf03984",
-      "display_name": "Smart Lock Pro",
-      "description": "Gorgeously designed by Fuse Project, the August Wi-Fi Smart Lock Pro offers a range of convenient and intelligent features such as access codes (requires pin pad accessory), unlock anywhere, monitor logs, battery level, and more. It comes with built-in wifi and lets you use your existing keys. The August App lets you unlock from anywhere and can be unlocked with your Apple Watch.",
-      "is_device_supported": true,
-      "product_url": "",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
-      "aesthetic_variants": [
-        {
-          "slug": "dark_gray",
-          "display_name": "Dark Gray",
-          "primary_color_hex": "#444144",
-          "manufacturer_sku": "AUG-SL03-C02-G03",
-          "front_image": {
-            "image_id": "3d26843b-4d7f-48ca-9b62-2320389fa406",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "3d26843b-4d7f-48ca-9b62-2320389fa406",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "e05fc379-e077-4fce-873d-47aacaff65f0",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "71f54486-27f2-4e12-bb6f-3b89a31241ee",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "silver",
-          "display_name": "Silver",
-          "primary_color_hex": "#c3c4c8",
-          "manufacturer_sku": "AUG-SL03-C02-S03",
-          "front_image": {
-            "image_id": "c0c127e1-ebcc-46e5-ac10-ac80f17c1c58",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "c0c127e1-ebcc-46e5-ac10-ac80f17c1c58",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "34e98a06-746b-46b8-8668-b0d82707a0b1",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "9ace4652-40ca-4dfc-b8e2-de4a5d381bbd",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "a7d7caa3-1784-4ce5-b474-bf6e177e3345",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "3f664822-e33c-4eab-ba30-1c4a6496c344",
-      "display_name": "Smart Lock Pro 3rd Generation",
-      "description": "The August Smart Lock Pro 3rd Generation is available in dark gray and silver and allows you to unlock your home using your voice and a smart assistant such as Alexa, Siri, or Google Assistant. The lock also has a 24/7 activity feed that tracks activity at your doorstep. Additionally, you can keep your existing lock and keys and easily retrofit the smart lock to your existing deadbolt, and the lock will automatically lock behind you and unlock as you approach.",
-      "is_device_supported": true,
-      "product_url": "",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "cfe546ca-7a99-48e0-a665-4304dca85b4e",
-      "aesthetic_variants": [
-        {
-          "slug": "dark_gray",
-          "display_name": "Dark Gray",
-          "primary_color_hex": "#59575a",
-          "manufacturer_sku": "AUG-SL03-M03-G03",
-          "front_image": {
-            "image_id": "d0984ae1-8a11-4ca9-adf0-dc8f115a33f8",
-            "width": 1100,
-            "height": 1100
-          },
-          "back_image": {
-            "image_id": "c5d03966-b00c-4406-ad06-47bc64d599ba",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "d0984ae1-8a11-4ca9-adf0-dc8f115a33f8",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "6894a8f2-5255-499a-a153-5a300653a00c",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "e05fc379-e077-4fce-873d-47aacaff65f0",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "c5d03966-b00c-4406-ad06-47bc64d599ba",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "silver",
-          "display_name": "Silver",
-          "primary_color_hex": "#939297",
-          "manufacturer_sku": "AUG-SL03-M03-S03",
-          "front_image": {
-            "image_id": "0d0bae71-1a3b-4dd3-9c29-2ec45e5b3b42",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "0d0bae71-1a3b-4dd3-9c29-2ec45e5b3b42",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "4cb1c0d5-3159-44a2-a12a-52b0cc399380",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "71fd666d-8eb6-436d-8b67-5928c333a824",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "4025cc3b-ba06-4dc6-9d65-80046f4227ae",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "89d23d02-fa09-45eb-ac51-2ae03790f9c9",
-      "display_name": "XS4 Original+ EURO",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://saltosystems.com/en-in/products/xs4-original-plus-eu/",
+      "product_url": "https://saltosystems.com/en-in/products/xs4-original-keypad-eu/",
       "main_connection_type": "wifi",
       "power_sources": ["battery"],
       "main_category": "smartlock",
@@ -13153,15 +13158,141 @@
         {
           "slug": "satin_stainless_steel",
           "display_name": "Satin Stainless Steel",
-          "primary_color_hex": "#bfbfbf",
+          "primary_color_hex": "#525357",
           "front_image": {
-            "image_id": "3dd6a89a-60d3-4623-8ce6-534f5c4045f7",
+            "image_id": "b32d2666-3034-483a-941d-212291cdcd18",
             "width": 1100,
             "height": 1100
           },
           "images": [
             {
-              "image_id": "3dd6a89a-60d3-4623-8ce6-534f5c4045f7",
+              "image_id": "b32d2666-3034-483a-941d-212291cdcd18",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "e3c526eb-4858-40d7-9fd6-fdfe18dbea2d",
+      "display_name": "XS4 Locker Lock",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://saltosystems.com/en-in/products/xs4-locker-locks/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "locker",
+        "has_physical_key": false,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
+      "aesthetic_variants": [
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#343434",
+          "front_image": {
+            "image_id": "55df78a6-206e-47b6-a282-de7170c69a67",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "55df78a6-206e-47b6-a282-de7170c69a67",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "white",
+          "display_name": "White",
+          "primary_color_hex": "#c1c1c1",
+          "front_image": {
+            "image_id": "50001fd0-a2c3-4681-8194-90898ba44438",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "50001fd0-a2c3-4681-8194-90898ba44438",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "27dbef9f-3541-45b9-b740-97034f84bc0a",
+      "display_name": "XS4 Mini - Australia",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://saltosystems.com/en/products/xs4-mini-australia/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "mortise",
+        "has_physical_key": false,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
+      "aesthetic_variants": [
+        {
+          "slug": "white",
+          "display_name": "White",
+          "primary_color_hex": "#dddddf",
+          "front_image": {
+            "image_id": "fb40581a-3677-44b1-b571-4dfa196e06e0",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "fb40581a-3677-44b1-b571-4dfa196e06e0",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "7ef7ae20-322e-4fa5-b90c-9ec98cc0fcd1",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#2c2c2c",
+          "front_image": {
+            "image_id": "5bf24422-0d30-4c48-9c87-4ba9ab244530",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "5bf24422-0d30-4c48-9c87-4ba9ab244530",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "24bd8f85-daa8-40e3-9be5-f1ef5bf9c987",
               "width": 1100,
               "height": 1100
             }
@@ -13412,47 +13543,6 @@
       ]
     },
     {
-      "device_model_id": "b514dee0-e8eb-426b-848b-b11c0b1933f6",
-      "display_name": "XS4 Original Keypad - EU",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://saltosystems.com/en-in/products/xs4-original-keypad-eu/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "mortise",
-        "has_physical_key": false,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
-      "aesthetic_variants": [
-        {
-          "slug": "satin_stainless_steel",
-          "display_name": "Satin Stainless Steel",
-          "primary_color_hex": "#525357",
-          "front_image": {
-            "image_id": "b32d2666-3034-483a-941d-212291cdcd18",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "b32d2666-3034-483a-941d-212291cdcd18",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
       "device_model_id": "edb19bb1-1870-4ccc-8da8-b3db445bf3e9",
       "display_name": "XS4 Mini - Finnish",
       "description": "",
@@ -13581,6 +13671,69 @@
             },
             {
               "image_id": "24bd8f85-daa8-40e3-9be5-f1ef5bf9c987",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "738420bb-d5a6-4502-a768-f593549f6bc8",
+      "display_name": "Neo Cylinder - UK (Rim)",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://saltosystems.com/en/products/salto-neo-rim-uk-cylinder/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "cylinder",
+        "has_physical_key": false,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
+      "aesthetic_variants": [
+        {
+          "slug": "white",
+          "display_name": "White",
+          "primary_color_hex": "#e8e8e8",
+          "front_image": {
+            "image_id": "b3a4dc1b-caea-40cf-b6ef-caafbdd73fd2",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "b3a4dc1b-caea-40cf-b6ef-caafbdd73fd2",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#313133",
+          "front_image": {
+            "image_id": "8930b5b8-d350-4e35-bad6-74b77ae6f2b0",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "8930b5b8-d350-4e35-bad6-74b77ae6f2b0",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "507c9e71-5526-4cfb-8b9b-0301e14eaa0c",
               "width": 1100,
               "height": 1100
             }
@@ -14090,64 +14243,6 @@
       ]
     },
     {
-      "device_model_id": "e3c526eb-4858-40d7-9fd6-fdfe18dbea2d",
-      "display_name": "XS4 Locker Lock",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://saltosystems.com/en-in/products/xs4-locker-locks/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "locker",
-        "has_physical_key": false,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
-      "aesthetic_variants": [
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#343434",
-          "front_image": {
-            "image_id": "55df78a6-206e-47b6-a282-de7170c69a67",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "55df78a6-206e-47b6-a282-de7170c69a67",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "white",
-          "display_name": "White",
-          "primary_color_hex": "#c1c1c1",
-          "front_image": {
-            "image_id": "50001fd0-a2c3-4681-8194-90898ba44438",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "50001fd0-a2c3-4681-8194-90898ba44438",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
       "device_model_id": "90da303f-5dc1-4846-bbbe-bf6b5e7d0178",
       "display_name": "Neo Cylinder - US (Rim)",
       "description": "",
@@ -14526,74 +14621,6 @@
       ]
     },
     {
-      "device_model_id": "27dbef9f-3541-45b9-b740-97034f84bc0a",
-      "display_name": "XS4 Mini - Australia",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://saltosystems.com/en/products/xs4-mini-australia/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "mortise",
-        "has_physical_key": false,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
-      "aesthetic_variants": [
-        {
-          "slug": "white",
-          "display_name": "White",
-          "primary_color_hex": "#dddddf",
-          "front_image": {
-            "image_id": "fb40581a-3677-44b1-b571-4dfa196e06e0",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "fb40581a-3677-44b1-b571-4dfa196e06e0",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "7ef7ae20-322e-4fa5-b90c-9ec98cc0fcd1",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#2c2c2c",
-          "front_image": {
-            "image_id": "5bf24422-0d30-4c48-9c87-4ba9ab244530",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "5bf24422-0d30-4c48-9c87-4ba9ab244530",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "24bd8f85-daa8-40e3-9be5-f1ef5bf9c987",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
       "device_model_id": "d5f58704-0165-4a95-a647-84d3fa46c5a4",
       "display_name": "Neo Cylinder - Scandinavian Oval Cylinder",
       "description": "",
@@ -14654,6 +14681,64 @@
             },
             {
               "image_id": "f82383ce-23ee-4b56-b89f-b759f359b80d",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "ae5ea45a-ee99-49fd-999c-9b699fa18945",
+      "display_name": "XS4 Mini - ANSI",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://saltosystems.com/en/products/xs4-mini-ansi/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "mortise",
+        "has_physical_key": false,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
+      "aesthetic_variants": [
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#dddddd",
+          "front_image": {
+            "image_id": "10189a76-7d2e-48bc-921e-5cf7162ae69a",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "10189a76-7d2e-48bc-921e-5cf7162ae69a",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "white",
+          "display_name": "White",
+          "primary_color_hex": "#ededed",
+          "front_image": {
+            "image_id": "f61e5a94-ba17-4a21-a6bb-16c5880ebb58",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "f61e5a94-ba17-4a21-a6bb-16c5880ebb58",
               "width": 1100,
               "height": 1100
             }
@@ -14790,6 +14875,52 @@
       ]
     },
     {
+      "device_model_id": "3b41cc19-9d0e-4fd7-9ea3-05814cf0af53",
+      "display_name": "Neoxx Padlock - G3",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://saltosystems.com/en/products/salto-neoxx-padlock-g3/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "padlock",
+        "has_physical_key": false,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": false,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
+      "aesthetic_variants": [
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#28292d",
+          "front_image": {
+            "image_id": "14b5121e-f62a-4763-9bb4-be7c4bc97c9a",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "14b5121e-f62a-4763-9bb4-be7c4bc97c9a",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "10179f65-a666-4391-8554-ac95747d6a49",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
       "device_model_id": "462a88d7-436e-4281-b6b0-268edcc9e64f",
       "display_name": "Neo Cylinder - Scandinavian Security",
       "description": "",
@@ -14845,6 +14976,47 @@
           "images": [
             {
               "image_id": "b3a4dc1b-caea-40cf-b6ef-caafbdd73fd2",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "6fd92ae1-18d7-456e-94d8-ae5a1718a53d",
+      "display_name": "XS4 Original Keypad - ANSI",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://saltosystems.com/en-in/products/xs4-original-keypad-ansi/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "mortise",
+        "has_physical_key": false,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": true
+      },
+      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
+      "aesthetic_variants": [
+        {
+          "slug": "satin_stainless_steel",
+          "display_name": "Satin Stainless Steel",
+          "primary_color_hex": "#535559",
+          "front_image": {
+            "image_id": "e66131fb-f40e-42bf-8926-93cd8d50df74",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "e66131fb-f40e-42bf-8926-93cd8d50df74",
               "width": 1100,
               "height": 1100
             }
@@ -14916,178 +15088,11 @@
       ]
     },
     {
-      "device_model_id": "738420bb-d5a6-4502-a768-f593549f6bc8",
-      "display_name": "Neo Cylinder - UK (Rim)",
+      "device_model_id": "89d23d02-fa09-45eb-ac51-2ae03790f9c9",
+      "display_name": "XS4 Original+ EURO",
       "description": "",
       "is_device_supported": true,
-      "product_url": "https://saltosystems.com/en/products/salto-neo-rim-uk-cylinder/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "cylinder",
-        "has_physical_key": false,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
-      "aesthetic_variants": [
-        {
-          "slug": "white",
-          "display_name": "White",
-          "primary_color_hex": "#e8e8e8",
-          "front_image": {
-            "image_id": "b3a4dc1b-caea-40cf-b6ef-caafbdd73fd2",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "b3a4dc1b-caea-40cf-b6ef-caafbdd73fd2",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#313133",
-          "front_image": {
-            "image_id": "8930b5b8-d350-4e35-bad6-74b77ae6f2b0",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "8930b5b8-d350-4e35-bad6-74b77ae6f2b0",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "507c9e71-5526-4cfb-8b9b-0301e14eaa0c",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "ae5ea45a-ee99-49fd-999c-9b699fa18945",
-      "display_name": "XS4 Mini - ANSI",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://saltosystems.com/en/products/xs4-mini-ansi/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "mortise",
-        "has_physical_key": false,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
-      "aesthetic_variants": [
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#dddddd",
-          "front_image": {
-            "image_id": "10189a76-7d2e-48bc-921e-5cf7162ae69a",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "10189a76-7d2e-48bc-921e-5cf7162ae69a",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "white",
-          "display_name": "White",
-          "primary_color_hex": "#ededed",
-          "front_image": {
-            "image_id": "f61e5a94-ba17-4a21-a6bb-16c5880ebb58",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "f61e5a94-ba17-4a21-a6bb-16c5880ebb58",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "3b41cc19-9d0e-4fd7-9ea3-05814cf0af53",
-      "display_name": "Neoxx Padlock - G3",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://saltosystems.com/en/products/salto-neoxx-padlock-g3/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "padlock",
-        "has_physical_key": false,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": false,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": true
-      },
-      "manufacturer_id": "5b4d97f6-5734-4537-9730-3392a0b0542e",
-      "aesthetic_variants": [
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#28292d",
-          "front_image": {
-            "image_id": "14b5121e-f62a-4763-9bb4-be7c4bc97c9a",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "14b5121e-f62a-4763-9bb4-be7c4bc97c9a",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "10179f65-a666-4391-8554-ac95747d6a49",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "6fd92ae1-18d7-456e-94d8-ae5a1718a53d",
-      "display_name": "XS4 Original Keypad - ANSI",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://saltosystems.com/en-in/products/xs4-original-keypad-ansi/",
+      "product_url": "https://saltosystems.com/en-in/products/xs4-original-plus-eu/",
       "main_connection_type": "wifi",
       "power_sources": ["battery"],
       "main_category": "smartlock",
@@ -15107,15 +15112,15 @@
         {
           "slug": "satin_stainless_steel",
           "display_name": "Satin Stainless Steel",
-          "primary_color_hex": "#535559",
+          "primary_color_hex": "#bfbfbf",
           "front_image": {
-            "image_id": "e66131fb-f40e-42bf-8926-93cd8d50df74",
+            "image_id": "3dd6a89a-60d3-4623-8ce6-534f5c4045f7",
             "width": 1100,
             "height": 1100
           },
           "images": [
             {
-              "image_id": "e66131fb-f40e-42bf-8926-93cd8d50df74",
+              "image_id": "3dd6a89a-60d3-4623-8ce6-534f5c4045f7",
               "width": 1100,
               "height": 1100
             }
