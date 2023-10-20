@@ -65,7 +65,7 @@ export default async (
     throw new Error('Expected apipath to be a string')
   }
 
-  const proxyRes = await axios.request({
+  const { status, data, headers } = await axios.request({
     url: `${server.serverUrl}/${apipath}`,
     params: getParams,
     method: req.method,
@@ -78,16 +78,18 @@ export default async (
 
   await fake.stopServer()
 
-  res.status(proxyRes.status)
-  for (const [headerKey, headerVal] of Object.entries(proxyRes.headers)) {
-    if (unproxiedHeaders.has(headerKey)) continue
-    res.setHeader(headerKey, headerVal)
+  res.status(status)
+
+  for (const [key, value] of Object.entries(headers)) {
+    if (unproxiedHeaders.has(key)) res.setHeader(key, value)
   }
-  if (typeof proxyRes.data === 'string') {
-    res.end(proxyRes.data)
+
+  if (typeof data === 'string') {
+    res.end(data)
   } else {
-    res.json(proxyRes.data)
+    res.json(data)
   }
+
   server.close()
 }
 
