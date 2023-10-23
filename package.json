@@ -90,6 +90,8 @@
     "storybook:docs": "storybook dev --docs --port 6007",
     "storybook:build": "storybook build",
     "prestorybook:build": "vite build examples",
+    "storybook:update-devicedb-seed": "tsx .storybook/update-devicedb-seed.ts",
+    "poststorybook:update-devicedb-seed": "npm run format",
     "examples": "vite examples --host",
     "examples:build": "vite build examples",
     "examples:preview": "vite preview examples",
@@ -107,12 +109,16 @@
     "npm": ">= 8.1.0"
   },
   "peerDependencies": {
+    "@seamapi/types": "^1.26.2",
     "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "@types/react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "peerDependenciesMeta": {
+    "@seamapi/types": {
+      "optional": true
+    },
     "@types/react": {
       "optional": true
     },
@@ -126,7 +132,7 @@
     "luxon": "^3.3.0",
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
-    "seamapi": "^8.13.0",
+    "seamapi": "^8.13.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -134,7 +140,10 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
     "@rxfork/r2wc-react-to-web-component": "^2.4.0",
-    "@seamapi/fake-seam-connect": "^1.17.0",
+    "@seamapi/fake-devicedb": "^1.0.0-rc.0",
+    "@seamapi/fake-seam-connect": "^1.30.0",
+    "@seamapi/http": "^0.2.1",
+    "@seamapi/types": "^1.26.2",
     "@storybook/addon-designs": "^7.0.1",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
@@ -181,7 +190,7 @@
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "tsx": "^3.12.7",
     "typedoc": "^0.25.1",
-    "typescript": "~5.1.0",
+    "typescript": "^5.2.2",
     "vite": "^4.2.1",
     "vite-tsconfig-paths": "^4.0.8",
     "vitest": "^0.34.4",

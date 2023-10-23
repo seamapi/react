@@ -1,6 +1,6 @@
 import type { Database } from '@seamapi/fake-seam-connect'
 
-interface Seed {
+export interface Seed {
   ws1PublishableKey: string
   ws2PublishableKey: string
   clientSessionToken2: string
@@ -26,7 +26,9 @@ export const seedFake = async (db: Database): Promise<Seed> => {
   const ca = db.addConnectedAccount({
     provider: 'august',
     workspace_id: ws2.workspace_id,
-    user_identifier: 'jane@example.com',
+    user_identifier: {
+      email: 'jane@example.com',
+    },
   })
 
   db.updateConnectWebview({
