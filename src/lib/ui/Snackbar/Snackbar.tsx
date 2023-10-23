@@ -11,7 +11,7 @@ interface SnackbarProps {
   message: string
   variant: SnackbarVariant
   visible: boolean
-  onClose: () => void
+  onClose?: () => void
   action?: {
     label: string
     onClick: () => void
@@ -39,7 +39,9 @@ export function Snackbar({
     }
 
     const timeout = globalThis.setTimeout(() => {
-      onClose()
+      if (onClose != null) {
+        onClose()
+      }
     }, dismissAfterMs)
 
     return () => {
@@ -71,7 +73,9 @@ export function Snackbar({
             <button
               className='seam-snackbar-close-button'
               onClick={() => {
-                onClose()
+                if (onClose != null) {
+                  onClose()
+                }
               }}
             >
               <CloseWhiteIcon />
