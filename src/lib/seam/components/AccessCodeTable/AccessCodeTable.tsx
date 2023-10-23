@@ -268,7 +268,6 @@ export function AccessCodeTable({
         <Snackbar
           variant='error'
           visible={isError}
-          onClose={() => {}}
           message={t.fallbackErrorMessage}
           action={{
             label: t.tryAgain,
