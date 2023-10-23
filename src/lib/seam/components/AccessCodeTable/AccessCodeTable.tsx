@@ -90,7 +90,7 @@ export function AccessCodeTable({
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 
-  const { accessCodes, isInitialLoading, isError, error } = useAccessCodes({
+  const { accessCodes, isInitialLoading, isError, refetch } = useAccessCodes({
     device_id: deviceId,
   })
 
@@ -208,10 +208,6 @@ export function AccessCodeTable({
     )
   }
 
-  if (isError) {
-    return <p className={className}>{error?.message}</p>
-  }
-
   return (
     <>
       <Snackbar
@@ -268,6 +264,19 @@ export function AccessCodeTable({
             disableDeleteAccessCode={disableDeleteAccessCode}
           />
         </TableBody>
+
+        <Snackbar
+          variant='error'
+          visible={isError}
+          message={t.fallbackErrorMessage}
+          action={{
+            label: t.tryAgain,
+            onClick: () => {
+              void refetch()
+            },
+          }}
+          disableCloseButton
+        />
       </div>
     </>
   )
@@ -338,4 +347,6 @@ const t = {
   loading: 'Loading access codes',
   accesCodeUpdated: 'Access code updated',
   accesCodeCreated: 'Access code created',
+  tryAgain: 'Try again',
+  fallbackErrorMessage: 'Access codes could not be loaded',
 }

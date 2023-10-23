@@ -22,6 +22,7 @@ import {
 } from 'lib/seam/devices/use-devices.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -77,7 +78,7 @@ export function DeviceTable({
 }: DeviceTableProps = {}): JSX.Element {
   useComponentTelemetry('DeviceTable')
 
-  const { devices, isInitialLoading, isError, error } = useDevices({
+  const { devices, isInitialLoading, isError, refetch } = useDevices({
     device_ids: deviceIds,
     connected_account_ids: connectedAccountIds,
   })
@@ -120,10 +121,6 @@ export function DeviceTable({
     )
   }
 
-  if (isError) {
-    return <p className={className}>{error?.message}</p>
-  }
-
   return (
     <div className={classNames('seam-device-table', className)}>
       <ContentHeader onBack={onBack} />
@@ -154,6 +151,19 @@ export function DeviceTable({
       <TableBody>
         <Content devices={filteredDevices} onDeviceClick={handleDeviceClick} />
       </TableBody>
+
+      <Snackbar
+        variant='error'
+        visible={isError}
+        message={t.fallbackErrorMessage}
+        action={{
+          label: t.tryAgain,
+          onClick: () => {
+            void refetch()
+          },
+        }}
+        disableCloseButton
+      />
     </div>
   )
 }
@@ -216,4 +226,6 @@ const t = {
   devices: 'Devices',
   noDevicesMessage: 'Sorry, no devices were found',
   loading: 'Loading devices',
+  tryAgain: 'Try again',
+  fallbackErrorMessage: 'Devices could not be loaded',
 }
