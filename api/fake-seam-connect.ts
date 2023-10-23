@@ -104,4 +104,3 @@ const getRequestStreamFromBuffer = (requestBuffer: Buffer): Stream => {
   requestStream.push(null)
   return requestStream
 }
-
