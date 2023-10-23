@@ -70,7 +70,9 @@ export function Snackbar({
           {!disableCloseButton && (
             <button
               className='seam-snackbar-close-button'
-              onClick={() => { onClose(); }}
+              onClick={() => {
+                onClose()
+              }}
             >
               <CloseWhiteIcon />
             </button>
