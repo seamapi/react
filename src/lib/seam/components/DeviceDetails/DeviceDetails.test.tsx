@@ -3,9 +3,9 @@ import { test } from 'vitest'
 import type { ApiTestContext } from 'fixtures/api.js'
 import { render, screen } from 'fixtures/react.js'
 
-import { DeviceTable } from './DeviceTable.js'
+import { DeviceDetails } from './DeviceDetails.js'
 
-test<ApiTestContext>('DeviceTable', async (ctx) => {
-  render(<DeviceTable />, ctx)
+test<ApiTestContext>('DeviceDetails', async (ctx) => {
+  render(<DeviceDetails deviceId='device1' />, ctx)
   await screen.findByText('Front Door')
 })

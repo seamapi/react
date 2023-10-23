@@ -17,6 +17,7 @@ import {
 } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -74,7 +75,7 @@ export function ClimateSettingScheduleTable({
 }: ClimateSettingScheduleTableProps): JSX.Element {
   useComponentTelemetry('ClimateSettingScheduleTable')
 
-  const { climateSettingSchedules, isInitialLoading, isError, error } =
+  const { climateSettingSchedules, isInitialLoading, isError, refetch } =
     useClimateSettingSchedules({
       device_id: deviceId,
     })
@@ -132,10 +133,6 @@ export function ClimateSettingScheduleTable({
     )
   }
 
-  if (isError) {
-    return <p className={className}>{error?.message}</p>
-  }
-
   return (
     <div className={classNames('seam-table', className)}>
       <ContentHeader onBack={onBack} />
@@ -169,6 +166,19 @@ export function ClimateSettingScheduleTable({
           onClimateSettingScheduleClick={handleClimateSettingScheduleClick}
         />
       </TableBody>
+
+      <Snackbar
+        variant='error'
+        visible={isError}
+        message={t.fallbackErrorMessage}
+        action={{
+          label: t.tryAgain,
+          onClick: () => {
+            void refetch()
+          },
+        }}
+        disableCloseButton
+      />
     </div>
   )
 }
@@ -205,4 +215,6 @@ const t = {
   noClimateSettingSchedulesMessage:
     'Sorry, no climate setting schedules were found',
   loading: 'Loading schedules',
+  tryAgain: 'Try again',
+  fallbackErrorMessage: 'Climate settings could not be loaded',
 }

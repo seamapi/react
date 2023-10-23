@@ -4,6 +4,8 @@ import '../src/index.scss'
 import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
+import { fakePublishableKey } from './seed-fake.js'
+
 const useFake = !['1', 'true'].includes(
   process.env['STORYBOOK_DISABLE_FAKE']?.toLowerCase() ?? ''
 )
@@ -14,7 +16,7 @@ const preview: Preview = {
     publishableKey: {
       description: 'Seam publishable key',
       defaultValue: useFake
-        ? 'seam_pk_1'
+        ? fakePublishableKey
         : process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'],
     },
     /** @deprecated use "some_user" directly in your story **/
@@ -63,28 +65,34 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (
-      Story,
-      {
+    (Story, context) => {
+      const {
         globals: {
           publishableKey,
           userIdentifierKey,
           seamEndpoint,
           simulatedOutage,
         },
-      }
-    ) => {
+      } = context
+
+      const usableKey =
+        simulatedOutage === 'outage' ? 'seam_pk_3' : publishableKey
+
       return (
         <SeamProvider
-          publishableKey={
-            simulatedOutage === 'outage' ? 'seam_pk_3' : publishableKey
-          }
+          publishableKey={usableKey}
           userIdentifierKey={userIdentifierKey}
           endpoint={seamEndpoint}
           disableCssInjection
           disableFontInjection
         >
-          <Story />
+          <Story
+            {...context}
+            globals={{
+              ...context.globals,
+              publishableKey: usableKey,
+            }}
+          />
         </SeamProvider>
       )
     },
