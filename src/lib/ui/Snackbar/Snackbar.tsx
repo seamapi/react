@@ -29,7 +29,7 @@ export function Snackbar({
   autoDismiss = false,
   dismissAfterMs = 5000,
   disableCloseButton = false,
-  onClose,
+  onClose = () => {},
 }: SnackbarProps): JSX.Element {
   const { label: actionLabel, onClick: handleActionClick } = action ?? {}
 
@@ -39,9 +39,7 @@ export function Snackbar({
     }
 
     const timeout = globalThis.setTimeout(() => {
-      if (onClose != null) {
-        onClose()
-      }
+      onClose()
     }, dismissAfterMs)
 
     return () => {
@@ -72,11 +70,7 @@ export function Snackbar({
           {!disableCloseButton && (
             <button
               className='seam-snackbar-close-button'
-              onClick={() => {
-                if (onClose != null) {
-                  onClose()
-                }
-              }}
+              onClick={() => onClose()}
             >
               <CloseWhiteIcon />
             </button>
