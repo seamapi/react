@@ -28,7 +28,7 @@ export const seedFake = (db) => {
 
   const cw = db.addConnectWebview({
     workspace_id: ws2.workspace_id,
-    created_at: '2023-10-03T15:07:48.000',
+    created_at: '2023-05-15T15:08:49.000',
   })
 
   const ca = db.addConnectedAccount({
