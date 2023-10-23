@@ -1,23 +1,26 @@
-import type { IncomingMessage, ServerResponse } from 'node:http'
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
 import { Readable, type Stream } from 'node:stream'
 
+import {
+  createFake as createFakeDevicedb,
+  type Fake as FakeDevicedb,
+} from '@seamapi/fake-devicedb'
 import { createFake } from '@seamapi/fake-seam-connect'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 import axios from 'axios'
 import getRawBody from 'raw-body'
 
 // eslint-disable-next-line import/no-relative-parent-imports
 import { seedFake } from '../.storybook/seed-fake.js'
 
-// Taken from seam-connect
-// Based on: https://stackoverflow.com/a/44091532/559475
-export const getRequestStreamFromBuffer = (requestBuffer: Buffer): Stream => {
-  const requestStream = new Readable()
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  requestStream._read = () => {}
-  requestStream.push(requestBuffer)
-  requestStream.push(null)
-  return requestStream
-}
+// UPSTREAM: This line must have this precise format, otherwise
+// Vercel will not include the JSON file in the deployment.
+// https://github.com/vercel/next.js/discussions/14807#discussioncomment-146735
+const devicedbSeed = readFileSync(
+  path.join(process.cwd(), '.storybook', 'devicedb-seed.json')
+)
 
 const unproxiedHeaders = new Set([
   'content-length',
@@ -26,26 +29,31 @@ const unproxiedHeaders = new Set([
   'connection',
 ])
 
-interface NextApiRequest extends IncomingMessage {
-  query: Partial<Record<string, string | string[]>>
-}
-
-interface NextApiResponse extends ServerResponse {
-  json: (body: object) => void
-  status: (statusCode: number) => NextApiResponse
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 }
 
 export default async (
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: VercelRequest,
+  res: VercelResponse
 ): Promise<void> => {
   const { apipath, ...getParams } = req.query
 
   const fake = await createFake()
-
   seedFake(fake.database)
 
-  const server = await fake.startServer()
+  const fakeDevicedb = await getFakeDevicedb()
+  const fakeDevicedbUrl = fakeDevicedb.serverUrl
+  if (fakeDevicedbUrl == null) throw new Error('Missing fake devicedb url')
+  fake.database.setDevicedbConfig({
+    url: fakeDevicedbUrl,
+    vercelProtectionBypassSecret:
+      fakeDevicedb.database.vercel_protection_bypass_secret,
+  })
+
+  await fake.startServer()
 
   const requestBuffer = await getRawBody(req)
 
@@ -53,8 +61,8 @@ export default async (
     throw new Error('Expected apipath to be a string')
   }
 
-  const proxyRes = await axios.request({
-    url: `${server.serverUrl}/${apipath}`,
+  const { status, data, headers } = await axios.request({
+    url: `${fake.serverUrl}/${apipath}`,
     params: getParams,
     method: req.method,
     headers: { ...req.headers },
@@ -64,23 +72,36 @@ export default async (
     maxRedirects: 0,
   })
 
-  await fake.stopServer()
+  res.status(status)
 
-  res.status(proxyRes.status)
-  for (const [headerKey, headerVal] of Object.entries(proxyRes.headers)) {
-    if (unproxiedHeaders.has(headerKey)) continue
-    res.setHeader(headerKey, headerVal)
+  for (const [key, value] of Object.entries(headers)) {
+    if (!unproxiedHeaders.has(key)) res.setHeader(key, value)
   }
-  if (typeof proxyRes.data === 'string') {
-    res.end(proxyRes.data)
+
+  if (typeof data === 'string') {
+    res.end(data)
   } else {
-    res.json(proxyRes.data)
+    res.json(data)
   }
-  server.close()
+
+  fake.server?.close()
+  fakeDevicedb.server?.close()
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
+const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
+  const fake = await createFakeDevicedb()
+  await fake.loadJSON(JSON.parse(devicedbSeed.toString()))
+  await fake.startServer()
+  return fake
 }
+
+// https://stackoverflow.com/a/44091532/559475
+const getRequestStreamFromBuffer = (requestBuffer: Buffer): Stream => {
+  const requestStream = new Readable()
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  requestStream._read = () => {}
+  requestStream.push(requestBuffer)
+  requestStream.push(null)
+  return requestStream
+}
+
