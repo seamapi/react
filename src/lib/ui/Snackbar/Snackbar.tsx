@@ -11,7 +11,7 @@ interface SnackbarProps {
   message: string
   variant: SnackbarVariant
   visible: boolean
-  onClose: () => void
+  onClose?: () => void
   action?: {
     label: string
     onClick: () => void
@@ -29,7 +29,7 @@ export function Snackbar({
   autoDismiss = false,
   dismissAfterMs = 5000,
   disableCloseButton = false,
-  onClose,
+  onClose = () => {},
 }: SnackbarProps): JSX.Element {
   const { label: actionLabel, onClick: handleActionClick } = action ?? {}
 
