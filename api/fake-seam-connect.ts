@@ -22,22 +22,18 @@ const devicedbSeed = readFileSync(
   path.join(process.cwd(), '.storybook', 'devicedb-seed.json')
 )
 
-// https://stackoverflow.com/a/44091532/559475
-export const getRequestStreamFromBuffer = (requestBuffer: Buffer): Stream => {
-  const requestStream = new Readable()
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  requestStream._read = () => {}
-  requestStream.push(requestBuffer)
-  requestStream.push(null)
-  return requestStream
-}
-
 const unproxiedHeaders = new Set([
   'content-length',
   'etag',
   'x-powered-by',
   'connection',
 ])
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
 
 export default async (
   req: VercelRequest,
@@ -79,7 +75,7 @@ export default async (
   res.status(status)
 
   for (const [key, value] of Object.entries(headers)) {
-    if (unproxiedHeaders.has(key)) res.setHeader(key, value)
+    if (!unproxiedHeaders.has(key)) res.setHeader(key, value)
   }
 
   if (typeof data === 'string') {
@@ -99,8 +95,12 @@ const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
   return fake
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
+// https://stackoverflow.com/a/44091532/559475
+const getRequestStreamFromBuffer = (requestBuffer: Buffer): Stream => {
+  const requestStream = new Readable()
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  requestStream._read = () => {}
+  requestStream.push(requestBuffer)
+  requestStream.push(null)
+  return requestStream
 }
