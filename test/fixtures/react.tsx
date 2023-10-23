@@ -15,7 +15,8 @@ const customRender = (
   const Providers = createProviders({
     queryClient,
     endpoint,
-    publishableKey: seed.ws2PublishableKey,
+    publishableKey: seed.seam_pk1_token,
+    userIdentifierKey: seed.john_user_identifier_key,
   })
   return render(ui, { wrapper: Providers, ...options })
 }
@@ -32,10 +33,12 @@ const createQueryClient = (): QueryClient =>
 const createProviders = ({
   endpoint,
   publishableKey,
+  userIdentifierKey,
   queryClient,
 }: {
   endpoint: string
   publishableKey: string
+  userIdentifierKey: string
   queryClient: QueryClient
 }) => {
   return function Providers({ children }: PropsWithChildren): JSX.Element {
@@ -44,7 +47,7 @@ const createProviders = ({
         queryClient={queryClient}
         endpoint={endpoint}
         publishableKey={publishableKey}
-        userIdentifierKey='some_user'
+        userIdentifierKey={userIdentifierKey}
         disableCssInjection
         disableFontInjection
       >
