@@ -2,10 +2,11 @@ import type { Dispatch, SetStateAction } from 'react'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
-import { useManufacturers } from 'lib/seam/components/SupportedDeviceTable/use-manufacturers.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
+
+import { useFilteredManufacturers } from './use-filtered-manufacturers.js'
 
 interface SupportedDeviceFilterAreaProps {
   filterValue: string
@@ -26,10 +27,10 @@ export function SupportedDeviceFilterArea({
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = getAppliedFilterCount(filters)
 
-  const availableManufacturers = useAvailableManufacturers(
+  const { manufacturers: availableManufacturers } = useFilteredManufacturers({
     manufacturers,
-    excludedManufacturers
-  )
+    excludedManufacturers,
+  })
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -68,7 +69,11 @@ export function SupportedDeviceFilterArea({
               <FilterCategoryMenu
                 label={t.manufacturer}
                 allLabel={allLabel}
-                options={availableManufacturers}
+                options={
+                  availableManufacturers?.map(
+                    (manufacturer) => manufacturer.display_name
+                  ) ?? []
+                }
                 onSelect={(manufacturer: string) => {
                   setFilters((filters) => ({
                     ...filters,
@@ -123,27 +128,6 @@ const getAppliedFilterCount = (filters: DeviceModelFilters): number => {
   if (filters.manufacturer !== null) count++
   if (!filters.supportedOnly) count++
   return count
-}
-
-const useAvailableManufacturers = (
-  manufacturers: string[] | null,
-  excludedManufacturers: string[]
-): string[] => {
-  const { manufacturers: manufacturersData } = useManufacturers()
-
-  if (manufacturersData == null) return []
-
-  const availableManufacturers = manufacturersData
-    .filter((manufacturer) => {
-      if (manufacturers === null) return true
-      return manufacturers.includes(manufacturer.display_name)
-    })
-    .filter((manufacturer) => {
-      return !excludedManufacturers.includes(manufacturer.display_name)
-    })
-    .map((manufacturer) => manufacturer.display_name)
-
-  return Array.from(new Set(availableManufacturers))
 }
 
 const t = {
