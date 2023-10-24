@@ -1,3 +1,7 @@
+const fakePublishableKey = 'seam_pk_2'
+
+const fakeUserIdentifierKey = 'some_user'
+
 /** @type {(db: import('@seamapi/fake-seam-connect').Database) => void} */
 export const seedFake = (db) => {
   db.addWorkspace({
@@ -516,6 +520,3 @@ export const seedFake = (db) => {
     device6,
   })
 }
-
-export const fakePublishableKey = 'seam_pk_2'
-export const fakeUserIdentifierKey = 'some_user'
