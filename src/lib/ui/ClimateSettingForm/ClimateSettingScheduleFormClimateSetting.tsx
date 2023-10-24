@@ -53,14 +53,7 @@ export function ClimateSettingScheduleFormClimateSetting({
           <div className='seam-content'>
             <div>
               <InputLabel>{t.climateSetting}</InputLabel>
-              <span
-                className='seam-label'
-                style={{
-                  fontSize: '14px',
-                }}
-              >
-                {t.climateSettingSubHeading}
-              </span>
+              <span className='seam-label'>{t.climateSettingSubHeading}</span>
             </div>
             <FormField>
               <Controller
