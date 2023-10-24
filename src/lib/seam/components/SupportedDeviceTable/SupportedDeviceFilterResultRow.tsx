@@ -31,7 +31,7 @@ export function ModelColumn({
         <img
           src={deviceModel.manufacturer.logo?.url}
           alt={deviceModel.manufacturer.display_name}
-          className='seam-brand-image'
+          className='seam-manufacturer-image'
         />{' '}
         <div className='seam-truncated-text'>{deviceModel.display_name}</div>
       </div>

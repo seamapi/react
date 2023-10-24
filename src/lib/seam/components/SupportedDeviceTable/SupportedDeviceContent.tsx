@@ -1,7 +1,7 @@
 import type { DeviceModelV1 } from '@seamapi/types/devicedb'
 
-import { SupportedDeviceBrandSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceBrandSection.js'
 import { SupportedDeviceFilterResultRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterResultRow.js'
+import { SupportedDeviceManufacturerSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceManufacturerSection.js'
 import type { UseDeviceModelsData } from 'lib/seam/components/SupportedDeviceTable/use-device-models.js'
 import {
   type DeviceModelFilters,
@@ -13,23 +13,23 @@ interface SupportedDeviceContentProps {
   filterValue: string
   resetFilterValue: () => void
   filters: DeviceModelFilters
-  brands: string[] | null
-  excludedBrands: string[]
+  manufacturers: string[] | null
+  excludedManufacturers: string[]
 }
 
 export function SupportedDeviceContent({
   resetFilterValue,
   filterValue,
   filters,
-  brands,
-  excludedBrands,
+  manufacturers,
+  excludedManufacturers,
 }: SupportedDeviceContentProps): JSX.Element | null {
   const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
     {
       filterValue,
       filters,
-      brands,
-      excludedBrands,
+      manufacturers,
+      excludedManufacturers,
     }
   )
 
@@ -74,7 +74,7 @@ export function SupportedDeviceContent({
     )
   }
 
-  const hasFilters = filterValue.trim() !== '' || filters.brand !== null
+  const hasFilters = filterValue.trim() !== '' || filters.manufacturer !== null
 
   if (hasFilters) {
     return (
@@ -93,7 +93,7 @@ export function SupportedDeviceContent({
     <>
       {Object.entries(groupDeviceModelsByManufacturer(deviceModels)).map(
         ([manufacturerId, models]) => (
-          <SupportedDeviceBrandSection
+          <SupportedDeviceManufacturerSection
             key={manufacturerId}
             manufacturerId={manufacturerId}
             deviceModels={models}

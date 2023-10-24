@@ -6,21 +6,21 @@ import { useManufacturers } from 'lib/seam/components/SupportedDeviceTable/use-m
 
 export interface DeviceModelFilters {
   supportedOnly: boolean
-  brand: string | null
+  manufacturer: string | null
 }
 
 export const useFilteredDeviceModels = ({
   filterValue,
   filters,
-  brands,
-  excludedBrands,
+  manufacturers,
+  excludedManufacturers,
 }: {
   filterValue: string
   filters: DeviceModelFilters
-  brands: string[] | null
-  excludedBrands: string[]
+  manufacturers: string[] | null
+  excludedManufacturers: string[]
 }): ReturnType<typeof useDeviceModels> => {
-  const { manufacturers } = useManufacturers()
+  const { manufacturers: manufacturersData } = useManufacturers()
 
   const params: UseDeviceModelsParams = {}
 
@@ -32,9 +32,9 @@ export const useFilteredDeviceModels = ({
     params.integration_status = 'stable'
   }
 
-  if (filters.brand !== null) {
-    const manufacturer = manufacturers?.find(
-      (manufacturer) => manufacturer.display_name === filters.brand
+  if (filters.manufacturer !== null) {
+    const manufacturer = manufacturersData?.find(
+      (manufacturer) => manufacturer.display_name === filters.manufacturer
     )
 
     if (manufacturer != null) {
@@ -44,17 +44,16 @@ export const useFilteredDeviceModels = ({
 
   const query = useDeviceModels(params)
 
-  // UPSTREAM: The API does not have a brands or excludedBrands query parameter,
-  // so selected brands are filtered here.
+  // TODO: Use API to filter manufacturers.
   return {
     ...query,
     deviceModels: query.deviceModels
       ?.filter(({ manufacturer }) => {
-        if (brands === null) return true
-        return brands.includes(manufacturer.display_name)
+        if (manufacturers === null) return true
+        return manufacturers.includes(manufacturer.display_name)
       })
       .filter(({ manufacturer }) => {
-        return !excludedBrands.includes(manufacturer.display_name)
+        return !excludedManufacturers.includes(manufacturer.display_name)
       }),
   }
 }

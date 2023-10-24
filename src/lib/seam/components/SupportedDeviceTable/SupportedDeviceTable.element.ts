@@ -6,8 +6,8 @@ export const name = 'seam-supported-device-table'
 
 export const props: ElementProps<SupportedDeviceTableProps> = {
   disableFilter: 'boolean',
-  brands: 'array',
-  excludedBrands: 'array',
+  manufacturers: 'array',
+  excludedManufacturers: 'array',
 }
 
 export { SupportedDeviceTable as Component } from './SupportedDeviceTable.js'
