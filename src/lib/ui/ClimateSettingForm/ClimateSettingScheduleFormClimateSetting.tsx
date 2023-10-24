@@ -1,6 +1,6 @@
 import {
-  type Control,
   Controller,
+  type Control,
   type UseFormResetField,
   type UseFormWatch,
 } from 'react-hook-form'
@@ -88,8 +88,8 @@ export function ClimateSettingScheduleFormClimateSetting({
                   render={({ field: { value, onChange } }) => (
                     <TemperatureControlGroup
                       coolValue={value.coolingSetPoint}
-                      delta={5}
                       heatValue={value.heatingSetPoint}
+                      delta={5}
                       maxCool={90}
                       maxHeat={100}
                       minCool={50}
