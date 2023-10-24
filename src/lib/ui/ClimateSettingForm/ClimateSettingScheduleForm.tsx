@@ -3,18 +3,11 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ClimateSetting, HvacModeSetting } from 'seamapi'
 
-<<<<<<< HEAD
 import { getSystemTimeZone } from 'lib/dates.js'
 import { ClimateSettingScheduleFormClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
 import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
-=======
-import { getSystemTimeZone } from 'lib/dates.js'
-import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
-import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
-import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
->>>>>>> 05d08fb7915591f92484f9716c29e7239a2cfcdb
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
@@ -112,7 +105,6 @@ function Content({
       />
     )
   }
-
 
   if (page === 'time_zone_select') {
     return (
