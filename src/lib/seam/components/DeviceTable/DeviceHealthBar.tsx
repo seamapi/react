@@ -2,6 +2,7 @@ import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOffline.js'
 import type { UseDevicesData } from 'lib/seam/devices/use-devices.js'
+import { connectedAccountErrorFilter, deviceErrorFilter } from 'lib/seam/filters.js'
 import { TableFilterBar } from 'lib/ui/Table/TableFilterBar/TableFilterBar.js'
 import { TableFilterItem } from 'lib/ui/Table/TableFilterBar/TableFilterItem.js'
 import type { ConnectedAccountError, DeviceError } from 'seamapi'
@@ -24,16 +25,15 @@ export function DeviceHealthBar({
 }: DeviceHealthBarProps): JSX.Element {
   const erroredAccounts = devices.filter((device) => {
     return (
-      device.errors
-        .filter(errorFilter)
-        .filter((error) => 'is_connected_account_error' in error).length > 0
+      device.errors.filter(errorFilter).filter(connectedAccountErrorFilter)
+        .length > 0
     )
   })
   const erroredDevices = devices.filter((device) => {
     return (
       device.errors
         .filter(errorFilter)
-        .filter((error) => 'is_device_error' in error).length > 0
+        .filter(deviceErrorFilter).length > 0
     )
   })
   const accountIssueCount = erroredAccounts.length
