@@ -41,10 +41,6 @@ export interface DeviceTableProps extends CommonProps {
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
   heading?: string | null
-  /**
-   * @deprecated Use heading.
-   */
-  title?: string | null
 }
 
 export const defaultDeviceFilter = (
@@ -67,7 +63,6 @@ export function DeviceTable({
   deviceFilter = defaultDeviceFilter,
   deviceComparator = compareByCreatedAtDesc,
   heading = t.devices,
-  title = t.devices,
   errorFilter = () => true,
   warningFilter = () => true,
   disableLockUnlock = false,
@@ -129,10 +124,9 @@ export function DeviceTable({
     <div className={classNames('seam-device-table', className)}>
       <ContentHeader onBack={onBack} />
       <TableHeader>
-        {title != null ? (
+        {heading != null ? (
           <TableTitle>
-            {heading ?? title ?? t.devices}{' '}
-            <Caption>({filteredDevices.length})</Caption>
+            {heading} <Caption>({filteredDevices.length})</Caption>
           </TableTitle>
         ) : (
           <div className='seam-fragment' />
