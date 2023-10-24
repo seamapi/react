@@ -1,4 +1,4 @@
-import { Controller, type Control, type UseFormWatch } from 'react-hook-form'
+import { type Control, Controller, type UseFormWatch } from 'react-hook-form'
 import type { HvacModeSetting } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
