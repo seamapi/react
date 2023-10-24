@@ -72,6 +72,7 @@ export default async (
     timeout: 10_000,
     validateStatus: () => true,
     maxRedirects: 0,
+    responseType: 'arraybuffer',
   })
 
   res.status(status)
@@ -80,11 +81,7 @@ export default async (
     if (!unproxiedHeaders.has(key)) res.setHeader(key, value)
   }
 
-  if (typeof data === 'string') {
-    res.end(data)
-  } else {
-    res.json(data)
-  }
+  res.end(Buffer.from(data))
 
   fake.server?.close()
   fakeDevicedb.server?.close()
