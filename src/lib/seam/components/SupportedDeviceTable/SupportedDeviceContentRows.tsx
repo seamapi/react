@@ -12,7 +12,7 @@ export function SupportedDeviceContentRows({
     <div className='seam-supported-device-table-content'>
       {deviceModels.map((deviceModel) => (
         <SupportedDeviceRow
-          key={deviceModel.display_name}
+          key={deviceModel.device_model_id}
           deviceModel={deviceModel}
         />
       ))}
