@@ -55,7 +55,7 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control, watch } = useForm({
+  const { control, watch, resetField } = useForm({
     defaultValues: {
       deviceId: '',
       name: '',
@@ -133,6 +133,7 @@ function Content({
         title={t.addNewClimateSettingSchedule}
         control={control}
         watch={watch}
+        resetField={resetField}
         deviceId={deviceId}
         onBack={() => {
           setPage('name_and_schedule')
