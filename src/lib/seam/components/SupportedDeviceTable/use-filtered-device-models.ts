@@ -42,7 +42,21 @@ export const useFilteredDeviceModels = ({
     }
   }
 
-  const query = useDeviceModels(params)
+  if (manufacturers != null) {
+    params.manufacturer_ids = manufacturers.map((m) => m.manufacturer_id)
+  }
 
-  return query
+  const { deviceModels, ...query } = useDeviceModels(params)
+
+  return {
+    ...query,
+    deviceModels: deviceModels?.filter(
+      (deviceModel) =>
+        manufacturers?.some(
+          (manufacturer) =>
+            deviceModel.manufacturer.manufacturer_id ===
+            manufacturer.manufacturer_id
+        )
+    ),
+  }
 }
