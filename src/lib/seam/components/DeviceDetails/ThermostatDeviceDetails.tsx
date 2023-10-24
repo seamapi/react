@@ -23,6 +23,8 @@ export function ThermostatDeviceDetails({
   device,
   onBack,
   className,
+  errorFilter = () => true,
+  warningFilter = () => true,
   disableLockUnlock,
   disableCreateAccessCode,
   disableEditAccessCode,
@@ -41,6 +43,8 @@ export function ThermostatDeviceDetails({
     return (
       <NestedClimateSettingScheduleTable
         deviceId={device.device_id}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}

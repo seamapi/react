@@ -7,6 +7,7 @@ import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/Acces
 import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
+import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
@@ -24,6 +25,8 @@ export function LockDeviceDetails(
 ): JSX.Element | null {
   const {
     device,
+    errorFilter = () => true,
+    warningFilter = () => true,
     disableLockUnlock,
     disableCreateAccessCode,
     disableEditAccessCode,
@@ -52,6 +55,8 @@ export function LockDeviceDetails(
     return (
       <NestedAccessCodeTable
         deviceId={device.device_id}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -64,14 +69,20 @@ export function LockDeviceDetails(
   }
 
   const alerts = [
-    ...device.errors.map((error) => ({
-      variant: 'error' as const,
-      message: error.message,
-    })),
-    ...device.warnings.map((warning) => ({
-      variant: 'warning' as const,
-      message: warning.message,
-    })),
+    ...device.errors
+      .filter(deviceErrorFilter)
+      .filter(errorFilter)
+      .map((error) => ({
+        variant: 'error' as const,
+        message: error.message,
+      })),
+    ...device.warnings
+      .filter(deviceWarningFilter)
+      .filter(warningFilter)
+      .map((warning) => ({
+        variant: 'warning' as const,
+        message: warning.message,
+      })),
   ]
 
   return (

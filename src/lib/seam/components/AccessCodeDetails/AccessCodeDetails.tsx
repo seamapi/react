@@ -1,12 +1,7 @@
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type {
-  AccessCode,
-  AccessCodeError,
-  ConnectedAccountError,
-  DeviceError,
-} from 'seamapi'
+import type { AccessCode } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
@@ -19,6 +14,10 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import {
+  accessCodeErrorFilter,
+  accessCodeWarningFilter,
+} from 'lib/seam/filters.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
@@ -37,6 +36,8 @@ export const NestedAccessCodeDetails =
 export function AccessCodeDetails({
   accessCodeId,
   onEdit,
+  errorFilter = () => true,
+  warningFilter = () => true,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
   disableLockUnlock = false,
@@ -61,6 +62,8 @@ export function AccessCodeDetails({
     return (
       <NestedDeviceDetails
         deviceId={selectedDeviceId}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -75,14 +78,21 @@ export function AccessCodeDetails({
   }
 
   const alerts = [
-    ...accessCode.errors.filter(errorFilter).map((error) => ({
-      variant: 'error' as const,
-      message: error.message,
-    })),
-    ...accessCode.warnings.map((warning) => ({
-      variant: 'warning' as const,
-      message: warning.message,
-    })),
+    ...accessCode.errors
+      .filter(accessCodeErrorFilter)
+      .filter(errorFilter)
+      .map((error) => ({
+        variant: 'error' as const,
+        message: error.message,
+      })),
+
+    ...accessCode.warnings
+      .filter(accessCodeWarningFilter)
+      .filter(warningFilter)
+      .map((warning) => ({
+        variant: 'warning' as const,
+        message: warning.message,
+      })),
   ]
 
   return (
@@ -244,22 +254,6 @@ const formatDate = (date: string): string =>
     day: 'numeric',
     year: 'numeric',
   })
-
-const errorFilter = (
-  error: AccessCodeError | DeviceError | ConnectedAccountError
-): boolean => {
-  if ('is_access_code_error' in error && !error.is_access_code_error)
-    return true
-
-  if (
-    error.error_code === 'failed_to_set_on_device' ||
-    error.error_code === 'failed_to_remove_on_device'
-  ) {
-    return true
-  }
-
-  return false
-}
 
 const t = {
   accessCode: 'Access code',

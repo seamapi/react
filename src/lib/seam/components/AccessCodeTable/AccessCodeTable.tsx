@@ -79,6 +79,8 @@ export function AccessCodeTable({
   onBack,
   accessCodeFilter = defaultAccessCodeFilter,
   accessCodeComparator = compareByCreatedAtDesc,
+  errorFilter = () => true,
+  warningFilter = () => true,
   heading = t.accessCodes,
   title = t.accessCodes,
   className,
@@ -143,6 +145,8 @@ export function AccessCodeTable({
     return (
       <NestedEditAccessCodeForm
         accessCodeId={selectedEditAccessCodeId}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -176,6 +180,8 @@ export function AccessCodeTable({
           onEdit={() => {
             setSelectedEditAccessCodeId(selectedViewAccessCodeId)
           }}
+          errorFilter={errorFilter}
+          warningFilter={warningFilter}
           disableLockUnlock={disableLockUnlock}
           disableCreateAccessCode={disableCreateAccessCode}
           disableEditAccessCode={disableEditAccessCode}
@@ -194,6 +200,8 @@ export function AccessCodeTable({
     return (
       <NestedCreateAccessCodeForm
         deviceId={deviceId}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
@@ -260,6 +268,8 @@ export function AccessCodeTable({
             accessCodes={filteredAccessCodes}
             onAccessCodeClick={handleAccessCodeClick}
             onAccessCodeEdit={handleAccessCodeEdit}
+            errorFilter={errorFilter}
+            warningFilter={warningFilter}
             disableEditAccessCode={disableEditAccessCode}
             disableDeleteAccessCode={disableDeleteAccessCode}
           />
@@ -286,6 +296,8 @@ function Content(props: {
   accessCodes: Array<UseAccessCodesData[number]>
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
+  errorFilter: (error: AccessCode['errors'][number]) => boolean
+  warningFilter: (warning: AccessCode['warnings'][number]) => boolean
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
 }): JSX.Element {
@@ -293,6 +305,8 @@ function Content(props: {
     accessCodes,
     onAccessCodeClick,
     onAccessCodeEdit,
+    errorFilter,
+    warningFilter,
     disableEditAccessCode,
     disableDeleteAccessCode,
   } = props
@@ -322,6 +336,8 @@ function Content(props: {
         accessCodes={accessCodes}
         filter={filter}
         onFilterSelect={setFilter}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
       />
       {filteredAccessCodes.map((accessCode) => (
         <AccessCodeRow

@@ -1,3 +1,5 @@
+import type { AccessCode } from 'seamapi'
+
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import type { UseAccessCodesData } from 'lib/seam/access-codes/use-access-codes.js'
@@ -8,17 +10,23 @@ export type AccessCodeFilter = 'access_code_issues'
 
 interface AccessCodeHealthBarProps {
   accessCodes: Array<UseAccessCodesData[number]>
+  errorFilter: (error: AccessCode['errors'][number]) => boolean
+  warningFilter: (warning: AccessCode['warnings'][number]) => boolean
   filter: AccessCodeFilter | null
   onFilterSelect: (filter: AccessCodeFilter | null) => void
 }
 
 export function AccessCodeHealthBar({
   accessCodes,
+  errorFilter,
+  warningFilter,
   filter,
   onFilterSelect,
 }: AccessCodeHealthBarProps): JSX.Element {
   const codesWithIssues = accessCodes.filter(
-    ({ errors, warnings }) => errors.length > 0 || warnings.length > 0
+    ({ errors, warnings }) =>
+      errors.filter(errorFilter).length > 0 ||
+      warnings.filter(warningFilter).length > 0
   )
   const issueCount = codesWithIssues.length
 
