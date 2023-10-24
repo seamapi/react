@@ -138,6 +138,7 @@ const useAvailableBrands = (
     .filter((manufacturer) => {
       return !excludedBrands.includes(manufacturer.display_name)
     })
+    .map((manufacturer) => manufacturer.display_name)
 
   return Array.from(new Set(availableBrands))
 }
