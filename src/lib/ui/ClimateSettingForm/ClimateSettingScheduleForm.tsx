@@ -36,7 +36,6 @@ export interface ClimateSettingScheduleFormFields {
     heatingSetPoint: number
     coolingSetPoint: number
   }
-  temperatureUnit: 'F' | 'C'
 }
 
 export function ClimateSettingScheduleForm({
@@ -67,7 +66,6 @@ function Content({
         heatingSetPoint: 70,
         coolingSetPoint: 75,
       },
-      temperatureUnit: 'F' as 'F' | 'C',
     },
   })
 
@@ -139,9 +137,7 @@ function Content({
           setPage('name_and_schedule')
         }}
         onCancel={onBack}
-        onSave={() => {
-          console.log('saving')
-        }}
+        onSave={() => {}}
       />
     )
   }
