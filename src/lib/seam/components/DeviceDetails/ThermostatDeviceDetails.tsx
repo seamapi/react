@@ -133,7 +133,7 @@ export function ThermostatDeviceDetails({
             </DetailSection>
 
             <DetailSection label={t.deviceDetails}>
-              <DetailRow label={t.brand}>
+              <DetailRow label={t.manufacturer}>
                 <div className='seam-detail-row-hstack'>
                   {device.properties.model.manufacturer_display_name}
                   {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
@@ -175,7 +175,7 @@ const t = {
   defaultClimate: 'Default climate',
   allowManualOverride: 'Allow manual override',
   deviceDetails: 'Device details',
-  brand: 'Brand',
+  manufacturer: 'Manufacturer',
   linkedAccount: 'Linked account',
   deviceId: 'Device ID',
   none: 'None',
