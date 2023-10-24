@@ -1,10 +1,11 @@
+import type { ConnectedAccountError, DeviceError } from 'seamapi'
+
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOffline.js'
 import type { UseDevicesData } from 'lib/seam/devices/use-devices.js'
 import { TableFilterBar } from 'lib/ui/Table/TableFilterBar/TableFilterBar.js'
 import { TableFilterItem } from 'lib/ui/Table/TableFilterBar/TableFilterItem.js'
-import type { ConnectedAccountError, DeviceError } from 'seamapi'
 
 export type AccountFilter = 'account_issues'
 export type DeviceFilter = 'device_issues'
