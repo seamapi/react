@@ -4,7 +4,6 @@ import {
   type UseFormResetField,
   type UseFormWatch,
 } from 'react-hook-form'
-import type { HvacModeSetting } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -67,7 +66,6 @@ export function ClimateSettingScheduleFormClimateSetting({
               <Controller
                 name='hvacModeSetting'
                 control={control}
-                defaultValue={'heat' as HvacModeSetting}
                 render={({ field: { value, onChange } }) => {
                   return (
                     <ClimateModeMenu
