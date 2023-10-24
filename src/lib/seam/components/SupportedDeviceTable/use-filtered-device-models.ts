@@ -42,7 +42,7 @@ export const useFilteredDeviceModels = ({
     }
   }
 
-  if (manufacturers != null) {
+  if (filters.manufacturer == null && manufacturers != null) {
     params.manufacturer_ids = manufacturers.map((m) => m.manufacturer_id)
   }
 
