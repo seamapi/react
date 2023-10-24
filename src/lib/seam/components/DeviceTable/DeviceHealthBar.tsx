@@ -4,6 +4,7 @@ import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOff
 import type { UseDevicesData } from 'lib/seam/devices/use-devices.js'
 import { TableFilterBar } from 'lib/ui/Table/TableFilterBar/TableFilterBar.js'
 import { TableFilterItem } from 'lib/ui/Table/TableFilterBar/TableFilterItem.js'
+import type { ConnectedAccountError, DeviceError } from 'seamapi'
 
 export type AccountFilter = 'account_issues'
 export type DeviceFilter = 'device_issues'
@@ -12,7 +13,7 @@ interface DeviceHealthBarProps {
   devices: Array<UseDevicesData[number]>
   filter: AccountFilter | DeviceFilter | null
   onFilterSelect: (filter: AccountFilter | DeviceFilter | null) => void
-  errorFilter: (error: any) => boolean
+  errorFilter: (error: DeviceError | ConnectedAccountError) => boolean
 }
 
 export function DeviceHealthBar({
