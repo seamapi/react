@@ -4,7 +4,10 @@ import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOffline.js'
 import type { UseDevicesData } from 'lib/seam/devices/use-devices.js'
-import { connectedAccountErrorFilter, deviceErrorFilter } from 'lib/seam/filters.js'
+import {
+  connectedAccountErrorFilter,
+  deviceErrorFilter,
+} from 'lib/seam/filters.js'
 import { TableFilterBar } from 'lib/ui/Table/TableFilterBar/TableFilterBar.js'
 import { TableFilterItem } from 'lib/ui/Table/TableFilterBar/TableFilterItem.js'
 
@@ -32,9 +35,7 @@ export function DeviceHealthBar({
   })
   const erroredDevices = devices.filter((device) => {
     return (
-      device.errors
-        .filter(errorFilter)
-        .filter(deviceErrorFilter).length > 0
+      device.errors.filter(errorFilter).filter(deviceErrorFilter).length > 0
     )
   })
   const accountIssueCount = erroredAccounts.length

@@ -23,7 +23,9 @@ export const deviceWarningFilter = (_: SeamWarning): boolean => {
   return true
 }
 
-export const connectedAccountErrorFilter = (error: SeamCompositeError): boolean => {
+export const connectedAccountErrorFilter = (
+  error: SeamCompositeError
+): boolean => {
   return (
     'is_connected_account_error' in error && error.is_connected_account_error
   )
