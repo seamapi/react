@@ -29,6 +29,27 @@ export const NoFilter: Story = {
   render: (props) => <SupportedDeviceTable {...props} disableFilter />,
 }
 
+export const ChooseManufacturers: Story = {
+  render: (props) => (
+    <SupportedDeviceTable
+      {...props}
+      manufacturers={['August=cfe546ca-7a99-48e0-a665-4304dca85b4e', '4SUITES']}
+    />
+  ),
+}
+
+export const ExcludeManufacturers: Story = {
+  render: (props) => (
+    <SupportedDeviceTable
+      {...props}
+      excludedManufacturers={[
+        'August=cfe546ca-7a99-48e0-a665-4304dca85b4e',
+        '4SUITES',
+      ]}
+    />
+  ),
+}
+
 export const InsideModal: Story = {
   render: (props) => {
     const [open, toggleOpen] = useToggle()

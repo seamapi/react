@@ -1,27 +1,54 @@
 import { useManufacturers } from 'lib/seam/components/SupportedDeviceTable/use-manufacturers.js'
 
-export const useFilteredManufacturers = ({
-  manufacturers,
-  excludedManufacturers,
-}: {
+interface Params {
   manufacturers: string[] | null
   excludedManufacturers: string[]
-}): ReturnType<typeof useManufacturers> => {
-  // TODO: Use API to filter manufacturers.
-  const { manufacturers: manufacturersData, ...query } = useManufacturers()
+}
+export const useFilteredManufacturers = (
+  params: Params
+): ReturnType<typeof useManufacturers> => {
+  return useManufacturers({
+    liqe_query: createLiqeQuery(params),
+  })
+}
 
-  if (manufacturersData == null) {
-    return { manufacturers: manufacturersData, ...query }
+export const createLiqeQuery = ({
+  manufacturers,
+  excludedManufacturers,
+}: Params): string | undefined => {
+  if (
+    (manufacturers?.some(isInvalidInput) ?? false) ||
+    excludedManufacturers.some(isInvalidInput)
+  ) {
+    return undefined
   }
 
-  const availableManufacturers = manufacturersData
-    .filter((manufacturer) => {
-      if (manufacturers === null) return true
-      return manufacturers.includes(manufacturer.display_name)
-    })
-    .filter((manufacturer) => {
-      return !excludedManufacturers.includes(manufacturer.display_name)
-    })
+  const excludedManufacturersClause = `NOT (${excludedManufacturers
+    .map(manufacturerToMatcher)
+    .join(' OR ')})`
 
-  return { manufacturers: availableManufacturers, ...query }
+  if (manufacturers == null) {
+    if (excludedManufacturers.length === 0) return undefined
+    return excludedManufacturersClause
+  }
+
+  if (manufacturers.length === 0) {
+    return 'manufacturer_id:none'
+  }
+
+  const includedManufacturersClause = `(${manufacturers
+    .map(manufacturerToMatcher)
+    .join(' OR ')})`
+
+  if (excludedManufacturers.length === 0) return includedManufacturersClause
+
+  return `${includedManufacturersClause} AND ${excludedManufacturersClause}`
 }
+
+const manufacturerToMatcher = (value: string): string => {
+  const [manufacturer, uuid] = value.split('=')
+  if (uuid != null) return `manufacturer_id:"${uuid}"`
+  return `display_name:"${manufacturer}"`
+}
+
+const isInvalidInput = (value: string): boolean => value.includes('"')
