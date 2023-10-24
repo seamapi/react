@@ -32,6 +32,11 @@ export interface ClimateSettingScheduleFormFields {
   endDate: string
   timeZone: string
   hvacModeSetting: HvacModeSetting
+  setPoints: {
+    heatingSetPoint: number
+    coolingSetPoint: number
+  }
+  temperatureUnit: 'F' | 'C'
 }
 
 export function ClimateSettingScheduleForm({
@@ -57,7 +62,12 @@ function Content({
       startDate: '',
       endDate: '',
       timeZone: getSystemTimeZone(),
-      hvacModeSetting: 'heat' as HvacModeSetting,
+      hvacModeSetting: 'heat_cool' as HvacModeSetting,
+      setPoints: {
+        heatingSetPoint: 70,
+        coolingSetPoint: 75,
+      },
+      temperatureUnit: 'F' as 'F' | 'C',
     },
   })
 

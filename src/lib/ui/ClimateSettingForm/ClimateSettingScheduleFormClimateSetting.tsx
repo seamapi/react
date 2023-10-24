@@ -1,4 +1,4 @@
-import { type Control, Controller, type UseFormWatch } from 'react-hook-form'
+import { Controller, type Control, type UseFormWatch } from 'react-hook-form'
 import type { HvacModeSetting } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
@@ -35,6 +35,8 @@ export function ClimateSettingScheduleFormClimateSetting({
 
   const hvacModeSetting = watch('hvacModeSetting')
   console.log('hvac mode setting: ', hvacModeSetting)
+  const setPoints = watch('setPoints')
+  console.log('set points: ', setPoints)
 
   return (
     <>
@@ -70,17 +72,33 @@ export function ClimateSettingScheduleFormClimateSetting({
 
             {hvacModeSetting !== 'off' && (
               <FormField className='seam-climate-setting-slider-container'>
-                <TemperatureControlGroup
-                  coolValue={80}
-                  delta={5}
-                  heatValue={75}
-                  maxCool={90}
-                  maxHeat={100}
-                  minCool={50}
-                  minHeat={70}
-                  mode={hvacModeSetting}
-                  onCoolValueChange={function noRefCheck() {}}
-                  onHeatValueChange={function noRefCheck() {}}
+                <Controller
+                  name='setPoints'
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <TemperatureControlGroup
+                      coolValue={value.coolingSetPoint}
+                      delta={5}
+                      heatValue={value.heatingSetPoint}
+                      maxCool={90}
+                      maxHeat={100}
+                      minCool={50}
+                      minHeat={70}
+                      mode={hvacModeSetting}
+                      onCoolValueChange={(coolingSetPoint) => {
+                        onChange({
+                          ...value,
+                          coolingSetPoint,
+                        })
+                      }}
+                      onHeatValueChange={(heatingSetPoint) => {
+                        onChange({
+                          ...value,
+                          heatingSetPoint,
+                        })
+                      }}
+                    />
+                  )}
                 />
               </FormField>
             )}
