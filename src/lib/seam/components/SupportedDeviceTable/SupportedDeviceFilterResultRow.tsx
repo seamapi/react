@@ -1,15 +1,13 @@
-import type { DeviceModel } from 'seamapi'
+import type { DeviceModelV1 } from '@seamapi/types/devicedb'
 
 import {
-  connectionTypeNames,
   ImageColumn,
   StatusColumn,
 } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
-import { useDeviceProvider } from 'lib/seam/components/SupportedDeviceTable/use-device-provider.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 
 interface SupportedDeviceFilterResultRowProps {
-  deviceModel: DeviceModel
+  deviceModel: DeviceModelV1
 }
 
 export function SupportedDeviceFilterResultRow({
@@ -27,23 +25,21 @@ export function SupportedDeviceFilterResultRow({
 export function ModelColumn({
   deviceModel,
 }: SupportedDeviceFilterResultRowProps): JSX.Element {
-  const deviceProvider = useDeviceProvider(deviceModel.brand)
-
   return (
     <div className='seam-col seam-model-col'>
       <div className='seam-model-name'>
         <img
-          src={deviceProvider.image_url}
-          alt={deviceModel.brand}
+          src={deviceModel.manufacturer.logo?.url}
+          alt={deviceModel.manufacturer.display_name}
           className='seam-brand-image'
         />{' '}
-        <div className='seam-truncated-text'>{deviceModel.model_name}</div>
+        <div className='seam-truncated-text'>{deviceModel.display_name}</div>
       </div>
       <div className='seam-model-id'>
         <div className='seam-truncated-text'>
-          {deviceModel.manufacturer_model_id}
+          {deviceModel.device_model_id}
           <DotDivider />
-          {connectionTypeNames[deviceModel.connection_type]}
+          {deviceModel.main_connection_type}
         </div>
       </div>
     </div>

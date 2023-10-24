@@ -1,7 +1,8 @@
 import {
   useDeviceModels,
   type UseDeviceModelsParams,
-} from 'lib/seam/device-models/use-device-models.js'
+} from 'lib/seam/components/SupportedDeviceTable/use-device-models.js'
+import { useManufacturers } from 'lib/seam/components/SupportedDeviceTable/use-manufacturers.js'
 
 export interface DeviceModelFilters {
   supportedOnly: boolean
@@ -19,6 +20,8 @@ export const useFilteredDeviceModels = ({
   brands: string[] | null
   excludedBrands: string[]
 }): ReturnType<typeof useDeviceModels> => {
+  const { manufacturers } = useManufacturers()
+
   const params: UseDeviceModelsParams = {}
 
   if (filterValue.trim() !== '') {
@@ -26,11 +29,17 @@ export const useFilteredDeviceModels = ({
   }
 
   if (filters.supportedOnly) {
-    params.support_level = 'live'
+    params.integration_status = 'stable'
   }
 
   if (filters.brand !== null) {
-    params.brand = filters.brand
+    const manufacturer = manufacturers?.find(
+      (manufacturer) => manufacturer.display_name === filters.brand
+    )
+
+    if (manufacturer != null) {
+      params.manufacturer_id = manufacturer.manufacturer_id
+    }
   }
 
   const query = useDeviceModels(params)
@@ -40,12 +49,12 @@ export const useFilteredDeviceModels = ({
   return {
     ...query,
     deviceModels: query.deviceModels
-      ?.filter(({ brand }) => {
+      ?.filter(({ manufacturer }) => {
         if (brands === null) return true
-        return brands.includes(brand)
+        return brands.includes(manufacturer.display_name)
       })
-      .filter(({ brand }) => {
-        return !excludedBrands.includes(brand)
+      .filter(({ manufacturer }) => {
+        return !excludedBrands.includes(manufacturer.display_name)
       }),
   }
 }
