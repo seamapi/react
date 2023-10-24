@@ -67,6 +67,8 @@ export function ClimateSettingScheduleTable({
   disableDeleteAccessCode = false,
   onBack,
   className,
+  errorFilter = () => true,
+  warningFilter = () => true,
   disableCreateAccessCode,
   disableEditAccessCode,
   disableResourceIds = false,
@@ -116,6 +118,8 @@ export function ClimateSettingScheduleTable({
     return (
       <NestedClimateSettingScheduleDetails
         climateSettingScheduleId={selectedViewClimateSettingScheduleId}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
         disableLockUnlock={disableLockUnlock}
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}

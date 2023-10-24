@@ -31,7 +31,12 @@ export const Content: Story = {
     )
     return (
       <Box display='grid' gap={3} gridTemplateColumns='1fr'>
-        <DeviceHealthBar filter={null} onFilterSelect={() => {}} devices={[]} />
+        <DeviceHealthBar
+          filter={null}
+          onFilterSelect={() => {}}
+          devices={[]}
+          errorFilter={() => true}
+        />
         <DeviceHealthBar
           filter={filter}
           onFilterSelect={setFilter}
@@ -100,6 +105,7 @@ export const Content: Story = {
               ],
             },
           ]}
+          errorFilter={() => true}
         />
       </Box>
     )
