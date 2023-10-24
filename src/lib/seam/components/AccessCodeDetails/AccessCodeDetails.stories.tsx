@@ -25,16 +25,16 @@ export default meta
 type Story = StoryObj<typeof AccessCodeDetails>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <AccessCodeDetails
       {...props}
-      accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+      accessCodeId={props.accessCodeId ?? 'access_code1'}
     />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
@@ -48,7 +48,7 @@ export const InsideModal: Story = {
         >
           <AccessCodeDetails
             {...props}
-            accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+            accessCodeId={props.accessCodeId ?? 'access_code1'}
           />
         </Dialog>
       </>
@@ -57,10 +57,10 @@ export const InsideModal: Story = {
 }
 
 export const DisableLockUnlock: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <AccessCodeDetails
       {...props}
-      accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+      accessCodeId={props.accessCodeId ?? 'access_code1'}
       disableLockUnlock
     />
   ),

@@ -12,7 +12,7 @@ export interface TelemetryClientOptions {
 // Implements a compatible Analytics 2.0 API with custom options.
 // https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/
 export class TelemetryClient {
-  #queue: Queue
+  readonly #queue: Queue
   #anonymousId: string | null
 
   #endpoint: string
@@ -154,7 +154,7 @@ export class TelemetryClient {
     }
   }
 
-  #push = (message: Message): void => {
+  readonly #push = (message: Message): void => {
     if (this.#disabled) return
     this.#queue.push(async () => {
       const payload: Payload = {
@@ -178,7 +178,7 @@ export class TelemetryClient {
     })
   }
 
-  #log = (
+  readonly #log = (
     method: string,
     ...args: Array<string | Traits | Properties>
   ): void => {

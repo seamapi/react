@@ -26,16 +26,13 @@ export default meta
 type Story = StoryObj<typeof DeviceDetails>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
-    <DeviceDetails
-      {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
-    />
+  render: (props) => (
+    <DeviceDetails {...props} deviceId={props.deviceId ?? 'device1'} />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
@@ -56,10 +53,7 @@ export const InsideModal: Story = {
           >
             <CloseIcon />
           </IconButton>
-          <DeviceDetails
-            {...props}
-            deviceId={props.deviceId ?? globals['deviceId']}
-          />
+          <DeviceDetails {...props} deviceId={props.deviceId ?? 'device1'} />
           <DialogActions
             sx={{ justifyContent: 'center', marginBottom: '16px' }}
           >
@@ -72,10 +66,10 @@ export const InsideModal: Story = {
 }
 
 export const DisableLockUnlock: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <DeviceDetails
       {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
+      deviceId={props.deviceId ?? 'device1'}
       disableLockUnlock
     />
   ),

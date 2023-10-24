@@ -99,8 +99,7 @@
               grid-auto-rows: 1fr;
               font-size: 14px;
               line-height: 134%;
-              row-gap: 4px;
-              column-gap: 28px;
+              gap: 4px 28px;
 
               .seam-label {
                 color: colors.$text-gray-2;
