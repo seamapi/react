@@ -132,7 +132,6 @@ const useAvailableBrands = (
   if (manufacturers == null) return []
 
   const availableBrands = manufacturers
-    .filter((manufacturer) => manufacturer.display_name) // Remove null/empty
     .filter((manufacturer) => {
       if (brands === null) return true
       return brands.includes(manufacturer.display_name)
