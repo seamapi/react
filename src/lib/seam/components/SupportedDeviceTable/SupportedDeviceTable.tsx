@@ -13,10 +13,6 @@ import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTabl
 
 export interface SupportedDeviceTableProps extends CommonProps {
   disableFilter?: boolean
-  /**
-   * @deprecated Use disableFilter.
-   */
-  cannotFilter?: boolean
   brands?: string[] | null
   excludedBrands?: string[]
 }
@@ -26,7 +22,6 @@ export const NestedSupportedDeviceTable =
 
 export function SupportedDeviceTable({
   disableFilter = false,
-  cannotFilter,
   brands = null,
   excludedBrands = [],
   className,
@@ -39,8 +34,6 @@ export function SupportedDeviceTable({
     brand: null,
   })
 
-  const hideFilter = cannotFilter ?? disableFilter
-
   return (
     <div
       className={classNames(
@@ -48,7 +41,7 @@ export function SupportedDeviceTable({
         className
       )}
     >
-      {!hideFilter && (
+      {!disableFilter && (
         <SupportedDeviceFilterArea
           filterValue={filterValue}
           setFilterValue={setFilterValue}
