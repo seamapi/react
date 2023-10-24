@@ -12,8 +12,8 @@ interface SupportedDeviceFilterAreaProps {
   setFilterValue: (filter: string) => void
   filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
-  brands: string[] | null
-  excludedBrands: string[]
+  manufacturers: string[] | null
+  excludedManufacturers: string[]
 }
 
 export function SupportedDeviceFilterArea({
@@ -21,12 +21,15 @@ export function SupportedDeviceFilterArea({
   setFilterValue,
   filters,
   setFilters,
-  brands,
-  excludedBrands,
+  manufacturers,
+  excludedManufacturers,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = getAppliedFilterCount(filters)
 
-  const availableBrands = useAvailableBrands(brands, excludedBrands)
+  const availableManufacturers = useAvailableManufacturers(
+    manufacturers,
+    excludedManufacturers
+  )
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -63,18 +66,18 @@ export function SupportedDeviceFilterArea({
           >
             <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
-                label={t.brand}
+                label={t.manufacturer}
                 allLabel={allLabel}
-                options={availableBrands}
-                onSelect={(brand: string) => {
+                options={availableManufacturers}
+                onSelect={(manufacturer: string) => {
                   setFilters((filters) => ({
                     ...filters,
-                    brand,
+                    manufacturer,
                   }))
                 }}
-                buttonLabel={filters.brand ?? allLabel}
+                buttonLabel={filters.manufacturer ?? allLabel}
                 onAllOptionSelect={() => {
-                  resetFilter('brand')
+                  resetFilter('manufacturer')
                 }}
               />
             </div>
@@ -117,35 +120,35 @@ export function SupportedDeviceFilterArea({
 
 const getAppliedFilterCount = (filters: DeviceModelFilters): number => {
   let count = 0
-  if (filters.brand !== null) count++
+  if (filters.manufacturer !== null) count++
   if (!filters.supportedOnly) count++
   return count
 }
 
-const useAvailableBrands = (
-  brands: string[] | null,
-  excludedBrands: string[]
+const useAvailableManufacturers = (
+  manufacturers: string[] | null,
+  excludedManufacturers: string[]
 ): string[] => {
-  const { manufacturers } = useManufacturers()
+  const { manufacturers: manufacturersData } = useManufacturers()
 
-  if (manufacturers == null) return []
+  if (manufacturersData == null) return []
 
-  const availableBrands = manufacturers
+  const availableManufacturers = manufacturersData
     .filter((manufacturer) => {
-      if (brands === null) return true
-      return brands.includes(manufacturer.display_name)
+      if (manufacturers === null) return true
+      return manufacturers.includes(manufacturer.display_name)
     })
     .filter((manufacturer) => {
-      return !excludedBrands.includes(manufacturer.display_name)
+      return !excludedManufacturers.includes(manufacturer.display_name)
     })
     .map((manufacturer) => manufacturer.display_name)
 
-  return Array.from(new Set(availableBrands))
+  return Array.from(new Set(availableManufacturers))
 }
 
 const t = {
   all: 'All',
-  brand: 'Brand',
+  manufacturer: 'Manufacturer',
   supported: 'Supported',
   filter: 'Filter',
   filters: 'Filters',
