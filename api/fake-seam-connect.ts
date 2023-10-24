@@ -53,7 +53,9 @@ export default async (
       fakeDevicedb.database.vercel_protection_bypass_secret,
   })
 
-  await fake.startServer()
+  const { host } = req.headers
+  if (host == null) throw new Error('Missing Host header')
+  await fake.startServer({ baseUrl: `https://${host}/api` })
 
   const requestBuffer = await getRawBody(req)
 
