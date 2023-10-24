@@ -80,7 +80,7 @@ function Content({
     | 'name_and_schedule'
     | 'time_zone_select'
     | 'climate_setting'
-  >('climate_setting')
+  >('device_select')
 
   if (page === 'device_select') {
     return (

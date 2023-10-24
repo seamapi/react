@@ -34,9 +34,6 @@ export function ClimateSettingScheduleFormClimateSetting({
   })
 
   const hvacModeSetting = watch('hvacModeSetting')
-  console.log('hvac mode setting: ', hvacModeSetting)
-  const setPoints = watch('setPoints')
-  console.log('set points: ', setPoints)
 
   return (
     <>
