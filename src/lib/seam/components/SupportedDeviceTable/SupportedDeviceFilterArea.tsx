@@ -2,8 +2,7 @@ import type { Dispatch, SetStateAction } from 'react'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
-import { useDeviceModels } from 'lib/seam/device-models/use-device-models.js'
-import { capitalize } from 'lib/strings.js'
+import { useManufacturers } from 'lib/seam/components/SupportedDeviceTable/use-manufacturers.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
@@ -127,24 +126,19 @@ const useAvailableBrands = (
   brands: string[] | null,
   excludedBrands: string[]
 ): string[] => {
-  const { deviceModels } = useDeviceModels()
+  const { manufacturers } = useManufacturers()
 
-  if (deviceModels == null) return []
+  if (manufacturers == null) return []
 
-  const availableBrands = deviceModels
-    .map(({ brand }) => brand.trim())
-    .filter((brand) => {
-      // UPSTREAM: API can return an empty value for brand.
-      return brand !== ''
-    })
-    .filter((brand) => {
+  const availableBrands = manufacturers
+    .filter((manufacturer) => {
       if (brands === null) return true
-      return brands.includes(brand)
+      return brands.includes(manufacturer.display_name)
     })
-    .filter((brand) => {
-      return !excludedBrands.includes(brand)
+    .filter((manufacturer) => {
+      return !excludedBrands.includes(manufacturer.display_name)
     })
-    .map((brand) => capitalize(brand))
+    .map((manufacturer) => manufacturer.display_name)
 
   return Array.from(new Set(availableBrands))
 }
