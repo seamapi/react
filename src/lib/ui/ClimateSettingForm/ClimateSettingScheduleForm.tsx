@@ -57,6 +57,7 @@ function Content({
       startDate: '',
       endDate: '',
       timezone: getBrowserTimezone(),
+      hvacModeSetting: 'heat' as HvacModeSetting,
     },
   })
 
@@ -121,6 +122,7 @@ function Content({
       <ClimateSettingScheduleFormClimateSetting
         title={t.addNewClimateSettingSchedule}
         control={control}
+        watch={watch}
         deviceId={deviceId}
         onBack={() => {
           setPage('name_and_schedule')

@@ -1,4 +1,4 @@
-import { Controller, type Control } from 'react-hook-form'
+import { Controller, type Control, type UseFormWatch } from 'react-hook-form'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -13,6 +13,7 @@ import type { HvacModeSetting } from 'seamapi'
 interface ClimateSettingScheduleFormClimateSettingProps {
   title: string
   control: Control<ClimateSettingScheduleFormFields>
+  watch: UseFormWatch<ClimateSettingScheduleFormFields>
   deviceId: string
   onBack: () => void
   onCancel: (() => void) | undefined
@@ -22,6 +23,7 @@ interface ClimateSettingScheduleFormClimateSettingProps {
 export function ClimateSettingScheduleFormClimateSetting({
   title,
   control,
+  watch,
   deviceId,
   onBack,
   onCancel,
@@ -30,6 +32,9 @@ export function ClimateSettingScheduleFormClimateSetting({
   const { device } = useDevice({
     device_id: deviceId,
   })
+
+  const hvacModeSetting = watch('hvacModeSetting')
+  console.log('hvac mode setting: ', hvacModeSetting)
 
   return (
     <>
@@ -57,29 +62,28 @@ export function ClimateSettingScheduleFormClimateSetting({
                 name='hvacModeSetting'
                 control={control}
                 defaultValue={'heat' as HvacModeSetting}
-                render={({
-                  field: { value, onChange },
-                  fieldState: { invalid, error },
-                }) => {
+                render={({ field: { value, onChange } }) => {
                   return <ClimateModeMenu mode={value} onChange={onChange} />
                 }}
               />
             </FormField>
 
-            <FormField className='seam-climate-setting-slider-container'>
-              <TemperatureControlGroup
-                coolValue={80}
-                delta={5}
-                heatValue={75}
-                maxCool={90}
-                maxHeat={100}
-                minCool={50}
-                minHeat={70}
-                mode='heat_cool'
-                onCoolValueChange={function noRefCheck() {}}
-                onHeatValueChange={function noRefCheck() {}}
-              />
-            </FormField>
+            {hvacModeSetting !== 'off' && (
+              <FormField className='seam-climate-setting-slider-container'>
+                <TemperatureControlGroup
+                  coolValue={80}
+                  delta={5}
+                  heatValue={75}
+                  maxCool={90}
+                  maxHeat={100}
+                  minCool={50}
+                  minHeat={70}
+                  mode={hvacModeSetting}
+                  onCoolValueChange={function noRefCheck() {}}
+                  onHeatValueChange={function noRefCheck() {}}
+                />
+              </FormField>
+            )}
           </div>
         </div>
         <div className='seam-actions'>
