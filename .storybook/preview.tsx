@@ -4,43 +4,19 @@ import '../src/index.scss'
 import { SeamProvider } from '@seamapi/react'
 import type { Preview } from '@storybook/react'
 
-const useFake = !['1', 'true'].includes(
-  process.env['STORYBOOK_DISABLE_FAKE']?.toLowerCase() ?? ''
-)
+const seamEndpoint = process.env['STORYBOOK_SEAM_ENDPOINT'] ?? '/api'
 
 const preview: Preview = {
   globalTypes: {
-    /** @deprecated use "seam_pk_1" directly in your story **/
-    publishableKey: {
-      description: 'Seam publishable key',
-      defaultValue: useFake
-        ? 'seam_pk_1'
-        : process.env['STORYBOOK_SEAM_PUBLISHABLE_KEY'],
-    },
-    /** @deprecated use "some_user" directly in your story **/
-    userIdentifierKey: {
-      description: 'Seam user identifier key',
-      defaultValue: useFake
-        ? 'some_user'
-        : process.env['STORYBOOK_SEAM_USER_IDENTIFIER_KEY'],
-    },
-    /** @deprecated use "device1" directly in your story **/
-    deviceId: {
-      description: 'Device id',
-      defaultValue: useFake
-        ? 'device1'
-        : 'f9a9ab36-9e14-4390-a88c-b4c78304c6aa',
-    },
-    /** @deprecated use "access_code1" directly in your story **/
-    accessCodeId: {
-      description: 'Access code id',
-      defaultValue: useFake
-        ? 'access_code1'
-        : 'a4d00b36-09e2-467f-a9f3-bb73cea1351c',
-    },
-    seamEndpoint: {
-      description: 'Seam Endpoint',
-      defaultValue: process.env['STORYBOOK_SEAM_ENDPOINT'] ?? '/api',
+    simulatedOutage: {
+      description: 'Simulate an outage',
+      defaultValue: 'normal',
+      toolbar: {
+        items: [
+          { value: 'normal', icon: 'lightning', title: 'Normal' },
+          { value: 'outage', icon: 'lightningoff', title: 'Outage' },
+        ],
+      },
     },
   },
   parameters: {
@@ -53,19 +29,23 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (
-      Story,
-      { globals: { publishableKey, userIdentifierKey, seamEndpoint } }
-    ) => {
+    (Story, context) => {
+      const {
+        globals: { simulatedOutage },
+      } = context
+
+      const publishableKey =
+        simulatedOutage === 'outage' ? 'seam_pk_3' : 'seam_pk_2'
+
       return (
         <SeamProvider
           publishableKey={publishableKey}
-          userIdentifierKey={userIdentifierKey}
+          userIdentifierKey='some_user'
           endpoint={seamEndpoint}
           disableCssInjection
           disableFontInjection
         >
-          <Story />
+          <Story {...context} />
         </SeamProvider>
       )
     },

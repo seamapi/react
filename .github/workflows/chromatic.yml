@@ -37,16 +37,13 @@ jobs:
       - name: Get Seam endpoint
         id: seam_endpoint
         env:
-          REF_NAME: ${{ github.ref_name }}
-          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
-          BASE_REPO: ${{ github.event.pull_request.base.repo.full_name }}
           STORYBOOK_SEAM_ENDPOINT: ${{ vars.STORYBOOK_SEAM_ENDPOINT }}
           VERCEL_PREVIEW_URL: ${{ steps.vercel.outputs.preview_url }}
         run: |
-          if [ $REF_NAME == 'main' || $HEAD_REPO != $BASE_REPO ]; then
-            echo "url=${STORYBOOK_SEAM_ENDPOINT}" >> $GITHUB_OUTPUT
-          else
+          if [ -n "$VERCEL_PREVIEW_URL" ]; then
             echo "url=${VERCEL_PREVIEW_URL}" >> $GITHUB_OUTPUT
+          else
+            echo "url=${STORYBOOK_SEAM_ENDPOINT}" >> $GITHUB_OUTPUT
           fi
       - name: Publish to Chromatic
         uses: chromaui/action@v1

@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import type { SeamError } from 'seamapi'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
-import { createIsoDate } from 'lib/dates.js'
 import {
   useAccessCode,
   type UseAccessCodeData,
@@ -11,15 +9,17 @@ import {
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
+import { useResponseErrors } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
-import { getValidationError } from 'lib/seam/error-handlers.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
+  type ResponseErrors,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
 
 export interface EditAccessCodeFormProps extends CommonProps {
   accessCodeId: string
+  onSuccess?: (accessCodeId: string) => void
 }
 
 export const NestedEditAccessCodeForm =
@@ -29,7 +29,10 @@ export function EditAccessCodeForm({
   accessCodeId,
   onBack,
   className,
+  onSuccess,
 }: EditAccessCodeFormProps): JSX.Element | null {
+  useComponentTelemetry('EditAccessCodeForm')
+
   const { accessCode } = useAccessCode({
     access_code_id: accessCodeId,
   })
@@ -39,7 +42,12 @@ export function EditAccessCodeForm({
   }
 
   return (
-    <Content accessCode={accessCode} className={className} onBack={onBack} />
+    <Content
+      accessCode={accessCode}
+      className={className}
+      onBack={onBack}
+      onSuccess={onSuccess}
+    />
   )
 }
 
@@ -47,6 +55,7 @@ function Content({
   className,
   onBack,
   accessCode,
+  onSuccess,
 }: Omit<EditAccessCodeFormProps, 'accessCodeId'> & {
   accessCode: NonNullable<UseAccessCodeData>
 }): JSX.Element | null {
@@ -54,9 +63,17 @@ function Content({
     device_id: accessCode.device_id,
   })
 
-  const { submit, isSubmitting, codeError } = useSubmitEditAccessCode(
+  const { submit, isSubmitting, responseErrors } = useSubmitEditAccessCode(
     accessCode,
-    onBack
+    () => {
+      if (onSuccess != null) {
+        onSuccess(accessCode.access_code_id)
+      }
+
+      if (onBack != null) {
+        onBack()
+      }
+    }
   )
 
   if (device == null) {
@@ -71,7 +88,7 @@ function Content({
       device={device}
       onSubmit={submit}
       isSubmitting={isSubmitting}
-      codeError={codeError}
+      responseErrors={responseErrors}
     />
   )
 }
@@ -82,22 +99,16 @@ function useSubmitEditAccessCode(
 ): {
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
-  codeError: string | null
+  responseErrors: ResponseErrors | null
 } {
   const { mutate, isLoading: isSubmitting } = useUpdateAccessCode()
-  const [codeError, setCodeError] = useState<string | null>(null)
-
-  const handleError = (error: SeamError): void => {
-    const codeError = getValidationError({ error, property: 'code' })
-    if (codeError != null) {
-      setCodeError(codeError)
-    }
-  }
+  const { responseErrors, handleResponseError, resetResponseErrors } =
+    useResponseErrors()
 
   const submit = (data: AccessCodeFormSubmitData): void => {
-    setCodeError(null)
+    resetResponseErrors()
 
-    const { name, code, type, device, startDate, endDate, timezone } = data
+    const { name, code, type, device, startDate, endDate } = data
     if (name === '') {
       return
     }
@@ -114,12 +125,12 @@ function useSubmitEditAccessCode(
           code,
           device_id: device.device_id,
           type: 'time_bound',
-          starts_at: createIsoDate(startDate, timezone),
-          ends_at: createIsoDate(endDate, timezone),
+          starts_at: startDate,
+          ends_at: endDate,
         },
         {
           onSuccess,
-          onError: handleError,
+          onError: handleResponseError,
         }
       )
 
@@ -130,15 +141,16 @@ function useSubmitEditAccessCode(
       {
         access_code_id: accessCode.access_code_id,
         name,
+        code,
         type: 'ongoing',
         device_id: device.device_id,
       },
       {
         onSuccess,
-        onError: handleError,
+        onError: handleResponseError,
       }
     )
   }
 
-  return { submit, isSubmitting, codeError }
+  return { submit, isSubmitting, responseErrors }
 }

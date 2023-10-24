@@ -498,8 +498,7 @@
       width: auto;
       display: grid;
       grid-template-columns: auto auto;
-      column-gap: 16px;
-      row-gap: 8px;
+      gap: 8px 16px;
     }
 
     .seam-thermostat-property-block {

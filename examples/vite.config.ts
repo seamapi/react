@@ -19,11 +19,7 @@ export default defineConfig(async ({ command, mode }) => {
   return {
     base: `/${base}`,
     envPrefix: 'SEAM_',
-    plugins: [
-      tsconfigPaths(),
-      // @ts-expect-error https://github.com/vitejs/vite-plugin-react/issues/104
-      react(),
-    ],
+    plugins: [tsconfigPaths(), react()],
     resolve: {
       alias: {
         '@seamapi/react/elements.js': fileURLToPath(
@@ -36,7 +32,7 @@ export default defineConfig(async ({ command, mode }) => {
     },
     build: {
       rollupOptions: {
-        // UPSTREAM: Workaround to support multi-page app support on build.
+        // UPSTREAM: Workaround for Vite missing multi-page app support on build.
         // https://github.com/vitejs/vite/issues/3429
         input: Object.fromEntries(
           glob

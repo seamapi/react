@@ -87,12 +87,57 @@ export function App() {
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/1.55.2/dist/elements.js"
+    src="https://react.seam.co/v/1.64.0/dist/elements.js"
   ></script>
 </body>
 ```
 
 > Update the version in the script tag above with the exact version of this package you would like to use.
+
+#### Web component attributes and properties
+
+Each React component is defined as a custom element:
+
+- The element name is in in kebab-case,
+  e.g., `<DeviceTable>` becomes `<seam-device-table>`.
+- Each element is wrapped in a `<SeamProvider />`.
+- An attribute and custom property is defined for each `<SeamProvider />` prop and component prop.
+- Attributes are in kebab-case and properties are in snakeCase.
+
+Attributes map directly to component props.
+All attributes are passed as strings, thus non-string props have some limitations:
+
+- Number props will be parsed using `parseFloat`.
+- Boolean props should be passed as `true` or `false`, e.g., `disable-css-injection="true"` or `disable-css-injection="false"`.
+- Array props may be passed as JSON, e.g., `device-ids="["foo", "bar"]"`,
+  or CSV, e.g., `device-ids="foo,bar"`.
+- Function and object props should not be passed as attributes.
+  Set them as properties instead.
+
+Use custom properties to work directly with JavaScript objects and primitives.
+
+- This will avoid any issues with string parsing and serialization.
+- Use the `onSessionUpdate` prop to maintain a reference to the internal Seam client.
+
+For example,
+
+```js
+globalThis.customElements.whenDefined('seam-device-table').then(() => {
+  const elements = globalThis.document.getElementsByTagName('seam-device-table')
+  const element = elements[0]
+  if (element == null) {
+    throw new Error('Cannot find seam-device-table in document')
+  }
+  let seam
+  element.onSessionUpdate = (client) => {
+    seam = client
+  }
+  element.onDeviceClick = (deviceId) => {
+    if (seam == null) return
+    seam.devices.get({ device_id: deviceId }).then(console.log)
+  }
+})
+```
 
 [Seam Console]: https://console.seam.co/
 
@@ -185,6 +230,55 @@ This makes them compatible with native CSS and most CSS-in-JS systems, e.g., [Em
 [Emotion]: https://emotion.sh/
 [styled-components]: https://styled-components.com/
 
+#### Using inside a modal dialog
+
+A Seam Component must be a child of a DOM element with the `seam-components` class name
+for the CSS styles to work properly.
+Normally, all Seam Components are rendered as child of the `<SeamProvider />`
+which ensures this condition.
+
+React implementations of the modal dialog pattern often allow specifying
+the contents of the modal as a child element, yet render the contents of the modal
+in the DOM under a different parent element outside of the current branch of the DOM tree.
+Thus, even when a Seam Component is logically rendered as a child of the `<SeamProvider />`
+in the React tree, it will be rendered outside of that branch of tree in the actual DOM.
+
+> This concern does not apply when using the Seam Components as web components.
+> Each custom element already wraps the underlying component inside a container element with the correct class name.
+> The lack of a default container element for each React component
+> is an intentional decision to align with the standard React provider design pattern.
+
+To handle this special case, use the `seamComponentsClassName` on the container that will
+wrap the dialog content, e.g.,
+
+```ts
+import { useState } from "react"
+import { Button, Dialog } from "@mui/material"
+import { seamComponentsClassName, DeviceTable } from "@seam/react"
+
+function DeviceTableInsideModal() {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
+  return (
+    <>
+      <Button onClick={handleOpen}>Open</Button>
+      <Dialog
+        className={seamComponentsClassName}
+        open={open}
+        onClose={handleClose}
+      >
+        <DeviceTable />
+      </Dialog>
+    </>
+  )
+}
+```
+
 ### Fonts
 
 > Fonts are automatically included unless using `<SeamProvider disableFontInjection />`.
@@ -245,6 +339,21 @@ When serving the CSS styles from the default CDN, extend `style-src` with
 ```
 style-src https://react.seam.co
 ```
+
+### Telemetry
+
+By default, this library reports basic usage telemetry to the Seam API.
+This may be completely disabled with `<SeamProvider disableTelemetry>`.
+
+Before disabling telemetry, please consider the following:
+
+- Telemetry is sent directly to the Seam API and is never sold to third parties.
+- Telemetry is used by Seam for the sole purpose of improving Seam Components
+  and directly enhancing the experience for your end users.
+- No data is persisted on the client beyond the lifetime of the browser session: this library does not use cookies or local browser storage.
+- Telemetry may be selectively disabled for some users to align with any existing data collection compliance requirements of your application.
+- Telemetry does not negatively impact performance and adds minimal background network overhead.
+- The implementation is small, simple to audit, and completely transparent: [src/lib/telemetry](src/lib/telemetry).
 
 ## Development and Testing
 
@@ -369,16 +478,28 @@ This is the same storybook published on [react.seam.co](https://react.seam.co).
 This project uses a [fake version of Seam Connect](https://github.com/seamapi/fake-seam-connect)
 to have deterministic responses for rendering views and running tests.
 
-Edit the seed data for the fake or find relevant ids for testing components here:
+The tests use the [default seed](https://github.com/seamapi/fake-seam-connect/blob/main/src/lib/database/seed.ts).
 
-- [Storybook fake seed](./.storybook/seed-fake.js).
-- [Jest test fake seed](./test/jest/global-setup.cjs).
+Edit the Storybook seed data for the fake or find relevant ids for testing components here:
+[Storybook fake seed](./.storybook/seed-fake.js).
+
+### Fake Devicedb
+
+Fake Seam Connect optionally depends on a [fake version of the Seam Devicedb](https://github.com/seamapi/fake-devicedb).
+This is required by some components and hooks in this project.
+
+The seed data for the fake is generated by pulling data from the real API.
+Update this seed data with
+
+```
+$ npm run storybook:update-devicedb-seed
+```
 
 ### Tests
 
-Write tests with [Jest].
+Write tests with [Vitest].
 
-[Jest]: https://jestjs.io/
+[Vitest]: https://vitest.dev/
 
 ### Examples
 

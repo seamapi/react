@@ -11,6 +11,8 @@ import {
 
 declare global {
   // eslint-disable-next-line no-var
+  var disableSeamTelemetry: boolean | undefined
+  // eslint-disable-next-line no-var
   var disableSeamCssInjection: boolean | undefined
   // eslint-disable-next-line no-var
   var disableSeamFontInjection: boolean | undefined
@@ -28,7 +30,7 @@ export type ElementProps<T> = R2wcProps<Omit<T, keyof CommonProps>>
 
 type R2wcProps<T> = Record<
   keyof T,
-  'string' | 'number' | 'boolean' | 'array' | 'function' | 'json' | 'object'
+  'string' | 'number' | 'boolean' | 'array' | 'object'
 >
 
 type ProviderProps = Omit<
@@ -41,6 +43,7 @@ const commonProps: R2wcProps<CommonProps> = {
   disableCreateAccessCode: 'boolean',
   disableEditAccessCode: 'boolean',
   disableDeleteAccessCode: 'boolean',
+  disableResourceIds: 'boolean',
   onBack: 'object',
   className: 'string',
 }
@@ -51,9 +54,12 @@ const providerProps: R2wcProps<ProviderProps> = {
   clientSessionToken: 'string',
   endpoint: 'string',
   queryClient: 'object',
+  telemetryClient: 'object',
+  disableTelemetry: 'boolean',
   disableCssInjection: 'boolean',
   disableFontInjection: 'boolean',
   unminifiyCss: 'boolean',
+  onSessionUpdate: 'object',
 }
 
 export const defineCustomElement = ({
@@ -73,15 +79,19 @@ export const defineCustomElement = ({
 
 function withProvider<P extends JSX.IntrinsicAttributes>(
   Component: ComponentType<P>
-) {
-  return function ({
+): (props: ProviderProps & { container: Container } & P) => JSX.Element | null {
+  const name = Component.displayName ?? Component.name ?? 'Component'
+
+  function WithProvider({
     publishableKey,
     endpoint,
     userIdentifierKey,
     clientSessionToken,
+    disableTelemetry,
     disableCssInjection,
     disableFontInjection,
     unminifiyCss,
+    onSessionUpdate,
     container: _container,
     ...props
   }: ProviderProps & { container: Container } & P): JSX.Element | null {
@@ -91,6 +101,7 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
         userIdentifierKey={userIdentifierKey}
         clientSessionToken={clientSessionToken}
         endpoint={endpoint}
+        disableTelemetry={disableTelemetry ?? globalThis.disableSeamTelemetry}
         disableCssInjection={
           disableCssInjection ?? globalThis.disableSeamCssInjection
         }
@@ -98,9 +109,14 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
           disableFontInjection ?? globalThis.disableSeamFontInjection
         }
         unminifiyCss={unminifiyCss ?? globalThis.unminifiySeamCss}
+        onSessionUpdate={onSessionUpdate}
       >
         <Component {...(props as P)} />
       </SeamProvider>
     )
   }
+
+  WithProvider.displayName = `WithProvider(${name})`
+
+  return WithProvider
 }

@@ -3,18 +3,29 @@ import {
   createContext,
   type PropsWithChildren,
   useContext,
+  useEffect,
   useMemo,
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
+import {
+  type TelemetryClient,
+  TelemetryProvider,
+  useUserTelemetry,
+} from 'lib/telemetry/index.js'
+
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
+
+import { useSeamClient } from './use-seam-client.js'
 
 declare global {
   // eslint-disable-next-line no-var
   var seam: SeamProviderProps | undefined
   // eslint-disable-next-line no-var
   var seamQueryClient: QueryClient | undefined
+  // eslint-disable-next-line no-var
+  var seamTelemetryClient: TelemetryClient | undefined
 }
 
 export interface SeamContext {
@@ -48,22 +59,30 @@ export interface SeamProviderPropsWithClientSessionToken
 }
 
 interface SeamProviderBaseProps extends PropsWithChildren {
+  disableTelemetry?: boolean | undefined
   disableCssInjection?: boolean | undefined
   disableFontInjection?: boolean | undefined
   unminifiyCss?: boolean | undefined
   queryClient?: QueryClient | undefined
+  telemetryClient?: TelemetryClient | undefined
+  onSessionUpdate?: (client: Seam) => void
 }
 
 export type SeamProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
 const defaultQueryClient = new QueryClient()
 
+export const seamComponentsClassName = 'seam-components'
+
 export function SeamProvider({
   children,
+  disableTelemetry = false,
   disableCssInjection = false,
   disableFontInjection = false,
   unminifiyCss = false,
+  onSessionUpdate = () => {},
   queryClient,
+  telemetryClient,
   ...props
 }: SeamProviderProps): JSX.Element {
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
@@ -93,15 +112,42 @@ export function SeamProvider({
 
   const { Provider } = seamContext
 
+  const endpoint = 'endpoint' in props ? props.endpoint : undefined
+
   return (
-    <div className='seam-components'>
-      <QueryClientProvider
-        client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
+    <div className={seamComponentsClassName}>
+      <TelemetryProvider
+        client={telemetryClient ?? globalThis.seamTelemetryClient}
+        disabled={disableTelemetry}
+        endpoint={endpoint}
       >
-        <Provider value={value}>{children}</Provider>
-      </QueryClientProvider>
+        <QueryClientProvider
+          client={
+            queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient
+          }
+        >
+          <Provider value={value}>
+            <Wrapper onSessionUpdate={onSessionUpdate}>{children}</Wrapper>
+          </Provider>
+        </QueryClientProvider>
+      </TelemetryProvider>
     </div>
   )
+}
+
+function Wrapper({
+  onSessionUpdate,
+  children,
+}: Required<Pick<SeamProviderProps, 'onSessionUpdate'>> &
+  PropsWithChildren): JSX.Element | null {
+  useUserTelemetry()
+
+  const { client } = useSeamClient()
+  useEffect(() => {
+    if (client != null) onSessionUpdate(client)
+  }, [onSessionUpdate, client])
+
+  return <>{children}</>
 }
 
 const createDefaultSeamContextValue = (): SeamContext => {

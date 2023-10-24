@@ -3,8 +3,8 @@
   "compilerOptions": {
     "noEmit": true,
     "strict": true,
-    "module": "es2022",
-    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "target": "es2022",
     "jsx": "react-jsx",
@@ -26,6 +26,8 @@
     "skipLibCheck": true,
     "paths": {
       "@seamapi/react": ["./src/index.ts"],
+      "@seamapi/react/elements": ["./src/elements.ts"],
+      "@seamapi/react/hooks": ["./src/hooks.ts"],
       "fixtures/*": ["./test/fixtures/*"],
       "lib/*": ["./src/lib/*"]
     }
@@ -37,6 +39,7 @@
     "examples/**/*",
     "api/**/*",
     ".storybook/**/*",
+    "update-devicedb-seed.ts",
     "prepack.ts",
     "preversion.ts",
     "version.ts",

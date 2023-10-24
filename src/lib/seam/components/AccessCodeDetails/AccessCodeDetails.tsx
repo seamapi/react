@@ -8,6 +8,8 @@ import type {
   DeviceError,
 } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
@@ -39,9 +41,12 @@ export function AccessCodeDetails({
   disableEditAccessCode = false,
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
+  disableResourceIds = false,
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
+  useComponentTelemetry('AccessCodeDetails')
+
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isLoading: isDeleting } = useDeleteAccessCode()
@@ -60,6 +65,7 @@ export function AccessCodeDetails({
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           selectDevice(null)
         }}
@@ -133,19 +139,21 @@ export function AccessCodeDetails({
         </div>
       )}
       <div className='seam-details'>
-        <div className='seam-row'>
-          <div className='seam-heading'>{t.id}:</div>
-          <div className='seam-content seam-code-id'>
-            <span>{accessCode.access_code_id}</span>
-            <IconButton
-              onClick={() => {
-                void copyToClipboard(accessCode.access_code_id)
-              }}
-            >
-              <CopyIcon />
-            </IconButton>
+        {!disableResourceIds && (
+          <div className='seam-row'>
+            <div className='seam-heading'>{t.id}:</div>
+            <div className='seam-content seam-code-id'>
+              <span>{accessCode.access_code_id}</span>
+              <IconButton
+                onClick={() => {
+                  void copyToClipboard(accessCode.access_code_id)
+                }}
+              >
+                <CopyIcon />
+              </IconButton>
+            </div>
           </div>
-        </div>
+        )}
         <div className='seam-row'>
           <div className='seam-heading'>{t.created}:</div>
           <div className='seam-content'>
@@ -217,28 +225,25 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
   )
 }
 
-function formatDurationDate(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
+const formatDurationDate = (date: string): string =>
+  DateTime.fromISO(date).toLocaleString({
     month: 'short',
     day: 'numeric',
   })
-}
 
-function formatTime(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
+const formatTime = (date: string): string =>
+  DateTime.fromISO(date).toLocaleString({
     hour: 'numeric',
     minute: '2-digit',
   })
-}
 
-function formatDate(date: string): string {
-  return DateTime.fromISO(date).toLocaleString({
+const formatDate = (date: string): string =>
+  DateTime.fromISO(date).toLocaleString({
     weekday: 'short',
     month: 'long',
     day: 'numeric',
     year: 'numeric',
   })
-}
 
 const errorFilter = (
   error: AccessCodeError | DeviceError | ConnectedAccountError

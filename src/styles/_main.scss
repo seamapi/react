@@ -5,6 +5,7 @@
 @use './alert';
 @use './buttons';
 @use './layout';
+@use './loading_toast';
 @use './colors';
 @use './icons';
 @use './menus';
@@ -20,10 +21,12 @@
 @use './thermostat';
 @use './tooltip';
 @use './seam-table';
+@use './snackbar';
+@use './spinner';
 @use './switch';
 @use './climate-setting-schedule-form';
 @use './climate-setting-schedule-details';
-@use './timezone-picker';
+@use './time-zone-picker';
 
 .seam-components {
   // Reset
@@ -37,13 +40,16 @@
   @include form-field.all;
   @include buttons.all;
   @include layout.all;
+  @include loading_toast.all;
   @include icons.all;
   @include menus.all;
   @include checkbox.all;
   @include radio-field.all;
   @include tooltip.all;
+  @include snackbar.all;
+  @include spinner.all;
   @include switch.all;
-  @include timezone-picker.all;
+  @include time-zone-picker.all;
 
   // Components
   @include device-details.all;

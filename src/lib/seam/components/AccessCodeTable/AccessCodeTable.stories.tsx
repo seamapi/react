@@ -2,6 +2,7 @@ import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { AccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
+import { seamComponentsClassName } from 'lib/seam/SeamProvider.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
@@ -24,37 +25,35 @@ export default meta
 type Story = StoryObj<typeof AccessCodeTable>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
-    <AccessCodeTable
-      {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
-    />
+  render: (props) => (
+    <AccessCodeTable {...props} deviceId={props.deviceId ?? 'device1'} />
   ),
 }
 
 export const Issue: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <AccessCodeTable
       {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
+      deviceId={props.deviceId ?? 'device1'}
       accessCodeFilter={(accessCode) => accessCode.errors.length > 0}
     />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
         <Button onClick={toggleOpen}>Open Modal</Button>
-        <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
-          <div className='seam-components'>
-            <AccessCodeTable
-              {...props}
-              deviceId={props.deviceId ?? globals['deviceId']}
-            />
-          </div>
+        <Dialog
+          className={seamComponentsClassName}
+          open={open}
+          fullWidth
+          maxWidth='sm'
+          onClose={toggleOpen}
+        >
+          <AccessCodeTable {...props} deviceId={props.deviceId ?? 'device1'} />
         </Dialog>
       </>
     )

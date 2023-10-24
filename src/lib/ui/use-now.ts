@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 
 import { useInterval } from 'lib/ui/use-interval.js'
 
-export function useCurrentTime(): DateTime {
+export function useNow(): DateTime {
   const [date, setDate] = useState<DateTime>(DateTime.now())
 
   const update = useCallback(() => {

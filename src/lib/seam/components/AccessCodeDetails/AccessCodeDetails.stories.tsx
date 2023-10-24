@@ -2,6 +2,7 @@ import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { AccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
+import { seamComponentsClassName } from 'lib/seam/SeamProvider.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
@@ -24,27 +25,31 @@ export default meta
 type Story = StoryObj<typeof AccessCodeDetails>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <AccessCodeDetails
       {...props}
-      accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+      accessCodeId={props.accessCodeId ?? 'access_code1'}
     />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
         <Button onClick={toggleOpen}>Open Modal</Button>
-        <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
-          <div className='seam-components'>
-            <AccessCodeDetails
-              {...props}
-              accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
-            />
-          </div>
+        <Dialog
+          className={seamComponentsClassName}
+          open={open}
+          fullWidth
+          maxWidth='sm'
+          onClose={toggleOpen}
+        >
+          <AccessCodeDetails
+            {...props}
+            accessCodeId={props.accessCodeId ?? 'access_code1'}
+          />
         </Dialog>
       </>
     )
@@ -52,10 +57,10 @@ export const InsideModal: Story = {
 }
 
 export const DisableLockUnlock: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <AccessCodeDetails
       {...props}
-      accessCodeId={props.accessCodeId ?? globals['accessCodeId']}
+      accessCodeId={props.accessCodeId ?? 'access_code1'}
       disableLockUnlock
     />
   ),

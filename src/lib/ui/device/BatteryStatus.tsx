@@ -26,15 +26,14 @@ function Content(props: {
 }): JSX.Element | null {
   const { status, level } = props
 
-  const percentage = level != null ? ` (${Math.floor(level * 100)}%)` : null
-
   if (status === 'full') {
     return (
       <>
         <BatteryLevelFullIcon />
-        <span className='seam-status-text'>{`${t.full}${
-          percentage ?? ''
-        }`}</span>
+        <span className='seam-status-text'>
+          {t.full}
+          <Percentage level={level} />
+        </span>
       </>
     )
   }
@@ -43,9 +42,10 @@ function Content(props: {
     return (
       <>
         <BatteryLevelHighIcon />
-        <span className='seam-status-text'>{`${t.high}${
-          percentage ?? ''
-        }`}</span>
+        <span className='seam-status-text'>
+          {t.high}
+          <Percentage level={level} />
+        </span>
       </>
     )
   }
@@ -54,9 +54,10 @@ function Content(props: {
     return (
       <>
         <BatteryLevelLowIcon />
-        <span className='seam-status-text'>{`${t.low}${
-          percentage ?? ''
-        }`}</span>
+        <span className='seam-status-text'>
+          {t.low}
+          <Percentage level={level} />
+        </span>
       </>
     )
   }
@@ -65,14 +66,22 @@ function Content(props: {
     return (
       <>
         <BatteryLevelCriticalIcon />
-        <span className='seam-text-danger'>{`${t.critical}${
-          percentage ?? ''
-        }`}</span>
+        <span className='seam-text-danger'>
+          {t.critical}
+          <Percentage level={level} />
+        </span>
       </>
     )
   }
 
   return null
+}
+
+function Percentage(props: {
+  level: number | null | undefined
+}): JSX.Element | null {
+  if (props.level == null) return null
+  return <> ({Math.floor(props.level * 100)}%)</>
 }
 
 const t = {

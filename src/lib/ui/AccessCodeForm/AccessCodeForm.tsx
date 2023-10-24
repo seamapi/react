@@ -1,19 +1,16 @@
 import classNames from 'classnames'
+import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type { AccessCode } from 'seamapi'
+import { useForm } from 'react-hook-form'
+import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 
-import {
-  get24HoursLater,
-  getBrowserTimezone,
-  getNow,
-  getTimezoneFromIsoDate,
-} from 'lib/dates.js'
+import { getSystemTimeZone } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
 import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-access-code-code.js'
 import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { AccessCodeFormDatePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { AccessCodeFormTimes } from 'lib/ui/AccessCodeForm/AccessCodeFormTimes.js'
-import { AccessCodeFormTimezonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimezonePicker.js'
+import { AccessCodeFormTimeZonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimeZonePicker.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -29,7 +26,12 @@ export interface AccessCodeFormSubmitData {
   device: NonNullable<UseDeviceData>
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
+}
+
+export interface ResponseErrors {
+  unknown?: string | undefined
+  code?: string | undefined
 }
 
 export interface AccessCodeFormProps {
@@ -37,7 +39,7 @@ export interface AccessCodeFormProps {
   device: NonNullable<UseDeviceData>
   isSubmitting: boolean
   onSubmit: (data: AccessCodeFormSubmitData) => void
-  codeError: string | null
+  responseErrors: ResponseErrors | null
   onBack: (() => void) | undefined
   className: string | undefined
 }
@@ -59,50 +61,75 @@ function Content({
   device,
   onSubmit,
   isSubmitting,
-  codeError,
+  responseErrors,
 }: Omit<AccessCodeFormProps, 'className'>): JSX.Element {
-  const [name, setName] = useState(accessCode?.name ?? '')
-  const [code, setCode] = useState(accessCode?.code ?? '')
   const [type, setType] = useState<AccessCode['type']>(
     accessCode?.type ?? 'ongoing'
   )
   const [datePickerVisible, setDatePickerVisible] = useState(false)
-  const [timezone, setTimezone] = useState<string>(
-    getAccessCodeTimezone(accessCode) ?? getBrowserTimezone()
-  )
-  const [startDate, setStartDate] = useState<string>(
-    getAccessCodeDate('starts_at', accessCode) ?? getNow()
-  )
-  const [endDate, setEndDate] = useState<string>(
-    getAccessCodeDate('ends_at', accessCode) ?? get24HoursLater()
-  )
-  const [timezonePickerVisible, toggleTimezonePicker] = useToggle()
+  const [timeZone, setTimeZone] = useState<string>(getSystemTimeZone())
 
-  const { isLoading: isGeneratingCode, mutate: generateCode } =
-    useGenerateAccessCodeCode()
+  const [startDate, setStartDate] = useState<DateTime>(
+    getAccessCodeDate('starts_at', accessCode) ?? getNow(timeZone)
+  )
+  const [endDate, setEndDate] = useState<DateTime>(
+    getAccessCodeDate('ends_at', accessCode) ?? getOneDayFromNow(timeZone)
+  )
 
-  const submit = (): void => {
+  const save = (data: { name: string; code: string }): void => {
     if (isSubmitting) {
       return
     }
 
+    const start = startDate.toISO()
+    if (start == null) {
+      throw new Error(`Invalid start date: ${startDate.invalidReason}`)
+    }
+
+    const end = endDate.toISO()
+    if (end == null) {
+      throw new Error(`Invalid end date: ${endDate.invalidReason}`)
+    }
+
     onSubmit({
-      name,
-      code,
+      name: data.name,
+      code: data.code,
       type,
       device,
-      startDate,
-      endDate,
-      timezone,
+      startDate: start,
+      endDate: end,
+      timeZone,
     })
   }
 
-  if (timezonePickerVisible) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: {
+      name: accessCode?.name ?? '',
+      code: accessCode?.code ?? '',
+    },
+  })
+  const [timeZonePickerVisible, toggleTimeZonePicker] = useToggle()
+
+  const { isLoading: isGeneratingCode, mutate: generateCode } =
+    useGenerateAccessCodeCode()
+
+  const submit = (): void => {}
+
+  if (timeZonePickerVisible) {
     return (
-      <AccessCodeFormTimezonePicker
-        value={timezone}
-        onChange={setTimezone}
-        onClose={toggleTimezonePicker}
+      <AccessCodeFormTimeZonePicker
+        value={timeZone}
+        onChange={(timeZone: string) => {
+          setTimeZone(timeZone)
+          setStartDate(startDate.setZone(timeZone))
+          setEndDate(endDate.setZone(timeZone))
+        }}
+        onClose={toggleTimeZonePicker}
       />
     )
   }
@@ -114,22 +141,14 @@ function Content({
         setStartDate={setStartDate}
         endDate={endDate}
         setEndDate={setEndDate}
-        timezone={timezone}
-        onChangeTimezone={toggleTimezonePicker}
+        timeZone={timeZone}
+        onChangeTimeZone={toggleTimeZonePicker}
         onBack={() => {
           setDatePickerVisible(false)
         }}
       />
     )
   }
-
-  const nameError = name.length > 60 ? t.overCharacterLimitError : undefined
-
-  const isFormValid =
-    name.trim().length > 0 &&
-    nameError === undefined &&
-    code.trim().length > 0 &&
-    !isSubmitting
 
   const title = accessCode == null ? t.addNewAccessCode : t.editAccessCode
 
@@ -141,12 +160,21 @@ function Content({
       {
         onSuccess: ({ code: generatedCode }) => {
           if (generatedCode != null) {
-            setCode(generatedCode)
+            setValue('code', generatedCode)
           }
         },
       }
     )
   }
+
+  const hasCodeError = errors.code != null || responseErrors?.code != null
+
+  const codeLengthRequirement = getCodeLengthRequirement(device)
+
+  const codeLengthRequirementMessage =
+    codeLengthRequirement != null
+      ? t.codeLengthRequirement(codeLengthRequirement)
+      : null
 
   return (
     <>
@@ -156,123 +184,202 @@ function Content({
         onBack={onBack}
       />
       <div className='seam-main'>
-        <FormField>
-          <InputLabel>{t.nameInputLabel}</InputLabel>
-          <TextField
-            size='large'
-            clearable
-            value={name}
-            onChange={setName}
-            hasError={nameError != null}
-            helperText={nameError}
-          />
-        </FormField>
-        <FormField className='seam-code-field'>
-          <InputLabel>{t.codeInputLabel}</InputLabel>
-          <TextField
-            size='large'
-            clearable
-            value={code}
-            onChange={setCode}
-            hasError={codeError != null}
-            helperText={codeError ?? undefined}
-          />
-          <div className='seam-bottom'>
-            <Button
-              size='small'
-              onMouseDown={(e) => {
-                e.preventDefault() // Disable stealing input focus
-                handleGenerateCode()
+        <form
+          onSubmit={(event) => {
+            void handleSubmit(save)(event)
+          }}
+        >
+          <FormField>
+            <InputLabel>{t.nameInputLabel}</InputLabel>
+            <TextField
+              size='large'
+              clearable
+              hasError={errors.name != null}
+              helperText={errors.name?.message}
+              inputProps={{
+                ...register('name', {
+                  required: t.nameRequiredError,
+                  maxLength: {
+                    value: 60,
+                    message: t.nameOverCharacterLimitError,
+                  },
+                }),
               }}
-              disabled={isGeneratingCode}
+            />
+          </FormField>
+          <FormField className='seam-code-field'>
+            <InputLabel>{t.codeInputLabel}</InputLabel>
+            <TextField
+              size='large'
+              clearable
+              hasError={hasCodeError}
+              helperText={responseErrors?.code ?? errors.code?.message}
+              inputProps={{
+                ...register('code', {
+                  required: t.codeRequiredError,
+                  validate: (value: string) =>
+                    validateCodeLength(device, value),
+                }),
+              }}
+            />
+            <div
+              className={classNames('seam-bottom', {
+                'has-hints': codeLengthRequirementMessage != null,
+              })}
             >
-              {t.codeGenerateButton}
+              {codeLengthRequirementMessage != null && (
+                <ul
+                  className={classNames('seam-requirements', {
+                    'seam-error': hasCodeError,
+                  })}
+                >
+                  <li>{codeLengthRequirementMessage}</li>
+                  <li>{t.codeNumbersOnlyRequirement}</li>
+                </ul>
+              )}
+              <Button
+                size='small'
+                onMouseDown={(e) => {
+                  e.preventDefault() // Disable stealing input focus
+                  handleGenerateCode()
+                }}
+                disabled={isGeneratingCode}
+              >
+                {t.codeGenerateButton}
+              </Button>
+            </div>
+          </FormField>
+          <FormField>
+            <InputLabel>{t.timingInputLabel}</InputLabel>
+            <RadioField
+              value={type}
+              onChange={setType}
+              name='type'
+              options={[
+                {
+                  label: t.typeOngoingLabel,
+                  value: 'ongoing',
+                },
+                {
+                  label: t.typeTimeBoundLabel,
+                  value: 'time_bound',
+                },
+              ]}
+            />
+            <>
+              {type === 'time_bound' && (
+                <AccessCodeFormTimes
+                  startDate={startDate}
+                  endDate={endDate}
+                  onEdit={() => {
+                    setDatePickerVisible(true)
+                  }}
+                />
+              )}
+            </>
+          </FormField>
+          {responseErrors?.unknown != null && (
+            <div className='seam-unknown-error'>{responseErrors?.unknown}</div>
+          )}
+          <div className='seam-actions'>
+            <Button onClick={onBack}>{t.cancel}</Button>
+            <Button
+              variant='solid'
+              disabled={isSubmitting}
+              onMouseDown={submit}
+              type='submit'
+            >
+              {t.save}
             </Button>
           </div>
-        </FormField>
-        <FormField>
-          <InputLabel>{t.timingInputLabel}</InputLabel>
-          <RadioField
-            value={type}
-            onChange={setType}
-            name='type'
-            options={[
-              {
-                label: t.typeOngoingLabel,
-                value: 'ongoing',
-              },
-              {
-                label: t.typeTimeBoundLabel,
-                value: 'time_bound',
-              },
-            ]}
-          />
-          <>
-            {type === 'time_bound' && (
-              <AccessCodeFormTimes
-                startDate={startDate}
-                endDate={endDate}
-                onEdit={() => {
-                  setDatePickerVisible(true)
-                }}
-              />
-            )}
-          </>
-        </FormField>
-        <div className='seam-actions'>
-          <Button onClick={onBack}>{t.cancel}</Button>
-          <Button variant='solid' disabled={!isFormValid} onMouseDown={submit}>
-            {t.save}
-          </Button>
-        </div>
+        </form>
       </div>
     </>
   )
 }
 
-function getAccessCodeTimezone(
-  accessCode?: NonNullable<UseAccessCodeData>
-): undefined | string {
-  if (accessCode == null) {
-    return undefined
+const validateCodeLength = (
+  device: CommonDevice,
+  value: string
+): boolean | string => {
+  if (!isLockDevice(device)) {
+    return true
   }
 
-  if (accessCode.type === 'ongoing') {
-    return undefined
+  if (device.properties.supported_code_lengths == null) {
+    return true
   }
 
-  const date = accessCode.starts_at
-
-  const timezone = getTimezoneFromIsoDate(date)
-  if (timezone == null) {
-    return undefined
+  if (device.properties.supported_code_lengths.includes(value.length)) {
+    return true
   }
 
-  return timezone
+  return t.codeLengthError(device.properties.supported_code_lengths.join(', '))
 }
 
-function getAccessCodeDate(
+const getCodeLengthRequirement = (device: CommonDevice): string | null => {
+  if (!isLockDevice(device)) {
+    return null
+  }
+
+  const codeLengths = device.properties.supported_code_lengths
+  if (codeLengths == null) {
+    return null
+  }
+
+  if (codeLengths.length === 1) {
+    return `${codeLengths[0]}`
+  }
+
+  if (isSequential(codeLengths.join(''))) {
+    return `${codeLengths[0]}-${codeLengths[codeLengths.length - 1]}`
+  }
+
+  return codeLengths.join(', ')
+}
+
+// 0 - 99 in a string
+// 0123456789101112...99
+const sequentialNumbers = Array.from({ length: 100 }, (_, index) => index).join(
+  ''
+)
+
+const isSequential = (numbers: string): boolean =>
+  sequentialNumbers.includes(numbers)
+
+const getAccessCodeDate = (
   date: 'starts_at' | 'ends_at',
   accessCode?: NonNullable<UseAccessCodeData>
-): string | undefined {
+): DateTime | null => {
   if (accessCode == null) {
-    return undefined
+    return null
   }
 
   if (accessCode.type !== 'time_bound') {
-    return undefined
+    return null
   }
 
-  return accessCode[date]
+  return DateTime.fromISO(accessCode[date])
 }
+
+const getNow = (timeZone: string): DateTime => DateTime.now().setZone(timeZone)
+
+const getOneDayFromNow = (timeZone: string): DateTime =>
+  DateTime.now().setZone(timeZone).plus({ days: 1 })
 
 const t = {
   addNewAccessCode: 'Add new access code',
   editAccessCode: 'Edit access code',
-  overCharacterLimitError: '60 characters max',
+  nameOverCharacterLimitError: '60 characters max',
+  nameRequiredError: 'Name is required',
   nameInputLabel: 'Name the new code',
   codeGenerateButton: 'Generate code',
   codeInputLabel: 'Enter the code (PIN)',
+  codeRequiredError: 'Code is required',
+  codeLengthError: (lengths: string) =>
+    `Code length must be one of the following: ${lengths}`,
+  codeLengthRequirement: (lengths: string) => `${lengths} digit code`,
+  codeNumbersOnlyRequirement: 'Numbers only',
   cancel: 'Cancel',
   save: 'Save',
   timingInputLabel: 'Timing',

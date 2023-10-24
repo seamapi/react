@@ -3,6 +3,7 @@ import { Button, Dialog, DialogActions, IconButton } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { DeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import { seamComponentsClassName } from 'lib/seam/SeamProvider.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
@@ -25,21 +26,24 @@ export default meta
 type Story = StoryObj<typeof DeviceDetails>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
-    <DeviceDetails
-      {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
-    />
+  render: (props) => (
+    <DeviceDetails {...props} deviceId={props.deviceId ?? 'device1'} />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
         <Button onClick={toggleOpen}>Open Modal</Button>
-        <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
+        <Dialog
+          className={seamComponentsClassName}
+          open={open}
+          fullWidth
+          maxWidth='sm'
+          onClose={toggleOpen}
+        >
           <IconButton
             sx={{
               position: 'absolute',
@@ -49,12 +53,7 @@ export const InsideModal: Story = {
           >
             <CloseIcon />
           </IconButton>
-          <div className='seam-components'>
-            <DeviceDetails
-              {...props}
-              deviceId={props.deviceId ?? globals['deviceId']}
-            />
-          </div>
+          <DeviceDetails {...props} deviceId={props.deviceId ?? 'device1'} />
           <DialogActions
             sx={{ justifyContent: 'center', marginBottom: '16px' }}
           >
@@ -67,10 +66,10 @@ export const InsideModal: Story = {
 }
 
 export const DisableLockUnlock: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <DeviceDetails
       {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
+      deviceId={props.deviceId ?? 'device1'}
       disableLockUnlock
     />
   ),

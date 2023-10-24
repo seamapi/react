@@ -1,5 +1,7 @@
 import { useCallback } from 'react'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import {
   type CommonProps,
   withRequiredCommonProps,
@@ -15,6 +17,8 @@ export const NestedConnectAccountButton =
 export function ConnectAccountButton({
   className,
 }: ConnectAccountButtonProps = {}): JSX.Element {
+  useComponentTelemetry('ConnectAccountButton')
+
   const { isLoading, mutate } = useCreateConnectWebview({
     willNavigateToWebview: true,
   })

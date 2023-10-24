@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import type { SeamError } from 'seamapi'
+import type { AccessCode, SeamError } from 'seamapi'
 
-import { createIsoDate } from 'lib/dates.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import {
   type CommonProps,
@@ -12,10 +13,12 @@ import { getValidationError } from 'lib/seam/error-handlers.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,
+  type ResponseErrors,
 } from 'lib/ui/AccessCodeForm/AccessCodeForm.js'
 
 export interface CreateAccessCodeFormProps extends CommonProps {
   deviceId: string
+  onSuccess?: (accessCodeId: string) => void
 }
 
 export const NestedCreateAccessCodeForm =
@@ -25,7 +28,10 @@ export function CreateAccessCodeForm({
   className,
   onBack,
   deviceId,
+  onSuccess,
 }: CreateAccessCodeFormProps): JSX.Element | null {
+  useComponentTelemetry('CreateAccessCodeForm')
+
   const { device } = useDevice({
     device_id: deviceId,
   })
@@ -34,18 +40,30 @@ export function CreateAccessCodeForm({
     return null
   }
 
-  return <Content device={device} className={className} onBack={onBack} />
+  return (
+    <Content
+      device={device}
+      className={className}
+      onBack={onBack}
+      onSuccess={onSuccess}
+    />
+  )
 }
 
 function Content({
   device,
   className,
   onBack,
+  onSuccess,
 }: Omit<CreateAccessCodeFormProps, 'deviceId'> & {
   device: NonNullable<UseDeviceData>
 }): JSX.Element {
-  const { submit, isSubmitting, codeError } = useSubmitCreateAccessCode({
-    onSuccess: () => {
+  const { submit, isSubmitting, responseErrors } = useSubmitCreateAccessCode({
+    onSuccess: (accessCode: AccessCode) => {
+      if (onSuccess != null) {
+        onSuccess(accessCode.access_code_id)
+      }
+
       if (onBack != null) {
         onBack()
       }
@@ -59,31 +77,27 @@ function Content({
       onBack={onBack}
       onSubmit={submit}
       isSubmitting={isSubmitting}
-      codeError={codeError}
+      responseErrors={responseErrors}
     />
   )
 }
 
-function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
-  codeError: string | null
+function useSubmitCreateAccessCode(params: {
+  onSuccess: (accessCode: AccessCode) => void
+}): {
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
+  responseErrors: ResponseErrors | null
 } {
   const { onSuccess } = params
   const { mutate, isLoading: isSubmitting } = useCreateAccessCode()
-  const [codeError, setCodeError] = useState<string | null>(null)
-
-  const handleError = (error: SeamError): void => {
-    const codeError = getValidationError({ error, property: 'code' })
-    if (codeError != null) {
-      setCodeError(codeError)
-    }
-  }
+  const { responseErrors, handleResponseError, resetResponseErrors } =
+    useResponseErrors()
 
   const submit = (data: AccessCodeFormSubmitData): void => {
-    setCodeError(null)
+    resetResponseErrors()
 
-    const { name, code, type, device, startDate, endDate, timezone } = data
+    const { name, code, type, device, startDate, endDate } = data
     if (name === '') {
       return
     }
@@ -98,12 +112,12 @@ function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
           name,
           code,
           device_id: device.device_id,
-          starts_at: createIsoDate(startDate, timezone),
-          ends_at: createIsoDate(endDate, timezone),
+          starts_at: startDate,
+          ends_at: endDate,
         },
         {
           onSuccess,
-          onError: handleError,
+          onError: handleResponseError,
         }
       )
 
@@ -118,10 +132,53 @@ function useSubmitCreateAccessCode(params: { onSuccess: () => void }): {
       },
       {
         onSuccess,
-        onError: handleError,
+        onError: handleResponseError,
       }
     )
   }
 
-  return { submit, isSubmitting, codeError }
+  return { submit, isSubmitting, responseErrors }
+}
+
+export function useResponseErrors(): {
+  responseErrors: ResponseErrors | null
+  handleResponseError: (error: SeamError) => void
+  resetResponseErrors: () => void
+} {
+  const [responseErrors, setResponseErrors] = useState<Record<
+    string,
+    string | undefined
+  > | null>(null)
+
+  const handleResponseError = (error: SeamError): void => {
+    const code = getValidationError({ error, property: 'code' })
+    const name = getValidationError({ error, property: 'name' })
+
+    if (code != null || name != null) {
+      setResponseErrors({
+        code,
+        name,
+      })
+
+      return
+    }
+
+    setResponseErrors({
+      unknown: t.genericResponseError,
+    })
+  }
+
+  const resetResponseErrors = (): void => {
+    setResponseErrors(null)
+  }
+
+  return {
+    responseErrors,
+    handleResponseError,
+    resetResponseErrors,
+  }
+}
+
+const t = {
+  genericResponseError: 'The code could not be saved. Please try again.',
 }

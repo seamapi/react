@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import { type CommonDevice, isLockDevice, isThermostatDevice } from 'seamapi'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
   type CommonProps,
@@ -19,6 +21,8 @@ import {
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { EmptyPlaceholder } from 'lib/ui/Table/EmptyPlaceholder.js'
 import { TableBody } from 'lib/ui/Table/TableBody.js'
 import { TableHeader } from 'lib/ui/Table/TableHeader.js'
@@ -68,10 +72,13 @@ export function DeviceTable({
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
   disableDeleteAccessCode = false,
+  disableResourceIds = false,
   onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element {
-  const { devices, isLoading, isError, error } = useDevices({
+  useComponentTelemetry('DeviceTable')
+
+  const { devices, isInitialLoading, isError, refetch } = useDevices({
     device_ids: deviceIds,
     connected_account_ids: connectedAccountIds,
   })
@@ -105,20 +112,13 @@ export function DeviceTable({
         disableCreateAccessCode={disableCreateAccessCode}
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
         onBack={() => {
           setSelectedDeviceId(null)
         }}
         className={className}
       />
     )
-  }
-
-  if (isLoading) {
-    return <p className={className}>...</p>
-  }
-
-  if (isError) {
-    return <p className={className}>{error?.message}</p>
   }
 
   return (
@@ -133,6 +133,13 @@ export function DeviceTable({
         ) : (
           <div className='seam-fragment' />
         )}
+        <div className='seam-table-header-loading-wrap'>
+          <LoadingToast
+            isLoading={isInitialLoading}
+            label={t.loading}
+            top={-20}
+          />
+        </div>
         {!disableSearch && (
           <SearchTextField
             value={searchInputValue}
@@ -144,6 +151,19 @@ export function DeviceTable({
       <TableBody>
         <Content devices={filteredDevices} onDeviceClick={handleDeviceClick} />
       </TableBody>
+
+      <Snackbar
+        variant='error'
+        visible={isError}
+        message={t.fallbackErrorMessage}
+        action={{
+          label: t.tryAgain,
+          onClick: () => {
+            void refetch()
+          },
+        }}
+        disableCloseButton
+      />
     </div>
   )
 }
@@ -205,4 +225,7 @@ function Content(props: {
 const t = {
   devices: 'Devices',
   noDevicesMessage: 'Sorry, no devices were found',
+  loading: 'Loading devices',
+  tryAgain: 'Try again',
+  fallbackErrorMessage: 'Devices could not be loaded',
 }

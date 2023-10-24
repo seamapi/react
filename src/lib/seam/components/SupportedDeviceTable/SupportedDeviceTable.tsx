@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
+
 import {
   type CommonProps,
   withRequiredCommonProps,
@@ -29,6 +31,8 @@ export function SupportedDeviceTable({
   excludedBrands = [],
   className,
 }: SupportedDeviceTableProps = {}): JSX.Element {
+  useComponentTelemetry('SupportedDeviceTable')
+
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<DeviceModelFilters>({
     supportedOnly: true,

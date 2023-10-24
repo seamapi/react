@@ -36,9 +36,7 @@ export const InsideModal: Story = {
       <>
         <Button onClick={toggleOpen}>Open Modal</Button>
         <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
-          <div className='seam-components'>
-            <SupportedDeviceTable {...props} />
-          </div>
+          <SupportedDeviceTable {...props} />
 
           <DialogActions
             sx={{ justifyContent: 'center', marginBottom: '16px' }}

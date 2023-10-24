@@ -1,0 +1,48 @@
+@use './colors';
+@use './motion';
+
+@mixin all {
+  .seam-loading-toast {
+    @include motion.scale-in;
+
+    height: 32px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 6px;
+    background: colors.$bg-a;
+    box-shadow:
+      0 1px 5px 0 rgb(24 29 37 / 6%),
+      0 0 1px 0 rgb(24 29 37 / 25%);
+    gap: 8px;
+    will-change: transform;
+    animation: scale-in 0.2s motion.$ease-out-quint;
+    transition: all 0.2s motion.$ease-out-quint;
+    pointer-events: none;
+    position: absolute;
+    z-index: 9;
+
+    &.seam-loading-toast-hide {
+      transform: scale(0.5);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .seam-loading-toast-icon-wrap {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .seam-loading-toast-text {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+      white-space: nowrap;
+    }
+  }
+}

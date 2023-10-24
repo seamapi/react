@@ -1,0 +1,44 @@
+@use './colors';
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin all {
+  $default-size: 16px;
+  $default-border-width: 2px;
+
+  .seam-spinner {
+    width: $default-size;
+    height: $default-size;
+    border: $default-border-width solid colors.$primary;
+    border-top: $default-border-width solid transparent;
+    display: inline-block;
+    border-radius: 50%;
+    animation: spin 0.5s linear infinite;
+
+    &.size-small {
+      width: $default-size;
+      height: $default-size;
+      border-width: $default-border-width;
+    }
+
+    &.size-medium {
+      width: 24px;
+      height: 24px;
+      border-width: 3px;
+    }
+
+    &.size-large {
+      width: 32px;
+      height: 32px;
+      border-width: 3px;
+    }
+  }
+}

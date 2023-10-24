@@ -3,18 +3,25 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ClimateSetting, HvacModeSetting } from 'seamapi'
 
-import { getBrowserTimezone } from 'lib/dates.js'
+<<<<<<< HEAD
+import { getSystemTimeZone } from 'lib/dates.js'
 import { ClimateSettingScheduleFormClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
-import { ClimateSettingScheduleFormTimezonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimezonePicker.js'
+import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
+=======
+import { getSystemTimeZone } from 'lib/dates.js'
+import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
+import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
+import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
+>>>>>>> 05d08fb7915591f92484f9716c29e7239a2cfcdb
 
 export interface ClimateSettingScheduleFormSubmitData {
   name: string
   deviceId: string
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
   climateSetting: ClimateSetting
 }
 
@@ -30,7 +37,7 @@ export interface ClimateSettingScheduleFormFields {
   deviceId: string
   startDate: string
   endDate: string
-  timezone: string
+  timeZone: string
   hvacModeSetting: HvacModeSetting
 }
 
@@ -56,19 +63,19 @@ function Content({
       name: '',
       startDate: '',
       endDate: '',
-      timezone: getBrowserTimezone(),
+      timeZone: getSystemTimeZone(),
       hvacModeSetting: 'heat' as HvacModeSetting,
     },
   })
 
   const deviceId = watch('deviceId')
-  const timezone = watch('timezone')
+  const timeZone = watch('timeZone')
 
   const [page, setPage] = useState<
     | 'device_select'
     | 'default_setting'
     | 'name_and_schedule'
-    | 'timezone_select'
+    | 'time_zone_select'
     | 'climate_setting'
   >('climate_setting')
 
@@ -98,17 +105,18 @@ function Content({
         onNext={() => {
           setPage('climate_setting')
         }}
-        onChangeTimezone={() => {
-          setPage('timezone_select')
+        onChangeTimeZone={() => {
+          setPage('time_zone_select')
         }}
-        timezone={timezone}
+        timeZone={timeZone}
       />
     )
   }
 
-  if (page === 'timezone_select') {
+
+  if (page === 'time_zone_select') {
     return (
-      <ClimateSettingScheduleFormTimezonePicker
+      <ClimateSettingScheduleFormTimeZonePicker
         control={control}
         onClose={() => {
           setPage('name_and_schedule')

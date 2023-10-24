@@ -2,6 +2,7 @@ import { Button, Dialog } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { CreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
+import { seamComponentsClassName } from 'lib/seam/SeamProvider.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
@@ -24,27 +25,28 @@ export default meta
 type Story = StoryObj<typeof CreateAccessCodeForm>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
-    <CreateAccessCodeForm
-      {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
-    />
+  render: (props) => (
+    <CreateAccessCodeForm {...props} deviceId={props.deviceId ?? 'device1'} />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
         <Button onClick={toggleOpen}>Open Modal</Button>
-        <Dialog open={open} fullWidth maxWidth='sm' onClose={toggleOpen}>
-          <div className='seam-components'>
-            <CreateAccessCodeForm
-              {...props}
-              deviceId={props.deviceId ?? globals['deviceId']}
-            />
-          </div>
+        <Dialog
+          className={seamComponentsClassName}
+          open={open}
+          fullWidth
+          maxWidth='sm'
+          onClose={toggleOpen}
+        >
+          <CreateAccessCodeForm
+            {...props}
+            deviceId={props.deviceId ?? 'device1'}
+          />
         </Dialog>
       </>
     )
