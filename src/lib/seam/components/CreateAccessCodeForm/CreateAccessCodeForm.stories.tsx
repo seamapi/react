@@ -25,16 +25,13 @@ export default meta
 type Story = StoryObj<typeof CreateAccessCodeForm>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
-    <CreateAccessCodeForm
-      {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
-    />
+  render: (props) => (
+    <CreateAccessCodeForm {...props} deviceId={props.deviceId ?? 'device1'} />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
@@ -48,7 +45,7 @@ export const InsideModal: Story = {
         >
           <CreateAccessCodeForm
             {...props}
-            deviceId={props.deviceId ?? globals['deviceId']}
+            deviceId={props.deviceId ?? 'device1'}
           />
         </Dialog>
       </>

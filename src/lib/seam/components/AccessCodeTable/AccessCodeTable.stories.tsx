@@ -25,26 +25,23 @@ export default meta
 type Story = StoryObj<typeof AccessCodeTable>
 
 export const Content: Story = {
-  render: (props, { globals }) => (
-    <AccessCodeTable
-      {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
-    />
+  render: (props) => (
+    <AccessCodeTable {...props} deviceId={props.deviceId ?? 'device1'} />
   ),
 }
 
 export const Issue: Story = {
-  render: (props, { globals }) => (
+  render: (props) => (
     <AccessCodeTable
       {...props}
-      deviceId={props.deviceId ?? globals['deviceId']}
+      deviceId={props.deviceId ?? 'device1'}
       accessCodeFilter={(accessCode) => accessCode.errors.length > 0}
     />
   ),
 }
 
 export const InsideModal: Story = {
-  render: (props, { globals }) => {
+  render: (props) => {
     const [open, toggleOpen] = useToggle()
     return (
       <>
@@ -56,10 +53,7 @@ export const InsideModal: Story = {
           maxWidth='sm'
           onClose={toggleOpen}
         >
-          <AccessCodeTable
-            {...props}
-            deviceId={props.deviceId ?? globals['deviceId']}
-          />
+          <AccessCodeTable {...props} deviceId={props.deviceId ?? 'device1'} />
         </Dialog>
       </>
     )
