@@ -26,6 +26,8 @@ export const Content: Story = {
           filter={null}
           onFilterSelect={() => {}}
           accessCodes={[]}
+          errorFilter={() => true}
+          warningFilter={() => true}
         />
         <AccessCodeHealthBar
           filter={filter}
@@ -85,6 +87,8 @@ export const Content: Story = {
               ],
             },
           ]}
+          errorFilter={() => true}
+          warningFilter={() => true}
         />
       </Box>
     )
