@@ -12,9 +12,9 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import Switch from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
-import Switch from 'lib/ui/Switch/Switch.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -124,7 +124,7 @@ export function ThermostatDeviceDetails({
                 )}
               </DetailRow>
               <DetailRow label={t.allowManualOverride}>
-                <Switch checked={true} onChange={() => {}} enableLabel />
+                <Switch checked onChange={() => {}} enableLabel />
               </DetailRow>
             </DetailSection>
 
