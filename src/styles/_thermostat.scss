@@ -1,5 +1,21 @@
 @use './colors';
 
+@mixin climate-setting-control-group {
+  .seam-climate-setting-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    .seam-climate-setting-slider-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
 @mixin temperature-control-group {
   .seam-temperature-control-group {
     display: flex;
@@ -690,6 +706,7 @@
 }
 
 @mixin all {
+  @include climate-setting-control-group;
   @include temperature-control-group;
   @include temperature-control;
   @include climate-setting-status;
