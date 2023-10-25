@@ -13,6 +13,7 @@ import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
+import type { HvacModeSetting } from 'seamapi'
 
 interface ClimateSettingScheduleFormClimateSettingProps {
   title: string
@@ -55,56 +56,11 @@ export function ClimateSettingScheduleFormClimateSetting({
               <InputLabel>{t.climateSetting}</InputLabel>
               <span className='seam-label'>{t.climateSettingSubHeading}</span>
             </div>
-            <FormField>
-              <Controller
-                name='hvacModeSetting'
-                control={control}
-                render={({ field: { value, onChange } }) => {
-                  return (
-                    <ClimateModeMenu
-                      mode={value}
-                      onChange={(mode) => {
-                        resetField('setPoints')
-                        onChange(mode)
-                      }}
-                    />
-                  )
-                }}
-              />
-            </FormField>
-
-            {hvacModeSetting !== 'off' && (
-              <FormField className='seam-climate-setting-slider-container'>
-                <Controller
-                  name='setPoints'
-                  control={control}
-                  render={({ field: { value, onChange } }) => (
-                    <TemperatureControlGroup
-                      coolValue={value.coolingSetPoint}
-                      heatValue={value.heatingSetPoint}
-                      delta={5}
-                      maxCool={90}
-                      maxHeat={100}
-                      minCool={50}
-                      minHeat={70}
-                      mode={hvacModeSetting}
-                      onCoolValueChange={(coolingSetPoint) => {
-                        onChange({
-                          ...value,
-                          coolingSetPoint,
-                        })
-                      }}
-                      onHeatValueChange={(heatingSetPoint) => {
-                        onChange({
-                          ...value,
-                          heatingSetPoint,
-                        })
-                      }}
-                    />
-                  )}
-                />
-              </FormField>
-            )}
+            <FormContent
+              control={control}
+              resetField={resetField}
+              hvacModeSetting={hvacModeSetting}
+            />
           </div>
         </div>
         <div className='seam-actions'>
@@ -114,6 +70,72 @@ export function ClimateSettingScheduleFormClimateSetting({
           </Button>
         </div>
       </div>
+    </>
+  )
+}
+
+interface FormContentProps {
+  control: Control<ClimateSettingScheduleFormFields>
+  resetField: UseFormResetField<ClimateSettingScheduleFormFields>
+  hvacModeSetting: HvacModeSetting
+}
+
+const FormContent: React.FC<FormContentProps> = ({
+  control,
+  resetField,
+  hvacModeSetting,
+}) => {
+  return (
+    <>
+      <FormField>
+        <Controller
+          name='hvacModeSetting'
+          control={control}
+          render={({ field: { value, onChange } }) => {
+            return (
+              <ClimateModeMenu
+                mode={value}
+                onChange={(mode) => {
+                  resetField('setPoints')
+                  onChange(mode)
+                }}
+              />
+            )
+          }}
+        />
+      </FormField>
+      {hvacModeSetting !== 'off' && (
+        <FormField className='seam-climate-setting-slider-container'>
+          <Controller
+            name='setPoints'
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <TemperatureControlGroup
+                coolValue={value.coolingSetPoint}
+                heatValue={value.heatingSetPoint}
+                delta={5}
+                maxCool={90}
+                maxHeat={100}
+                minCool={50}
+                minHeat={70}
+                mode={hvacModeSetting}
+                onCoolValueChange={(coolingSetPoint) => {
+                  onChange({
+                    ...value,
+                    coolingSetPoint,
+                  })
+                }}
+                onHeatValueChange={(heatingSetPoint) => {
+                  onChange({
+                    ...value,
+                    heatingSetPoint,
+                  })
+                }}
+              />
+            )}
+          />
+        </FormField>
+      )}
     </>
   )
 }
