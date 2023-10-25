@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ClimateSetting, ThermostatDeviceProperties } from 'seamapi'
 
-import { getSystemTimeZone } from 'lib/dates.js'
 import { useDevice } from 'lib/index.js'
+
+import { getSystemTimeZone } from 'lib/dates.js'
 import { ClimateSettingScheduleFormDefaultClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDefaultClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
@@ -84,7 +85,7 @@ function Content({
     if (page === 'device_select' && device?.properties) {
       const defaultSetting = (device?.properties as ThermostatDeviceProperties)
         .default_climate_setting
-      if (Boolean(defaultSetting)) setPage('name_and_schedule')
+      if (defaultSetting) setPage('name_and_schedule')
       else setPage('default_setting')
     }
   }, [device?.properties, page, setPage])

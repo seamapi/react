@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { HvacModeSetting } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
@@ -5,7 +6,6 @@ import { Button } from 'lib/ui/Button.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ClimateSettingControlGroup } from 'lib/ui/thermostat/ClimateSettingControlGroup.js'
-import { useState } from 'react'
 
 interface ClimateSettingScheduleFormDefaultClimateSettingProps {
   title: string
@@ -45,9 +45,7 @@ export function ClimateSettingScheduleFormDefaultClimateSetting({
           <div className='seam-content'>
             <div className='seam-default-climate-setting-message'>
               <p>
-                {
-                  'This device doesn’t have a default climate set up yet. Choose the climate you’d like the device to fall back to after scheduled climates reach their ends.'
-                }
+                This device doesn’t have a default climate set up yet. Choose the climate you’d like the device to fall back to after scheduled climates reach their ends.
               </p>
             </div>
             <div className='seam-control-group-title'>
