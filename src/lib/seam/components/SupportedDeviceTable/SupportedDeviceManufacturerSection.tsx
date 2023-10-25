@@ -1,30 +1,29 @@
+import type { DeviceModelV1 } from '@seamapi/types/devicedb'
 import classNames from 'classnames'
-import type { DeviceModel } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { HiddenDevicesOverlay } from 'lib/seam/components/SupportedDeviceTable/HiddenDevicesOverlay.js'
 import { ShowAllDevicesButton } from 'lib/seam/components/SupportedDeviceTable/ShowAllDevicesButton.js'
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
-import { useDeviceProvider } from 'lib/seam/components/SupportedDeviceTable/use-device-provider.js'
+import { useManufacturer } from 'lib/seam/components/SupportedDeviceTable/use-manufacturer.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
- * How many device models required before we collapse
- * the list, and require the user to click to
- * view all.
+ * How many device models required before collapsing the list,
+ * and requiring the user to click to view all.
  */
 const maxDevicesBeforeCollapsing = 3
 
-interface SupportedDeviceBrandSectionProps {
-  brand: string
-  deviceModels: DeviceModel[]
+interface SupportedDeviceManufacturerSectionProps {
+  manufacturerId: string
+  deviceModels: DeviceModelV1[]
 }
 
-export function SupportedDeviceBrandSection({
-  brand,
+export function SupportedDeviceManufacturerSection({
+  manufacturerId,
   deviceModels,
-}: SupportedDeviceBrandSectionProps): JSX.Element | null {
-  const deviceProvider = useDeviceProvider(brand)
+}: SupportedDeviceManufacturerSectionProps): JSX.Element | null {
+  const { manufacturer } = useManufacturer({ manufacturer_id: manufacturerId })
 
   const [expanded, toggleExpand] = useToggle()
 
@@ -47,32 +46,26 @@ export function SupportedDeviceBrandSection({
 
   return (
     <div
-      className={classNames('seam-brand-section', {
+      className={classNames('seam-manufacturer-section', {
         'can-expand': canExpand,
         expanded,
       })}
     >
       <div className='seam-header' onClick={handleHeaderClick}>
         <img
-          src={deviceProvider.image_url}
-          alt={brand}
-          className='seam-brand-image'
+          src={manufacturer?.logo?.url}
+          alt={manufacturer?.display_name}
+          className='seam-manufacturer-image'
         />
-        <h5 className='seam-brand-name'>
-          {deviceProvider.display_name} {t.devices}
+        <h5 className='seam-manufacturer-name'>
+          {manufacturer?.display_name} {t.devices}
         </h5>
         {canExpand && <ChevronRightIcon className='chevron' />}
       </div>
       <div className='seam-supported-device-table-content'>
-        {visibleDevices.map((deviceModel, index) => (
+        {visibleDevices.map((deviceModel) => (
           <SupportedDeviceRow
-            key={[
-              deviceModel.main_category,
-              deviceModel.brand,
-              deviceModel.model_name,
-              deviceModel.manufacturer_model_id,
-              index,
-            ].join(':')}
+            key={deviceModel.device_model_id}
             deviceModel={deviceModel}
           />
         ))}

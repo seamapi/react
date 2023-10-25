@@ -53,7 +53,9 @@ export default async (
       fakeDevicedb.database.vercel_protection_bypass_secret,
   })
 
-  await fake.startServer()
+  const { host } = req.headers
+  if (host == null) throw new Error('Missing Host header')
+  await fake.startServer({ baseUrl: `https://${host}/api` })
 
   const requestBuffer = await getRawBody(req)
 
@@ -70,6 +72,7 @@ export default async (
     timeout: 10_000,
     validateStatus: () => true,
     maxRedirects: 0,
+    responseType: 'arraybuffer',
   })
 
   res.status(status)
@@ -78,11 +81,7 @@ export default async (
     if (!unproxiedHeaders.has(key)) res.setHeader(key, value)
   }
 
-  if (typeof data === 'string') {
-    res.end(data)
-  } else {
-    res.json(data)
-  }
+  res.end(Buffer.from(data))
 
   fake.server?.close()
   fakeDevicedb.server?.close()

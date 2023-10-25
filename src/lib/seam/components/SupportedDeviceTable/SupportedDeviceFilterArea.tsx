@@ -2,19 +2,19 @@ import type { Dispatch, SetStateAction } from 'react'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
-import { useDeviceModels } from 'lib/seam/device-models/use-device-models.js'
-import { capitalize } from 'lib/strings.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
+
+import { useFilteredManufacturers } from './use-filtered-manufacturers.js'
 
 interface SupportedDeviceFilterAreaProps {
   filterValue: string
   setFilterValue: (filter: string) => void
   filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
-  brands: string[] | null
-  excludedBrands: string[]
+  manufacturers: string[] | null
+  excludedManufacturers: string[]
 }
 
 export function SupportedDeviceFilterArea({
@@ -22,12 +22,15 @@ export function SupportedDeviceFilterArea({
   setFilterValue,
   filters,
   setFilters,
-  brands,
-  excludedBrands,
+  manufacturers,
+  excludedManufacturers,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = getAppliedFilterCount(filters)
 
-  const availableBrands = useAvailableBrands(brands, excludedBrands)
+  const { manufacturers: availableManufacturers } = useFilteredManufacturers({
+    manufacturers,
+    excludedManufacturers,
+  })
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -64,18 +67,22 @@ export function SupportedDeviceFilterArea({
           >
             <div className='seam-filter-menu-row'>
               <FilterCategoryMenu
-                label={t.brand}
+                label={t.manufacturer}
                 allLabel={allLabel}
-                options={availableBrands}
-                onSelect={(brand: string) => {
+                options={
+                  availableManufacturers?.map(
+                    (manufacturer) => manufacturer.display_name
+                  ) ?? []
+                }
+                onSelect={(manufacturer: string) => {
                   setFilters((filters) => ({
                     ...filters,
-                    brand,
+                    manufacturer,
                   }))
                 }}
-                buttonLabel={filters.brand ?? allLabel}
+                buttonLabel={filters.manufacturer ?? allLabel}
                 onAllOptionSelect={() => {
-                  resetFilter('brand')
+                  resetFilter('manufacturer')
                 }}
               />
             </div>
@@ -118,40 +125,14 @@ export function SupportedDeviceFilterArea({
 
 const getAppliedFilterCount = (filters: DeviceModelFilters): number => {
   let count = 0
-  if (filters.brand !== null) count++
+  if (filters.manufacturer !== null) count++
   if (!filters.supportedOnly) count++
   return count
 }
 
-const useAvailableBrands = (
-  brands: string[] | null,
-  excludedBrands: string[]
-): string[] => {
-  const { deviceModels } = useDeviceModels()
-
-  if (deviceModels == null) return []
-
-  const availableBrands = deviceModels
-    .map(({ brand }) => brand.trim())
-    .filter((brand) => {
-      // UPSTREAM: API can return an empty value for brand.
-      return brand !== ''
-    })
-    .filter((brand) => {
-      if (brands === null) return true
-      return brands.includes(brand)
-    })
-    .filter((brand) => {
-      return !excludedBrands.includes(brand)
-    })
-    .map((brand) => capitalize(brand))
-
-  return Array.from(new Set(availableBrands))
-}
-
 const t = {
   all: 'All',
-  brand: 'Brand',
+  manufacturer: 'Manufacturer',
   supported: 'Supported',
   filter: 'Filter',
   filters: 'Filters',

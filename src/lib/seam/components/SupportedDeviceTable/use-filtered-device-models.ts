@@ -1,24 +1,27 @@
 import {
   useDeviceModels,
   type UseDeviceModelsParams,
-} from 'lib/seam/device-models/use-device-models.js'
+} from 'lib/seam/components/SupportedDeviceTable/use-device-models.js'
+
+import { useFilteredManufacturers } from './use-filtered-manufacturers.js'
 
 export interface DeviceModelFilters {
   supportedOnly: boolean
-  brand: string | null
+  manufacturer: string | null
 }
 
 export const useFilteredDeviceModels = ({
   filterValue,
   filters,
-  brands,
-  excludedBrands,
+  ...manufacturersParams
 }: {
   filterValue: string
   filters: DeviceModelFilters
-  brands: string[] | null
-  excludedBrands: string[]
+  manufacturers: string[] | null
+  excludedManufacturers: string[]
 }): ReturnType<typeof useDeviceModels> => {
+  const { manufacturers } = useFilteredManufacturers(manufacturersParams)
+
   const params: UseDeviceModelsParams = {}
 
   if (filterValue.trim() !== '') {
@@ -26,26 +29,34 @@ export const useFilteredDeviceModels = ({
   }
 
   if (filters.supportedOnly) {
-    params.support_level = 'live'
+    params.integration_status = 'stable'
   }
 
-  if (filters.brand !== null) {
-    params.brand = filters.brand
+  if (filters.manufacturer !== null) {
+    const manufacturer = manufacturers?.find(
+      (manufacturer) => manufacturer.display_name === filters.manufacturer
+    )
+
+    if (manufacturer != null) {
+      params.manufacturer_id = manufacturer.manufacturer_id
+    }
   }
 
-  const query = useDeviceModels(params)
+  if (filters.manufacturer == null && manufacturers != null) {
+    params.manufacturer_ids = manufacturers.map((m) => m.manufacturer_id)
+  }
 
-  // UPSTREAM: The API does not have a brands or excludedBrands query parameter,
-  // so selected brands are filtered here.
+  const { deviceModels, ...query } = useDeviceModels(params)
+
   return {
     ...query,
-    deviceModels: query.deviceModels
-      ?.filter(({ brand }) => {
-        if (brands === null) return true
-        return brands.includes(brand)
-      })
-      .filter(({ brand }) => {
-        return !excludedBrands.includes(brand)
-      }),
+    deviceModels: deviceModels?.filter(
+      (deviceModel) =>
+        manufacturers?.some(
+          (manufacturer) =>
+            deviceModel.manufacturer.manufacturer_id ===
+            manufacturer.manufacturer_id
+        )
+    ),
   }
 }

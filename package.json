@@ -132,7 +132,7 @@
     "luxon": "^3.3.0",
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
-    "seamapi": "^8.13.1",
+    "seamapi": "^8.13.3",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -141,7 +141,7 @@
     "@mui/material": "^5.12.2",
     "@rxfork/r2wc-react-to-web-component": "^2.4.0",
     "@seamapi/fake-devicedb": "^1.1.0",
-    "@seamapi/fake-seam-connect": "^1.32.0",
+    "@seamapi/fake-seam-connect": "^1.37.1",
     "@seamapi/http": "^0.2.1",
     "@seamapi/types": "^1.28.0",
     "@storybook/addon-designs": "^7.0.1",

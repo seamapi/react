@@ -49,10 +49,6 @@ export interface AccessCodeTableProps extends CommonProps {
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
   heading?: string | null
-  /**
-   * @deprecated Use heading.
-   */
-  title?: string | null
 }
 
 type AccessCode = UseAccessCodesData[number]
@@ -82,7 +78,6 @@ export function AccessCodeTable({
   errorFilter = () => true,
   warningFilter = () => true,
   heading = t.accessCodes,
-  title = t.accessCodes,
   className,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
@@ -231,10 +226,9 @@ export function AccessCodeTable({
         <ContentHeader onBack={onBack} />
         <TableHeader>
           <div className='seam-left'>
-            {title != null ? (
+            {heading != null ? (
               <TableTitle>
-                {heading ?? title ?? t.accessCodes}{' '}
-                <Caption>({filteredAccessCodes.length})</Caption>
+                {heading} <Caption>({filteredAccessCodes.length})</Caption>
               </TableTitle>
             ) : (
               <div className='seam-fragment' />
