@@ -58,7 +58,7 @@ export function useUpdateThermostat(): UseMutationResult<
         ['thermostats', 'list', { device_id: variables.device_id }],
         (thermostats) => {
           if (thermostats == null) {
-            return
+            return []
           }
 
           return thermostats.map((thermostat) => {
