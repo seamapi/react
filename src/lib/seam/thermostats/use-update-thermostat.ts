@@ -1,17 +1,22 @@
-import { useQueryClient, type UseMutationResult, useMutation } from '@tanstack/react-query';
-import { NullSeamClientError, useSeamClient } from 'lib/index.js';
+import {
+  useMutation,
+  type UseMutationResult,
+  useQueryClient,
+} from '@tanstack/react-query'
 import type {
   SeamError,
   ThermostatDevice,
-  ThermostatUpdateRequest,
   ThermostatsListResponse,
+  ThermostatUpdateRequest,
 } from 'seamapi'
 
-type UseUpdateThermostatData = {}
+import { NullSeamClientError, useSeamClient } from 'lib/index.js'
+
+interface UseUpdateThermostatData {}
 type UseUpdateThermostatMutationParams = ThermostatUpdateRequest
 
 export function useUpdateThermostat(): UseMutationResult<
-UseUpdateThermostatData,
+  UseUpdateThermostatData,
   SeamError,
   UseUpdateThermostatMutationParams
 > {
