@@ -10,7 +10,7 @@ import {
 } from 'lib/temperature-bounds.js'
 import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
 
-interface TemperatureControlGroupProps {
+export interface TemperatureControlGroupProps {
   mode: Exclude<HvacModeSetting, 'off'>
   heatValue: number
   onHeatValueChange: (temperature: number) => void

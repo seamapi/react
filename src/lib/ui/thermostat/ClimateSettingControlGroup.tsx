@@ -1,53 +1,30 @@
 import type { HvacModeSetting } from 'seamapi'
 
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
-import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
+import {
+  TemperatureControlGroup,
+  type TemperatureControlGroupProps,
+} from 'lib/ui/thermostat/TemperatureControlGroup.js'
 
-interface ClimateSettingControlGroupProps extends TemperatureControlGroupProps {
+type ClimateSettingControlGroupProps = Omit<
+  TemperatureControlGroupProps,
+  'mode'
+> & {
   mode: HvacModeSetting
   onModeChange: (mode: HvacModeSetting) => void
-  heatValue: number
-  onHeatValueChange: (temperature: number) => void
-  coolValue: number
-  onCoolValueChange: (temperature: number) => void
-  delta: number
-  minHeat: number
-  maxHeat: number
-  minCool: number
-  maxCool: number
 }
 
-export function ClimateSettingControlGroup({
-  mode,
-  onModeChange,
-  heatValue,
-  onHeatValueChange,
-  coolValue,
-  onCoolValueChange,
-  delta,
-  minHeat,
-  maxHeat,
-  minCool,
-  maxCool,
-}: ClimateSettingControlGroupProps): JSX.Element {
+export function ClimateSettingControlGroup(
+  props: ClimateSettingControlGroupProps
+): JSX.Element {
+  const { mode, onModeChange, ...rest } = props
   return (
     <div className='seam-climate-setting-control-group'>
       <ClimateModeMenu mode={mode} onChange={onModeChange} />
 
       {mode !== 'off' && (
         <div className='seam-climate-setting-slider-container'>
-          <TemperatureControlGroup {...props} />
-            coolValue={coolValue}
-            heatValue={heatValue}
-            delta={delta}
-            maxCool={maxCool}
-            maxHeat={maxHeat}
-            minCool={minCool}
-            minHeat={minHeat}
-            mode={mode}
-            onCoolValueChange={onCoolValueChange}
-            onHeatValueChange={onHeatValueChange}
-          />
+          <TemperatureControlGroup mode={mode} {...rest} />
         </div>
       )}
     </div>
