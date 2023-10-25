@@ -4,6 +4,7 @@ import {
   type UseFormResetField,
   type UseFormWatch,
 } from 'react-hook-form'
+import type { HvacModeSetting } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -13,7 +14,6 @@ import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
-import type { HvacModeSetting } from 'seamapi'
 
 interface ClimateSettingScheduleFormClimateSettingProps {
   title: string
