@@ -36,7 +36,7 @@ export function ClimateSettingControlGroup({
 
       {mode !== 'off' && (
         <div className='seam-climate-setting-slider-container'>
-          <TemperatureControlGroup
+          <TemperatureControlGroup {...props} />
             coolValue={coolValue}
             heatValue={heatValue}
             delta={delta}
