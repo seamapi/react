@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import type { ClimateSetting } from 'seamapi'
 
 import { getSystemTimeZone } from 'lib/dates.js'
+import { ClimateSettingScheduleFormDefaultClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDefaultClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
 import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
@@ -76,6 +77,22 @@ function Content({
         control={control}
         onBack={onBack}
         onSelect={() => {
+          setPage('default_setting')
+        }}
+      />
+    )
+  }
+
+  if (page === 'default_setting') {
+    return (
+      <ClimateSettingScheduleFormDefaultClimateSetting
+        title={t.addNewClimateSettingSchedule}
+        deviceId={deviceId}
+        onBack={() => {
+          setPage('device_select')
+        }}
+        onCancel={onBack}
+        onSave={() => {
           setPage('name_and_schedule')
         }}
       />
