@@ -34,18 +34,20 @@ export function ClimateSettingControlGroup({
       <ClimateModeMenu mode={mode} onChange={onModeChange} />
 
       {mode !== 'off' && (
-        <TemperatureControlGroup
-          coolValue={coolValue}
-          heatValue={heatValue}
-          delta={delta}
-          maxCool={maxCool}
-          maxHeat={maxHeat}
-          minCool={minCool}
-          minHeat={minHeat}
-          mode={mode}
-          onCoolValueChange={onCoolValueChange}
-          onHeatValueChange={onHeatValueChange}
-        />
+        <div className='seam-climate-setting-slider-container'>
+          <TemperatureControlGroup
+            coolValue={coolValue}
+            heatValue={heatValue}
+            delta={delta}
+            maxCool={maxCool}
+            maxHeat={maxHeat}
+            minCool={minCool}
+            minHeat={minHeat}
+            mode={mode}
+            onCoolValueChange={onCoolValueChange}
+            onHeatValueChange={onHeatValueChange}
+          />
+        </div>
       )}
     </div>
   )
