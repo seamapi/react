@@ -1,7 +1,11 @@
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type { ClimateSetting, type  HvacModeSetting,ThermostatDeviceProperties  } from 'seamapi'
+import type {
+  ClimateSetting,
+  type HvacModeSetting,
+  ThermostatDeviceProperties,
+} from 'seamapi'
 
 import { useDevice } from 'lib/index.js'
 
