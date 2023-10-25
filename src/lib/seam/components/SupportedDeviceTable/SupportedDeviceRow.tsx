@@ -45,7 +45,7 @@ export function ModelColumn({
       </div>
       <div className='seam-model-id'>
         <div className='seam-truncated-text'>
-          {deviceModel.device_model_id}
+          {deviceModel.aesthetic_variants[0]?.manufacturer_sku}
           <DotDivider />
           {deviceModel.main_connection_type}
         </div>
