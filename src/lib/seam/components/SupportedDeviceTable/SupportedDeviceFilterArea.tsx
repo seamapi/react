@@ -27,7 +27,7 @@ export function SupportedDeviceFilterArea({
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = getAppliedFilterCount(filters)
 
-  const { manufacturers: availableManufacturers } = useFilteredManufacturers({
+  const { manufacturers: manufacturersData } = useFilteredManufacturers({
     manufacturers,
     excludedManufacturers,
   })
@@ -43,6 +43,16 @@ export function SupportedDeviceFilterArea({
     appliedFiltersCount > 0 ? `${t.filters} (${appliedFiltersCount})` : t.filter
 
   const allLabel = t.all
+
+  const options =
+    manufacturersData
+      ?.filter((manufacturer) => {
+        if (filters.supportedOnly) {
+          return ['stable', 'beta'].includes(manufacturer.integration)
+        }
+        return true
+      })
+      ?.map((manufacturer) => manufacturer.display_name) ?? []
 
   return (
     <div className='seam-supported-device-table-filter-area'>
@@ -69,11 +79,7 @@ export function SupportedDeviceFilterArea({
               <FilterCategoryMenu
                 label={t.manufacturer}
                 allLabel={allLabel}
-                options={
-                  availableManufacturers?.map(
-                    (manufacturer) => manufacturer.display_name
-                  ) ?? []
-                }
+                options={options}
                 onSelect={(manufacturer: string) => {
                   setFilters((filters) => ({
                     ...filters,

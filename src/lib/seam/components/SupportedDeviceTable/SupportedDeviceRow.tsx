@@ -38,6 +38,7 @@ export function ImageColumn({
 export function ModelColumn({
   deviceModel,
 }: SupportedDeviceRowProps): JSX.Element {
+  const sku = deviceModel.aesthetic_variants[0]?.manufacturer_sku
   return (
     <div className='seam-col seam-model-col'>
       <div className='seam-model-name'>
@@ -45,8 +46,8 @@ export function ModelColumn({
       </div>
       <div className='seam-model-id'>
         <div className='seam-truncated-text'>
-          {deviceModel.aesthetic_variants[0]?.manufacturer_sku}
-          <DotDivider />
+          {sku}
+          {sku != null && <DotDivider />}
           {deviceModel.main_connection_type}
         </div>
       </div>
