@@ -13,12 +13,8 @@ import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTabl
 
 export interface SupportedDeviceTableProps extends CommonProps {
   disableFilter?: boolean
-  /**
-   * @deprecated Use disableFilter.
-   */
-  cannotFilter?: boolean
-  brands?: string[] | null
-  excludedBrands?: string[]
+  manufacturers?: string[] | null
+  excludedManufacturers?: string[]
 }
 
 export const NestedSupportedDeviceTable =
@@ -26,9 +22,8 @@ export const NestedSupportedDeviceTable =
 
 export function SupportedDeviceTable({
   disableFilter = false,
-  cannotFilter,
-  brands = null,
-  excludedBrands = [],
+  manufacturers = null,
+  excludedManufacturers = [],
   className,
 }: SupportedDeviceTableProps = {}): JSX.Element {
   useComponentTelemetry('SupportedDeviceTable')
@@ -36,10 +31,8 @@ export function SupportedDeviceTable({
   const [filterValue, setFilterValue] = useState('')
   const [filters, setFilters] = useState<DeviceModelFilters>({
     supportedOnly: true,
-    brand: null,
+    manufacturer: null,
   })
-
-  const hideFilter = cannotFilter ?? disableFilter
 
   return (
     <div
@@ -48,14 +41,14 @@ export function SupportedDeviceTable({
         className
       )}
     >
-      {!hideFilter && (
+      {!disableFilter && (
         <SupportedDeviceFilterArea
           filterValue={filterValue}
           setFilterValue={setFilterValue}
           filters={filters}
           setFilters={setFilters}
-          brands={brands}
-          excludedBrands={excludedBrands}
+          manufacturers={manufacturers}
+          excludedManufacturers={excludedManufacturers}
         />
       )}
       <SupportedDeviceContent
@@ -64,8 +57,8 @@ export function SupportedDeviceTable({
         }}
         filterValue={filterValue}
         filters={filters}
-        brands={brands}
-        excludedBrands={excludedBrands}
+        manufacturers={manufacturers}
+        excludedManufacturers={excludedManufacturers}
       />
     </div>
   )

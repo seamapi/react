@@ -1,35 +1,35 @@
-import type { DeviceModel } from 'seamapi'
+import type { DeviceModelV1 } from '@seamapi/types/devicedb'
 
-import { SupportedDeviceBrandSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceBrandSection.js'
 import { SupportedDeviceFilterResultRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterResultRow.js'
+import { SupportedDeviceManufacturerSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceManufacturerSection.js'
+import type { UseDeviceModelsData } from 'lib/seam/components/SupportedDeviceTable/use-device-models.js'
 import {
   type DeviceModelFilters,
   useFilteredDeviceModels,
 } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
-import type { UseDeviceModelsData } from 'lib/seam/device-models/use-device-models.js'
 import { Button } from 'lib/ui/Button.js'
 
 interface SupportedDeviceContentProps {
   filterValue: string
   resetFilterValue: () => void
   filters: DeviceModelFilters
-  brands: string[] | null
-  excludedBrands: string[]
+  manufacturers: string[] | null
+  excludedManufacturers: string[]
 }
 
 export function SupportedDeviceContent({
   resetFilterValue,
   filterValue,
   filters,
-  brands,
-  excludedBrands,
+  manufacturers,
+  excludedManufacturers,
 }: SupportedDeviceContentProps): JSX.Element | null {
   const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
     {
       filterValue,
       filters,
-      brands,
-      excludedBrands,
+      manufacturers,
+      excludedManufacturers,
     }
   )
 
@@ -74,20 +74,14 @@ export function SupportedDeviceContent({
     )
   }
 
-  const hasFilters = filterValue.trim() !== '' || filters.brand !== null
+  const hasFilters = filterValue.trim() !== '' || filters.manufacturer !== null
 
   if (hasFilters) {
     return (
       <div className='seam-supported-device-table-content'>
-        {deviceModels.map((deviceModel, index) => (
+        {deviceModels.map((deviceModel) => (
           <SupportedDeviceFilterResultRow
-            key={[
-              deviceModel.main_category,
-              deviceModel.brand,
-              deviceModel.model_name,
-              deviceModel.manufacturer_model_id,
-              index,
-            ].join(':')}
+            key={deviceModel.device_model_id}
             deviceModel={deviceModel}
           />
         ))}
@@ -97,11 +91,11 @@ export function SupportedDeviceContent({
 
   return (
     <>
-      {Object.entries(groupDeviceModelsByBrand(deviceModels)).map(
-        ([brand, models]) => (
-          <SupportedDeviceBrandSection
-            key={brand}
-            brand={brand}
+      {Object.entries(groupDeviceModelsByManufacturer(deviceModels)).map(
+        ([manufacturerId, models]) => (
+          <SupportedDeviceManufacturerSection
+            key={manufacturerId}
+            manufacturerId={manufacturerId}
             deviceModels={models}
           />
         )
@@ -142,15 +136,15 @@ function EmptyResult({
   )
 }
 
-function groupDeviceModelsByBrand(
+function groupDeviceModelsByManufacturer(
   deviceModels: UseDeviceModelsData
-): Record<string, DeviceModel[]> {
-  const result: Record<string, DeviceModel[]> = {}
+): Record<string, DeviceModelV1[]> {
+  const result: Record<string, DeviceModelV1[]> = {}
 
   for (const model of deviceModels) {
-    const { brand } = model
-    const list = result[brand] ?? []
-    result[brand] = [...list, model]
+    const { manufacturer } = model
+    const list = result[manufacturer.manufacturer_id] ?? []
+    result[manufacturer.manufacturer_id] = [...list, model]
   }
   return result
 }
