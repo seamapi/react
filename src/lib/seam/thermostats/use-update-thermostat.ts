@@ -15,18 +15,14 @@ import { NullSeamClientError, useSeamClient } from 'lib/index.js'
 type UseUpdateThermostatMutationParams = ThermostatUpdateRequest
 
 export function useUpdateThermostat(): UseMutationResult<
-{},
+  {},
   SeamError,
   UseUpdateThermostatMutationParams
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  return useMutation<
-  {},
-    SeamError,
-    UseUpdateThermostatMutationParams
-  >({
+  return useMutation<{}, SeamError, UseUpdateThermostatMutationParams>({
     mutationFn: async (mutationParams: UseUpdateThermostatMutationParams) => {
       if (client === null) throw new NullSeamClientError()
 
