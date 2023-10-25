@@ -6,6 +6,9 @@ import type { ClimateSetting, ThermostatDeviceProperties } from 'seamapi'
 import { getSystemTimeZone } from 'lib/dates.js'
 import { useDevice } from 'lib/index.js'
 import { ClimateSettingScheduleFormDefaultClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDefaultClimateSetting.js'
+import type { HvacModeSetting } from 'seamapi'
+
+import { ClimateSettingScheduleFormClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
 import { ClimateSettingScheduleFormTimeZonePicker } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormTimeZonePicker.js'
@@ -32,6 +35,11 @@ export interface ClimateSettingScheduleFormFields {
   startDate: string
   endDate: string
   timeZone: string
+  hvacModeSetting: HvacModeSetting
+  setPoints: {
+    heatingSetPoint: number
+    coolingSetPoint: number
+  }
 }
 
 export function ClimateSettingScheduleForm({
@@ -57,6 +65,11 @@ function Content({
       startDate: '',
       endDate: '',
       timeZone: getSystemTimeZone(),
+      hvacModeSetting: 'heat_cool' as HvacModeSetting,
+      setPoints: {
+        heatingSetPoint: 70,
+        coolingSetPoint: 75,
+      },
     },
   })
 
@@ -139,6 +152,23 @@ function Content({
         onClose={() => {
           setPage('name_and_schedule')
         }}
+      />
+    )
+  }
+
+  if (page === 'climate_setting') {
+    return (
+      <ClimateSettingScheduleFormClimateSetting
+        title={t.addNewClimateSettingSchedule}
+        control={control}
+        watch={watch}
+        resetField={resetField}
+        deviceId={deviceId}
+        onBack={() => {
+          setPage('name_and_schedule')
+        }}
+        onCancel={onBack}
+        onSave={() => {}}
       />
     )
   }
