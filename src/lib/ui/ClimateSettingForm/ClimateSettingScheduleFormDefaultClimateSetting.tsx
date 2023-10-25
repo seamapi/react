@@ -4,8 +4,7 @@ import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
-import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
-import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
+import { ClimateSettingControlGroup } from 'lib/ui/thermostat/ClimateSettingControlGroup.js'
 import { useState } from 'react'
 
 interface ClimateSettingScheduleFormDefaultClimateSettingProps {
@@ -42,28 +41,32 @@ export function ClimateSettingScheduleFormDefaultClimateSetting({
         subheading={device?.properties.name}
       />
       <div className='seam-main'>
-        <div className='seam-climate-setting-schedule-form-climate-setting'>
+        <div className='seam-climate-setting-schedule-form-default-climate-setting'>
           <div className='seam-content'>
-            <div>
-              <InputLabel>{t.climateSetting}</InputLabel>
-              <span className='seam-label'>{t.climateSettingSubHeading}</span>
+            <div className='seam-default-climate-setting-message'>
+              <p>
+                {
+                  'This device doesn’t have a default climate set up yet. Choose the climate you’d like the device to fall back to after scheduled climates reach their ends.'
+                }
+              </p>
             </div>
-            <ClimateModeMenu mode={mode} onChange={setMode} />
-
-            {mode !== 'off' && (
-              <TemperatureControlGroup
-                coolValue={coolValue}
-                heatValue={heatValue}
-                delta={5}
-                maxCool={90}
-                maxHeat={100}
-                minCool={50}
-                minHeat={70}
-                mode={mode}
-                onCoolValueChange={setCoolValue}
-                onHeatValueChange={setHeatValue}
-              />
-            )}
+            <div className='seam-control-group-title'>
+              <InputLabel>{t.defaultClimate}</InputLabel>
+              <span className='seam-label'>{t.defautClimateSubHeading}</span>
+            </div>
+            <ClimateSettingControlGroup
+              mode={mode}
+              onModeChange={setMode}
+              heatValue={heatValue}
+              onHeatValueChange={setHeatValue}
+              coolValue={coolValue}
+              onCoolValueChange={setCoolValue}
+              delta={5}
+              minHeat={70}
+              maxHeat={100}
+              minCool={50}
+              maxCool={90}
+            />
           </div>
         </div>
         <div className='seam-actions'>
@@ -78,9 +81,9 @@ export function ClimateSettingScheduleFormDefaultClimateSetting({
 }
 
 const t = {
-  climateSetting: 'Climate setting',
-  climateSettingSubHeading: 'Choose mode and adjust the climate',
+  defaultClimate: 'Default Climate',
+  defautClimateSubHeading:
+    'Choose the default mode and climate for this device',
   cancel: 'Cancel',
   save: 'Save',
-  next: 'Next',
 }
