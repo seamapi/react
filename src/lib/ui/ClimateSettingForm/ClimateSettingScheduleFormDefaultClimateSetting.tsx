@@ -45,7 +45,9 @@ export function ClimateSettingScheduleFormDefaultClimateSetting({
           <div className='seam-content'>
             <div className='seam-default-climate-setting-message'>
               <p>
-                This device doesn’t have a default climate set up yet. Choose the climate you’d like the device to fall back to after scheduled climates reach their ends.
+                This device doesn’t have a default climate set up yet. Choose
+                the climate you’d like the device to fall back to after
+                scheduled climates reach their ends.
               </p>
             </div>
             <div className='seam-control-group-title'>
