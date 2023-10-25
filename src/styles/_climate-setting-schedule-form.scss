@@ -4,6 +4,7 @@
   .seam-climate-setting-schedule-form {
     @include main;
     @include name-and-schedule;
+    @include climate-setting;
   }
 }
 
@@ -51,6 +52,29 @@
             fill: colors.$primary;
           }
         }
+      }
+    }
+  }
+}
+
+@mixin climate-setting {
+  .seam-climate-setting-schedule-form-climate-setting {
+    .seam-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      margin-top: 24px;
+      margin-bottom: 24px;
+
+      .seam-label {
+        color: colors.$text-gray-2;
+        font-size: 14px;
+      }
+
+      .seam-climate-setting-slider-container {
+        display: flex;
+        justify-content: center;
       }
     }
   }
