@@ -7,7 +7,6 @@ import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 interface ClimateSettingScheduleFormDeviceSelectProps {
   title: string
   control: Control<ClimateSettingScheduleFormFields>
-  onSelect: (deviceId: string) => Promise<void>
   onBack: (() => void) | undefined
 }
 
@@ -15,7 +14,6 @@ export function ClimateSettingScheduleFormDeviceSelect({
   title,
   control,
   onBack,
-  onSelect,
 }: ClimateSettingScheduleFormDeviceSelectProps): JSX.Element {
   return (
     <>
@@ -26,9 +24,8 @@ export function ClimateSettingScheduleFormDeviceSelect({
           control={control}
           render={({ field: { onChange } }) => (
             <ThermostatSelect
-              onSelect={async (deviceId) => {
+              onSelect={(deviceId) => {
                 onChange(deviceId)
-                await onSelect(deviceId)
               }}
             />
           )}

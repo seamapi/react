@@ -1,10 +1,10 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ClimateSetting, ThermostatDeviceProperties } from 'seamapi'
 
 import { getSystemTimeZone } from 'lib/dates.js'
-import { useSeamClient } from 'lib/index.js'
+import { useDevice } from 'lib/index.js'
 import { ClimateSettingScheduleFormDefaultClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDefaultClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
@@ -50,7 +50,7 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control, watch } = useForm({
+  const { control, watch, resetField } = useForm({
     defaultValues: {
       deviceId: '',
       name: '',
@@ -63,7 +63,9 @@ function Content({
   const deviceId = watch('deviceId')
   const timeZone = watch('timeZone')
 
-  const { client } = useSeamClient()
+  const { device } = useDevice({
+    device_id: deviceId,
+  })
 
   const [page, setPage] = useState<
     | 'device_select'
@@ -73,18 +75,19 @@ function Content({
     | 'climate_setting'
   >('device_select')
 
-  if (!client) return <></>
-
-  const onDeviceSelect = async (deviceId: string) => {
-    const device = await client.devices.get({ device_id: deviceId })
-
-    const hasDefaultSetting = Boolean(
-      (device?.properties as ThermostatDeviceProperties).default_climate_setting
-    )
-
-    if (hasDefaultSetting) setPage('name_and_schedule')
-    else setPage('default_setting')
+  const returnToDeviceSelect = () => {
+    resetField('deviceId')
+    setPage('device_select')
   }
+
+  useEffect(() => {
+    if (page === 'device_select' && device?.properties) {
+      const defaultSetting = (device?.properties as ThermostatDeviceProperties)
+        .default_climate_setting
+      if (Boolean(defaultSetting)) setPage('name_and_schedule')
+      else setPage('default_setting')
+    }
+  }, [device?.properties, page, setPage])
 
   if (page === 'device_select') {
     return (
@@ -92,7 +95,6 @@ function Content({
         title={t.addNewClimateSettingSchedule}
         control={control}
         onBack={onBack}
-        onSelect={onDeviceSelect}
       />
     )
   }
@@ -102,9 +104,7 @@ function Content({
       <ClimateSettingScheduleFormDefaultClimateSetting
         title={t.addNewClimateSettingSchedule}
         deviceId={deviceId}
-        onBack={() => {
-          setPage('device_select')
-        }}
+        onBack={returnToDeviceSelect}
         onCancel={onBack}
         onSave={() => {
           setPage('name_and_schedule')
@@ -119,9 +119,7 @@ function Content({
         title={t.addNewClimateSettingSchedule}
         control={control}
         deviceId={deviceId}
-        onBack={() => {
-          setPage('device_select')
-        }}
+        onBack={returnToDeviceSelect}
         onCancel={onBack}
         onNext={() => {
           setPage('climate_setting')
