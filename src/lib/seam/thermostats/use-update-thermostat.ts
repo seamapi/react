@@ -12,11 +12,10 @@ import type {
 
 import { NullSeamClientError, useSeamClient } from 'lib/index.js'
 
-interface UseUpdateThermostatData {}
 type UseUpdateThermostatMutationParams = ThermostatUpdateRequest
 
 export function useUpdateThermostat(): UseMutationResult<
-  UseUpdateThermostatData,
+{},
   SeamError,
   UseUpdateThermostatMutationParams
 > {
@@ -24,7 +23,7 @@ export function useUpdateThermostat(): UseMutationResult<
   const queryClient = useQueryClient()
 
   return useMutation<
-    UseUpdateThermostatData,
+  {},
     SeamError,
     UseUpdateThermostatMutationParams
   >({
@@ -44,6 +43,8 @@ export function useUpdateThermostat(): UseMutationResult<
           return {
             ...thermostat,
             properties: {
+              ...thermostat.properties,
+
               default_climate_setting: {
                 ...thermostat.properties.default_climate_setting,
                 ...variables.default_climate_setting,
@@ -68,6 +69,8 @@ export function useUpdateThermostat(): UseMutationResult<
             return {
               ...thermostat,
               properties: {
+                ...thermostat.properties,
+
                 default_climate_setting: {
                   ...thermostat.properties.default_climate_setting,
                   ...variables.default_climate_setting,
