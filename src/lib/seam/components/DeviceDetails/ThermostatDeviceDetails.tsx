@@ -14,6 +14,7 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import Switch from 'lib/ui/Switch/Switch.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -123,12 +124,7 @@ export function ThermostatDeviceDetails({
                 )}
               </DetailRow>
               <DetailRow label={t.allowManualOverride}>
-                <p>
-                  {device.properties.current_climate_setting
-                    .manual_override_allowed
-                    ? t.yes
-                    : t.no}
-                </p>
+                <Switch checked={true} onChange={() => {}} enableLabel />
               </DetailRow>
             </DetailSection>
 
