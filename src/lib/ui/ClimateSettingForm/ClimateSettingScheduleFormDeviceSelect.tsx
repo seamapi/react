@@ -1,4 +1,4 @@
-import { type Control, Controller } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -7,7 +7,7 @@ import { ThermostatSelect } from 'lib/ui/thermostat/ThermostatSelect.js'
 interface ClimateSettingScheduleFormDeviceSelectProps {
   title: string
   control: Control<ClimateSettingScheduleFormFields>
-  onSelect: () => void
+  onSelect: (deviceId: string) => Promise<void>
   onBack: (() => void) | undefined
 }
 
@@ -26,9 +26,9 @@ export function ClimateSettingScheduleFormDeviceSelect({
           control={control}
           render={({ field: { onChange } }) => (
             <ThermostatSelect
-              onSelect={(deviceId) => {
+              onSelect={async (deviceId) => {
                 onChange(deviceId)
-                onSelect()
+                await onSelect(deviceId)
               }}
             />
           )}

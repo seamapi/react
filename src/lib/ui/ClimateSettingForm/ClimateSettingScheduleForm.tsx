@@ -1,9 +1,10 @@
 import classNames from 'classnames'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type { ClimateSetting } from 'seamapi'
+import type { ClimateSetting, ThermostatDeviceProperties } from 'seamapi'
 
 import { getSystemTimeZone } from 'lib/dates.js'
+import { useSeamClient } from 'lib/index.js'
 import { ClimateSettingScheduleFormDefaultClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDefaultClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
 import { ClimateSettingScheduleFormNameAndSchedule } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormNameAndSchedule.js'
@@ -62,6 +63,8 @@ function Content({
   const deviceId = watch('deviceId')
   const timeZone = watch('timeZone')
 
+  const { client } = useSeamClient()
+
   const [page, setPage] = useState<
     | 'device_select'
     | 'default_setting'
@@ -70,15 +73,26 @@ function Content({
     | 'climate_setting'
   >('device_select')
 
+  if (!client) return <></>
+
+  const onDeviceSelect = async (deviceId: string) => {
+    const device = await client.devices.get({ device_id: deviceId })
+
+    const hasDefaultSetting = Boolean(
+      (device?.properties as ThermostatDeviceProperties).default_climate_setting
+    )
+
+    if (hasDefaultSetting) setPage('name_and_schedule')
+    else setPage('default_setting')
+  }
+
   if (page === 'device_select') {
     return (
       <ClimateSettingScheduleFormDeviceSelect
         title={t.addNewClimateSettingSchedule}
         control={control}
         onBack={onBack}
-        onSelect={() => {
-          setPage('default_setting')
-        }}
+        onSelect={onDeviceSelect}
       />
     )
   }
