@@ -3,7 +3,7 @@ import type { HvacModeSetting } from 'seamapi'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 
-interface ClimateSettingControlGroupProps {
+interface ClimateSettingControlGroupProps extends TemperatureControlGroupProps {
   mode: HvacModeSetting
   onModeChange: (mode: HvacModeSetting) => void
   heatValue: number
