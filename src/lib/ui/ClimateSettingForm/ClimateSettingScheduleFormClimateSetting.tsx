@@ -1,4 +1,4 @@
-import { Controller, type Control } from 'react-hook-form'
+import { type Control, Controller } from 'react-hook-form'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
