@@ -1,0 +1,20 @@
+@mixin all {
+  .supported-device-table-manufacturer-keys {
+    display: table;
+    font-size: 18px;
+
+    .seam-manufacturer-key {
+      display: table-row;
+    }
+
+    .seam-manufacturer-key-value {
+      display: table-cell;
+    }
+
+    .seam-copy-button {
+      display: table-cell;
+      cursor: pointer;
+      padding-left: 10px;
+    }
+  }
+}
