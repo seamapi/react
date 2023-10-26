@@ -48,6 +48,9 @@ UseUpdateThermostatData,
 
               default_climate_setting: {
                 ...thermostat.properties.default_climate_setting,
+                manual_override_allowed:
+                  thermostat.properties?.default_climate_setting
+                    ?.manual_override_allowed || false,
                 ...variables.default_climate_setting,
               },
             },
@@ -57,27 +60,32 @@ UseUpdateThermostatData,
 
       queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
         ['thermostats', 'list', { device_id: variables.device_id }],
-        (thermostats) => {
+        (thermostats): ThermostatDevice[] => {
           if (thermostats == null) {
             return []
           }
 
           return thermostats.map((thermostat) => {
-            if (thermostat == null || thermostat == undefined) {
-              return
-            }
+            if (thermostat.device_id === variables.device_id) {
+              return {
+                ...thermostat,
 
-            return {
-              ...thermostat,
-              properties: {
-                ...thermostat.properties,
+                properties: {
+                  ...thermostat.properties,
 
-                default_climate_setting: {
-                  ...thermostat.properties.default_climate_setting,
-                  ...variables.default_climate_setting,
+                  default_climate_setting: {
+                    ...thermostat.properties.default_climate_setting,
+                    manual_override_allowed:
+                      thermostat.properties?.default_climate_setting
+                        ?.manual_override_allowed || false,
+
+                    ...variables.default_climate_setting,
+                  },
                 },
-              },
+              }
             }
+
+            return thermostat
           })
         }
       )
