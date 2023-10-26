@@ -16,7 +16,7 @@ type UseUpdateThermostatData = Record<string, unknown>
 type UseUpdateThermostatMutationParams = ThermostatUpdateRequest
 
 export function useUpdateThermostat(): UseMutationResult<
-UseUpdateThermostatData,
+  UseUpdateThermostatData,
   SeamError,
   UseUpdateThermostatMutationParams
 > {
