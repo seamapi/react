@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type {
-  ClimateSetting,
-  HvacModeSetting,
-  ThermostatDeviceProperties,
+import {
+  isThermostatDevice,
+  type ClimateSetting,
+  type HvacModeSetting,
 } from 'seamapi'
 
 import { useDevice } from 'lib/index.js'
@@ -62,20 +62,21 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control, watch } = useForm<ClimateSettingScheduleFormFields>({
-    defaultValues: {
-      deviceId: '',
-      name: '',
-      startDate: '',
-      endDate: '',
-      timeZone: getSystemTimeZone(),
-      climateSetting: {
-        hvacModeSetting: 'heat_cool',
-        heatingSetPoint: 70,
-        coolingSetPoint: 75,
+  const { control, watch, resetField } =
+    useForm<ClimateSettingScheduleFormFields>({
+      defaultValues: {
+        deviceId: '',
+        name: '',
+        startDate: '',
+        endDate: '',
+        timeZone: getSystemTimeZone(),
+        climateSetting: {
+          hvacModeSetting: 'heat_cool',
+          heatingSetPoint: 70,
+          coolingSetPoint: 75,
+        },
       },
-    },
-  })
+    })
 
   const deviceId = watch('deviceId')
   const timeZone = watch('timeZone')
@@ -98,13 +99,14 @@ function Content({
   }
 
   useEffect(() => {
-    if (page === 'device_select' && device?.properties !== undefined) {
-      const defaultSetting = (device?.properties as ThermostatDeviceProperties)
-        .default_climate_setting
-      if (defaultSetting !== undefined) setPage('name_and_schedule')
+    if (page === 'device_select' && device != null) {
+      if (!isThermostatDevice(device)) return
+
+      const defaultSetting = device.properties.default_climate_setting
+      if (defaultSetting != null) setPage('name_and_schedule')
       else setPage('default_setting')
     }
-  }, [device?.properties, page, setPage])
+  }, [device, page, setPage])
 
   if (page === 'device_select') {
     return (
