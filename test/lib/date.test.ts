@@ -49,7 +49,7 @@ describe('formatTimeZone', () => {
   })
 
   it('handles the case with no region', () => {
-    expect(formatTimeZone('Japan')).toBe('Japan (UTC+3)')
+    expect(formatTimeZone('Japan')).toBe('Japan (UTC+9)')
   })
 })
 
