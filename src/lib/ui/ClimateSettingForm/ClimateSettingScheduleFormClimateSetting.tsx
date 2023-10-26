@@ -8,6 +8,7 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ClimateSettingControlGroup } from 'lib/ui/thermostat/ClimateSettingControlGroup.js'
+import type { TemperatureControlGroupProps } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 
 interface ClimateSettingScheduleFormClimateSettingProps {
   title: string
@@ -17,6 +18,11 @@ interface ClimateSettingScheduleFormClimateSettingProps {
   onCancel: (() => void) | undefined
   onSave: () => void
 }
+
+type SetPointBounds = Pick<
+  TemperatureControlGroupProps,
+  'minCool' | 'maxCool' | 'minHeat' | 'maxHeat' | 'delta'
+>
 
 export function ClimateSettingScheduleFormClimateSetting({
   title,
@@ -72,7 +78,7 @@ export function ClimateSettingScheduleFormClimateSetting({
               <InputLabel>{t.climateSetting}</InputLabel>
               <span className='seam-label'>{t.climateSettingSubHeading}</span>
             </div>
-            <FormContent control={control} />
+            <FormContent control={control} setPointBounds={setPointBounds} />
           </div>
         </div>
         <div className='seam-actions'>
@@ -88,9 +94,13 @@ export function ClimateSettingScheduleFormClimateSetting({
 
 interface FormContentProps {
   control: Control<ClimateSettingScheduleFormFields>
+  setPointBounds: SetPointBounds
 }
 
-function FormContent({ control }: FormContentProps): JSX.Element {
+function FormContent({
+  control,
+  setPointBounds,
+}: FormContentProps): JSX.Element {
   return (
     <FormField>
       <Controller
@@ -104,6 +114,7 @@ function FormContent({ control }: FormContentProps): JSX.Element {
             }}
             coolValue={value.coolingSetPoint}
             heatValue={value.heatingSetPoint}
+            {...setPointBounds}
             onCoolValueChange={(coolingSetPoint) => {
               onChange({
                 ...value,
