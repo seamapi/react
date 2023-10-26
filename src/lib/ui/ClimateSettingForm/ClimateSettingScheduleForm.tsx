@@ -31,8 +31,9 @@ export interface ClimateSettingScheduleFormFields {
   startDate: string
   endDate: string
   timeZone: string
-  hvacModeSetting: HvacModeSetting
-  setPoints: {
+  climateSetting: {
+    hvacModeSetting: HvacModeSetting
+    // may have to ignore one or the other fields here on submit
     heatingSetPoint: number
     coolingSetPoint: number
   }
@@ -54,15 +55,15 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control, watch, resetField } = useForm({
+  const { control, watch } = useForm<ClimateSettingScheduleFormFields>({
     defaultValues: {
       deviceId: '',
       name: '',
       startDate: '',
       endDate: '',
       timeZone: getSystemTimeZone(),
-      hvacModeSetting: 'heat_cool' as HvacModeSetting,
-      setPoints: {
+      climateSetting: {
+        hvacModeSetting: 'heat_cool',
         heatingSetPoint: 70,
         coolingSetPoint: 75,
       },
@@ -130,8 +131,6 @@ function Content({
       <ClimateSettingScheduleFormClimateSetting
         title={t.addNewClimateSettingSchedule}
         control={control}
-        watch={watch}
-        resetField={resetField}
         deviceId={deviceId}
         onBack={() => {
           setPage('name_and_schedule')
