@@ -32,15 +32,33 @@ export function ClimateSettingScheduleFormClimateSetting({
 
   const properties = device?.properties as ThermostatDevice['properties']
 
-  if (!properties.is_cooling_available || !properties.is_heating_available) {
-    // Currently the mode selector assumes that all modes are available
-    // TODO: add a prop to the mode selector to indicate which modes are available
-    return (
-      <>
-        Error: Thermostat does not have the neccesary data to render a slider{' '}
-      </>
-    )
+  console.log('properties: ', properties)
+
+  let setPointBounds = {}
+
+  if (properties.is_cooling_available) {
+    setPointBounds = {
+      minCool: properties.min_cooling_set_point_fahrenheit,
+      maxCool: properties.max_cooling_set_point_fahrenheit,
+    }
   }
+
+  if (properties.is_heating_available) {
+    setPointBounds = {
+      ...setPointBounds,
+      minHeat: properties.min_heating_set_point_fahrenheit,
+      maxHeat: properties.max_heating_set_point_fahrenheit,
+    }
+  }
+
+  if (properties.is_cooling_available && properties.is_heating_available) {
+    setPointBounds = {
+      ...setPointBounds,
+      delta: properties.min_heating_cooling_delta_fahrenheit,
+    }
+  }
+
+  console.log('setPointBounds: ', setPointBounds)
 
   return (
     <>
@@ -67,13 +85,9 @@ export function ClimateSettingScheduleFormClimateSetting({
                       onModeChange={(mode) => {
                         onChange({ ...value, hvacModeSetting: mode })
                       }}
+                      {...setPointBounds}
                       coolValue={value.coolingSetPoint}
                       heatValue={value.heatingSetPoint}
-                      delta={5}
-                      maxCool={90}
-                      maxHeat={100}
-                      minCool={50}
-                      minHeat={70}
                       onCoolValueChange={(coolingSetPoint) => {
                         onChange({
                           ...value,
