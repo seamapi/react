@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type {
   ClimateSetting,
-  type HvacModeSetting,
+  HvacModeSetting,
   ThermostatDeviceProperties,
 } from 'seamapi'
 
@@ -97,7 +97,7 @@ function Content({
   }
 
   useEffect(() => {
-    if (page === 'device_select' && device?.properties) {
+    if (page === 'device_select' && device?.properties !== undefined) {
       const defaultSetting = (device?.properties as ThermostatDeviceProperties)
         .default_climate_setting
       if (defaultSetting !== undefined) setPage('name_and_schedule')
