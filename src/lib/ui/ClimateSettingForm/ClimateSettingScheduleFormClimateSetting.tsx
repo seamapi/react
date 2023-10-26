@@ -7,6 +7,7 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ClimateSettingControlGroup } from 'lib/ui/thermostat/ClimateSettingControlGroup.js'
+import type { ThermostatDevice } from 'seamapi'
 
 interface ClimateSettingScheduleFormClimateSettingProps {
   title: string
@@ -28,6 +29,18 @@ export function ClimateSettingScheduleFormClimateSetting({
   const { device } = useDevice({
     device_id: deviceId,
   })
+
+  const properties = device?.properties as ThermostatDevice['properties']
+
+  if (!properties.is_cooling_available || !properties.is_heating_available) {
+    // Currently the mode selector assumes that all modes are available
+    // TODO: add a prop to the mode selector to indicate which modes are available
+    return (
+      <>
+        Error: Thermostat does not have the neccesary data to render a slider{' '}
+      </>
+    )
+  }
 
   return (
     <>
