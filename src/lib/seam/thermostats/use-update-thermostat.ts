@@ -12,17 +12,22 @@ import type {
 
 import { NullSeamClientError, useSeamClient } from 'lib/index.js'
 
+type UseUpdateThermostatData = never
 type UseUpdateThermostatMutationParams = ThermostatUpdateRequest
 
 export function useUpdateThermostat(): UseMutationResult<
-  {},
+UseUpdateThermostatData,
   SeamError,
   UseUpdateThermostatMutationParams
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  return useMutation<{}, SeamError, UseUpdateThermostatMutationParams>({
+  return useMutation<
+    UseUpdateThermostatData,
+    SeamError,
+    UseUpdateThermostatMutationParams
+  >({
     mutationFn: async (mutationParams: UseUpdateThermostatMutationParams) => {
       if (client === null) throw new NullSeamClientError()
 
@@ -58,7 +63,7 @@ export function useUpdateThermostat(): UseMutationResult<
           }
 
           return thermostats.map((thermostat) => {
-            if (thermostat == null) {
+            if (thermostat == null || thermostat == undefined) {
               return
             }
 
