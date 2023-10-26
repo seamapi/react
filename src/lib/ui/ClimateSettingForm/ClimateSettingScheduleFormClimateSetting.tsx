@@ -1,4 +1,4 @@
-import { type Control, Controller } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -47,35 +47,28 @@ export function ClimateSettingScheduleFormClimateSetting({
               <Controller
                 name='climateSetting'
                 control={control}
-                render={({ field: { value, onChange } }) => {
-                  return (
-                    <ClimateSettingControlGroup
-                      mode={value.hvacModeSetting}
-                      onModeChange={(mode) => {
-                        onChange({ ...value, hvacModeSetting: mode })
-                      }}
-                      coolValue={value.coolingSetPoint}
-                      heatValue={value.heatingSetPoint}
-                      delta={5}
-                      maxCool={90}
-                      maxHeat={100}
-                      minCool={50}
-                      minHeat={70}
-                      onCoolValueChange={(coolingSetPoint) => {
-                        onChange({
-                          ...value,
-                          coolingSetPoint,
-                        })
-                      }}
-                      onHeatValueChange={(heatingSetPoint) => {
-                        onChange({
-                          ...value,
-                          heatingSetPoint,
-                        })
-                      }}
-                    />
-                  )
-                }}
+                render={({ field: { value, onChange } }) => (
+                  <ClimateSettingControlGroup
+                    mode={value.hvacModeSetting}
+                    onModeChange={(mode) => {
+                      onChange({ ...value, hvacModeSetting: mode })
+                    }}
+                    coolValue={value.coolingSetPoint}
+                    heatValue={value.heatingSetPoint}
+                    onCoolValueChange={(coolingSetPoint) => {
+                      onChange({
+                        ...value,
+                        coolingSetPoint,
+                      })
+                    }}
+                    onHeatValueChange={(heatingSetPoint) => {
+                      onChange({
+                        ...value,
+                        heatingSetPoint,
+                      })
+                    }}
+                  />
+                )}
               />
             </FormField>
           </div>

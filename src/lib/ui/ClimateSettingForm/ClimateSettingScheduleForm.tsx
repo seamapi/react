@@ -55,7 +55,7 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
-  const { control, watch } = useForm({
+  const { control, watch } = useForm<ClimateSettingScheduleFormFields>({
     defaultValues: {
       deviceId: '',
       name: '',
@@ -63,7 +63,7 @@ function Content({
       endDate: '',
       timeZone: getSystemTimeZone(),
       climateSetting: {
-        hvacModeSetting: 'heat_cool' as HvacModeSetting,
+        hvacModeSetting: 'heat_cool',
         heatingSetPoint: 70,
         coolingSetPoint: 75,
       },
