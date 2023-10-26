@@ -55,8 +55,6 @@ export function ClimateSettingScheduleFormClimateSetting({
     }
   }
 
-  console.log('setPointBounds: ', setPointBounds)
-
   return (
     <>
       <ContentHeader
