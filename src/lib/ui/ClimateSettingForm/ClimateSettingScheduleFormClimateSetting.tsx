@@ -30,7 +30,8 @@ export function ClimateSettingScheduleFormClimateSetting({
     device_id: deviceId,
   })
 
-  const properties = device?.properties as ThermostatDevice['properties']
+if (!isThermostateDevice(device)) return null
+const properties = device?.properties
 
   let setPointBounds = {}
 
