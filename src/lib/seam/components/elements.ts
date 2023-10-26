@@ -7,5 +7,5 @@ export * as CreateAccessCodeForm from './CreateAccessCodeForm/CreateAccessCodeFo
 export * as DeviceDetails from './DeviceDetails/DeviceDetails.element.js'
 export * as DeviceTable from './DeviceTable/DeviceTable.element.js'
 export * as EditAccessCodeForm from './EditAccessCodeForm/EditAccessCodeForm.element.js'
-export * as SupportedDeviceTableManufacturerKeys from './SupportedDeviceTable/SupportedDeviceTableManufacturerKeys.element.js'
 export * as SupportedDeviceTable from './SupportedDeviceTable/SupportedDeviceTable.element.js'
+export * as SupportedDeviceTableManufacturerKeys from './SupportedDeviceTable/SupportedDeviceTableManufacturerKeys.element.js'
