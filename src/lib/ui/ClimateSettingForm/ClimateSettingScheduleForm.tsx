@@ -89,7 +89,7 @@ function Content({
     | 'climate_setting'
   >('device_select')
 
-  const returnToDeviceSelect = () => {
+  const returnToDeviceSelect = (): void => {
     resetField('deviceId')
     setPage('device_select')
   }
@@ -98,7 +98,7 @@ function Content({
     if (page === 'device_select' && device?.properties) {
       const defaultSetting = (device?.properties as ThermostatDeviceProperties)
         .default_climate_setting
-      if (defaultSetting) setPage('name_and_schedule')
+      if (defaultSetting !== undefined) setPage('name_and_schedule')
       else setPage('default_setting')
     }
   }, [device?.properties, page, setPage])

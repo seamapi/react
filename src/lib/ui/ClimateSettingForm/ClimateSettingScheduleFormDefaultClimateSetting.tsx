@@ -9,9 +9,6 @@ import { ClimateSettingControlGroup } from 'lib/ui/thermostat/ClimateSettingCont
 
 interface ClimateSettingScheduleFormDefaultClimateSettingProps {
   title: string
-  // control: Control<ClimateSettingScheduleFormFields>
-  // watch: UseFormWatch<ClimateSettingScheduleFormFields>
-  // resetField: UseFormResetField<ClimateSettingScheduleFormFields>
   deviceId: string
   onBack: () => void
   onCancel: (() => void) | undefined
@@ -61,11 +58,6 @@ export function ClimateSettingScheduleFormDefaultClimateSetting({
               onHeatValueChange={setHeatValue}
               coolValue={coolValue}
               onCoolValueChange={setCoolValue}
-              delta={5}
-              minHeat={70}
-              maxHeat={100}
-              minCool={50}
-              maxCool={90}
             />
           </div>
         </div>
