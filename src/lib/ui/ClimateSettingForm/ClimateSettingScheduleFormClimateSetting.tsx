@@ -1,4 +1,4 @@
-import { type Control, Controller } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 import { isThermostatDevice } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
@@ -19,9 +19,11 @@ interface ClimateSettingScheduleFormClimateSettingProps {
   onSave: () => void
 }
 
-type SetPointBounds = Pick<
-  TemperatureControlGroupProps,
-  'minCool' | 'maxCool' | 'minHeat' | 'maxHeat' | 'delta'
+type SetPointBounds = Partial<
+  Pick<
+    TemperatureControlGroupProps,
+    'minCool' | 'maxCool' | 'minHeat' | 'maxHeat' | 'delta'
+  >
 >
 
 export function ClimateSettingScheduleFormClimateSetting({
@@ -40,7 +42,7 @@ export function ClimateSettingScheduleFormClimateSetting({
   if (!isThermostatDevice(device)) return <></>
   const properties = device.properties
 
-  let setPointBounds = {}
+  let setPointBounds: SetPointBounds = {}
 
   if (properties.is_cooling_available) {
     setPointBounds = {
