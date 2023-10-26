@@ -12,7 +12,7 @@ import type {
 
 import { NullSeamClientError, useSeamClient } from 'lib/index.js'
 
-type UseUpdateThermostatData = never
+type UseUpdateThermostatData = Record<string, unknown>
 type UseUpdateThermostatMutationParams = ThermostatUpdateRequest
 
 export function useUpdateThermostat(): UseMutationResult<
