@@ -27,8 +27,8 @@ export function ClimateSettingScheduleFormDefaultClimateSetting({
   })
 
   const [mode, setMode] = useState<HvacModeSetting>('heat_cool')
-  const [heatValue, setHeatValue] = useState(75)
-  const [coolValue, setCoolValue] = useState(80)
+  const [heatValue, setHeatValue] = useState(70)
+  const [coolValue, setCoolValue] = useState(75)
 
   return (
     <>
