@@ -1,6 +1,3 @@
-import { Controller, type Control } from 'react-hook-form'
-import type { ThermostatDevice } from 'seamapi'
-
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
@@ -8,6 +5,8 @@ import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ClimateSettingControlGroup } from 'lib/ui/thermostat/ClimateSettingControlGroup.js'
+import { Controller, type Control } from 'react-hook-form'
+import type { ThermostatDevice } from 'seamapi'
 
 interface ClimateSettingScheduleFormClimateSettingProps {
   title: string
