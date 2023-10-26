@@ -1,5 +1,4 @@
 import { type Control, Controller } from 'react-hook-form'
-import type { ThermostatDevice } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'
@@ -30,8 +29,8 @@ export function ClimateSettingScheduleFormClimateSetting({
     device_id: deviceId,
   })
 
-if (!isThermostateDevice(device)) return null
-const properties = device?.properties
+  if (!isThermostateDevice(device)) return null
+  const properties = device?.properties
 
   let setPointBounds = {}
 
