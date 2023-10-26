@@ -30,7 +30,7 @@ export function ClimateSettingScheduleFormClimateSetting({
     device_id: deviceId,
   })
 
-  if (device === undefined || device === null) return <></>
+  if (device == null) return <></>
   if (!isThermostatDevice(device)) return <></>
   const properties = device.properties
 
