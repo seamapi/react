@@ -33,7 +33,7 @@ export interface ClimateSettingScheduleFormFields {
   timeZone: string
   climateSetting: {
     hvacModeSetting: HvacModeSetting
-    // will have to ignore one or the other fields here on submit
+    // may have to ignore one or the other fields here on submit
     heatingSetPoint: number
     coolingSetPoint: number
   }
@@ -67,7 +67,7 @@ function Content({
         heatingSetPoint: 70,
         coolingSetPoint: 75,
       },
-    } as ClimateSettingScheduleFormFields,
+    },
   })
 
   const deviceId = watch('deviceId')
