@@ -1,4 +1,4 @@
-import { type Control,Controller } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 import type { ThermostatDevice } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
@@ -31,8 +31,6 @@ export function ClimateSettingScheduleFormClimateSetting({
   })
 
   const properties = device?.properties as ThermostatDevice['properties']
-
-  console.log('properties: ', properties)
 
   let setPointBounds = {}
 
