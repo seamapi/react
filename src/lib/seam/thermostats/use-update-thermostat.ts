@@ -41,20 +41,7 @@ export function useUpdateThermostat(): UseMutationResult<
             return
           }
 
-          return {
-            ...thermostat,
-            properties: {
-              ...thermostat.properties,
-
-              default_climate_setting: {
-                ...thermostat.properties.default_climate_setting,
-                manual_override_allowed:
-                  thermostat.properties?.default_climate_setting
-                    ?.manual_override_allowed || false,
-                ...variables.default_climate_setting,
-              },
-            },
-          }
+          return getUpdatedThermostat(thermostat, variables)
         }
       )
 
@@ -67,22 +54,7 @@ export function useUpdateThermostat(): UseMutationResult<
 
           return thermostats.map((thermostat) => {
             if (thermostat.device_id === variables.device_id) {
-              return {
-                ...thermostat,
-
-                properties: {
-                  ...thermostat.properties,
-
-                  default_climate_setting: {
-                    ...thermostat.properties.default_climate_setting,
-                    manual_override_allowed:
-                      thermostat.properties?.default_climate_setting
-                        ?.manual_override_allowed || false,
-
-                    ...variables.default_climate_setting,
-                  },
-                },
-              }
+              return getUpdatedThermostat(thermostat, variables)
             }
 
             return thermostat
@@ -91,4 +63,29 @@ export function useUpdateThermostat(): UseMutationResult<
       )
     },
   })
+}
+
+function getUpdatedThermostat(
+  thermostat: ThermostatDevice,
+  variables: UseUpdateThermostatMutationParams
+): ThermostatDevice {
+  return {
+    ...thermostat,
+
+    properties: {
+      ...thermostat.properties,
+
+      default_climate_setting: {
+        ...thermostat.properties.default_climate_setting,
+        manual_override_allowed:
+          thermostat.properties?.default_climate_setting
+            ?.manual_override_allowed != null
+            ? thermostat.properties.default_climate_setting
+                .manual_override_allowed
+            : false,
+
+        ...variables.default_climate_setting,
+      },
+    },
+  }
 }
