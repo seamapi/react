@@ -82,7 +82,7 @@ function getUpdatedThermostat(
             ?.manual_override_allowed != null
             ? thermostat.properties.default_climate_setting
                 .manual_override_allowed
-            : false,
+            : true,
 
         ...variables.default_climate_setting,
       },
