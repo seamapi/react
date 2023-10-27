@@ -2,9 +2,9 @@ import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
-  isThermostatDevice,
   type ClimateSetting,
   type HvacModeSetting,
+  isThermostatDevice,
 } from 'seamapi'
 
 import { useDevice } from 'lib/index.js'
