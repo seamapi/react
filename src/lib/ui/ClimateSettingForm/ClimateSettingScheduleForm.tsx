@@ -25,13 +25,6 @@ export interface ClimateSettingScheduleFormSubmitData {
   climateSetting: ClimateSetting
 }
 
-export interface ClimateSettingScheduleFormProps {
-  className?: string
-  onBack?: () => void
-  isSubmitting: boolean
-  onSubmit: (data: ClimateSettingScheduleFormSubmitData) => void
-}
-
 export interface ClimateSettingScheduleFormFields {
   name: string
   deviceId: string
@@ -40,10 +33,23 @@ export interface ClimateSettingScheduleFormFields {
   timeZone: string
   climateSetting: {
     hvacModeSetting: HvacModeSetting
-    // may have to ignore one or the other fields here on submit
     heatingSetPoint: number
     coolingSetPoint: number
   }
+}
+
+type FormPage =
+  | 'device_select'
+  | 'default_setting'
+  | 'name_and_schedule'
+  | 'time_zone_select'
+  | 'climate_setting'
+
+interface ClimateSettingScheduleFormProps {
+  className?: string
+  onBack?: () => void
+  isSubmitting: boolean
+  onSubmit: (data: ClimateSettingScheduleFormSubmitData) => void
 }
 
 export function ClimateSettingScheduleForm({
@@ -61,7 +67,7 @@ export function ClimateSettingScheduleForm({
 
 function Content({
   onBack,
-}: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
+}: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element | null {
   const { control, watch, resetField } =
     useForm<ClimateSettingScheduleFormFields>({
       defaultValues: {
@@ -85,13 +91,7 @@ function Content({
     device_id: deviceId,
   })
 
-  const [page, setPage] = useState<
-    | 'device_select'
-    | 'default_setting'
-    | 'name_and_schedule'
-    | 'time_zone_select'
-    | 'climate_setting'
-  >('device_select')
+  const [page, setPage] = useState<FormPage>('device_select')
 
   const returnToDeviceSelect = (): void => {
     resetField('deviceId')
@@ -101,9 +101,11 @@ function Content({
   useEffect(() => {
     if (page === 'device_select' && device != null) {
       if (!isThermostatDevice(device)) return
-      const defaultSetting = device.properties.default_climate_setting
-      if (defaultSetting != null) setPage('name_and_schedule')
-      else setPage('default_setting')
+      const nextPage: FormPage =
+        device.properties.default_climate_setting == null
+          ? 'default_setting'
+          : 'name_and_schedule'
+      setPage(nextPage)
     }
   }, [device, page, setPage])
 
@@ -176,7 +178,7 @@ function Content({
     )
   }
 
-  return <></>
+  return null
 }
 
 export const t = {
