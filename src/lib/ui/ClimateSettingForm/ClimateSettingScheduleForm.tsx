@@ -101,7 +101,6 @@ function Content({
   useEffect(() => {
     if (page === 'device_select' && device != null) {
       if (!isThermostatDevice(device)) return
-
       const defaultSetting = device.properties.default_climate_setting
       if (defaultSetting != null) setPage('name_and_schedule')
       else setPage('default_setting')

@@ -41,11 +41,7 @@ export function ClimateSettingScheduleFormDefaultClimateSetting({
         <div className='seam-climate-setting-schedule-form-default-climate-setting'>
           <div className='seam-content'>
             <div className='seam-default-climate-setting-message'>
-              <p>
-                This device doesn’t have a default climate set up yet. Choose
-                the climate you’d like the device to fall back to after
-                scheduled climates reach their ends.
-              </p>
+              <p>{t.defaultClimateMessage}</p>
             </div>
             <div className='seam-control-group-title'>
               <InputLabel>{t.defaultClimate}</InputLabel>
@@ -76,6 +72,8 @@ const t = {
   defaultClimate: 'Default Climate',
   defautClimateSubHeading:
     'Choose the default mode and climate for this device',
+  defaultClimateMessage:
+    'This device doesn’t have a default climate set up yet. Choose the climate you’d like the device to fall back to after scheduled climates reach their ends.',
   cancel: 'Cancel',
   save: 'Save',
 }
