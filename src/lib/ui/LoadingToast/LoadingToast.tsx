@@ -16,7 +16,7 @@ export function LoadingToast({
   label,
   top,
   left,
-}: LoadingToastProps): JSX.Element {
+}: LoadingToastProps): JSX.Element | null {
   const [hidden, setHidden] = useState(false)
   const [showToast, setShowToast] = useState(isLoading)
 
@@ -41,7 +41,7 @@ export function LoadingToast({
     }
   }, [isLoading])
 
-  if (!showToast) return <></>
+  if (!showToast) return null
 
   return (
     <div
