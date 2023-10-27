@@ -4,7 +4,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { SupportedDeviceTableManufacturerKeys } from './SupportedDeviceTableManufacturerKeys.js'
 
 /**
- * These stories showcase the supported devices table.
+ * These stories showcase the valid manufacturer keys for the supported devices table.
+ * This component is meant for internal documentation and not recommended for external use.
  */
 const meta: Meta<typeof SupportedDeviceTableManufacturerKeys> = {
   title: 'Components/SupportedDeviceTableManufacturerKeys',
