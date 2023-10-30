@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type {
   AccessCode,
   AccessCodesListRequest,
@@ -19,6 +19,8 @@ export function useAccessCodes(
     typeof params === 'string' ? { device_id: params } : params
 
   const { client } = useSeamClient()
+  const queryClient = useQueryClient()
+
   const { data, ...rest } = useQuery<
     AccessCodesListResponse['access_codes'],
     SeamError
@@ -28,6 +30,18 @@ export function useAccessCodes(
     queryFn: async () => {
       if (client == null) return []
       return await client.accessCodes.list(normalizedParams)
+    },
+    onSuccess: (accessCodes) => {
+      for (const accessCode of accessCodes) {
+        queryClient.setQueryData(
+          [
+            'access_codes',
+            'get',
+            { access_code_id: accessCode.access_code_id },
+          ],
+          accessCode
+        )
+      }
     },
   })
 
