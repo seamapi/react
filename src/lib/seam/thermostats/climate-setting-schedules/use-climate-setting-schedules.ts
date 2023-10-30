@@ -33,7 +33,6 @@ export function useClimateSettingSchedules(
       return await client.thermostats.climateSettingSchedules.list(params)
     },
     onSuccess: (schedules) => {
-      // Prime cache for each schedule.
       for (const schedule of schedules) {
         queryClient.setQueryData(
           [

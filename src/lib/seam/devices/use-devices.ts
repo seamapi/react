@@ -27,7 +27,6 @@ export function useDevices(
         return await client.devices.list(params)
       },
       onSuccess: (devices) => {
-        // Prime cache for each device.
         for (const device of devices) {
           queryClient.setQueryData(
             ['devices', 'get', { device_id: device.device_id }],
