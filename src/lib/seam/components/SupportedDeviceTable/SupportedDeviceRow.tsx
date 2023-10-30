@@ -39,6 +39,10 @@ export function ModelColumn({
   deviceModel,
 }: SupportedDeviceRowProps): JSX.Element {
   const sku = deviceModel.aesthetic_variants[0]?.manufacturer_sku
+  const connection =
+    deviceModel.main_connection_type === 'unknown'
+      ? null
+      : deviceModel.main_connection_type
   return (
     <div className='seam-col seam-model-col'>
       <div className='seam-model-name'>
@@ -47,8 +51,8 @@ export function ModelColumn({
       <div className='seam-model-id'>
         <div className='seam-truncated-text'>
           {sku}
-          {sku != null && <DotDivider />}
-          {deviceModel.main_connection_type}
+          {sku != null && connection != null && <DotDivider />}
+          {connection}
         </div>
       </div>
     </div>
