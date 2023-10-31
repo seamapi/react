@@ -1,3 +1,4 @@
+import type { Manufacturer } from '@seamapi/types/devicedb'
 import type { Dispatch, SetStateAction } from 'react'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
@@ -6,15 +7,12 @@ import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 
-import { useFilteredManufacturers } from './use-filtered-manufacturers.js'
-
 interface SupportedDeviceFilterAreaProps {
   filterValue: string
   setFilterValue: (filter: string) => void
   filters: DeviceModelFilters
   setFilters: Dispatch<SetStateAction<DeviceModelFilters>>
-  manufacturers: string[] | null
-  excludedManufacturers: string[]
+  manufacturers: Manufacturer[]
 }
 
 export function SupportedDeviceFilterArea({
@@ -23,14 +21,8 @@ export function SupportedDeviceFilterArea({
   filters,
   setFilters,
   manufacturers,
-  excludedManufacturers,
 }: SupportedDeviceFilterAreaProps): JSX.Element {
   const appliedFiltersCount = getAppliedFilterCount(filters)
-
-  const { manufacturers: manufacturersData } = useFilteredManufacturers({
-    manufacturers,
-    excludedManufacturers,
-  })
 
   const resetFilter = (filterType: keyof DeviceModelFilters): void => {
     setFilters((filters) => ({
@@ -44,15 +36,14 @@ export function SupportedDeviceFilterArea({
 
   const allLabel = t.all
 
-  const options =
-    manufacturersData
-      ?.filter((manufacturer) => {
-        if (filters.supportedOnly) {
-          return ['stable', 'beta'].includes(manufacturer.integration)
-        }
-        return true
-      })
-      ?.map((manufacturer) => manufacturer.display_name) ?? []
+  const options = manufacturers
+    .filter((manufacturer) => {
+      if (filters.supportedOnly) {
+        return ['stable', 'beta'].includes(manufacturer.integration)
+      }
+      return true
+    })
+    .map((manufacturer) => manufacturer.display_name)
 
   return (
     <div className='seam-supported-device-table-filter-area'>

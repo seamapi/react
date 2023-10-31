@@ -13,8 +13,6 @@ interface SupportedDeviceContentProps {
   filterValue: string
   resetFilterValue: () => void
   filters: DeviceModelFilters
-  manufacturers: string[] | null
-  excludedManufacturers: string[]
 }
 
 export function SupportedDeviceContent({

@@ -11,6 +11,8 @@ import { SupportedDeviceContent } from 'lib/seam/components/SupportedDeviceTable
 import { SupportedDeviceFilterArea } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterArea.js'
 import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 
+import { useFilteredManufacturers } from './use-filtered-manufacturers.js'
+
 export interface SupportedDeviceTableProps extends CommonProps {
   disableFilter?: boolean
   manufacturers?: string[] | null
@@ -34,6 +36,12 @@ export function SupportedDeviceTable({
     manufacturer: null,
   })
 
+  const { manufacturers: manufacturersData = [] } = useFilteredManufacturers({
+    manufacturers:
+      filters.manufacturer != null ? [filters.manufacturer] : manufacturers,
+    excludedManufacturers,
+  })
+
   return (
     <div
       className={classNames(
@@ -47,8 +55,7 @@ export function SupportedDeviceTable({
           setFilterValue={setFilterValue}
           filters={filters}
           setFilters={setFilters}
-          manufacturers={manufacturers}
-          excludedManufacturers={excludedManufacturers}
+          manufacturers={manufacturersData}
         />
       )}
       <SupportedDeviceContent
@@ -57,8 +64,7 @@ export function SupportedDeviceTable({
         }}
         filterValue={filterValue}
         filters={filters}
-        manufacturers={manufacturers}
-        excludedManufacturers={excludedManufacturers}
+        manufacturers={manufacturersData}
       />
     </div>
   )
