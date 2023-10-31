@@ -39,6 +39,7 @@ export function useCreateConnectWebview({
         custom_metadata: {
           client_session_id: clientSession?.client_session_id ?? null,
           user_identifier_key: clientSession?.user_identifier_key ?? null,
+          ...mutationParams.custom_metadata,
         },
         ...mutationParams,
       })
