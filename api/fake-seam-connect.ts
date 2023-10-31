@@ -99,6 +99,7 @@ export default async (
   res.status(status)
 
   for (const [key, value] of Object.entries(headers)) {
+    console.log(header)
     if (!unproxiedHeaders.has(key)) res.setHeader(key, value)
   }
 
