@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import { Readable, type Stream } from 'node:stream'
+import type { Readable } from 'node:stream'
 
 import {
   createFake as createFakeDevicedb,
@@ -10,8 +10,6 @@ import {
 } from '@seamapi/fake-devicedb'
 import { createFake } from '@seamapi/fake-seam-connect'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import axios from 'axios'
-import getRawBody from 'raw-body'
 
 // eslint-disable-next-line import/no-relative-parent-imports
 import { seedFake } from '../.storybook/seed-fake.js'
@@ -40,7 +38,8 @@ export default async (
   req: VercelRequest,
   res: VercelResponse
 ): Promise<void> => {
-  const { apipath, ...getParams } = req.query
+  const { method } = req
+  const { apipath, ...query } = req.query
 
   const fake = await createFake()
   seedFake(fake.database)
@@ -58,28 +57,47 @@ export default async (
   if (host == null) throw new Error('Missing Host header')
   await fake.startServer({ baseUrl: `https://${host}/api` })
 
-  const requestBuffer = await getRawBody(req)
+  const body = await buffer(req)
 
   if (typeof apipath !== 'string') {
     throw new Error('Expected apipath to be a string')
   }
 
-  const { status, data, headers } = await axios.request({
-    url: `${fake.serverUrl}/${apipath}`,
-    params: getParams,
-    method: req.method,
-    headers: { ...req.headers },
-    data: getRequestStreamFromBuffer(requestBuffer),
-    timeout: 10_000,
-    validateStatus: () => true,
-    maxRedirects: 0,
-    responseType: 'arraybuffer',
+  const serverUrl = fake.serverUrl
+  if (serverUrl == null) {
+    throw new Error('Fake serverUrl was null')
+  }
+
+  if (method == null) {
+    throw new Error('Request method undefined')
+  }
+
+  const url = new URL(apipath, serverUrl)
+  for (const [k, v] of Object.entries(query)) {
+    if (typeof v === 'string') url.searchParams.append(k, v)
+  }
+
+  const reqHeaders: Record<string, string> = {}
+  for (const [k, v] of Object.entries(req.headers)) {
+    if (k === 'content-length') continue
+    if (typeof v === 'string') reqHeaders[k] = v
+  }
+  const proxyRes = await fetch(url, {
+    redirect: 'follow',
+    mode: 'cors',
+    credentials: 'include',
+    method,
+    headers: reqHeaders,
+    ...(['GET', 'HEAD', 'OPTIONS'].includes(method) ? {} : { body }),
   })
+
+  const { status, headers } = proxyRes
+  const data = await proxyRes.arrayBuffer()
 
   res.status(status)
 
-  for (const [key, value] of Object.entries(headers)) {
-    if (!unproxiedHeaders.has(key)) res.setHeader(key, value as string)
+  for (const [key, value] of headers) {
+    if (!unproxiedHeaders.has(key)) res.setHeader(key, value)
   }
 
   res.end(Buffer.from(data as Buffer))
@@ -95,12 +113,11 @@ const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
   return fake
 }
 
-// https://stackoverflow.com/a/44091532/559475
-const getRequestStreamFromBuffer = (requestBuffer: Buffer): Stream => {
-  const requestStream = new Readable()
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  requestStream._read = () => {}
-  requestStream.push(requestBuffer)
-  requestStream.push(null)
-  return requestStream
+const buffer = async (readable: Readable): Promise<ArrayBuffer> => {
+  const chunks = []
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
+  }
+  const buf = Buffer.concat(chunks)
+  return new Uint8Array(buf).buffer
 }
