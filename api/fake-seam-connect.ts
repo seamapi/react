@@ -90,7 +90,7 @@ export default async (
     credentials: 'include',
     method,
     headers: reqHeaders,
-    ...(body.length > 0 ? {} : { body }),
+    ...(body.byteLength > 0 ? {} : { body }),
   })
 
   const { status, headers } = proxyRes
