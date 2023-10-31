@@ -81,7 +81,9 @@ export default async (
     if (k === 'content-length') continue
     if (typeof v === 'string') reqHeaders[k] = v
   }
-
+  console.log(method)
+  console.log(body)
+  console.log(reqHeaders)
   const proxyRes = await fetch(url, {
     redirect: 'follow',
     mode: 'cors',
