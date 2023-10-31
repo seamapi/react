@@ -19,8 +19,6 @@ export function SupportedDeviceContent({
   resetFilterValue,
   filterValue,
   filters,
-  manufacturers,
-  excludedManufacturers,
 }: SupportedDeviceContentProps): JSX.Element | null {
   const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
     {
