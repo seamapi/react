@@ -1,4 +1,5 @@
 import type { DeviceModelV1 } from '@seamapi/types/devicedb'
+import { useMemo } from 'react'
 
 import { SupportedDeviceFilterResultRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterResultRow.js'
 import { SupportedDeviceManufacturerSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceManufacturerSection.js'
@@ -31,6 +32,11 @@ export function SupportedDeviceContent({
       manufacturers,
       excludedManufacturers,
     }
+  )
+
+  const groupedDeviceModels = useMemo(
+    () => groupDeviceModelsByManufacturer(deviceModels ?? []),
+    [deviceModels]
   )
 
   if (isLoading) {
@@ -91,15 +97,22 @@ export function SupportedDeviceContent({
 
   return (
     <>
-      {Object.entries(groupDeviceModelsByManufacturer(deviceModels)).map(
-        ([manufacturerId, models]) => (
-          <SupportedDeviceManufacturerSection
-            key={manufacturerId}
-            manufacturerId={manufacturerId}
-            deviceModels={models}
-          />
+      {Object.entries(groupedDeviceModels)
+        .sort(
+          (e1, e2) =>
+            e1[1][0]?.manufacturer.display_name.localeCompare(
+              e2[1][0]?.manufacturer.display_name ?? ''
+            ) ?? 0
         )
-      )}
+        .map(([manufacturerId, models]) => {
+          return (
+            <SupportedDeviceManufacturerSection
+              key={manufacturerId}
+              manufacturerId={manufacturerId}
+              deviceModels={models}
+            />
+          )
+        })}
     </>
   )
 }
@@ -136,9 +149,9 @@ function EmptyResult({
   )
 }
 
-function groupDeviceModelsByManufacturer(
+const groupDeviceModelsByManufacturer = (
   deviceModels: UseDeviceModelsData
-): Record<string, DeviceModelV1[]> {
+): Record<string, DeviceModelV1[]> => {
   const result: Record<string, DeviceModelV1[]> = {}
 
   for (const model of deviceModels) {
