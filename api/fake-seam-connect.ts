@@ -84,6 +84,8 @@ export default async (
 
   const proxyRes = await fetch(url, {
     redirect: 'follow',
+    mode: 'cors',
+    credentials: 'include',
     method,
     headers: reqHeaders,
     ...(['GET', 'HEAD'].includes(method) ? {} : { body }),
