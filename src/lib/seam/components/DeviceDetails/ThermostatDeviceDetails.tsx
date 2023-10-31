@@ -14,6 +14,7 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -106,6 +107,12 @@ export function ThermostatDeviceDetails({
                   temperatureUnit='fahrenheit'
                 />
               </DetailRow>
+              <DetailRow label={t.fanMode}>
+                <FanModeMenu
+                  mode={device.properties.fan_mode_setting ?? 'auto'}
+                  onChange={() => {}}
+                />
+              </DetailRow>
             </DetailSection>
 
             <DetailSection
@@ -169,6 +176,7 @@ const t = {
   currentSettingsTooltip:
     'These are the settings currently on the device. If you change them here, they change on the device.',
   climate: 'Climate',
+  fanMode: 'Fan mode',
   defaultSettings: 'Default settings',
   defaultSettingsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
