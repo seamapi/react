@@ -6,6 +6,7 @@ import type {
   SeamError,
 } from 'seamapi'
 
+import { useClientSession } from 'lib/seam/client-sessions/use-client-session.js'
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export interface UseCreateConnectWebviewParams {
@@ -23,6 +24,7 @@ export function useCreateConnectWebview({
   UseCreateConnectWebviewMutationParams
 > {
   const { client } = useSeamClient()
+  const { clientSession } = useClientSession()
 
   return useMutation<
     ConnectWebviewCreateResponse['connect_webview'],
@@ -33,7 +35,13 @@ export function useCreateConnectWebview({
       mutationParams: UseCreateConnectWebviewMutationParams
     ) => {
       if (client === null) throw new NullSeamClientError()
-      return await client.connectWebviews.create(mutationParams)
+      return await client.connectWebviews.create({
+        custom_metadata: {
+          client_session_id: clientSession?.client_session_id ?? null,
+          user_identifier_key: clientSession?.user_identifier_key ?? null,
+        },
+        ...mutationParams,
+      })
     },
     onSuccess: ({ url }) => {
       if (willNavigateToWebview && url != null) {
