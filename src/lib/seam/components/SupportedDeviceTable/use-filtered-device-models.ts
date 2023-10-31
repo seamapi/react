@@ -46,10 +46,10 @@ export const useFilteredDeviceModels = ({
     params.manufacturer_ids = manufacturers.map((m) => m.manufacturer_id)
   }
 
-  const { deviceModels, ...query } = useDeviceModels(params)
+  const { deviceModels, ...rest } = useDeviceModels(params)
 
   return {
-    ...query,
+    ...rest,
     deviceModels: deviceModels?.filter(
       (deviceModel) =>
         manufacturers?.some(
