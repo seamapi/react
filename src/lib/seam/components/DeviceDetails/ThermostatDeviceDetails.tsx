@@ -8,14 +8,14 @@ import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSe
 import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import Switch from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
-import Switch from 'lib/ui/Switch/Switch.js'
-import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
