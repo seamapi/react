@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
@@ -15,6 +15,8 @@ import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
+import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -39,6 +41,21 @@ export function ThermostatDeviceDetails({
   const { climateSettingSchedules } = useClimateSettingSchedules({
     device_id: device.device_id,
   })
+
+  const { mutate: updateFanMode, isSuccess, isError } = useUpdateFanMode()
+
+  // const [isSuccessVisible, setIsSuccessVisible] = useState(false)
+  // const [isErrorVisible, setIsErrorVisible] = useState(false)
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     setIsSuccessVisible(true)
+  //   }
+
+  //   if (isError) {
+  //     setIsErrorVisible(true)
+  //   }
+  // }, [isSuccess, isError])
 
   if (climateSettingsOpen) {
     return (
@@ -110,7 +127,12 @@ export function ThermostatDeviceDetails({
               <DetailRow label={t.fanMode}>
                 <FanModeMenu
                   mode={device.properties.fan_mode_setting ?? 'auto'}
-                  onChange={() => {}}
+                  onChange={(fanMode) =>
+                    updateFanMode({
+                      device_id: device.device_id,
+                      fan_mode_setting: fanMode,
+                    })
+                  }
                 />
               </DetailRow>
             </DetailSection>
@@ -160,6 +182,22 @@ export function ThermostatDeviceDetails({
           </DetailSectionGroup>
         </div>
       </div>
+
+      <Snackbar
+        message='Successfully updated fan mode!'
+        variant='success'
+        visible={isSuccess}
+        automaticVisibility
+        autoDismiss
+      />
+
+      {/* <Snackbar
+        message='Error updating fan mode. Please try again.'
+        variant='error'
+        visible={isError && isErrorVisible}
+        onClose={() => setIsErrorVisible(false)}
+        autoDismiss
+      /> */}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { CheckGreenIcon } from 'lib/icons/CheckGreen.js'
 import { CloseWhiteIcon } from 'lib/icons/CloseWhite.js'
@@ -19,6 +19,7 @@ interface SnackbarProps {
   autoDismiss?: boolean
   dismissAfterMs?: number
   disableCloseButton?: boolean
+  automaticVisibility?: boolean
 }
 
 export function Snackbar({
@@ -29,9 +30,21 @@ export function Snackbar({
   autoDismiss = false,
   dismissAfterMs = 5000,
   disableCloseButton = false,
+  automaticVisibility = false,
   onClose = () => {},
 }: SnackbarProps): JSX.Element {
+  const [hidden, setHidden] = useState(visible)
+
+  useEffect(() => {
+    setHidden(!visible)
+  }, [visible])
+
   const { label: actionLabel, onClick: handleActionClick } = action ?? {}
+
+  const handleClose = () => {
+    setHidden(true)
+    onClose()
+  }
 
   useEffect(() => {
     if (!autoDismiss) {
@@ -39,19 +52,19 @@ export function Snackbar({
     }
 
     const timeout = globalThis.setTimeout(() => {
-      onClose()
+      handleClose()
     }, dismissAfterMs)
 
     return () => {
       globalThis.clearTimeout(timeout)
     }
-  }, [autoDismiss, dismissAfterMs, onClose])
+  }, [autoDismiss, dismissAfterMs, handleClose])
 
   return (
     <div className='seam-snackbar-wrap'>
       <div
         className={classNames('seam-snackbar', {
-          'seam-snackbar-visible': visible,
+          'seam-snackbar-visible': automaticVisibility ? !hidden : visible,
         })}
       >
         <SnackbarIcon variant={variant} />
@@ -71,7 +84,7 @@ export function Snackbar({
             <button
               className='seam-snackbar-close-button'
               onClick={() => {
-                onClose()
+                handleClose()
               }}
             >
               <CloseWhiteIcon />
