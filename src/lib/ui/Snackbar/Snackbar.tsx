@@ -37,14 +37,14 @@ export function Snackbar({
 
   useEffect(() => {
     setHidden(!visible)
-  }, [visible])
+  }, [visible, setHidden])
 
   const { label: actionLabel, onClick: handleActionClick } = action ?? {}
 
   const handleClose = useCallback(() => {
     setHidden(true)
     onClose()
-  }, [onClose])
+  }, [onClose, setHidden])
 
   useEffect(() => {
     if (!autoDismiss) {
