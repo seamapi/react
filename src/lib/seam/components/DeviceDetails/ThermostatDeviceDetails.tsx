@@ -127,12 +127,12 @@ export function ThermostatDeviceDetails({
               <DetailRow label={t.fanMode}>
                 <FanModeMenu
                   mode={device.properties.fan_mode_setting ?? 'auto'}
-                  onChange={(fanMode) =>
-                    { updateFanMode({
+                  onChange={(fanMode) => {
+                    updateFanMode({
                       device_id: device.device_id,
                       fan_mode_setting: fanMode,
-                    }); }
-                  }
+                    })
+                  }}
                 />
               </DetailRow>
             </DetailSection>
