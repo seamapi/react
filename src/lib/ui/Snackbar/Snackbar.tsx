@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { CheckGreenIcon } from 'lib/icons/CheckGreen.js'
 import { CloseWhiteIcon } from 'lib/icons/CloseWhite.js'
@@ -41,10 +41,10 @@ export function Snackbar({
 
   const { label: actionLabel, onClick: handleActionClick } = action ?? {}
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setHidden(true)
     onClose()
-  }
+  }, [onClose])
 
   useEffect(() => {
     if (!autoDismiss) {
