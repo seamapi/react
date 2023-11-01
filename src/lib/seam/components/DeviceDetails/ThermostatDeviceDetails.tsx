@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { ThermostatDevice } from 'seamapi'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
@@ -13,10 +13,10 @@ import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
-import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
+import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
