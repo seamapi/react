@@ -14,6 +14,8 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
+import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -106,6 +108,29 @@ export function ThermostatDeviceDetails({
                   temperatureUnit='fahrenheit'
                 />
               </DetailRow>
+              <AccordionRow
+                label={t.climate}
+                rightCollapsedContent={
+                  <ClimateSettingStatus
+                    climateSetting={device.properties.current_climate_setting}
+                    temperatureUnit='fahrenheit'
+                  />
+                }
+              >
+                <TemperatureControlGroup
+                  mode='heat_cool'
+                  heatValue={
+                    device.properties.current_climate_setting
+                      .heating_set_point_fahrenheit ?? 0
+                  }
+                  coolValue={
+                    device.properties.current_climate_setting
+                      .cooling_set_point_fahrenheit ?? 0
+                  }
+                  onHeatValueChange={() => {}}
+                  onCoolValueChange={() => {}}
+                />
+              </AccordionRow>
             </DetailSection>
 
             <DetailSection
