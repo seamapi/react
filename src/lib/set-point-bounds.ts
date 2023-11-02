@@ -1,5 +1,6 @@
-import type { TemperatureControlGroupProps } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import type { ThermostatDeviceProperties } from 'seamapi'
+
+import type { TemperatureControlGroupProps } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 
 export type SetPointBounds = Partial<
   Pick<
