@@ -1,14 +1,14 @@
-import { type Control, Controller } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 import { isThermostatDevice } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { getSetPointBounds, type SetPointBounds } from 'lib/set-point-bounds.js'
 import { Button } from 'lib/ui/Button.js'
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { ClimateSettingControlGroup } from 'lib/ui/thermostat/ClimateSettingControlGroup.js'
-import type { TemperatureControlGroupProps } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 
 interface ClimateSettingScheduleFormClimateSettingProps {
   title: string
@@ -18,13 +18,6 @@ interface ClimateSettingScheduleFormClimateSettingProps {
   onCancel: (() => void) | undefined
   onSave: () => void
 }
-
-type SetPointBounds = Partial<
-  Pick<
-    TemperatureControlGroupProps,
-    'minCool' | 'maxCool' | 'minHeat' | 'maxHeat' | 'delta'
-  >
->
 
 export function ClimateSettingScheduleFormClimateSetting({
   title,
@@ -40,31 +33,8 @@ export function ClimateSettingScheduleFormClimateSetting({
 
   if (device == null) return <></>
   if (!isThermostatDevice(device)) return <></>
-  const properties = device.properties
 
-  let setPointBounds: SetPointBounds = {}
-
-  if (properties.is_cooling_available) {
-    setPointBounds = {
-      minCool: properties.min_cooling_set_point_fahrenheit,
-      maxCool: properties.max_cooling_set_point_fahrenheit,
-    }
-  }
-
-  if (properties.is_heating_available) {
-    setPointBounds = {
-      ...setPointBounds,
-      minHeat: properties.min_heating_set_point_fahrenheit,
-      maxHeat: properties.max_heating_set_point_fahrenheit,
-    }
-  }
-
-  if (properties.is_cooling_available && properties.is_heating_available) {
-    setPointBounds = {
-      ...setPointBounds,
-      delta: properties.min_heating_cooling_delta_fahrenheit,
-    }
-  }
+  const setPointBounds = getSetPointBounds(device.properties)
 
   return (
     <>
