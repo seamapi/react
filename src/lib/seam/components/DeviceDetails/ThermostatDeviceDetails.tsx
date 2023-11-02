@@ -171,7 +171,7 @@ export function ThermostatDeviceDetails({
       </div>
 
       <Snackbar
-        message='Successfully updated fan mode!'
+        message={t.fanModeSuccess}
         variant='success'
         visible={isSuccess}
         automaticVisibility
@@ -179,7 +179,7 @@ export function ThermostatDeviceDetails({
       />
 
       <Snackbar
-        message='Error updating fan mode. Please try again.'
+        message={t.fanModeError}
         variant='error'
         visible={isError}
         automaticVisibility
@@ -213,4 +213,6 @@ const t = {
   none: 'None',
   yes: 'Yes',
   no: 'No',
+  fanModeSuccess: 'Successfully updated fan mode!',
+  fanModeError: 'Error updating fan mode. Please try again.',
 }
