@@ -13,10 +13,10 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import Switch from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
-import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
