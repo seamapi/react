@@ -8,7 +8,9 @@ export type SetPointBounds = Partial<
   >
 >
 
-export const getSetPointBounds = (properties: ThermostatDeviceProperties) => {
+export const getSetPointBounds = (
+  properties: ThermostatDeviceProperties
+): SetPointBounds => {
   let setPointBounds: SetPointBounds = {}
 
   if (properties.is_cooling_available) {
