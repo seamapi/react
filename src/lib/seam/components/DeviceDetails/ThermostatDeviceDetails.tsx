@@ -16,6 +16,7 @@ import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import Switch from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -170,6 +171,20 @@ export function ThermostatDeviceDetails({
           </DetailSectionGroup>
         </div>
       </div>
+
+      <Snackbar
+        message='Manual override updated!'
+        variant='success'
+        visible={isSuccess}
+        automaticVisibility
+      />
+
+      <Snackbar
+        message='Unable to update manual override. Please try again.'
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
     </div>
   )
 }
