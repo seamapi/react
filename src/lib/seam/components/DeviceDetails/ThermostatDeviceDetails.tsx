@@ -191,13 +191,12 @@ export function ThermostatDeviceDetails({
         autoDismiss
       />
 
-      {/* <Snackbar
+      <Snackbar
         message='Error updating fan mode. Please try again.'
         variant='error'
-        visible={isError && isErrorVisible}
-        onClose={() => setIsErrorVisible(false)}
-        autoDismiss
-      /> */}
+        visible={isError}
+        automaticVisibility
+      />
     </div>
   )
 }
