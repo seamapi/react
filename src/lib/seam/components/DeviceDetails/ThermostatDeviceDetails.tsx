@@ -44,19 +44,6 @@ export function ThermostatDeviceDetails({
 
   const { mutate: updateFanMode, isSuccess, isError } = useUpdateFanMode()
 
-  // const [isSuccessVisible, setIsSuccessVisible] = useState(false)
-  // const [isErrorVisible, setIsErrorVisible] = useState(false)
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     setIsSuccessVisible(true)
-  //   }
-
-  //   if (isError) {
-  //     setIsErrorVisible(true)
-  //   }
-  // }, [isSuccess, isError])
-
   if (climateSettingsOpen) {
     return (
       <NestedClimateSettingScheduleTable
