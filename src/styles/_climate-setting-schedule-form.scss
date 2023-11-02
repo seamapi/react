@@ -4,6 +4,7 @@
   .seam-climate-setting-schedule-form {
     @include main;
     @include name-and-schedule;
+    @include default-climate-setting;
     @include climate-setting;
   }
 }
@@ -53,6 +54,35 @@
           }
         }
       }
+    }
+  }
+}
+
+@mixin default-climate-setting {
+  .seam-climate-setting-schedule-form-default-climate-setting {
+    .seam-control-group-title {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    .seam-label {
+      color: colors.$text-gray-1;
+      font-size: 14px;
+    }
+
+    .seam-default-climate-setting-message {
+      > p {
+        color: colors.$text-gray-1;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+
+      margin-top: 4px;
+      border-bottom: 1px solid colors.$divider-stroke-light;
+    }
+
+    .seam-climate-setting-control-group {
+      margin-bottom: 32px;
     }
   }
 }

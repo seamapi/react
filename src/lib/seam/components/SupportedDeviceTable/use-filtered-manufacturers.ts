@@ -7,9 +7,16 @@ interface Params {
 export const useFilteredManufacturers = (
   params: Params
 ): ReturnType<typeof useManufacturers> => {
-  return useManufacturers({
+  const { manufacturers, ...rest } = useManufacturers({
     liqe_query: createLiqeQuery(params),
   })
+
+  return {
+    ...rest,
+    manufacturers: manufacturers?.filter(
+      (manufacturer) => manufacturer.device_model_count > 0
+    ),
+  }
 }
 
 export const createLiqeQuery = ({
