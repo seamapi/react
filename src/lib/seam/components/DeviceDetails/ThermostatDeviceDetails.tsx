@@ -42,11 +42,7 @@ export function ThermostatDeviceDetails({
     device_id: device.device_id,
   })
 
-  const {
-    mutate: updateDefaultClimateSetting,
-    isError,
-    isSuccess,
-  } = useUpdateThermostat()
+  const { mutate: updateThermostat, isError, isSuccess } = useUpdateThermostat()
 
   if (climateSettingsOpen) {
     return (
@@ -138,7 +134,7 @@ export function ThermostatDeviceDetails({
                       .manual_override_allowed
                   }
                   onChange={(checked) => {
-                    updateDefaultClimateSetting({
+                    updateThermostat({
                       device_id: device.device_id,
                       default_climate_setting: {
                         ...device.properties.default_climate_setting,

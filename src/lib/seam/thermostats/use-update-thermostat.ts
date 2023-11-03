@@ -32,11 +32,13 @@ export function useUpdateThermostat(): UseMutationResult<
     mutationFn: async (mutationParams: UseUpdateThermostatMutationParams) => {
       if (client === null) throw new NullSeamClientError()
 
+      console.log({mutationParams})
+
       return await client.thermostats.update(mutationParams)
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<ThermostatDevice | null>(
-        ['thermostats', 'get', { device_id: variables.device_id }],
+        ['devices', 'get', { device_id: variables.device_id }],
         (thermostat) => {
           if (thermostat == null) {
             return
@@ -47,7 +49,7 @@ export function useUpdateThermostat(): UseMutationResult<
       )
 
       queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
-        ['thermostats', 'list', { device_id: variables.device_id }],
+        ['devices', 'list'],
         (thermostats): ThermostatDevice[] => {
           if (thermostats == null) {
             return []
