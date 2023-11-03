@@ -32,7 +32,7 @@ export function useUpdateThermostat(): UseMutationResult<
     mutationFn: async (mutationParams: UseUpdateThermostatMutationParams) => {
       if (client === null) throw new NullSeamClientError()
 
-      console.log({mutationParams})
+      console.log({ mutationParams })
 
       return await client.thermostats.update(mutationParams)
     },
