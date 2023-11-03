@@ -36,7 +36,7 @@ export function useUpdateThermostat(): UseMutationResult<
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<ThermostatDevice | null>(
-        ['thermostats', 'get', { device_id: variables.device_id }],
+        ['devices', 'get', { device_id: variables.device_id }],
         (thermostat) => {
           if (thermostat == null) {
             return
@@ -47,7 +47,7 @@ export function useUpdateThermostat(): UseMutationResult<
       )
 
       queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
-        ['thermostats', 'list', { device_id: variables.device_id }],
+        ['devices', 'list', { device_id: variables.device_id }],
         (thermostats): ThermostatDevice[] => {
           if (thermostats == null) {
             return []
