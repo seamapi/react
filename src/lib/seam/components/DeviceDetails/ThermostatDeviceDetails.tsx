@@ -8,11 +8,14 @@ import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSe
 import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
@@ -38,6 +41,8 @@ export function ThermostatDeviceDetails({
   const { climateSettingSchedules } = useClimateSettingSchedules({
     device_id: device.device_id,
   })
+
+  const { mutate: updateFanMode, isSuccess, isError } = useUpdateFanMode()
 
   if (climateSettingsOpen) {
     return (
@@ -106,6 +111,17 @@ export function ThermostatDeviceDetails({
                   temperatureUnit='fahrenheit'
                 />
               </DetailRow>
+              <DetailRow label={t.fanMode}>
+                <FanModeMenu
+                  mode={device.properties.fan_mode_setting}
+                  onChange={(fanMode) => {
+                    updateFanMode({
+                      device_id: device.device_id,
+                      fan_mode_setting: fanMode,
+                    })
+                  }}
+                />
+              </DetailRow>
             </DetailSection>
 
             <DetailSection
@@ -153,6 +169,21 @@ export function ThermostatDeviceDetails({
           </DetailSectionGroup>
         </div>
       </div>
+
+      <Snackbar
+        message={t.fanModeSuccess}
+        variant='success'
+        visible={isSuccess}
+        automaticVisibility
+        autoDismiss
+      />
+
+      <Snackbar
+        message={t.fanModeError}
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
     </div>
   )
 }
@@ -169,6 +200,7 @@ const t = {
   currentSettingsTooltip:
     'These are the settings currently on the device. If you change them here, they change on the device.',
   climate: 'Climate',
+  fanMode: 'Fan mode',
   defaultSettings: 'Default settings',
   defaultSettingsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
@@ -181,4 +213,6 @@ const t = {
   none: 'None',
   yes: 'Yes',
   no: 'No',
+  fanModeSuccess: 'Successfully updated fan mode!',
+  fanModeError: 'Error updating fan mode. Please try again.',
 }
