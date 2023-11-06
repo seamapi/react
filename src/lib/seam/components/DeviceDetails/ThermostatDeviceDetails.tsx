@@ -49,7 +49,7 @@ export function ThermostatDeviceDetails({
     isError: isFanModeError,
     isSuccess: isFanModeSuccess,
   } = useUpdateFanMode()
-  
+
   const {
     mutate: updateThermostat,
     isSuccess: isThermostatUpdateSuccess,
@@ -245,8 +245,6 @@ const t = {
   linkedAccount: 'Linked account',
   deviceId: 'Device ID',
   none: 'None',
-  yes: 'Yes',
-  no: 'No',
   fanModeSuccess: 'Successfully updated fan mode!',
   fanModeError: 'Error updating fan mode. Please try again.',
   manualOverrideSuccess: 'Successfully updated manual override!',
