@@ -20,7 +20,7 @@ it('should return a MinMax object for heat', () => {
   const minMax = getHeatBounds(rootControlBounds)
 
   expect(minMax).toStrictEqual({
-    min: 60,
+    min: 50,
     max: 75,
   })
 })
@@ -30,7 +30,7 @@ it('should return a MinMax object for cool', () => {
 
   expect(minMax).toStrictEqual({
     min: 65,
-    max: 80,
+    max: 90,
   })
 })
 
@@ -39,10 +39,10 @@ it('should return a TemperatureBounds object', () => {
 
   expect(temperatureBounds).toStrictEqual({
     heat: {
-      min: 60,
+      min: 50,
       max: 75,
     },
-    cool: { min: 65, max: 80 },
+    cool: { min: 65, max: 90 },
   })
 })
 
@@ -78,9 +78,9 @@ it('should allow 0 delta, making minMax equal', () => {
 
   expect(temperatureBounds).toStrictEqual({
     heat: {
-      min: 60,
+      min: 50,
       max: 80,
     },
-    cool: { min: 60, max: 80 },
+    cool: { min: 60, max: 90 },
   })
 })

@@ -49,7 +49,7 @@ export function useUpdateThermostat(): UseMutationResult<
       )
 
       queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
-        ['devices', 'list'],
+        ['devices', 'list', { device_id: variables.device_id }],
         (thermostats): ThermostatDevice[] => {
           if (thermostats == null) {
             return []

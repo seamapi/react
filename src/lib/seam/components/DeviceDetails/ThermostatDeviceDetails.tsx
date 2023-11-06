@@ -9,6 +9,7 @@ import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
+import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
@@ -16,6 +17,7 @@ import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import Switch from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
+import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
@@ -45,7 +47,16 @@ export function ThermostatDeviceDetails({
     device_id: device.device_id,
   })
 
-  const { mutate: updateThermostat, isError, isSuccess } = useUpdateThermostat()
+  const {
+    mutate: updateFanMode,
+    isError: isFanModeError,
+    isSuccess: isFanModeSuccess,
+  } = useUpdateFanMode()
+  const {
+    mutate: updateThermostat,
+    isSuccess: isThermostatUpdateSuccess,
+    isError: isThermostatUpdateError,
+  } = useUpdateThermostat()
 
   if (climateSettingsOpen) {
     return (
@@ -114,6 +125,17 @@ export function ThermostatDeviceDetails({
                   temperatureUnit='fahrenheit'
                 />
               </DetailRow>
+              <DetailRow label={t.fanMode}>
+                <FanModeMenu
+                  mode={device.properties.fan_mode_setting}
+                  onChange={(fanMode) => {
+                    updateFanMode({
+                      device_id: device.device_id,
+                      fan_mode_setting: fanMode,
+                    })
+                  }}
+                />
+              </DetailRow>
             </DetailSection>
 
             <DetailSection
@@ -135,7 +157,7 @@ export function ThermostatDeviceDetails({
                   checked={manualOverrideAllowed}
                   onChange={(checked) => {
                     setManualOverrideAllowed(checked)
-                    
+
                     updateThermostat({
                       device_id: device.device_id,
                       default_climate_setting: {
@@ -171,16 +193,31 @@ export function ThermostatDeviceDetails({
       </div>
 
       <Snackbar
-        message='Manual override updated!'
+        message={t.manualOverrideSuccess}
         variant='success'
-        visible={isSuccess}
+        visible={isThermostatUpdateSuccess}
         automaticVisibility
       />
 
       <Snackbar
-        message='Unable to update manual override. Please try again.'
+        message={t.manualOverrideError}
         variant='error'
-        visible={isError}
+        visible={isThermostatUpdateError}
+        automaticVisibility
+      />
+
+      <Snackbar
+        message={t.fanModeSuccess}
+        variant='success'
+        visible={isFanModeSuccess}
+        automaticVisibility
+        autoDismiss
+      />
+
+      <Snackbar
+        message={t.fanModeError}
+        variant='error'
+        visible={isFanModeError}
         automaticVisibility
       />
     </div>
@@ -199,6 +236,7 @@ const t = {
   currentSettingsTooltip:
     'These are the settings currently on the device. If you change them here, they change on the device.',
   climate: 'Climate',
+  fanMode: 'Fan mode',
   defaultSettings: 'Default settings',
   defaultSettingsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
@@ -211,4 +249,8 @@ const t = {
   none: 'None',
   yes: 'Yes',
   no: 'No',
+  fanModeSuccess: 'Successfully updated fan mode!',
+  fanModeError: 'Error updating fan mode. Please try again.',
+  manualOverrideSuccess: 'Successfully updated manual override!',
+  manualOverrideError: 'Error updating manual override. Please try again.',
 }
