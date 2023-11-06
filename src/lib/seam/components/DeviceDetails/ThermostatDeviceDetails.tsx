@@ -49,6 +49,7 @@ export function ThermostatDeviceDetails({
     isError: isFanModeError,
     isSuccess: isFanModeSuccess,
   } = useUpdateFanMode()
+  
   const {
     mutate: updateThermostat,
     isSuccess: isThermostatUpdateSuccess,
