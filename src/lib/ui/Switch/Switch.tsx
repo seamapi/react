@@ -6,7 +6,7 @@ export interface SwitchProps {
   enableLabel?: boolean
 }
 
-function Switch({
+export function Switch({
   checked,
   onChange,
   enableLabel = false,
@@ -34,5 +34,3 @@ const t = {
   on: 'On',
   off: 'Off',
 }
-
-export default Switch
