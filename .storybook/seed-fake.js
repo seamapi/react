@@ -387,8 +387,6 @@ export const seedFake = (db) => {
       available_hvac_mode_settings: ['off', 'cool', 'heat', 'heat_cool'],
       can_enable_automatic_cooling: true,
       can_enable_automatic_heating: true,
-      is_cooling_available: true,
-      is_heating_available: true,
       min_heating_cooling_delta_fahrenheit: 5,
       max_cooling_set_point_fahrenheit: 92,
       min_cooling_set_point_fahrenheit: 65,
