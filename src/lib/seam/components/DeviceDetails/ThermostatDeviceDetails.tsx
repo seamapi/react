@@ -37,9 +37,6 @@ export function ThermostatDeviceDetails({
   disableResourceIds = false,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
-  const [manualOverrideAllowed, setManualOverrideAllowed] = useState(
-    device.properties.default_climate_setting?.manual_override_allowed ?? true
-  )
 
   const { connectedAccount } = useConnectedAccount(device.connected_account_id)
 
@@ -154,14 +151,14 @@ export function ThermostatDeviceDetails({
               </DetailRow>
               <DetailRow label={t.allowManualOverride}>
                 <Switch
-                  checked={manualOverrideAllowed}
+                  checked={
+                    device.properties.default_climate_setting
+                      ?.manual_override_allowed ?? true
+                  }
                   onChange={(checked) => {
-                    setManualOverrideAllowed(checked)
-
                     updateThermostat({
                       device_id: device.device_id,
                       default_climate_setting: {
-                        // ...device.properties.default_climate_setting,
                         manual_override_allowed: checked,
                       },
                     })
