@@ -135,7 +135,7 @@ export function ThermostatDeviceDetails({
                   checked={manualOverrideAllowed}
                   onChange={(checked) => {
                     setManualOverrideAllowed(checked)
-                    
+
                     updateThermostat({
                       device_id: device.device_id,
                       default_climate_setting: {
