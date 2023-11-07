@@ -50,12 +50,6 @@ export function ThermostatDeviceDetails({
     isSuccess: isFanModeSuccess,
   } = useUpdateFanMode()
 
-  const {
-    mutate: updateThermostat,
-    isSuccess: isThermostatUpdateSuccess,
-    isError: isThermostatUpdateError,
-  } = useUpdateThermostat()
-
   if (climateSettingsOpen) {
     return (
       <NestedClimateSettingScheduleTable
@@ -150,22 +144,8 @@ export function ThermostatDeviceDetails({
                   <p>{t.none}</p>
                 )}
               </DetailRow>
-              <DetailRow label={t.allowManualOverride}>
-                <Switch
-                  checked={
-                    device.properties.default_climate_setting
-                      ?.manual_override_allowed ?? true
-                  }
-                  onChange={(checked) => {
-                    updateThermostat({
-                      device_id: device.device_id,
-                      default_climate_setting: {
-                        manual_override_allowed: checked,
-                      },
-                    })
-                  }}
-                />
-              </DetailRow>
+
+              <ManualOverrideRow device={device} />
             </DetailSection>
 
             <DetailSection label={t.deviceDetails}>
@@ -191,20 +171,6 @@ export function ThermostatDeviceDetails({
       </div>
 
       <Snackbar
-        message={t.manualOverrideSuccess}
-        variant='success'
-        visible={isThermostatUpdateSuccess}
-        automaticVisibility
-      />
-
-      <Snackbar
-        message={t.manualOverrideError}
-        variant='error'
-        visible={isThermostatUpdateError}
-        automaticVisibility
-      />
-
-      <Snackbar
         message={t.fanModeSuccess}
         variant='success'
         visible={isFanModeSuccess}
@@ -219,6 +185,48 @@ export function ThermostatDeviceDetails({
         automaticVisibility
       />
     </div>
+  )
+}
+
+function ManualOverrideRow({
+  device,
+}: {
+  device: ThermostatDevice
+}): JSX.Element {
+  const { mutate, isSuccess, isError } = useUpdateThermostat()
+
+  return (
+    <>
+      <DetailRow label={t.allowManualOverride}>
+        <Switch
+          checked={
+            device.properties.default_climate_setting
+              ?.manual_override_allowed ?? true
+          }
+          onChange={(checked) => {
+            mutate({
+              device_id: device.device_id,
+              default_climate_setting: {
+                manual_override_allowed: checked,
+              },
+            })
+          }}
+        />
+      </DetailRow>
+      <Snackbar
+        message={t.manualOverrideSuccess}
+        variant='success'
+        visible={isSuccess}
+        automaticVisibility
+      />
+
+      <Snackbar
+        message={t.manualOverrideError}
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
+    </>
   )
 }
 
