@@ -17,11 +17,11 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { Switch } from 'lib/ui/Switch/Switch.js'
+import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
-import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
