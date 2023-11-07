@@ -126,6 +126,15 @@
     gap: 8px;
   }
 
+  .seam-detail-row-end-alignment {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 24px;
+  }
+
   .seam-detail-row-rotated-icon {
     transform: rotate(-90deg);
   }
@@ -168,7 +177,7 @@
 
     &[aria-expanded='true'] {
       .seam-accordion-row-content {
-        max-height: 64px;
+        max-height: 128px;
         opacity: 1;
       }
 
@@ -183,7 +192,8 @@
     }
 
     .seam-accordion-row-inner-content {
-      height: 64px;
+      width: 100%;
+      height: 128px;
       padding: 0 16px;
       overflow: hidden;
     }

@@ -21,6 +21,7 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -134,19 +135,23 @@ export function ThermostatDeviceDetails({
                   />
                 }
               >
-                <TemperatureControlGroup
-                  mode='heat_cool'
-                  heatValue={
-                    device.properties.current_climate_setting
-                      .heating_set_point_fahrenheit ?? 0
-                  }
-                  coolValue={
-                    device.properties.current_climate_setting
-                      .cooling_set_point_fahrenheit ?? 0
-                  }
-                  onHeatValueChange={() => {}}
-                  onCoolValueChange={() => {}}
-                />
+                <div className='seam-detail-row-end-alignment'>
+                  <TemperatureControlGroup
+                    mode='heat_cool'
+                    heatValue={
+                      device.properties.current_climate_setting
+                        .heating_set_point_fahrenheit ?? 0
+                    }
+                    coolValue={
+                      device.properties.current_climate_setting
+                        .cooling_set_point_fahrenheit ?? 0
+                    }
+                    onHeatValueChange={() => {}}
+                    onCoolValueChange={() => {}}
+                  />
+
+                  <ClimateModeMenu mode='heat_cool' onChange={() => {}} />
+                </div>
               </AccordionRow>
               <DetailRow label={t.fanMode}>
                 <FanModeMenu
