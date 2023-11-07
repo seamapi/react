@@ -44,12 +44,6 @@ export function ThermostatDeviceDetails({
     device_id: device.device_id,
   })
 
-  const {
-    mutate: updateFanMode,
-    isError: isFanModeError,
-    isSuccess: isFanModeSuccess,
-  } = useUpdateFanMode()
-
   if (climateSettingsOpen) {
     return (
       <NestedClimateSettingScheduleTable
@@ -117,17 +111,7 @@ export function ThermostatDeviceDetails({
                   temperatureUnit='fahrenheit'
                 />
               </DetailRow>
-              <DetailRow label={t.fanMode}>
-                <FanModeMenu
-                  mode={device.properties.fan_mode_setting}
-                  onChange={(fanMode) => {
-                    updateFanMode({
-                      device_id: device.device_id,
-                      fan_mode_setting: fanMode,
-                    })
-                  }}
-                />
-              </DetailRow>
+              <FanModeRow device={device} />
             </DetailSection>
 
             <DetailSection
@@ -169,21 +153,6 @@ export function ThermostatDeviceDetails({
           </DetailSectionGroup>
         </div>
       </div>
-
-      <Snackbar
-        message={t.fanModeSuccess}
-        variant='success'
-        visible={isFanModeSuccess}
-        automaticVisibility
-        autoDismiss
-      />
-
-      <Snackbar
-        message={t.fanModeError}
-        variant='error'
-        visible={isFanModeError}
-        automaticVisibility
-      />
     </div>
   )
 }
@@ -222,6 +191,41 @@ function ManualOverrideRow({
 
       <Snackbar
         message={t.manualOverrideError}
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
+    </>
+  )
+}
+
+function FanModeRow({ device }: { device: ThermostatDevice }): JSX.Element {
+  const { mutate, isSuccess, isError } = useUpdateFanMode()
+
+  return (
+    <>
+      <DetailRow label={t.fanMode}>
+        <FanModeMenu
+          mode={device.properties.fan_mode_setting}
+          onChange={(fanMode) => {
+            mutate({
+              device_id: device.device_id,
+              fan_mode_setting: fanMode,
+            })
+          }}
+        />
+      </DetailRow>
+
+      <Snackbar
+        message={t.fanModeSuccess}
+        variant='success'
+        visible={isSuccess}
+        automaticVisibility
+        autoDismiss
+      />
+
+      <Snackbar
+        message={t.fanModeError}
         variant='error'
         visible={isError}
         automaticVisibility
