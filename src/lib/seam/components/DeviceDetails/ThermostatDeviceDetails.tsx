@@ -9,11 +9,13 @@ import type { CommonProps } from 'lib/seam/components/common-props.js'
 import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
+import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
+import { Switch } from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
@@ -42,7 +44,17 @@ export function ThermostatDeviceDetails({
     device_id: device.device_id,
   })
 
-  const { mutate: updateFanMode, isSuccess, isError } = useUpdateFanMode()
+  const {
+    mutate: updateFanMode,
+    isError: isFanModeError,
+    isSuccess: isFanModeSuccess,
+  } = useUpdateFanMode()
+
+  const {
+    mutate: updateThermostat,
+    isSuccess: isThermostatUpdateSuccess,
+    isError: isThermostatUpdateError,
+  } = useUpdateThermostat()
 
   if (climateSettingsOpen) {
     return (
@@ -139,12 +151,20 @@ export function ThermostatDeviceDetails({
                 )}
               </DetailRow>
               <DetailRow label={t.allowManualOverride}>
-                <p>
-                  {device.properties.current_climate_setting
-                    .manual_override_allowed
-                    ? t.yes
-                    : t.no}
-                </p>
+                <Switch
+                  checked={
+                    device.properties.default_climate_setting
+                      ?.manual_override_allowed ?? true
+                  }
+                  onChange={(checked) => {
+                    updateThermostat({
+                      device_id: device.device_id,
+                      default_climate_setting: {
+                        manual_override_allowed: checked,
+                      },
+                    })
+                  }}
+                />
               </DetailRow>
             </DetailSection>
 
@@ -171,9 +191,23 @@ export function ThermostatDeviceDetails({
       </div>
 
       <Snackbar
+        message={t.manualOverrideSuccess}
+        variant='success'
+        visible={isThermostatUpdateSuccess}
+        automaticVisibility
+      />
+
+      <Snackbar
+        message={t.manualOverrideError}
+        variant='error'
+        visible={isThermostatUpdateError}
+        automaticVisibility
+      />
+
+      <Snackbar
         message={t.fanModeSuccess}
         variant='success'
-        visible={isSuccess}
+        visible={isFanModeSuccess}
         automaticVisibility
         autoDismiss
       />
@@ -181,7 +215,7 @@ export function ThermostatDeviceDetails({
       <Snackbar
         message={t.fanModeError}
         variant='error'
-        visible={isError}
+        visible={isFanModeError}
         automaticVisibility
       />
     </div>
@@ -211,8 +245,8 @@ const t = {
   linkedAccount: 'Linked account',
   deviceId: 'Device ID',
   none: 'None',
-  yes: 'Yes',
-  no: 'No',
   fanModeSuccess: 'Successfully updated fan mode!',
   fanModeError: 'Error updating fan mode. Please try again.',
+  manualOverrideSuccess: 'Successfully updated manual override!',
+  manualOverrideError: 'Error updating manual override. Please try again.',
 }
