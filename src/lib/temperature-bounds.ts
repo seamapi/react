@@ -23,34 +23,26 @@ export const getHeatBounds = ({
   mode,
   minHeat,
   maxHeat,
-  minCool,
   maxCool,
   delta,
-}: ControlBounds): MinMax => {
+}: Omit<ControlBounds, 'minCool'>): MinMax => {
   const actualMaxHeat =
     mode === 'heat_cool' ? Math.min(maxHeat - delta, maxCool - delta) : maxHeat
 
-  const actualMinHeat =
-    mode === 'heat_cool' ? Math.max(minHeat, minCool) : minHeat
-
-  return { min: actualMinHeat, max: actualMaxHeat }
+  return { min: minHeat, max: actualMaxHeat }
 }
 
 export const getCoolBounds = ({
   mode,
   minHeat,
-  maxHeat,
   minCool,
   maxCool,
   delta,
-}: ControlBounds): MinMax => {
-  const actualMaxCool =
-    mode === 'heat_cool' ? Math.min(maxCool, maxHeat) : maxCool
-
+}: Omit<ControlBounds, 'maxHeat'>): MinMax => {
   const actualMinCool =
     mode === 'heat_cool' ? Math.max(minCool + delta, minHeat + delta) : minCool
 
-  return { min: actualMinCool, max: actualMaxCool }
+  return { min: actualMinCool, max: maxCool }
 }
 
 export const getTemperatureBounds = (

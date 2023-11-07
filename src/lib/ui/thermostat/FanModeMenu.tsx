@@ -27,8 +27,7 @@ export function FanModeMenu({ mode, onChange }: FanModeMenuProps): JSX.Element {
           <ChevronDownIcon />
         </button>
       )}
-      verticalOffset={-180}
-      horizontalOffset={-32}
+      horizontalOffset={-20}
       backgroundProps={{
         className: 'seam-thermo-mode-menu',
       }}

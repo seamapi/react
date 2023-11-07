@@ -1,7 +1,7 @@
 import { useArgs } from '@storybook/preview-api'
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Switch from './Switch.js'
+import { Switch } from './Switch.js'
 
 const meta: Meta<typeof Switch> = {
   title: 'Library/Switch',

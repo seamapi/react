@@ -1,6 +1,8 @@
 import { type Control, Controller } from 'react-hook-form'
+import { isThermostatDevice } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { getSetPointBounds, type SetPointBounds } from 'lib/set-point-bounds.js'
 import { Button } from 'lib/ui/Button.js'
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 import { FormField } from 'lib/ui/FormField.js'
@@ -29,6 +31,11 @@ export function ClimateSettingScheduleFormClimateSetting({
     device_id: deviceId,
   })
 
+  if (device == null) return <></>
+  if (!isThermostatDevice(device)) return <></>
+
+  const setPointBounds = getSetPointBounds(device.properties)
+
   return (
     <>
       <ContentHeader
@@ -43,7 +50,7 @@ export function ClimateSettingScheduleFormClimateSetting({
               <InputLabel>{t.climateSetting}</InputLabel>
               <span className='seam-label'>{t.climateSettingSubHeading}</span>
             </div>
-            <FormContent control={control} />
+            <FormContent control={control} setPointBounds={setPointBounds} />
           </div>
         </div>
         <div className='seam-actions'>
@@ -59,9 +66,13 @@ export function ClimateSettingScheduleFormClimateSetting({
 
 interface FormContentProps {
   control: Control<ClimateSettingScheduleFormFields>
+  setPointBounds: SetPointBounds
 }
 
-function FormContent({ control }: FormContentProps): JSX.Element {
+function FormContent({
+  control,
+  setPointBounds,
+}: FormContentProps): JSX.Element {
   return (
     <FormField>
       <Controller
@@ -75,6 +86,7 @@ function FormContent({ control }: FormContentProps): JSX.Element {
             }}
             coolValue={value.coolingSetPoint}
             heatValue={value.heatingSetPoint}
+            {...setPointBounds}
             onCoolValueChange={(coolingSetPoint) => {
               onChange({
                 ...value,

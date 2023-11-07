@@ -130,6 +130,10 @@ export function TemperatureControlGroup({
     onCoolValueChange,
   ])
 
+  // This is done so that both sliders are operating on the same range of numbers
+  const heatCoolSliderMin = Math.min(minCool, minHeat)
+  const heatCoolSliderMax = Math.max(maxCool, maxHeat)
+
   return (
     <div className='seam-temperature-control-group'>
       {showHeat && (
@@ -139,8 +143,8 @@ export function TemperatureControlGroup({
             variant='heat'
             value={heatValue}
             onChange={adjustHeat}
-            min={minHeat}
-            max={maxHeat}
+            min={mode === 'heat_cool' ? heatCoolSliderMin : minHeat}
+            max={mode === 'heat_cool' ? heatCoolSliderMax : maxHeat}
           />
         </div>
       )}
@@ -152,8 +156,8 @@ export function TemperatureControlGroup({
             variant='cool'
             value={coolValue}
             onChange={adjustCool}
-            min={minCool}
-            max={maxCool}
+            min={mode === 'heat_cool' ? heatCoolSliderMin : minCool}
+            max={mode === 'heat_cool' ? heatCoolSliderMax : maxCool}
           />
         </div>
       )}
