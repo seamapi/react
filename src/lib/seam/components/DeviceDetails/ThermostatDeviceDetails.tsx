@@ -10,6 +10,7 @@ import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-a
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
 import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
+import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
@@ -18,9 +19,8 @@ import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { Switch } from 'lib/ui/Switch/Switch.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
-import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
-import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
+import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
