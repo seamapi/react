@@ -72,6 +72,12 @@ function getUpdatedThermostat(thermostat: ThermostatDevice): ThermostatDevice {
     properties: {
       ...thermostat.properties,
       is_fan_running: false,
+      current_climate_setting: {
+        ...thermostat.properties.current_climate_setting,
+        automatic_cooling_enabled: false,
+        automatic_heating_enabled: false,
+        hvac_mode_setting: 'off',
+      },
     },
   }
 }
