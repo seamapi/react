@@ -13,60 +13,62 @@ import type {
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 // UPSTREAM: Missing ThermostatCoolResponse in seamapi.
-type UseUpdateCoolData = Record<string, unknown>
-type UseUpdateCoolMutationParams = ThermostatCoolRequest
+type UseCoolThermostatData = Record<string, unknown>
+type UseCoolThermostatMutationParams = ThermostatCoolRequest
 
-export function useUpdateCool(): UseMutationResult<
-  UseUpdateCoolData,
+export function useCoolThermostat(): UseMutationResult<
+  UseCoolThermostatData,
   SeamError,
-  UseUpdateCoolMutationParams
+  UseCoolThermostatMutationParams
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  return useMutation<UseUpdateCoolData, SeamError, UseUpdateCoolMutationParams>(
-    {
-      mutationFn: async (mutationParams: UseUpdateCoolMutationParams) => {
-        if (client === null) throw new NullSeamClientError()
+  return useMutation<
+    UseCoolThermostatData,
+    SeamError,
+    UseCoolThermostatMutationParams
+  >({
+    mutationFn: async (mutationParams: UseCoolThermostatMutationParams) => {
+      if (client === null) throw new NullSeamClientError()
 
-        return await client.thermostats.cool(mutationParams)
-      },
-      onSuccess: (_data, variables) => {
-        queryClient.setQueryData<ThermostatDevice | null>(
-          ['devices', 'get', { device_id: variables.device_id }],
-          (thermostat) => {
-            if (thermostat == null) {
-              return
+      return await client.thermostats.cool(mutationParams)
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.setQueryData<ThermostatDevice | null>(
+        ['devices', 'get', { device_id: variables.device_id }],
+        (thermostat) => {
+          if (thermostat == null) {
+            return
+          }
+
+          return getUpdatedThermostat(thermostat, variables)
+        }
+      )
+
+      queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
+        ['devices', 'list', { device_id: variables.device_id }],
+        (thermostats): ThermostatDevice[] => {
+          if (thermostats == null) {
+            return []
+          }
+
+          return thermostats.map((thermostat) => {
+            if (thermostat.device_id === variables.device_id) {
+              return getUpdatedThermostat(thermostat, variables)
             }
 
-            return getUpdatedThermostat(thermostat, variables)
-          }
-        )
-
-        queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
-          ['devices', 'list', { device_id: variables.device_id }],
-          (thermostats): ThermostatDevice[] => {
-            if (thermostats == null) {
-              return []
-            }
-
-            return thermostats.map((thermostat) => {
-              if (thermostat.device_id === variables.device_id) {
-                return getUpdatedThermostat(thermostat, variables)
-              }
-
-              return thermostat
-            })
-          }
-        )
-      },
-    }
-  )
+            return thermostat
+          })
+        }
+      )
+    },
+  })
 }
 
 function getUpdatedThermostat(
   thermostat: ThermostatDevice,
-  variables: UseUpdateCoolMutationParams
+  variables: UseCoolThermostatMutationParams
 ): ThermostatDevice {
   return {
     ...thermostat,
