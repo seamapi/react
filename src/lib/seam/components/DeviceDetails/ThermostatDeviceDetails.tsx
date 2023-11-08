@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import type { ThermostatDevice } from 'seamapi'
+import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
@@ -114,33 +114,7 @@ export function ThermostatDeviceDetails({
                   temperatureUnit='fahrenheit'
                 />
               </DetailRow>
-              <AccordionRow
-                label={t.climate}
-                rightCollapsedContent={
-                  <ClimateSettingStatus
-                    climateSetting={device.properties.current_climate_setting}
-                    temperatureUnit='fahrenheit'
-                  />
-                }
-              >
-                <div className='seam-detail-row-end-alignment'>
-                  <TemperatureControlGroup
-                    mode='heat_cool'
-                    heatValue={
-                      device.properties.current_climate_setting
-                        .heating_set_point_fahrenheit ?? 0
-                    }
-                    coolValue={
-                      device.properties.current_climate_setting
-                        .cooling_set_point_fahrenheit ?? 0
-                    }
-                    onHeatValueChange={() => {}}
-                    onCoolValueChange={() => {}}
-                  />
-
-                  <ClimateModeMenu mode='heat_cool' onChange={() => {}} />
-                </div>
-              </AccordionRow>
+              <ClimateSettingRow device={device} />
               <FanModeRow device={device} />
             </DetailSection>
 
@@ -261,6 +235,46 @@ function FanModeRow({ device }: { device: ThermostatDevice }): JSX.Element {
         automaticVisibility
       />
     </>
+  )
+}
+
+function ClimateSettingRow({
+  device,
+}: {
+  device: ThermostatDevice
+}): JSX.Element {
+  const [mode, setMode] = useState<HvacModeSetting>('heat_cool')
+
+  return (
+    <AccordionRow
+      label={t.climate}
+      rightCollapsedContent={
+        <ClimateSettingStatus
+          climateSetting={device.properties.current_climate_setting}
+          temperatureUnit='fahrenheit'
+        />
+      }
+    >
+      <div className='seam-detail-row-end-alignment'>
+        {mode !== 'off' && (
+          <TemperatureControlGroup
+            mode={mode}
+            heatValue={
+              device.properties.current_climate_setting
+                .heating_set_point_fahrenheit ?? 0
+            }
+            coolValue={
+              device.properties.current_climate_setting
+                .cooling_set_point_fahrenheit ?? 0
+            }
+            onHeatValueChange={() => {}}
+            onCoolValueChange={() => {}}
+          />
+        )}
+
+        <ClimateModeMenu mode={mode} onChange={setMode} />
+      </div>
+    </AccordionRow>
   )
 }
 
