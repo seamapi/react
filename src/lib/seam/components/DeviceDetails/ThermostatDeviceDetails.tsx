@@ -47,18 +47,6 @@ export function ThermostatDeviceDetails({
     device_id: device.device_id,
   })
 
-  const {
-    mutate: updateFanMode,
-    isError: isFanModeError,
-    isSuccess: isFanModeSuccess,
-  } = useUpdateFanMode()
-
-  const {
-    mutate: updateThermostat,
-    isSuccess: isThermostatUpdateSuccess,
-    isError: isThermostatUpdateError,
-  } = useUpdateThermostat()
-
   if (climateSettingsOpen) {
     return (
       <NestedClimateSettingScheduleTable
@@ -153,17 +141,7 @@ export function ThermostatDeviceDetails({
                   <ClimateModeMenu mode='heat_cool' onChange={() => {}} />
                 </div>
               </AccordionRow>
-              <DetailRow label={t.fanMode}>
-                <FanModeMenu
-                  mode={device.properties.fan_mode_setting}
-                  onChange={(fanMode) => {
-                    updateFanMode({
-                      device_id: device.device_id,
-                      fan_mode_setting: fanMode,
-                    })
-                  }}
-                />
-              </DetailRow>
+              <FanModeRow device={device} />
             </DetailSection>
 
             <DetailSection
@@ -180,22 +158,8 @@ export function ThermostatDeviceDetails({
                   <p>{t.none}</p>
                 )}
               </DetailRow>
-              <DetailRow label={t.allowManualOverride}>
-                <Switch
-                  checked={
-                    device.properties.default_climate_setting
-                      ?.manual_override_allowed ?? true
-                  }
-                  onChange={(checked) => {
-                    updateThermostat({
-                      device_id: device.device_id,
-                      default_climate_setting: {
-                        manual_override_allowed: checked,
-                      },
-                    })
-                  }}
-                />
-              </DetailRow>
+
+              <ManualOverrideRow device={device} />
             </DetailSection>
 
             <DetailSection label={t.deviceDetails}>
@@ -219,25 +183,73 @@ export function ThermostatDeviceDetails({
           </DetailSectionGroup>
         </div>
       </div>
+    </div>
+  )
+}
 
+function ManualOverrideRow({
+  device,
+}: {
+  device: ThermostatDevice
+}): JSX.Element {
+  const { mutate, isSuccess, isError } = useUpdateThermostat()
+
+  return (
+    <>
+      <DetailRow label={t.allowManualOverride}>
+        <Switch
+          checked={
+            device.properties.default_climate_setting
+              ?.manual_override_allowed ?? true
+          }
+          onChange={(checked) => {
+            mutate({
+              device_id: device.device_id,
+              default_climate_setting: {
+                manual_override_allowed: checked,
+              },
+            })
+          }}
+        />
+      </DetailRow>
       <Snackbar
         message={t.manualOverrideSuccess}
         variant='success'
-        visible={isThermostatUpdateSuccess}
+        visible={isSuccess}
         automaticVisibility
       />
 
       <Snackbar
         message={t.manualOverrideError}
         variant='error'
-        visible={isThermostatUpdateError}
+        visible={isError}
         automaticVisibility
       />
+    </>
+  )
+}
+
+function FanModeRow({ device }: { device: ThermostatDevice }): JSX.Element {
+  const { mutate, isSuccess, isError } = useUpdateFanMode()
+
+  return (
+    <>
+      <DetailRow label={t.fanMode}>
+        <FanModeMenu
+          mode={device.properties.fan_mode_setting}
+          onChange={(fanMode) => {
+            mutate({
+              device_id: device.device_id,
+              fan_mode_setting: fanMode,
+            })
+          }}
+        />
+      </DetailRow>
 
       <Snackbar
         message={t.fanModeSuccess}
         variant='success'
-        visible={isFanModeSuccess}
+        visible={isSuccess}
         automaticVisibility
         autoDismiss
       />
@@ -245,10 +257,10 @@ export function ThermostatDeviceDetails({
       <Snackbar
         message={t.fanModeError}
         variant='error'
-        visible={isFanModeError}
+        visible={isError}
         automaticVisibility
       />
-    </div>
+    </>
   )
 }
 
