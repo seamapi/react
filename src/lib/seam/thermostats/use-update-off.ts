@@ -12,7 +12,7 @@ import type {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-// UPSTREAM: Missing ThermostatHeatResponse in seamapi.
+// UPSTREAM: Missing ThermostatOffResponse in seamapi.
 type UseSetOffData = Record<string, unknown>
 type UseSetOffMutationParams = ThermostatOffRequest
 
