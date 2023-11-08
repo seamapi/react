@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
@@ -22,6 +22,7 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { debounce } from '@mui/material'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -245,6 +246,34 @@ function ClimateSettingRow({
 }): JSX.Element {
   const [mode, setMode] = useState<HvacModeSetting>('heat_cool')
 
+  const [heatValue, setHeatValue] = useState(
+    device.properties.current_climate_setting.heating_set_point_fahrenheit ?? 0
+  )
+
+  const [coolValue, setCoolValue] = useState(
+    device.properties.current_climate_setting.cooling_set_point_fahrenheit ?? 0
+  )
+
+  const { mutate, isSuccess, isError } = useUpdateThermostat()
+
+  const debouncedUpdate = useCallback(
+    (heatValue: number, coolValue: number) => {
+      debounce(() => {}, 1000)
+    },
+    [heatValue, coolValue]
+  )
+
+  useEffect(() => {
+    if (heatValue && coolValue) {
+      debouncedUpdate(heatValue, coolValue)
+    }
+
+    // Cleanup
+    return () => {
+      debouncedUpdate.cancel()
+    }
+  }, [heatValue, coolValue, debouncedUpdate])
+
   return (
     <AccordionRow
       label={t.climate}
@@ -259,16 +288,10 @@ function ClimateSettingRow({
         {mode !== 'off' && (
           <TemperatureControlGroup
             mode={mode}
-            heatValue={
-              device.properties.current_climate_setting
-                .heating_set_point_fahrenheit ?? 0
-            }
-            coolValue={
-              device.properties.current_climate_setting
-                .cooling_set_point_fahrenheit ?? 0
-            }
-            onHeatValueChange={() => {}}
-            onCoolValueChange={() => {}}
+            heatValue={heatValue}
+            coolValue={coolValue}
+            onHeatValueChange={setHeatValue}
+            onCoolValueChange={setCoolValue}
           />
         )}
 
