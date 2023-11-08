@@ -12,7 +12,7 @@ import type {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-// UPSTREAM: Missing ThermostatHeatResponse in seamapi.
+// UPSTREAM: Missing ThermostatCoolResponse in seamapi.
 type UseUpdateCoolData = Record<string, unknown>
 type UseUpdateCoolMutationParams = ThermostatCoolRequest
 
