@@ -1,3 +1,4 @@
+import { debounce } from '@mui/material'
 import classNames from 'classnames'
 import { useCallback, useEffect, useState } from 'react'
 import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
@@ -22,7 +23,6 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
-import { debounce } from '@mui/material'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
