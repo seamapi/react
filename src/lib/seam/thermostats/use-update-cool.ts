@@ -29,7 +29,7 @@ export function useUpdateCool(): UseMutationResult<
       mutationFn: async (mutationParams: UseUpdateCoolMutationParams) => {
         if (client === null) throw new NullSeamClientError()
 
-        return await client.thermostats.heat(mutationParams)
+        return await client.thermostats.cool(mutationParams)
       },
       onSuccess: (_data, variables) => {
         queryClient.setQueryData<ThermostatDevice | null>(
