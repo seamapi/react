@@ -1,7 +1,6 @@
 import type { DeviceModelV1 } from '@seamapi/types/devicedb'
 import { useMemo } from 'react'
 
-import { SupportedDeviceFilterResultRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceFilterResultRow.js'
 import { SupportedDeviceManufacturerSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceManufacturerSection.js'
 import type { UseDeviceModelsData } from 'lib/seam/components/SupportedDeviceTable/use-device-models.js'
 import {
@@ -76,21 +75,6 @@ export function SupportedDeviceContent({
           filterValue={filterValue}
           resetFilterValue={resetFilterValue}
         />
-      </div>
-    )
-  }
-
-  const hasFilters = filterValue.trim() !== '' || filters.manufacturer !== null
-
-  if (hasFilters) {
-    return (
-      <div className='seam-supported-device-table-content'>
-        {deviceModels.map((deviceModel) => (
-          <SupportedDeviceFilterResultRow
-            key={deviceModel.device_model_id}
-            deviceModel={deviceModel}
-          />
-        ))}
       </div>
     )
   }
