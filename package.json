@@ -132,7 +132,7 @@
     "luxon": "^3.3.0",
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
-    "seamapi": "^8.15.0",
+    "seamapi": "^8.19.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
