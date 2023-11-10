@@ -127,12 +127,12 @@
     }
   },
   "dependencies": {
+    "@seamapi/http": "^1.0.0-rc.3",
     "@tanstack/react-query": "^5.27.5",
     "classnames": "^2.3.2",
     "luxon": "^3.3.0",
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
-    "seamapi": "^8.24.0",
     "uuid": "^10.0.0",
     "zoned-time": "^1.1.2"
   },
@@ -144,7 +144,6 @@
     "@rxfork/r2wc-react-to-web-component": "^2.4.0",
     "@seamapi/fake-devicedb": "^1.6.0",
     "@seamapi/fake-seam-connect": "^1.60.2",
-    "@seamapi/http": "^0.24.0",
     "@seamapi/types": "^1.138.1",
     "@storybook/addon-designs": "^7.0.1",
     "@storybook/addon-essentials": "^7.0.2",
@@ -184,6 +183,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.62.1",
+    "seamapi": "^8.20.0",
     "storybook": "^7.0.2",
     "stylelint": "^16.2.1",
     "stylelint-config-standard-scss": "^13.0.0",
