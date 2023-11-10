@@ -1,28 +1,21 @@
+import type { DevicesGetParams, SeamHttpApiError } from '@seamapi/http/connect'
+import type { Device } from '@seamapi/types/connect'
 import { useQuery } from '@tanstack/react-query'
-import type {
-  CommonDevice,
-  DeviceGetRequest,
-  DeviceGetResponse,
-  SeamError,
-} from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
-export type UseDeviceParams = DeviceGetRequest | string
-export type UseDeviceData = CommonDevice | null
+export type UseDeviceParams = DevicesGetParams
+export type UseDeviceData = Device | null
 
 export function useDevice(
-  params: DeviceGetRequest
+  params: UseDeviceParams
 ): UseSeamQueryResult<'device', UseDeviceData> {
   const normalizedParams =
     typeof params === 'string' ? { device_id: params } : params
 
   const { client } = useSeamClient()
-  const { data, ...rest } = useQuery<
-    DeviceGetResponse['device'] | null,
-    SeamError
-  >({
+  const { data, ...rest } = useQuery<Device, SeamHttpApiError>({
     enabled: client != null,
     queryKey: ['devices', 'get', normalizedParams],
     queryFn: async () => {

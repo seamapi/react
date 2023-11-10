@@ -1,3 +1,7 @@
+import type {
+  SeamHttp,
+  SeamHttpOptionsWithClientSessionToken,
+} from '@seamapi/http/connect'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
   createContext,
@@ -6,7 +10,6 @@ import {
   useEffect,
   useMemo,
 } from 'react'
-import type { Seam, SeamClientOptions } from 'seamapi'
 
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
@@ -28,7 +31,7 @@ declare global {
 }
 
 export interface SeamContext {
-  client: Seam | null
+  client: SeamHttp | null
   clientOptions?: SeamProviderClientOptions | undefined
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
@@ -41,7 +44,7 @@ export type SeamProviderProps =
   | SeamProviderPropsWithClientSessionToken
 
 export interface SeamProviderPropsWithClient extends SeamProviderBaseProps {
-  client: Seam
+  client: SeamHttp
 }
 
 export interface SeamProviderPropsWithPublishableKey
@@ -64,8 +67,10 @@ interface SeamProviderBaseProps extends PropsWithChildren {
   unminifiyCss?: boolean | undefined
   queryClient?: QueryClient | undefined
   telemetryClient?: TelemetryClient | undefined
-  onSessionUpdate?: (client: Seam) => void
+  onSessionUpdate?: (client: SeamHttp) => void
 }
+
+type SeamClientOptions = SeamHttpOptionsWithClientSessionToken
 
 export type SeamProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
 
