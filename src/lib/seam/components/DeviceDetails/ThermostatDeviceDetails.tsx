@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { useCallback, useEffect, useState } from 'react'
 import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
 
+import { debounce } from 'lib/debounce.js'
 import { BeeIcon } from 'lib/icons/Bee.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
@@ -22,11 +23,6 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
-import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermostat.js'
-import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
-import { useCoolThermostat } from 'lib/seam/thermostats/use-cool-thermostat.js'
-import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
-import { debounce } from 'lib/debounce.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -284,7 +280,7 @@ function ClimateSettingRow({
 
   const debouncedUpdate = useCallback(
     (heatValue: number, coolValue: number) =>
-      debounce(() => console.log({ heatValue, coolValue }), 1000),
+      debounce(() => { console.log({ heatValue, coolValue }); }, 1000),
     [heatValue, coolValue]
   )
 

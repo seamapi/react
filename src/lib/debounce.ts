@@ -16,7 +16,7 @@ export function debounce<F extends Procedure>(
     if (timeoutId !== undefined) {
       clearTimeout(timeoutId)
     }
-    timeoutId = setTimeout(() => func.apply(this, args), waitMilliseconds)
+    timeoutId = setTimeout(() => { func.apply(this, args); }, waitMilliseconds)
   }
 
   debouncedFunction.cancel = () => {
