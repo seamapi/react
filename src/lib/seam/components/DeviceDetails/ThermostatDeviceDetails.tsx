@@ -1,4 +1,3 @@
-import { debounce } from '@mui/material'
 import classNames from 'classnames'
 import { useCallback, useEffect, useState } from 'react'
 import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
@@ -23,6 +22,11 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermostat.js'
+import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
+import { useCoolThermostat } from 'lib/seam/thermostats/use-cool-thermostat.js'
+import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
+import { debounce } from 'lib/debounce.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -254,23 +258,43 @@ function ClimateSettingRow({
     device.properties.current_climate_setting.cooling_set_point_fahrenheit ?? 0
   )
 
-  const { mutate, isSuccess, isError } = useUpdateThermostat()
+  // const {
+  //   mutate: heatCoolThermostat,
+  //   isSuccess: isHeatCoolSuccess,
+  //   isError: isHeatCoolError,
+  // } = useHeatCoolThermostat()
+
+  // const {
+  //   mutate: heatThermostat,
+  //   isSuccess: isHeatSuccess,
+  //   isError: isHeatError,
+  // } = useHeatThermostat()
+
+  // const {
+  //   mutate: coolThermostat,
+  //   isSuccess: isCoolSuccess,
+  //   isError: isCoolError,
+  // } = useCoolThermostat()
+
+  // const {
+  //   mutate: setThermostatOff,
+  //   isSuccess: isSetOffSuccess,
+  //   isError: isSetOffError,
+  // } = useSetThermostatOff()
 
   const debouncedUpdate = useCallback(
-    (heatValue: number, coolValue: number) => {
-      debounce(() => {}, 1000)
-    },
+    (heatValue: number, coolValue: number) =>
+      debounce(() => console.log({ heatValue, coolValue }), 1000),
     [heatValue, coolValue]
   )
 
   useEffect(() => {
     if (heatValue && coolValue) {
-      debouncedUpdate(heatValue, coolValue)
+      debouncedUpdate(heatValue, coolValue)()
     }
 
-    // Cleanup
     return () => {
-      debouncedUpdate.cancel()
+      debouncedUpdate(heatValue, coolValue).cancel()
     }
   }, [heatValue, coolValue, debouncedUpdate])
 
