@@ -7,21 +7,25 @@ export function debounce<F extends Procedure>(
   (this: ThisParameterType<F>, ...args: Parameters<F>): void
   cancel: () => void
 } {
-  let timeoutId: ReturnType<typeof setTimeout> | undefined
+  let timeoutId: ReturnType<typeof setTimeout> | null = null
 
   const debouncedFunction = function (
     this: ThisParameterType<F>,
     ...args: Parameters<F>
   ) {
-    if (timeoutId !== undefined) {
+    if (timeoutId !== null) {
       clearTimeout(timeoutId)
     }
-    timeoutId = setTimeout(() => func.apply(this, args), waitMilliseconds)
+    timeoutId = setTimeout(() => {
+      timeoutId = null
+      func.apply(this, args)
+    }, waitMilliseconds)
   }
 
   debouncedFunction.cancel = () => {
-    if (timeoutId !== undefined) {
+    if (timeoutId !== null) {
       clearTimeout(timeoutId)
+      timeoutId = null
     }
   }
 

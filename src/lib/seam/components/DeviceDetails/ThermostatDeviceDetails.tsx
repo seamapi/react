@@ -282,21 +282,20 @@ function ClimateSettingRow({
   //   isError: isSetOffError,
   // } = useSetThermostatOff()
 
-  const debouncedUpdate = useCallback(
-    (heatValue: number, coolValue: number) =>
-      debounce(() => console.log({ heatValue, coolValue }), 1000),
-    [heatValue, coolValue]
-  )
-
   useEffect(() => {
+    const handler = debounce(
+      (heatValue, coolValue) => console.log({ heatValue, coolValue }),
+      1000
+    )
+
     if (heatValue && coolValue) {
-      debouncedUpdate(heatValue, coolValue)()
+      handler(heatValue, coolValue)
     }
 
     return () => {
-      debouncedUpdate(heatValue, coolValue).cancel()
+      handler.cancel()
     }
-  }, [heatValue, coolValue, debouncedUpdate])
+  }, [heatValue, coolValue])
 
   return (
     <AccordionRow
