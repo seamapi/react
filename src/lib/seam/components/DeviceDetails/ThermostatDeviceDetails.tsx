@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
 
 import { debounce } from 'lib/debounce.js'
@@ -280,7 +280,7 @@ function ClimateSettingRow({
 
   useEffect(() => {
     const handler = debounce(
-      (heatValue, coolValue) => console.log({ heatValue, coolValue }),
+      (heatValue, coolValue) => { console.log({ heatValue, coolValue }); },
       1000
     )
 
