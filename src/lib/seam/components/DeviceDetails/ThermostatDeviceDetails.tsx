@@ -280,7 +280,9 @@ function ClimateSettingRow({
 
   const debouncedUpdate = useCallback(
     (heatValue: number, coolValue: number) =>
-      debounce(() => { console.log({ heatValue, coolValue }); }, 1000),
+      debounce(() => {
+        console.log({ heatValue, coolValue })
+      }, 1000),
     [heatValue, coolValue]
   )
 
