@@ -132,7 +132,6 @@
     "luxon": "^3.3.0",
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
-    "seamapi": "^8.19.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -184,6 +183,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.62.1",
+    "seamapi": "^8.20.0",
     "storybook": "^7.0.2",
     "stylelint": "^15.6.0",
     "stylelint-config-standard-scss": "^11.0.0",
