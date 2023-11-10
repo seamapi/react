@@ -279,10 +279,9 @@ function ClimateSettingRow({
   // } = useSetThermostatOff()
 
   useEffect(() => {
-    const handler = debounce(
-      (heatValue, coolValue) => { console.log({ heatValue, coolValue }); },
-      1000
-    )
+    const handler = debounce((heatValue, coolValue) => {
+      console.log({ heatValue, coolValue })
+    }, 1000)
 
     if (heatValue && coolValue) {
       handler(heatValue, coolValue)
