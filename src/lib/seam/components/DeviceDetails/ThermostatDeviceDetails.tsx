@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
 
 import { debounce } from 'lib/debounce.js'
