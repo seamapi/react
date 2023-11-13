@@ -31,12 +31,16 @@
   }
 }
 
-@mixin temperature-control-thumb-hover($secondary-color: colors.$thermo-blue-faded) {
+@mixin temperature-control-thumb-hover(
+  $secondary-color: colors.$thermo-blue-faded
+) {
   background-color: $secondary-color;
 }
 
-@mixin temperature-control-thumb($primary-color: colors.$thermo-blue,
-  $secondary-color: colors.$thermo-blue-faded) {
+@mixin temperature-control-thumb(
+  $primary-color: colors.$thermo-blue,
+  $secondary-color: colors.$thermo-blue-faded
+) {
   width: var(--thumb-size);
   height: var(--thumb-size);
   border-radius: 1em;
@@ -59,13 +63,15 @@
 
 @mixin temperature-control-ltr-track($primary-color: colors.$thermo-blue) {
   background:
-    linear-gradient($primary-color, $primary-color) 0 / var(--slider-position) 100% no-repeat,
+    linear-gradient($primary-color, $primary-color) 0 / var(--slider-position)
+      100% no-repeat,
     colors.$text-gray-3;
 }
 
 @mixin temperature-control-rtl-track($primary-color: colors.$thermo-blue) {
   background:
-    linear-gradient($primary-color, $primary-color) 100% / calc(var(--slider-position-rtl)) 100% no-repeat,
+    linear-gradient($primary-color, $primary-color) 100% /
+      calc(var(--slider-position-rtl)) 100% no-repeat,
     colors.$text-gray-3;
 }
 
@@ -92,8 +98,14 @@
     --temperature-max: 100;
     --temperature-current: 50;
     --temperature-range: calc(var(--temperature-max) - var(--temperature-min));
-    --temperature-ratio: calc((var(--temperature-current) - var(--temperature-min)) / var(--temperature-range));
-    --slider-position: calc(0.5 * var(--thumb-size) + var(--temperature-ratio) * (100% - var(--thumb-size)));
+    --temperature-ratio: calc(
+      (var(--temperature-current) - var(--temperature-min)) /
+        var(--temperature-range)
+    );
+    --slider-position: calc(
+      0.5 * var(--thumb-size) + var(--temperature-ratio) *
+        (100% - var(--thumb-size))
+    );
     --slider-position-rtl: calc(100% - var(--slider-position));
 
     display: flex;
@@ -140,18 +152,24 @@
 
     &[data-variant='heat'] {
       &::-webkit-slider-thumb {
-        @include temperature-control-thumb(colors.$thermo-orange,
-          colors.$thermo-orange-faded );
+        @include temperature-control-thumb(
+          colors.$thermo-orange,
+          colors.$thermo-orange-faded
+        );
       }
 
       &::-moz-range-thumb {
-        @include temperature-control-thumb(colors.$thermo-orange,
-          colors.$thermo-orange-faded );
+        @include temperature-control-thumb(
+          colors.$thermo-orange,
+          colors.$thermo-orange-faded
+        );
       }
 
       &::-ms-thumb {
-        @include temperature-control-thumb(colors.$thermo-orange,
-          colors.$thermo-orange-faded );
+        @include temperature-control-thumb(
+          colors.$thermo-orange,
+          colors.$thermo-orange-faded
+        );
       }
 
       &:focus {
@@ -190,18 +208,24 @@
 
     &[data-variant='cool'] {
       &::-webkit-slider-thumb {
-        @include temperature-control-thumb(colors.$thermo-blue,
-          colors.$thermo-blue-faded );
+        @include temperature-control-thumb(
+          colors.$thermo-blue,
+          colors.$thermo-blue-faded
+        );
       }
 
       &::-moz-range-thumb {
-        @include temperature-control-thumb(colors.$thermo-blue,
-          colors.$thermo-blue-faded );
+        @include temperature-control-thumb(
+          colors.$thermo-blue,
+          colors.$thermo-blue-faded
+        );
       }
 
       &::-ms-thumb {
-        @include temperature-control-thumb(colors.$thermo-blue,
-          colors.$thermo-blue-faded );
+        @include temperature-control-thumb(
+          colors.$thermo-blue,
+          colors.$thermo-blue-faded
+        );
       }
 
       &:focus {
