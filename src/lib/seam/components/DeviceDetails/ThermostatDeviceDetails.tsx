@@ -23,6 +23,12 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermostat.js'
+import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
+import { useCoolThermostat } from 'lib/seam/thermostats/use-cool-thermostat.js'
+import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
+import { CheckIcon } from 'lib/icons/Check.js'
+import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -109,12 +115,6 @@ export function ThermostatDeviceDetails({
               label={t.currentSettings}
               tooltipContent={t.currentSettingsTooltip}
             >
-              <DetailRow label={t.climate}>
-                <ClimateSettingStatus
-                  climateSetting={device.properties.current_climate_setting}
-                  temperatureUnit='fahrenheit'
-                />
-              </DetailRow>
               <ClimateSettingRow device={device} />
               <FanModeRow device={device} />
             </DetailSection>
@@ -244,6 +244,12 @@ function ClimateSettingRow({
 }: {
   device: ThermostatDevice
 }): JSX.Element {
+  const deviceHeatValue =
+    device.properties.current_climate_setting.heating_set_point_fahrenheit
+  const deviceCoolValue =
+    device.properties.current_climate_setting.cooling_set_point_fahrenheit
+
+  const [showSuccess, setShowSuccess] = useState(false)
   const [mode, setMode] = useState<HvacModeSetting>('heat_cool')
 
   const [heatValue, setHeatValue] = useState(
@@ -254,69 +260,143 @@ function ClimateSettingRow({
     device.properties.current_climate_setting.cooling_set_point_fahrenheit ?? 0
   )
 
-  // const {
-  //   mutate: heatCoolThermostat,
-  //   isSuccess: isHeatCoolSuccess,
-  //   isError: isHeatCoolError,
-  // } = useHeatCoolThermostat()
+  const {
+    mutate: heatCoolThermostat,
+    isSuccess: isHeatCoolSuccess,
+    isError: isHeatCoolError,
+  } = useHeatCoolThermostat()
 
-  // const {
-  //   mutate: heatThermostat,
-  //   isSuccess: isHeatSuccess,
-  //   isError: isHeatError,
-  // } = useHeatThermostat()
+  const {
+    mutate: heatThermostat,
+    isSuccess: isHeatSuccess,
+    isError: isHeatError,
+  } = useHeatThermostat()
 
-  // const {
-  //   mutate: coolThermostat,
-  //   isSuccess: isCoolSuccess,
-  //   isError: isCoolError,
-  // } = useCoolThermostat()
+  const {
+    mutate: coolThermostat,
+    isSuccess: isCoolSuccess,
+    isError: isCoolError,
+  } = useCoolThermostat()
 
-  // const {
-  //   mutate: setThermostatOff,
-  //   isSuccess: isSetOffSuccess,
-  //   isError: isSetOffError,
-  // } = useSetThermostatOff()
+  const {
+    mutate: setThermostatOff,
+    isSuccess: isSetOffSuccess,
+    isError: isSetOffError,
+  } = useSetThermostatOff()
 
   useEffect(() => {
-    const handler = debounce(
-      (heatValue, coolValue) => console.log({ heatValue, coolValue }),
-      1000
-    )
+    const handler = debounce(() => {
+      switch (mode) {
+        case 'heat_cool':
+          console.log('heat_cool', heatValue, coolValue)
+          heatCoolThermostat({
+            device_id: device.device_id,
+            heating_set_point_fahrenheit: heatValue,
+            cooling_set_point_fahrenheit: coolValue,
+          })
+          break
+        case 'heat':
+          console.log('heat', heatValue, coolValue)
+          heatThermostat({
+            device_id: device.device_id,
+            heating_set_point_fahrenheit: heatValue,
+          })
+          break
+        case 'cool':
+          console.log('cool', heatValue, coolValue)
+          coolThermostat({
+            device_id: device.device_id,
+            cooling_set_point_fahrenheit: coolValue,
+          })
+          break
+        case 'off':
+          console.log('off', heatValue, coolValue)
+          setThermostatOff({
+            device_id: device.device_id,
+          })
+          break
+      }
+    }, 2000)
 
-    if (heatValue && coolValue) {
-      handler(heatValue, coolValue)
+    if (
+      heatValue !== deviceHeatValue ||
+      coolValue !== deviceCoolValue ||
+      mode === 'off'
+    ) {
+      handler()
     }
 
     return () => {
       handler.cancel()
     }
-  }, [heatValue, coolValue])
+  }, [heatValue, coolValue, mode])
+
+  useEffect(() => {
+    if (
+      isHeatCoolSuccess ||
+      isHeatSuccess ||
+      isCoolSuccess ||
+      isSetOffSuccess
+    ) {
+      setShowSuccess(true)
+
+      const timeout = setTimeout(() => {
+        setShowSuccess(false)
+      }, 3000)
+
+      return () => {
+        clearTimeout(timeout)
+      }
+    }
+  }, [isHeatCoolSuccess, isHeatSuccess, isCoolSuccess, isSetOffSuccess])
 
   return (
-    <AccordionRow
-      label={t.climate}
-      rightCollapsedContent={
-        <ClimateSettingStatus
-          climateSetting={device.properties.current_climate_setting}
-          temperatureUnit='fahrenheit'
-        />
-      }
-    >
-      <div className='seam-detail-row-end-alignment'>
-        {mode !== 'off' && (
-          <TemperatureControlGroup
-            mode={mode}
-            heatValue={heatValue}
-            coolValue={coolValue}
-            onHeatValueChange={setHeatValue}
-            onCoolValueChange={setCoolValue}
+    <>
+      <AccordionRow
+        label={t.climate}
+        leftContent={
+          <div
+            className={classNames('seam-thermostat-mutation-status', {
+              'is-visible': showSuccess,
+            })}
+          >
+            <div className='seam-thermostat-mutation-status-icon'>
+              <CheckBlackIcon />
+            </div>
+            <div className='seam-thermostat-mutation-status-label'>
+              {t.saved}
+            </div>
+          </div>
+        }
+        rightCollapsedContent={
+          <ClimateSettingStatus
+            climateSetting={device.properties.current_climate_setting}
+            temperatureUnit='fahrenheit'
           />
-        )}
+        }
+      >
+        <div className='seam-detail-row-end-alignment'>
+          {mode !== 'off' && (
+            <TemperatureControlGroup
+              mode={mode}
+              heatValue={heatValue}
+              coolValue={coolValue}
+              onHeatValueChange={setHeatValue}
+              onCoolValueChange={setCoolValue}
+            />
+          )}
 
-        <ClimateModeMenu mode={mode} onChange={setMode} />
-      </div>
-    </AccordionRow>
+          <ClimateModeMenu mode={mode} onChange={setMode} />
+        </div>
+      </AccordionRow>
+
+      <Snackbar
+        message={t.climateSettingError}
+        variant='error'
+        visible={isHeatCoolError || isHeatError || isCoolError || isSetOffError}
+        automaticVisibility
+      />
+    </>
   )
 }
 
@@ -347,4 +427,6 @@ const t = {
   fanModeError: 'Error updating fan mode. Please try again.',
   manualOverrideSuccess: 'Successfully updated manual override!',
   manualOverrideError: 'Error updating manual override. Please try again.',
+  climateSettingError: 'Error updating climate setting. Please try again.',
+  saved: 'Saved',
 }

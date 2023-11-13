@@ -5,11 +5,13 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 
 interface AccordionRowProps extends PropsWithChildren {
   label: string
+  leftContent?: JSX.Element
   rightCollapsedContent?: JSX.Element
 }
 
 export function AccordionRow({
   label,
+  leftContent,
   rightCollapsedContent,
   children,
 }: AccordionRowProps): JSX.Element {
@@ -18,7 +20,10 @@ export function AccordionRow({
   return (
     <div className='seam-accordion-row' aria-expanded={isExpanded}>
       <button className='seam-accordion-row-trigger' onClick={toggle}>
-        <p className='seam-row-label'>{label}</p>
+        <div className='seam-row-inner-wrap'>
+          <p className='seam-row-label'>{label}</p>
+          <div className='seam-row-trigger-left-content'>{leftContent}</div>
+        </div>
         <div className='seam-row-inner-wrap'>
           <div className='seam-row-trigger-right-content'>
             {rightCollapsedContent}
