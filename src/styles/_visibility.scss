@@ -1,28 +1,25 @@
 @use './colors';
 
 @mixin all {
-
-
   .seam-invisible {
-    display: none!important;
+    display: none !important;
   }
 
   .seam-md-flex {
     @media only screen and (width >= 768px) {
-      display: flex!important;
+      display: flex !important;
     }
   }
 
   .seam-md-block {
     @media only screen and (width >= 768px) {
-      display: block!important;
+      display: block !important;
     }
   }
 
   .seam-md-invisible {
     @media only screen and (width >= 768px) {
-      display: none!important;
+      display: none !important;
     }
   }
-
 }
