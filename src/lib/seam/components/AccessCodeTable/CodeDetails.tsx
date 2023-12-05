@@ -17,7 +17,8 @@ export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
       <DotDivider />
       <Duration accessCode={accessCode} />
       <DotDivider />
-      {t.code}: {accessCode.code}
+      <span className='seam-invisible seam-md-block'>{t.code}: </span>
+      {accessCode.code}
     </div>
   )
 }
