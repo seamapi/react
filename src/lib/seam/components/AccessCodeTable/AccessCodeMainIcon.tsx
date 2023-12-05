@@ -53,7 +53,7 @@ export function AccessCodeMainIcon({
   }
 
   return (
-    <div>
+    <div className='seam-issue-icon-wrap'>
       <AccessCodeKeyIcon />
     </div>
   )
