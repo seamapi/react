@@ -1,7 +1,7 @@
-import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
 import type { UseAccessCodesData } from 'lib/seam/access-codes/use-access-codes.js'
+import { AccessCodeMainIcon } from 'lib/seam/components/AccessCodeTable/AccessCodeMainIcon.js'
 import { AccessCodeMenu } from 'lib/seam/components/AccessCodeTable/AccessCodeMenu.js'
 import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
 import { TableCell } from 'lib/ui/Table/TableCell.js'
@@ -36,9 +36,7 @@ export function AccessCodeRow({
   return (
     <TableRow onClick={onClick}>
       <TableCell className='seam-icon-cell'>
-        <div>
-          <AccessCodeKeyIcon />
-        </div>
+        <AccessCodeMainIcon accessCode={accessCode} />
       </TableCell>
       <TableCell className='seam-name-cell'>
         <Title className='seam-truncated-text'>{accessCode.name}</Title>
@@ -46,12 +44,18 @@ export function AccessCodeRow({
       </TableCell>
       <TableCell className='seam-action-cell'>
         {errorCount > 0 && (
-          <div className='seam-issue-icon-wrap' title={errorIconTitle}>
+          <div
+            className='seam-issue-icon-wrap seam-invisible seam-md-flex'
+            title={errorIconTitle}
+          >
             <ExclamationCircleOutlineIcon />
           </div>
         )}
         {errorCount === 0 && warningCount > 0 && (
-          <div className='seam-issue-icon-wrap' title={warningIconTitle}>
+          <div
+            className='seam-issue-icon-wrap seam-invisible seam-md-flex'
+            title={warningIconTitle}
+          >
             <TriangleWarningOutlineIcon />
           </div>
         )}

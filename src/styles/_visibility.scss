@@ -1,0 +1,22 @@
+@use './colors';
+
+@mixin all {
+
+
+  .seam-invisible {
+    display: none!important;
+  }
+
+  .seam-md-flex {
+    @media only screen and (width >= 768px) {
+      display: flex!important;
+    }
+  }
+
+  .seam-md-invisible {
+    @media only screen and (width >= 768px) {
+      display: none!important;
+    }
+  }
+
+}
