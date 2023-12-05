@@ -5,6 +5,7 @@
 @use './alert';
 @use './buttons';
 @use './layout';
+@use './visibility';
 @use './loading_toast';
 @use './colors';
 @use './icons';
@@ -41,6 +42,7 @@
   @include form-field.all;
   @include buttons.all;
   @include layout.all;
+  @include visibility.all;
   @include loading_toast.all;
   @include icons.all;
   @include menus.all;
