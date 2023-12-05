@@ -48,10 +48,14 @@
         }
 
         .seam-details {
-          font-size: 14px;
+          font-size: 12px;
           line-height: 134%;
           color: colors.$text-gray-1;
           display: flex;
+
+          @media only screen and (width >= 768px) {
+            font-size: 14px;
+          }
 
           .seam-device-name {
             max-width: 190px;
