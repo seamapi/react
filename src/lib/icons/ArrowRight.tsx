@@ -28,7 +28,7 @@ export function ArrowRightIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
       <g mask='url(#arrow-right_svg__a)'>
         <path
           fill='#B9BEC5'
-          d='m10.5 14-1.05-1.088 2.663-2.662H3v-1.5h9.113L9.45 6.088 10.5 5 15 9.5 10.5 14Z'
+          d='m10.5 14-1.05-1.088 2.663-2.662H3v-1.5h9.113L9.45 6.088 10.5 5 15 9.5z'
         />
       </g>
     </svg>

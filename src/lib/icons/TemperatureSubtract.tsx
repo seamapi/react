@@ -28,7 +28,7 @@ export function TemperatureSubtractIcon(
         <path fill='#2196F3' d='M0 0h18v18H0z' />
       </mask>
       <g mask='url(#temperature-subtract_svg__a)'>
-        <path fill='#9DA1A9' d='M3.75 9.75v-1.5h10.5v1.5H3.75Z' />
+        <path fill='#9DA1A9' d='M3.75 9.75v-1.5h10.5v1.5z' />
       </g>
     </svg>
   )

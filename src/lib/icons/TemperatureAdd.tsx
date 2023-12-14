@@ -30,7 +30,7 @@ export function TemperatureAddIcon(
       <g mask='url(#temperature-add_svg__a)'>
         <path
           fill='#9DA1A9'
-          d='M8.25 14.25v-4.5h-4.5v-1.5h4.5v-4.5h1.5v4.5h4.5v1.5h-4.5v4.5h-1.5Z'
+          d='M8.25 14.25v-4.5h-4.5v-1.5h4.5v-4.5h1.5v4.5h4.5v1.5h-4.5v4.5z'
         />
       </g>
     </svg>

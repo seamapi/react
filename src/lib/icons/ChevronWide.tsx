@@ -14,7 +14,7 @@ export function ChevronWideIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
     >
       <path
         fill='#D5D8DC'
-        d='m22.123 8-10 10-10-10 1.775-1.775 8.225 8.225 8.225-8.225L22.123 8Z'
+        d='m22.123 8-10 10-10-10 1.775-1.775 8.225 8.225 8.225-8.225z'
       />
     </svg>
   )
