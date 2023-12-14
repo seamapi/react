@@ -26,7 +26,7 @@ export function AddIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
         <path fill='#D9D9D9' d='M0 0h24v24H0z' />
       </mask>
       <g mask='url(#add_svg__a)'>
-        <path fill='#1C1B1F' d='M11 19v-6H5v-2h6V5h2v6h6v2h-6v6h-2Z' />
+        <path fill='#1C1B1F' d='M11 19v-6H5v-2h6V5h2v6h6v2h-6v6z' />
       </g>
     </svg>
   )

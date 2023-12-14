@@ -28,7 +28,7 @@ export function ChevronRightIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
       <g mask='url(#chevron-right_svg__a)'>
         <path
           fill='#9DA1A9'
-          d='m9.733 18-1.4-1.4 4.6-4.6-4.6-4.6 1.4-1.4 6 6-6 6Z'
+          d='m9.733 18-1.4-1.4 4.6-4.6-4.6-4.6 1.4-1.4 6 6z'
         />
       </g>
     </svg>

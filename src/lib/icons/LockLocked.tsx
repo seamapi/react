@@ -29,7 +29,7 @@ export function LockLockedIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
         <rect width={12} height={8.152} x={6.461} y={12.839} rx={1.259} />
         <path
           fillRule='evenodd'
-          d='M7.94 10.359a4.52 4.52 0 0 1 9.04 0v5.692a1 1 0 1 1-2 0v-5.692a2.52 2.52 0 0 0-5.04 0v3.531a1 1 0 1 1-2 0V10.36Z'
+          d='M7.94 10.359a4.52 4.52 0 0 1 9.04 0v5.692a1 1 0 1 1-2 0v-5.692a2.52 2.52 0 0 0-5.04 0v3.531a1 1 0 1 1-2 0z'
           clipRule='evenodd'
         />
       </g>

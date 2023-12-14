@@ -16,7 +16,7 @@ export function CheckBlackIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
         fill='#232B3A'
         stroke='#232B3A'
         strokeWidth={0.5}
-        d='M4.596 8.906 1.47 5.78.404 6.836l4.192 4.193 9-9L12.54.97 4.596 8.906Z'
+        d='M4.596 8.906 1.47 5.78.404 6.836l4.192 4.193 9-9L12.54.97z'
       />
     </svg>
   )

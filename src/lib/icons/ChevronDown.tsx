@@ -28,7 +28,7 @@ export function ChevronDownIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
       <g mask='url(#chevron-down_svg__a)'>
         <path
           fill='#6E7179'
-          d='m10 12.813-5-5 1.167-1.167L10 10.479l3.833-3.833L15 7.813l-5 5Z'
+          d='m10 12.813-5-5 1.167-1.167L10 10.479l3.833-3.833L15 7.813z'
         />
       </g>
     </svg>
