@@ -32,7 +32,8 @@ export const useFilteredDeviceModels = ({
     params.exclude_if = excludeIf
   }
 
-  if (includeIf != null) {
+  // UPSTREAM: API does not parse zero-length arrays correctly.
+  if (includeIf != null && includeIf.length > 0) {
     params.include_if = includeIf
   }
 
@@ -63,6 +64,7 @@ export const useFilteredDeviceModels = ({
   return {
     ...rest,
     deviceModels:
+      // UPSTREAM: API does not parse zero-length arrays correctly.
       includeIf?.length === 0
         ? []
         : deviceModels?.filter(
