@@ -31,7 +31,7 @@ export default defineConfig(async ({ mode }) => {
     },
     test: {
       setupFiles: ['./test/fixtures/api.ts'],
-      environment: 'jsdom',
+      environment: 'happy-dom',
       deps: {
         interopDefault: false,
         web: {
