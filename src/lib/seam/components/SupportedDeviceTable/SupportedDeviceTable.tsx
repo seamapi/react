@@ -15,6 +15,8 @@ export interface SupportedDeviceTableProps extends CommonProps {
   disableFilter?: boolean
   manufacturers?: string[] | null
   excludedManufacturers?: string[]
+  includeIf?: string[] | null
+  excludeIf?: string[]
 }
 
 export const NestedSupportedDeviceTable =
@@ -24,6 +26,8 @@ export function SupportedDeviceTable({
   disableFilter = false,
   manufacturers = null,
   excludedManufacturers = [],
+  includeIf = null,
+  excludeIf = [],
   className,
 }: SupportedDeviceTableProps = {}): JSX.Element {
   useComponentTelemetry('SupportedDeviceTable')
@@ -59,6 +63,8 @@ export function SupportedDeviceTable({
         filters={filters}
         manufacturers={manufacturers}
         excludedManufacturers={excludedManufacturers}
+        includeIf={includeIf}
+        excludeIf={excludeIf}
       />
     </div>
   )
