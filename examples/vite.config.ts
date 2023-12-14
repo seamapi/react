@@ -53,7 +53,7 @@ export default defineConfig(async ({ command, mode }) => {
       proxy: {
         '/api': {
           target,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path: string) => path.replace(/^\/api/, ''),
           changeOrigin: true,
         },
       },
