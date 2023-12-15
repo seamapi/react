@@ -15,6 +15,8 @@ interface SupportedDeviceContentProps {
   filters: DeviceModelFilters
   manufacturers: string[] | null
   excludedManufacturers: string[]
+  includeIf: string[] | null
+  excludeIf: string[]
 }
 
 export function SupportedDeviceContent({
@@ -23,6 +25,8 @@ export function SupportedDeviceContent({
   filters,
   manufacturers,
   excludedManufacturers,
+  includeIf,
+  excludeIf,
 }: SupportedDeviceContentProps): JSX.Element | null {
   const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
     {
@@ -30,6 +34,8 @@ export function SupportedDeviceContent({
       filters,
       manufacturers,
       excludedManufacturers,
+      includeIf,
+      excludeIf,
     }
   )
 

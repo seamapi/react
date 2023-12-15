@@ -13,16 +13,29 @@ export interface DeviceModelFilters {
 export const useFilteredDeviceModels = ({
   filterValue,
   filters,
+  includeIf,
+  excludeIf,
   ...manufacturersParams
 }: {
   filterValue: string
   filters: DeviceModelFilters
   manufacturers: string[] | null
   excludedManufacturers: string[]
+  includeIf: string[] | null
+  excludeIf: string[]
 }): ReturnType<typeof useDeviceModels> => {
   const { manufacturers } = useFilteredManufacturers(manufacturersParams)
 
   const params: UseDeviceModelsParams = {}
+
+  if (excludeIf.length > 0) {
+    params.exclude_if = excludeIf
+  }
+
+  // UPSTREAM: API does not parse zero-length arrays correctly.
+  if (includeIf != null && includeIf.length > 0) {
+    params.include_if = includeIf
+  }
 
   if (filterValue.trim() !== '') {
     params.text_search = filterValue.trim()
@@ -50,13 +63,17 @@ export const useFilteredDeviceModels = ({
 
   return {
     ...rest,
-    deviceModels: deviceModels?.filter(
-      (deviceModel) =>
-        manufacturers?.some(
-          (manufacturer) =>
-            deviceModel.manufacturer.manufacturer_id ===
-            manufacturer.manufacturer_id
-        )
-    ),
+    deviceModels:
+      // UPSTREAM: API does not parse zero-length arrays correctly.
+      includeIf?.length === 0
+        ? []
+        : deviceModels?.filter(
+            (deviceModel) =>
+              manufacturers?.some(
+                (manufacturer) =>
+                  deviceModel.manufacturer.manufacturer_id ===
+                  manufacturer.manufacturer_id
+              )
+          ),
   }
 }
