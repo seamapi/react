@@ -1,7 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
-import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
+import {
+  type DeviceModelFilters,
+  supportedIntegrationSupportLevels,
+} from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
@@ -28,6 +31,9 @@ export function SupportedDeviceFilterArea({
   const appliedFiltersCount = getAppliedFilterCount(filters)
 
   const { manufacturers: manufacturersData } = useFilteredManufacturers({
+    integrationSupportLevels: filters.supportedOnly
+      ? supportedIntegrationSupportLevels
+      : null,
     manufacturers,
     excludedManufacturers,
   })

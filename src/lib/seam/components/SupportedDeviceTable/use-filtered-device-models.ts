@@ -1,3 +1,5 @@
+import type { ManufacturerIntegrationSupportLevel } from '@seamapi/types/devicedb'
+
 import {
   useDeviceModels,
   type UseDeviceModelsParams,
@@ -9,6 +11,9 @@ export interface DeviceModelFilters {
   supportedOnly: boolean
   manufacturer: string | null
 }
+
+export const supportedIntegrationSupportLevels: ManufacturerIntegrationSupportLevel[] =
+  ['stable', 'beta']
 
 export const useFilteredDeviceModels = ({
   filterValue,
@@ -24,7 +29,12 @@ export const useFilteredDeviceModels = ({
   includeIf: string[] | null
   excludeIf: string[]
 }): ReturnType<typeof useDeviceModels> => {
-  const { manufacturers } = useFilteredManufacturers(manufacturersParams)
+  const { manufacturers } = useFilteredManufacturers({
+    ...manufacturersParams,
+    integrationSupportLevels: filters.supportedOnly
+      ? supportedIntegrationSupportLevels
+      : null,
+  })
 
   const params: UseDeviceModelsParams = {}
 
@@ -42,7 +52,7 @@ export const useFilteredDeviceModels = ({
   }
 
   if (filters.supportedOnly) {
-    params.integration_status = 'stable'
+    params.integration_support_levels = supportedIntegrationSupportLevels
   }
 
   if (filters.manufacturer !== null) {
