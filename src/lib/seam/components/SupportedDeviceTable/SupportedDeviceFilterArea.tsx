@@ -50,16 +50,6 @@ export function SupportedDeviceFilterArea({
 
   const allLabel = t.all
 
-  const options =
-    manufacturersData
-      ?.filter((manufacturer) => {
-        if (filters.supportedOnly) {
-          return ['stable', 'beta'].includes(manufacturer.integration)
-        }
-        return true
-      })
-      ?.map((manufacturer) => manufacturer.display_name) ?? []
-
   return (
     <div className='seam-supported-device-table-filter-area'>
       <div className='seam-deliberate-block' />
@@ -85,7 +75,11 @@ export function SupportedDeviceFilterArea({
               <FilterCategoryMenu
                 label={t.manufacturer}
                 allLabel={allLabel}
-                options={options}
+                options={
+                  manufacturersData?.map(
+                    (manufacturer) => manufacturer.display_name
+                  ) ?? []
+                }
                 onSelect={(manufacturer: string) => {
                   setFilters((filters) => ({
                     ...filters,
