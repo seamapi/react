@@ -99,6 +99,34 @@ $row-padding: 8px;
   .seam-manufacturer-section {
     margin-bottom: 32px;
     position: relative;
+    display: flex;
+    padding: 8px 16px 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+
+    .seam-manufacturer-annotation-box {
+      display: flex;
+      padding: 8px;
+      align-items: center;
+      align-content: center;
+      gap: 0 4px;
+      align-self: stretch;
+      flex-wrap: wrap;
+      border-radius: 6px;
+      background: var(--PC-Primary-Primary-B, rgba(0, 122, 252, 0.08));
+
+      .seam-annotation {
+        display: flex;
+        align-items: flex-start;
+        align-content: flex-start;
+        gap: 2px;
+        flex: 1 0 0;
+        flex-wrap: wrap;
+      }
+    }
 
     .seam-header {
       display: flex;
