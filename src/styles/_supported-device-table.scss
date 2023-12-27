@@ -116,7 +116,7 @@ $row-padding: 8px;
       align-self: stretch;
       flex-wrap: wrap;
       border-radius: 6px;
-      background: var(--PC-Primary-Primary-B, rgba(0, 122, 252, 0.08));
+      background-color: colors.$primary-transparent;
 
       .seam-annotation {
         display: flex;
