@@ -8,6 +8,7 @@ $primary-8: color.scale($primary, $lightness: 92%);
 $primary-5: color.scale($primary, $lightness: 95%);
 $primary-dark: color.scale($primary, $lightness: -10%);
 $primary-dim: color.scale($primary-15, $lightness: -5%);
+$primary-transparent: color.adjust($primary, $alpha: 0.08 - 1);
 $text-default: #232b3a;
 $text-gray-1: #6e7179;
 $text-gray-2: #9da1a9;

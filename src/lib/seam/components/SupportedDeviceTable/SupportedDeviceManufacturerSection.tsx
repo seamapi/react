@@ -1,7 +1,11 @@
-import type { DeviceModelV1 } from '@seamapi/types/devicedb'
+import type {
+  DeviceModelV1,
+  ManufacturerAnnotation,
+} from '@seamapi/types/devicedb'
 import classNames from 'classnames'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
+import { InfoBlueIcon } from 'lib/icons/InfoBlue.js'
 import { HiddenDevicesOverlay } from 'lib/seam/components/SupportedDeviceTable/HiddenDevicesOverlay.js'
 import { ShowAllDevicesButton } from 'lib/seam/components/SupportedDeviceTable/ShowAllDevicesButton.js'
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
@@ -62,6 +66,12 @@ export function SupportedDeviceManufacturerSection({
         </h5>
         {canExpand && <ChevronRightIcon className='chevron' />}
       </div>
+      {manufacturer?.annotations.map((annotation, idx) => (
+        <ManufacturerAnnotationBox
+          key={[annotation.annotation_code, idx].join('_')}
+          annotation={annotation}
+        />
+      ))}
       <div className='seam-supported-device-table-content'>
         {visibleDevices.map((deviceModel) => (
           <SupportedDeviceRow
@@ -77,6 +87,19 @@ export function SupportedDeviceManufacturerSection({
         totalDeviceCount={deviceModels.length}
       />
       <HiddenDevicesOverlay visible={canExpand && !expanded} />
+    </div>
+  )
+}
+
+function ManufacturerAnnotationBox({
+  annotation,
+}: {
+  annotation: ManufacturerAnnotation
+}): JSX.Element {
+  return (
+    <div className='seam-manufacturer-annotation-box'>
+      <InfoBlueIcon />
+      <p className='seam-annotation'>{annotation.message}</p>
     </div>
   )
 }

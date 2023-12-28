@@ -8,6 +8,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 26,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "682d539a-eca1-4a09-bf82-b2abfa8036ea",
         "width": 1000,
@@ -22,6 +23,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 3,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "94d6dd87-03fe-4dad-b57b-13b6508b6bb9",
         "width": 1000,
@@ -36,6 +38,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "603d4251-2907-4500-90ad-da16d6493def",
         "width": 1000,
@@ -50,6 +53,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 3,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "cb65bc88-0c2b-4990-b033-73549303a3f7",
         "width": 1000,
@@ -64,6 +68,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 13,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "c7769779-e3a7-42a6-bc8e-96ff01f2287b",
         "width": 1000,
@@ -78,6 +83,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "4a41034d-b164-476a-bcf0-8b0ea626644f",
         "width": 1000,
@@ -92,6 +98,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 9,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "a0e17723-f196-453f-be01-7715073cf349",
         "width": 1000,
@@ -106,6 +113,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "939ab8fd-1520-4860-9101-8153a7ff8147",
         "width": 1000,
@@ -120,6 +128,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 3,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "f9806de9-55ce-42bf-ad54-e0c21f5fcc3e",
         "width": 1000,
@@ -134,6 +143,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "2cf9aa99-ba71-40ef-ada4-df74c4f5d1ed",
         "width": 1000,
@@ -148,6 +158,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "d5bbd375-5aae-43c0-8139-e11bc64468c4",
         "width": 1000,
@@ -162,6 +173,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "85c20bdb-7147-4bc5-8580-bb560534f201",
         "width": 1000,
@@ -176,6 +188,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 9,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "7b64586e-d3b5-4371-95e4-3b24ad847729",
         "width": 1000,
@@ -190,6 +203,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 7,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "9f8a4cf4-aa7f-44d6-ba1a-ad6f378a2627",
         "width": 1000,
@@ -204,6 +218,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 2,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "9e6d7f6d-62c5-4d3f-97da-be51b3e6f90a",
         "width": 1000,
@@ -218,6 +233,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 14,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "bddcb9e4-7342-4c15-9abc-e6d729a37bd0",
         "width": 1000,
@@ -232,6 +248,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "836c901c-4f5e-41d6-917a-11a5eb774af8",
         "width": 1000,
@@ -246,6 +263,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "5546de61-6bca-4046-8eb5-a16e1f99fa2d",
         "width": 4000,
@@ -260,6 +278,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 10,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "373aec0b-8e09-45a3-acd8-90755693d128",
         "width": 1000,
@@ -274,6 +293,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 19,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "9fe6e94d-019e-41da-8842-bab80a50b09d",
         "width": 1000,
@@ -288,6 +308,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 1,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "8ace6e6a-34dd-4a47-8f20-5423dab22c12",
         "width": 1000,
@@ -302,6 +323,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 12,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "6f7c1298-45ca-419d-acd7-37559f94f4a6",
         "width": 1000,
@@ -316,6 +338,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 2,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "00e70527-3f8a-4631-ac11-c24e541e0fa5",
         "width": 1000,
@@ -330,6 +353,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "98239332-4137-4622-aa52-ac9a470b858a",
         "width": 1100,
@@ -344,6 +368,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 7,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "68b343dd-2464-45c0-ace9-44340fe62297",
         "width": 1000,
@@ -358,6 +383,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 12,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "a5cf44a1-1952-4317-a4f8-9edef0934129",
         "width": 1000,
@@ -372,6 +398,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "10aba69d-b0c0-43c5-aa87-37bf59cf03cb",
         "width": 1000,
@@ -386,8 +413,24 @@
       "is_connect_webview_supported": true,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "e4c2d517-0ab9-468f-a232-8ae7250536b6",
+        "width": 1000,
+        "height": 1000
+      }
+    },
+    {
+      "manufacturer_id": "04b93dcc-62d6-453f-a206-219695366f65",
+      "display_name": "Hanman",
+      "integration": "planned",
+      "integration_support_level": "planned",
+      "is_connect_webview_supported": false,
+      "device_model_count": 0,
+      "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
+      "logo": {
+        "image_id": "fa278374-0019-410a-a928-b85989c8b042",
         "width": 1000,
         "height": 1000
       }
@@ -400,6 +443,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "32ca97bd-4503-46d5-9413-967cf7011d1d",
         "width": 1000,
@@ -414,6 +458,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 10,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "5469f48b-d269-46e8-a22d-b839df30c990",
         "width": 1000,
@@ -428,6 +473,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "afa73b71-a39a-4344-b25c-6c1729cb5fdc",
         "width": 1000,
@@ -442,6 +488,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 19,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "d9c22df5-3abd-40bc-b0a0-a3db1825855d",
         "width": 1000,
@@ -455,7 +502,8 @@
       "integration_support_level": "unsupported",
       "is_connect_webview_supported": false,
       "device_model_count": 0,
-      "requires_seam_support_to_add_account": false
+      "requires_seam_support_to_add_account": false,
+      "annotation_map": {}
     },
     {
       "manufacturer_id": "c0fc90c7-b83d-4d16-bf92-5490822ec48a",
@@ -465,6 +513,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "d183cf52-f52e-4184-bab5-79e6b727f6cf",
         "width": 4600,
@@ -479,6 +528,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "46a9af06-1e87-4b00-b6ef-a941337e4fb9",
         "width": 1000,
@@ -493,6 +543,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 18,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "edaf49d7-238a-4d57-a5df-6b956357d213",
         "width": 1000,
@@ -507,6 +558,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "4d6710e6-ccd5-476c-a5d0-030ad1a7f01d",
         "width": 1000,
@@ -521,6 +573,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "9ee7eb0f-d803-487a-99cb-2af76a2883a9",
         "width": 1000,
@@ -535,6 +588,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "db158bfe-3e5b-41a9-812e-7c5cae03707f",
         "width": 1000,
@@ -549,6 +603,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 2,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "bb104430-2e60-4d35-9d51-a384b80a8d68",
         "width": 1000,
@@ -563,6 +618,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "7cc8fc23-c114-41ee-97c6-8a7db9036997",
         "width": 1000,
@@ -577,6 +633,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "274076b8-9af2-4a47-8db0-a5e92be5b828",
         "width": 1000,
@@ -591,6 +648,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 15,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "f97644bd-2969-4ab3-bf49-3b625f16d85a",
         "width": 1000,
@@ -605,6 +663,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "0393e4ae-beaf-472a-9ad7-c37f263576ed",
         "width": 1000,
@@ -619,6 +678,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 2,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "faa8cfdc-b952-4ae4-87e4-ba6bdb7876c7",
         "width": 1000,
@@ -633,6 +693,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "4d9809d5-8551-43f8-8e93-8ca5a67f2d94",
         "width": 1000,
@@ -647,6 +708,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "0e82c177-bca9-4388-8846-2dbffab2cbba",
         "width": 1000,
@@ -661,6 +723,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "fe2c52c3-d73b-4b31-afe0-d57e1351d421",
         "width": 1000,
@@ -675,6 +738,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 5,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "b144a651-a383-4273-8cbe-0d609d2f0154",
         "width": 2759,
@@ -689,6 +753,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 2,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "5728f7e2-b850-487f-97db-14ea1c00722d",
         "width": 1000,
@@ -703,6 +768,12 @@
       "is_connect_webview_supported": true,
       "device_model_count": 6,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {
+        "subscription_required": {
+          "message": "Nuki locks require a Nuki Smart Hosting subscription.",
+          "annotation_code": "subscription_required"
+        }
+      },
       "logo": {
         "image_id": "781b9180-9c9d-4ddc-bdea-6097c6a4379a",
         "width": 1000,
@@ -717,6 +788,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "78f5fef1-a874-4592-95fd-203c0091130b",
         "width": 1000,
@@ -731,6 +803,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 2,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "31f167ab-1ab7-4e2c-89bf-b01b5ef55933",
         "width": 200,
@@ -745,6 +818,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "ca1234a0-d325-4903-9af3-32239a6f1f92",
         "width": 2000,
@@ -759,6 +833,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 1,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "975264e0-a754-4244-a371-47e97d80378a",
         "width": 1350,
@@ -773,6 +848,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 38,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "d9dd7b72-5cc6-4b7d-8a0e-6aa80e603a10",
         "width": 1000,
@@ -787,6 +863,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 14,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "8ed92ee6-c4f3-4fd6-bf01-bca1417e2e03",
         "width": 1000,
@@ -801,6 +878,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 2,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "e100a72d-1651-4067-90e2-fcae4f346202",
         "width": 1000,
@@ -815,6 +893,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "0bea1c3d-d85d-45ab-8d49-7ddcd2b4b99a",
         "width": 1000,
@@ -829,6 +908,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "8dcab707-a18c-4c27-aeb4-1ed72f461fcd",
         "width": 1000,
@@ -843,6 +923,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "ea30d9b5-7cd7-4131-837d-75eca64337fb",
         "width": 1000,
@@ -857,6 +938,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "24cee537-d8f7-47f2-a3cc-4c82a8e65abb",
         "width": 1000,
@@ -871,6 +953,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "5bc30df3-1cb2-47c4-b380-6828daad7af7",
         "width": 1000,
@@ -885,6 +968,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "5d9d4931-3edb-41cb-b154-56d858ccab70",
         "width": 1000,
@@ -899,6 +983,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 5,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "2cb9e86b-375f-4f28-867f-d807653df65c",
         "width": 1000,
@@ -913,6 +998,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 2,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "ae8cd3e2-4dfe-4f2a-81b3-b2e972a02cbc",
         "width": 1000,
@@ -927,6 +1013,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 7,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "c95a1806-bfd1-4bad-9b69-e18878899906",
         "width": 1000,
@@ -941,6 +1028,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 0,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "46a9af06-1e87-4b00-b6ef-a941337e4fb9",
         "width": 1000,
@@ -955,6 +1043,7 @@
       "is_connect_webview_supported": false,
       "device_model_count": 4,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "e949db63-cb12-412a-9efa-65e148202361",
         "width": 1400,
@@ -969,6 +1058,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 3,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "2eb547c0-6aa1-418c-aa8b-3c12427bcf19",
         "width": 1000,
@@ -983,6 +1073,7 @@
       "is_connect_webview_supported": true,
       "device_model_count": 49,
       "requires_seam_support_to_add_account": false,
+      "annotation_map": {},
       "logo": {
         "image_id": "52a1912e-3d52-4fb1-9af3-b41bac0a9fde",
         "width": 1000,
@@ -6711,166 +6802,6 @@
           "images": [
             {
               "image_id": "2c3a9343-be1e-4017-a99e-bb7265b76fa6",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "07b78911-da52-4644-9d0b-d389828730ea",
-      "display_name": "SMART LOCK 2.0",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://www.amazon.ae/NUKi-Home-Solutions-Smart-220113/dp/B07F1PGYBW",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "ed3ef2c0-5e2b-452a-ab9d-eb3aa9a9eada",
-      "aesthetic_variants": [
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#191919",
-          "front_image": {
-            "image_id": "57f82113-e685-4a2d-92d8-c84b50f06072",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "57f82113-e685-4a2d-92d8-c84b50f06072",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "ec7e7193-14a7-4ab4-8ead-da3307f1d1d7",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "288390b0-8d7d-4691-bdd5-8befc185b7a1",
-      "display_name": "SMART LOCK 3.0",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://nuki.io/en/smart-lock/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "ed3ef2c0-5e2b-452a-ab9d-eb3aa9a9eada",
-      "aesthetic_variants": [
-        {
-          "slug": "white",
-          "display_name": "White",
-          "primary_color_hex": "#f5f5f5",
-          "front_image": {
-            "image_id": "05c97a00-5083-48cf-b852-66bab1a3f811",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "05c97a00-5083-48cf-b852-66bab1a3f811",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "84ad9af6-a9ee-4e38-b475-b4f6eed880d3",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "device_model_id": "5c62db8c-1d8a-46d8-b80e-09de9ccd1b08",
-      "display_name": "SMART LOCK 3.0 PRO",
-      "description": "",
-      "is_device_supported": true,
-      "product_url": "https://nuki.io/en/smart-lock-pro/",
-      "main_connection_type": "wifi",
-      "power_sources": ["battery"],
-      "main_category": "smartlock",
-      "physical_properties": {
-        "lock_type": "deadbolt",
-        "has_physical_key": true,
-        "has_camera": false
-      },
-      "software_features": {
-        "can_remotely_unlock": true,
-        "can_program_access_codes": true,
-        "can_program_access_schedules": true,
-        "can_program_access_codes_offline": false
-      },
-      "manufacturer_id": "ed3ef2c0-5e2b-452a-ab9d-eb3aa9a9eada",
-      "aesthetic_variants": [
-        {
-          "slug": "black",
-          "display_name": "Black",
-          "primary_color_hex": "#1c1c1c",
-          "front_image": {
-            "image_id": "6335f3ec-a799-4060-a446-562765f5ab9d",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "6335f3ec-a799-4060-a446-562765f5ab9d",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "8b7ab146-782f-4bbb-892d-e37d5c2b1ebc",
-              "width": 1100,
-              "height": 1100
-            }
-          ]
-        },
-        {
-          "slug": "white",
-          "display_name": "White",
-          "primary_color_hex": "#f6f6f6",
-          "front_image": {
-            "image_id": "9c750155-4382-4dcb-8b2d-c83ba58b4c58",
-            "width": 1100,
-            "height": 1100
-          },
-          "images": [
-            {
-              "image_id": "9c750155-4382-4dcb-8b2d-c83ba58b4c58",
-              "width": 1100,
-              "height": 1100
-            },
-            {
-              "image_id": "47374401-1bef-4cb3-9815-cd195f14f2dd",
               "width": 1100,
               "height": 1100
             }
@@ -15847,6 +15778,166 @@
             },
             {
               "image_id": "fdfe53c2-a40e-46b7-8e32-d80387887448",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "07b78911-da52-4644-9d0b-d389828730ea",
+      "display_name": "SMART LOCK 2.0",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://www.amazon.ae/NUKi-Home-Solutions-Smart-220113/dp/B07F1PGYBW",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "ed3ef2c0-5e2b-452a-ab9d-eb3aa9a9eada",
+      "aesthetic_variants": [
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#191919",
+          "front_image": {
+            "image_id": "57f82113-e685-4a2d-92d8-c84b50f06072",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "57f82113-e685-4a2d-92d8-c84b50f06072",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "ec7e7193-14a7-4ab4-8ead-da3307f1d1d7",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "288390b0-8d7d-4691-bdd5-8befc185b7a1",
+      "display_name": "SMART LOCK 3.0",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://nuki.io/en/smart-lock/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "ed3ef2c0-5e2b-452a-ab9d-eb3aa9a9eada",
+      "aesthetic_variants": [
+        {
+          "slug": "white",
+          "display_name": "White",
+          "primary_color_hex": "#f5f5f5",
+          "front_image": {
+            "image_id": "05c97a00-5083-48cf-b852-66bab1a3f811",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "05c97a00-5083-48cf-b852-66bab1a3f811",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "84ad9af6-a9ee-4e38-b475-b4f6eed880d3",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_model_id": "5c62db8c-1d8a-46d8-b80e-09de9ccd1b08",
+      "display_name": "SMART LOCK 3.0 PRO",
+      "description": "",
+      "is_device_supported": true,
+      "product_url": "https://nuki.io/en/smart-lock-pro/",
+      "main_connection_type": "wifi",
+      "power_sources": ["battery"],
+      "main_category": "smartlock",
+      "physical_properties": {
+        "lock_type": "deadbolt",
+        "has_physical_key": true,
+        "has_camera": false
+      },
+      "software_features": {
+        "can_remotely_unlock": true,
+        "can_program_access_codes": true,
+        "can_program_access_schedules": true,
+        "can_program_access_codes_offline": false
+      },
+      "manufacturer_id": "ed3ef2c0-5e2b-452a-ab9d-eb3aa9a9eada",
+      "aesthetic_variants": [
+        {
+          "slug": "black",
+          "display_name": "Black",
+          "primary_color_hex": "#1c1c1c",
+          "front_image": {
+            "image_id": "6335f3ec-a799-4060-a446-562765f5ab9d",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "6335f3ec-a799-4060-a446-562765f5ab9d",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "8b7ab146-782f-4bbb-892d-e37d5c2b1ebc",
+              "width": 1100,
+              "height": 1100
+            }
+          ]
+        },
+        {
+          "slug": "white",
+          "display_name": "White",
+          "primary_color_hex": "#f6f6f6",
+          "front_image": {
+            "image_id": "9c750155-4382-4dcb-8b2d-c83ba58b4c58",
+            "width": 1100,
+            "height": 1100
+          },
+          "images": [
+            {
+              "image_id": "9c750155-4382-4dcb-8b2d-c83ba58b4c58",
+              "width": 1100,
+              "height": 1100
+            },
+            {
+              "image_id": "47374401-1bef-4cb3-9815-cd195f14f2dd",
               "width": 1100,
               "height": 1100
             }
