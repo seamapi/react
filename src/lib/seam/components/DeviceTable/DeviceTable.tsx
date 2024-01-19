@@ -36,7 +36,6 @@ export interface DeviceTableProps extends CommonProps {
   deviceIds?: string[]
   connectedAccountIds?: string[]
   disableSearch?: boolean
-  showAccessCodes?: boolean
   deviceFilter?: (device: Device, searchInputValue: string) => boolean
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
