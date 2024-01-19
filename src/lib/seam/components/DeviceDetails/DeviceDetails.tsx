@@ -3,8 +3,8 @@ import { isLockDevice, isThermostatDevice } from 'seamapi'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
 import {
-  type CommonProps,
   withRequiredCommonProps,
+  type CommonProps,
 } from 'lib/seam/components/common-props.js'
 import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
@@ -21,6 +21,7 @@ export function DeviceDetails({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
+  disableAccessCodes = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
@@ -38,6 +39,7 @@ export function DeviceDetails({
     disableLockUnlock,
     disableDeleteAccessCode,
     disableResourceIds,
+    disableAccessCodes,
     onBack,
     className,
   }

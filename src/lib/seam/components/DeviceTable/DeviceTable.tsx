@@ -1,19 +1,19 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import { type CommonDevice, isLockDevice, isThermostatDevice } from 'seamapi'
+import { isLockDevice, isThermostatDevice, type CommonDevice } from 'seamapi'
 
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
-  type CommonProps,
   withRequiredCommonProps,
+  type CommonProps,
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import {
+  DeviceHealthBar,
   type AccountFilter,
   type DeviceFilter,
-  DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
 import {
@@ -36,6 +36,7 @@ export interface DeviceTableProps extends CommonProps {
   deviceIds?: string[]
   connectedAccountIds?: string[]
   disableSearch?: boolean
+  showAccessCodes?: boolean
   deviceFilter?: (device: Device, searchInputValue: string) => boolean
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
@@ -70,6 +71,7 @@ export function DeviceTable({
   disableEditAccessCode = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
+  disableAccessCodes = false,
   onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element {
@@ -112,6 +114,7 @@ export function DeviceTable({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableAccessCodes={disableAccessCodes}
         onBack={() => {
           setSelectedDeviceId(null)
         }}

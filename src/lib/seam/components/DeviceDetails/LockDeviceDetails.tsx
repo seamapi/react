@@ -32,6 +32,7 @@ export function LockDeviceDetails(
     disableEditAccessCode,
     disableDeleteAccessCode,
     disableResourceIds,
+    disableAccessCodes,
     onBack,
     className,
   } = props
@@ -108,17 +109,19 @@ export function LockDeviceDetails(
           </div>
           <Alerts alerts={alerts} className='seam-alerts-space-top' />
         </div>
-        <div className='seam-box'>
-          <div
-            className='seam-content seam-access-codes'
-            onClick={toggleAccessCodesOpen}
-          >
-            <span className='seam-value'>
-              {accessCodeCount} {t.accessCodes}
-            </span>
-            <ChevronRightIcon />
+        {disableAccessCodes !== true && (
+          <div className='seam-box'>
+            <div
+              className='seam-content seam-access-codes'
+              onClick={toggleAccessCodesOpen}
+            >
+              <span className='seam-value'>
+                {accessCodeCount} {t.accessCodes}
+              </span>
+              <ChevronRightIcon />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className='seam-box'>
           <div className='seam-content seam-lock-status'>
