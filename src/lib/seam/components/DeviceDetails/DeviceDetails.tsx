@@ -3,8 +3,8 @@ import { isLockDevice, isThermostatDevice } from 'seamapi'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
 import {
-  withRequiredCommonProps,
   type CommonProps,
+  withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
