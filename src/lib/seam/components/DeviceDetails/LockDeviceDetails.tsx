@@ -18,6 +18,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 
 interface LockDeviceDetailsProps extends CommonProps {
   device: LockDevice
+  hideAccessCodes?: boolean
 }
 
 export function LockDeviceDetails(
@@ -32,7 +33,7 @@ export function LockDeviceDetails(
     disableEditAccessCode,
     disableDeleteAccessCode,
     disableResourceIds,
-    disableAccessCodes,
+    hideAccessCodes,
     onBack,
     className,
   } = props
@@ -109,7 +110,7 @@ export function LockDeviceDetails(
           </div>
           <Alerts alerts={alerts} className='seam-alerts-space-top' />
         </div>
-        {disableAccessCodes !== true && (
+        {hideAccessCodes !== true && (
           <div className='seam-box'>
             <div
               className='seam-content seam-access-codes'

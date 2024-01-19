@@ -6,6 +6,7 @@ export const name = 'seam-device-details'
 
 export const props: ElementProps<DeviceDetailsProps> = {
   deviceId: 'string',
+  hideAccessCodes: 'boolean',
 }
 
 export { DeviceDetails as Component } from './DeviceDetails.js'
