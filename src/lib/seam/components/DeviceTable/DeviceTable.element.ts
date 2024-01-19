@@ -13,6 +13,7 @@ export const props: ElementProps<Omit<DeviceTableProps, 'title'>> = {
   onDeviceClick: 'object',
   preventDefaultOnDeviceClick: 'boolean',
   heading: 'string',
+  hideAccessCodes: 'boolean',
 }
 
 export { DeviceTable as Component } from './DeviceTable.js'

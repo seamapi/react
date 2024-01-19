@@ -40,6 +40,7 @@ export interface DeviceTableProps extends CommonProps {
   deviceComparator?: (deviceA: Device, deviceB: Device) => number
   onDeviceClick?: (deviceId: string) => void
   preventDefaultOnDeviceClick?: boolean
+  hideAccessCodes?: boolean
   heading?: string | null
 }
 
@@ -70,6 +71,7 @@ export function DeviceTable({
   disableEditAccessCode = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
+  hideAccessCodes = false,
   onBack,
   className,
 }: DeviceTableProps = {}): JSX.Element {
@@ -112,6 +114,7 @@ export function DeviceTable({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        hideAccessCodes={hideAccessCodes}
         onBack={() => {
           setSelectedDeviceId(null)
         }}
