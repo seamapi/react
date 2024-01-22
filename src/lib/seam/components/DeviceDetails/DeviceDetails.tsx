@@ -12,7 +12,6 @@ import { useDevice } from 'lib/seam/devices/use-device.js'
 
 export interface DeviceDetailsProps extends CommonProps {
   deviceId: string
-  hideAccessCodes?: boolean
 }
 
 export const NestedDeviceDetails = withRequiredCommonProps(DeviceDetails)
@@ -22,7 +21,6 @@ export function DeviceDetails({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
-  hideAccessCodes = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
@@ -40,7 +38,6 @@ export function DeviceDetails({
     disableLockUnlock,
     disableDeleteAccessCode,
     disableResourceIds,
-    hideAccessCodes,
     onBack,
     className,
   }
