@@ -5,6 +5,7 @@ import { Readable, type Stream } from 'node:stream'
 
 import {
   createFake as createFakeDevicedb,
+  type Database,
   type Fake as FakeDevicedb,
 } from '@seamapi/fake-devicedb'
 import { createFake } from '@seamapi/fake-seam-connect'
@@ -63,7 +64,7 @@ export default async (
     throw new Error('Expected apipath to be a string')
   }
 
-  const { status, data, headers } = await axios.request({
+  const { status, data, headers } = await axios.request<ArrayBuffer>({
     url: `${fake.serverUrl}/${apipath}`,
     params: getParams,
     method: req.method,
@@ -78,7 +79,8 @@ export default async (
   res.status(status)
 
   for (const [key, value] of Object.entries(headers)) {
-    if (!unproxiedHeaders.has(key)) res.setHeader(key, value)
+    if (!unproxiedHeaders.has(key) && typeof value === 'string')
+      res.setHeader(key, value)
   }
 
   res.end(Buffer.from(data))
@@ -89,7 +91,7 @@ export default async (
 
 const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
   const fake = await createFakeDevicedb()
-  await fake.loadJSON(JSON.parse(devicedbSeed.toString()))
+  await fake.loadJSON(JSON.parse(devicedbSeed.toString()) as Database)
   await fake.startServer()
   return fake
 }

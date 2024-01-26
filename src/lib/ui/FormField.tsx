@@ -27,7 +27,7 @@ export function FormField({
   // Map children to automatically focus on input when clicking
   // on an InputLabel.
   const clonedChildren = components.map((component, index) => {
-    const baseProps = {
+    const baseProps: Partial<any> = {
       ...component.props,
       key: index,
     }
