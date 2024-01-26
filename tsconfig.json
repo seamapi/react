@@ -29,8 +29,8 @@
       "@seamapi/react/elements": ["./src/elements.ts"],
       "@seamapi/react/hooks": ["./src/hooks.ts"],
       "fixtures/*": ["./test/fixtures/*"],
-      "lib/*": ["./src/lib/*"]
-    }
+      "lib/*": ["./src/lib/*"],
+    },
   },
   "files": ["src/index.ts"],
   "include": [
@@ -43,6 +43,6 @@
     "prepack.ts",
     "preversion.ts",
     "version.ts",
-    "vite.config.ts"
-  ]
+    "vite.config.ts",
+  ],
 }

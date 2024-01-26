@@ -77,13 +77,12 @@ export const useFilteredDeviceModels = ({
       // UPSTREAM: API does not parse zero-length arrays correctly.
       includeIf?.length === 0
         ? []
-        : deviceModels?.filter(
-            (deviceModel) =>
-              manufacturers?.some(
-                (manufacturer) =>
-                  deviceModel.manufacturer.manufacturer_id ===
-                  manufacturer.manufacturer_id
-              )
+        : deviceModels?.filter((deviceModel) =>
+            manufacturers?.some(
+              (manufacturer) =>
+                deviceModel.manufacturer.manufacturer_id ===
+                manufacturer.manufacturer_id
+            )
           ),
   }
 }

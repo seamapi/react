@@ -3,31 +3,31 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "VARIANT": "18"
-    }
+      "VARIANT": "18",
+    },
   },
   "hostRequirements": {
-    "memory": "8gb"
+    "memory": "8gb",
   },
   "extensions": [
     "ms-vsliveshare.vsliveshare",
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
   ],
   "forwardPorts": [6006, 6007, 8080],
   "portsAttributes": {
     "6006": { "label": "Storybook" },
     "6007": { "label": "Docs" },
-    "8080": { "label": "Example" }
+    "8080": { "label": "Example" },
   },
   "postCreateCommand": "npm install",
   "remoteUser": "node",
   "customizations": {
     "vscode": {
       "settings": {
-        "typescript.preferences.importModuleSpecifier": "non-relative"
-      }
-    }
-  }
+        "typescript.preferences.importModuleSpecifier": "non-relative",
+      },
+    },
+  },
 }
