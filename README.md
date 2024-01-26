@@ -215,7 +215,7 @@ or place the following in the `<head>` tag:
 ```html
 <link
   rel="stylesheet"
-  href="https://react.seam.co/v/1.16.0/dist/index.min.css"
+  href="https://react.seam.co/v/2.8.3/dist/index.min.css"
 />
 ```
 
