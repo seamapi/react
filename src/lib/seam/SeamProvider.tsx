@@ -273,6 +273,5 @@ class InvalidSeamProviderProps extends Error {
   constructor(message: string) {
     super(`SeamProvider received invalid props: ${message}`)
     this.name = this.constructor.name
-    Error.captureStackTrace(this, this.constructor)
   }
 }
