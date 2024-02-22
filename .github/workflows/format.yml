@@ -32,10 +32,12 @@ jobs:
       - name: Format
         run: npm run format
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ vars.TERRAFORM_VERSION }}
       - name: Format terraform
         working-directory: terraform
-        run: terraform fmt -write -recursive
+        run: terraform fmt -write -recursive terraform
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         if: always()
