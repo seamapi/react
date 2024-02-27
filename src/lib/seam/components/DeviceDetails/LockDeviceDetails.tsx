@@ -127,16 +127,17 @@ export function LockDeviceDetails(
               <span className='seam-value'>{lockStatus}</span>
             </div>
             <div className='seam-right'>
-              {disableLockUnlock !== true && (
-                <Button
-                  size='small'
-                  onClick={() => {
-                    toggleLock.mutate()
-                  }}
-                >
-                  {toggleLockLabel}
-                </Button>
-              )}
+              {disableLockUnlock !== true &&
+                device.capabilities_supported.includes('lock') && (
+                  <Button
+                    size='small'
+                    onClick={() => {
+                      toggleLock.mutate()
+                    }}
+                  >
+                    {toggleLockLabel}
+                  </Button>
+                )}
             </div>
           </div>
           <AccessCodeLength
