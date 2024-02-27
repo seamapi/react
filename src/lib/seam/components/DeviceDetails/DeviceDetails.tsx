@@ -21,6 +21,8 @@ export function DeviceDetails({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
+  disableCreateAccessCode = false,
+  disableEditAccessCode = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
@@ -38,6 +40,8 @@ export function DeviceDetails({
     disableLockUnlock,
     disableDeleteAccessCode,
     disableResourceIds,
+    disableCreateAccessCode,
+    disableEditAccessCode,
     onBack,
     className,
   }
