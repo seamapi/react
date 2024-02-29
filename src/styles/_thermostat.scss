@@ -703,6 +703,31 @@
   }
 }
 
+@mixin status {
+  .seam-thermostat-mutation-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 4px;
+    opacity: 0;
+    transition: 0.2s ease-in-out;
+
+    &.is-visible {
+      opacity: 1;
+    }
+  }
+
+  .seam-thermostat-mutation-status-icon {
+    opacity: 0.25;
+  }
+
+  .seam-thermostat-mutation-status-label {
+    font-size: 14px;
+    color: colors.$text-gray-2-5;
+  }
+}
+
 @mixin all {
   @include climate-setting-control-group;
   @include temperature-control-group;
@@ -712,4 +737,5 @@
   @include mode-menu-common;
   @include fan-mode-menu;
   @include climate-mode-menu;
+  @include status;
 }

@@ -8,16 +8,16 @@ import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { ThermoModeMenuOption } from 'lib/ui/thermostat/ThermoModeMenuOption.js'
 
-const modes: HvacModeSetting[] = ['heat', 'cool', 'heat_cool', 'off']
-
 interface ClimateModeMenuProps {
   mode: HvacModeSetting
   onChange: (mode: HvacModeSetting) => void
+  supportedModes?: HvacModeSetting[]
 }
 
 export function ClimateModeMenu({
   mode,
   onChange,
+  supportedModes = ['heat', 'cool', 'heat_cool', 'off'],
 }: ClimateModeMenuProps): JSX.Element {
   return (
     <Menu
@@ -35,7 +35,7 @@ export function ClimateModeMenu({
         className: 'seam-thermo-mode-menu',
       }}
     >
-      {modes.map((m) => (
+      {supportedModes.map((m) => (
         <ThermoModeMenuOption
           key={m}
           label={t[m]}

@@ -23,6 +23,7 @@ export const Content: Story = {
           onChange={(mode) => {
             setArgs({ mode })
           }}
+          supportedModes={['heat', 'cool', 'heat_cool', 'off']}
         />
       </Box>
     )
