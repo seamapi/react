@@ -12,7 +12,7 @@ export function debounce<F extends Procedure>(
   const debouncedFunction = function (
     this: ThisParameterType<F>,
     ...args: Parameters<F>
-  ) {
+  ): void {
     if (timeoutId !== null) {
       clearTimeout(timeoutId)
     }
@@ -22,7 +22,7 @@ export function debounce<F extends Procedure>(
     }, waitMilliseconds)
   }
 
-  debouncedFunction.cancel = () => {
+  debouncedFunction.cancel = (): void => {
     if (timeoutId !== null) {
       clearTimeout(timeoutId)
       timeoutId = null

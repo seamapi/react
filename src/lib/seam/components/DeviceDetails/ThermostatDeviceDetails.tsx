@@ -324,7 +324,18 @@ function ClimateSettingRow({
     return () => {
       handler.cancel()
     }
-  }, [heatValue, coolValue, mode])
+  }, [
+    heatValue,
+    coolValue,
+    mode,
+    deviceHeatValue,
+    deviceCoolValue,
+    device,
+    heatThermostat,
+    coolThermostat,
+    heatCoolThermostat,
+    setThermostatOff,
+  ])
 
   useEffect(() => {
     if (
@@ -345,7 +356,7 @@ function ClimateSettingRow({
     }
   }, [isHeatCoolSuccess, isHeatSuccess, isCoolSuccess, isSetOffSuccess])
 
-  const getSupportedModes = () => {
+  const getSupportedModes = (): HvacModeSetting[] => {
     const allModes: HvacModeSetting[] = ['heat', 'cool', 'heat_cool', 'off']
 
     return allModes.filter((mode) => {
