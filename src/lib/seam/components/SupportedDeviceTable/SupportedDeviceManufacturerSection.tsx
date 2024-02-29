@@ -1,5 +1,5 @@
 import type {
-  DeviceModelV1,
+  DeviceModel,
   ManufacturerAnnotation,
 } from '@seamapi/types/devicedb'
 import classNames from 'classnames'
@@ -20,7 +20,7 @@ const maxDevicesBeforeCollapsing = 3
 
 interface SupportedDeviceManufacturerSectionProps {
   manufacturerId: string
-  deviceModels: DeviceModelV1[]
+  deviceModels: DeviceModel[]
 }
 
 export function SupportedDeviceManufacturerSection({
