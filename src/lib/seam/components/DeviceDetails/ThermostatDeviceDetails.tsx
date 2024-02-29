@@ -16,6 +16,7 @@ import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
 import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
 import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
 import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
+import { getSupportedThermostatModes } from 'lib/temperature-bounds.js'
 import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
@@ -28,7 +29,6 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
-import { getSupportedThermostatModes } from 'lib/temperature-bounds.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
