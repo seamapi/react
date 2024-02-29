@@ -352,12 +352,12 @@ function ClimateSettingRow({
     ) {
       setShowSuccess(true)
 
-      const timeout = setTimeout(() => {
+      const timeout = globalThis.setTimeout(() => {
         setShowSuccess(false)
       }, 3000)
 
       return () => {
-        clearTimeout(timeout)
+        globalThis.clearTimeout(timeout)
       }
     }
 
