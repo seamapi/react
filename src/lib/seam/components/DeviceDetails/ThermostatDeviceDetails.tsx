@@ -346,22 +346,23 @@ function ClimateSettingRow({
   }, [isHeatCoolSuccess, isHeatSuccess, isCoolSuccess, isSetOffSuccess])
 
   const getSupportedModes = () => {
-    const supportedModes: HvacModeSetting[] = [
-      'heat',
-      'cool',
-      'heat_cool',
-      'off',
-    ]
+    const allModes: HvacModeSetting[] = ['heat', 'cool', 'heat_cool', 'off']
 
-    if (!device.properties.is_cooling_available) {
-      supportedModes.splice(supportedModes.indexOf('cool'), 1)
-    }
-
-    if (!device.properties.is_heating_available) {
-      supportedModes.splice(supportedModes.indexOf('heat'), 1)
-    }
-
-    return supportedModes
+    return allModes.filter((mode) => {
+      switch (mode) {
+        case 'cool':
+          return device.properties.is_cooling_available
+        case 'heat':
+          return device.properties.is_heating_available
+        case 'heat_cool':
+          return (
+            device.properties.is_heating_available &&
+            device.properties.is_cooling_available
+          )
+        default:
+          return true
+      }
+    })
   }
 
   return (
