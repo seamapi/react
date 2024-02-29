@@ -409,6 +409,12 @@ function ClimateSettingRow({
               coolValue={coolValue}
               onHeatValueChange={setHeatValue}
               onCoolValueChange={setCoolValue}
+              delta={
+                Number(
+                  'min_heating_cooling_delta_fahrenheit' in device.properties &&
+                    device.properties.min_heating_cooling_delta_fahrenheit
+                ) ?? 0
+              }
             />
           )}
 
