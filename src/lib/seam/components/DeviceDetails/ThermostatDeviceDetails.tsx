@@ -354,6 +354,8 @@ function ClimateSettingRow({
         clearTimeout(timeout)
       }
     }
+
+    return () => {}
   }, [isHeatCoolSuccess, isHeatSuccess, isCoolSuccess, isSetOffSuccess])
 
   const getSupportedModes = (): HvacModeSetting[] => {
