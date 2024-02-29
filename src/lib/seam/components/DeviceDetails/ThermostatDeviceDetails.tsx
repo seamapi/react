@@ -166,22 +166,25 @@ function ManualOverrideRow({
 
   return (
     <>
-      <DetailRow label={t.allowManualOverride}>
-        <Switch
-          checked={
-            device.properties.default_climate_setting
-              ?.manual_override_allowed ?? true
-          }
-          onChange={(checked) => {
-            mutate({
-              device_id: device.device_id,
-              default_climate_setting: {
-                manual_override_allowed: checked,
-              },
-            })
-          }}
-        />
-      </DetailRow>
+      <div className='seam-detail-row-wrap'>
+        <DetailRow label={t.allowManualOverride}>
+          <Switch
+            checked={
+              device.properties.default_climate_setting
+                ?.manual_override_allowed ?? true
+            }
+            onChange={(checked) => {
+              mutate({
+                device_id: device.device_id,
+                default_climate_setting: {
+                  manual_override_allowed: checked,
+                },
+              })
+            }}
+          />
+        </DetailRow>
+      </div>
+
       <Snackbar
         message={t.manualOverrideSuccess}
         variant='success'
@@ -204,17 +207,19 @@ function FanModeRow({ device }: { device: ThermostatDevice }): JSX.Element {
 
   return (
     <>
-      <DetailRow label={t.fanMode}>
-        <FanModeMenu
-          mode={device.properties.fan_mode_setting}
-          onChange={(fanMode) => {
-            mutate({
-              device_id: device.device_id,
-              fan_mode_setting: fanMode,
-            })
-          }}
-        />
-      </DetailRow>
+      <div className='seam-detail-row-wrap'>
+        <DetailRow label={t.fanMode}>
+          <FanModeMenu
+            mode={device.properties.fan_mode_setting}
+            onChange={(fanMode) => {
+              mutate({
+                device_id: device.device_id,
+                fan_mode_setting: fanMode,
+              })
+            }}
+          />
+        </DetailRow>
+      </div>
 
       <Snackbar
         message={t.fanModeSuccess}
