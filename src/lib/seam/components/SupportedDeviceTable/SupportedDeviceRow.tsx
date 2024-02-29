@@ -1,11 +1,10 @@
-import type { DeviceModelV1 } from '@seamapi/types/devicedb'
+import type { DeviceModel } from '@seamapi/types/devicedb'
 import classNames from 'classnames'
-import type { DeviceModel } from 'seamapi'
 
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
 
 interface SupportedDeviceRowProps {
-  deviceModel: DeviceModelV1
+  deviceModel: DeviceModel
 }
 
 export function SupportedDeviceRow({
@@ -75,7 +74,7 @@ export function StatusColumn({
 }
 
 const supportLevelColors: Record<
-  DeviceModelV1['manufacturer']['integration'],
+  DeviceModel['manufacturer']['integration'],
   'green' | 'blue' | 'unknown'
 > = {
   stable: 'green',
@@ -85,20 +84,10 @@ const supportLevelColors: Record<
   inquire: 'unknown',
 }
 
-const status: Record<DeviceModelV1['manufacturer']['integration'], string> = {
+const status: Record<DeviceModel['manufacturer']['integration'], string> = {
   stable: 'LIVE',
   beta: 'BETA',
   unsupported: 'Inquire',
   planned: 'Inquire',
   inquire: 'Inquire',
-}
-
-export const connectionTypeNames: Record<
-  DeviceModel['connection_type'],
-  string
-> = {
-  wifi: 'Wifi',
-  zwave: 'Z-Wave',
-  zigbee: 'Zigbee',
-  unknown: 'Unknown',
 }

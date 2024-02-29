@@ -1,5 +1,5 @@
 import type {
-  DeviceModelV1,
+  DeviceModel,
   RouteRequestParams,
   RouteResponse,
 } from '@seamapi/types/devicedb'
@@ -10,7 +10,7 @@ import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseDeviceModelParams = DeviceModelsGetParams | string
-export type UseDeviceModelData = DeviceModelV1 | null
+export type UseDeviceModelData = DeviceModel | null
 
 export function useDeviceModel(
   params?: UseDeviceModelParams

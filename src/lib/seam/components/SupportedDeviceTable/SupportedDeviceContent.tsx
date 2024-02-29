@@ -1,4 +1,4 @@
-import type { DeviceModelV1 } from '@seamapi/types/devicedb'
+import type { DeviceModel } from '@seamapi/types/devicedb'
 import { useMemo } from 'react'
 
 import { SupportedDeviceManufacturerSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceManufacturerSection.js'
@@ -141,8 +141,8 @@ function EmptyResult({
 
 const groupDeviceModelsByManufacturer = (
   deviceModels: UseDeviceModelsData
-): Record<string, DeviceModelV1[]> => {
-  const result: Record<string, DeviceModelV1[]> = {}
+): Record<string, DeviceModel[]> => {
+  const result: Record<string, DeviceModel[]> = {}
 
   for (const model of deviceModels) {
     const { manufacturer } = model
