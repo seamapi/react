@@ -287,7 +287,6 @@ function ClimateSettingRow({
     const handler = debounce(() => {
       switch (mode) {
         case 'heat_cool':
-          console.log('heat_cool', heatValue, coolValue)
           heatCoolThermostat({
             device_id: device.device_id,
             heating_set_point_fahrenheit: heatValue,
@@ -295,21 +294,18 @@ function ClimateSettingRow({
           })
           break
         case 'heat':
-          console.log('heat', heatValue, coolValue)
           heatThermostat({
             device_id: device.device_id,
             heating_set_point_fahrenheit: heatValue,
           })
           break
         case 'cool':
-          console.log('cool', heatValue, coolValue)
           coolThermostat({
             device_id: device.device_id,
             cooling_set_point_fahrenheit: coolValue,
           })
           break
         case 'off':
-          console.log('off', heatValue, coolValue)
           setThermostatOff({
             device_id: device.device_id,
           })
