@@ -141,7 +141,7 @@
     "@mui/material": "^5.12.2",
     "@rxfork/r2wc-react-to-web-component": "^2.4.0",
     "@seamapi/fake-devicedb": "^1.4.0",
-    "@seamapi/fake-seam-connect": "^1.44.3",
+    "@seamapi/fake-seam-connect": "^1.60.2",
     "@seamapi/http": "^0.2.1",
     "@seamapi/types": "^1.122.0",
     "@storybook/addon-designs": "^7.0.1",
