@@ -11,13 +11,13 @@ import { ThermoModeMenuOption } from 'lib/ui/thermostat/ThermoModeMenuOption.js'
 interface ClimateModeMenuProps {
   mode: HvacModeSetting
   onChange: (mode: HvacModeSetting) => void
-  supportedModes: HvacModeSetting[]
+  supportedModes?: HvacModeSetting[]
 }
 
 export function ClimateModeMenu({
   mode,
   onChange,
-  supportedModes,
+  supportedModes = ['heat', 'cool', 'heat_cool', 'off'],
 }: ClimateModeMenuProps): JSX.Element {
   return (
     <Menu
