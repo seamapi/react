@@ -28,6 +28,7 @@ import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import { getSupportedThermostatModes } from 'lib/temperature-bounds.js'
 
 interface ThermostatDeviceDetailsProps extends CommonProps {
   device: ThermostatDevice
@@ -248,8 +249,13 @@ function ClimateSettingRow({
   const deviceCoolValue =
     device.properties.current_climate_setting.cooling_set_point_fahrenheit
 
+  const supportedModes = getSupportedThermostatModes(device)
+
   const [showSuccess, setShowSuccess] = useState(false)
-  const [mode, setMode] = useState<HvacModeSetting>('heat_cool')
+  const [mode, setMode] = useState<HvacModeSetting>(
+    (supportedModes.includes('heat_cool') ? 'heat_cool' : supportedModes[0]) ??
+      'off'
+  )
 
   const [heatValue, setHeatValue] = useState(
     device.properties.current_climate_setting.heating_set_point_fahrenheit ?? 0
@@ -358,26 +364,6 @@ function ClimateSettingRow({
     return () => {}
   }, [isHeatCoolSuccess, isHeatSuccess, isCoolSuccess, isSetOffSuccess])
 
-  const getSupportedModes = (): HvacModeSetting[] => {
-    const allModes: HvacModeSetting[] = ['heat', 'cool', 'heat_cool', 'off']
-
-    return allModes.filter((mode) => {
-      switch (mode) {
-        case 'cool':
-          return device.properties.is_cooling_available
-        case 'heat':
-          return device.properties.is_heating_available
-        case 'heat_cool':
-          return (
-            device.properties.is_heating_available &&
-            device.properties.is_cooling_available
-          )
-        default:
-          return true
-      }
-    })
-  }
-
   return (
     <>
       <AccordionRow
@@ -423,7 +409,7 @@ function ClimateSettingRow({
           <ClimateModeMenu
             mode={mode}
             onChange={setMode}
-            supportedModes={getSupportedModes()}
+            supportedModes={supportedModes}
           />
         </div>
       </AccordionRow>

@@ -1,4 +1,4 @@
-import type { HvacModeSetting } from 'seamapi'
+import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
 
 export interface ControlBounds {
   mode: Exclude<HvacModeSetting, 'off'>
@@ -51,3 +51,25 @@ export const getTemperatureBounds = (
   heat: getHeatBounds(controlBounds),
   cool: getCoolBounds(controlBounds),
 })
+
+export const getSupportedThermostatModes = (
+  device: ThermostatDevice
+): HvacModeSetting[] => {
+  const allModes: HvacModeSetting[] = ['heat', 'cool', 'heat_cool', 'off']
+
+  return allModes.filter((mode) => {
+    switch (mode) {
+      case 'cool':
+        return device.properties.is_cooling_available
+      case 'heat':
+        return device.properties.is_heating_available
+      case 'heat_cool':
+        return (
+          device.properties.is_heating_available &&
+          device.properties.is_cooling_available
+        )
+      default:
+        return true
+    }
+  })
+}
