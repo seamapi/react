@@ -203,10 +203,10 @@ const isSeamProviderPropsWithClient = (
 ): props is SeamProviderPropsWithClient => {
   if (!('client' in props)) return false
 
-  const { client } = props
+  const { client, ...otherProps } = props
   if (client == null) return false
 
-  const otherNonNullProps = Object.values(props).filter((v) => v != null)
+  const otherNonNullProps = Object.values(otherProps).filter((v) => v != null)
   if (otherNonNullProps.length > 0) {
     throw new InvalidSeamProviderProps(
       `The client prop cannot be used with ${otherNonNullProps.join(' or ')}.`
@@ -273,6 +273,5 @@ class InvalidSeamProviderProps extends Error {
   constructor(message: string) {
     super(`SeamProvider received invalid props: ${message}`)
     this.name = this.constructor.name
-    Error.captureStackTrace(this, this.constructor)
   }
 }

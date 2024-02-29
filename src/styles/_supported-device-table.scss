@@ -1,6 +1,8 @@
 @use './colors';
 
+$row-height: 64px;
 $row-padding: 8px;
+$see-all-button-height: 30px;
 
 @mixin all {
   .seam-supported-device-table-content-wrap {
@@ -99,6 +101,37 @@ $row-padding: 8px;
   .seam-manufacturer-section {
     margin-bottom: 32px;
     position: relative;
+    display: flex;
+    padding: 8px 16px 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+
+    .seam-manufacturer-annotation-box {
+      display: flex;
+      padding: 8px;
+      align-items: center;
+      align-content: center;
+      gap: 0 8px;
+      align-self: stretch;
+      flex-wrap: wrap;
+      border-radius: 6px;
+      background-color: colors.$primary-transparent;
+
+      .seam-annotation {
+        display: flex;
+        align-items: flex-start;
+        align-content: flex-start;
+        gap: 2px;
+        flex: 1 0 0;
+        flex-wrap: wrap;
+        color: colors.$text-gray-1;
+        font-size: 14px;
+        line-height: 120%;
+      }
+    }
 
     .seam-header {
       display: flex;
@@ -129,7 +162,7 @@ $row-padding: 8px;
       cursor: pointer;
       background: colors.$white;
       display: flex;
-      height: 30px;
+      height: $see-all-button-height;
       padding: 5px 24px 4px 16px;
       align-items: center;
       gap: 2px;
@@ -142,6 +175,7 @@ $row-padding: 8px;
         0 1px 1px 0 rgb(16 27 37 / 10%),
         0 1px 8px 0 rgb(46 69 82 / 12%);
       position: absolute;
+      bottom: -($row-height - $see-all-button-height - $row-padding) / 2;
       left: 50%;
       transform: translate(-50%, -47px);
       z-index: 3;
@@ -158,7 +192,7 @@ $row-padding: 8px;
         #fff 86.98%
       );
       position: absolute;
-      height: 64px;
+      height: $row-height;
       width: 100%;
       bottom: 0;
       z-index: 2;
@@ -236,7 +270,7 @@ $row-padding: 8px;
     border-collapse: collapse;
 
     .seam-row {
-      height: 64px;
+      height: $row-height;
       border-bottom: 1px solid colors.$bg-b;
       display: flex;
 

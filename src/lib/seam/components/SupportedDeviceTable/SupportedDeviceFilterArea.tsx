@@ -1,7 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react'
 
 import { FilterCategoryMenu } from 'lib/seam/components/SupportedDeviceTable/FilterCategoryMenu.js'
-import type { DeviceModelFilters } from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
+import {
+  type DeviceModelFilters,
+  supportedIntegrationSupportLevels,
+} from 'lib/seam/components/SupportedDeviceTable/use-filtered-device-models.js'
 import { Button } from 'lib/ui/Button.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
@@ -28,6 +31,9 @@ export function SupportedDeviceFilterArea({
   const appliedFiltersCount = getAppliedFilterCount(filters)
 
   const { manufacturers: manufacturersData } = useFilteredManufacturers({
+    integrationSupportLevels: filters.supportedOnly
+      ? supportedIntegrationSupportLevels
+      : null,
     manufacturers,
     excludedManufacturers,
   })
@@ -43,16 +49,6 @@ export function SupportedDeviceFilterArea({
     appliedFiltersCount > 0 ? `${t.filters} (${appliedFiltersCount})` : t.filter
 
   const allLabel = t.all
-
-  const options =
-    manufacturersData
-      ?.filter((manufacturer) => {
-        if (filters.supportedOnly) {
-          return ['stable', 'beta'].includes(manufacturer.integration)
-        }
-        return true
-      })
-      ?.map((manufacturer) => manufacturer.display_name) ?? []
 
   return (
     <div className='seam-supported-device-table-filter-area'>
@@ -79,7 +75,11 @@ export function SupportedDeviceFilterArea({
               <FilterCategoryMenu
                 label={t.manufacturer}
                 allLabel={allLabel}
-                options={options}
+                options={
+                  manufacturersData?.map(
+                    (manufacturer) => manufacturer.display_name
+                  ) ?? []
+                }
                 onSelect={(manufacturer: string) => {
                   setFilters((filters) => ({
                     ...filters,

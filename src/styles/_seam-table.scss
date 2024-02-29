@@ -27,11 +27,17 @@
         justify-content: center;
 
         > div {
-          width: 40px;
+          width: 32px;
           height: 40px;
           display: flex;
           align-items: center;
           justify-content: center;
+          margin-right: 4px;
+
+          @media only screen and (width >= 768px) {
+            width: 40px;
+            margin-right: 4px;
+          }
         }
       }
 
@@ -48,10 +54,15 @@
         }
 
         .seam-details {
-          font-size: 14px;
+          font-size: 12px;
           line-height: 134%;
           color: colors.$text-gray-1;
           display: flex;
+          flex-wrap: wrap;
+
+          @media only screen and (width >= 768px) {
+            font-size: 14px;
+          }
 
           .seam-device-name {
             max-width: 190px;
@@ -66,10 +77,14 @@
       }
 
       .seam-action-cell {
-        margin-right: 12px;
+        margin-right: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @media only screen and (width >= 768px) {
+          margin-right: 12px;
+        }
       }
 
       .seam-issue-icon-wrap {

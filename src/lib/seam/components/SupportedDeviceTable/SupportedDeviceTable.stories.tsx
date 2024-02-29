@@ -50,6 +50,27 @@ export const ExcludeManufacturers: Story = {
   ),
 }
 
+export const IncludeIf: Story = {
+  render: (props) => (
+    <SupportedDeviceTable
+      {...props}
+      includeIf={[
+        'software_features.can_remotely_unlock',
+        'physical_properties.has_physical_key',
+      ]}
+    />
+  ),
+}
+
+export const ExcludeIf: Story = {
+  render: (props) => (
+    <SupportedDeviceTable
+      {...props}
+      excludeIf={['software_features.can_remotely_unlock']}
+    />
+  ),
+}
+
 export const InsideModal: Story = {
   render: (props) => {
     const [open, toggleOpen] = useToggle()

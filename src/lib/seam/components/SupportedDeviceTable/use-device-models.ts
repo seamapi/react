@@ -49,7 +49,11 @@ export function useDeviceModels(
     },
   })
 
-  return { ...rest, deviceModels: data }
+  return {
+    ...rest,
+    // @ts-expect-error: Upstream mismatch between type and route type.
+    deviceModels: data,
+  }
 }
 
 type DeviceModelsListParams = RouteRequestParams<'/v1/device_models/list'>

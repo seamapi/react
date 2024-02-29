@@ -28,7 +28,7 @@ export function ArrowBackIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
       <g mask='url(#arrow-back_svg__a)'>
         <path
           fill='#6E7179'
-          d='m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6L12 20Z'
+          d='m12 20-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825l5.6 5.6z'
         />
       </g>
     </svg>

@@ -1,13 +1,19 @@
+import type { ManufacturerIntegrationSupportLevel } from '@seamapi/types/devicedb'
+
 import { useManufacturers } from 'lib/seam/components/SupportedDeviceTable/use-manufacturers.js'
 
 interface Params {
   manufacturers: string[] | null
   excludedManufacturers: string[]
+  integrationSupportLevels: ManufacturerIntegrationSupportLevel[] | null
 }
-export const useFilteredManufacturers = (
-  params: Params
-): ReturnType<typeof useManufacturers> => {
+
+export const useFilteredManufacturers = ({
+  integrationSupportLevels,
+  ...params
+}: Params): ReturnType<typeof useManufacturers> => {
   const { manufacturers, ...rest } = useManufacturers({
+    integration_support_levels: integrationSupportLevels ?? undefined,
     liqe_query: createLiqeQuery(params),
   })
 
@@ -22,7 +28,9 @@ export const useFilteredManufacturers = (
 export const createLiqeQuery = ({
   manufacturers,
   excludedManufacturers,
-}: Params): string | undefined => {
+}: Pick<Params, 'manufacturers' | 'excludedManufacturers'>):
+  | string
+  | undefined => {
   if (
     (manufacturers?.some(isInvalidInput) ?? false) ||
     excludedManufacturers.some(isInvalidInput)
