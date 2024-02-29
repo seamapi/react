@@ -345,6 +345,25 @@ function ClimateSettingRow({
     }
   }, [isHeatCoolSuccess, isHeatSuccess, isCoolSuccess, isSetOffSuccess])
 
+  const getSupportedModes = () => {
+    const supportedModes: HvacModeSetting[] = [
+      'heat',
+      'cool',
+      'heat_cool',
+      'off',
+    ]
+
+    if (!device.properties.is_cooling_available) {
+      supportedModes.splice(supportedModes.indexOf('cool'), 1)
+    }
+
+    if (!device.properties.is_heating_available) {
+      supportedModes.splice(supportedModes.indexOf('heat'), 1)
+    }
+
+    return supportedModes
+  }
+
   return (
     <>
       <AccordionRow
@@ -381,7 +400,11 @@ function ClimateSettingRow({
             />
           )}
 
-          <ClimateModeMenu mode={mode} onChange={setMode} />
+          <ClimateModeMenu
+            mode={mode}
+            onChange={setMode}
+            supportedModes={getSupportedModes()}
+          />
         </div>
       </AccordionRow>
 
