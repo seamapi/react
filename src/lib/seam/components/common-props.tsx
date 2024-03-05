@@ -18,7 +18,7 @@ export interface RequiredCommonProps {
   disableEditAccessCode: boolean | undefined
   disableLockUnlock: boolean | undefined
   disableResourceIds: boolean | undefined
-  disableScheduledClimates: boolean | undefined
+  disableClimateSettingSchedules: boolean | undefined
 }
 
 export type CommonProps = Partial<RequiredCommonProps>

@@ -84,7 +84,7 @@ export function AccessCodeTable({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
-  disableScheduledClimates,
+  disableClimateSettingSchedules,
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 
@@ -148,7 +148,7 @@ export function AccessCodeTable({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
-        disableScheduledClimates={disableScheduledClimates}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setSelectedEditAccessCodeId(null)
         }}
@@ -184,7 +184,7 @@ export function AccessCodeTable({
           disableEditAccessCode={disableEditAccessCode}
           disableDeleteAccessCode={disableDeleteAccessCode}
           disableResourceIds={disableResourceIds}
-          disableScheduledClimates={disableScheduledClimates}
+          disableClimateSettingSchedules={disableClimateSettingSchedules}
           onBack={() => {
             setSelectedViewAccessCodeId(null)
           }}
@@ -205,7 +205,7 @@ export function AccessCodeTable({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
-        disableScheduledClimates={disableScheduledClimates}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={toggleAddAccessCodeForm}
         className={className}
         onSuccess={() => {

@@ -45,7 +45,7 @@ export function ThermostatDeviceDetails({
   disableEditAccessCode,
   disableDeleteAccessCode,
   disableResourceIds = false,
-  disableScheduledClimates,
+  disableClimateSettingSchedules,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
@@ -66,7 +66,7 @@ export function ThermostatDeviceDetails({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
-        disableScheduledClimates={disableScheduledClimates}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setClimateSettingsOpen(false)
         }}
@@ -93,7 +93,7 @@ export function ThermostatDeviceDetails({
 
         <div className='seam-thermostat-device-details'>
           <DetailSectionGroup>
-            {!disableScheduledClimates && (
+            {!disableClimateSettingSchedules && (
               <DetailSection
                 label={t.scheduledClimates}
                 tooltipContent={t.scheduledClimatesTooltip}
