@@ -46,6 +46,7 @@ const commonProps: R2wcProps<CommonProps> = {
   disableEditAccessCode: 'boolean',
   disableDeleteAccessCode: 'boolean',
   disableResourceIds: 'boolean',
+  disableScheduledClimates: 'boolean',
   onBack: 'object',
   className: 'string',
 }
