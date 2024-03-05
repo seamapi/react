@@ -43,6 +43,7 @@ export function DeviceDetails({
     disableResourceIds,
     disableCreateAccessCode,
     disableEditAccessCode,
+    disableScheduledClimates,
     onBack,
     className,
   }
