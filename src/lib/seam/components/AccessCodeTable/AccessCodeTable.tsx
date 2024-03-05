@@ -84,7 +84,7 @@ export function AccessCodeTable({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
-  disableScheduledClimates = false,
+  disableScheduledClimates,
 }: AccessCodeTableProps): JSX.Element {
   useComponentTelemetry('AccessCodeTable')
 

@@ -43,7 +43,7 @@ export function AccessCodeDetails({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
-  disableScheduledClimates = false,
+  disableScheduledClimates,
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
