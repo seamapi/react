@@ -23,6 +23,7 @@ export function DeviceDetails({
   disableResourceIds = false,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
+  disableScheduledClimates = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
