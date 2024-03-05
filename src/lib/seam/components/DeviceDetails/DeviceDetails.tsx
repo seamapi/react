@@ -37,7 +37,7 @@ export function DeviceDetails({
     return null
   }
 
-  const props = {
+  const props: Omit<DeviceDetailsProps, 'deviceId'> = {
     disableLockUnlock,
     disableDeleteAccessCode,
     disableResourceIds,
