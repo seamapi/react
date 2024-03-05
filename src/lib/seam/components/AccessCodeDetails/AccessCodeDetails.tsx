@@ -43,6 +43,7 @@ export function AccessCodeDetails({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
+  disableScheduledClimates = false,
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
@@ -69,6 +70,7 @@ export function AccessCodeDetails({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableScheduledClimates={disableScheduledClimates}
         onBack={() => {
           selectDevice(null)
         }}
