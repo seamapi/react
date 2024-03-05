@@ -45,7 +45,7 @@ export function ThermostatDeviceDetails({
   disableEditAccessCode,
   disableDeleteAccessCode,
   disableResourceIds = false,
-  disableClimateSettingSchedules,
+  disableClimateSettingSchedules = false,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
