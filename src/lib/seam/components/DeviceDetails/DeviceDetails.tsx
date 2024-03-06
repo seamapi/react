@@ -23,6 +23,7 @@ export function DeviceDetails({
   disableResourceIds = false,
   disableCreateAccessCode = false,
   disableEditAccessCode = false,
+  disableClimateSettingSchedules = false,
   onBack,
   className,
 }: DeviceDetailsProps): JSX.Element | null {
@@ -36,12 +37,13 @@ export function DeviceDetails({
     return null
   }
 
-  const props = {
+  const props: Omit<DeviceDetailsProps, 'deviceId'> = {
     disableLockUnlock,
     disableDeleteAccessCode,
     disableResourceIds,
     disableCreateAccessCode,
     disableEditAccessCode,
+    disableClimateSettingSchedules,
     onBack,
     className,
   }

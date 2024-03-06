@@ -32,6 +32,7 @@ export function LockDeviceDetails(
     disableEditAccessCode,
     disableDeleteAccessCode,
     disableResourceIds,
+    disableClimateSettingSchedules,
     onBack,
     className,
   } = props
@@ -62,6 +63,7 @@ export function LockDeviceDetails(
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={toggleAccessCodesOpen}
         className={className}
       />

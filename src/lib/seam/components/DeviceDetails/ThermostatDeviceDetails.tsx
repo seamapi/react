@@ -45,6 +45,7 @@ export function ThermostatDeviceDetails({
   disableEditAccessCode,
   disableDeleteAccessCode,
   disableResourceIds = false,
+  disableClimateSettingSchedules = false,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
@@ -65,6 +66,7 @@ export function ThermostatDeviceDetails({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setClimateSettingsOpen(false)
         }}
@@ -91,25 +93,27 @@ export function ThermostatDeviceDetails({
 
         <div className='seam-thermostat-device-details'>
           <DetailSectionGroup>
-            <DetailSection
-              label={t.scheduledClimates}
-              tooltipContent={t.scheduledClimatesTooltip}
-            >
-              <DetailRow
-                label={
-                  climateSettingSchedules == null
-                    ? t.viewingClimateSchedules
-                    : `${climateSettingSchedules.length} ${climateSettingSchedulesLabel}`
-                }
-                onClick={() => {
-                  setClimateSettingsOpen(true)
-                }}
+            {!disableClimateSettingSchedules && (
+              <DetailSection
+                label={t.scheduledClimates}
+                tooltipContent={t.scheduledClimatesTooltip}
               >
-                <div className='seam-detail-row-rotated-icon'>
-                  <ChevronWideIcon />
-                </div>
-              </DetailRow>
-            </DetailSection>
+                <DetailRow
+                  label={
+                    climateSettingSchedules == null
+                      ? t.viewingClimateSchedules
+                      : `${climateSettingSchedules.length} ${climateSettingSchedulesLabel}`
+                  }
+                  onClick={() => {
+                    setClimateSettingsOpen(true)
+                  }}
+                >
+                  <div className='seam-detail-row-rotated-icon'>
+                    <ChevronWideIcon />
+                  </div>
+                </DetailRow>
+              </DetailSection>
+            )}
 
             <DetailSection
               label={t.currentSettings}
