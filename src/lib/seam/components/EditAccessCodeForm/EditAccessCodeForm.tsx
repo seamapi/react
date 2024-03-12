@@ -100,7 +100,7 @@ function useSubmitEditAccessCode(
   isSubmitting: boolean
   responseErrors: ResponseErrors | null
 } {
-  const { mutate, isLoading: isSubmitting } = useUpdateAccessCode()
+  const { mutate, isPending: isSubmitting } = useUpdateAccessCode()
   const { responseErrors, handleResponseError, resetResponseErrors } =
     useResponseErrors()
 

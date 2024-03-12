@@ -24,15 +24,14 @@ export function useDevices(
       queryKey: ['devices', 'list', params],
       queryFn: async () => {
         if (client == null) return []
-        return await client.devices.list(params)
-      },
-      onSuccess: (devices) => {
+        const devices = await client.devices.list(params)
         for (const device of devices) {
           queryClient.setQueryData(
             ['devices', 'get', { device_id: device.device_id }],
             device
           )
         }
+        return devices
       },
     }
   )

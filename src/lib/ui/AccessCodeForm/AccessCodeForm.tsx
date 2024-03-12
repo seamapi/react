@@ -115,7 +115,7 @@ function Content({
   })
   const [timeZonePickerVisible, toggleTimeZonePicker] = useToggle()
 
-  const { isLoading: isGeneratingCode, mutate: generateCode } =
+  const { isPending: isGeneratingCode, mutate: generateCode } =
     useGenerateAccessCodeCode()
 
   const submit = (): void => {}

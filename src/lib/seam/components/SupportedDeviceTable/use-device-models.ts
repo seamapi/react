@@ -32,9 +32,6 @@ export function useDeviceModels(
         '/internal/devicedb/v1/device_models/list',
         { params }
       )
-      return deviceModels
-    },
-    onSuccess: (deviceModels) => {
       for (const deviceModel of deviceModels) {
         queryClient.setQueryData(
           [
@@ -46,6 +43,7 @@ export function useDeviceModels(
           deviceModel
         )
       }
+      return deviceModels
     },
   })
 

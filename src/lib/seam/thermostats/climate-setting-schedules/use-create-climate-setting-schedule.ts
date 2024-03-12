@@ -33,16 +33,14 @@ export function useCreateClimateSettingSchedule(): UseMutationResult<
       mutationParams: UseCreateClimateSettingScheduleMutationParams
     ) => {
       if (client === null) throw new NullSeamClientError()
-      return await client.thermostats.climateSettingSchedules.create(
-        mutationParams
-      )
+      const result =
+        await client.thermostats.climateSettingSchedules.create(mutationParams)
+      return result
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries([
-        'thermostats',
-        'climate_setting_schedules',
-        'list',
-      ])
+      void queryClient.invalidateQueries({
+        queryKey: ['thermostats', 'climate_setting_schedules', 'list'],
+      })
     },
   })
 }
