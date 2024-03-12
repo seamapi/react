@@ -47,13 +47,13 @@ function Content({
         <div className='seam-actions'>
           <Button
             onClick={toggleDeleteConfirmation}
-            disabled={deleteAccessCode.isLoading}
+            disabled={deleteAccessCode.isPending}
           >
             {t.cancelDelete}
           </Button>
           <Button
             variant='solid'
-            disabled={deleteAccessCode.isLoading}
+            disabled={deleteAccessCode.isPending}
             onClick={() => {
               deleteAccessCode.mutate({
                 access_code_id: accessCode.access_code_id,

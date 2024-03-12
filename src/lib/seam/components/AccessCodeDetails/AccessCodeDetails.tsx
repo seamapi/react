@@ -51,7 +51,7 @@ export function AccessCodeDetails({
 
   const { accessCode } = useAccessCode(accessCodeId)
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
-  const { mutate: deleteCode, isLoading: isDeleting } = useDeleteAccessCode()
+  const { mutate: deleteCode, isPending: isDeleting } = useDeleteAccessCode()
 
   if (accessCode == null) {
     return null

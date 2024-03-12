@@ -19,7 +19,7 @@ export function ConnectAccountButton({
 }: ConnectAccountButtonProps = {}): JSX.Element {
   useComponentTelemetry('ConnectAccountButton')
 
-  const { isLoading, mutate } = useCreateConnectWebview({
+  const { isPending, mutate } = useCreateConnectWebview({
     willNavigateToWebview: true,
   })
 
@@ -34,7 +34,7 @@ export function ConnectAccountButton({
       size='small'
       onClick={handleClick}
       className={className}
-      disabled={isLoading}
+      disabled={isPending}
     >
       {t.connectAccount}
     </Button>
