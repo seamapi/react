@@ -8,14 +8,13 @@ import {
 } from 'react'
 import type { Seam, SeamClientOptions } from 'seamapi'
 
+import { useSeamFont } from 'lib/seam/use-seam-font.js'
+import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
 import {
   type TelemetryClient,
   TelemetryProvider,
   useUserTelemetry,
 } from 'lib/telemetry/index.js'
-
-import { useSeamFont } from 'lib/seam/use-seam-font.js'
-import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
 
 import { useSeamClient } from './use-seam-client.js'
 

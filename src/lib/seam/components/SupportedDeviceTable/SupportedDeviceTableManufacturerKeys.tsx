@@ -1,13 +1,12 @@
 import type { Manufacturer } from '@seamapi/types/devicedb'
 import classNames from 'classnames'
 
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
-
 import { CopyIcon } from 'lib/icons/Copy.js'
 import {
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { MenuItem } from 'lib/ui/Menu/MenuItem.js'
 

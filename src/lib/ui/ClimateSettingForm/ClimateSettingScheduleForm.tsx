@@ -7,9 +7,8 @@ import {
   isThermostatDevice,
 } from 'seamapi'
 
-import { useDevice } from 'lib/index.js'
-
 import { getSystemTimeZone } from 'lib/dates.js'
+import { useDevice } from 'lib/index.js'
 import { ClimateSettingScheduleFormClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormClimateSetting.js'
 import { ClimateSettingScheduleFormDefaultClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDefaultClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'

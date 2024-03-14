@@ -1,12 +1,11 @@
 import { useCallback } from 'react'
 
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
-
 import {
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { useCreateConnectWebview } from 'lib/seam/connect-webviews/use-create-connect-webview.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { Button } from 'lib/ui/Button.js'
 
 export interface ConnectAccountButtonProps extends CommonProps {}

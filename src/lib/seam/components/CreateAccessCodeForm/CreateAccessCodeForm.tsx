@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import type { AccessCode, SeamError } from 'seamapi'
 
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
-
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import {
   type CommonProps,
@@ -10,6 +8,7 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { getValidationError } from 'lib/seam/error-handlers.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,

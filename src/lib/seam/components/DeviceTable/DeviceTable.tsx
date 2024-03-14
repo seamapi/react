@@ -2,8 +2,6 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import { type CommonDevice, isLockDevice, isThermostatDevice } from 'seamapi'
 
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
-
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
   type CommonProps,
@@ -20,6 +18,7 @@ import {
   useDevices,
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
