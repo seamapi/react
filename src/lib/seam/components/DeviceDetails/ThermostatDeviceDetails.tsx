@@ -123,23 +123,25 @@ export function ThermostatDeviceDetails({
               <FanModeRow device={device} />
             </DetailSection>
 
-            <DetailSection
-              label={t.defaultSettings}
-              tooltipContent={t.defaultSettingsTooltip}
-            >
-              <DetailRow label={t.defaultClimate}>
-                {device.properties.default_climate_setting != null ? (
-                  <ClimateSettingStatus
-                    climateSetting={device.properties.default_climate_setting}
-                    temperatureUnit='fahrenheit'
-                  />
-                ) : (
-                  <p>{t.none}</p>
-                )}
-              </DetailRow>
+            {!disableClimateSettingSchedules && (
+              <DetailSection
+                label={t.defaultSettings}
+                tooltipContent={t.defaultSettingsTooltip}
+              >
+                <DetailRow label={t.defaultClimate}>
+                  {device.properties.default_climate_setting != null ? (
+                    <ClimateSettingStatus
+                      climateSetting={device.properties.default_climate_setting}
+                      temperatureUnit='fahrenheit'
+                    />
+                  ) : (
+                    <p>{t.none}</p>
+                  )}
+                </DetailRow>
 
-              <ManualOverrideRow device={device} />
-            </DetailSection>
+                <ManualOverrideRow device={device} />
+              </DetailSection>
+            )}
 
             <DetailSection label={t.deviceDetails}>
               <DetailRow label={t.manufacturer}>
