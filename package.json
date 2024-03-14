@@ -4,7 +4,7 @@
   "description": "Seam Components.",
   "type": "module",
   "main": "index.js",
-  "types": "./index.d.ts",
+  "types": "index.d.ts",
   "exports": {
     ".": {
       "import": "./index.js",
@@ -105,8 +105,8 @@
     "postformat": "stylelint --fix '**/*.scss'"
   },
   "engines": {
-    "node": ">=16.13.0",
-    "npm": ">= 8.1.0"
+    "node": ">=18.12.0",
+    "npm": ">= 9.0.0"
   },
   "peerDependencies": {
     "@seamapi/types": "^1.26.2",

@@ -17,6 +17,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   semantic:
     name: Determine version
@@ -27,7 +31,7 @@ jobs:
       new_release_version: ${{ steps.release.outputs.new_release_version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Semantic release
@@ -40,13 +44,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: semantic
-    if: ${{ needs.semantic.outputs.new_release_published == 'true' }}
+    if: needs.semantic.outputs.new_release_published == 'true' && needs.semantic.outputs.new_release_version != '1.0.0'
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Release version ${{ steps.release.outputs.new_release_version }} on ${{ github.ref_name }}
+      - name: Release version ${{ needs.semantic.outputs.new_release_version }} on ${{ github.ref_name }}
         run: gh workflow run version.yml --raw-field version=$VERSION --ref $BRANCH
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
