@@ -5,6 +5,7 @@ import { Readable, type Stream } from 'node:stream'
 
 import {
   createFake as createFakeDevicedb,
+  type Database,
   type Fake as FakeDevicedb,
 } from '@seamapi/fake-devicedb'
 import { createFake } from '@seamapi/fake-seam-connect'
@@ -78,10 +79,10 @@ export default async (
   res.status(status)
 
   for (const [key, value] of Object.entries(headers)) {
-    if (!unproxiedHeaders.has(key)) res.setHeader(key, value)
+    if (!unproxiedHeaders.has(key)) res.setHeader(key, value as string)
   }
 
-  res.end(Buffer.from(data))
+  res.end(Buffer.from(data as Buffer))
 
   fake.server?.close()
   fakeDevicedb.server?.close()
@@ -89,7 +90,7 @@ export default async (
 
 const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
   const fake = await createFakeDevicedb()
-  await fake.loadJSON(JSON.parse(devicedbSeed.toString()))
+  await fake.loadJSON(JSON.parse(devicedbSeed.toString()) as Database)
   await fake.startServer()
   return fake
 }

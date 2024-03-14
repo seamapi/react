@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { cloneElement, useRef } from 'react'
+import { type Attributes,cloneElement, useRef } from 'react'
 
 import { DateTimePicker } from 'lib/ui/DateTimePicker/DateTimePicker.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -27,7 +27,7 @@ export function FormField({
   // Map children to automatically focus on input when clicking
   // on an InputLabel.
   const clonedChildren = components.map((component, index) => {
-    const baseProps = {
+    const baseProps: Attributes = {
       ...component.props,
       key: index,
     }
