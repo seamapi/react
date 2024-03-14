@@ -14,6 +14,9 @@
 !.storybook/**/*.js
 !.storybook/**/*.d.ts
 
+# Local .terraform directories
+**/.terraform/*
+
 # Yalc
 .yalc
 yalc.lock
