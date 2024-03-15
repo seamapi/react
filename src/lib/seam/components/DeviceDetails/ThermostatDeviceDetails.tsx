@@ -46,6 +46,7 @@ export function ThermostatDeviceDetails({
   disableDeleteAccessCode,
   disableResourceIds = false,
   disableClimateSettingSchedules = false,
+  disableDeviceDetails = false,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
@@ -67,6 +68,7 @@ export function ThermostatDeviceDetails({
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
+        disableDeviceDetails={disableDeviceDetails}
         onBack={() => {
           setClimateSettingsOpen(false)
         }}
@@ -143,24 +145,26 @@ export function ThermostatDeviceDetails({
               </DetailSection>
             )}
 
-            <DetailSection label={t.deviceDetails}>
-              <DetailRow label={t.manufacturer}>
-                <div className='seam-detail-row-hstack'>
-                  {device.properties.model.manufacturer_display_name}
-                  {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
-                </div>
-              </DetailRow>
-              <DetailRow
-                label={t.linkedAccount}
-                sublabel={
-                  connectedAccount?.user_identifier?.email ??
-                  device.connected_account_id
-                }
-              />
-              {!disableResourceIds && (
-                <DetailRow label={t.deviceId} sublabel={device.device_id} />
-              )}
-            </DetailSection>
+            {!disableDeviceDetails && (
+              <DetailSection label={t.deviceDetails}>
+                <DetailRow label={t.manufacturer}>
+                  <div className='seam-detail-row-hstack'>
+                    {device.properties.model.manufacturer_display_name}
+                    {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
+                  </div>
+                </DetailRow>
+                <DetailRow
+                  label={t.linkedAccount}
+                  sublabel={
+                    connectedAccount?.user_identifier?.email ??
+                    device.connected_account_id
+                  }
+                />
+                {!disableResourceIds && (
+                  <DetailRow label={t.deviceId} sublabel={device.device_id} />
+                )}
+              </DetailSection>
+            )}
           </DetailSectionGroup>
         </div>
       </div>
