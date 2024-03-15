@@ -176,7 +176,11 @@ $see-all-button-height: 30px;
         0 1px 1px 0 rgb(16 27 37 / 10%),
         0 1px 8px 0 rgb(46 69 82 / 12%);
       position: absolute;
-      bottom: math.div(-($row-height - $see-all-button-height - $row-padding), 2) or calc(-1 * ($row-height - $see-all-button-height - $row-padding) / 2);
+      bottom: math.div(
+          -($row-height - $see-all-button-height - $row-padding),
+          2
+        )
+        or calc(-1 * ($row-height - $see-all-button-height - $row-padding) / 2);
       left: 50%;
       transform: translate(-50%, -47px);
       z-index: 3;
