@@ -136,9 +136,10 @@
     padding-top: 12px;
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     .seam-detail-row-end-alignment {
       flex-direction: column-reverse;
+
       // gap: 16px;
     }
   }
