@@ -133,6 +133,7 @@ export function ThermostatDeviceDetails({
                     <ClimateSettingStatus
                       climateSetting={device.properties.default_climate_setting}
                       temperatureUnit='fahrenheit'
+                      iconPlacement='right'
                     />
                   ) : (
                     <p>{t.none}</p>
@@ -397,6 +398,7 @@ function ClimateSettingRow({
           <ClimateSettingStatus
             climateSetting={device.properties.current_climate_setting}
             temperatureUnit='fahrenheit'
+            iconPlacement='right'
           />
         }
       >
