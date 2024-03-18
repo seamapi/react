@@ -41,6 +41,7 @@ export function ClimateSettingScheduleDetails({
   disableEditAccessCode,
   disableResourceIds = false,
   disableClimateSettingSchedules,
+  disableDeviceDetails,
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
   useComponentTelemetry('ClimateSettingScheduleDetails')
 
@@ -71,6 +72,7 @@ export function ClimateSettingScheduleDetails({
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
+        disableDeviceDetails={disableDeviceDetails}
         onBack={() => {
           selectDevice(null)
         }}
