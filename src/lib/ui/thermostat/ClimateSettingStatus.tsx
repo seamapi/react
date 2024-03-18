@@ -69,16 +69,16 @@ function Content(props: {
 }): JSX.Element | null {
   const { mode, coolingSetPoint, heatingSetPoint, temperatureUnit } = props
 
-  if (mode === 'cool' && isSetPoint(coolingSetPoint, temperatureUnit))
+  if (mode === 'cool' && isSetPoint(coolingSetPoint))
     return <Temperature {...coolingSetPoint} unit={temperatureUnit} />
 
-  if (mode === 'heat' && isSetPoint(heatingSetPoint, temperatureUnit))
+  if (mode === 'heat' && isSetPoint(heatingSetPoint))
     return <Temperature {...heatingSetPoint} unit={temperatureUnit} />
 
   if (
     mode === 'heat_cool' &&
-    isSetPoint(heatingSetPoint, temperatureUnit) &&
-    isSetPoint(coolingSetPoint, temperatureUnit)
+    isSetPoint(heatingSetPoint) &&
+    isSetPoint(coolingSetPoint)
   )
     return (
       <span>
@@ -93,12 +93,7 @@ function Content(props: {
   return null
 }
 
-function isSetPoint(
-  setPoint: Partial<SetPoint>,
-  temperatureUnit: 'fahrenheit' | 'celsius'
-): setPoint is SetPoint {
-  if (temperatureUnit === 'fahrenheit') return setPoint.fahrenheit != null
-  if (temperatureUnit === 'celsius') return setPoint.celsius != null
+function isSetPoint(setPoint: Partial<SetPoint>): setPoint is SetPoint {
   return setPoint.fahrenheit != null && setPoint.celsius != null
 }
 
