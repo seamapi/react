@@ -25,6 +25,7 @@ export function ConnectAccountButton({
   const handleClick = useCallback(() => {
     mutate({
       custom_redirect_url: globalThis.location?.href,
+      wait_for_device_creation: true,
     })
   }, [mutate])
 
