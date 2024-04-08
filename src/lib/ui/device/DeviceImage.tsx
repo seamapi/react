@@ -10,7 +10,14 @@ export function DeviceImage(
 
   const url = device.properties.image_url ?? fallbackImageUrl
 
-  return <img src={url} alt={device.properties.name} {...imageProps} />
+  const relativePath = url.match(/assets\/(.*)$/)[1]
+  const encoded = window.encodeURIComponent(relativePath)
+
+  const w = 256
+
+  const optimizedSrc = `https://connect.getseam.com/_next/image?url=${encoded}&w=${w}&q=75`
+
+  return <img src={optimizedSrc} alt={device.properties.name} {...imageProps} />
 }
 
 const fallbackImageUrl =
