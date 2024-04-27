@@ -15,8 +15,16 @@ export interface DeviceDetailsProps extends CommonProps {
 
 export const NestedDeviceDetails = withRequiredCommonProps(DeviceDetails)
 
+export interface NestedSpecificDeviceDetailsProps
+  extends Required<Omit<CommonProps, 'onBack' | 'className'>> {
+  onBack: (() => void) | undefined
+  className: string | undefined
+}
+
 export function DeviceDetails({
   deviceId,
+  errorFilter = () => true,
+  warningFilter = () => true,
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
@@ -37,7 +45,9 @@ export function DeviceDetails({
     return null
   }
 
-  const props: Omit<DeviceDetailsProps, 'deviceId'> = {
+  const props: NestedSpecificDeviceDetailsProps = {
+    errorFilter,
+    warningFilter,
     disableLockUnlock,
     disableDeleteAccessCode,
     disableResourceIds,

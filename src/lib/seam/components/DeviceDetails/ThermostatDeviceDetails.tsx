@@ -6,7 +6,7 @@ import { debounce } from 'lib/debounce.js'
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
-import type { CommonProps } from 'lib/seam/components/common-props.js'
+import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { useCoolThermostat } from 'lib/seam/thermostats/use-cool-thermostat.js'
@@ -29,23 +29,24 @@ import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
-interface ThermostatDeviceDetailsProps extends CommonProps {
+interface ThermostatDeviceDetailsProps
+  extends NestedSpecificDeviceDetailsProps {
   device: ThermostatDevice
 }
 
 export function ThermostatDeviceDetails({
   device,
-  onBack,
-  className,
-  errorFilter = () => true,
-  warningFilter = () => true,
+  errorFilter,
+  warningFilter,
   disableLockUnlock,
   disableCreateAccessCode,
   disableEditAccessCode,
   disableDeleteAccessCode,
-  disableResourceIds = false,
-  disableConnectedAccountInformation = false,
-  disableClimateSettingSchedules = false,
+  disableResourceIds,
+  disableConnectedAccountInformation,
+  disableClimateSettingSchedules,
+  onBack,
+  className,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
 
