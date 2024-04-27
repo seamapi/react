@@ -5,6 +5,7 @@ import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
 import type { CommonProps } from 'lib/seam/components/common-props.js'
+import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
@@ -150,6 +151,13 @@ export function LockDeviceDetails(
             }
           />
         </div>
+        <DeviceInfo
+          device={device}
+          disableConnectedAccountInformation={
+            disableConnectedAccountInformation
+          }
+          disableResourceIds={disableResourceIds}
+        />
       </div>
     </div>
   )
