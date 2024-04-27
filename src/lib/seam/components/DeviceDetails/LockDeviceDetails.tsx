@@ -32,6 +32,7 @@ export function LockDeviceDetails(
     disableEditAccessCode,
     disableDeleteAccessCode,
     disableResourceIds,
+    disableConnectedAccountInformation,
     disableClimateSettingSchedules,
     onBack,
     className,
@@ -63,6 +64,7 @@ export function LockDeviceDetails(
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={toggleAccessCodesOpen}
         className={className}

@@ -45,6 +45,7 @@ export function ThermostatDeviceDetails({
   disableEditAccessCode,
   disableDeleteAccessCode,
   disableResourceIds = false,
+  disableConnectedAccountInformation = false,
   disableClimateSettingSchedules = false,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
@@ -66,6 +67,7 @@ export function ThermostatDeviceDetails({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setClimateSettingsOpen(false)
@@ -151,13 +153,15 @@ export function ThermostatDeviceDetails({
                   {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
                 </div>
               </DetailRow>
-              <DetailRow
-                label={t.linkedAccount}
-                sublabel={
-                  connectedAccount?.user_identifier?.email ??
-                  device.connected_account_id
-                }
-              />
+              {!disableConnectedAccountInformation && (
+                <DetailRow
+                  label={t.linkedAccount}
+                  sublabel={
+                    connectedAccount?.user_identifier?.email ??
+                    device.connected_account_id
+                  }
+                />
+              )}
               {!disableResourceIds && (
                 <DetailRow label={t.deviceId} sublabel={device.device_id} />
               )}
