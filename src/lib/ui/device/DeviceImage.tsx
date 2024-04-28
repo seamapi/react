@@ -10,12 +10,15 @@ export function DeviceImage(
 
   const url = device.properties.image_url ?? fallbackImageUrl
 
+  const dbUrl =
+    'https://connect.getseam.com/internal/devicedb_image_proxy?image_id=92907fd0-a3d9-4cc8-9076-b743696d9259'
+
   const relativePath = url.match(/assets\/(.*)$/)[1]
-  const encoded = window.encodeURIComponent(relativePath)
+  const encoded = window.encodeURIComponent(dbUrl)
 
-  const w = 256
+  const w = 128
 
-  const optimizedSrc = `https://connect.getseam.com/_next/image?url=${encoded}&w=${w}&q=75`
+  const optimizedSrc = `http://localhost:3020/_next/image?url=${encoded}&w=${w}&q=75`
 
   return <img src={optimizedSrc} alt={device.properties.name} {...imageProps} />
 }
