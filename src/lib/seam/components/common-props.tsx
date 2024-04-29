@@ -18,6 +18,7 @@ export interface RequiredCommonProps {
   disableEditAccessCode: boolean | undefined
   disableLockUnlock: boolean | undefined
   disableResourceIds: boolean | undefined
+  disableConnectedAccountInformation: boolean | undefined
   disableClimateSettingSchedules: boolean | undefined
 }
 
