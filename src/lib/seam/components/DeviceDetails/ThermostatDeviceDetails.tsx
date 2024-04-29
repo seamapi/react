@@ -44,6 +44,7 @@ export function ThermostatDeviceDetails({
   disableDeleteAccessCode,
   disableResourceIds,
   disableConnectedAccountInformation,
+  disableDeviceManufacturerInformation,
   disableClimateSettingSchedules,
   onBack,
   className,
@@ -66,6 +67,9 @@ export function ThermostatDeviceDetails({
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
         disableConnectedAccountInformation={disableConnectedAccountInformation}
+        disableDeviceManufacturerInformation={
+          disableDeviceManufacturerInformation
+        }
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setClimateSettingsOpen(false)
@@ -147,6 +151,9 @@ export function ThermostatDeviceDetails({
               device={device}
               disableConnectedAccountInformation={
                 disableConnectedAccountInformation
+              }
+              disableDeviceManufacturerInformation={
+                disableDeviceManufacturerInformation
               }
               disableResourceIds={disableResourceIds}
             />

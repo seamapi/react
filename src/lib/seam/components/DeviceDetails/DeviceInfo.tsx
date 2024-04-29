@@ -10,7 +10,9 @@ interface DeviceInfoProps
   extends Required<
     Pick<
       CommonProps,
-      'disableConnectedAccountInformation' | 'disableResourceIds'
+      | 'disableResourceIds'
+      | 'disableDeviceManufacturerInformation'
+      | 'disableConnectedAccountInformation'
     >
   > {
   device: CommonDevice
@@ -19,17 +21,20 @@ interface DeviceInfoProps
 export function DeviceInfo({
   device,
   disableConnectedAccountInformation,
+  disableDeviceManufacturerInformation,
   disableResourceIds,
 }: DeviceInfoProps): JSX.Element | null {
   const { connectedAccount } = useConnectedAccount(device.connected_account_id)
   return (
     <DetailSection label={t.deviceInfo}>
-      <DetailRow label={t.manufacturer}>
-        <div className='seam-detail-row-hstack'>
-          {device.properties.model.manufacturer_display_name}
-          {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
-        </div>
-      </DetailRow>
+      {!disableDeviceManufacturerInformation && (
+        <DetailRow label={t.manufacturer}>
+          <div className='seam-detail-row-hstack'>
+            {device.properties.model.manufacturer_display_name}
+            {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
+          </div>
+        </DetailRow>
+      )}
       {!disableConnectedAccountInformation && (
         <DetailRow
           label={t.linkedAccount}

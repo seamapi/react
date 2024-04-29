@@ -70,6 +70,7 @@ export function DeviceTable({
   disableDeleteAccessCode = false,
   disableResourceIds = false,
   disableConnectedAccountInformation = false,
+  disableDeviceManufacturerInformation = false,
   disableClimateSettingSchedules = false,
   onBack,
   className,
@@ -114,6 +115,9 @@ export function DeviceTable({
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
         disableConnectedAccountInformation={disableConnectedAccountInformation}
+        disableDeviceManufacturerInformation={
+          disableDeviceManufacturerInformation
+        }
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setSelectedDeviceId(null)

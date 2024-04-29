@@ -31,6 +31,7 @@ export function LockDeviceDetails({
   disableDeleteAccessCode,
   disableResourceIds,
   disableConnectedAccountInformation,
+  disableDeviceManufacturerInformation,
   disableClimateSettingSchedules,
   onBack,
   className,
@@ -62,6 +63,9 @@ export function LockDeviceDetails({
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
         disableConnectedAccountInformation={disableConnectedAccountInformation}
+        disableDeviceManufacturerInformation={
+          disableDeviceManufacturerInformation
+        }
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={toggleAccessCodesOpen}
         className={className}
@@ -151,6 +155,9 @@ export function LockDeviceDetails({
           device={device}
           disableConnectedAccountInformation={
             disableConnectedAccountInformation
+          }
+          disableDeviceManufacturerInformation={
+            disableDeviceManufacturerInformation
           }
           disableResourceIds={disableResourceIds}
         />
