@@ -42,6 +42,7 @@ export function AccessCodeDetails({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
+  disableConnectedAccountInformation = false,
   disableClimateSettingSchedules,
   onBack,
   className,
@@ -69,6 +70,7 @@ export function AccessCodeDetails({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           selectDevice(null)
