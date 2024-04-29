@@ -24,7 +24,13 @@ export function DeviceInfo({
   disableDeviceManufacturerInformation,
   disableResourceIds,
 }: DeviceInfoProps): JSX.Element | null {
-  const { connectedAccount } = useConnectedAccount(device.connected_account_id)
+  if (
+    disableConnectedAccountInformation &&
+    disableDeviceManufacturerInformation &&
+    disableResourceIds
+  ) {
+    return null
+  }
   return (
     <DetailSection label={t.deviceInfo}>
       {!disableDeviceManufacturerInformation && (
@@ -36,18 +42,26 @@ export function DeviceInfo({
         </DetailRow>
       )}
       {!disableConnectedAccountInformation && (
-        <DetailRow
-          label={t.linkedAccount}
-          sublabel={
-            connectedAccount?.user_identifier?.email ??
-            device.connected_account_id
-          }
-        />
+        <ConnectedAccountInformation device={device} />
       )}
       {!disableResourceIds && (
         <DetailRow label={t.deviceId} sublabel={device.device_id} />
       )}
     </DetailSection>
+  )
+}
+
+function ConnectedAccountInformation({
+  device,
+}: Pick<DeviceInfoProps, 'device'>): JSX.Element {
+  const { connectedAccount } = useConnectedAccount(device.connected_account_id)
+  return (
+    <DetailRow
+      label={t.linkedAccount}
+      sublabel={
+        connectedAccount?.user_identifier?.email ?? device.connected_account_id
+      }
+    />
   )
 }
 
