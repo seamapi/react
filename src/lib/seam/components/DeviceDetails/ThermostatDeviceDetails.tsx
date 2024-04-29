@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react'
 import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
 
 import { debounce } from 'lib/debounce.js'
-import { BeeIcon } from 'lib/icons/Bee.js'
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
-import type { CommonProps } from 'lib/seam/components/common-props.js'
-import { useConnectedAccount } from 'lib/seam/connected-accounts/use-connected-account.js'
+import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { useCoolThermostat } from 'lib/seam/thermostats/use-cool-thermostat.js'
 import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermostat.js'
@@ -30,26 +29,26 @@ import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 
-interface ThermostatDeviceDetailsProps extends CommonProps {
+interface ThermostatDeviceDetailsProps
+  extends NestedSpecificDeviceDetailsProps {
   device: ThermostatDevice
 }
 
 export function ThermostatDeviceDetails({
   device,
-  onBack,
-  className,
-  errorFilter = () => true,
-  warningFilter = () => true,
+  errorFilter,
+  warningFilter,
   disableLockUnlock,
   disableCreateAccessCode,
   disableEditAccessCode,
   disableDeleteAccessCode,
-  disableResourceIds = false,
-  disableClimateSettingSchedules = false,
+  disableResourceIds,
+  disableConnectedAccountInformation,
+  disableClimateSettingSchedules,
+  onBack,
+  className,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
-
-  const { connectedAccount } = useConnectedAccount(device.connected_account_id)
 
   const { climateSettingSchedules } = useClimateSettingSchedules({
     device_id: device.device_id,
@@ -66,6 +65,7 @@ export function ThermostatDeviceDetails({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setClimateSettingsOpen(false)
@@ -143,25 +143,13 @@ export function ThermostatDeviceDetails({
                 <ManualOverrideRow device={device} />
               </DetailSection>
             )}
-
-            <DetailSection label={t.deviceDetails}>
-              <DetailRow label={t.manufacturer}>
-                <div className='seam-detail-row-hstack'>
-                  {device.properties.model.manufacturer_display_name}
-                  {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
-                </div>
-              </DetailRow>
-              <DetailRow
-                label={t.linkedAccount}
-                sublabel={
-                  connectedAccount?.user_identifier?.email ??
-                  device.connected_account_id
-                }
-              />
-              {!disableResourceIds && (
-                <DetailRow label={t.deviceId} sublabel={device.device_id} />
-              )}
-            </DetailSection>
+            <DeviceInfo
+              device={device}
+              disableConnectedAccountInformation={
+                disableConnectedAccountInformation
+              }
+              disableResourceIds={disableResourceIds}
+            />
           </DetailSectionGroup>
         </div>
       </div>
@@ -455,10 +443,6 @@ const t = {
     'When a scheduled climate reaches its end time, the default settings will kick in.',
   defaultClimate: 'Default climate',
   allowManualOverride: 'Allow manual override',
-  deviceDetails: 'Device details',
-  manufacturer: 'Manufacturer',
-  linkedAccount: 'Linked account',
-  deviceId: 'Device ID',
   none: 'None',
   fanModeSuccess: 'Successfully updated fan mode!',
   fanModeError: 'Error updating fan mode. Please try again.',
