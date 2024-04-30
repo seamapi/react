@@ -5,10 +5,10 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceDetails.js'
+import { NoiseSensorDeviceDetails } from 'lib/seam/components/DeviceDetails/NoiseSensorDeviceDetails.js'
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
-import { NoiseSensorDeviceDetails } from 'lib/seam/components/DeviceDetails/NoiseSensorDeviceDetails.js'
 
 export interface DeviceDetailsProps extends CommonProps {
   deviceId: string

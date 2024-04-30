@@ -1,14 +1,15 @@
+import type { NoiseSensorDevice } from 'seamapi'
+
+import { formatTime } from 'lib/dates.js'
+import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
+import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
-import type { NoiseSensorDevice } from 'seamapi'
-import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
-import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
-import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
-import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.js'
-import { formatTime, formatTimeZone } from 'lib/dates.js'
+import { DetailSection } from 'lib/ui/layout/DetailSection.js'
+import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
@@ -45,19 +46,15 @@ export function NoiseSensorDeviceDetails({
         </div>
 
         <DetailSectionGroup>
-          <DetailSection label='Noise thresholds' tooltipContent={''}>
+          <DetailSection label='Noise thresholds' tooltipContent="">
             {!isInitialLoading &&
               noise_thresholds?.map((noiseThreshold) => (
                 <DetailRow
                   label={
                     <>
-                      <span>
-                        {formatTime(noiseThreshold.starts_daily_at)}
-                      </span>
+                      <span>{formatTime(noiseThreshold.starts_daily_at)}</span>
                       <span> - </span>
-                      <span>
-                        {formatTime(noiseThreshold.ends_daily_at)}
-                      </span>
+                      <span>{formatTime(noiseThreshold.ends_daily_at)}</span>
                     </>
                   }
                 >
