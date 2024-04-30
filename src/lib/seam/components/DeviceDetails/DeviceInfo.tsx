@@ -23,7 +23,10 @@ export function DeviceInfo({
 }: DeviceInfoProps): JSX.Element | null {
   const { connectedAccount } = useConnectedAccount(device.connected_account_id)
   return (
-    <DetailSection label={t.deviceInfo}>
+    <DetailSection
+      label={t.deviceInfo}
+      className='seam-device-details-device-info'
+    >
       <DetailRow label={t.manufacturer}>
         <div className='seam-detail-row-hstack'>
           {device.properties.model.manufacturer_display_name}
