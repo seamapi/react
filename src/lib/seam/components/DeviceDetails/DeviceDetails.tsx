@@ -1,4 +1,4 @@
-import { isLockDevice, isThermostatDevice } from 'seamapi'
+import { isLockDevice, isNoiseSensorDevice, isThermostatDevice } from 'seamapi'
 
 import {
   type CommonProps,
@@ -8,6 +8,7 @@ import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceD
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
+import { NoiseSensorDeviceDetails } from 'lib/seam/components/DeviceDetails/NoiseSensorDeviceDetails.js'
 
 export interface DeviceDetailsProps extends CommonProps {
   deviceId: string
@@ -65,6 +66,10 @@ export function DeviceDetails({
 
   if (isThermostatDevice(device)) {
     return <ThermostatDeviceDetails device={device} {...props} />
+  }
+
+  if (isNoiseSensorDevice(device)) {
+    return <NoiseSensorDeviceDetails device={device} {...props} />
   }
 
   return null

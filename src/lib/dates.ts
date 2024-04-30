@@ -23,6 +23,11 @@ export const formatTimeZone = (timeZone: string): string => {
   return `${timeZone.replaceAll('_', ' ')} (${offset})`
 }
 
+export const formatTime = (time: string) => {
+  const dateTime = DateTime.fromISO(time)
+  return dateTime.isValid ? dateTime.toLocaleString(DateTime.TIME_SIMPLE) : ''
+}
+
 export const serializeDateTimePickerValue = (
   dateTime: DateTime,
   timeZone: string

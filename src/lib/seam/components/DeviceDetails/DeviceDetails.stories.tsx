@@ -82,3 +82,7 @@ export const DeviceOffline: Story = {
 export const ThermostatDevice: Story = {
   render: (props) => <DeviceDetails {...props} deviceId='device5' />,
 }
+
+export const NoiseSensorDevice: Story = {
+  render: (props) => <DeviceDetails {...props} deviceId='device7' />,
+}

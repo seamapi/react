@@ -468,6 +468,42 @@ export const seedFake = (db) => {
     errors: [],
   })
 
+  const device7 = db.addDevice({
+    workspace_id: ws2.workspace_id,
+    connected_account_id: ca.connected_account_id,
+    device_type: 'noiseaware_activity_zone',
+    created_at: '2023-05-15T15:08:53.000',
+    name: 'Living Room',
+    properties: {
+      online: true,
+      model: {
+        manufacturer_display_name: 'NoiseAware',
+        display_name: 'Indoor Sensor',
+      },
+    },
+    errors: [],
+  })
+
+  db.addNoiseThreshold({
+    device_id: device7.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
+    noise_threshold_decibels: 70,
+    starts_daily_at: '22:00:00',
+    ends_daily_at: '06:00:00',
+    name: 'builtin_quiet_hours',
+  })
+
+  db.addNoiseThreshold({
+    device_id: device7.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
+    noise_threshold_decibels: 75,
+    starts_daily_at: '06:00:00[America/Los _Angeles]',
+    ends_daily_at: '22:00:00',
+    name: 'builtin_quiet_hours',
+  })
+
   // add climate setting schedules
   db.addClimateSettingSchedule({
     device_id: device5.device_id,
@@ -532,5 +568,6 @@ export const seedFake = (db) => {
     device4,
     device5,
     device6,
+    device7,
   })
 }
