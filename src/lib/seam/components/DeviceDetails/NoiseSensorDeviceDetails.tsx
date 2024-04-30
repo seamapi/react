@@ -1,14 +1,14 @@
 import type { NoiseSensorDevice } from 'seamapi'
 
+import { formatTime } from 'lib/dates.js'
+import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
+import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.js'
 import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
-import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.js'
-import { formatTime } from 'lib/dates.js'
-import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
