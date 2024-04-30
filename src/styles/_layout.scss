@@ -105,6 +105,14 @@
     gap: 4px;
   }
 
+  .seam-detail-row-label-block {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 4px;
+  }
+
   .seam-row-label {
     font-size: 16px;
     font-weight: 600;

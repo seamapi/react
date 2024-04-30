@@ -9,6 +9,7 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.js'
 import { formatTime, formatTimeZone } from 'lib/dates.js'
+import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
@@ -50,15 +51,11 @@ export function NoiseSensorDeviceDetails({
               noise_thresholds?.map((noiseThreshold) => (
                 <DetailRow
                   label={
-                    <>
-                      <span>
-                        {formatTime(noiseThreshold.starts_daily_at)}
-                      </span>
-                      <span> - </span>
-                      <span>
-                        {formatTime(noiseThreshold.ends_daily_at)}
-                      </span>
-                    </>
+                    <div className='seam-detail-row-label-block'>
+                      <span>{formatTime(noiseThreshold.starts_daily_at)}</span>
+                      <ArrowRightIcon />
+                      <span>{formatTime(noiseThreshold.ends_daily_at)}</span>
+                    </div>
                   }
                 >
                   <p>{device.properties.noiseLevel}</p>
