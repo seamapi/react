@@ -32,7 +32,7 @@ export function DeviceInfo({
     return null
   }
   return (
-    <DetailSection label={t.deviceInfo}>
+    <DetailSection label={t.deviceInfo} className='seam-device-details-device-info'>
       {!disableDeviceManufacturerInformation && (
         <DetailRow label={t.manufacturer}>
           <div className='seam-detail-row-hstack'>
