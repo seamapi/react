@@ -46,7 +46,7 @@ export function NoiseSensorDeviceDetails({
         </div>
 
         <DetailSectionGroup>
-          <DetailSection label='Noise thresholds' tooltipContent="">
+          <DetailSection label='Noise thresholds' tooltipContent=''>
             {!isInitialLoading &&
               noise_thresholds?.map((noiseThreshold) => (
                 <DetailRow
