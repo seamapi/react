@@ -9,8 +9,8 @@ import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
-import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
+import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
