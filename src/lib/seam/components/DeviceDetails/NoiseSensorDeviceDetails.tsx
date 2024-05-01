@@ -48,7 +48,7 @@ export function NoiseSensorDeviceDetails({
 
         <DetailSectionGroup>
           <DetailSection label='Noise thresholds' tooltipContent=''>
-            {!isInitialLoading &&
+            {!isInitialLoading && (noise_thresholds?.length ?? 0) > 0 ? (
               noise_thresholds?.map((noiseThreshold) => (
                 <DetailRow
                   label={
@@ -72,7 +72,14 @@ export function NoiseSensorDeviceDetails({
                 >
                   <p>{noiseThreshold.noise_threshold_decibels} dB</p>
                 </DetailRow>
-              ))}
+              ))
+            ) : (
+              <DetailRow
+                label={
+                  <span className='seam-detail-row-empty-label'>None</span>
+                }
+              />
+            )}
           </DetailSection>
         </DetailSectionGroup>
       </div>
