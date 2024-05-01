@@ -1,4 +1,5 @@
 import type { NoiseSensorDevice, NoiseThresholds } from 'seamapi'
+import { ZonedTime } from 'zoned-time'
 
 import { formatTime, formatTimeZone } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
@@ -121,11 +122,8 @@ const getTimeZoneCaption = (
     return null
   }
 
-  // Match timezone inside square brackets.
-  // Example: "08:00:00[America/New_York]"
-  const timeZone =
-    thresholds[0]?.starts_daily_at.match(/\[(.*?)\]/)?.[1] ?? 'UTC'
-  return `All times in ${formatTimeZone(timeZone)}`
+  const zonedTime = ZonedTime.from(thresholds[0]?.starts_daily_at ?? '')
+  return `All times in ${formatTimeZone(zonedTime.timeZone)}`
 }
 
 const t = {
