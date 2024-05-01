@@ -47,40 +47,51 @@ export function NoiseSensorDeviceDetails({
         </div>
 
         <DetailSectionGroup>
-          <DetailSection label='Noise thresholds' tooltipContent=''>
-            {!isInitialLoading && (noise_thresholds?.length ?? 0) > 0 ? (
-              noise_thresholds?.map((noiseThreshold) => (
+          <div className='seam-detail-section-wrap'>
+            <DetailSection label='Noise thresholds' tooltipContent=''>
+              {!isInitialLoading && (noise_thresholds?.length ?? 0) > 0 ? (
+                noise_thresholds?.map((noiseThreshold) => (
+                  <DetailRow
+                    label={
+                      <div className='seam-detail-row-label-column'>
+                        {noiseThreshold.name && (
+                          <span className='seam-detail-row-label'>
+                            {noiseThreshold.name}
+                          </span>
+                        )}
+                        <div className='seam-detail-row-label-block'>
+                          <span className='seam-row-sublabel seam-row-sublabel-text-default'>
+                            {formatTime(noiseThreshold.starts_daily_at)}
+                          </span>
+                          <ArrowRightIcon />
+                          <span className='seam-row-sublabel seam-row-sublabel-text-default'>
+                            {formatTime(noiseThreshold.ends_daily_at)}
+                          </span>
+                        </div>
+                      </div>
+                    }
+                  >
+                    <p>{noiseThreshold.noise_threshold_decibels} dB</p>
+                  </DetailRow>
+                ))
+              ) : (
                 <DetailRow
                   label={
-                    <div className='seam-detail-row-label-column'>
-                      {noiseThreshold.name && (
-                        <span className='seam-detail-row-label'>
-                          {noiseThreshold.name}
-                        </span>
-                      )}
-                      <div className='seam-detail-row-label-block'>
-                        <span className='seam-row-sublabel seam-row-sublabel-text-default'>
-                          {formatTime(noiseThreshold.starts_daily_at)}
-                        </span>
-                        <ArrowRightIcon />
-                        <span className='seam-row-sublabel seam-row-sublabel-text-default'>
-                          {formatTime(noiseThreshold.ends_daily_at)}
-                        </span>
-                      </div>
-                    </div>
+                    <span className='seam-detail-row-empty-label'>None</span>
                   }
-                >
-                  <p>{noiseThreshold.noise_threshold_decibels} dB</p>
-                </DetailRow>
-              ))
-            ) : (
-              <DetailRow
-                label={
-                  <span className='seam-detail-row-empty-label'>None</span>
-                }
-              />
-            )}
-          </DetailSection>
+                />
+              )}
+            </DetailSection>
+
+            <div className='seam-detail-section-footer'>
+              <div className='seam-empty-div'></div>
+              <div className='seam-detail-section-footer-content'>
+                <div className='seam-detail-section-footer-content-text'>
+                  <p>All times in Pacific Time - US & Canada</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </DetailSectionGroup>
       </div>
     </div>
