@@ -51,7 +51,25 @@ export function NoiseSensorDeviceDetails({
 
         <DetailSectionGroup>
           <div className='seam-detail-section-wrap'>
-            <DetailSection label='Noise thresholds' tooltipContent=''>
+            <DetailSection
+              label='Noise thresholds'
+              tooltipContent={
+                device.device_type === 'minut_sensor' ? (
+                  <div className='seam-detail-section-tooltip-inner-content'>
+                    <span className='seam-tooltip-content'>
+                      A noise threshold is the highest noise level (in dB) you
+                      want to allow.
+                    </span>
+                    <span className='seam-tooltip-content'>
+                      Quiet hours is a separate threshold that takes effect only
+                      for a specified time range.
+                    </span>
+                  </div>
+                ) : (
+                  'A noise threshold is the highest noise level (in dB) you want to allow for a given time range in the day.'
+                )
+              }
+            >
               {!isInitialLoading && (noise_thresholds?.length ?? 0) > 0 ? (
                 noise_thresholds?.map((noiseThreshold) => (
                   <DetailRow

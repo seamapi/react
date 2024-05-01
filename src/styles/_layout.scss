@@ -85,6 +85,14 @@
     font-size: 12px;
     color: colors.$text-gray-2-5;
   }
+
+  .seam-detail-section-tooltip-inner-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 
 @mixin detail-row-common {
