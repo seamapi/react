@@ -1,7 +1,7 @@
+import classNames from 'classnames'
 import type { PropsWithChildren } from 'react'
 
 import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
-import classNames from 'classnames'
 
 interface DetailSectionProps {
   label?: string
