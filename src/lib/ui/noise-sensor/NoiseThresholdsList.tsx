@@ -102,6 +102,8 @@ const getTimeZoneCaption = (
     return null
   }
 
+  // Match timezone inside square brackets.
+  // Example: "08:00:00[America/New_York]"
   const timeZone =
     thresholds[0]?.starts_daily_at.match(/\[(.*?)\]/)?.[1] ?? 'UTC'
   return `All times in ${formatTimeZone(timeZone)}`
