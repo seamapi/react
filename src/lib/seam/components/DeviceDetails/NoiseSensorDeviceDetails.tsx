@@ -1,4 +1,4 @@
-import type { Device, NoiseSensorDevice, NoiseThresholds } from 'seamapi'
+import type { NoiseSensorDevice, NoiseThresholds } from 'seamapi'
 
 import { formatTime, formatTimeZone } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
