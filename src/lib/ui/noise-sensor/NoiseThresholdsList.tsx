@@ -39,41 +39,10 @@ export function NoiseThresholdsList({
               )
             }
           >
-            {!isInitialLoading && (noiseThresholds?.length ?? 0) > 0 ? (
-              noiseThresholds?.map((noiseThreshold) => (
-                <DetailRow
-                  key={noiseThreshold.noise_threshold_id}
-                  label={
-                    <div className='seam-detail-row-label-column'>
-                      {noiseThreshold.name !== '' && (
-                        <span className='seam-detail-row-label'>
-                          {noiseThreshold.name}
-                        </span>
-                      )}
-                      <div className='seam-detail-row-label-block'>
-                        <span className='seam-row-sublabel seam-row-sublabel-text-default'>
-                          {formatTime(noiseThreshold.starts_daily_at)}
-                        </span>
-                        <ArrowRightIcon />
-                        <span className='seam-row-sublabel seam-row-sublabel-text-default'>
-                          {formatTime(noiseThreshold.ends_daily_at)}
-                        </span>
-                      </div>
-                    </div>
-                  }
-                >
-                  <p>
-                    {noiseThreshold.noise_threshold_decibels} {t.decibel}
-                  </p>
-                </DetailRow>
-              ))
-            ) : (
-              <DetailRow
-                label={
-                  <span className='seam-detail-row-empty-label'>{t.none}</span>
-                }
-              />
-            )}
+            <Content
+              isInitialLoading={isInitialLoading}
+              noiseThresholds={noiseThresholds}
+            />
           </DetailSection>
 
           <div className='seam-detail-section-footer'>
@@ -88,6 +57,56 @@ export function NoiseThresholdsList({
       </DetailSectionGroup>
     </>
   )
+}
+
+function Content({
+  isInitialLoading,
+  noiseThresholds,
+}: {
+  isInitialLoading: boolean
+  noiseThresholds: NoiseThresholds[] | undefined
+}) {
+  if (isInitialLoading) {
+    return (
+      <DetailRow
+        label={<span className='seam-detail-row-empty-label'>{t.loading}</span>}
+      />
+    )
+  }
+
+  if (noiseThresholds == null || noiseThresholds.length === 0) {
+    return (
+      <DetailRow
+        label={<span className='seam-detail-row-empty-label'>{t.none}</span>}
+      />
+    )
+  }
+
+  return noiseThresholds?.map((noiseThreshold) => (
+    <DetailRow
+      key={noiseThreshold.noise_threshold_id}
+      label={
+        <div className='seam-detail-row-label-column'>
+          {noiseThreshold.name !== '' && (
+            <span className='seam-detail-row-label'>{noiseThreshold.name}</span>
+          )}
+          <div className='seam-detail-row-label-block'>
+            <span className='seam-row-sublabel seam-row-sublabel-text-default'>
+              {formatTime(noiseThreshold.starts_daily_at)}
+            </span>
+            <ArrowRightIcon />
+            <span className='seam-row-sublabel seam-row-sublabel-text-default'>
+              {formatTime(noiseThreshold.ends_daily_at)}
+            </span>
+          </div>
+        </div>
+      }
+    >
+      <p>
+        {noiseThreshold.noise_threshold_decibels} {t.decibel}
+      </p>
+    </DetailRow>
+  ))
 }
 
 const getTimeZoneCaption = (
@@ -118,5 +137,6 @@ const t = {
   minutTooltipSecond:
     'Quiet hours is a separate threshold that takes effect only for a specified time range.',
   none: 'None',
+  loading: 'Loading...',
   decibel: 'dB',
 }
