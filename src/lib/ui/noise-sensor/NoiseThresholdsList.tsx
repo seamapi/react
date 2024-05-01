@@ -66,7 +66,7 @@ function Content({
 }: {
   isInitialLoading: boolean
   noiseThresholds: NoiseThresholds[] | undefined
-}) {
+}): JSX.Element | JSX.Element[] {
   if (isInitialLoading) {
     return (
       <DetailRow
