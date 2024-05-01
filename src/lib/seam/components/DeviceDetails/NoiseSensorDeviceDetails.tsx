@@ -6,7 +6,6 @@ import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/Devic
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.js'
-import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
@@ -41,8 +40,6 @@ export function NoiseSensorDeviceDetails({
               <div className='seam-properties'>
                 <span className='seam-label'>{t.status}:</span>{' '}
                 <OnlineStatus device={device} />
-                <span className='seam-label'>{t.noiseLevel}:</span>{' '}
-                <BatteryStatus device={device} />
                 <DeviceModel device={device} />
               </div>
             </div>
