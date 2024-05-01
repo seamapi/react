@@ -23,7 +23,7 @@ export const formatTimeZone = (timeZone: string): string => {
   return `${timeZone.replaceAll('_', ' ')} (${offset})`
 }
 
-export const formatTime = (time: string) => {
+export const formatTime = (time: string): string => {
   const dateTime = DateTime.fromISO(time)
   return dateTime.isValid ? dateTime.toLocaleString(DateTime.TIME_SIMPLE) : ''
 }
