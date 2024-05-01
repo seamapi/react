@@ -106,7 +106,7 @@ export function NoiseSensorDeviceDetails({
               <div className='seam-empty-div' />
               <div className='seam-detail-section-footer-content'>
                 <div className='seam-detail-section-footer-content-text'>
-                  <p>{generateTimeZoneCaption(device, noiseThresholds)}</p>
+                  <p>{getTimeZoneCaption(device, noiseThresholds)}</p>
                 </div>
               </div>
             </div>
@@ -125,7 +125,7 @@ export function NoiseSensorDeviceDetails({
   )
 }
 
-const generateTimeZoneCaption = (
+const getTimeZoneCaption = (
   device: NoiseSensorDevice,
   thresholds: NoiseThresholds[] | undefined
 ): string | null => {
