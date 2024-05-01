@@ -11,6 +11,7 @@ import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
@@ -19,6 +20,8 @@ interface NoiseSensorDeviceDetailsProps
 
 export function NoiseSensorDeviceDetails({
   device,
+  disableConnectedAccountInformation,
+  disableResourceIds,
 }: NoiseSensorDeviceDetailsProps): JSX.Element | null {
   const { noise_thresholds, isInitialLoading } = useNoiseThresholds({
     device_id: device.device_id,
@@ -93,6 +96,14 @@ export function NoiseSensorDeviceDetails({
             </div>
           </div>
         </DetailSectionGroup>
+
+        <DeviceInfo
+          device={device}
+          disableConnectedAccountInformation={
+            disableConnectedAccountInformation
+          }
+          disableResourceIds={disableResourceIds}
+        />
       </div>
     </div>
   )
