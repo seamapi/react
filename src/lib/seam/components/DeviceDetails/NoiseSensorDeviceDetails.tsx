@@ -84,7 +84,7 @@ export function NoiseSensorDeviceDetails({
             </DetailSection>
 
             <div className='seam-detail-section-footer'>
-              <div className='seam-empty-div'></div>
+              <div className='seam-empty-div' />
               <div className='seam-detail-section-footer-content'>
                 <div className='seam-detail-section-footer-content-text'>
                   <p>{generateTimeZoneCaption(device, noise_thresholds)}</p>
