@@ -49,21 +49,19 @@ export function NoiseSensorDeviceDetails({
         <DetailSectionGroup>
           <div className='seam-detail-section-wrap'>
             <DetailSection
-              label='Noise thresholds'
+              label={t.noiseThresholds}
               tooltipContent={
                 device.device_type === 'minut_sensor' ? (
                   <div className='seam-detail-section-tooltip-inner-content'>
                     <span className='seam-tooltip-content'>
-                      A noise threshold is the highest noise level (in dB) you
-                      want to allow.
+                      {t.minutTooltipFirst}
                     </span>
                     <span className='seam-tooltip-content'>
-                      Quiet hours is a separate threshold that takes effect only
-                      for a specified time range.
+                      {t.minutTooltipSecond}
                     </span>
                   </div>
                 ) : (
-                  'A noise threshold is the highest noise level (in dB) you want to allow for a given time range in the day.'
+                  t.tooltip
                 )
               }
             >
@@ -90,13 +88,17 @@ export function NoiseSensorDeviceDetails({
                       </div>
                     }
                   >
-                    <p>{noiseThreshold.noise_threshold_decibels} dB</p>
+                    <p>
+                      {noiseThreshold.noise_threshold_decibels} {t.decibel}
+                    </p>
                   </DetailRow>
                 ))
               ) : (
                 <DetailRow
                   label={
-                    <span className='seam-detail-row-empty-label'>None</span>
+                    <span className='seam-detail-row-empty-label'>
+                      {t.none}
+                    </span>
                   }
                 />
               )}
@@ -146,4 +148,13 @@ const t = {
   noiseSensor: 'Noise Sensor',
   status: 'Status',
   noiseLevel: 'Noise level',
+  none: 'None',
+  decibel: 'dB',
+  noiseThresholds: 'Noise thresholds',
+  tooltip:
+    'A noise threshold is the highest noise level (in dB) you want to allow for a given time range in the day.',
+  minutTooltipFirst:
+    'A noise threshold is the highest noise level (in dB) you want to allow.',
+  minutTooltipSecond:
+    'Quiet hours is a separate threshold that takes effect only for a specified time range.',
 }
