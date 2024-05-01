@@ -499,7 +499,7 @@ export const seedFake = (db) => {
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-17T00:16:12.000',
     noise_threshold_decibels: 75,
-    starts_daily_at: '06:00:00[America/Los _Angeles]',
+    starts_daily_at: '06:00:00',
     ends_daily_at: '22:00:00',
     name: 'builtin_quiet_hours',
   })

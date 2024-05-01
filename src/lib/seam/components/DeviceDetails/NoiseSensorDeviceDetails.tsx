@@ -9,6 +9,8 @@ import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
+import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
@@ -50,14 +52,25 @@ export function NoiseSensorDeviceDetails({
               noise_thresholds?.map((noiseThreshold) => (
                 <DetailRow
                   label={
-                    <div className='seam-detail-row-label-block'>
-                      <span>{formatTime(noiseThreshold.starts_daily_at)}</span>
-                      <ArrowRightIcon />
-                      <span>{formatTime(noiseThreshold.ends_daily_at)}</span>
+                    <div className='seam-detail-row-label-column'>
+                      {noiseThreshold.name && (
+                        <span className='seam-detail-row-label'>
+                          {noiseThreshold.name}
+                        </span>
+                      )}
+                      <div className='seam-detail-row-label-block'>
+                        <span className='seam-row-sublabel seam-row-sublabel-text-default'>
+                          {formatTime(noiseThreshold.starts_daily_at)}
+                        </span>
+                        <ArrowRightIcon />
+                        <span className='seam-row-sublabel seam-row-sublabel-text-default'>
+                          {formatTime(noiseThreshold.ends_daily_at)}
+                        </span>
+                      </div>
                     </div>
                   }
                 >
-                  <p>{device.properties.noiseLevel}</p>
+                  <p>{noiseThreshold.noise_threshold_decibels} dB</p>
                 </DetailRow>
               ))}
           </DetailSection>

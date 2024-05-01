@@ -69,6 +69,7 @@
 }
 
 @mixin detail-row-common {
+
   .seam-detail-row,
   .seam-accordion-row {
     background-color: colors.$white;
@@ -105,6 +106,14 @@
     gap: 4px;
   }
 
+  .seam-detail-row-label-column {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   .seam-detail-row-label-block {
     display: flex;
     justify-content: flex-start;
@@ -124,6 +133,10 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 118%;
+
+    &.seam-row-sublabel-text-default {
+      color: colors.$text-default;
+    }
   }
 
   .seam-detail-row-hstack {
