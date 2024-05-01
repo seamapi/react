@@ -1,6 +1,6 @@
-import type { NoiseSensorDevice } from 'seamapi'
+import type { Device, NoiseSensorDevice, NoiseThresholds } from 'seamapi'
 
-import { formatTime } from 'lib/dates.js'
+import { formatTime, formatTimeZone } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
@@ -87,7 +87,7 @@ export function NoiseSensorDeviceDetails({
               <div className='seam-empty-div'></div>
               <div className='seam-detail-section-footer-content'>
                 <div className='seam-detail-section-footer-content-text'>
-                  <p>All times in Pacific Time - US & Canada</p>
+                  <p>{generateTimeZoneCaption(device, noise_thresholds)}</p>
                 </div>
               </div>
             </div>
@@ -96,6 +96,23 @@ export function NoiseSensorDeviceDetails({
       </div>
     </div>
   )
+}
+
+const generateTimeZoneCaption = (
+  device: NoiseSensorDevice,
+  thresholds: NoiseThresholds[] | undefined
+): string | null => {
+  if (device.location?.timezone) {
+    return `All times in ${formatTimeZone(device.location.timezone)}`
+  }
+
+  if (!thresholds) {
+    return null
+  }
+
+  const timeZone =
+    thresholds[0]?.starts_daily_at.match(/\[(.*?)\]/)?.[1] ?? 'UTC'
+  return `All times in ${formatTimeZone(timeZone)}`
 }
 
 const t = {

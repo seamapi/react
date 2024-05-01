@@ -489,8 +489,8 @@ export const seedFake = (db) => {
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-17T00:16:12.000',
     noise_threshold_decibels: 70,
-    starts_daily_at: '22:00:00',
-    ends_daily_at: '06:00:00',
+    starts_daily_at: '22:00:00[America/Los_Angeles]',
+    ends_daily_at: '06:00:00[America/Los_Angeles]',
     name: 'builtin_quiet_hours',
   })
 
@@ -499,8 +499,8 @@ export const seedFake = (db) => {
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-17T00:16:12.000',
     noise_threshold_decibels: 75,
-    starts_daily_at: '06:00:00',
-    ends_daily_at: '22:00:00',
+    starts_daily_at: '06:00:00[America/Los_Angeles]',
+    ends_daily_at: '22:00:00[America/Los_Angeles]',
     name: 'builtin_quiet_hours',
   })
 
