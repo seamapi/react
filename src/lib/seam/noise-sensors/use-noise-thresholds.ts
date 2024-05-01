@@ -14,7 +14,7 @@ export type UseNoiseThresholdsData = NoiseThresholds[]
 
 export function useNoiseThresholds(
   params: UseNoiseThresholdsParams
-): UseSeamQueryResult<'noise_thresholds', UseNoiseThresholdsData> {
+): UseSeamQueryResult<'noiseThresholds', UseNoiseThresholdsData> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
@@ -42,5 +42,5 @@ export function useNoiseThresholds(
     },
   })
 
-  return { ...rest, noise_thresholds: data }
+  return { ...rest, noiseThresholds: data }
 }

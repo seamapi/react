@@ -22,7 +22,7 @@ export function NoiseSensorDeviceDetails({
   disableConnectedAccountInformation,
   disableResourceIds,
 }: NoiseSensorDeviceDetailsProps): JSX.Element | null {
-  const { noise_thresholds, isInitialLoading } = useNoiseThresholds({
+  const { noiseThresholds, isInitialLoading } = useNoiseThresholds({
     device_id: device.device_id,
   })
 
@@ -67,12 +67,13 @@ export function NoiseSensorDeviceDetails({
                 )
               }
             >
-              {!isInitialLoading && (noise_thresholds?.length ?? 0) > 0 ? (
-                noise_thresholds?.map((noiseThreshold) => (
+              {!isInitialLoading && (noiseThresholds?.length ?? 0) > 0 ? (
+                noiseThresholds?.map((noiseThreshold) => (
                   <DetailRow
+                    key={noiseThreshold.noise_threshold_id}
                     label={
                       <div className='seam-detail-row-label-column'>
-                        {noiseThreshold.name && (
+                        {noiseThreshold.name !== '' && (
                           <span className='seam-detail-row-label'>
                             {noiseThreshold.name}
                           </span>
@@ -105,7 +106,7 @@ export function NoiseSensorDeviceDetails({
               <div className='seam-empty-div' />
               <div className='seam-detail-section-footer-content'>
                 <div className='seam-detail-section-footer-content-text'>
-                  <p>{generateTimeZoneCaption(device, noise_thresholds)}</p>
+                  <p>{generateTimeZoneCaption(device, noiseThresholds)}</p>
                 </div>
               </div>
             </div>
@@ -128,11 +129,11 @@ const generateTimeZoneCaption = (
   device: NoiseSensorDevice,
   thresholds: NoiseThresholds[] | undefined
 ): string | null => {
-  if (device.location?.timezone) {
+  if (device.location?.timezone != null) {
     return `All times in ${formatTimeZone(device.location.timezone)}`
   }
 
-  if (!thresholds) {
+  if (thresholds == null) {
     return null
   }
 
