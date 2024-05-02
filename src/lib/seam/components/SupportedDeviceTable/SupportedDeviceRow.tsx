@@ -22,7 +22,7 @@ export function SupportedDeviceRow({
 export function ImageColumn({
   deviceModel,
 }: SupportedDeviceRowProps): JSX.Element {
-  const optimizedSrc = `https://console.seam.co/_next/image?url=${encodeURIComponent(deviceModel.aesthetic_variants[0]?.images[0]?.url ?? '')}&q=75&w=128`
+  const optimizedSrc = `https://connect.getseam.com/_next/image?url=${encodeURIComponent(deviceModel.aesthetic_variants[0]?.images[0]?.url ?? '')}&q=75&w=128`
 
   return (
     <div className='seam-col seam-device-image-col'>
