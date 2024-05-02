@@ -6,6 +6,10 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 
 /**
  * These stories showcase the supported devices table.
+ *
+ * > **💡 The Storybook uses sample data for demonstration purposes!**
+ * >
+ * > ⚡ To see the SupportedDeviceTable with live data, visit https://react.seam.co/examples/basic/
  */
 const meta: Meta<typeof SupportedDeviceTable> = {
   title: 'Components/SupportedDeviceTable',
