@@ -93,7 +93,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com https://img.shields.io https://github.com https://console.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com"
+          "value": "default-src 'self'; script-src 'self' 'nonce-storybook'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com https://img.shields.io https://github.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com"
         }
       ]
     },
