@@ -116,12 +116,14 @@ const getTimeZoneCaption = (
     return `${t.allTimesIn} ${formatTimeZone(device.location.timezone)}`
   }
 
-  if (thresholds == null) {
-    return null
+  const firstThreshold = thresholds?.[0]
+
+  if (firstThreshold != null) {
+    const zonedTime = ZonedTime.from(firstThreshold.starts_daily_at)
+    return `${t.allTimesIn} ${formatTimeZone(zonedTime.timeZone)}`
   }
 
-  const zonedTime = ZonedTime.from(thresholds[0]?.starts_daily_at ?? '')
-  return `${t.allTimesIn} ${formatTimeZone(zonedTime.timeZone)}`
+  return null
 }
 
 const t = {
