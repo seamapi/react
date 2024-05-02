@@ -491,7 +491,7 @@ export const seedFake = (db) => {
     noise_threshold_decibels: 70,
     starts_daily_at: '22:00:00[America/Los_Angeles]',
     ends_daily_at: '06:00:00[America/Los_Angeles]',
-    name: 'builtin_quiet_hours',
+    name: 'Quiet Hours',
   })
 
   db.addNoiseThreshold({
@@ -501,7 +501,7 @@ export const seedFake = (db) => {
     noise_threshold_decibels: 75,
     starts_daily_at: '06:00:00[America/Los_Angeles]',
     ends_daily_at: '22:00:00[America/Los_Angeles]',
-    name: 'builtin_quiet_hours',
+    name: 'Active Hours',
   })
 
   // add climate setting schedules
