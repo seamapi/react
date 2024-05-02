@@ -84,7 +84,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com https://console.seam.co; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"
+          "value": "default-src 'self'; connect-src 'self' https://connect.getseam.com; img-src 'self' https://connect.getseam.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"
         }
       ]
     },
