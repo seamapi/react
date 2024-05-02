@@ -133,7 +133,8 @@
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
     "seamapi": "^8.22.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "zoned-time": "^1.1.2"
   },
   "devDependencies": {
     "@emotion/styled": "^11.10.6",

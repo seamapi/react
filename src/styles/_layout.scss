@@ -40,6 +40,12 @@
     gap: 32px;
   }
 
+  .seam-detail-section-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
   .seam-detail-section {
     width: 100%;
   }
@@ -65,6 +71,27 @@
     border-radius: 8px;
     border: 1px solid colors.$text-gray-3;
     overflow: hidden;
+  }
+
+  .seam-detail-section-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .seam-detail-section-footer-content-text {
+    font-size: 12px;
+    color: colors.$text-gray-2-5;
+  }
+
+  .seam-detail-section-tooltip-inner-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }
 
@@ -105,10 +132,34 @@
     gap: 4px;
   }
 
+  .seam-detail-row-label-column {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .seam-detail-row-label-block {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 4px;
+  }
+
   .seam-row-label {
     font-size: 16px;
     font-weight: 600;
     line-height: 118%;
+  }
+
+  .seam-detail-row-empty-label {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 118%;
+    color: colors.$text-gray-2;
   }
 
   .seam-row-sublabel {
@@ -116,6 +167,10 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 118%;
+
+    &.seam-row-sublabel-text-default {
+      color: colors.$text-default;
+    }
   }
 
   .seam-detail-row-hstack {
