@@ -5,7 +5,7 @@ import { Tooltip } from 'lib/ui/Tooltip/Tooltip.js'
 
 interface DetailSectionProps {
   label?: string
-  tooltipContent?: string
+  tooltipContent?: JSX.Element | string
   className?: string
 }
 
