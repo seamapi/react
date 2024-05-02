@@ -20,43 +20,41 @@ export function NoiseThresholdsList({
   })
 
   return (
-    <>
-      <DetailSectionGroup>
-        <div className='seam-detail-section-wrap'>
-          <DetailSection
-            label={t.noiseThresholds}
-            tooltipContent={
-              device.device_type === 'minut_sensor' ? (
-                <div className='seam-detail-section-tooltip-inner-content'>
-                  <span className='seam-tooltip-content'>
-                    {t.minutTooltipFirst}
-                  </span>
-                  <span className='seam-tooltip-content'>
-                    {t.minutTooltipSecond}
-                  </span>
-                </div>
-              ) : (
-                t.tooltip
-              )
-            }
-          >
-            <Content
-              isInitialLoading={isInitialLoading}
-              noiseThresholds={noiseThresholds}
-            />
-          </DetailSection>
-
-          <div className='seam-detail-section-footer'>
-            <div className='seam-empty-div' />
-            <div className='seam-detail-section-footer-content'>
-              <div className='seam-detail-section-footer-content-text'>
-                <p>{getTimeZoneCaption(device, noiseThresholds)}</p>
+    <DetailSectionGroup>
+      <div className='seam-detail-section-wrap'>
+        <DetailSection
+          label={t.noiseThresholds}
+          tooltipContent={
+            device.device_type === 'minut_sensor' ? (
+              <div className='seam-detail-section-tooltip-inner-content'>
+                <span className='seam-tooltip-content'>
+                  {t.minutTooltipFirst}
+                </span>
+                <span className='seam-tooltip-content'>
+                  {t.minutTooltipSecond}
+                </span>
               </div>
+            ) : (
+              t.tooltip
+            )
+          }
+        >
+          <Content
+            isInitialLoading={isInitialLoading}
+            noiseThresholds={noiseThresholds}
+          />
+        </DetailSection>
+
+        <div className='seam-detail-section-footer'>
+          <div className='seam-empty-div' />
+          <div className='seam-detail-section-footer-content'>
+            <div className='seam-detail-section-footer-content-text'>
+              <p>{getTimeZoneCaption(device, noiseThresholds)}</p>
             </div>
           </div>
         </div>
-      </DetailSectionGroup>
-    </>
+      </div>
+    </DetailSectionGroup>
   )
 }
 
@@ -115,7 +113,7 @@ const getTimeZoneCaption = (
   thresholds: NoiseThresholds[] | undefined
 ): string | null => {
   if (device.location?.timezone != null) {
-    return `All times in ${formatTimeZone(device.location.timezone)}`
+    return `${t.allTimesIn} ${formatTimeZone(device.location.timezone)}`
   }
 
   if (thresholds == null) {
@@ -123,7 +121,7 @@ const getTimeZoneCaption = (
   }
 
   const zonedTime = ZonedTime.from(thresholds[0]?.starts_daily_at ?? '')
-  return `All times in ${formatTimeZone(zonedTime.timeZone)}`
+  return `${t.allTimesIn} ${formatTimeZone(zonedTime.timeZone)}`
 }
 
 const t = {
@@ -137,4 +135,5 @@ const t = {
   none: 'None',
   loading: 'Loading...',
   decibel: 'dB',
+  allTimesIn: 'All times in',
 }
