@@ -6,8 +6,8 @@ import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
-import { NoiseThresholdsList } from 'lib/ui/noise-sensor/NoiseThresholdsList.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { NoiseThresholdsList } from 'lib/ui/noise-sensor/NoiseThresholdsList.js'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
