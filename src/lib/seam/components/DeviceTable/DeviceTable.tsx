@@ -1,6 +1,11 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import { type CommonDevice, isLockDevice, isThermostatDevice } from 'seamapi'
+import {
+  type CommonDevice,
+  isLockDevice,
+  isNoiseSensorDevice,
+  isThermostatDevice,
+} from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
@@ -87,7 +92,12 @@ export function DeviceTable({
   const filteredDevices = useMemo(
     () =>
       devices
-        ?.filter((device) => isLockDevice(device) || isThermostatDevice(device))
+        ?.filter(
+          (device) =>
+            isLockDevice(device) ||
+            isThermostatDevice(device) ||
+            isNoiseSensorDevice(device)
+        )
         ?.filter((device) => deviceFilter(device, searchInputValue))
         ?.sort(deviceComparator) ?? [],
     [devices, searchInputValue, deviceFilter, deviceComparator]

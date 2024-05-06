@@ -480,6 +480,8 @@ export const seedFake = (db) => {
         manufacturer_display_name: 'NoiseAware',
         display_name: 'Indoor Sensor',
       },
+      image_url:
+        'https://connect.getseam.com/assets/images/devices/noiseaware_indoor_sensor_front.png',
     },
     errors: [],
   })

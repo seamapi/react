@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import type { NoiseSensorDevice } from 'seamapi'
 
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -5,6 +6,7 @@ import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { NoiseThresholdsList } from 'lib/ui/noise-sensor/NoiseThresholdsList.js'
 
 interface NoiseSensorDeviceDetailsProps
@@ -16,9 +18,13 @@ export function NoiseSensorDeviceDetails({
   device,
   disableConnectedAccountInformation,
   disableResourceIds,
+  onBack,
+  className,
 }: NoiseSensorDeviceDetailsProps): JSX.Element | null {
   return (
-    <div className='seam-device-details'>
+    <div className={classNames('seam-device-details', className)}>
+      <ContentHeader title={t.noiseSensor} onBack={onBack} />
+
       <div className='seam-body'>
         <div className='seam-summary'>
           <div className='seam-content'>
