@@ -3,8 +3,8 @@ import { useCallback, useMemo, useState } from 'react'
 import {
   type CommonDevice,
   isLockDevice,
-  isThermostatDevice,
   isNoiseSensorDevice,
+  isThermostatDevice,
 } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
