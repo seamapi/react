@@ -7,6 +7,7 @@ import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
+import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 
 interface NoiseThresholdsListProps {
   device: NoiseSensorDevice
@@ -21,6 +22,14 @@ export function NoiseThresholdsList({
 
   return (
     <DetailSectionGroup>
+      <div className='seam-loading-toast-centered-wrap'>
+        <LoadingToast
+          isLoading={isInitialLoading}
+          label={t.loading}
+          top='10%'
+        />
+      </div>
+
       <div className='seam-detail-section-wrap'>
         <DetailSection
           label={t.noiseThresholds}
@@ -39,10 +48,7 @@ export function NoiseThresholdsList({
             )
           }
         >
-          <Content
-            isInitialLoading={isInitialLoading}
-            noiseThresholds={noiseThresholds}
-          />
+          <Content noiseThresholds={noiseThresholds} />
         </DetailSection>
 
         <div className='seam-detail-section-footer'>
@@ -59,20 +65,10 @@ export function NoiseThresholdsList({
 }
 
 function Content({
-  isInitialLoading,
   noiseThresholds,
 }: {
-  isInitialLoading: boolean
   noiseThresholds: NoiseThresholds[] | undefined
 }): JSX.Element | JSX.Element[] {
-  if (isInitialLoading) {
-    return (
-      <DetailRow
-        label={<span className='seam-detail-row-empty-label'>{t.loading}</span>}
-      />
-    )
-  }
-
   if (noiseThresholds == null || noiseThresholds.length === 0) {
     return (
       <DetailRow
