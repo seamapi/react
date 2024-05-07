@@ -26,7 +26,7 @@ export function NoiseThresholdsList({
         <LoadingToast
           isLoading={isInitialLoading}
           label={t.loading}
-          top='10%'
+          top='56px'
         />
       </div>
 
