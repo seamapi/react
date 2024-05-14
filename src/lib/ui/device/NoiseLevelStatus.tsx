@@ -6,7 +6,9 @@ interface NoiseLevelStatusProps {
   device: NoiseSensorDevice
 }
 
-export function NoiseLevelStatus({ device }: NoiseLevelStatusProps): JSX.Element {
+export function NoiseLevelStatus({
+  device,
+}: NoiseLevelStatusProps): JSX.Element {
   return (
     <>
       <span className='seam-label'>{t.noiseLevel}:</span>
