@@ -6,7 +6,9 @@ interface NoiseLevelStatusProps {
   device: NoiseSensorDevice
 }
 
-export function NoiseLevelStatus({ device }: NoiseLevelStatusProps): JSX.Element {
+export function NoiseLevelStatus({
+  device,
+}: NoiseLevelStatusProps): JSX.Element {
   return (
     <>
       <span className='seam-label'>{t.noiseLevel}:</span>
@@ -20,10 +22,10 @@ export function NoiseLevelStatus({ device }: NoiseLevelStatusProps): JSX.Element
 }
 
 function toNoiseString(value: number | string | undefined): string {
-  if (!value) {
-    return t.unknown
+  if (typeof value === 'string' || typeof value === 'number') {
+    return `${Number(value).toFixed(0)} ${t.decibel}`
   }
-  return `${Number(value).toFixed(0)} ${t.decibel}`
+  return t.unknown
 }
 
 function getNoiseLevel(device: NoiseSensorDevice): string {
