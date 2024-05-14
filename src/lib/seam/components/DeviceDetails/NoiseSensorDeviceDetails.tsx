@@ -5,10 +5,10 @@ import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/Devic
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
+import { NoiseLevelStatus } from 'lib/ui/device/NoiseLevelStatus.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { NoiseThresholdsList } from 'lib/ui/noise-sensor/NoiseThresholdsList.js'
-import { NoiseLevelStatus } from 'lib/ui/device/NoiseLevelStatus.js'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {

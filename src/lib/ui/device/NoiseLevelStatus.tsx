@@ -1,5 +1,6 @@
-import { NoiseLevelsIcon } from 'lib/icons/NoiseLevels.js'
 import type { NoiseSensorDevice } from 'seamapi'
+
+import { NoiseLevelsIcon } from 'lib/icons/NoiseLevels.js'
 
 interface NoiseLevelStatusProps {
   device: NoiseSensorDevice
