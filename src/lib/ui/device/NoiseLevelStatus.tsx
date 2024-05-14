@@ -19,14 +19,14 @@ export function NoiseLevelStatus({ device }: NoiseLevelStatusProps) {
   )
 }
 
-function toNoiseString(value: number | string | undefined) {
+function toNoiseString(value: number | string | undefined): string {
   if (!value) {
     return t.unknown
   }
   return `${Number(value).toFixed(0)} ${t.decibel}`
 }
 
-function getNoiseLevel(device: NoiseSensorDevice) {
+function getNoiseLevel(device: NoiseSensorDevice): string {
   const isMinut = device.device_type === 'minut_sensor'
   const isNoiseAware = device.device_type === 'noiseaware_activity_zone'
 
