@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useState } from 'react'
 import type { NoiseSensorDevice } from 'seamapi'
 
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
@@ -9,7 +10,6 @@ import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { NoiseThresholdsList } from 'lib/ui/noise-sensor/NoiseThresholdsList.js'
 import { TabSet } from 'lib/ui/TabSet.js'
-import { useState } from 'react'
 
 type TabType = 'Details' | 'Activity'
 
@@ -53,7 +53,7 @@ export function NoiseSensorDeviceDetails({
           <TabSet<TabType>
             tabs={['Details', 'Activity']}
             activeTab={tab}
-            onTabChange={(tab) => setTab(tab)}
+            onTabChange={(tab) => { setTab(tab); }}
           />
         </div>
 
