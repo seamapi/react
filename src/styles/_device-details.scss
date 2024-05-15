@@ -8,6 +8,10 @@
       gap: 16px;
       margin: 0 24px 24px;
 
+      &.seam-body-no-margin {
+        margin: 0;
+      }
+
       .seam-box {
         border: 1px solid colors.$text-gray-3;
         border-radius: 8px;
@@ -57,6 +61,7 @@
       }
 
       .seam-contained-summary {
+        padding: 0 24px 24px;
         box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08), 0px 1px 0px 0px rgba(0, 0, 0, 0.10);
       }
 

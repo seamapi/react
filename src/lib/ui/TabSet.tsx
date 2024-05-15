@@ -1,5 +1,11 @@
 import classNames from 'classnames'
-import { useLayoutEffect, useState, type MouseEventHandler } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  type MouseEventHandler,
+} from 'react'
 
 interface TabSetProps<TabType> {
   tabs: TabType[]
@@ -22,7 +28,7 @@ export function TabSet<TabType extends string>({
     width: 140,
   })
 
-  useLayoutEffect(() => {
+  const calculateHighlightStyle = useCallback(() => {
     const tabButton: HTMLButtonElement | null = document.querySelector(
       `.seam-tab-button:nth-of-type(${tabs.indexOf(activeTab) + 1})`
     )
@@ -31,7 +37,17 @@ export function TabSet<TabType extends string>({
       left: tabButton?.offsetLeft ?? 0,
       width: tabButton?.offsetWidth ?? 140,
     })
+  }, [activeTab, tabs])
+
+  useLayoutEffect(() => {
+    calculateHighlightStyle()
   }, [activeTab])
+
+  useEffect(() => {
+    const handleResize = () => calculateHighlightStyle()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
     <div className='seam-tab-set'>

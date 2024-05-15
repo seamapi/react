@@ -31,7 +31,7 @@ export function NoiseSensorDeviceDetails({
     <div className={classNames('seam-device-details', className)}>
       <ContentHeader title={t.noiseSensor} onBack={onBack} />
 
-      <div className='seam-body'>
+      <div className='seam-body seam-body-no-margin'>
         <div className='seam-contained-summary'>
           <div className='seam-summary'>
             <div className='seam-content'>
