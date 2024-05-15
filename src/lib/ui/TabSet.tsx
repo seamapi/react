@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { type MouseEventHandler,useLayoutEffect, useState } from 'react'
+import { type MouseEventHandler, useLayoutEffect, useState } from 'react'
 
 interface TabSetProps<TabType> {
   tabs: TabType[]

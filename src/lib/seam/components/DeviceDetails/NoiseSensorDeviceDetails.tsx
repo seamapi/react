@@ -53,7 +53,9 @@ export function NoiseSensorDeviceDetails({
           <TabSet<TabType>
             tabs={['Details', 'Activity']}
             activeTab={tab}
-            onTabChange={(tab) => { setTab(tab); }}
+            onTabChange={(tab) => {
+              setTab(tab)
+            }}
           />
         </div>
 
