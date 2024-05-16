@@ -1,13 +1,13 @@
 @use './colors';
 
 @mixin all {
-	.seam-noise-sensor-activity-list {
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-	}
+  .seam-noise-sensor-activity-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 
 	.seam-noise-sensor-event-item {
 		width: 100%;
@@ -21,9 +21,9 @@
 		gap: 18px;
 	}
 
-	.seam-noise-sensor-event-item-datetime-wrap {
-		color: colors.$text-gray-1;
-		font-size: 14px;
-		line-height: 134%;
-	}
+  .seam-noise-sensor-event-item-datetime-wrap {
+    color: colors.$text-gray-1;
+    font-size: 14px;
+    line-height: 134%;
+  }
 }

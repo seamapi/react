@@ -58,7 +58,11 @@ export const formatDateTime = (
     timeFormat?: string
   }
 ): { date: string; time: string } => {
-  const date = DateTime.fromISO(dateTime).toFormat(options?.dateFormat ?? ABBREVIATED_DATE_FORMAT)
-  const time = DateTime.fromISO(dateTime).toFormat(options?.timeFormat ?? TIME_FORMAT)
+  const date = DateTime.fromISO(dateTime).toFormat(
+    options?.dateFormat ?? ABBREVIATED_DATE_FORMAT
+  )
+  const time = DateTime.fromISO(dateTime).toFormat(
+    options?.timeFormat ?? TIME_FORMAT
+  )
   return { date, time }
 }

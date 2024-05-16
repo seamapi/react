@@ -1,7 +1,7 @@
-import { NoiseSensorEventItem } from 'lib/ui/noise-sensor/NoiseSensorEventItem.js'
 import type { NoiseSensorDevice } from 'seamapi'
 
 import { useEvents } from 'lib/seam/events/use-events.js'
+import { NoiseSensorEventItem } from 'lib/ui/noise-sensor/NoiseSensorEventItem.js'
 
 const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 interface NoiseSensorActivityListProps {
