@@ -543,7 +543,7 @@ export const seedFake = (db) => {
     noise_threshold_id: 2,
     noise_threshold_name: 'Active Hours',
   })
-  
+
   db.addEvent({
     device_id: device7.device_id,
     workspace_id: ws2.workspace_id,

@@ -22,7 +22,7 @@ export function TabSet<TabType extends string>({
   tabs,
   activeTab,
   onTabChange,
-}: TabSetProps<TabType>) {
+}: TabSetProps<TabType>): JSX.Element {
   const [highlightStyle, setHighlightStyle] = useState<HighlightStyle>({
     left: 0,
     width: 140,
