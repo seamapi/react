@@ -26,7 +26,6 @@ export function useEvents(
       return await client.events.list(params)
     },
     onSuccess: (events) => {
-      console.log({ events })
       for (const event of events) {
         queryClient.setQueryData(
           ['events', 'get', { event_id: event.event_id }],
