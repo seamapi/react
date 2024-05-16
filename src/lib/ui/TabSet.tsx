@@ -81,7 +81,7 @@ function TabButton<TabType extends string>({
   isActive,
   onTabChange,
   setHighlightStyle,
-}: TabButtonProps<TabType>) {
+}: TabButtonProps<TabType>): JSX.Element {
   const handleClick: MouseEventHandler<HTMLButtonElement> = (ev) => {
     onTabChange(tab)
     setHighlightStyle({
