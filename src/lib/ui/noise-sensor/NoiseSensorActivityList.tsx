@@ -9,7 +9,6 @@ interface NoiseSensorActivityListProps {
 export function NoiseSensorActivityList({
   device,
 }: NoiseSensorActivityListProps): JSX.Element {
-  console.log('Rendering...')
   const { events } = useEvents({
     device_id: device.device_id,
     event_type: 'noise_detection.detected_noise',

@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+
 import { ArrowBackIcon } from 'lib/icons/ArrowBack.js'
 
 interface ContentHeaderProps {
