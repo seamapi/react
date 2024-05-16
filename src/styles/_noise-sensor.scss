@@ -1,4 +1,28 @@
+@use './colors';
+
 @mixin all {
-  .seam-noise-sensor-activity-list {
-  }
+	.seam-noise-sensor-activity-list {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	.seam-noise-sensor-event-item {
+		width: 100%;
+		padding: 10px 8px 10px 16px;
+		border-bottom: 1px solid colors.$divider-stroke-light;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		flex-direction: row;
+		gap: 18px;
+	}
+
+	.seam-noise-sensor-event-item-datetime-wrap {
+		color: colors.$text-gray-1;
+		font-size: 14px;
+		line-height: 134%;
+	}
 }

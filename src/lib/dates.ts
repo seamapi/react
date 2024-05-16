@@ -1,5 +1,8 @@
 import { DateTime } from 'luxon'
 
+const ABBREVIATED_DATE_FORMAT = 'MMM d, yyyy'
+const TIME_FORMAT = 'h:mm a'
+
 export const compareByCreatedAtDesc = (
   a: { created_at: string },
   b: { created_at: string }
@@ -44,3 +47,18 @@ export const parseDateTimePickerValue = (
   timeZone: string
 ): DateTime =>
   DateTime.fromISO(value).setZone(timeZone, { keepLocalTime: true })
+
+/**
+ * Formats a date time string to an object with date and time properties.
+ */
+export const formatDateTime = (
+  dateTime: string,
+  options?: {
+    dateFormat?: string
+    timeFormat?: string
+  }
+): { date: string; time: string } => {
+  const date = DateTime.fromISO(dateTime).toFormat(options?.dateFormat ?? ABBREVIATED_DATE_FORMAT)
+  const time = DateTime.fromISO(dateTime).toFormat(options?.timeFormat ?? TIME_FORMAT)
+  return { date, time }
+}
