@@ -30,6 +30,7 @@
 @use './climate-setting-schedule-details';
 @use './time-zone-picker';
 @use './tab-set';
+@use './noise-sensor';
 
 .seam-components {
   // Reset
@@ -68,4 +69,5 @@
   @include thermostat.all;
   @include seam-table.all;
   @include climate-setting-schedule-details.all;
+  @include noise-sensor.all;
 }

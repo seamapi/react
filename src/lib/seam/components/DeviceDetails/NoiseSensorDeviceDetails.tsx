@@ -10,6 +10,7 @@ import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { NoiseThresholdsList } from 'lib/ui/noise-sensor/NoiseThresholdsList.js'
 import { TabSet } from 'lib/ui/TabSet.js'
+import { NoiseSensorActivityList } from 'lib/ui/noise-sensor/NoiseSensorActivityList.js'
 
 type TabType = 'Details' | 'Activity'
 
@@ -75,6 +76,8 @@ export function NoiseSensorDeviceDetails({
             />
           </>
         )}
+
+        {tab === 'Activity' && <NoiseSensorActivityList device={device} />}
       </div>
     </div>
   )
