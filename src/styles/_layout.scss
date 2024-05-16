@@ -9,6 +9,10 @@
     justify-content: center;
     margin: 0 16px;
 
+    &.seam-content-header-contained {
+      margin: 0;
+    }
+
     .seam-back-icon {
       position: absolute;
       top: 50%;

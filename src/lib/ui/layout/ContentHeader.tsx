@@ -1,19 +1,21 @@
+import classNames from 'classnames'
 import { ArrowBackIcon } from 'lib/icons/ArrowBack.js'
 
 interface ContentHeaderProps {
   onBack: (() => void) | undefined
   title?: string
   subheading?: string
+  className?: string
 }
 
 export function ContentHeader(props: ContentHeaderProps): JSX.Element | null {
-  const { title, onBack, subheading } = props
+  const { title, onBack, subheading, className } = props
   if (title == null && onBack == null) {
     return null
   }
 
   return (
-    <div className='seam-content-header'>
+    <div className={classNames('seam-content-header', className)}>
       <BackIcon onClick={onBack} />
       <div>
         <span className='seam-title'>{title}</span>

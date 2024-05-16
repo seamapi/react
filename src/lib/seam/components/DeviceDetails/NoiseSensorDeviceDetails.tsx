@@ -29,10 +29,13 @@ export function NoiseSensorDeviceDetails({
 
   return (
     <div className={classNames('seam-device-details', className)}>
-      <ContentHeader title={t.noiseSensor} onBack={onBack} />
-
       <div className='seam-body seam-body-no-margin'>
         <div className='seam-contained-summary'>
+          <ContentHeader
+            title={t.noiseSensor}
+            onBack={onBack}
+            className='seam-content-header-contained'
+          />
           <div className='seam-summary'>
             <div className='seam-content'>
               <div className='seam-image'>
@@ -59,15 +62,19 @@ export function NoiseSensorDeviceDetails({
           />
         </div>
 
-        <NoiseThresholdsList device={device} />
+        {tab === 'Details' && (
+          <>
+            <NoiseThresholdsList device={device} />
 
-        <DeviceInfo
-          device={device}
-          disableConnectedAccountInformation={
-            disableConnectedAccountInformation
-          }
-          disableResourceIds={disableResourceIds}
-        />
+            <DeviceInfo
+              device={device}
+              disableConnectedAccountInformation={
+                disableConnectedAccountInformation
+              }
+              disableResourceIds={disableResourceIds}
+            />
+          </>
+        )}
       </div>
     </div>
   )

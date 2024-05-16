@@ -39,7 +39,7 @@
             display: flex;
             justify-content: space-between;
 
-            > .seam-right {
+            >.seam-right {
               display: flex;
               align-items: center;
             }
@@ -61,7 +61,7 @@
       }
 
       .seam-contained-summary {
-        padding: 0 24px 24px;
+        padding: 0 24px;
         box-shadow:
           0px 2px 8px 0px rgba(0, 0, 0, 0.08),
           0px 1px 0px 0px rgba(0, 0, 0, 0.1);
@@ -89,7 +89,7 @@
           }
 
           .seam-info {
-            > .seam-label {
+            >.seam-label {
               color: colors.$text-gray-1;
               font-weight: 600;
               font-size: 14px;
@@ -126,7 +126,7 @@
                 margin-right: 8px;
               }
 
-              > * {
+              >* {
                 display: flex;
                 align-items: center;
               }
@@ -142,7 +142,7 @@
         align-items: center;
         justify-content: center;
 
-        > div {
+        >div {
           width: 40px;
           height: 40px;
           display: flex;
