@@ -1,6 +1,7 @@
+import type { Event } from 'seamapi'
+
 import { formatDateTime } from 'lib/dates.js'
 import { ClockIcon } from 'lib/icons/Clock.js'
-import type { Event } from 'seamapi'
 
 interface NoiseSensorEventItemProps {
   event: Event
