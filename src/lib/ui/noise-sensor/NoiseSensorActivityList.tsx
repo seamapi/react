@@ -1,5 +1,6 @@
-import { useEvents } from 'lib/seam/events/use-events.js'
 import type { NoiseSensorDevice } from 'seamapi'
+
+import { useEvents } from 'lib/seam/events/use-events.js'
 
 const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 interface NoiseSensorActivityListProps {
@@ -17,9 +18,7 @@ export function NoiseSensorActivityList({
 
   return (
     <div className='seam-noise-sensor-activity-list'>
-      {events?.map((event) => (
-        <div key={event.event_id}>{event.event_id}</div>
-      ))}
+      {events?.map((event) => <div key={event.event_id}>{event.event_id}</div>)}
     </div>
   )
 }
