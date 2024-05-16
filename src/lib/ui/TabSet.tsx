@@ -41,14 +41,14 @@ export function TabSet<TabType extends string>({
 
   useLayoutEffect(() => {
     calculateHighlightStyle()
-  }, [activeTab])
+  }, [activeTab, calculateHighlightStyle])
 
   useEffect(() => {
     window.addEventListener('resize', calculateHighlightStyle)
     return () => {
       window.removeEventListener('resize', calculateHighlightStyle)
     }
-  }, [])
+  }, [calculateHighlightStyle])
 
   return (
     <div className='seam-tab-set'>
