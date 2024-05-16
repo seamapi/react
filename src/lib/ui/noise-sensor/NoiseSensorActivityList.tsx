@@ -5,9 +5,5 @@ interface NoiseSensorActivityListProps {
 }
 
 export function NoiseSensorActivityList({}: NoiseSensorActivityListProps): JSX.Element {
-  return (
-    <div className="seam-noise-sensor-activity-list">
-
-    </div>
-  )
+  return <div className='seam-noise-sensor-activity-list' />
 }

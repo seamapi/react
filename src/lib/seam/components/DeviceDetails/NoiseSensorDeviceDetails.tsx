@@ -8,9 +8,9 @@ import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { NoiseSensorActivityList } from 'lib/ui/noise-sensor/NoiseSensorActivityList.js'
 import { NoiseThresholdsList } from 'lib/ui/noise-sensor/NoiseThresholdsList.js'
 import { TabSet } from 'lib/ui/TabSet.js'
-import { NoiseSensorActivityList } from 'lib/ui/noise-sensor/NoiseSensorActivityList.js'
 
 type TabType = 'Details' | 'Activity'
 
