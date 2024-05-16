@@ -534,6 +534,26 @@ export const seedFake = (db) => {
     event_type: 'noise_detection.detected_noise',
   })
 
+  db.addEvent({
+    device_id: device7.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2024-05-16T00:16:12.000',
+    event_type: 'noise_sensor.noise_threshold_triggered',
+    noise_level_decibels: 75,
+    noise_threshold_id: 2,
+    noise_threshold_name: 'Active Hours',
+  })
+  
+  db.addEvent({
+    device_id: device7.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2024-05-16T00:16:12.000',
+    event_type: 'noise_sensor.noise_threshold_triggered',
+    noise_level_decibels: 75,
+    noise_threshold_id: 2,
+    noise_threshold_name: 'Active Hours',
+  })
+
   // add climate setting schedules
   db.addClimateSettingSchedule({
     device_id: device5.device_id,

@@ -13,7 +13,10 @@ export function NoiseSensorActivityList({
 }: NoiseSensorActivityListProps): JSX.Element {
   const { events } = useEvents({
     device_id: device.device_id,
-    event_type: 'noise_detection.detected_noise',
+    event_types: [
+      'noise_detection.detected_noise',
+      'noise_sensor.noise_threshold_triggered',
+    ],
     since,
   })
 

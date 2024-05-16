@@ -14,11 +14,18 @@ export function NoiseSensorEventItem({
 
   return (
     <div className='seam-noise-sensor-event-item'>
-      <ClockIcon />
+      <div className='seam-noise-sensor-event-item-column-wrap'>
+        <ClockIcon />
 
-      <div className='seam-noise-sensor-event-item-datetime-wrap'>
-        <p className='seam-noise-sensor-event-item-date'>{date}</p>
-        <p className='seam-noise-sensor-event-item-time'>{time}</p>
+        <div className='seam-noise-sensor-event-item-datetime-wrap'>
+          <p className='seam-noise-sensor-event-item-date'>{date}</p>
+          <p className='seam-noise-sensor-event-item-time'>{time}</p>
+        </div>
+      </div>
+
+      <div className='seam-noise-sensor-event-item-context-wrap'>
+        <p className='seam-noise-sensor-event-item-context-label'>{`Noisy (${event.noise_level_decibels} dB)`}</p>
+        <p className='seam-noise-sensor-event-item-context-sublabel'>Kitchen</p>
       </div>
     </div>
   )
