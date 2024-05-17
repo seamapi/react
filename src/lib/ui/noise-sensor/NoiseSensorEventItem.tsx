@@ -34,7 +34,7 @@ export function NoiseSensorEventItem({
         )}
       </div>
 
-      <div className='seam-noise-sensor-event-item-right-block'></div>
+      <div className='seam-noise-sensor-event-item-right-block' />
     </div>
   )
 }
