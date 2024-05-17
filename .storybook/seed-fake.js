@@ -511,6 +511,7 @@ export const seedFake = (db) => {
     workspace_id: ws2.workspace_id,
     created_at: '2024-05-16T00:16:12.000',
     event_type: 'noise_detection.detected_noise',
+    noise_level_decibels: 65,
   })
 
   db.addEvent({
@@ -518,6 +519,7 @@ export const seedFake = (db) => {
     workspace_id: ws2.workspace_id,
     created_at: '2024-05-16T00:16:12.000',
     event_type: 'noise_detection.detected_noise',
+    noise_level_decibels: 75,
   })
 
   db.addEvent({
@@ -525,6 +527,7 @@ export const seedFake = (db) => {
     workspace_id: ws2.workspace_id,
     created_at: '2024-05-16T00:16:12.000',
     event_type: 'noise_detection.detected_noise',
+    noise_level_decibels: 80,
   })
 
   db.addEvent({
@@ -532,6 +535,7 @@ export const seedFake = (db) => {
     workspace_id: ws2.workspace_id,
     created_at: '2024-05-16T00:16:12.000',
     event_type: 'noise_detection.detected_noise',
+    noise_level_decibels: 85,
   })
 
   db.addEvent({

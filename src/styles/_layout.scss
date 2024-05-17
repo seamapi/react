@@ -38,6 +38,10 @@
 }
 
 @mixin detail-section {
+  .seam-padded-container {
+    padding: 0 16px;
+  }
+
   .seam-detail-sections {
     display: flex;
     flex-direction: column;

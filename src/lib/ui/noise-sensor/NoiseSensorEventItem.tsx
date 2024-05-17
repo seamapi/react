@@ -42,24 +42,24 @@ export function NoiseSensorEventItem({
 function getContextLabel(event: Event): string {
   switch (event.event_type) {
     case 'noise_sensor.noise_threshold_triggered':
-      return `${t.noiseThresholdTriggered} ${'noise_threshold_name' in event && `(${event.noise_threshold_name})`}`
+      return `${t.noiseThresholdTriggered}`
     case 'noise_detection.detected_noise':
-      return `${t.detectedNoise} ${'noise_level_decibels' in event ? `(${event.noise_level_decibels} ${t.decibel})` : ''}`
+      return `${t.detectedNoise}`
     default:
       return t.noiseDetected
   }
 }
 
 function getContextSublabel(event: Event): string {
-  if ('noise_level_decibels' in event) {
-    return `${event.noise_level_decibels} ${t.decibel}`
-  }
-
   if (
     'noise_threshold_name' in event &&
     typeof event.noise_threshold_name === 'string'
   ) {
     return event.noise_threshold_name
+  }
+
+  if ('noise_level_decibels' in event) {
+    return `${event.noise_level_decibels} ${t.decibel}`
   }
 
   return ''

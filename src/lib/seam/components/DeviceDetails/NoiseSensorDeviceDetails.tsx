@@ -64,7 +64,7 @@ export function NoiseSensorDeviceDetails({
         </div>
 
         {tab === 'Details' && (
-          <>
+          <div className='seam-padded-container'>
             <NoiseThresholdsList device={device} />
 
             <DeviceInfo
@@ -74,7 +74,7 @@ export function NoiseSensorDeviceDetails({
               }
               disableResourceIds={disableResourceIds}
             />
-          </>
+          </div>
         )}
 
         {tab === 'Activity' && <NoiseSensorActivityList device={device} />}
