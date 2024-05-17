@@ -482,6 +482,13 @@ export const seedFake = (db) => {
       },
       image_url:
         'https://connect.getseam.com/assets/images/devices/noiseaware_indoor_sensor_front.png',
+      noiseaware_metadata: {
+        device_model: 'indoor',
+        noise_level_nrs: 1,
+        noise_level_decibel: 42,
+        device_name: 'Living room',
+        device_id: 'noiseaware_123',
+      },
     },
     errors: [],
   })
