@@ -14,8 +14,7 @@
     min-height: 64px;
     padding: 12px 8px 12px 16px;
     border-bottom: 1px solid colors.$divider-stroke-light;
-    display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr;
+    display: flex;
     gap: 18px;
   }
 
@@ -25,6 +24,7 @@
     align-items: center;
     flex-direction: row;
     gap: 18px;
+    flex: 0.5;
   }
 
   .seam-noise-sensor-event-item-datetime-wrap {
@@ -33,15 +33,43 @@
     line-height: 134%;
   }
 
+  .seam-noise-sensor-event-item-date,
+  .seam-noise-sensor-event-item-time,
+  .seam-noise-sensor-event-item-context-label,
+  .seam-noise-sensor-event-item-context-sublabel {
+    white-space: nowrap;
+  }
+
+  .seam-noise-sensor-event-item-context-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+
   .seam-noise-sensor-event-item-context-label {
     color: colors.$text-default;
     font-size: 14px;
     line-height: 134%;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .seam-noise-sensor-event-item-context-sublabel {
     color: colors.$text-gray-2;
     font-size: 14px;
     line-height: 134%;
+  }
+
+  .seam-noise-sensor-event-item-right-block {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+    flex: 1;
   }
 }
