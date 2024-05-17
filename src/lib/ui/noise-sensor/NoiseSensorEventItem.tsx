@@ -27,7 +27,7 @@ export function NoiseSensorEventItem({
         <p className='seam-noise-sensor-event-item-context-label'>
           {getContextLabel(event)}
         </p>
-        {getContextSublabel(event) && (
+        {getContextSublabel(event) != null && (
           <p className='seam-noise-sensor-event-item-context-sublabel'>
             {getContextSublabel(event)}
           </p>
@@ -50,7 +50,7 @@ function getContextLabel(event: Event): string {
   }
 }
 
-function getContextSublabel(event: Event): string {
+function getContextSublabel(event: Event): string | null {
   if (
     'noise_threshold_name' in event &&
     typeof event.noise_threshold_name === 'string'
@@ -58,11 +58,14 @@ function getContextSublabel(event: Event): string {
     return event.noise_threshold_name
   }
 
-  if ('noise_level_decibels' in event) {
+  if (
+    'noise_level_decibels' in event &&
+    typeof event.noise_level_decibels === 'number'
+  ) {
     return `${event.noise_level_decibels} ${t.decibel}`
   }
 
-  return ''
+  return null
 }
 
 const t = {
