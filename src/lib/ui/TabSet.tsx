@@ -7,8 +7,9 @@ import {
   useState,
 } from 'react'
 
-interface TabSetProps<TabType> {
+interface TabSetProps<TabType extends string> {
   tabs: TabType[]
+  tabTitles: Record<TabType, string>
   activeTab: TabType
   onTabChange: (tab: TabType) => void
 }
@@ -20,6 +21,7 @@ interface HighlightStyle {
 
 export function TabSet<TabType extends string>({
   tabs,
+  tabTitles,
   activeTab,
   onTabChange,
 }: TabSetProps<TabType>): JSX.Element {
@@ -60,6 +62,7 @@ export function TabSet<TabType extends string>({
           <TabButton<TabType>
             key={tab}
             tab={tab}
+            title={tabTitles[tab]}
             isActive={activeTab === tab}
             onTabChange={onTabChange}
             setHighlightStyle={setHighlightStyle}
@@ -72,6 +75,7 @@ export function TabSet<TabType extends string>({
 
 interface TabButtonProps<TabType> {
   tab: TabType
+  title: string
   isActive: boolean
   onTabChange: (tab: TabType) => void
   setHighlightStyle: (style: HighlightStyle) => void
@@ -79,6 +83,7 @@ interface TabButtonProps<TabType> {
 
 function TabButton<TabType extends string>({
   tab,
+  title,
   isActive,
   onTabChange,
   setHighlightStyle,
@@ -99,7 +104,7 @@ function TabButton<TabType extends string>({
       )}
       onClick={handleClick}
     >
-      <p className='seam-tab-button-label'>{tab}</p>
+      <p className='seam-tab-button-label'>{title}</p>
     </button>
   )
 }

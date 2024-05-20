@@ -13,7 +13,7 @@ import { NoiseSensorActivityList } from 'lib/ui/noise-sensor/NoiseSensorActivity
 import { NoiseThresholdsList } from 'lib/ui/noise-sensor/NoiseThresholdsList.js'
 import { TabSet } from 'lib/ui/TabSet.js'
 
-type TabType = 'Details' | 'Activity'
+type TabType = 'details' | 'activity'
 
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
@@ -27,7 +27,7 @@ export function NoiseSensorDeviceDetails({
   onBack,
   className,
 }: NoiseSensorDeviceDetailsProps): JSX.Element | null {
-  const [tab, setTab] = useState<TabType>('Details')
+  const [tab, setTab] = useState<TabType>('details')
 
   return (
     <div className={classNames('seam-device-details', className)}>
@@ -57,7 +57,11 @@ export function NoiseSensorDeviceDetails({
           </div>
 
           <TabSet<TabType>
-            tabs={['Details', 'Activity']}
+            tabs={['details', 'activity']}
+            tabTitles={{
+              details: t.details,
+              activity: t.activity,
+            }}
             activeTab={tab}
             onTabChange={(tab) => {
               setTab(tab)
@@ -65,7 +69,7 @@ export function NoiseSensorDeviceDetails({
           />
         </div>
 
-        {tab === 'Details' && (
+        {tab === 'details' && (
           <div className='seam-padded-container'>
             <NoiseThresholdsList device={device} />
 
@@ -79,7 +83,7 @@ export function NoiseSensorDeviceDetails({
           </div>
         )}
 
-        {tab === 'Activity' && <NoiseSensorActivityList device={device} />}
+        {tab === 'activity' && <NoiseSensorActivityList device={device} />}
       </div>
     </div>
   )
@@ -89,4 +93,6 @@ const t = {
   noiseSensor: 'Noise Sensor',
   status: 'Status',
   noiseLevel: 'Noise level',
+  details: 'Details',
+  activity: 'Activity',
 }
