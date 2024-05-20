@@ -1,7 +1,10 @@
 import type { Event } from 'seamapi'
 
-import { formatDateTime } from 'lib/dates.js'
 import { ClockIcon } from 'lib/icons/Clock.js'
+import { DateTime } from 'luxon'
+
+const ABBREVIATED_DATE_FORMAT = 'MMM d, yyyy'
+const TIME_FORMAT = 'h:mm a'
 
 interface NoiseSensorEventItemProps {
   event: Event
@@ -10,7 +13,8 @@ interface NoiseSensorEventItemProps {
 export function NoiseSensorEventItem({
   event,
 }: NoiseSensorEventItemProps): JSX.Element {
-  const { date, time } = formatDateTime(event.created_at)
+  const date = formatDate(event.created_at)
+  const time = formatTime(event.created_at)
 
   return (
     <div className='seam-noise-sensor-event-item'>
@@ -61,6 +65,12 @@ function getContextSublabel(event: Event): string | null {
 
   return null
 }
+
+const formatDate = (dateTime: string) =>
+  DateTime.fromISO(dateTime).toFormat(ABBREVIATED_DATE_FORMAT)
+
+const formatTime = (dateTime: string) =>
+  DateTime.fromISO(dateTime).toFormat(TIME_FORMAT)
 
 const t = {
   detectedNoise: 'Noise detected',
