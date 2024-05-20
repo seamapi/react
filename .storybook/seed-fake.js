@@ -517,38 +517,6 @@ export const seedFake = (db) => {
     device_id: device7.device_id,
     workspace_id: ws2.workspace_id,
     created_at: '2024-05-16T00:16:12.000',
-    event_type: 'noise_detection.detected_noise',
-    noise_level_decibels: 65,
-  })
-
-  db.addEvent({
-    device_id: device7.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2024-05-16T00:16:12.000',
-    event_type: 'noise_detection.detected_noise',
-    noise_level_decibels: 75,
-  })
-
-  db.addEvent({
-    device_id: device7.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2024-05-16T00:16:12.000',
-    event_type: 'noise_detection.detected_noise',
-    noise_level_decibels: 80,
-  })
-
-  db.addEvent({
-    device_id: device7.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2024-05-16T00:16:12.000',
-    event_type: 'noise_detection.detected_noise',
-    noise_level_decibels: 85,
-  })
-
-  db.addEvent({
-    device_id: device7.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2024-05-16T00:16:12.000',
     event_type: 'noise_sensor.noise_threshold_triggered',
     noise_level_decibels: 75,
     noise_threshold_id: 2,

@@ -17,10 +17,7 @@ export function NoiseSensorActivityList({
 
   const { events } = useEvents({
     device_id: device.device_id,
-    event_types: [
-      'noise_detection.detected_noise',
-      'noise_sensor.noise_threshold_triggered',
-    ],
+    event_type: 'noise_sensor.noise_threshold_triggered',
     since: since.minus({ months: 1 }).toString(),
   })
 

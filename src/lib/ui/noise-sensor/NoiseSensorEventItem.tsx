@@ -29,7 +29,7 @@ export function NoiseSensorEventItem({
 
       <div className='seam-noise-sensor-event-item-context-wrap'>
         <p className='seam-noise-sensor-event-item-context-label'>
-          {getContextLabel(event)}
+          {t.noiseThresholdTriggered}
         </p>
         {getContextSublabel(event) != null && (
           <p className='seam-noise-sensor-event-item-context-sublabel'>
@@ -41,17 +41,6 @@ export function NoiseSensorEventItem({
       <div className='seam-noise-sensor-event-item-right-block' />
     </div>
   )
-}
-
-function getContextLabel(event: Event): string {
-  switch (event.event_type) {
-    case 'noise_sensor.noise_threshold_triggered':
-      return t.noiseThresholdTriggered
-    case 'noise_detection.detected_noise':
-      return t.detectedNoise
-    default:
-      return t.noiseDetected
-  }
 }
 
 function getContextSublabel(event: Event): string | null {
@@ -73,8 +62,6 @@ const formatTime = (dateTime: string) =>
   DateTime.fromISO(dateTime).toFormat(TIME_FORMAT)
 
 const t = {
-  detectedNoise: 'Noise detected',
   decibel: 'dB',
   noiseThresholdTriggered: 'Noise threshold triggered',
-  noiseDetected: 'Noise detected',
 }
