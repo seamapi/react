@@ -3,9 +3,6 @@ import type { Event } from 'seamapi'
 
 import { ClockIcon } from 'lib/icons/Clock.js'
 
-const ABBREVIATED_DATE_FORMAT = 'MMM d, yyyy'
-const TIME_FORMAT = 'h:mm a'
-
 interface NoiseSensorEventItemProps {
   event: Event
 }
@@ -56,10 +53,10 @@ function getContextSublabel(event: Event): string | null {
 }
 
 const formatDate = (dateTime: string) =>
-  DateTime.fromISO(dateTime).toFormat(ABBREVIATED_DATE_FORMAT)
+  DateTime.fromISO(dateTime).toLocaleString(DateTime.DATE_FULL)
 
 const formatTime = (dateTime: string) =>
-  DateTime.fromISO(dateTime).toFormat(TIME_FORMAT)
+  DateTime.fromISO(dateTime).toLocaleString(DateTime.TIME_SIMPLE)
 
 const t = {
   decibel: 'dB',
