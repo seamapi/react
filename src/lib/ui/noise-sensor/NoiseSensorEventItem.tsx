@@ -42,9 +42,9 @@ export function NoiseSensorEventItem({
 function getContextLabel(event: Event): string {
   switch (event.event_type) {
     case 'noise_sensor.noise_threshold_triggered':
-      return `${t.noiseThresholdTriggered}`
+      return t.noiseThresholdTriggered
     case 'noise_detection.detected_noise':
-      return `${t.detectedNoise}`
+      return t.detectedNoise
     default:
       return t.noiseDetected
   }
