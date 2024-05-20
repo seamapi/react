@@ -1,7 +1,7 @@
+import { DateTime } from 'luxon'
 import type { Event } from 'seamapi'
 
 import { ClockIcon } from 'lib/icons/Clock.js'
-import { DateTime } from 'luxon'
 
 const ABBREVIATED_DATE_FORMAT = 'MMM d, yyyy'
 const TIME_FORMAT = 'h:mm a'

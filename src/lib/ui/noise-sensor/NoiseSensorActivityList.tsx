@@ -2,8 +2,9 @@ import type { NoiseSensorDevice } from 'seamapi'
 
 import { useEvents } from 'lib/seam/events/use-events.js'
 import { NoiseSensorEventItem } from 'lib/ui/noise-sensor/NoiseSensorEventItem.js'
+import { useState } from 'react'
+import { useNow } from 'lib/ui/use-now.js'
 
-const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 interface NoiseSensorActivityListProps {
   device: NoiseSensorDevice
 }
@@ -11,13 +12,16 @@ interface NoiseSensorActivityListProps {
 export function NoiseSensorActivityList({
   device,
 }: NoiseSensorActivityListProps): JSX.Element {
+  const date = useNow()
+  const [since] = useState(date)
+
   const { events } = useEvents({
     device_id: device.device_id,
     event_types: [
       'noise_detection.detected_noise',
       'noise_sensor.noise_threshold_triggered',
     ],
-    since,
+    since: since.minus({ months: 1 }).toString(),
   })
 
   return (
