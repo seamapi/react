@@ -44,9 +44,9 @@ export function TabSet<TabType extends string>({
   }, [activeTab, calculateHighlightStyle])
 
   useEffect(() => {
-    window.addEventListener('resize', calculateHighlightStyle)
+    globalThis.addEventListener?.('resize', calculateHighlightStyle)
     return () => {
-      window.removeEventListener('resize', calculateHighlightStyle)
+      globalThis.removeEventListener?.('resize', calculateHighlightStyle)
     }
   }, [calculateHighlightStyle])
 
