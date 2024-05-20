@@ -29,9 +29,10 @@ export function TabSet<TabType extends string>({
   })
 
   const calculateHighlightStyle = useCallback(() => {
-    const tabButton: HTMLButtonElement | null = document.querySelector(
-      `.seam-tab-button:nth-of-type(${tabs.indexOf(activeTab) + 1})`
-    )
+    const tabButton: HTMLButtonElement | null =
+      globalThis.document?.querySelector(
+        `.seam-tab-button:nth-of-type(${tabs.indexOf(activeTab) + 1})`
+      )
 
     setHighlightStyle({
       left: tabButton?.offsetLeft ?? 0,
