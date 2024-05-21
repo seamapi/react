@@ -53,10 +53,10 @@ function getContextSublabel(event: Event): string | null {
   return null
 }
 
-const formatDate = (dateTime: string) =>
+const formatDate = (dateTime: string): string =>
   DateTime.fromISO(dateTime).toLocaleString(DateTime.DATE_FULL)
 
-const formatTime = (dateTime: string) =>
+const formatTime = (dateTime: string): string =>
   DateTime.fromISO(dateTime).toLocaleString(DateTime.TIME_SIMPLE)
 
 const t = {
