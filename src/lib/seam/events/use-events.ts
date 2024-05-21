@@ -11,7 +11,7 @@ import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseEventsParams = EventsListRequest
 export type UseEventsData = Event[]
-export type UseEventsOptions = {
+export interface UseEventsOptions {
   refetchInterval?: number
 }
 
