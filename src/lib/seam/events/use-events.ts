@@ -33,6 +33,7 @@ export function useEvents(
         )
       }
     },
+    refetchInterval: 30_000,
   })
 
   return { ...rest, events: data }
