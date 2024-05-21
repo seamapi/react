@@ -42,7 +42,8 @@ export function NoiseSensorEventItem({
 
 function getContextSublabel(event: Event): string | null {
   if ('noise_threshold_name' in event) {
-    // @ts-expect-error UPSTREAM: Shallow event type (#633)
+    // @ts-expect-error UPSTREAM: Shallow event type
+    // https://github.com/seamapi/react/issues/611
     return event.noise_threshold_name
   }
 
