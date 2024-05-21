@@ -47,6 +47,7 @@ function getContextSublabel(event: Event): string | null {
   }
 
   if ('noise_level_decibels' in event) {
+    // @ts-expect-error [upstream] shallow event type (#633)
     return `${event.noise_level_decibels} ${t.decibel}`
   }
 
