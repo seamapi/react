@@ -12,13 +12,13 @@ interface NoiseSensorActivityListProps {
 export function NoiseSensorActivityList({
   device,
 }: NoiseSensorActivityListProps): JSX.Element {
-  const date = useNow()
-  const [since] = useState(date)
+  const now = useNow()
+  const [mountedAt] = useState(now)
 
   const { events } = useEvents({
     device_id: device.device_id,
     event_type: 'noise_sensor.noise_threshold_triggered',
-    since: since.minus({ months: 1 }).toString(),
+    since: mountedAt.minus({ months: 1 }).toString(),
   })
 
   return (
