@@ -42,12 +42,12 @@ export function NoiseSensorEventItem({
 
 function getContextSublabel(event: Event): string | null {
   if ('noise_threshold_name' in event) {
-    // @ts-expect-error [upstream] shallow event type (#633)
+    // @ts-expect-error UPSTREAM: Shallow event type (#633)
     return event.noise_threshold_name
   }
 
   if ('noise_level_decibels' in event) {
-    // Cast: [upstream] shallow event type (#633)
+    // UPSTREAM: Shallow event types.
     return `${event.noise_level_decibels as string} ${t.decibel}`
   }
 

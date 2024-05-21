@@ -11,9 +11,13 @@ import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseEventsParams = EventsListRequest
 export type UseEventsData = Event[]
+export type UseEventsOptions = {
+  refetchInterval?: number
+}
 
 export function useEvents(
-  params?: UseEventsParams
+  params?: UseEventsParams,
+  options?: UseEventsOptions
 ): UseSeamQueryResult<'events', UseEventsData> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -33,7 +37,7 @@ export function useEvents(
         )
       }
     },
-    refetchInterval: 30_000,
+    refetchInterval: options?.refetchInterval ?? 30_000,
   })
 
   return { ...rest, events: data }
