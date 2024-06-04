@@ -64,6 +64,7 @@ export default async (
     throw new Error('Expected apipath to be a string')
   }
 
+  console.log('headers:', { ...req.headers })
   const { status, data, headers } = await axios.request({
     url: `${fake.serverUrl}/${apipath}`,
     params: getParams,
@@ -78,6 +79,7 @@ export default async (
 
   res.status(status)
 
+  console.log('res headers:', JSON.stringify(headers))
   for (const [key, value] of Object.entries(headers)) {
     if (!unproxiedHeaders.has(key)) res.setHeader(key, value as string)
   }
