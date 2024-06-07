@@ -113,7 +113,9 @@ const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
   return fake
 }
 
-const getArrayBufferFromReadableStream = async (readable: Readable): Promise<ArrayBuffer> => {
+const getArrayBufferFromReadableStream = async (
+  readable: Readable
+): Promise<ArrayBuffer> => {
   const chunks = []
   for await (const chunk of readable) {
     chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
