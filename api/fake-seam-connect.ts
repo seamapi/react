@@ -57,7 +57,7 @@ export default async (
   if (host == null) throw new Error('Missing Host header')
   await fake.startServer({ baseUrl: `https://${host}/api` })
 
-  const body = await buffer(req)
+  const body = await getArrayBufferFromReadableStream(req)
 
   if (typeof apipath !== 'string') {
     throw new Error('Expected apipath to be a string')
@@ -113,7 +113,7 @@ const getFakeDevicedb = async (): Promise<FakeDevicedb> => {
   return fake
 }
 
-const buffer = async (readable: Readable): Promise<ArrayBuffer> => {
+const getArrayBufferFromReadableStream = async (readable: Readable): Promise<ArrayBuffer> => {
   const chunks = []
   for await (const chunk of readable) {
     chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
