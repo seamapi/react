@@ -29,7 +29,7 @@ export class TelemetryClient {
   }: TelemetryClientOptions = {}) {
     this.#queue = new Queue()
     this.#anonymousId = uuidv4()
-    this.#endpoint = endpoint
+    this.#endpoint = endpoint.endsWith('/') ? endpoint.slice(0, -1) : endpoint
     this.#debug = debug
     this.#disabled = disabled
   }

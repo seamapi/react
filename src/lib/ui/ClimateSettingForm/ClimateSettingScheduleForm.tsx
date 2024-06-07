@@ -8,7 +8,7 @@ import {
 } from 'seamapi'
 
 import { getSystemTimeZone } from 'lib/dates.js'
-import { useDevice } from 'lib/index.js'
+import { useSeamClient } from 'lib/index.js'
 import { ClimateSettingScheduleFormClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormClimateSetting.js'
 import { ClimateSettingScheduleFormDefaultClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDefaultClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'
@@ -61,6 +61,7 @@ export function ClimateSettingScheduleForm({
 function Content({
   onBack,
 }: Omit<ClimateSettingScheduleFormProps, 'className'>): JSX.Element {
+  const { client } = useSeamClient()
   const { control, watch, resetField } =
     useForm<ClimateSettingScheduleFormFields>({
       defaultValues: {
@@ -80,10 +81,6 @@ function Content({
   const deviceId = watch('deviceId')
   const timeZone = watch('timeZone')
 
-  const { device } = useDevice({
-    device_id: deviceId,
-  })
-
   const [page, setPage] = useState<
     | 'device_select'
     | 'default_setting'
@@ -98,13 +95,22 @@ function Content({
   }
 
   useEffect(() => {
-    if (page === 'device_select' && device != null) {
-      if (!isThermostatDevice(device)) return
-      const defaultSetting = device.properties.default_climate_setting
-      if (defaultSetting != null) setPage('name_and_schedule')
-      else setPage('default_setting')
+    if (page === 'device_select' && deviceId !== '' && client != null) {
+      client.devices
+        .get({ device_id: deviceId })
+        .then((device) => {
+          if (!isThermostatDevice(device)) return
+
+          if (device.properties.default_climate_setting != null) {
+            setPage('name_and_schedule')
+            return
+          }
+
+          setPage('default_setting')
+        })
+        .catch(() => {})
     }
-  }, [device, page, setPage])
+  }, [client, deviceId, page, setPage])
 
   if (page === 'device_select') {
     return (
