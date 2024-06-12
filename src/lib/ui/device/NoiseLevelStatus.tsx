@@ -1,6 +1,8 @@
 import type { NoiseSensorDevice } from 'seamapi'
 
 import { NoiseLevelsIcon } from 'lib/icons/NoiseLevels.js'
+import { NoiseLevelsRedIcon } from 'lib/icons/NoiseLevelsRed.js'
+import classNames from 'classnames'
 
 interface NoiseLevelStatusProps {
   device: NoiseSensorDevice
@@ -9,13 +11,21 @@ interface NoiseLevelStatusProps {
 export function NoiseLevelStatus({
   device,
 }: NoiseLevelStatusProps): JSX.Element {
+  const isActivated =
+    device.properties.currently_triggering_noise_threshold_ids?.length <= 0
+
   return (
     <>
       <span className='seam-label'>{t.noiseLevel}:</span>
 
       <div className='seam-device-status'>
-        <NoiseLevelsIcon />
-        <span className='seam-text'>{getNoiseLevel(device)}</span>
+        {isActivated ? <NoiseLevelsRedIcon /> : <NoiseLevelsIcon />}
+        <span
+          className={classNames('seam-text', isActivated && 'seam-text-danger')}
+        >
+          {getNoiseLevel(device)}
+          {isActivated && ` (${t.noisy})`}
+        </span>
       </div>
     </>
   )
@@ -55,4 +65,5 @@ const t = {
   unknown: 'Unknown',
   decibel: 'dB',
   noiseAwareDefault: '0-40 dB',
+  noisy: 'noisy',
 }
