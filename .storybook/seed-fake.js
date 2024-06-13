@@ -489,7 +489,7 @@ export const seedFake = (db) => {
         device_name: 'Living room',
         device_id: 'noiseaware_123',
       },
-      currently_triggering_noise_threshold_ids: []
+      currently_triggering_noise_threshold_ids: [],
     },
     errors: [],
   })

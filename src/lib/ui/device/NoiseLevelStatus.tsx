@@ -1,8 +1,8 @@
+import classNames from 'classnames'
 import type { NoiseSensorDevice } from 'seamapi'
 
 import { NoiseLevelsIcon } from 'lib/icons/NoiseLevels.js'
 import { NoiseLevelsRedIcon } from 'lib/icons/NoiseLevelsRed.js'
-import classNames from 'classnames'
 
 interface NoiseLevelStatusProps {
   device: NoiseSensorDevice
