@@ -485,7 +485,7 @@ export const seedFake = (db) => {
       noiseaware_metadata: {
         device_model: 'indoor',
         noise_level_nrs: 1,
-        noise_level_decibel: 42,
+        noise_level_decibel: 80,
         device_name: 'Living room',
         device_id: 'noiseaware_123',
       },

@@ -12,7 +12,8 @@ export function NoiseLevelStatus({
   device,
 }: NoiseLevelStatusProps): JSX.Element {
   const isActivated =
-    device.properties.currently_triggering_noise_threshold_ids?.length <= 0
+    (device?.properties?.currently_triggering_noise_threshold_ids ?? [])
+      ?.length > 0
 
   return (
     <>
