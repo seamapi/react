@@ -28,7 +28,7 @@ export function SupportedDeviceContent({
   includeIf,
   excludeIf,
 }: SupportedDeviceContentProps): JSX.Element | null {
-  const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
+  const { deviceModels, isPending, isError, refetch } = useFilteredDeviceModels(
     {
       filterValue,
       filters,
@@ -44,7 +44,7 @@ export function SupportedDeviceContent({
     [deviceModels]
   )
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className='seam-supported-device-table-content-state-block'>
         <p>{t.loading}</p>
