@@ -26,9 +26,7 @@ export function useNoiseThresholds(
     queryKey: ['noise_thresholds', 'list', params],
     queryFn: async () => {
       if (client == null) return []
-      return await client.noiseThresholds.list(params)
-    },
-    onSuccess: (noiseThresholds) => {
+      const noiseThresholds = await client.noiseThresholds.list(params)
       for (const noiseThreshold of noiseThresholds) {
         queryClient.setQueryData(
           [
@@ -39,6 +37,7 @@ export function useNoiseThresholds(
           noiseThreshold
         )
       }
+      return noiseThresholds
     },
   })
 

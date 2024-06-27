@@ -27,15 +27,14 @@ export function useEvents(
     queryKey: ['events', 'list', params],
     queryFn: async () => {
       if (client == null) return []
-      return await client.events.list(params)
-    },
-    onSuccess: (events) => {
+      const events = await client.events.list(params)
       for (const event of events) {
         queryClient.setQueryData(
           ['events', 'get', { event_id: event.event_id }],
           event
         )
       }
+      return events
     },
     refetchInterval: options?.refetchInterval ?? 30_000,
   })
