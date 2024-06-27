@@ -374,7 +374,9 @@ export const seedFake = (db) => {
         automatic_cooling_enabled: true,
         automatic_heating_enabled: true,
         cooling_set_point_fahrenheit: 75,
+        cooling_set_point_celsius: 23.8,
         heating_set_point_fahrenheit: 65,
+        heating_set_point_celsius: 18.3,
       },
       default_climate_setting: {
         hvac_mode_setting: 'heat_cool',
@@ -382,7 +384,9 @@ export const seedFake = (db) => {
         automatic_cooling_enabled: true,
         automatic_heating_enabled: true,
         cooling_set_point_fahrenheit: 75,
+        cooling_set_point_celsius: 23.8,
         heating_set_point_fahrenheit: 65,
+        heating_set_point_celsius: 18.3,
       },
       available_hvac_mode_settings: ['off', 'cool', 'heat', 'heat_cool'],
       can_enable_automatic_cooling: true,
@@ -464,6 +468,72 @@ export const seedFake = (db) => {
     errors: [],
   })
 
+  const device7 = db.addDevice({
+    workspace_id: ws2.workspace_id,
+    connected_account_id: ca.connected_account_id,
+    device_type: 'noiseaware_activity_zone',
+    created_at: '2023-05-15T15:08:53.000',
+    name: 'Living Room',
+    properties: {
+      online: true,
+      model: {
+        manufacturer_display_name: 'NoiseAware',
+        display_name: 'Indoor Sensor',
+      },
+      image_url:
+        'https://connect.getseam.com/assets/images/devices/noiseaware_indoor_sensor_front.png',
+      noiseaware_metadata: {
+        device_model: 'indoor',
+        noise_level_nrs: 1,
+        noise_level_decibel: 80,
+        device_name: 'Living room',
+        device_id: 'noiseaware_123',
+      },
+      currently_triggering_noise_threshold_ids: [],
+    },
+    errors: [],
+  })
+
+  db.addNoiseThreshold({
+    device_id: device7.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
+    noise_threshold_decibels: 70,
+    starts_daily_at: '22:00:00[America/Los_Angeles]',
+    ends_daily_at: '06:00:00[America/Los_Angeles]',
+    name: 'Quiet Hours',
+  })
+
+  db.addNoiseThreshold({
+    device_id: device7.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-17T00:16:12.000',
+    noise_threshold_decibels: 75,
+    starts_daily_at: '06:00:00[America/Los_Angeles]',
+    ends_daily_at: '22:00:00[America/Los_Angeles]',
+    name: 'Active Hours',
+  })
+
+  db.addEvent({
+    device_id: device7.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2024-05-16T00:16:12.000',
+    event_type: 'noise_sensor.noise_threshold_triggered',
+    noise_level_decibels: 75,
+    noise_threshold_id: 2,
+    noise_threshold_name: 'Active Hours',
+  })
+
+  db.addEvent({
+    device_id: device7.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2024-05-16T00:16:12.000',
+    event_type: 'noise_sensor.noise_threshold_triggered',
+    noise_level_decibels: 75,
+    noise_threshold_id: 2,
+    noise_threshold_name: 'Active Hours',
+  })
+
   // add climate setting schedules
   db.addClimateSettingSchedule({
     device_id: device5.device_id,
@@ -528,5 +598,6 @@ export const seedFake = (db) => {
     device4,
     device5,
     device6,
+    device7,
   })
 }

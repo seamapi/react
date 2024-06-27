@@ -1,8 +1,11 @@
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import { type CommonDevice, isLockDevice, isThermostatDevice } from 'seamapi'
-
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
+import {
+  type CommonDevice,
+  isLockDevice,
+  isNoiseSensorDevice,
+  isThermostatDevice,
+} from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
@@ -20,6 +23,7 @@ import {
   useDevices,
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
@@ -70,6 +74,7 @@ export function DeviceTable({
   disableEditAccessCode = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
+  disableConnectedAccountInformation = false,
   disableClimateSettingSchedules = false,
   onBack,
   className,
@@ -87,7 +92,12 @@ export function DeviceTable({
   const filteredDevices = useMemo(
     () =>
       devices
-        ?.filter((device) => isLockDevice(device) || isThermostatDevice(device))
+        ?.filter(
+          (device) =>
+            isLockDevice(device) ||
+            isThermostatDevice(device) ||
+            isNoiseSensorDevice(device)
+        )
         ?.filter((device) => deviceFilter(device, searchInputValue))
         ?.sort(deviceComparator) ?? [],
     [devices, searchInputValue, deviceFilter, deviceComparator]
@@ -113,6 +123,7 @@ export function DeviceTable({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setSelectedDeviceId(null)

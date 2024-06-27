@@ -4,7 +4,8 @@ import type { LockDevice } from 'seamapi'
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/AccessCodeTable.js'
-import type { CommonProps } from 'lib/seam/components/common-props.js'
+import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
@@ -16,27 +17,24 @@ import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
-interface LockDeviceDetailsProps extends CommonProps {
+interface LockDeviceDetailsProps extends NestedSpecificDeviceDetailsProps {
   device: LockDevice
 }
 
-export function LockDeviceDetails(
-  props: LockDeviceDetailsProps
-): JSX.Element | null {
-  const {
-    device,
-    errorFilter = () => true,
-    warningFilter = () => true,
-    disableLockUnlock,
-    disableCreateAccessCode,
-    disableEditAccessCode,
-    disableDeleteAccessCode,
-    disableResourceIds,
-    disableClimateSettingSchedules,
-    onBack,
-    className,
-  } = props
-
+export function LockDeviceDetails({
+  device,
+  errorFilter,
+  warningFilter,
+  disableLockUnlock,
+  disableCreateAccessCode,
+  disableEditAccessCode,
+  disableDeleteAccessCode,
+  disableResourceIds,
+  disableConnectedAccountInformation,
+  disableClimateSettingSchedules,
+  onBack,
+  className,
+}: LockDeviceDetailsProps): JSX.Element | null {
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock(device)
   const { accessCodes } = useAccessCodes({
@@ -63,6 +61,7 @@ export function LockDeviceDetails(
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={toggleAccessCodesOpen}
         className={className}
@@ -129,7 +128,7 @@ export function LockDeviceDetails(
               <span className='seam-value'>{lockStatus}</span>
             </div>
             <div className='seam-right'>
-              {disableLockUnlock !== true &&
+              {!disableLockUnlock &&
                 device.capabilities_supported.includes('lock') && (
                   <Button
                     size='small'
@@ -148,6 +147,13 @@ export function LockDeviceDetails(
             }
           />
         </div>
+        <DeviceInfo
+          device={device}
+          disableConnectedAccountInformation={
+            disableConnectedAccountInformation
+          }
+          disableResourceIds={disableResourceIds}
+        />
       </div>
     </div>
   )

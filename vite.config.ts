@@ -1,8 +1,9 @@
 import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 
+import replace, { type RollupReplaceOptions } from '@rollup/plugin-replace'
 import react from '@vitejs/plugin-react'
-import { defineConfig, type UserConfig } from 'vite'
+import { defineConfig, type Plugin, type UserConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(async ({ mode }) => {
@@ -12,13 +13,21 @@ export default defineConfig(async ({ mode }) => {
     throw new Error('Missing version in package.json')
   }
   const config: UserConfig = {
-    plugins: [tsconfigPaths(), react()],
-    define: isBuild
-      ? {
-          'process.env.NODE_ENV': "'production'",
-          'const seamapiReactVersion = null': `const seamapiReactVersion = '${version}'`,
-        }
-      : {},
+    plugins: [
+      tsconfigPaths(),
+      react(),
+      // UPSTREAM: Rollup plugins have broken type declarations.
+      // https://github.com/rollup/plugins/issues/1541
+      (replace as unknown as (options: RollupReplaceOptions) => Plugin)(
+        isBuild
+          ? {
+              preventAssignment: true,
+              'process.env.NODE_ENV': JSON.stringify('production'),
+              'const seamapiReactVersion = null': `const seamapiReactVersion = '${version}'`,
+            }
+          : { preventAssignment: true }
+      ),
+    ],
     build: {
       outDir: fileURLToPath(new URL('./dist', import.meta.url)),
       sourcemap: true,

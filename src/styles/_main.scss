@@ -29,6 +29,8 @@
 @use './climate-setting-schedule-form';
 @use './climate-setting-schedule-details';
 @use './time-zone-picker';
+@use './tab-set';
+@use './noise-sensor';
 
 .seam-components {
   // Reset
@@ -53,6 +55,7 @@
   @include spinner.all;
   @include switch.all;
   @include time-zone-picker.all;
+  @include tab-set.all;
 
   // Components
   @include device-details.all;
@@ -66,4 +69,5 @@
   @include thermostat.all;
   @include seam-table.all;
   @include climate-setting-schedule-details.all;
+  @include noise-sensor.all;
 }

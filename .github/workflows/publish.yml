@@ -19,11 +19,11 @@ jobs:
     needs: build
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ needs.build.outputs.artifact_name }}
           path: .
@@ -71,13 +71,13 @@ jobs:
     needs: build
     steps:
       - name: Get version
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         id: version
         with:
           result-encoding: string
           script: return context.ref.split('/')[2].slice(1)
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ needs.build.outputs.artifact_name }}
           path: .

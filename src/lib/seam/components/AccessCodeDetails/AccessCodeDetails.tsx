@@ -3,8 +3,6 @@ import { DateTime } from 'luxon'
 import { useState } from 'react'
 import type { AccessCode } from 'seamapi'
 
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
-
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
@@ -18,6 +16,7 @@ import {
   accessCodeErrorFilter,
   accessCodeWarningFilter,
 } from 'lib/seam/filters.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
@@ -43,6 +42,7 @@ export function AccessCodeDetails({
   disableLockUnlock = false,
   disableDeleteAccessCode = false,
   disableResourceIds = false,
+  disableConnectedAccountInformation = false,
   disableClimateSettingSchedules,
   onBack,
   className,
@@ -70,6 +70,7 @@ export function AccessCodeDetails({
         disableEditAccessCode={disableEditAccessCode}
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
         disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           selectDevice(null)

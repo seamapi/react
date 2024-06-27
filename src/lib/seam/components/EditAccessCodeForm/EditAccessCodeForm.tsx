@@ -1,5 +1,3 @@
-import { useComponentTelemetry } from 'lib/telemetry/index.js'
-
 import {
   useAccessCode,
   type UseAccessCodeData,
@@ -11,6 +9,7 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { useResponseErrors } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import {
   AccessCodeForm,
   type AccessCodeFormSubmitData,

@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import type { PropsWithChildren } from 'react'
 
 interface DetailRowProps {
-  label: string
+  label: JSX.Element | string
   sublabel?: string
   onClick?: () => void
 }

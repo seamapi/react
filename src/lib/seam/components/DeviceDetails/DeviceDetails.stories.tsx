@@ -18,6 +18,7 @@ const meta: Meta<typeof DeviceDetails> = {
       type: 'figma',
       url: 'https://www.figma.com/file/Su3VO6yupz4yxe88fv0Uqa/Seam-Components?type=design&node-id=358-39439&mode=design&t=4OQwfRB8Mw8kT1rw-4',
     },
+    layout: 'fullscreen',
   },
 }
 
@@ -81,4 +82,8 @@ export const DeviceOffline: Story = {
 
 export const ThermostatDevice: Story = {
   render: (props) => <DeviceDetails {...props} deviceId='device5' />,
+}
+
+export const NoiseSensorDevice: Story = {
+  render: (props) => <DeviceDetails {...props} deviceId='device7' />,
 }
