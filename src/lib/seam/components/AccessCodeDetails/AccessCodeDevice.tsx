@@ -15,11 +15,11 @@ export function AccessCodeDevice({
   disableLockUnlock: boolean
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element | null {
-  const { isLoading, device } = useDevice({
+  const { isPending, device } = useDevice({
     device_id: deviceId,
   })
 
-  if (isLoading) {
+  if (isPending) {
     return null
   }
 

@@ -169,9 +169,9 @@ export function App() {
 }
 
 function Devices() {
-  const { devices, isLoading, isError, error } = useDevices()
+  const { devices, isPending, isError, error } = useDevices()
 
-  if (isLoading) {
+  if (isPending) {
     return <p>Loading</p>
   }
 
