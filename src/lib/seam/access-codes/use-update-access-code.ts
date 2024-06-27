@@ -34,7 +34,7 @@ export function useUpdateAccessCode(): UseMutationResult<
     mutationFn: async (mutationParams: UseUpdateAccessCodeMutationParams) => {
       if (client === null) throw new NullSeamClientError()
 
-      return await client.accessCodes.update(mutationParams)
+      await client.accessCodes.update(mutationParams);
     },
     onSuccess: (_data, variables) => {
       // There is no guarantee that the actual code has updated even if the
