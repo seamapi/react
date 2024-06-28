@@ -133,7 +133,7 @@
     "queue": "^7.0.0",
     "react-hook-form": "^7.46.1",
     "seamapi": "^8.24.0",
-    "uuid": "^9.0.0",
+    "uuid": "^10.0.0",
     "zoned-time": "^1.1.2"
   },
   "devDependencies": {
@@ -159,7 +159,7 @@
     "@types/node": "^20.11.27",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
-    "@types/uuid": "^9.0.1",
+    "@types/uuid": "^10.0.0",
     "@vercel/node": "^3.0.7",
     "@vitejs/plugin-react": "^4.0.0",
     "@vitest/coverage-v8": "^0.34.4",
