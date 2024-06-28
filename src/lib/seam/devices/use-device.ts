@@ -15,7 +15,7 @@ export function useDevice(
     typeof params === 'string' ? { device_id: params } : params
 
   const { client } = useSeamClient()
-  const { data, ...rest } = useQuery<Device, SeamHttpApiError>({
+  const { data, ...rest } = useQuery<UseDeviceData, SeamHttpApiError>({
     enabled: client != null,
     queryKey: ['devices', 'get', normalizedParams],
     queryFn: async () => {
