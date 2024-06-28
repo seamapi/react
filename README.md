@@ -87,7 +87,7 @@ export function App() {
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/2.20.0/dist/elements.js"
+    src="https://react.seam.co/v/3.0.0/dist/elements.js"
   ></script>
 </body>
 ```
@@ -215,7 +215,7 @@ or place the following in the `<head>` tag:
 ```html
 <link
   rel="stylesheet"
-  href="https://react.seam.co/v/2.20.0/dist/index.min.css"
+  href="https://react.seam.co/v/3.0.0/dist/index.min.css"
 />
 ```
 
