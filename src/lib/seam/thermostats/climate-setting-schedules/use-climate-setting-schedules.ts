@@ -30,10 +30,9 @@ export function useClimateSettingSchedules(
     queryKey: ['thermostats', 'climate_setting_schedules', 'list', params],
     queryFn: async () => {
       if (client == null) return []
-      return await client.thermostats.climateSettingSchedules.list(params)
-    },
-    onSuccess: (schedules) => {
-      for (const schedule of schedules) {
+      const climateSettingSchedules =
+        await client.thermostats.climateSettingSchedules.list(params)
+      for (const schedule of climateSettingSchedules) {
         queryClient.setQueryData(
           [
             'thermostats',
@@ -46,6 +45,7 @@ export function useClimateSettingSchedules(
           schedule
         )
       }
+      return climateSettingSchedules
     },
   })
 

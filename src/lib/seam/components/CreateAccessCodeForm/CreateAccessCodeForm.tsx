@@ -89,7 +89,7 @@ function useSubmitCreateAccessCode(params: {
   responseErrors: ResponseErrors | null
 } {
   const { onSuccess } = params
-  const { mutate, isLoading: isSubmitting } = useCreateAccessCode()
+  const { mutate, isPending: isSubmitting } = useCreateAccessCode()
   const { responseErrors, handleResponseError, resetResponseErrors } =
     useResponseErrors()
 

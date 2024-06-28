@@ -33,15 +33,18 @@ export function useDeleteAccessCode(): UseMutationResult<
   >({
     mutationFn: async (mutationParams: UseDeleteAccessCodeMutationParams) => {
       if (client === null) throw new NullSeamClientError()
-      return await client.accessCodes.delete(mutationParams)
+      const result = await client.accessCodes.delete(mutationParams)
+      return result
     },
     onSuccess: (_data, variables) => {
-      void queryClient.invalidateQueries([
-        'access_codes',
-        'get',
-        { access_code_id: variables.access_code_id },
-      ])
-      void queryClient.invalidateQueries(['access_codes', 'list'])
+      void queryClient.invalidateQueries({
+        queryKey: [
+          'access_codes',
+          'get',
+          { access_code_id: variables.access_code_id },
+        ],
+      })
+      void queryClient.invalidateQueries({ queryKey: ['access_codes', 'list'] })
     },
   })
 }

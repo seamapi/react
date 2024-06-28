@@ -32,9 +32,6 @@ export function useManufacturers(
         '/internal/devicedb/v1/manufacturers/list',
         { params }
       )
-      return manufacturers
-    },
-    onSuccess: (manufacturers) => {
       for (const manufacturer of manufacturers) {
         queryClient.setQueryData(
           [
@@ -46,6 +43,7 @@ export function useManufacturers(
           manufacturer
         )
       }
+      return manufacturers
     },
   })
 

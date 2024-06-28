@@ -29,9 +29,7 @@ export function useAccessCodes(
     queryKey: ['access_codes', 'list', normalizedParams],
     queryFn: async () => {
       if (client == null) return []
-      return await client.accessCodes.list(normalizedParams)
-    },
-    onSuccess: (accessCodes) => {
+      const accessCodes = await client.accessCodes.list(normalizedParams)
       for (const accessCode of accessCodes) {
         queryClient.setQueryData(
           [
@@ -42,6 +40,7 @@ export function useAccessCodes(
           accessCode
         )
       }
+      return accessCodes
     },
   })
 

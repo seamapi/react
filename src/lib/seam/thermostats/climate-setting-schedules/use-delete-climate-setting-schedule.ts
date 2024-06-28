@@ -37,17 +37,19 @@ export function useDeleteClimateSettingSchedule(): UseMutationResult<
       await client.thermostats.climateSettingSchedules.delete(mutationParams)
     },
     onSuccess: (_data, variables) => {
-      void queryClient.invalidateQueries([
-        'thermostats',
-        'climate_setting_schedules',
-        'get',
-        { climate_setting_schedule_id: variables.climate_setting_schedule_id },
-      ])
-      void queryClient.invalidateQueries([
-        'thermostats',
-        'climate_setting_schedules',
-        'list',
-      ])
+      void queryClient.invalidateQueries({
+        queryKey: [
+          'thermostats',
+          'climate_setting_schedules',
+          'get',
+          {
+            climate_setting_schedule_id: variables.climate_setting_schedule_id,
+          },
+        ],
+      })
+      void queryClient.invalidateQueries({
+        queryKey: ['thermostats', 'climate_setting_schedules', 'list'],
+      })
     },
   })
 }

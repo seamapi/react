@@ -7,7 +7,7 @@ import { useSeamContext } from 'lib/seam/SeamProvider.js'
 
 export function useSeamClient(): {
   client: Seam | null
-  isLoading: boolean
+  isPending: boolean
   isError: boolean
   error: unknown
 } {
@@ -22,7 +22,7 @@ export function useSeamClient(): {
     clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
-  const { isLoading, isError, error, data } = useQuery<Seam>({
+  const { isPending, isError, error, data } = useQuery<Seam>({
     queryKey: [
       'client',
       {
@@ -68,7 +68,7 @@ export function useSeamClient(): {
     },
   })
 
-  return { client: data ?? null, isLoading, isError, error }
+  return { client: data ?? null, isPending, isError, error }
 }
 
 export class NullSeamClientError extends Error {

@@ -35,9 +35,12 @@ export function useUpdateClimateSettingSchedule(): UseMutationResult<
       mutationPararms: UseUpdateClimateSettingScheduleMutationParams
     ) => {
       if (client === null) throw new NullSeamClientError()
-      return await client.thermostats.climateSettingSchedules.update(
-        mutationPararms
-      )
+      await client.thermostats.climateSettingSchedules.update(mutationPararms)
+      const updated = await client.thermostats.climateSettingSchedules.get({
+        climate_setting_schedule_id:
+          mutationPararms.climate_setting_schedule_id,
+      })
+      return updated
     },
     onSuccess: (updated) => {
       queryClient.setQueryData<ClimateSettingSchedule>(

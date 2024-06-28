@@ -32,7 +32,8 @@ export function useGenerateAccessCodeCode(): UseMutationResult<
       mutationParams: UseGenerateAccessCodeCodeMutationParams
     ) => {
       if (client === null) throw new NullSeamClientError()
-      return await client.accessCodes.generateCode(mutationParams)
+      const result = await client.accessCodes.generateCode(mutationParams)
+      return result
     },
   })
 }

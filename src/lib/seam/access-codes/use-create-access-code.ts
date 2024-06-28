@@ -31,10 +31,11 @@ export function useCreateAccessCode(): UseMutationResult<
   >({
     mutationFn: async (mutationParams: UseCreateAccessCodeMutationParams) => {
       if (client === null) throw new NullSeamClientError()
-      return await client.accessCodes.create(mutationParams)
+      const result = await client.accessCodes.create(mutationParams)
+      return result
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries(['access_codes', 'list'])
+      void queryClient.invalidateQueries({ queryKey: ['access_codes', 'list'] })
     },
   })
 }
