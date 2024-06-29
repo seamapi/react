@@ -1,39 +1,36 @@
-import { useMutation, type UseMutationResult } from '@tanstack/react-query'
 import type {
-  AccessCode,
-  AccessCodeGenerateCodeRequest,
-  AccessCodeGenerateCodeResponse,
-  SeamError,
-} from 'seamapi'
+  AccessCodesGenerateCodeBody,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
+import { useMutation, type UseMutationResult } from '@tanstack/react-query'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseGenerateAccessCodeCodeParams = never
-export type UseGenerateAccessCodeCodeData = Pick<
-  AccessCode,
-  'code' | 'device_id'
->
+
+export type UseGenerateAccessCodeCodeData = string
+
 export type UseGenerateAccessCodeCodeMutationParams =
-  AccessCodeGenerateCodeRequest
+  AccessCodesGenerateCodeBody
 
 export function useGenerateAccessCodeCode(): UseMutationResult<
   UseGenerateAccessCodeCodeData,
-  SeamError,
+  SeamHttpApiError,
   UseGenerateAccessCodeCodeMutationParams
 > {
   const { client } = useSeamClient()
 
   return useMutation<
-    AccessCodeGenerateCodeResponse['generated_code'],
-    SeamError,
-    AccessCodeGenerateCodeRequest
+    UseGenerateAccessCodeCodeData,
+    SeamHttpApiError,
+    UseGenerateAccessCodeCodeMutationParams
   >({
     mutationFn: async (
       mutationParams: UseGenerateAccessCodeCodeMutationParams
     ) => {
       if (client === null) throw new NullSeamClientError()
-      const result = await client.accessCodes.generateCode(mutationParams)
-      return result
+      const { code } = await client.accessCodes.generateCode(mutationParams)
+      return code
     },
   })
 }
