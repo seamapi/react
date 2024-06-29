@@ -13,14 +13,14 @@ export interface UseCreateConnectWebviewParams {
 }
 
 export type UseCreateConnectWebviewData = ConnectWebview
-export type UseCreateConnectWebviewMutationParams = ConnectWebviewsCreateBody
+export type UseCreateConnectWebviewMutationVariables = ConnectWebviewsCreateBody
 
 export function useCreateConnectWebview({
   willNavigateToWebview = false,
 }: UseCreateConnectWebviewParams = {}): UseMutationResult<
   UseCreateConnectWebviewData,
   SeamHttpApiError,
-  UseCreateConnectWebviewMutationParams
+  UseCreateConnectWebviewMutationVariables
 > {
   const { client } = useSeamClient()
   const { clientSession } = useClientSession()
@@ -28,10 +28,10 @@ export function useCreateConnectWebview({
   return useMutation<
     UseCreateConnectWebviewData,
     SeamHttpApiError,
-    UseCreateConnectWebviewMutationParams
+    UseCreateConnectWebviewMutationVariables
   >({
     mutationFn: async (
-      mutationParams: UseCreateConnectWebviewMutationParams
+      mutationParams: UseCreateConnectWebviewMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
       return await client.connectWebviews.create({

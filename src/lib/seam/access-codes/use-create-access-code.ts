@@ -14,12 +14,12 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseCreateAccessCodeParams = never
 export type UseCreateAccessCodeData = AccessCode
-export type UseCreateAccessCodeMutationParams = AccessCodeCreateRequest
+export type UseCreateAccessCodeMutationVariables = AccessCodeCreateRequest
 
 export function useCreateAccessCode(): UseMutationResult<
   UseCreateAccessCodeData,
   SeamError,
-  UseCreateAccessCodeMutationParams
+  UseCreateAccessCodeMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -29,7 +29,7 @@ export function useCreateAccessCode(): UseMutationResult<
     SeamError,
     AccessCodeCreateRequest
   >({
-    mutationFn: async (mutationParams: UseCreateAccessCodeMutationParams) => {
+    mutationFn: async (mutationParams: UseCreateAccessCodeMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
       const result = await client.accessCodes.create(mutationParams)
       return result

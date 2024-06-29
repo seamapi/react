@@ -14,12 +14,12 @@ export type UseDeleteAccessCodeParams = never
 
 export type UseDeleteAccessCodeData = undefined
 
-export type UseDeleteAccessCodeMutationParams = AccessCodesDeleteParams
+export type UseDeleteAccessCodeMutationVariables = AccessCodesDeleteParams
 
 export function useDeleteAccessCode(): UseMutationResult<
   UseDeleteAccessCodeData,
   SeamHttpApiError,
-  UseDeleteAccessCodeMutationParams
+  UseDeleteAccessCodeMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -27,9 +27,9 @@ export function useDeleteAccessCode(): UseMutationResult<
   return useMutation<
     UseDeleteAccessCodeData,
     SeamHttpApiError,
-    UseDeleteAccessCodeMutationParams
+    UseDeleteAccessCodeMutationVariables
   >({
-    mutationFn: async (mutationParams: UseDeleteAccessCodeMutationParams) => {
+    mutationFn: async (mutationParams: UseDeleteAccessCodeMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
       await client.accessCodes.delete(mutationParams)
     },

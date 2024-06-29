@@ -10,23 +10,23 @@ export type UseGenerateAccessCodeCodeParams = never
 
 export type UseGenerateAccessCodeCodeData = string
 
-export type UseGenerateAccessCodeCodeMutationParams =
+export type UseGenerateAccessCodeCodeMutationVariables =
   AccessCodesGenerateCodeBody
 
 export function useGenerateAccessCodeCode(): UseMutationResult<
   UseGenerateAccessCodeCodeData,
   SeamHttpApiError,
-  UseGenerateAccessCodeCodeMutationParams
+  UseGenerateAccessCodeCodeMutationVariables
 > {
   const { client } = useSeamClient()
 
   return useMutation<
     UseGenerateAccessCodeCodeData,
     SeamHttpApiError,
-    UseGenerateAccessCodeCodeMutationParams
+    UseGenerateAccessCodeCodeMutationVariables
   >({
     mutationFn: async (
-      mutationParams: UseGenerateAccessCodeCodeMutationParams
+      mutationParams: UseGenerateAccessCodeCodeMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
       const { code } = await client.accessCodes.generateCode(mutationParams)

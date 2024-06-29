@@ -15,13 +15,13 @@ import { NullSeamClientError, useSeamClient } from 'lib/index.js'
 
 type UseUpdateClimateSettingScheduleData =
   ClimateSettingScheduleUpdateResponse['climate_setting_schedule']
-type UseUpdateClimateSettingScheduleMutationParams =
+type UseUpdateClimateSettingScheduleMutationVariables =
   ClimateSettingScheduleUpdateRequest
 
 export function useUpdateClimateSettingSchedule(): UseMutationResult<
   UseUpdateClimateSettingScheduleData,
   SeamError,
-  UseUpdateClimateSettingScheduleMutationParams
+  UseUpdateClimateSettingScheduleMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -29,10 +29,10 @@ export function useUpdateClimateSettingSchedule(): UseMutationResult<
   return useMutation<
     UseUpdateClimateSettingScheduleData,
     SeamError,
-    UseUpdateClimateSettingScheduleMutationParams
+    UseUpdateClimateSettingScheduleMutationVariables
   >({
     mutationFn: async (
-      mutationPararms: UseUpdateClimateSettingScheduleMutationParams
+      mutationPararms: UseUpdateClimateSettingScheduleMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
       await client.thermostats.climateSettingSchedules.update(mutationPararms)

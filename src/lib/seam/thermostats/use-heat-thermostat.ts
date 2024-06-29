@@ -14,12 +14,12 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 // UPSTREAM: Missing ThermostatHeatResponse in seamapi.
 type UseHeatThermostatData = Record<string, unknown>
-type UseHeatThermostatMutationParams = ThermostatHeatRequest
+type UseHeatThermostatMutationVariables = ThermostatHeatRequest
 
 export function useHeatThermostat(): UseMutationResult<
   UseHeatThermostatData,
   SeamError,
-  UseHeatThermostatMutationParams
+  UseHeatThermostatMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -27,9 +27,9 @@ export function useHeatThermostat(): UseMutationResult<
   return useMutation<
     UseHeatThermostatData,
     SeamError,
-    UseHeatThermostatMutationParams
+    UseHeatThermostatMutationVariables
   >({
-    mutationFn: async (mutationParams: UseHeatThermostatMutationParams) => {
+    mutationFn: async (mutationParams: UseHeatThermostatMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
 
       return await client.thermostats.heat(mutationParams)
@@ -68,7 +68,7 @@ export function useHeatThermostat(): UseMutationResult<
 
 function getUpdatedThermostat(
   thermostat: ThermostatDevice,
-  variables: UseHeatThermostatMutationParams
+  variables: UseHeatThermostatMutationVariables
 ): ThermostatDevice {
   return {
     ...thermostat,

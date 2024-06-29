@@ -16,12 +16,12 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseUpdateAccessCodeParams = never
 export type UseUpdateAccessCodeData = ActionAttempt<'UPDATE_ACCESS_CODE'>
-export type UseUpdateAccessCodeMutationParams = AccessCodeUpdateRequest
+export type UseUpdateAccessCodeMutationVariables = AccessCodeUpdateRequest
 
 export function useUpdateAccessCode(): UseMutationResult<
   UseUpdateAccessCodeData,
   SeamError,
-  UseUpdateAccessCodeMutationParams
+  UseUpdateAccessCodeMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -31,7 +31,7 @@ export function useUpdateAccessCode(): UseMutationResult<
     SeamError,
     AccessCodeUpdateRequest
   >({
-    mutationFn: async (mutationParams: UseUpdateAccessCodeMutationParams) => {
+    mutationFn: async (mutationParams: UseUpdateAccessCodeMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
 
       await client.accessCodes.update(mutationParams)

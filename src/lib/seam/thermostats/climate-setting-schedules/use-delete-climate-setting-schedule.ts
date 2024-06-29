@@ -11,7 +11,7 @@ import type {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export type UseDeleteClimateSettingScheduleMutationParams =
+export type UseDeleteClimateSettingScheduleMutationVariables =
   ClimateSettingScheduleDeleteRequest
 
 export type UseDeleteClimateSettingScheduleData =
@@ -20,7 +20,7 @@ export type UseDeleteClimateSettingScheduleData =
 export function useDeleteClimateSettingSchedule(): UseMutationResult<
   UseDeleteClimateSettingScheduleData,
   SeamError,
-  UseDeleteClimateSettingScheduleMutationParams
+  UseDeleteClimateSettingScheduleMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -31,7 +31,7 @@ export function useDeleteClimateSettingSchedule(): UseMutationResult<
     ClimateSettingScheduleDeleteRequest
   >({
     mutationFn: async (
-      mutationParams: UseDeleteClimateSettingScheduleMutationParams
+      mutationParams: UseDeleteClimateSettingScheduleMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
       await client.thermostats.climateSettingSchedules.delete(mutationParams)

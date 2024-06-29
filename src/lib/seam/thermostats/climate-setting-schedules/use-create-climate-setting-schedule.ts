@@ -13,13 +13,13 @@ import type {
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseCreateClimateSettingScheduleData = ClimateSettingSchedule
-export type UseCreateClimateSettingScheduleMutationParams =
+export type UseCreateClimateSettingScheduleMutationVariables =
   ClimateSettingScheduleCreateRequest
 
 export function useCreateClimateSettingSchedule(): UseMutationResult<
   UseCreateClimateSettingScheduleData,
   SeamError,
-  UseCreateClimateSettingScheduleMutationParams
+  UseCreateClimateSettingScheduleMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -30,7 +30,7 @@ export function useCreateClimateSettingSchedule(): UseMutationResult<
     ClimateSettingScheduleCreateRequest
   >({
     mutationFn: async (
-      mutationParams: UseCreateClimateSettingScheduleMutationParams
+      mutationParams: UseCreateClimateSettingScheduleMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
       const result =

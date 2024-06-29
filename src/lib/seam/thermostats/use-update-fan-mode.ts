@@ -14,12 +14,12 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 // UPSTREAM: Missing ThermostatSetFanModeResponse in seamapi.
 type UseUpdateFanModeData = Record<string, unknown>
-type UseUpdateFanModeMutationParams = ThermostatSetFanModeRequest
+type UseUpdateFanModeMutationVariables = ThermostatSetFanModeRequest
 
 export function useUpdateFanMode(): UseMutationResult<
   UseUpdateFanModeData,
   SeamError,
-  UseUpdateFanModeMutationParams
+  UseUpdateFanModeMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
@@ -27,9 +27,9 @@ export function useUpdateFanMode(): UseMutationResult<
   return useMutation<
     UseUpdateFanModeData,
     SeamError,
-    UseUpdateFanModeMutationParams
+    UseUpdateFanModeMutationVariables
   >({
-    mutationFn: async (mutationParams: UseUpdateFanModeMutationParams) => {
+    mutationFn: async (mutationParams: UseUpdateFanModeMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
 
       return await client.thermostats.setFanMode(mutationParams)
@@ -68,7 +68,7 @@ export function useUpdateFanMode(): UseMutationResult<
 
 function getUpdatedThermostat(
   thermostat: ThermostatDevice,
-  variables: UseUpdateFanModeMutationParams
+  variables: UseUpdateFanModeMutationVariables
 ): ThermostatDevice {
   return {
     ...thermostat,
