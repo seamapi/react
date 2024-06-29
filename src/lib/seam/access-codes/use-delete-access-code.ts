@@ -1,26 +1,24 @@
+import type {
+  AccessCodesDeleteParams,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  AccessCodeDeleteRequest,
-  ActionAttempt,
-  ActionType,
-  SeamError,
-} from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseDeleteAccessCodeParams = never
-export interface UseDeleteAccessCodeData {
-  actionAttempt: ActionAttempt<ActionType>
-}
-export type UseDeleteAccessCodeMutationParams = AccessCodeDeleteRequest
+
+export type UseDeleteAccessCodeData = undefined
+
+export type UseDeleteAccessCodeMutationParams = AccessCodesDeleteParams
 
 export function useDeleteAccessCode(): UseMutationResult<
   UseDeleteAccessCodeData,
-  SeamError,
+  SeamHttpApiError,
   UseDeleteAccessCodeMutationParams
 > {
   const { client } = useSeamClient()
@@ -28,13 +26,12 @@ export function useDeleteAccessCode(): UseMutationResult<
 
   return useMutation<
     UseDeleteAccessCodeData,
-    SeamError,
-    AccessCodeDeleteRequest
+    SeamHttpApiError,
+    UseDeleteAccessCodeMutationParams
   >({
     mutationFn: async (mutationParams: UseDeleteAccessCodeMutationParams) => {
       if (client === null) throw new NullSeamClientError()
-      const result = await client.accessCodes.delete(mutationParams)
-      return result
+      await client.accessCodes.delete(mutationParams)
     },
     onSuccess: (_data, variables) => {
       void queryClient.invalidateQueries({
