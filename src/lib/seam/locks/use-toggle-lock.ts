@@ -1,66 +1,68 @@
+import type {
+  SeamActionAttemptFailedError,
+  SeamActionAttemptTimeoutError,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
+import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import {
-  type ActionAttempt,
-  type CommonDevice,
-  isLockDevice,
-  type LockDevice,
-  type SeamError,
-} from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+
+type ToggleLockActionAttempt =
+  | Extract<ActionAttempt, { action_type: 'LOCK_DOOR' }>
+  | Extract<ActionAttempt, { action_type: 'UNLOCK_DOOR' }>
+
+type MutationError =
+  | SeamHttpApiError
+  | SeamActionAttemptFailedError<ToggleLockActionAttempt>
+  | SeamActionAttemptTimeoutError<ToggleLockActionAttempt>
 
 export function useToggleLock({
   device_id: deviceId,
   properties: { locked },
-}: LockDevice): UseMutationResult<
-  { actionAttempt: ActionAttempt },
-  SeamError,
-  void
-> {
+}: Device): UseMutationResult<void, MutationError, void> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  return useMutation<{ actionAttempt: ActionAttempt }, SeamError>({
+  return useMutation<undefined, MutationError>({
     mutationFn: async () => {
       if (client === null) throw new NullSeamClientError()
-      const toggle = locked ? client.locks.unlockDoor : client.locks.lockDoor
-      return await toggle(deviceId)
+      if (locked == null) return
+      if (locked) await client.locks.unlockDoor({ device_id: deviceId })
+      if (!locked) await client.locks.lockDoor({ device_id: deviceId })
     },
     onMutate: () => {
-      queryClient.setQueryData<CommonDevice[]>(
-        ['devices', 'list', {}],
-        (devices) => {
-          if (devices == null) {
-            return
+      queryClient.setQueryData<Device[]>(['devices', 'list', {}], (devices) => {
+        if (devices == null) {
+          return
+        }
+
+        return devices.map((device) => {
+          if (
+            device.device_id !== deviceId ||
+            device.properties.locked == null
+          ) {
+            return device
           }
 
-          return devices.map((device) => {
-            const isTarget = device.device_id === deviceId
-            if (isTarget && isLockDevice(device)) {
-              return {
-                ...device,
-                properties: {
-                  ...device.properties,
-                  locked: !device.properties.locked,
-                },
-              }
-            }
+          return {
+            ...device,
+            properties: {
+              ...device.properties,
+              locked: !device.properties.locked,
+            },
+          }
+        })
+      })
 
-            return device
-          })
-        }
-      )
-
-      queryClient.setQueryData<LockDevice>(
+      queryClient.setQueryData<Device>(
         ['devices', 'get', { device_id: deviceId }],
         (device) => {
-          if (device == null) {
-            return
-          }
+          if (device?.properties.locked == null) return
 
           return {
             ...device,
