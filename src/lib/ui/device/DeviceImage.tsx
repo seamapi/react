@@ -1,9 +1,9 @@
+import type { Device } from '@seamapi/types/connect'
 import type { HTMLAttributes } from 'react'
-import type { CommonDevice } from 'seamapi'
 
 export function DeviceImage(
   props: {
-    device: CommonDevice
+    device: Device
   } & HTMLAttributes<HTMLImageElement>
 ): JSX.Element {
   const { device, ...imageProps } = props
