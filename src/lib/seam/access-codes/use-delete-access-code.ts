@@ -29,7 +29,9 @@ export function useDeleteAccessCode(): UseMutationResult<
     SeamHttpApiError,
     UseDeleteAccessCodeMutationVariables
   >({
-    mutationFn: async (mutationParams: UseDeleteAccessCodeMutationVariables) => {
+    mutationFn: async (
+      mutationParams: UseDeleteAccessCodeMutationVariables
+    ) => {
       if (client === null) throw new NullSeamClientError()
       await client.accessCodes.delete(mutationParams)
     },

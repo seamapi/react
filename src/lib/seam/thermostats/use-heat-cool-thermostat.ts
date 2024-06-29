@@ -29,7 +29,9 @@ export function useHeatCoolThermostat(): UseMutationResult<
     SeamError,
     UseHeatCoolThermostatMutationVariables
   >({
-    mutationFn: async (mutationParams: UseHeatCoolThermostatMutationVariables) => {
+    mutationFn: async (
+      mutationParams: UseHeatCoolThermostatMutationVariables
+    ) => {
       if (client === null) throw new NullSeamClientError()
 
       return await client.thermostats.heatCool(mutationParams)

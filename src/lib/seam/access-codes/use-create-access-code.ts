@@ -29,7 +29,9 @@ export function useCreateAccessCode(): UseMutationResult<
     SeamError,
     AccessCodeCreateRequest
   >({
-    mutationFn: async (mutationParams: UseCreateAccessCodeMutationVariables) => {
+    mutationFn: async (
+      mutationParams: UseCreateAccessCodeMutationVariables
+    ) => {
       if (client === null) throw new NullSeamClientError()
       const result = await client.accessCodes.create(mutationParams)
       return result
