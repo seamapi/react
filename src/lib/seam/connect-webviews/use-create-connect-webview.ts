@@ -4,7 +4,6 @@ import type {
 } from '@seamapi/http/connect'
 import type { ConnectWebview } from '@seamapi/types/connect'
 import { useMutation, type UseMutationResult } from '@tanstack/react-query'
-import type { ConnectWebviewCreateResponse } from 'seamapi'
 
 import { useClientSession } from 'lib/seam/client-sessions/use-client-session.js'
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
@@ -29,7 +28,7 @@ export function useCreateConnectWebview({
   return useMutation<
     UseCreateConnectWebviewData,
     SeamHttpApiError,
-    ConnectWebviewCreateResponse
+    UseCreateConnectWebviewMutationParams
   >({
     mutationFn: async (
       mutationParams: UseCreateConnectWebviewMutationParams
