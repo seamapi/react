@@ -13,8 +13,9 @@ import type {
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 // UPSTREAM: Missing ThermostatUpdateResponse in seamapi.
-type UseUpdateThermostatData = Record<string, unknown>
-type UseUpdateThermostatMutationVariables = ThermostatUpdateRequest
+export type UseUpdateThermostatData = Record<string, unknown>
+
+export type UseUpdateThermostatMutationVariables = ThermostatUpdateRequest
 
 export function useUpdateThermostat(): UseMutationResult<
   UseUpdateThermostatData,

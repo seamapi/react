@@ -10,7 +10,9 @@ import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseEventsParams = EventsListRequest
+
 export type UseEventsData = Event[]
+
 export interface UseEventsOptions {
   refetchInterval?: number
 }

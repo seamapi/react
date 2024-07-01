@@ -13,9 +13,10 @@ import type {
 
 import { NullSeamClientError, useSeamClient } from 'lib/index.js'
 
-type UseUpdateClimateSettingScheduleData =
+export type UseUpdateClimateSettingScheduleData =
   ClimateSettingScheduleUpdateResponse['climate_setting_schedule']
-type UseUpdateClimateSettingScheduleMutationVariables =
+
+export type UseUpdateClimateSettingScheduleMutationVariables =
   ClimateSettingScheduleUpdateRequest
 
 export function useUpdateClimateSettingSchedule(): UseMutationResult<

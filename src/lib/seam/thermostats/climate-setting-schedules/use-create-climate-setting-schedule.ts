@@ -13,6 +13,7 @@ import type {
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseCreateClimateSettingScheduleData = ClimateSettingSchedule
+
 export type UseCreateClimateSettingScheduleMutationVariables =
   ClimateSettingScheduleCreateRequest
 

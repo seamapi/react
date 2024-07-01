@@ -6,6 +6,7 @@ import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseDevicesParams = DevicesListParams
+
 export type UseDevicesData = Device[]
 
 export function useDevices(

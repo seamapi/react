@@ -10,6 +10,7 @@ import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseNoiseThresholdsParams = NoiseThresholdsListRequest
+
 export type UseNoiseThresholdsData = NoiseThresholds[]
 
 export function useNoiseThresholds(

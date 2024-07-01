@@ -13,8 +13,9 @@ import type {
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 // UPSTREAM: Missing ThermostatSetFanModeResponse in seamapi.
-type UseUpdateFanModeData = Record<string, unknown>
-type UseUpdateFanModeMutationVariables = ThermostatSetFanModeRequest
+export type UseUpdateFanModeData = Record<string, unknown>
+
+export type UseUpdateFanModeMutationVariables = ThermostatSetFanModeRequest
 
 export function useUpdateFanMode(): UseMutationResult<
   UseUpdateFanModeData,

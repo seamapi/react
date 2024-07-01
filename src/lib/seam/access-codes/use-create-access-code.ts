@@ -13,7 +13,9 @@ import type {
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseCreateAccessCodeParams = never
+
 export type UseCreateAccessCodeData = AccessCode
+
 export type UseCreateAccessCodeMutationVariables = AccessCodeCreateRequest
 
 export function useCreateAccessCode(): UseMutationResult<

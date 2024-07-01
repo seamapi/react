@@ -15,7 +15,9 @@ import type {
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseUpdateAccessCodeParams = never
+
 export type UseUpdateAccessCodeData = ActionAttempt<'UPDATE_ACCESS_CODE'>
+
 export type UseUpdateAccessCodeMutationVariables = AccessCodeUpdateRequest
 
 export function useUpdateAccessCode(): UseMutationResult<

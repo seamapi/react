@@ -9,6 +9,7 @@ import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseAccessCodeParams = AccessCodesGetParams
+
 export type UseAccessCodeData = AccessCode | null
 
 export function useAccessCode(

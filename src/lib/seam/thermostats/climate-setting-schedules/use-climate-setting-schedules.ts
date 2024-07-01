@@ -11,6 +11,7 @@ import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseClimateSettingSchedulesParams =
   ClimateSettingSchedulesListRequest
+
 export type UseClimateSettingSchedulesData = ClimateSettingSchedule[]
 
 export function useClimateSettingSchedules(

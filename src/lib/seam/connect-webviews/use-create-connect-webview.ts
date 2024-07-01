@@ -13,6 +13,7 @@ export interface UseCreateConnectWebviewParams {
 }
 
 export type UseCreateConnectWebviewData = ConnectWebview
+
 export type UseCreateConnectWebviewMutationVariables = ConnectWebviewsCreateBody
 
 export function useCreateConnectWebview({
