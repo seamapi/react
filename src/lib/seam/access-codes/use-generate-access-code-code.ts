@@ -26,10 +26,10 @@ export function useGenerateAccessCodeCode(): UseMutationResult<
     UseGenerateAccessCodeCodeMutationVariables
   >({
     mutationFn: async (
-      mutationParams: UseGenerateAccessCodeCodeMutationVariables
+      variables: UseGenerateAccessCodeCodeMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
-      const { code } = await client.accessCodes.generateCode(mutationParams)
+      const { code } = await client.accessCodes.generateCode(variables)
       return code
     },
   })
