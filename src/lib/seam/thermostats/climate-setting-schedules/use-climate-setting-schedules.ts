@@ -1,6 +1,6 @@
 import type {
-  ThermostatsClimateSettingSchedulesListParams,
   SeamHttpApiError,
+  ThermostatsClimateSettingSchedulesListParams,
 } from '@seamapi/http/connect'
 import type { ClimateSettingSchedule } from '@seamapi/types/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
