@@ -46,7 +46,7 @@ function Content(props: {
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element {
   const { device, disableLockUnlock, onSelectDevice } = props
-  const toggleLock = useToggleLock(device)
+  const toggleLock = useToggleLock()
 
   const toggleLockLabel = device.properties.locked ? t.unlock : t.lock
 
@@ -68,7 +68,7 @@ function Content(props: {
       {!disableLockUnlock && (
         <Button
           onClick={() => {
-            toggleLock.mutate()
+            toggleLock.mutate(device)
           }}
         >
           {toggleLockLabel}

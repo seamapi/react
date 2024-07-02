@@ -36,7 +36,7 @@ export function LockDeviceDetails({
   className,
 }: LockDeviceDetailsProps): JSX.Element | null {
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
-  const toggleLock = useToggleLock(device)
+  const toggleLock = useToggleLock()
   const { accessCodes } = useAccessCodes({
     device_id: device.device_id,
   })
@@ -133,7 +133,7 @@ export function LockDeviceDetails({
                   <Button
                     size='small'
                     onClick={() => {
-                      toggleLock.mutate()
+                      toggleLock.mutate(device)
                     }}
                   >
                     {toggleLockLabel}

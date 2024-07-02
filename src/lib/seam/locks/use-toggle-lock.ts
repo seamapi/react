@@ -12,6 +12,14 @@ import {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
+export type UseToggleLockParams = never
+
+export type UseToggleLockData = undefined
+
+export type UseToggleLockMutationVariables = Pick<Device, 'device_id'> & {
+  properties: Required<Pick<Device['properties'], 'locked'>>
+}
+
 type ToggleLockActionAttempt =
   | Extract<ActionAttempt, { action_type: 'LOCK_DOOR' }>
   | Extract<ActionAttempt, { action_type: 'UNLOCK_DOOR' }>
@@ -21,29 +29,38 @@ type MutationError =
   | SeamActionAttemptFailedError<ToggleLockActionAttempt>
   | SeamActionAttemptTimeoutError<ToggleLockActionAttempt>
 
-export function useToggleLock({
-  device_id: deviceId,
-  properties: { locked },
-}: Device): UseMutationResult<void, MutationError, void> {
+export function useToggleLock(): UseMutationResult<
+  UseToggleLockData,
+  MutationError,
+  UseToggleLockMutationVariables
+> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  return useMutation<undefined, MutationError>({
-    mutationFn: async () => {
+  return useMutation<
+    UseToggleLockData,
+    MutationError,
+    UseToggleLockMutationVariables
+  >({
+    mutationFn: async (variables) => {
+      const {
+        device_id: deviceId,
+        properties: { locked },
+      } = variables
       if (client === null) throw new NullSeamClientError()
       if (locked == null) return
       if (locked) await client.locks.unlockDoor({ device_id: deviceId })
       if (!locked) await client.locks.lockDoor({ device_id: deviceId })
     },
-    onMutate: () => {
+    onMutate: (variables) => {
       queryClient.setQueryData<Device[]>(['devices', 'list', {}], (devices) => {
         if (devices == null) {
-          return
+          return devices
         }
 
         return devices.map((device) => {
           if (
-            device.device_id !== deviceId ||
+            device.device_id !== variables.device_id ||
             device.properties.locked == null
           ) {
             return device
@@ -53,33 +70,33 @@ export function useToggleLock({
             ...device,
             properties: {
               ...device.properties,
-              locked: !device.properties.locked,
+              locked: !variables.properties.locked,
             },
           }
         })
       })
 
       queryClient.setQueryData<Device>(
-        ['devices', 'get', { device_id: deviceId }],
+        ['devices', 'get', { device_id: variables.device_id }],
         (device) => {
-          if (device?.properties.locked == null) return
+          if (device?.properties.locked == null) return device
 
           return {
             ...device,
             properties: {
               ...device.properties,
-              locked: !device.properties.locked,
+              locked: !variables.properties.locked,
             },
           }
         }
       )
     },
-    onSettled: async () => {
+    onError: async (_error, variables) => {
       await queryClient.invalidateQueries({
         queryKey: ['devices', 'list'],
       })
       await queryClient.invalidateQueries({
-        queryKey: ['devices', 'get', { device_id: deviceId }],
+        queryKey: ['devices', 'get', { device_id: variables.device_id }],
       })
     },
   })
