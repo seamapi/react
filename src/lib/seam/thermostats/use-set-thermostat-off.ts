@@ -30,9 +30,7 @@ export function useSetThermostatOff(): UseMutationResult<
     SeamError,
     UseSetThermostatOffMutationVariables
   >({
-    mutationFn: async (
-      variables: UseSetThermostatOffMutationVariables
-    ) => {
+    mutationFn: async (variables: UseSetThermostatOffMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
 
       return await client.thermostats.off(variables)

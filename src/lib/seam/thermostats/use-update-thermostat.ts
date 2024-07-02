@@ -30,9 +30,7 @@ export function useUpdateThermostat(): UseMutationResult<
     SeamError,
     UseUpdateThermostatMutationVariables
   >({
-    mutationFn: async (
-      variables: UseUpdateThermostatMutationVariables
-    ) => {
+    mutationFn: async (variables: UseUpdateThermostatMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
 
       await client.thermostats.update(variables)

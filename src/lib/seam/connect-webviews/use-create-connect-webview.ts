@@ -31,9 +31,7 @@ export function useCreateConnectWebview({
     SeamHttpApiError,
     UseCreateConnectWebviewMutationVariables
   >({
-    mutationFn: async (
-      variables: UseCreateConnectWebviewMutationVariables
-    ) => {
+    mutationFn: async (variables: UseCreateConnectWebviewMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
       return await client.connectWebviews.create({
         custom_metadata: {
