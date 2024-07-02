@@ -34,7 +34,11 @@ export function useCreateAccessCode(): UseMutationResult<
       if (client === null) throw new NullSeamClientError()
       return await client.accessCodes.create(variables)
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      queryClient.setQueryData(
+        ['access_codes', 'get', { access_code_id: data.access_code_id }],
+        data
+      )
       void queryClient.invalidateQueries({ queryKey: ['access_codes', 'list'] })
     },
   })
