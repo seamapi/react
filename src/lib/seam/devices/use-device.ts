@@ -12,16 +12,13 @@ export type UseDeviceData = Device | null
 export function useDevice(
   params: UseDeviceParams
 ): UseSeamQueryResult<'device', UseDeviceData> {
-  const normalizedParams =
-    typeof params === 'string' ? { device_id: params } : params
-
   const { client } = useSeamClient()
   const { data, ...rest } = useQuery<UseDeviceData, SeamHttpApiError>({
     enabled: client != null,
-    queryKey: ['devices', 'get', normalizedParams],
+    queryKey: ['devices', 'get', params],
     queryFn: async () => {
       if (client == null) return null
-      return await client.devices.get(normalizedParams)
+      return await client.devices.get(params)
     },
   })
 
