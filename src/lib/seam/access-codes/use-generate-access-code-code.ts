@@ -25,9 +25,7 @@ export function useGenerateAccessCodeCode(): UseMutationResult<
     SeamHttpApiError,
     UseGenerateAccessCodeCodeMutationVariables
   >({
-    mutationFn: async (
-      variables: UseGenerateAccessCodeCodeMutationVariables
-    ) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
       const { code } = await client.accessCodes.generateCode(variables)
       return code

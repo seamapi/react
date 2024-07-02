@@ -30,7 +30,7 @@ export function useCreateAccessCode(): UseMutationResult<
     SeamHttpApiError,
     UseCreateAccessCodeMutationVariables
   >({
-    mutationFn: async (variables: UseCreateAccessCodeMutationVariables) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
       return await client.accessCodes.create(variables)
     },

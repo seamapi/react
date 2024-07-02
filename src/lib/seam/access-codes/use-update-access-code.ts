@@ -34,7 +34,7 @@ export function useUpdateAccessCode(): UseMutationResult<
     SeamHttpApiError,
     UseUpdateAccessCodeMutationVariables
   >({
-    mutationFn: async (variables: UseUpdateAccessCodeMutationVariables) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
 
       if (variables.device_id == null) {
