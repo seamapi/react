@@ -15,11 +15,14 @@ export function NoiseSensorActivityList({
   const now = useNow()
   const [mountedAt] = useState(now)
 
-  const { events } = useEvents({
-    device_id: device.device_id,
-    event_type: 'noise_sensor.noise_threshold_triggered',
-    since: mountedAt.minus({ months: 1 }).toString(),
-  })
+  const { events } = useEvents(
+    {
+      device_id: device.device_id,
+      event_type: 'noise_sensor.noise_threshold_triggered',
+      since: mountedAt.minus({ months: 1 }).toString(),
+    },
+    { refetchInterval: 30_000 }
+  )
 
   return (
     <div className='seam-noise-sensor-activity-list'>
