@@ -1,4 +1,7 @@
-import type { SeamHttpApiError, ThermostatsClimateSettingSchedulesDeleteParams } from '@seamapi/http/connect'
+import type {
+  SeamHttpApiError,
+  ThermostatsClimateSettingSchedulesDeleteParams,
+} from '@seamapi/http/connect'
 import {
   useMutation,
   type UseMutationResult,
