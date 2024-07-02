@@ -31,11 +31,11 @@ export function useCreateClimateSettingSchedule(): UseMutationResult<
     ClimateSettingScheduleCreateRequest
   >({
     mutationFn: async (
-      mutationParams: UseCreateClimateSettingScheduleMutationVariables
+      variables: UseCreateClimateSettingScheduleMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
       const result =
-        await client.thermostats.climateSettingSchedules.create(mutationParams)
+        await client.thermostats.climateSettingSchedules.create(variables)
       return result
     },
     onSuccess: () => {

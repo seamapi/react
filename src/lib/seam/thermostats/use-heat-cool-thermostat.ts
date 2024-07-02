@@ -31,11 +31,11 @@ export function useHeatCoolThermostat(): UseMutationResult<
     UseHeatCoolThermostatMutationVariables
   >({
     mutationFn: async (
-      mutationParams: UseHeatCoolThermostatMutationVariables
+      variables: UseHeatCoolThermostatMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
 
-      return await client.thermostats.heatCool(mutationParams)
+      return await client.thermostats.heatCool(variables)
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<ThermostatDevice | null>(

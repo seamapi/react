@@ -31,11 +31,11 @@ export function useUpdateThermostat(): UseMutationResult<
     UseUpdateThermostatMutationVariables
   >({
     mutationFn: async (
-      mutationParams: UseUpdateThermostatMutationVariables
+      variables: UseUpdateThermostatMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
 
-      await client.thermostats.update(mutationParams)
+      await client.thermostats.update(variables)
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<ThermostatDevice | null>(

@@ -30,10 +30,10 @@ export function useHeatThermostat(): UseMutationResult<
     SeamError,
     UseHeatThermostatMutationVariables
   >({
-    mutationFn: async (mutationParams: UseHeatThermostatMutationVariables) => {
+    mutationFn: async (variables: UseHeatThermostatMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
 
-      return await client.thermostats.heat(mutationParams)
+      return await client.thermostats.heat(variables)
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<ThermostatDevice | null>(

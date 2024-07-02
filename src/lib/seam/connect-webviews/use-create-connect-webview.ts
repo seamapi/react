@@ -32,16 +32,16 @@ export function useCreateConnectWebview({
     UseCreateConnectWebviewMutationVariables
   >({
     mutationFn: async (
-      mutationParams: UseCreateConnectWebviewMutationVariables
+      variables: UseCreateConnectWebviewMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
       return await client.connectWebviews.create({
         custom_metadata: {
           client_session_id: clientSession?.client_session_id ?? null,
           user_identifier_key: clientSession?.user_identifier_key ?? null,
-          ...mutationParams.custom_metadata,
+          ...variables.custom_metadata,
         },
-        ...mutationParams,
+        ...variables,
       })
     },
     onSuccess: ({ url }) => {

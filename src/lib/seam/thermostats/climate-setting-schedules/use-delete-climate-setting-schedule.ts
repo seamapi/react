@@ -31,10 +31,10 @@ export function useDeleteClimateSettingSchedule(): UseMutationResult<
     ClimateSettingScheduleDeleteRequest
   >({
     mutationFn: async (
-      mutationParams: UseDeleteClimateSettingScheduleMutationVariables
+      variables: UseDeleteClimateSettingScheduleMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
-      await client.thermostats.climateSettingSchedules.delete(mutationParams)
+      await client.thermostats.climateSettingSchedules.delete(variables)
     },
     onSuccess: (_data, variables) => {
       void queryClient.invalidateQueries({

@@ -30,10 +30,10 @@ export function useDeleteAccessCode(): UseMutationResult<
     UseDeleteAccessCodeMutationVariables
   >({
     mutationFn: async (
-      mutationParams: UseDeleteAccessCodeMutationVariables
+      variables: UseDeleteAccessCodeMutationVariables
     ) => {
       if (client === null) throw new NullSeamClientError()
-      await client.accessCodes.delete(mutationParams)
+      await client.accessCodes.delete(variables)
     },
     onSuccess: (_data, variables) => {
       void queryClient.invalidateQueries({

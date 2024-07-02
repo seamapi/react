@@ -30,10 +30,10 @@ export function useUpdateFanMode(): UseMutationResult<
     SeamError,
     UseUpdateFanModeMutationVariables
   >({
-    mutationFn: async (mutationParams: UseUpdateFanModeMutationVariables) => {
+    mutationFn: async (variables: UseUpdateFanModeMutationVariables) => {
       if (client === null) throw new NullSeamClientError()
 
-      return await client.thermostats.setFanMode(mutationParams)
+      return await client.thermostats.setFanMode(variables)
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<ThermostatDevice | null>(
