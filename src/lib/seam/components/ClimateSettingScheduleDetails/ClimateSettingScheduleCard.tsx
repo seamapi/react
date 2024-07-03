@@ -1,5 +1,5 @@
+import type { ClimateSettingSchedule } from '@seamapi/types/connect'
 import { DateTime } from 'luxon'
-import type { ClimateSettingSchedule } from 'seamapi'
 
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { ClimateSettingScheduleDeviceBar } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDeviceBar.js'

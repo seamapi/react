@@ -1,7 +1,7 @@
+import type { AccessCode } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type { AccessCode } from 'seamapi'
 
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'

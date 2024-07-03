@@ -1,4 +1,4 @@
-import type { AccessCode } from 'seamapi'
+import type { AccessCode } from '@seamapi/types/connect'
 
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'

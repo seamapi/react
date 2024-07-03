@@ -1,5 +1,6 @@
+import type { SeamHttpApiError } from '@seamapi/http/connect'
+import type { AccessCode } from '@seamapi/types/connect'
 import { useState } from 'react'
-import type { AccessCode, SeamError } from 'seamapi'
 
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import {
@@ -141,7 +142,7 @@ function useSubmitCreateAccessCode(params: {
 
 export function useResponseErrors(): {
   responseErrors: ResponseErrors | null
-  handleResponseError: (error: SeamError) => void
+  handleResponseError: (error: SeamHttpApiError) => void
   resetResponseErrors: () => void
 } {
   const [responseErrors, setResponseErrors] = useState<Record<
@@ -149,7 +150,7 @@ export function useResponseErrors(): {
     string | undefined
   > | null>(null)
 
-  const handleResponseError = (error: SeamError): void => {
+  const handleResponseError = (error: SeamHttpApiError): void => {
     const code = getValidationError({ error, property: 'code' })
     const name = getValidationError({ error, property: 'name' })
 

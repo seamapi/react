@@ -1,6 +1,6 @@
+import type { ClimateSettingSchedule } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import type { ClimateSettingSchedule } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { NestedClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'

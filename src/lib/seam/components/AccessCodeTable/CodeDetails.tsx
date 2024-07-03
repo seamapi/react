@@ -1,5 +1,5 @@
+import type { AccessCode } from '@seamapi/types/connect'
 import { DateTime } from 'luxon'
-import type { AccessCode } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { DotDivider } from 'lib/ui/layout/DotDivider.js'
