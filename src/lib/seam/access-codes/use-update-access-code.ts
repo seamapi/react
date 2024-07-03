@@ -18,8 +18,7 @@ export type UseUpdateAccessCodeData = undefined
 export type UseUpdateAccessCodeMutationVariables = Pick<
   AccessCodesUpdateBody,
   'access_code_id' | 'code' | 'name' | 'starts_at' | 'ends_at' | 'type'
-> &
-  Required<Pick<AccessCodesUpdateBody, 'device_id'>>
+>
 
 export function useUpdateAccessCode(): UseMutationResult<
   UseUpdateAccessCodeData,
@@ -36,11 +35,6 @@ export function useUpdateAccessCode(): UseMutationResult<
   >({
     mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-
-      if (variables.device_id == null) {
-        throw new Error('Missing device_id in mutation variables')
-      }
-
       await client.accessCodes.update(variables)
     },
     onSuccess: (_data, variables) => {
@@ -64,7 +58,7 @@ export function useUpdateAccessCode(): UseMutationResult<
       )
 
       queryClient.setQueryData<AccessCode[]>(
-        ['access_codes', 'list', { device_id: variables.device_id }],
+        ['access_codes', 'list'],
         (accessCodes) => {
           if (accessCodes == null) {
             return accessCodes
