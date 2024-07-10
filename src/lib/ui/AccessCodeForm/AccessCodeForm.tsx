@@ -158,10 +158,8 @@ function Content({
         device_id: device.device_id,
       },
       {
-        onSuccess: ({ code: generatedCode }) => {
-          if (generatedCode != null) {
-            setValue('code', generatedCode)
-          }
+        onSuccess: (generatedCode) => {
+          setValue('code', generatedCode)
         },
       }
     )
