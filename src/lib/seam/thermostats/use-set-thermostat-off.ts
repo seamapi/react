@@ -1,25 +1,37 @@
+import type {
+  SeamActionAttemptFailedError,
+  SeamActionAttemptTimeoutError,
+  SeamHttpApiError,
+  ThermostatsOffBody,
+} from '@seamapi/http/connect'
+import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  SeamError,
-  ThermostatDevice,
-  ThermostatOffRequest,
-  ThermostatsListResponse,
-} from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-// UPSTREAM: Missing ThermostatOffResponse in seamapi.
-export type UseSetThermostatOffData = Record<string, unknown>
+export type UseSetThermostatOffParams = never
 
-export type UseSetThermostatOffMutationVariables = ThermostatOffRequest
+export type UseSetThermostatOffData = undefined
+
+export type UseSetThermostatOffMutationVariables = ThermostatsOffBody
+
+type SetThermostatOffActionAttempt = Extract<
+  ActionAttempt,
+  { action_type: 'SET_THERMOSTAT_OFF' }
+>
+
+type MutationError =
+  | SeamHttpApiError
+  | SeamActionAttemptFailedError<SetThermostatOffActionAttempt>
+  | SeamActionAttemptTimeoutError<SetThermostatOffActionAttempt>
 
 export function useSetThermostatOff(): UseMutationResult<
   UseSetThermostatOffData,
-  SeamError,
+  MutationError,
   UseSetThermostatOffMutationVariables
 > {
   const { client } = useSeamClient()
@@ -27,39 +39,37 @@ export function useSetThermostatOff(): UseMutationResult<
 
   return useMutation<
     UseSetThermostatOffData,
-    SeamError,
+    MutationError,
     UseSetThermostatOffMutationVariables
   >({
-    mutationFn: async (variables: UseSetThermostatOffMutationVariables) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-
-      return await client.thermostats.off(variables)
+      await client.thermostats.off(variables)
     },
     onSuccess: (_data, variables) => {
-      queryClient.setQueryData<ThermostatDevice | null>(
+      queryClient.setQueryData<Device | null>(
         ['devices', 'get', { device_id: variables.device_id }],
-        (thermostat) => {
-          if (thermostat == null) {
+        (device) => {
+          if (device == null) {
             return
           }
-
-          return getUpdatedThermostat(thermostat)
+          return getUpdatedThermostat(device)
         }
       )
 
-      queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
+      queryClient.setQueryData<Device[]>(
         ['devices', 'list', { device_id: variables.device_id }],
-        (thermostats): ThermostatDevice[] => {
-          if (thermostats == null) {
+        (devices): Device[] => {
+          if (devices == null) {
             return []
           }
 
-          return thermostats.map((thermostat) => {
-            if (thermostat.device_id === variables.device_id) {
-              return getUpdatedThermostat(thermostat)
+          return devices.map((device) => {
+            if (device.device_id === variables.device_id) {
+              return getUpdatedThermostat(device)
             }
 
-            return thermostat
+            return device
           })
         }
       )
@@ -67,18 +77,31 @@ export function useSetThermostatOff(): UseMutationResult<
   })
 }
 
-function getUpdatedThermostat(thermostat: ThermostatDevice): ThermostatDevice {
-  return {
-    ...thermostat,
-    properties: {
-      ...thermostat.properties,
-      is_fan_running: false,
-      current_climate_setting: {
-        ...thermostat.properties.current_climate_setting,
-        automatic_cooling_enabled: false,
-        automatic_heating_enabled: false,
-        hvac_mode_setting: 'off',
+function getUpdatedThermostat(device: Device): Device {
+  const { properties } = device
+  if (
+    'current_climate_setting' in properties &&
+    properties.current_climate_setting != null
+  ) {
+    return {
+      ...device,
+      properties: {
+        ...properties,
+        is_fan_running: false,
+        is_cooling: false,
+        is_heating: false,
+        current_climate_setting: {
+          ...properties.current_climate_setting,
+          automatic_cooling_enabled: false,
+          automatic_heating_enabled: false,
+          hvac_mode_setting: 'off',
+          heating_set_point_celsius: undefined,
+          heating_set_point_fahrenheit: undefined,
+          cooling_set_point_celsius: undefined,
+          cooling_set_point_fahrenheit: undefined,
+        },
       },
-    },
+    }
   }
+  return device
 }
