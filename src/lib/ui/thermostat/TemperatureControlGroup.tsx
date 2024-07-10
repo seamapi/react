@@ -7,7 +7,7 @@ import {
   getCoolBounds,
   getHeatBounds,
   getTemperatureBounds,
-} from 'lib/temperature-bounds.js'
+} from 'lib/seam/thermostats/temperature-bounds.js'
 import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
 
 export interface TemperatureControlGroupProps {

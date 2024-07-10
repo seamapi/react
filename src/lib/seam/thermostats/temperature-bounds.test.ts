@@ -5,7 +5,7 @@ import {
   getCoolBounds,
   getHeatBounds,
   getTemperatureBounds,
-} from 'lib/temperature-bounds.js'
+} from './temperature-bounds.js'
 
 const rootControlBounds: ControlBounds = {
   mode: 'heat_cool',
