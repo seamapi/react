@@ -1,11 +1,7 @@
+import type { Device } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import {
-  type CommonDevice,
-  isLockDevice,
-  isNoiseSensorDevice,
-  isThermostatDevice,
-} from 'seamapi'
+import { isNoiseSensorDevice, isThermostatDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
@@ -23,6 +19,7 @@ import {
   useDevices,
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
+import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
@@ -33,8 +30,6 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-
-type Device = UseDevicesData[number]
 
 export interface DeviceTableProps extends CommonProps {
   deviceIds?: string[]
@@ -48,7 +43,7 @@ export interface DeviceTableProps extends CommonProps {
 }
 
 export const defaultDeviceFilter = (
-  device: CommonDevice,
+  device: Device,
   searchInputValue: string
 ): boolean => {
   const value = searchInputValue.trim()

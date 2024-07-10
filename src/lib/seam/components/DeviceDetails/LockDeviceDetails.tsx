@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import type { LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
@@ -8,6 +7,7 @@ import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/Devic
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
+import type { LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'

@@ -1,8 +1,9 @@
+import type { Device } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
+import type { AccessCode } from 'seamapi'
 
 import { getSystemTimeZone } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
@@ -304,13 +305,9 @@ function Content({
 }
 
 const validateCodeLength = (
-  device: CommonDevice,
+  device: Device,
   value: string
 ): boolean | string => {
-  if (!isLockDevice(device)) {
-    return true
-  }
-
   if (device.properties.supported_code_lengths == null) {
     return true
   }
@@ -322,11 +319,7 @@ const validateCodeLength = (
   return t.codeLengthError(device.properties.supported_code_lengths.join(', '))
 }
 
-const getCodeLengthRequirement = (device: CommonDevice): string | null => {
-  if (!isLockDevice(device)) {
-    return null
-  }
-
+const getCodeLengthRequirement = (device: Device): string | null => {
   const codeLengths = device.properties.supported_code_lengths
   if (codeLengths == null) {
     return null

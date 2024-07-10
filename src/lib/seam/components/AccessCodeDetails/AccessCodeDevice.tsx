@@ -1,6 +1,5 @@
-import type { Device } from '@seamapi/types/connect'
-
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { isLockDevice, type LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
 import { Button } from 'lib/ui/Button.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
@@ -27,6 +26,10 @@ export function AccessCodeDevice({
     return null
   }
 
+  if (!isLockDevice(device)) {
+    return null
+  }
+
   if (device.can_program_online_access_codes == null) {
     return null
   }
@@ -41,7 +44,7 @@ export function AccessCodeDevice({
 }
 
 function Content(props: {
-  device: Device
+  device: LockDevice
   disableLockUnlock: boolean
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element {
