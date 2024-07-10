@@ -21,7 +21,9 @@ export function DeviceInfo({
   disableConnectedAccountInformation,
   disableResourceIds,
 }: DeviceInfoProps): JSX.Element | null {
-  const { connectedAccount } = useConnectedAccount(device.connected_account_id)
+  const { connectedAccount } = useConnectedAccount({
+    connected_account_id: device.connected_account_id,
+  })
   return (
     <DetailSection
       label={t.deviceInfo}
