@@ -1,14 +1,11 @@
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-  type ClimateSetting,
-  type HvacModeSetting,
-  isThermostatDevice,
-} from 'seamapi'
+import type { ClimateSetting, HvacModeSetting } from 'seamapi'
 
 import { getSystemTimeZone } from 'lib/dates.js'
 import { useSeamClient } from 'lib/index.js'
+import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import { ClimateSettingScheduleFormClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormClimateSetting.js'
 import { ClimateSettingScheduleFormDefaultClimateSetting } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDefaultClimateSetting.js'
 import { ClimateSettingScheduleFormDeviceSelect } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleFormDeviceSelect.js'

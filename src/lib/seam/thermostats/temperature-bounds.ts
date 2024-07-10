@@ -1,4 +1,6 @@
-import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
+import type { HvacModeSetting } from 'seamapi'
+
+import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 
 export interface ControlBounds {
   mode: Exclude<HvacModeSetting, 'off'>

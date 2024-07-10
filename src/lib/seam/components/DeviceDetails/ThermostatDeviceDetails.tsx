@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
-import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
+import type { HvacModeSetting } from 'seamapi'
 
 import { debounce } from 'lib/debounce.js'
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
@@ -10,6 +10,7 @@ import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/Devic
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { getSupportedThermostatModes } from 'lib/seam/thermostats/temperature-bounds.js'
+import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import { useCoolThermostat } from 'lib/seam/thermostats/use-cool-thermostat.js'
 import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermostat.js'
 import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'

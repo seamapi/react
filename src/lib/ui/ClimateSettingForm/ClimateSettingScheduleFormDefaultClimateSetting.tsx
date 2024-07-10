@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import type { HvacModeSetting } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { Button } from 'lib/ui/Button.js'

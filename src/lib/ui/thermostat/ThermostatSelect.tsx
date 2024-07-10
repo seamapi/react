@@ -1,10 +1,9 @@
-import { isThermostatDevice } from 'seamapi'
-
 import {
   defaultDeviceFilter,
   DeviceTable,
   type UseDevicesData,
 } from 'lib/index.js'
+import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 
 interface ThermostatSelectProps {
   onSelect: (deviceId: string) => void

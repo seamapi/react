@@ -1,7 +1,9 @@
-import { isThermostatDevice, type ThermostatDevice } from 'seamapi'
-
 import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import {
+  isThermostatDevice,
+  type ThermostatDevice,
+} from 'lib/seam/thermostats/thermostat-device.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 

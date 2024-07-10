@@ -1,7 +1,7 @@
 import { type Control, Controller } from 'react-hook-form'
-import { isThermostatDevice } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import { Button } from 'lib/ui/Button.js'
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
 import {

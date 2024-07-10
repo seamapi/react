@@ -1,8 +1,8 @@
 import { Box } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
-import { isThermostatDevice } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 
 import { ThermostatCard } from './ThermostatCard.js'
 
