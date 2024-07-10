@@ -13,8 +13,8 @@ import { getSupportedThermostatModes } from 'lib/seam/thermostats/temperature-bo
 import { useCoolThermostat } from 'lib/seam/thermostats/use-cool-thermostat.js'
 import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermostat.js'
 import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
+import { useSetThermostatFanMode } from 'lib/seam/thermostats/use-set-thermostat-fan-mode.js'
 import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
-import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
 import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
 import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -203,7 +203,7 @@ function ManualOverrideRow({
 }
 
 function FanModeRow({ device }: { device: ThermostatDevice }): JSX.Element {
-  const { mutate, isSuccess, isError } = useUpdateFanMode()
+  const { mutate, isSuccess, isError } = useSetThermostatFanMode()
 
   return (
     <>
