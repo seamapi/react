@@ -43,7 +43,7 @@ export function useUpdateFanMode(): UseMutationResult<
             return
           }
 
-          return getUpdatedThermostat(thermostat, variables)
+          return getUpdatedDevice(thermostat, variables)
         }
       )
 
@@ -56,7 +56,7 @@ export function useUpdateFanMode(): UseMutationResult<
 
           return thermostats.map((thermostat) => {
             if (thermostat.device_id === variables.device_id) {
-              return getUpdatedThermostat(thermostat, variables)
+              return getUpdatedDevice(thermostat, variables)
             }
 
             return thermostat
@@ -67,7 +67,7 @@ export function useUpdateFanMode(): UseMutationResult<
   })
 }
 
-function getUpdatedThermostat(
+function getUpdatedDevice(
   thermostat: ThermostatDevice,
   variables: UseUpdateFanModeMutationVariables
 ): ThermostatDevice {

@@ -60,7 +60,7 @@ export function useHeatThermostat(): UseMutationResult<
           if (device == null) {
             return
           }
-          return getUpdatedThermostat(device, variables)
+          return getUpdatedDevice(device, variables)
         }
       )
 
@@ -73,7 +73,7 @@ export function useHeatThermostat(): UseMutationResult<
 
           return devices.map((device) => {
             if (device.device_id === variables.device_id) {
-              return getUpdatedThermostat(device, variables)
+              return getUpdatedDevice(device, variables)
             }
 
             return device
@@ -84,7 +84,7 @@ export function useHeatThermostat(): UseMutationResult<
   })
 }
 
-function getUpdatedThermostat(
+function getUpdatedDevice(
   device: Device,
   variables: UseHeatThermostatMutationVariables
 ): Device {

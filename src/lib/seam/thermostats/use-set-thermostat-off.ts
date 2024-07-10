@@ -53,7 +53,7 @@ export function useSetThermostatOff(): UseMutationResult<
           if (device == null) {
             return
           }
-          return getUpdatedThermostat(device)
+          return getUpdatedDevice(device)
         }
       )
 
@@ -66,7 +66,7 @@ export function useSetThermostatOff(): UseMutationResult<
 
           return devices.map((device) => {
             if (device.device_id === variables.device_id) {
-              return getUpdatedThermostat(device)
+              return getUpdatedDevice(device)
             }
 
             return device
@@ -77,7 +77,7 @@ export function useSetThermostatOff(): UseMutationResult<
   })
 }
 
-function getUpdatedThermostat(device: Device): Device {
+function getUpdatedDevice(device: Device): Device {
   const { properties } = device
   if (
     'current_climate_setting' in properties &&
