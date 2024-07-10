@@ -1,25 +1,50 @@
+import type {
+  SeamActionAttemptFailedError,
+  SeamActionAttemptTimeoutError,
+  SeamHttpApiError,
+  ThermostatsHeatCoolBody,
+} from '@seamapi/http/connect'
+import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  SeamError,
-  ThermostatDevice,
-  ThermostatHeatCoolRequest,
-  ThermostatsListResponse,
-} from 'seamapi'
 
+import {
+  getCoolingSetPointCelsius,
+  getCoolingSetPointFahrenheit,
+  getHeatingSetPointCelsius,
+  getHeatingSetPointFahrenheit,
+} from 'lib/seam/thermostats/unit-conversion.js'
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-// UPSTREAM: Missing ThermostatHeatCoolResponse in seamapi.
-export type UseHeatCoolThermostatData = Record<string, unknown>
+export type UseHeatCoolThermostatParams = never
 
-export type UseHeatCoolThermostatMutationVariables = ThermostatHeatCoolRequest
+export type UseHeatCoolThermostatData = undefined
+
+export type UseHeatCoolThermostatMutationVariables = Pick<
+  ThermostatsHeatCoolBody,
+  | 'device_id'
+  | 'heating_set_point_celsius'
+  | 'heating_set_point_fahrenheit'
+  | 'cooling_set_point_celsius'
+  | 'cooling_set_point_fahrenheit'
+>
+
+type HeatCoolThermostatActionAttempt = Extract<
+  ActionAttempt,
+  { action_type: 'SET_HEAT_COOL' }
+>
+
+type MutationError =
+  | SeamHttpApiError
+  | SeamActionAttemptFailedError<HeatCoolThermostatActionAttempt>
+  | SeamActionAttemptTimeoutError<HeatCoolThermostatActionAttempt>
 
 export function useHeatCoolThermostat(): UseMutationResult<
   UseHeatCoolThermostatData,
-  SeamError,
+  MutationError,
   UseHeatCoolThermostatMutationVariables
 > {
   const { client } = useSeamClient()
@@ -27,39 +52,37 @@ export function useHeatCoolThermostat(): UseMutationResult<
 
   return useMutation<
     UseHeatCoolThermostatData,
-    SeamError,
+    MutationError,
     UseHeatCoolThermostatMutationVariables
   >({
-    mutationFn: async (variables: UseHeatCoolThermostatMutationVariables) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-
-      return await client.thermostats.heatCool(variables)
+      await client.thermostats.heatCool(variables)
     },
     onSuccess: (_data, variables) => {
-      queryClient.setQueryData<ThermostatDevice | null>(
+      queryClient.setQueryData<Device | null>(
         ['devices', 'get', { device_id: variables.device_id }],
-        (thermostat) => {
-          if (thermostat == null) {
+        (device) => {
+          if (device == null) {
             return
           }
-
-          return getUpdatedThermostat(thermostat, variables)
+          return getUpdatedThermostat(device, variables)
         }
       )
 
-      queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
+      queryClient.setQueryData<Device[]>(
         ['devices', 'list', { device_id: variables.device_id }],
-        (thermostats): ThermostatDevice[] => {
-          if (thermostats == null) {
+        (devices): Device[] => {
+          if (devices == null) {
             return []
           }
 
-          return thermostats.map((thermostat) => {
-            if (thermostat.device_id === variables.device_id) {
-              return getUpdatedThermostat(thermostat, variables)
+          return devices.map((device) => {
+            if (device.device_id === variables.device_id) {
+              return getUpdatedThermostat(device, variables)
             }
 
-            return thermostat
+            return device
           })
         }
       )
@@ -68,17 +91,42 @@ export function useHeatCoolThermostat(): UseMutationResult<
 }
 
 function getUpdatedThermostat(
-  thermostat: ThermostatDevice,
+  device: Device,
   variables: UseHeatCoolThermostatMutationVariables
-): ThermostatDevice {
-  return {
-    ...thermostat,
-    properties: {
-      ...thermostat.properties,
-      current_climate_setting: {
-        ...thermostat.properties.current_climate_setting,
-        ...variables,
+): Device {
+  const { properties } = device
+  if (
+    'current_climate_setting' in properties &&
+    properties.current_climate_setting != null
+  ) {
+    return {
+      ...device,
+      properties: {
+        ...properties,
+        current_climate_setting: {
+          ...properties.current_climate_setting,
+          hvac_mode_setting: 'heat_cool',
+          automatic_heating_enabled: true,
+          automatic_cooling_enabled: true,
+          heating_set_point_celsius: getHeatingSetPointCelsius(
+            variables,
+            device
+          ),
+          heating_set_point_fahrenheit: getHeatingSetPointFahrenheit(
+            variables,
+            device
+          ),
+          cooling_set_point_celsius: getCoolingSetPointCelsius(
+            variables,
+            device
+          ),
+          cooling_set_point_fahrenheit: getCoolingSetPointFahrenheit(
+            variables,
+            device
+          ),
+        },
       },
-    },
+    }
   }
+  return device
 }
