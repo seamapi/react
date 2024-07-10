@@ -62,13 +62,13 @@ export const getSupportedThermostatModes = (
   return allModes.filter((mode) => {
     switch (mode) {
       case 'cool':
-        return device.properties.is_cooling_available
+        return device.properties.is_cooling_available ?? false
       case 'heat':
-        return device.properties.is_heating_available
+        return device.properties.is_heating_available ?? false
       case 'heat_cool':
         return (
-          device.properties.is_heating_available &&
-          device.properties.is_cooling_available
+          (device.properties.is_heating_available ?? false) &&
+          (device.properties.is_cooling_available ?? false)
         )
       default:
         return true
