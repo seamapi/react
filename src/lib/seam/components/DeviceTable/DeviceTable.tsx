@@ -1,7 +1,6 @@
 import type { Device } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import { isNoiseSensorDevice } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
@@ -20,6 +19,7 @@ import {
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
 import { isLockDevice } from 'lib/seam/locks/lock-device.js'
+import { isNoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'

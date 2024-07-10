@@ -1,8 +1,9 @@
-import type { NoiseSensorDevice, NoiseThresholds } from 'seamapi'
+import type { NoiseThresholds } from 'seamapi'
 import { ZonedTime } from 'zoned-time'
 
 import { formatTime, formatTimeZone } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
+import type { NoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
