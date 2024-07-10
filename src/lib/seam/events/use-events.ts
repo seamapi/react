@@ -32,7 +32,8 @@ export function useEvents(
           event
         )
       }
-      return events
+      // UPSTREAM: Response type does not match SeamEvent[].
+      return events as SeamEvent[]
     },
     refetchInterval,
   })
