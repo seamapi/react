@@ -1,9 +1,8 @@
-import type { Device } from '@seamapi/types/connect'
+import type { AccessCode, Device } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type { AccessCode } from 'seamapi'
 
 import { getSystemTimeZone } from 'lib/dates.js'
 import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'

@@ -1,10 +1,10 @@
+import type { SeamEvent } from '@seamapi/types/connect'
 import { DateTime } from 'luxon'
-import type { Event } from 'seamapi'
 
 import { ClockIcon } from 'lib/icons/Clock.js'
 
 interface NoiseSensorEventItemProps {
-  event: Event
+  event: SeamEvent
 }
 
 export function NoiseSensorEventItem({
@@ -40,7 +40,7 @@ export function NoiseSensorEventItem({
   )
 }
 
-function getContextSublabel(event: Event): string | null {
+function getContextSublabel(event: SeamEvent): string | null {
   if ('noise_threshold_name' in event) {
     // @ts-expect-error UPSTREAM: Shallow event type
     // https://github.com/seamapi/react/issues/611

@@ -50,7 +50,7 @@ function AccountOnlineContent(props: { isOnline: boolean }): JSX.Element {
   )
 }
 
-export const isDeviceAccountOffline = (device: CommonDevice): boolean =>
+export const isDeviceAccountOffline = (device: Device): boolean =>
   device.errors.filter((error) => error.error_code === 'account_disconnected')
     .length > 0
 
