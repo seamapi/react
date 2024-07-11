@@ -1,45 +1,40 @@
+import type { SeamHttpApiError } from '@seamapi/http/connect'
 import type {
   DeviceModel,
   RouteRequestParams,
   RouteResponse,
 } from '@seamapi/types/devicedb'
 import { useQuery } from '@tanstack/react-query'
-import type { SeamError } from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
-export type UseDeviceModelParams = DeviceModelsGetParams | string
+export type UseDeviceModelParams = DeviceModelsGetParams
+
 export type UseDeviceModelData = DeviceModel | null
 
 export function useDeviceModel(
-  params?: UseDeviceModelParams
+  params: UseDeviceModelParams
 ): UseSeamQueryResult<'deviceModel', UseDeviceModelData> {
-  const normalizedParams =
-    typeof params === 'string' ? { device_model_id: params } : params
-
   const { client: seam } = useSeamClient()
-  const { data, ...rest } = useQuery<
-    DeviceModelsGetResponse['device_model'] | null,
-    SeamError
-  >({
+  const { data, ...rest } = useQuery<UseDeviceModelData, SeamHttpApiError>({
     enabled: seam != null,
-    queryKey: ['internal', 'device_models', 'get', normalizedParams],
+    queryKey: ['internal', 'device_models', 'get', params],
     queryFn: async () => {
       if (seam == null) return null
       const {
         data: { device_model: deviceModel },
       } = await seam.client.get<DeviceModelsGetResponse>(
         '/internal/devicedb/v1/device_models/get',
-        { params: normalizedParams }
+        { params }
       )
-      return deviceModel
+      // UPSTREAM: Response type does not match DeviceModel.
+      return deviceModel as DeviceModel
     },
   })
 
   return {
     ...rest,
-    // @ts-expect-error: Upstream mismatch between type and route type.
     deviceModel: data,
   }
 }
