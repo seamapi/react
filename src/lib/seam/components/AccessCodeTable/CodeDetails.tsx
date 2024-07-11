@@ -23,7 +23,7 @@ export function CodeDetails(props: { accessCode: AccessCode }): JSX.Element {
   )
 }
 
-function Duration(props: { accessCode: AccessCode }): JSX.Element {
+function Duration(props: { accessCode: AccessCode }): JSX.Element | null {
   const { accessCode } = props
 
   const hasStarted =
@@ -38,7 +38,7 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
     )
   }
 
-  if (hasStarted) {
+  if (hasStarted && accessCode.ends_at != null) {
     return (
       <span>
         {t.ends}: {formatDate(accessCode.ends_at)}{' '}
@@ -46,11 +46,15 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
     )
   }
 
-  return (
-    <span>
-      {t.starts}: {formatDate(accessCode.starts_at)}
-    </span>
-  )
+  if (hasStarted && accessCode.starts_at != null) {
+    return (
+      <span>
+        {t.starts}: {formatDate(accessCode.starts_at)}
+      </span>
+    )
+  }
+
+  return null
 }
 
 const formatDate = (date: string): string =>

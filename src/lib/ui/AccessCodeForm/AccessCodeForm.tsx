@@ -345,7 +345,7 @@ const isSequential = (numbers: string): boolean =>
   sequentialNumbers.includes(numbers)
 
 const getAccessCodeDate = (
-  date: 'starts_at' | 'ends_at',
+  key: 'starts_at' | 'ends_at',
   accessCode?: NonNullable<UseAccessCodeData>
 ): DateTime | null => {
   if (accessCode == null) {
@@ -356,7 +356,13 @@ const getAccessCodeDate = (
     return null
   }
 
-  return DateTime.fromISO(accessCode[date])
+  const date = accessCode[key]
+
+  if (date == null) {
+    return null
+  }
+
+  return DateTime.fromISO(date)
 }
 
 const getNow = (timeZone: string): DateTime => DateTime.now().setZone(timeZone)

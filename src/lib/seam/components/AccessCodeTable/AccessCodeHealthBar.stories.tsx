@@ -42,7 +42,6 @@ export const Content: Story = {
               status: 'setting',
               is_backup_access_code_available: false,
               is_external_modification_allowed: false,
-              appearance: {},
               errors: [
                 {
                   error_code: 'account_disconnected',

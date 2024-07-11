@@ -56,6 +56,9 @@ export const Content: Story = {
                   display_name: 'Pro Lock 9000',
                   manufacturer_display_name: 'August',
                 },
+                appearance: {
+                  name: 'mydevice',
+                },
               },
               errors: [
                 {

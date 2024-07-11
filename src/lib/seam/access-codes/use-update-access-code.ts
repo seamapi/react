@@ -17,7 +17,13 @@ export type UseUpdateAccessCodeData = undefined
 
 export type UseUpdateAccessCodeMutationVariables = Pick<
   AccessCodesUpdateBody,
-  'access_code_id' | 'code' | 'name' | 'starts_at' | 'ends_at' | 'type'
+  | 'device_id'
+  | 'access_code_id'
+  | 'code'
+  | 'name'
+  | 'starts_at'
+  | 'ends_at'
+  | 'type'
 >
 
 export function useUpdateAccessCode(): UseMutationResult<
