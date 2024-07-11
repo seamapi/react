@@ -4,7 +4,7 @@ import type {
   UseDevicesData,
   UseDevicesParams,
 } from 'lib/seam/devices/use-devices.js'
-import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
+import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { LockStatus } from 'lib/ui/device/LockStatus.js'
 import {
@@ -62,7 +62,7 @@ export function DeviceRow({
           </span>
           <div className='seam-device-statuses'>
             <OnlineStatus device={device} />
-            {isConnected && <BatteryStatus device={device} />}
+            {isConnected && <BatteryStatusIndicator device={device} />}
             {isConnected && <LockStatus device={device} />}
           </div>
         </div>

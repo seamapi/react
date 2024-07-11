@@ -1,5 +1,4 @@
-import type { ThermostatDeviceProperties } from 'seamapi'
-
+import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import type { TemperatureControlGroupProps } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 
 export type SetPointBounds = Partial<
@@ -9,31 +8,24 @@ export type SetPointBounds = Partial<
   >
 >
 
-export const getSetPointBounds = (
-  properties: ThermostatDeviceProperties
-): SetPointBounds => {
-  let setPointBounds: SetPointBounds = {}
+export const getSetPointBounds = (device: ThermostatDevice): SetPointBounds => {
+  const { properties } = device
+
+  const setPointBounds: SetPointBounds = {}
 
   if (properties.is_cooling_available) {
-    setPointBounds = {
-      minCool: properties.min_cooling_set_point_fahrenheit,
-      maxCool: properties.max_cooling_set_point_fahrenheit,
-    }
+    setPointBounds.minCool = properties.min_cooling_set_point_fahrenheit
+    setPointBounds.maxCool = properties.max_cooling_set_point_fahrenheit
   }
 
   if (properties.is_heating_available) {
-    setPointBounds = {
-      ...setPointBounds,
-      minHeat: properties.min_heating_set_point_fahrenheit,
-      maxHeat: properties.max_heating_set_point_fahrenheit,
-    }
+    setPointBounds.minHeat = properties.min_heating_set_point_fahrenheit
+    setPointBounds.maxHeat = properties.max_heating_set_point_fahrenheit
   }
 
   if (properties.is_cooling_available && properties.is_heating_available) {
-    setPointBounds = {
-      ...setPointBounds,
-      delta: properties.min_heating_cooling_delta_fahrenheit,
-    }
+    setPointBounds.delta = properties.min_heating_cooling_delta_fahrenheit
   }
+
   return setPointBounds
 }

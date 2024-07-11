@@ -1,8 +1,7 @@
-import type { FanModeSetting } from 'seamapi'
-
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import { FanIcon } from 'lib/icons/Fan.js'
 import { FanOutlineIcon } from 'lib/icons/FanOutline.js'
+import type { FanModeSetting } from 'lib/seam/thermostats/thermostat-device.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { ThermoModeMenuOption } from 'lib/ui/thermostat/ThermoModeMenuOption.js'
 

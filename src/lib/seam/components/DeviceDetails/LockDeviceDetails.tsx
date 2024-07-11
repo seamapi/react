@@ -11,7 +11,7 @@ import type { LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
-import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
+import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -102,7 +102,7 @@ export function LockDeviceDetails({
                 <span className='seam-label'>{t.status}:</span>{' '}
                 <OnlineStatus device={device} />
                 <span className='seam-label'>{t.power}:</span>{' '}
-                <BatteryStatus device={device} />
+                <BatteryStatusIndicator device={device} />
                 <DeviceModel device={device} />
               </div>
             </div>

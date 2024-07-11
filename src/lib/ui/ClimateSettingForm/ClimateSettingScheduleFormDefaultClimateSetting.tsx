@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import type { HvacModeSetting } from 'lib/seam/thermostats/thermostat-device.js'
 import { Button } from 'lib/ui/Button.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'

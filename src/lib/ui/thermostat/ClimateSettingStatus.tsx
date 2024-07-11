@@ -1,9 +1,8 @@
-import type { ClimateSetting } from 'seamapi'
-
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { ThermostatOffIcon } from 'lib/icons/ThermostatOff.js'
+import type { ClimateSetting } from 'lib/seam/thermostats/thermostat-device.js'
 import { Temperature } from 'lib/ui/thermostat/Temperature.js'
 
 interface ClimateSettingStatusProps {

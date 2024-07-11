@@ -1,16 +1,20 @@
 import type { Device } from '@seamapi/types/connect'
-import type { BatteryStatus as SeamBatteryStatus } from 'seamapi'
 
 import { BatteryLevelCriticalIcon } from 'lib/icons/BatteryLevelCritical.js'
 import { BatteryLevelFullIcon } from 'lib/icons/BatteryLevelFull.js'
 import { BatteryLevelHighIcon } from 'lib/icons/BatteryLevelHigh.js'
 import { BatteryLevelLowIcon } from 'lib/icons/BatteryLevelLow.js'
 
-interface BatteryStatusProps {
+interface BatteryStatusIndicatorProps {
   device: Device
 }
 
-export function BatteryStatus(props: BatteryStatusProps): JSX.Element {
+// UPSTREAM: Missing BatteryStatusIndicator type in @seamapi/types/connect.
+type BatteryStatus = 'low' | 'full' | 'critical' | 'good'
+
+export function BatteryStatusIndicator(
+  props: BatteryStatusIndicatorProps
+): JSX.Element {
   return (
     <div className='seam-battery-status'>
       <Content
@@ -22,7 +26,7 @@ export function BatteryStatus(props: BatteryStatusProps): JSX.Element {
 }
 
 function Content(props: {
-  status: SeamBatteryStatus | null | undefined
+  status: BatteryStatus | null | undefined
   level: number | null | undefined
 }): JSX.Element | null {
   const { status, level } = props

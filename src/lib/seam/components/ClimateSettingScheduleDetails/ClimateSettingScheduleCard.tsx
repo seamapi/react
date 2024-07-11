@@ -35,9 +35,9 @@ function Content(props: {
 }): JSX.Element | null {
   const { climateSettingScheduleId, onSelectDevice } = props
 
-  const { climateSettingSchedule } = useClimateSettingSchedule(
-    climateSettingScheduleId
-  )
+  const { climateSettingSchedule } = useClimateSettingSchedule({
+    climate_setting_schedule_id: climateSettingScheduleId,
+  })
 
   if (climateSettingSchedule == null) {
     return null

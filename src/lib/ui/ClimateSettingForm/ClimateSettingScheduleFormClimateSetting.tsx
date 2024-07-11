@@ -37,7 +37,7 @@ export function ClimateSettingScheduleFormClimateSetting({
   if (device == null) return <></>
   if (!isThermostatDevice(device)) return <></>
 
-  const setPointBounds = getSetPointBounds(device.properties)
+  const setPointBounds = getSetPointBounds(device)
 
   return (
     <>
