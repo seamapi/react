@@ -1,3 +1,3 @@
-export async function copyToClipboard(value: string): Promise<void> {
+export const copyToClipboard = async (value: string): Promise<void> => {
   await globalThis.navigator?.clipboard?.writeText(value)
 }

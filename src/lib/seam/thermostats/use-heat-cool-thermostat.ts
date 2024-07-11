@@ -90,10 +90,10 @@ export function useHeatCoolThermostat(): UseMutationResult<
   })
 }
 
-function getUpdatedDevice(
+const getUpdatedDevice = (
   device: Device,
   variables: UseHeatCoolThermostatMutationVariables
-): Device {
+): Device => {
   const { properties } = device
   if (
     'current_climate_setting' in properties &&

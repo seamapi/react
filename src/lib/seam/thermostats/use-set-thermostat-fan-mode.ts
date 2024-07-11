@@ -77,10 +77,10 @@ export function useSetThermostatFanMode(): UseMutationResult<
   })
 }
 
-function getUpdatedDevice(
+const getUpdatedDevice = (
   device: Device,
   variables: UseSetThermostatFanModeMutationVariables
-): Device {
+): Device => {
   const { properties } = device
   if ('fan_mode_setting' in properties && properties.fan_mode_setting != null) {
     return {

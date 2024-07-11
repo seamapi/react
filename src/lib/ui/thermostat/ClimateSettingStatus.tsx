@@ -92,7 +92,7 @@ function Content(props: {
   return null
 }
 
-function isSetPoint(setPoint: Partial<SetPoint>): setPoint is SetPoint {
+const isSetPoint = (setPoint: Partial<SetPoint>): setPoint is SetPoint => {
   return setPoint.fahrenheit != null && setPoint.celsius != null
 }
 

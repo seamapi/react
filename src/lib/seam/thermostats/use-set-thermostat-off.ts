@@ -77,7 +77,7 @@ export function useSetThermostatOff(): UseMutationResult<
   })
 }
 
-function getUpdatedDevice(device: Device): Device {
+const getUpdatedDevice = (device: Device): Device => {
   const { properties } = device
   if (
     'current_climate_setting' in properties &&

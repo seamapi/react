@@ -66,10 +66,10 @@ export function useUpdateThermostat(): UseMutationResult<
   })
 }
 
-function getUpdatedDevice(
+const getUpdatedDevice = (
   device: Device,
   variables: UseUpdateThermostatMutationVariables
-): Device {
+): Device => {
   const { properties } = device
   if (
     'default_climate_setting' in properties &&
