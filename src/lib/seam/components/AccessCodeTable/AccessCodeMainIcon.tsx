@@ -1,10 +1,11 @@
+import type { AccessCode } from '@seamapi/types/connect'
+
 import { AccessCodeKeyIcon } from 'lib/icons/AccessCodeKey.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
-import type { UseAccessCodesData } from 'lib/seam/access-codes/use-access-codes.js'
 
 export interface AccessCodeMainIconProps {
-  accessCode: UseAccessCodesData[number]
+  accessCode: AccessCode
 }
 
 export function AccessCodeMainIcon({

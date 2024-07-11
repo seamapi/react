@@ -1,9 +1,9 @@
+import type { Device } from '@seamapi/types/connect'
 import type { ConnectedAccountError, DeviceError } from 'seamapi'
 
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { OnlineStatusAccountOfflineIcon } from 'lib/icons/OnlineStatusAccountOffline.js'
-import type { UseDevicesData } from 'lib/seam/devices/use-devices.js'
 import {
   connectedAccountErrorFilter,
   deviceErrorFilter,
@@ -15,7 +15,7 @@ export type AccountFilter = 'account_issues'
 export type DeviceFilter = 'device_issues'
 
 interface DeviceHealthBarProps {
-  devices: Array<UseDevicesData[number]>
+  devices: Device[]
   filter: AccountFilter | DeviceFilter | null
   onFilterSelect: (filter: AccountFilter | DeviceFilter | null) => void
   errorFilter: (error: DeviceError | ConnectedAccountError) => boolean

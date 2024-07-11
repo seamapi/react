@@ -1,5 +1,5 @@
 import type { SeamHttpApiError } from '@seamapi/http/connect'
-import type { AccessCode } from '@seamapi/types/connect'
+import type { AccessCode, Device } from '@seamapi/types/connect'
 import { useState } from 'react'
 
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
@@ -7,7 +7,7 @@ import {
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
-import { useDevice, type UseDeviceData } from 'lib/seam/devices/use-device.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import { getValidationError } from 'lib/seam/error-handlers.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import {
@@ -56,7 +56,7 @@ function Content({
   onBack,
   onSuccess,
 }: Omit<CreateAccessCodeFormProps, 'deviceId'> & {
-  device: NonNullable<UseDeviceData>
+  device: Device
 }): JSX.Element {
   const { submit, isSubmitting, responseErrors } = useSubmitCreateAccessCode({
     onSuccess: (accessCode: AccessCode) => {

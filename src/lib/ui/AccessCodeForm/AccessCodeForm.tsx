@@ -5,9 +5,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { getSystemTimeZone } from 'lib/dates.js'
-import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
 import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-access-code-code.js'
-import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { AccessCodeFormDatePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { AccessCodeFormTimes } from 'lib/ui/AccessCodeForm/AccessCodeFormTimes.js'
 import { AccessCodeFormTimeZonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimeZonePicker.js'
@@ -23,7 +21,7 @@ export interface AccessCodeFormSubmitData {
   name: string
   code: string
   type: AccessCode['type']
-  device: NonNullable<UseDeviceData>
+  device: Device
   startDate: string
   endDate: string
   timeZone: string
@@ -35,8 +33,8 @@ export interface ResponseErrors {
 }
 
 export interface AccessCodeFormProps {
-  accessCode?: NonNullable<UseAccessCodeData>
-  device: NonNullable<UseDeviceData>
+  accessCode?: AccessCode
+  device: Device
   isSubmitting: boolean
   onSubmit: (data: AccessCodeFormSubmitData) => void
   responseErrors: ResponseErrors | null
@@ -346,7 +344,7 @@ const isSequential = (numbers: string): boolean =>
 
 const getAccessCodeDate = (
   key: 'starts_at' | 'ends_at',
-  accessCode?: NonNullable<UseAccessCodeData>
+  accessCode?: AccessCode
 ): DateTime | null => {
   if (accessCode == null) {
     return null

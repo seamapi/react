@@ -1,9 +1,7 @@
+import type { Device } from '@seamapi/types/connect'
 import classNames from 'classnames'
 
-import type {
-  UseDevicesData,
-  UseDevicesParams,
-} from 'lib/seam/devices/use-devices.js'
+import type { UseDevicesParams } from 'lib/seam/devices/use-devices.js'
 import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { LockStatus } from 'lib/ui/device/LockStatus.js'
@@ -22,7 +20,7 @@ interface Props {
 }
 
 interface DeviceRowProps {
-  device: UseDevicesData[number]
+  device: Device
   onClick: () => void
 }
 

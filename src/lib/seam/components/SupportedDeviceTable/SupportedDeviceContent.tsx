@@ -2,7 +2,6 @@ import type { DeviceModel } from '@seamapi/types/devicedb'
 import { useMemo } from 'react'
 
 import { SupportedDeviceManufacturerSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceManufacturerSection.js'
-import type { UseDeviceModelsData } from 'lib/seam/components/SupportedDeviceTable/use-device-models.js'
 import {
   type DeviceModelFilters,
   useFilteredDeviceModels,
@@ -140,7 +139,7 @@ function EmptyResult({
 }
 
 const groupDeviceModelsByManufacturer = (
-  deviceModels: UseDeviceModelsData
+  deviceModels: DeviceModel[]
 ): Record<string, DeviceModel[]> => {
   const result: Record<string, DeviceModel[]> = {}
 

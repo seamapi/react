@@ -1,6 +1,7 @@
+import type { AccessCode } from '@seamapi/types/connect'
+
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
-import type { UseAccessCodesData } from 'lib/seam/access-codes/use-access-codes.js'
 import { AccessCodeMainIcon } from 'lib/seam/components/AccessCodeTable/AccessCodeMainIcon.js'
 import { AccessCodeMenu } from 'lib/seam/components/AccessCodeTable/AccessCodeMenu.js'
 import { CodeDetails } from 'lib/seam/components/AccessCodeTable/CodeDetails.js'
@@ -9,7 +10,7 @@ import { TableRow } from 'lib/ui/Table/TableRow.js'
 import { Title } from 'lib/ui/typography/Title.js'
 
 export interface AccessCodeRowProps {
-  accessCode: UseAccessCodesData[number]
+  accessCode: AccessCode
   onClick: () => void
   onEdit: () => void
   disableEditAccessCode: boolean

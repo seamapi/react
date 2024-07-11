@@ -1,18 +1,13 @@
-import {
-  defaultDeviceFilter,
-  DeviceTable,
-  type UseDevicesData,
-} from 'lib/index.js'
+import type { Device } from '@seamapi/types/connect'
+
+import { defaultDeviceFilter, DeviceTable } from 'lib/index.js'
 import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 
 interface ThermostatSelectProps {
   onSelect: (deviceId: string) => void
 }
 
-const deviceFilter = (
-  device: UseDevicesData[number],
-  searchInputValue: string
-): boolean => {
+const deviceFilter = (device: Device, searchInputValue: string): boolean => {
   if (!isThermostatDevice(device)) return false
   return defaultDeviceFilter(device, searchInputValue)
 }
