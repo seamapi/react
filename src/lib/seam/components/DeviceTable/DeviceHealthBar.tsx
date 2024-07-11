@@ -1,5 +1,8 @@
-import type { Device } from '@seamapi/types/connect'
-import type { ConnectedAccountError, DeviceError } from 'seamapi'
+import type {
+  ConnectedAccountError,
+  Device,
+  DeviceError,
+} from '@seamapi/types/connect'
 
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
