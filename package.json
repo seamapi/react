@@ -184,7 +184,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.62.1",
-    "seamapi": "^8.20.0",
     "storybook": "^7.0.2",
     "stylelint": "^16.2.1",
     "stylelint-config-standard-scss": "^13.0.0",
