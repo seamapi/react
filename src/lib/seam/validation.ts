@@ -1,7 +1,7 @@
-import { type SeamError, SeamMalformedInputError } from 'seamapi'
+import { SeamMalformedInputError } from '@seamapi/http/connect'
 
 export const getValidationError = (params: {
-  error: SeamError
+  error: Error
   property: string
 }): string | undefined => {
   const { error, property } = params
@@ -9,10 +9,8 @@ export const getValidationError = (params: {
     return undefined
   }
 
-  const propertyErrors = (error.validationErrors[property] ?? {
+  const propertyErrors = error.validationErrors[property] ?? {
     _errors: [],
-  }) as {
-    _errors: string[]
   }
 
   return propertyErrors._errors[0]

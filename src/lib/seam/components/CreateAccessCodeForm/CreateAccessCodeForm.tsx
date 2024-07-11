@@ -8,7 +8,7 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
-import { getValidationError } from 'lib/seam/error-handlers.js'
+import { getValidationError } from 'lib/seam/validation.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import {
   AccessCodeForm,
