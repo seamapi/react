@@ -35,7 +35,7 @@ export interface ClimateSetting {
   heating_set_point_celsius?: number
   cooling_set_point_fahrenheit?: number
   heating_set_point_fahrenheit?: number
-  manual_override_allowed: boolean
+  manual_override_allowed?: boolean
 }
 
 export const isThermostatDevice = (
