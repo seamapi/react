@@ -35,12 +35,18 @@ export const Content: Story = {
           accessCodes={[
             {
               device_id: 'device_1',
+              name: 'Code 1',
               access_code_id: 'code_1',
               created_at: '2023-05-08T22:38:30.963Z',
               type: 'ongoing',
               code: '1234',
               status: 'setting',
+              is_managed: true,
+              is_one_time_use: false,
+              is_offline_access_code: false,
+              is_backup: false,
               is_backup_access_code_available: false,
+              common_code_key: null,
               is_external_modification_allowed: false,
               errors: [
                 {
@@ -58,17 +64,21 @@ export const Content: Story = {
                 },
               ],
             },
-
             {
               device_id: 'device_1',
+              name: 'Code 2',
               access_code_id: 'code_2',
               created_at: '2023-05-08T22:38:30.963Z',
               type: 'ongoing',
               code: '1234',
               status: 'setting',
               is_backup_access_code_available: false,
-              is_external_modification_allowed: true,
-              appearance: {},
+              is_managed: true,
+              is_one_time_use: false,
+              is_offline_access_code: false,
+              is_backup: false,
+              common_code_key: null,
+              is_external_modification_allowed: false,
               errors: [
                 {
                   error_code: 'account_disconnected',
