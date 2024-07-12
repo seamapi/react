@@ -1,3 +1,4 @@
+import type { SeamEvent } from '@seamapi/types/connect'
 import { useState } from 'react'
 
 import { useEvents } from 'lib/seam/events/use-events.js'
@@ -15,7 +16,7 @@ export function NoiseSensorActivityList({
   const now = useNow()
   const [mountedAt] = useState(now)
 
-  const { events } = useEvents(
+  const result = useEvents(
     {
       device_id: device.device_id,
       event_type: 'noise_sensor.noise_threshold_triggered',
@@ -23,6 +24,11 @@ export function NoiseSensorActivityList({
     },
     { refetchInterval: 30_000 }
   )
+
+  // UPSTREAM: seam.events.list should return better types.
+  const events = result.events as Array<
+    Extract<SeamEvent, { event_type: 'noise_sensor.noise_threshold_triggered' }>
+  >
 
   return (
     <div className='seam-noise-sensor-activity-list'>
