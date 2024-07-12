@@ -1,5 +1,9 @@
-import type { SeamHttpApiError } from '@seamapi/http/connect'
+import {
+  isSeamHttpInvalidInputError,
+  type SeamHttpApiError,
+} from '@seamapi/http/connect'
 import type { AccessCode, Device } from '@seamapi/types/connect'
+import { shake } from 'radash'
 import { useState } from 'react'
 
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
@@ -8,7 +12,6 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
-import { getValidationError } from 'lib/seam/validation.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import {
   AccessCodeForm,
@@ -151,16 +154,16 @@ export function useResponseErrors(): {
   > | null>(null)
 
   const handleResponseError = (error: SeamHttpApiError): void => {
-    const code = getValidationError({ error, property: 'code' })
-    const name = getValidationError({ error, property: 'name' })
-
-    if (code != null || name != null) {
-      setResponseErrors({
-        code,
-        name,
+    if (isSeamHttpInvalidInputError(error)) {
+      const errors = shake({
+        code: error.getValidationErrorMessages('code')[0],
+        name: error.getValidationErrorMessages('name')[0],
       })
-
-      return
+      if (Object.keys(errors).length === 0) {
+        setResponseErrors({
+          unknown: error.message,
+        })
+      }
     }
 
     setResponseErrors({
