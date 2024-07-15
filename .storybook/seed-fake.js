@@ -53,6 +53,9 @@ export const seedFake = (db) => {
     name: 'Front Door',
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-16T10:17:18.000',
+    can_remotely_unlock: true,
+    can_remotely_lock: true,
+    can_program_online_access_codes: true,
     properties: {
       locked: false,
       online: false,
@@ -208,6 +211,9 @@ export const seedFake = (db) => {
     name: 'Back Door',
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-24T22:15:14.000',
+    can_remotely_unlock: true,
+    can_remotely_lock: true,
+    can_program_online_access_codes: true,
     properties: {
       locked: false,
       online: false,
@@ -251,6 +257,9 @@ export const seedFake = (db) => {
     name: 'Garage',
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-25T02:05:04.000',
+    can_remotely_unlock: true,
+    can_remotely_lock: true,
+    can_program_online_access_codes: true,
     properties: {
       locked: false,
       online: true,
@@ -293,6 +302,9 @@ export const seedFake = (db) => {
     name: 'Back Door',
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-24T22:15:14.000',
+    can_remotely_unlock: true,
+    can_remotely_lock: true,
+    can_program_online_access_codes: true,
     properties: {
       locked: true,
       online: true,
