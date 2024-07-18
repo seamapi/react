@@ -1,40 +1,44 @@
+import type {
+  AccessCodesCreateBody,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
+import type { AccessCode } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  AccessCode,
-  AccessCodeCreateRequest,
-  AccessCodeCreateResponse,
-  SeamError,
-} from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseCreateAccessCodeParams = never
+
 export type UseCreateAccessCodeData = AccessCode
-export type UseCreateAccessCodeMutationParams = AccessCodeCreateRequest
+
+export type UseCreateAccessCodeMutationVariables = AccessCodesCreateBody
 
 export function useCreateAccessCode(): UseMutationResult<
   UseCreateAccessCodeData,
-  SeamError,
-  UseCreateAccessCodeMutationParams
+  SeamHttpApiError,
+  UseCreateAccessCodeMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
   return useMutation<
-    AccessCodeCreateResponse['access_code'],
-    SeamError,
-    AccessCodeCreateRequest
+    UseCreateAccessCodeData,
+    SeamHttpApiError,
+    UseCreateAccessCodeMutationVariables
   >({
-    mutationFn: async (mutationParams: UseCreateAccessCodeMutationParams) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-      const result = await client.accessCodes.create(mutationParams)
-      return result
+      return await client.accessCodes.create(variables)
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      queryClient.setQueryData(
+        ['access_codes', 'get', { access_code_id: data.access_code_id }],
+        data
+      )
       void queryClient.invalidateQueries({ queryKey: ['access_codes', 'list'] })
     },
   })

@@ -1,15 +1,14 @@
-import type { AccessCode } from 'seamapi'
+import type { AccessCode } from '@seamapi/types/connect'
 
 import { CheckIcon } from 'lib/icons/Check.js'
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
-import type { UseAccessCodesData } from 'lib/seam/access-codes/use-access-codes.js'
 import { TableFilterBar } from 'lib/ui/Table/TableFilterBar/TableFilterBar.js'
 import { TableFilterItem } from 'lib/ui/Table/TableFilterBar/TableFilterItem.js'
 
 export type AccessCodeFilter = 'access_code_issues'
 
 interface AccessCodeHealthBarProps {
-  accessCodes: Array<UseAccessCodesData[number]>
+  accessCodes: AccessCode[]
   errorFilter: (error: AccessCode['errors'][number]) => boolean
   warningFilter: (warning: AccessCode['warnings'][number]) => boolean
   filter: AccessCodeFilter | null

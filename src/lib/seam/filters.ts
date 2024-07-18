@@ -1,30 +1,31 @@
 import type {
   AccessCodeError,
+  AccessCodeWarning,
   ConnectedAccountError,
   DeviceError,
-  SeamWarning,
-} from 'seamapi'
+  DeviceWarning,
+} from '@seamapi/types/connect'
 
-type SeamCompositeError = ConnectedAccountError | DeviceError | AccessCodeError
+type SeamResourceError = ConnectedAccountError | DeviceError | AccessCodeError
 
-export const accessCodeErrorFilter = (error: SeamCompositeError): boolean => {
+export const accessCodeErrorFilter = (error: SeamResourceError): boolean => {
   return 'is_access_code_error' in error && error.is_access_code_error
 }
 
-export const accessCodeWarningFilter = (_: SeamWarning): boolean => {
+export const accessCodeWarningFilter = (_: AccessCodeWarning): boolean => {
   return true
 }
 
-export const deviceErrorFilter = (error: SeamCompositeError): boolean => {
+export const deviceErrorFilter = (error: SeamResourceError): boolean => {
   return 'is_device_error' in error && error.is_device_error
 }
 
-export const deviceWarningFilter = (_: SeamWarning): boolean => {
+export const deviceWarningFilter = (_: DeviceWarning): boolean => {
   return true
 }
 
 export const connectedAccountErrorFilter = (
-  error: SeamCompositeError
+  error: SeamResourceError
 ): boolean => {
   return (
     'is_connected_account_error' in error && error.is_connected_account_error

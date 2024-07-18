@@ -1,8 +1,8 @@
 import classNames from 'classnames'
-import type { NoiseSensorDevice } from 'seamapi'
 
 import { NoiseLevelsIcon } from 'lib/icons/NoiseLevels.js'
 import { NoiseLevelsRedIcon } from 'lib/icons/NoiseLevelsRed.js'
+import type { NoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 
 interface NoiseLevelStatusProps {
   device: NoiseSensorDevice
@@ -32,14 +32,14 @@ export function NoiseLevelStatus({
   )
 }
 
-function toNoiseString(value: number | string | undefined): string {
+const toNoiseString = (value: number | string | undefined): string => {
   if (typeof value === 'string' || typeof value === 'number') {
     return `${Number(value).toFixed(0)} ${t.decibel}`
   }
   return t.unknown
 }
 
-function getNoiseLevel(device: NoiseSensorDevice): string {
+const getNoiseLevel = (device: NoiseSensorDevice): string => {
   const isMinut = device.device_type === 'minut_sensor'
   const isNoiseAware = device.device_type === 'noiseaware_activity_zone'
 

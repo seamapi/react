@@ -1,56 +1,48 @@
+import type {
+  SeamHttpApiError,
+  ThermostatsClimateSettingSchedulesUpdateBody,
+} from '@seamapi/http/connect'
+import type { ClimateSettingSchedule } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  ClimateSettingSchedule,
-  ClimateSettingSchedulesListResponse,
-  ClimateSettingScheduleUpdateRequest,
-  ClimateSettingScheduleUpdateResponse,
-  SeamError,
-} from 'seamapi'
+import { shake } from 'radash'
 
-import { NullSeamClientError, useSeamClient } from 'lib/index.js'
+import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-type UseUpdateClimateSettingScheduleData =
-  ClimateSettingScheduleUpdateResponse['climate_setting_schedule']
-type UseUpdateClimateSettingScheduleMutationParams =
-  ClimateSettingScheduleUpdateRequest
+export type UseUpdateClimateSettingScheduleParams = never
+
+export type UseUpdateClimateSettingScheduleData = undefined
+
+export type UseUpdateClimateSettingScheduleMutationVariables =
+  ThermostatsClimateSettingSchedulesUpdateBody
 
 export function useUpdateClimateSettingSchedule(): UseMutationResult<
   UseUpdateClimateSettingScheduleData,
-  SeamError,
-  UseUpdateClimateSettingScheduleMutationParams
+  SeamHttpApiError,
+  UseUpdateClimateSettingScheduleMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
   return useMutation<
     UseUpdateClimateSettingScheduleData,
-    SeamError,
-    UseUpdateClimateSettingScheduleMutationParams
+    SeamHttpApiError,
+    UseUpdateClimateSettingScheduleMutationVariables
   >({
-    mutationFn: async (
-      mutationPararms: UseUpdateClimateSettingScheduleMutationParams
-    ) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-      await client.thermostats.climateSettingSchedules.update(mutationPararms)
-      const updated = await client.thermostats.climateSettingSchedules.get({
-        climate_setting_schedule_id:
-          mutationPararms.climate_setting_schedule_id,
-      })
-      return updated
+      await client.thermostats.climateSettingSchedules.update(variables)
     },
-    onSuccess: (updated) => {
-      queryClient.setQueryData<ClimateSettingSchedule>(
+    onSuccess: (_data, variables) => {
+      queryClient.setQueryData<ClimateSettingSchedule | null>(
         [
           'thermostats',
           'climate_setting_schedules',
           'get',
-          {
-            climate_setting_schedule_id: updated.climate_setting_schedule_id,
-          },
+          { climate_setting_schedules: variables.climate_setting_schedule_id },
         ],
         (climateSettingSchedule) => {
           if (climateSettingSchedule == null) {
@@ -59,30 +51,26 @@ export function useUpdateClimateSettingSchedule(): UseMutationResult<
 
           return {
             ...climateSettingSchedule,
-            ...updated,
+            ...shake(variables),
           }
         }
       )
 
-      queryClient.setQueryData<
-        ClimateSettingSchedulesListResponse['climate_setting_schedules']
-      >(
-        [
-          'thermostats',
-          'climate_setting_schedules',
-          'list',
-          { device_id: updated.device_id },
-        ],
-        (climateSettingSchedules): ClimateSettingSchedule[] => {
+      queryClient.setQueryData<ClimateSettingSchedule[]>(
+        ['thermostats', 'climate_setting_schedules', 'list'],
+        (climateSettingSchedules) => {
           if (climateSettingSchedules == null) {
-            return []
+            return climateSettingSchedules
           }
 
           return climateSettingSchedules.map((climateSettingSchedule) => {
-            if (climateSettingSchedule.device_id === updated.device_id) {
+            if (
+              climateSettingSchedule.climate_setting_schedule_id ===
+              variables.climate_setting_schedule_id
+            ) {
               return {
                 ...climateSettingSchedule,
-                ...updated,
+                ...shake(variables),
               }
             }
 

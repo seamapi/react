@@ -1,7 +1,7 @@
+import type { AccessCode } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
-import type { AccessCode } from 'seamapi'
 
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
@@ -49,7 +49,7 @@ export function AccessCodeDetails({
 }: AccessCodeDetailsProps): JSX.Element | null {
   useComponentTelemetry('AccessCodeDetails')
 
-  const { accessCode } = useAccessCode(accessCodeId)
+  const { accessCode } = useAccessCode({ access_code_id: accessCodeId })
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isPending: isDeleting } = useDeleteAccessCode()
 
@@ -191,21 +191,25 @@ function ScheduleInfo({ accessCode }: { accessCode: AccessCode }): JSX.Element {
   }
   return (
     <div className='seam-times'>
-      <div>
-        <div className='seam-label'>{t.start}</div>
-        <div className='seam-date'>{formatDate(accessCode.starts_at)}</div>
-        <div className='seam-time'>{formatTime(accessCode.starts_at)}</div>
-      </div>
-      <div>
-        <div className='seam-label'>{t.end}</div>
-        <div className='seam-date'>{formatDate(accessCode.ends_at)}</div>
-        <div className='seam-time'>{formatTime(accessCode.ends_at)}</div>
-      </div>
+      {accessCode.starts_at != null && (
+        <div>
+          <div className='seam-label'>{t.start}</div>
+          <div className='seam-date'>{formatDate(accessCode.starts_at)}</div>
+          <div className='seam-time'>{formatTime(accessCode.starts_at)}</div>
+        </div>
+      )}
+      {accessCode.ends_at != null && (
+        <div>
+          <div className='seam-label'>{t.end}</div>
+          <div className='seam-date'>{formatDate(accessCode.ends_at)}</div>
+          <div className='seam-time'>{formatTime(accessCode.ends_at)}</div>
+        </div>
+      )}
     </div>
   )
 }
 
-function Duration(props: { accessCode: AccessCode }): JSX.Element {
+function Duration(props: { accessCode: AccessCode }): JSX.Element | null {
   const { accessCode } = props
 
   const hasStarted =
@@ -220,22 +224,26 @@ function Duration(props: { accessCode: AccessCode }): JSX.Element {
     )
   }
 
-  if (hasStarted) {
+  if (hasStarted && accessCode.ends_at != null) {
     return (
       <span>
-        <span className='seam-label'>Active</span> until{' '}
-        {formatDurationDate(accessCode.ends_at)} at{' '}
+        <span className='seam-label'>{t.active}</span> {t.until}{' '}
+        {formatDurationDate(accessCode.ends_at)} {t.at}{' '}
         {formatTime(accessCode.ends_at)}
       </span>
     )
   }
 
-  return (
-    <span>
-      Starts {formatDurationDate(accessCode.starts_at)} as{' '}
-      {formatTime(accessCode.starts_at)}
-    </span>
-  )
+  if (accessCode.starts_at != null) {
+    return (
+      <span>
+        {t.starts} {formatDurationDate(accessCode.starts_at)} {t.as}{' '}
+        {formatTime(accessCode.starts_at)}
+      </span>
+    )
+  }
+
+  return null
 }
 
 const formatDurationDate = (date: string): string =>
@@ -267,6 +275,11 @@ const t = {
   ongoing: 'Ongoing',
   start: 'Start',
   end: 'End',
+  starts: 'Starts',
+  active: 'Active',
+  until: 'until',
+  as: 'as',
+  at: 'at',
   editCode: 'Edit code',
   deleteCode: 'Delete code',
 }

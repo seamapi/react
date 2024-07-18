@@ -46,6 +46,9 @@ export const Content: Story = {
               device_type: 'august_lock',
               device_id: 'dev_1',
               is_managed: true,
+              custom_metadata: {},
+              display_name: 'mydevice',
+              location: {},
               capabilities_supported: [],
               created_at: '2023-05-08T22:38:30.963Z',
               workspace_id: 'workspace_1',
@@ -55,6 +58,9 @@ export const Content: Story = {
                 model: {
                   display_name: 'Pro Lock 9000',
                   manufacturer_display_name: 'August',
+                },
+                appearance: {
+                  name: 'mydevice',
                 },
               },
               errors: [
@@ -81,9 +87,15 @@ export const Content: Story = {
               capabilities_supported: [],
               created_at: '2023-05-08T22:38:30.963Z',
               workspace_id: 'workspace_1',
+              custom_metadata: {},
+              display_name: 'mydevice',
+              location: {},
               properties: {
                 name: 'mydevice',
                 online: false,
+                appearance: {
+                  name: 'mydevice',
+                },
                 model: {
                   display_name: 'Smart Lock 2nd Generation',
                   manufacturer_display_name: 'August',

@@ -1,12 +1,10 @@
+import type { AccessCode } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AddIcon } from 'lib/icons/Add.js'
-import {
-  useAccessCodes,
-  type UseAccessCodesData,
-} from 'lib/seam/access-codes/use-access-codes.js'
+import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
 import {
   type AccessCodeFilter,
@@ -49,8 +47,6 @@ export interface AccessCodeTableProps extends CommonProps {
   preventDefaultOnAccessCodeClick?: boolean
   heading?: string | null
 }
-
-type AccessCode = UseAccessCodesData[number]
 
 const defaultAccessCodeFilter = (
   accessCode: AccessCode,
@@ -296,7 +292,7 @@ export function AccessCodeTable({
 }
 
 function Content(props: {
-  accessCodes: Array<UseAccessCodesData[number]>
+  accessCodes: AccessCode[]
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
   errorFilter: (error: AccessCode['errors'][number]) => boolean

@@ -1,5 +1,6 @@
+import type { AccessCode } from '@seamapi/types/connect'
+
 import { CopyIcon } from 'lib/icons/Copy.js'
-import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
 import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
@@ -8,7 +9,7 @@ import { MoreActionsMenu } from 'lib/ui/Menu/MoreActionsMenu.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 export interface AccessCodeMenuProps {
-  accessCode: NonNullable<UseAccessCodeData>
+  accessCode: AccessCode
   onEdit: () => void
   onViewDetails: () => void
   disableEditAccessCode: boolean

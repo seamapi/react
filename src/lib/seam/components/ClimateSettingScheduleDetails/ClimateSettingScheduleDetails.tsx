@@ -45,9 +45,9 @@ export function ClimateSettingScheduleDetails({
 }: ClimateSettingScheduleDetailsProps): JSX.Element | null {
   useComponentTelemetry('ClimateSettingScheduleDetails')
 
-  const { climateSettingSchedule } = useClimateSettingSchedule(
-    climateSettingScheduleId
-  )
+  const { climateSettingSchedule } = useClimateSettingSchedule({
+    climate_setting_schedule_id: climateSettingScheduleId,
+  })
 
   const { mutate, isSuccess, isError } = useUpdateClimateSettingSchedule()
 

@@ -1,7 +1,7 @@
-import type { CommonDevice } from 'seamapi'
+import type { Device } from '@seamapi/types/connect'
 
 interface DeviceModelProps {
-  device: CommonDevice
+  device: Device
 }
 
 export function DeviceModel({ device }: DeviceModelProps): JSX.Element | null {

@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import type { ThermostatDevice, ThermostatDeviceProperties } from 'seamapi'
 
 import { FanIcon } from 'lib/icons/Fan.js'
 import { OffIcon } from 'lib/icons/Off.js'
+import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { Temperature } from 'lib/ui/thermostat/Temperature.js'
@@ -41,7 +41,7 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
     relative_humidity: relativeHumidity,
   } = device.properties
 
-  const systemStatus = getSystemStatus(device.properties)
+  const systemStatus = getSystemStatus(device)
 
   return (
     <div className='seam-thermostat-card-content'>
@@ -79,9 +79,11 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
 
               <p className='seam-thermostat-property-value'>|</p>
               <p className='seam-thermostat-property-label'>{t.humidity}:</p>
-              <p className='seam-thermostat-property-value'>
-                {relativeHumidity * 100}%
-              </p>
+              {relativeHumidity != null && (
+                <p className='seam-thermostat-property-value'>
+                  {relativeHumidity * 100}%
+                </p>
+              )}
             </div>
 
             <div className='seam-thermostat-property-block'>
@@ -130,9 +132,10 @@ function Content(props: { device: ThermostatDevice }): JSX.Element | null {
   )
 }
 
-function getSystemStatus(
-  properties: ThermostatDeviceProperties
-): 'heating' | 'cooling' | 'fan' | 'off' {
+const getSystemStatus = (
+  device: ThermostatDevice
+): 'heating' | 'cooling' | 'fan' | 'off' => {
+  const { properties } = device
   const {
     is_heating: isHeating,
     is_cooling: isCooling,

@@ -1,8 +1,9 @@
-import type { NoiseSensorDevice, NoiseThresholds } from 'seamapi'
+import type { NoiseThreshold } from '@seamapi/types/connect'
 import { ZonedTime } from 'zoned-time'
 
 import { formatTime, formatTimeZone } from 'lib/dates.js'
 import { ArrowRightIcon } from 'lib/icons/ArrowRight.js'
+import type { NoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { useNoiseThresholds } from 'lib/seam/noise-sensors/use-noise-thresholds.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
@@ -67,7 +68,7 @@ export function NoiseThresholdsList({
 function Content({
   noiseThresholds,
 }: {
-  noiseThresholds: NoiseThresholds[] | undefined
+  noiseThresholds: NoiseThreshold[] | undefined
 }): JSX.Element | JSX.Element[] {
   if (noiseThresholds == null || noiseThresholds.length === 0) {
     return (
@@ -106,7 +107,7 @@ function Content({
 
 const getTimeZoneCaption = (
   device: NoiseSensorDevice,
-  thresholds: NoiseThresholds[] | undefined
+  thresholds: NoiseThreshold[] | undefined
 ): string | null => {
   if (device.location?.timezone != null) {
     return `${t.allTimesIn} ${formatTimeZone(device.location.timezone)}`

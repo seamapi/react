@@ -1,16 +1,16 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type {
-  NoiseThresholds,
-  NoiseThresholdsListRequest,
-  NoiseThresholdsListResponse,
-  SeamError,
-} from 'seamapi'
+  NoiseSensorsNoiseThresholdsListParams,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
+import type { NoiseThreshold } from '@seamapi/types/connect'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
-export type UseNoiseThresholdsParams = NoiseThresholdsListRequest
-export type UseNoiseThresholdsData = NoiseThresholds[]
+export type UseNoiseThresholdsParams = NoiseSensorsNoiseThresholdsListParams
+
+export type UseNoiseThresholdsData = NoiseThreshold[]
 
 export function useNoiseThresholds(
   params: UseNoiseThresholdsParams
@@ -18,15 +18,13 @@ export function useNoiseThresholds(
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  const { data, ...rest } = useQuery<
-    NoiseThresholdsListResponse['noise_thresholds'],
-    SeamError
-  >({
+  const { data, ...rest } = useQuery<UseNoiseThresholdsData, SeamHttpApiError>({
     enabled: client != null,
     queryKey: ['noise_thresholds', 'list', params],
     queryFn: async () => {
       if (client == null) return []
-      const noiseThresholds = await client.noiseThresholds.list(params)
+      const noiseThresholds =
+        await client.noiseSensors.noiseThresholds.list(params)
       for (const noiseThreshold of noiseThresholds) {
         queryClient.setQueryData(
           [

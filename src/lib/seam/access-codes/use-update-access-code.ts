@@ -1,46 +1,49 @@
+import type {
+  AccessCodesUpdateBody,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
+import type { AccessCode } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  AccessCode,
-  AccessCodesListResponse,
-  AccessCodeUpdateRequest,
-  AccessCodeUpdateResponse,
-  ActionAttempt,
-  SeamError,
-} from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseUpdateAccessCodeParams = never
-export type UseUpdateAccessCodeData = ActionAttempt<'UPDATE_ACCESS_CODE'>
-export type UseUpdateAccessCodeMutationParams = AccessCodeUpdateRequest
+
+export type UseUpdateAccessCodeData = undefined
+
+export type UseUpdateAccessCodeMutationVariables = Pick<
+  AccessCodesUpdateBody,
+  | 'device_id'
+  | 'access_code_id'
+  | 'code'
+  | 'name'
+  | 'starts_at'
+  | 'ends_at'
+  | 'type'
+>
 
 export function useUpdateAccessCode(): UseMutationResult<
   UseUpdateAccessCodeData,
-  SeamError,
-  UseUpdateAccessCodeMutationParams
+  SeamHttpApiError,
+  UseUpdateAccessCodeMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
   return useMutation<
-    AccessCodeUpdateResponse['action_attempt'],
-    SeamError,
-    AccessCodeUpdateRequest
+    UseUpdateAccessCodeData,
+    SeamHttpApiError,
+    UseUpdateAccessCodeMutationVariables
   >({
-    mutationFn: async (mutationParams: UseUpdateAccessCodeMutationParams) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-
-      return await client.accessCodes.update(mutationParams)
+      await client.accessCodes.update(variables)
     },
     onSuccess: (_data, variables) => {
-      // There is no guarantee that the actual code has updated even if the
-      // request was succesful. To prevent stale data in the UI, the
-      // code below optimistically updates the data in cache.
-
       queryClient.setQueryData<AccessCode | null>(
         ['access_codes', 'get', { access_code_id: variables.access_code_id }],
         (accessCode) => {
@@ -52,15 +55,19 @@ export function useUpdateAccessCode(): UseMutationResult<
             ...accessCode,
             code: variables.code ?? accessCode.code,
             name: variables.name ?? accessCode.name,
+            starts_at: variables.starts_at ?? accessCode.starts_at,
+            ends_at: variables.ends_at ?? accessCode.ends_at,
+            type: variables.type ?? accessCode.type,
+            status: 'setting',
           }
         }
       )
 
-      queryClient.setQueryData<AccessCodesListResponse['access_codes']>(
-        ['access_codes', 'list', { device_id: variables.device_id }],
+      queryClient.setQueryData<AccessCode[]>(
+        ['access_codes', 'list'],
         (accessCodes) => {
           if (accessCodes == null) {
-            return
+            return accessCodes
           }
 
           return accessCodes.map((accessCode) => {
@@ -69,6 +76,7 @@ export function useUpdateAccessCode(): UseMutationResult<
                 ...accessCode,
                 code: variables.code ?? accessCode.code,
                 name: variables.name ?? accessCode.name,
+                status: 'setting',
               }
             }
 

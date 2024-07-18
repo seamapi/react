@@ -1,28 +1,26 @@
+import type { EventsListParams, SeamHttpApiError } from '@seamapi/http/connect'
+import type { SeamEvent } from '@seamapi/types/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import type {
-  Event,
-  EventsListRequest,
-  EventsListResponse,
-  SeamError,
-} from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
-export type UseEventsParams = EventsListRequest
-export type UseEventsData = Event[]
+export type UseEventsParams = EventsListParams
+
+export type UseEventsData = SeamEvent[]
+
 export interface UseEventsOptions {
   refetchInterval?: number
 }
 
 export function useEvents(
   params?: UseEventsParams,
-  options?: UseEventsOptions
+  { refetchInterval }: UseEventsOptions = {}
 ): UseSeamQueryResult<'events', UseEventsData> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
-  const { data, ...rest } = useQuery<EventsListResponse['events'], SeamError>({
+  const { data, ...rest } = useQuery<UseEventsData, SeamHttpApiError>({
     enabled: client != null,
     queryKey: ['events', 'list', params],
     queryFn: async () => {
@@ -34,9 +32,10 @@ export function useEvents(
           event
         )
       }
-      return events
+      // UPSTREAM: Response type does not match SeamEvent[].
+      return events as SeamEvent[]
     },
-    refetchInterval: options?.refetchInterval ?? 30_000,
+    refetchInterval,
   })
 
   return { ...rest, events: data }

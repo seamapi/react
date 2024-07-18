@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo } from 'react'
-import type { HvacModeSetting } from 'seamapi'
 
 import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
 import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
@@ -7,7 +6,8 @@ import {
   getCoolBounds,
   getHeatBounds,
   getTemperatureBounds,
-} from 'lib/temperature-bounds.js'
+} from 'lib/seam/thermostats/temperature-bounds.js'
+import type { HvacModeSetting } from 'lib/seam/thermostats/thermostat-device.js'
 import { TemperatureControl } from 'lib/ui/thermostat/TemperatureControl.js'
 
 export interface TemperatureControlGroupProps {
