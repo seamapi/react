@@ -8,8 +8,8 @@ import {
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import { shake } from 'radash'
 
+import { shake } from 'lib/object.js'
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseUpdateClimateSettingScheduleParams = never

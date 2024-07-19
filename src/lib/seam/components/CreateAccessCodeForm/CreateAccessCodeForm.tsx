@@ -3,9 +3,9 @@ import {
   type SeamHttpApiError,
 } from '@seamapi/http/connect'
 import type { AccessCode, Device } from '@seamapi/types/connect'
-import { shake } from 'radash'
 import { useState } from 'react'
 
+import { shake } from 'lib/object.js'
 import { useCreateAccessCode } from 'lib/seam/access-codes/use-create-access-code.js'
 import {
   type CommonProps,
