@@ -1,10 +1,12 @@
-import type { ComponentType } from 'react'
 import type {
   AccessCodeError,
+  AccessCodeWarning,
   ConnectedAccountError,
+  ConnectedAccountWarning,
   DeviceError,
-  SeamWarning,
-} from 'seamapi'
+  DeviceWarning,
+} from '@seamapi/types/connect'
+import type { ComponentType } from 'react'
 
 export interface RequiredCommonProps {
   className: string | undefined
@@ -12,7 +14,9 @@ export interface RequiredCommonProps {
   errorFilter: (
     error: ConnectedAccountError | DeviceError | AccessCodeError
   ) => boolean
-  warningFilter: (warning: SeamWarning) => boolean
+  warningFilter: (
+    warning: ConnectedAccountWarning | DeviceWarning | AccessCodeWarning
+  ) => boolean
   disableDeleteAccessCode: boolean | undefined
   disableCreateAccessCode: boolean | undefined
   disableEditAccessCode: boolean | undefined

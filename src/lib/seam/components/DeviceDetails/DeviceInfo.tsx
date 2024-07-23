@@ -1,4 +1,4 @@
-import type { CommonDevice } from 'seamapi'
+import type { Device } from '@seamapi/types/connect'
 
 import { BeeIcon } from 'lib/icons/Bee.js'
 import type { CommonProps } from 'lib/seam/components/common-props.js'
@@ -13,7 +13,7 @@ interface DeviceInfoProps
       'disableConnectedAccountInformation' | 'disableResourceIds'
     >
   > {
-  device: CommonDevice
+  device: Device
 }
 
 export function DeviceInfo({
@@ -21,7 +21,9 @@ export function DeviceInfo({
   disableConnectedAccountInformation,
   disableResourceIds,
 }: DeviceInfoProps): JSX.Element | null {
-  const { connectedAccount } = useConnectedAccount(device.connected_account_id)
+  const { connectedAccount } = useConnectedAccount({
+    connected_account_id: device.connected_account_id,
+  })
   return (
     <DetailSection
       label={t.deviceInfo}

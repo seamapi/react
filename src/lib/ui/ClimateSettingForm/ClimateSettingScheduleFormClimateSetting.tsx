@@ -1,10 +1,13 @@
 import { type Control, Controller } from 'react-hook-form'
-import { isThermostatDevice } from 'seamapi'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
-import { getSetPointBounds, type SetPointBounds } from 'lib/set-point-bounds.js'
+import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import { Button } from 'lib/ui/Button.js'
 import type { ClimateSettingScheduleFormFields } from 'lib/ui/ClimateSettingForm/ClimateSettingScheduleForm.js'
+import {
+  getSetPointBounds,
+  type SetPointBounds,
+} from 'lib/ui/ClimateSettingForm/set-point-bounds.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -34,7 +37,7 @@ export function ClimateSettingScheduleFormClimateSetting({
   if (device == null) return <></>
   if (!isThermostatDevice(device)) return <></>
 
-  const setPointBounds = getSetPointBounds(device.properties)
+  const setPointBounds = getSetPointBounds(device)
 
   return (
     <>

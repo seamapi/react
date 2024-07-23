@@ -1,13 +1,11 @@
+import type { AccessCode, Device } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { type AccessCode, type CommonDevice, isLockDevice } from 'seamapi'
 
 import { getSystemTimeZone } from 'lib/dates.js'
-import type { UseAccessCodeData } from 'lib/seam/access-codes/use-access-code.js'
 import { useGenerateAccessCodeCode } from 'lib/seam/access-codes/use-generate-access-code-code.js'
-import type { UseDeviceData } from 'lib/seam/devices/use-device.js'
 import { AccessCodeFormDatePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormDatePicker.js'
 import { AccessCodeFormTimes } from 'lib/ui/AccessCodeForm/AccessCodeFormTimes.js'
 import { AccessCodeFormTimeZonePicker } from 'lib/ui/AccessCodeForm/AccessCodeFormTimeZonePicker.js'
@@ -23,7 +21,7 @@ export interface AccessCodeFormSubmitData {
   name: string
   code: string
   type: AccessCode['type']
-  device: NonNullable<UseDeviceData>
+  device: Device
   startDate: string
   endDate: string
   timeZone: string
@@ -35,8 +33,8 @@ export interface ResponseErrors {
 }
 
 export interface AccessCodeFormProps {
-  accessCode?: NonNullable<UseAccessCodeData>
-  device: NonNullable<UseDeviceData>
+  accessCode?: AccessCode
+  device: Device
   isSubmitting: boolean
   onSubmit: (data: AccessCodeFormSubmitData) => void
   responseErrors: ResponseErrors | null
@@ -115,7 +113,7 @@ function Content({
   })
   const [timeZonePickerVisible, toggleTimeZonePicker] = useToggle()
 
-  const { isLoading: isGeneratingCode, mutate: generateCode } =
+  const { isPending: isGeneratingCode, mutate: generateCode } =
     useGenerateAccessCodeCode()
 
   const submit = (): void => {}
@@ -158,10 +156,8 @@ function Content({
         device_id: device.device_id,
       },
       {
-        onSuccess: ({ code: generatedCode }) => {
-          if (generatedCode != null) {
-            setValue('code', generatedCode)
-          }
+        onSuccess: (generatedCode) => {
+          setValue('code', generatedCode)
         },
       }
     )
@@ -306,13 +302,9 @@ function Content({
 }
 
 const validateCodeLength = (
-  device: CommonDevice,
+  device: Device,
   value: string
 ): boolean | string => {
-  if (!isLockDevice(device)) {
-    return true
-  }
-
   if (device.properties.supported_code_lengths == null) {
     return true
   }
@@ -324,11 +316,7 @@ const validateCodeLength = (
   return t.codeLengthError(device.properties.supported_code_lengths.join(', '))
 }
 
-const getCodeLengthRequirement = (device: CommonDevice): string | null => {
-  if (!isLockDevice(device)) {
-    return null
-  }
-
+const getCodeLengthRequirement = (device: Device): string | null => {
   const codeLengths = device.properties.supported_code_lengths
   if (codeLengths == null) {
     return null
@@ -355,8 +343,8 @@ const isSequential = (numbers: string): boolean =>
   sequentialNumbers.includes(numbers)
 
 const getAccessCodeDate = (
-  date: 'starts_at' | 'ends_at',
-  accessCode?: NonNullable<UseAccessCodeData>
+  key: 'starts_at' | 'ends_at',
+  accessCode?: AccessCode
 ): DateTime | null => {
   if (accessCode == null) {
     return null
@@ -366,7 +354,13 @@ const getAccessCodeDate = (
     return null
   }
 
-  return DateTime.fromISO(accessCode[date])
+  const date = accessCode[key]
+
+  if (date == null) {
+    return null
+  }
+
+  return DateTime.fromISO(date)
 }
 
 const getNow = (timeZone: string): DateTime => DateTime.now().setZone(timeZone)

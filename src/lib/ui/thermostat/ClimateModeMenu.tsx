@@ -1,10 +1,9 @@
-import type { HvacModeSetting } from 'seamapi'
-
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import { OffIcon } from 'lib/icons/Off.js'
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
+import type { HvacModeSetting } from 'lib/seam/thermostats/thermostat-device.js'
 import { Menu } from 'lib/ui/Menu/Menu.js'
 import { ThermoModeMenuOption } from 'lib/ui/thermostat/ThermoModeMenuOption.js'
 

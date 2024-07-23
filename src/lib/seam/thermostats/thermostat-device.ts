@@ -1,0 +1,43 @@
+import type { Device } from '@seamapi/types/connect'
+
+export type ThermostatDevice = Omit<Device, 'properties'> & {
+  properties: Device['properties'] &
+    Required<
+      Pick<
+        Device['properties'],
+        | 'temperature_celsius'
+        | 'temperature_fahrenheit'
+        | 'is_heating'
+        | 'is_cooling'
+        | 'is_fan_running'
+        | 'is_cooling_available'
+        | 'is_heating_available'
+        | 'available_hvac_mode_settings'
+        | 'fan_mode_setting'
+        | 'current_climate_setting'
+      >
+    >
+}
+
+// UPSTREAM: FanModeSetting missing in @seamapi/types.
+export type FanModeSetting = ThermostatDevice['properties']['fan_mode_setting']
+
+// UPSTREAM: HvacModeSetting missing in @seamapi/types.
+export type HvacModeSetting =
+  ThermostatDevice['properties']['available_hvac_mode_settings'][number]
+
+// UPSTREAM: ClimateSetting missing in @seamapi/types.
+export interface ClimateSetting {
+  automatic_heating_enabled?: boolean
+  automatic_cooling_enabled?: boolean
+  hvac_mode_setting?: HvacModeSetting
+  cooling_set_point_celsius?: number
+  heating_set_point_celsius?: number
+  cooling_set_point_fahrenheit?: number
+  heating_set_point_fahrenheit?: number
+  manual_override_allowed?: boolean
+}
+
+export const isThermostatDevice = (
+  device: Device
+): device is ThermostatDevice => 'is_fan_running' in device.properties

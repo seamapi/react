@@ -1,15 +1,16 @@
+import type { SeamHttpApiError } from '@seamapi/http/connect'
 import type {
   Manufacturer,
   RouteRequestParams,
   RouteResponse,
 } from '@seamapi/types/devicedb'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import type { SeamError } from 'seamapi'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseManufacturersParams = ManufacturersListParams
+
 export type UseManufacturersData = Manufacturer[]
 
 export function useManufacturers(
@@ -18,10 +19,7 @@ export function useManufacturers(
   const { client: seam } = useSeamClient()
   const queryClient = useQueryClient()
 
-  const { data, ...rest } = useQuery<
-    ManufacturersListResponse['manufacturers'],
-    SeamError
-  >({
+  const { data, ...rest } = useQuery<UseManufacturersData, SeamHttpApiError>({
     enabled: seam != null,
     queryKey: ['internal', 'manufacturers', 'list', params],
     queryFn: async () => {
@@ -32,9 +30,6 @@ export function useManufacturers(
         '/internal/devicedb/v1/manufacturers/list',
         { params }
       )
-      return manufacturers
-    },
-    onSuccess: (manufacturers) => {
       for (const manufacturer of manufacturers) {
         queryClient.setQueryData(
           [
@@ -46,6 +41,7 @@ export function useManufacturers(
           manufacturer
         )
       }
+      return manufacturers
     },
   })
 

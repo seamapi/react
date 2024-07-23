@@ -1,8 +1,9 @@
+import type { DeviceModel } from '@seamapi/types/devicedb'
+
 import { SupportedDeviceRow } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceRow.js'
-import type { UseDeviceModelsData } from 'lib/seam/components/SupportedDeviceTable/use-device-models.js'
 
 interface SupportedDeviceContentRowsProps {
-  deviceModels: UseDeviceModelsData
+  deviceModels: DeviceModel[]
 }
 
 export function SupportedDeviceContentRows({

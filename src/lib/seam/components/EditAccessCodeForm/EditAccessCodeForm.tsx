@@ -1,7 +1,6 @@
-import {
-  useAccessCode,
-  type UseAccessCodeData,
-} from 'lib/seam/access-codes/use-access-code.js'
+import type { AccessCode } from '@seamapi/types/connect'
+
+import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useUpdateAccessCode } from 'lib/seam/access-codes/use-update-access-code.js'
 import {
   type CommonProps,
@@ -56,7 +55,7 @@ function Content({
   accessCode,
   onSuccess,
 }: Omit<EditAccessCodeFormProps, 'accessCodeId'> & {
-  accessCode: NonNullable<UseAccessCodeData>
+  accessCode: AccessCode
 }): JSX.Element | null {
   const { device } = useDevice({
     device_id: accessCode.device_id,
@@ -93,14 +92,14 @@ function Content({
 }
 
 function useSubmitEditAccessCode(
-  accessCode: NonNullable<UseAccessCodeData>,
+  accessCode: AccessCode,
   onSuccess?: () => void
 ): {
   submit: (data: AccessCodeFormSubmitData) => void
   isSubmitting: boolean
   responseErrors: ResponseErrors | null
 } {
-  const { mutate, isLoading: isSubmitting } = useUpdateAccessCode()
+  const { mutate, isPending: isSubmitting } = useUpdateAccessCode()
   const { responseErrors, handleResponseError, resetResponseErrors } =
     useResponseErrors()
 

@@ -2,7 +2,7 @@ import type {
   SeamActionAttemptFailedError,
   SeamActionAttemptTimeoutError,
   SeamHttpApiError,
-  ThermostatsOffBody,
+  ThermostatsSetFanModeBody,
 } from '@seamapi/http/connect'
 import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
@@ -13,38 +13,38 @@ import {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export type UseSetThermostatOffParams = never
+export type UseSetThermostatFanModeParams = never
 
-export type UseSetThermostatOffData = undefined
+export type UseSetThermostatFanModeData = undefined
 
-export type UseSetThermostatOffMutationVariables = ThermostatsOffBody
+export type UseSetThermostatFanModeMutationVariables = ThermostatsSetFanModeBody
 
-type SetThermostatOffActionAttempt = Extract<
+type SetThermostatFanModeActionAttempt = Extract<
   ActionAttempt,
-  { action_type: 'SET_THERMOSTAT_OFF' }
+  { action_type: 'SET_FAN_MODE' }
 >
 
 type MutationError =
   | SeamHttpApiError
-  | SeamActionAttemptFailedError<SetThermostatOffActionAttempt>
-  | SeamActionAttemptTimeoutError<SetThermostatOffActionAttempt>
+  | SeamActionAttemptFailedError<SetThermostatFanModeActionAttempt>
+  | SeamActionAttemptTimeoutError<SetThermostatFanModeActionAttempt>
 
-export function useSetThermostatOff(): UseMutationResult<
-  UseSetThermostatOffData,
+export function useSetThermostatFanMode(): UseMutationResult<
+  UseSetThermostatFanModeData,
   MutationError,
-  UseSetThermostatOffMutationVariables
+  UseSetThermostatFanModeMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
   return useMutation<
-    UseSetThermostatOffData,
+    UseSetThermostatFanModeData,
     MutationError,
-    UseSetThermostatOffMutationVariables
+    UseSetThermostatFanModeMutationVariables
   >({
     mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-      await client.thermostats.off(variables)
+      await client.thermostats.setFanMode(variables)
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<Device | null>(
@@ -53,7 +53,7 @@ export function useSetThermostatOff(): UseMutationResult<
           if (device == null) {
             return
           }
-          return getUpdatedDevice(device)
+          return getUpdatedDevice(device, variables)
         }
       )
 
@@ -66,7 +66,7 @@ export function useSetThermostatOff(): UseMutationResult<
 
           return devices.map((device) => {
             if (device.device_id === variables.device_id) {
-              return getUpdatedDevice(device)
+              return getUpdatedDevice(device, variables)
             }
 
             return device
@@ -77,29 +77,17 @@ export function useSetThermostatOff(): UseMutationResult<
   })
 }
 
-const getUpdatedDevice = (device: Device): Device => {
+const getUpdatedDevice = (
+  device: Device,
+  variables: UseSetThermostatFanModeMutationVariables
+): Device => {
   const { properties } = device
-  if (
-    'current_climate_setting' in properties &&
-    properties.current_climate_setting != null
-  ) {
+  if ('fan_mode_setting' in properties && properties.fan_mode_setting != null) {
     return {
       ...device,
       properties: {
         ...properties,
-        is_fan_running: false,
-        is_cooling: false,
-        is_heating: false,
-        current_climate_setting: {
-          ...properties.current_climate_setting,
-          automatic_cooling_enabled: false,
-          automatic_heating_enabled: false,
-          hvac_mode_setting: 'off',
-          heating_set_point_celsius: undefined,
-          heating_set_point_fahrenheit: undefined,
-          cooling_set_point_celsius: undefined,
-          cooling_set_point_fahrenheit: undefined,
-        },
+        fan_mode_setting: variables.fan_mode_setting,
       },
     }
   }

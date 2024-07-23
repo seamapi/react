@@ -1,5 +1,4 @@
-import type { HvacModeSetting } from 'seamapi'
-
+import type { HvacModeSetting } from 'lib/seam/thermostats/thermostat-device.js'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import {
   TemperatureControlGroup,

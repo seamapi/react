@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import type { LockDevice } from 'seamapi'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
@@ -7,11 +6,12 @@ import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/Acces
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
-import { useToggleLock } from 'lib/seam/devices/use-toggle-lock.js'
 import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
+import type { LockDevice } from 'lib/seam/locks/lock-device.js'
+import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
-import { BatteryStatus } from 'lib/ui/device/BatteryStatus.js'
+import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -36,7 +36,7 @@ export function LockDeviceDetails({
   className,
 }: LockDeviceDetailsProps): JSX.Element | null {
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
-  const toggleLock = useToggleLock(device)
+  const toggleLock = useToggleLock()
   const { accessCodes } = useAccessCodes({
     device_id: device.device_id,
   })
@@ -102,7 +102,7 @@ export function LockDeviceDetails({
                 <span className='seam-label'>{t.status}:</span>{' '}
                 <OnlineStatus device={device} />
                 <span className='seam-label'>{t.power}:</span>{' '}
-                <BatteryStatus device={device} />
+                <BatteryStatusIndicator device={device} />
                 <DeviceModel device={device} />
               </div>
             </div>
@@ -133,7 +133,7 @@ export function LockDeviceDetails({
                   <Button
                     size='small'
                     onClick={() => {
-                      toggleLock.mutate()
+                      toggleLock.mutate(device)
                     }}
                   >
                     {toggleLockLabel}

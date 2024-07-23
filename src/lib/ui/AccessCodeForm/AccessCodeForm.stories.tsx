@@ -16,6 +16,9 @@ const meta: Meta<typeof AccessCodeForm> = {
     device: {
       device_id: 'device_1',
       workspace_id: 'workspace_1',
+      display_name: 'Device 1',
+      custom_metadata: {},
+      location: {},
       properties: {
         name: '',
         manufacturer: undefined,
@@ -27,8 +30,11 @@ const meta: Meta<typeof AccessCodeForm> = {
         battery: undefined,
         image_url: undefined,
         image_alt_text: undefined,
+        appearance: {
+          name: 'Device 1',
+        },
       },
-      device_type: '',
+      device_type: 'yale_lock',
       connected_account_id: '',
       capabilities_supported: [],
       errors: [],

@@ -1,13 +1,13 @@
+import { SeamHttp } from '@seamapi/http/connect'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
-import { Seam } from 'seamapi'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useSeamContext } from 'lib/seam/SeamProvider.js'
 
 export function useSeamClient(): {
-  client: Seam | null
-  isLoading: boolean
+  client: SeamHttp | null
+  isPending: boolean
   isError: boolean
   error: unknown
 } {
@@ -22,7 +22,7 @@ export function useSeamClient(): {
     clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
-  const { isLoading, isError, error, data } = useQuery<Seam>({
+  const { isPending, isError, error, data } = useQuery<SeamHttp>({
     queryKey: [
       'client',
       {
@@ -37,11 +37,10 @@ export function useSeamClient(): {
       if (client != null) return client
 
       if (clientSessionToken != null) {
-        return new Seam({
-          ...clientOptions,
-          apiKey: null,
+        return SeamHttp.fromClientSessionToken(
           clientSessionToken,
-        })
+          clientOptions
+        )
       }
 
       if (publishableKey == null) {
@@ -50,25 +49,15 @@ export function useSeamClient(): {
         )
       }
 
-      const res = await Seam.getClientSessionToken({
-        ...clientOptions,
+      return await SeamHttp.fromPublishableKey(
         publishableKey,
         userIdentifierKey,
-      })
-
-      if (!res.ok || res.client_session?.token == null) {
-        throw new Error('Failed to get client session token')
-      }
-
-      return new Seam({
-        ...clientOptions,
-        apiKey: null,
-        clientSessionToken: res.client_session.token,
-      })
+        clientOptions
+      )
     },
   })
 
-  return { client: data ?? null, isLoading, isError, error }
+  return { client: data ?? null, isPending, isError, error }
 }
 
 export class NullSeamClientError extends Error {

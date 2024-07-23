@@ -1,5 +1,5 @@
+import type { ClimateSettingSchedule } from '@seamapi/types/connect'
 import { DateTime } from 'luxon'
-import type { ClimateSettingSchedule } from 'seamapi'
 
 import { ClimateSettingScheduleIcon } from 'lib/icons/ClimateSettingSchedule.js'
 import { ClimateSettingScheduleDeviceBar } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDeviceBar.js'
@@ -35,9 +35,9 @@ function Content(props: {
 }): JSX.Element | null {
   const { climateSettingScheduleId, onSelectDevice } = props
 
-  const { climateSettingSchedule } = useClimateSettingSchedule(
-    climateSettingScheduleId
-  )
+  const { climateSettingSchedule } = useClimateSettingSchedule({
+    climate_setting_schedule_id: climateSettingScheduleId,
+  })
 
   if (climateSettingSchedule == null) {
     return null

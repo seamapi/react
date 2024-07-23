@@ -2,7 +2,6 @@ import type { DeviceModel } from '@seamapi/types/devicedb'
 import { useMemo } from 'react'
 
 import { SupportedDeviceManufacturerSection } from 'lib/seam/components/SupportedDeviceTable/SupportedDeviceManufacturerSection.js'
-import type { UseDeviceModelsData } from 'lib/seam/components/SupportedDeviceTable/use-device-models.js'
 import {
   type DeviceModelFilters,
   useFilteredDeviceModels,
@@ -28,7 +27,7 @@ export function SupportedDeviceContent({
   includeIf,
   excludeIf,
 }: SupportedDeviceContentProps): JSX.Element | null {
-  const { deviceModels, isLoading, isError, refetch } = useFilteredDeviceModels(
+  const { deviceModels, isPending, isError, refetch } = useFilteredDeviceModels(
     {
       filterValue,
       filters,
@@ -44,7 +43,7 @@ export function SupportedDeviceContent({
     [deviceModels]
   )
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className='seam-supported-device-table-content-state-block'>
         <p>{t.loading}</p>
@@ -140,7 +139,7 @@ function EmptyResult({
 }
 
 const groupDeviceModelsByManufacturer = (
-  deviceModels: UseDeviceModelsData
+  deviceModels: DeviceModel[]
 ): Record<string, DeviceModel[]> => {
   const result: Record<string, DeviceModel[]> = {}
 

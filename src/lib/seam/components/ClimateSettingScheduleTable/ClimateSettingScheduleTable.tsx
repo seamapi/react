@@ -1,6 +1,6 @@
+import type { ClimateSettingSchedule } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import type { ClimateSettingSchedule } from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { NestedClimateSettingScheduleDetails } from 'lib/seam/components/ClimateSettingScheduleDetails/ClimateSettingScheduleDetails.js'
@@ -9,10 +9,7 @@ import {
   type CommonProps,
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
-import {
-  useClimateSettingSchedules,
-  type UseClimateSettingSchedulesData,
-} from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
@@ -187,7 +184,7 @@ export function ClimateSettingScheduleTable({
 }
 
 function Content(props: {
-  climateSettingSchedules: Array<UseClimateSettingSchedulesData[number]>
+  climateSettingSchedules: ClimateSettingSchedule[]
   onClimateSettingScheduleClick: (climateSettingScheduleId: string) => void
 }): JSX.Element {
   const { climateSettingSchedules, onClimateSettingScheduleClick } = props

@@ -1,47 +1,47 @@
+import type {
+  AccessCodesDeleteParams,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  AccessCodeDeleteRequest,
-  ActionAttempt,
-  ActionType,
-  SeamError,
-} from 'seamapi'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseDeleteAccessCodeParams = never
-export interface UseDeleteAccessCodeData {
-  actionAttempt: ActionAttempt<ActionType>
-}
-export type UseDeleteAccessCodeMutationParams = AccessCodeDeleteRequest
+
+export type UseDeleteAccessCodeData = undefined
+
+export type UseDeleteAccessCodeMutationVariables = AccessCodesDeleteParams
 
 export function useDeleteAccessCode(): UseMutationResult<
   UseDeleteAccessCodeData,
-  SeamError,
-  UseDeleteAccessCodeMutationParams
+  SeamHttpApiError,
+  UseDeleteAccessCodeMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
   return useMutation<
     UseDeleteAccessCodeData,
-    SeamError,
-    AccessCodeDeleteRequest
+    SeamHttpApiError,
+    UseDeleteAccessCodeMutationVariables
   >({
-    mutationFn: async (mutationParams: UseDeleteAccessCodeMutationParams) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-      return await client.accessCodes.delete(mutationParams)
+      await client.accessCodes.delete(variables)
     },
     onSuccess: (_data, variables) => {
-      void queryClient.invalidateQueries([
-        'access_codes',
-        'get',
-        { access_code_id: variables.access_code_id },
-      ])
-      void queryClient.invalidateQueries(['access_codes', 'list'])
+      void queryClient.invalidateQueries({
+        queryKey: [
+          'access_codes',
+          'get',
+          { access_code_id: variables.access_code_id },
+        ],
+      })
+      void queryClient.invalidateQueries({ queryKey: ['access_codes', 'list'] })
     },
   })
 }

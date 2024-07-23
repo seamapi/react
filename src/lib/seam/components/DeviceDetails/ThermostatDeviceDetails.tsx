@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
-import type { HvacModeSetting, ThermostatDevice } from 'seamapi'
 
 import { debounce } from 'lib/debounce.js'
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
@@ -9,13 +8,17 @@ import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSe
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
+import { getSupportedThermostatModes } from 'lib/seam/thermostats/temperature-bounds.js'
+import type {
+  HvacModeSetting,
+  ThermostatDevice,
+} from 'lib/seam/thermostats/thermostat-device.js'
 import { useCoolThermostat } from 'lib/seam/thermostats/use-cool-thermostat.js'
 import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermostat.js'
 import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
+import { useSetThermostatFanMode } from 'lib/seam/thermostats/use-set-thermostat-fan-mode.js'
 import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
-import { useUpdateFanMode } from 'lib/seam/thermostats/use-update-fan-mode.js'
 import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
-import { getSupportedThermostatModes } from 'lib/temperature-bounds.js'
 import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
@@ -203,7 +206,7 @@ function ManualOverrideRow({
 }
 
 function FanModeRow({ device }: { device: ThermostatDevice }): JSX.Element {
-  const { mutate, isSuccess, isError } = useUpdateFanMode()
+  const { mutate, isSuccess, isError } = useSetThermostatFanMode()
 
   return (
     <>

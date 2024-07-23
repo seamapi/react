@@ -1,11 +1,6 @@
+import type { Device } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
-import {
-  type CommonDevice,
-  isLockDevice,
-  isNoiseSensorDevice,
-  isThermostatDevice,
-} from 'seamapi'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import {
@@ -19,10 +14,10 @@ import {
   DeviceHealthBar,
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
-import {
-  useDevices,
-  type UseDevicesData,
-} from 'lib/seam/devices/use-devices.js'
+import { useDevices } from 'lib/seam/devices/use-devices.js'
+import { isLockDevice } from 'lib/seam/locks/lock-device.js'
+import { isNoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
+import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
@@ -33,8 +28,6 @@ import { TableHeader } from 'lib/ui/Table/TableHeader.js'
 import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
-
-type Device = UseDevicesData[number]
 
 export interface DeviceTableProps extends CommonProps {
   deviceIds?: string[]
@@ -48,7 +41,7 @@ export interface DeviceTableProps extends CommonProps {
 }
 
 export const defaultDeviceFilter = (
-  device: CommonDevice,
+  device: Device,
   searchInputValue: string
 ): boolean => {
   const value = searchInputValue.trim()
@@ -184,7 +177,7 @@ export function DeviceTable({
 }
 
 function Content(props: {
-  devices: Array<UseDevicesData[number]>
+  devices: Device[]
   onDeviceClick: (deviceId: string) => void
   errorFilter: (error: any) => boolean
 }): JSX.Element {

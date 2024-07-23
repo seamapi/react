@@ -1,64 +1,82 @@
+import type {
+  SeamActionAttemptFailedError,
+  SeamActionAttemptTimeoutError,
+  SeamHttpApiError,
+  ThermostatsCoolBody,
+} from '@seamapi/http/connect'
+import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import type {
-  SeamError,
-  ThermostatCoolRequest,
-  ThermostatDevice,
-  ThermostatsListResponse,
-} from 'seamapi'
 
+import {
+  getCoolingSetPointCelsius,
+  getCoolingSetPointFahrenheit,
+} from 'lib/seam/thermostats/unit-conversion.js'
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-// UPSTREAM: Missing ThermostatCoolResponse in seamapi.
-type UseCoolThermostatData = Record<string, unknown>
-type UseCoolThermostatMutationParams = ThermostatCoolRequest
+export type UseCoolThermostatParams = never
+
+export type UseCoolThermostatData = undefined
+
+export type UseCoolThermostatMutationVariables = Pick<
+  ThermostatsCoolBody,
+  'device_id' | 'cooling_set_point_celsius' | 'cooling_set_point_fahrenheit'
+>
+
+type CoolThermostatActionAttempt = Extract<
+  ActionAttempt,
+  { action_type: 'SET_COOL' }
+>
+
+type MutationError =
+  | SeamHttpApiError
+  | SeamActionAttemptFailedError<CoolThermostatActionAttempt>
+  | SeamActionAttemptTimeoutError<CoolThermostatActionAttempt>
 
 export function useCoolThermostat(): UseMutationResult<
   UseCoolThermostatData,
-  SeamError,
-  UseCoolThermostatMutationParams
+  MutationError,
+  UseCoolThermostatMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
   return useMutation<
     UseCoolThermostatData,
-    SeamError,
-    UseCoolThermostatMutationParams
+    MutationError,
+    UseCoolThermostatMutationVariables
   >({
-    mutationFn: async (mutationParams: UseCoolThermostatMutationParams) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-
-      return await client.thermostats.cool(mutationParams)
+      await client.thermostats.cool(variables)
     },
     onSuccess: (_data, variables) => {
-      queryClient.setQueryData<ThermostatDevice | null>(
+      queryClient.setQueryData<Device | null>(
         ['devices', 'get', { device_id: variables.device_id }],
-        (thermostat) => {
-          if (thermostat == null) {
+        (device) => {
+          if (device == null) {
             return
           }
-
-          return getUpdatedThermostat(thermostat, variables)
+          return getUpdatedDevice(device, variables)
         }
       )
 
-      queryClient.setQueryData<ThermostatsListResponse['thermostats']>(
+      queryClient.setQueryData<Device[]>(
         ['devices', 'list', { device_id: variables.device_id }],
-        (thermostats): ThermostatDevice[] => {
-          if (thermostats == null) {
+        (devices): Device[] => {
+          if (devices == null) {
             return []
           }
 
-          return thermostats.map((thermostat) => {
-            if (thermostat.device_id === variables.device_id) {
-              return getUpdatedThermostat(thermostat, variables)
+          return devices.map((device) => {
+            if (device.device_id === variables.device_id) {
+              return getUpdatedDevice(device, variables)
             }
 
-            return thermostat
+            return device
           })
         }
       )
@@ -66,25 +84,37 @@ export function useCoolThermostat(): UseMutationResult<
   })
 }
 
-function getUpdatedThermostat(
-  thermostat: ThermostatDevice,
-  variables: UseCoolThermostatMutationParams
-): ThermostatDevice {
-  return {
-    ...thermostat,
-    properties: {
-      ...thermostat.properties,
-      current_climate_setting: {
-        ...thermostat.properties.current_climate_setting,
-        cooling_set_point_fahrenheit:
-          variables.cooling_set_point_fahrenheit ??
-          thermostat.properties.current_climate_setting
-            .cooling_set_point_fahrenheit,
-        cooling_set_point_celsius:
-          variables.cooling_set_point_celsius ??
-          thermostat.properties.current_climate_setting
-            .cooling_set_point_celsius,
+const getUpdatedDevice = (
+  device: Device,
+  variables: UseCoolThermostatMutationVariables
+): Device => {
+  const { properties } = device
+  if (
+    'current_climate_setting' in properties &&
+    properties.current_climate_setting != null
+  ) {
+    return {
+      ...device,
+      properties: {
+        ...properties,
+        current_climate_setting: {
+          ...properties.current_climate_setting,
+          hvac_mode_setting: 'cool',
+          automatic_heating_enabled: false,
+          automatic_cooling_enabled: true,
+          heating_set_point_celsius: undefined,
+          heating_set_point_fahrenheit: undefined,
+          cooling_set_point_celsius: getCoolingSetPointCelsius(
+            variables,
+            device
+          ),
+          cooling_set_point_fahrenheit: getCoolingSetPointFahrenheit(
+            variables,
+            device
+          ),
+        },
       },
-    },
+    }
   }
+  return device
 }
