@@ -14,18 +14,31 @@ export interface AccessCodeMenuProps {
   onViewDetails: () => void
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
+  deleteConfirmationVisible: boolean
+  toggleDeleteConfirmation: () => void
 }
 
 export function AccessCodeMenu(props: AccessCodeMenuProps): JSX.Element {
+  const [deleteConfirmationVisible, toggleDeleteConfirmation] = useToggle()
+
   return (
     <MoreActionsMenu
       menuProps={{
         backgroundProps: {
           className: 'seam-table-action-menu',
         },
+        onClose: () => {
+          if (deleteConfirmationVisible) {
+            toggleDeleteConfirmation()
+          }
+        },
       }}
     >
-      <Content {...props} />
+      <Content
+        {...props}
+        deleteConfirmationVisible={deleteConfirmationVisible}
+        toggleDeleteConfirmation={toggleDeleteConfirmation}
+      />
     </MoreActionsMenu>
   )
 }
@@ -36,9 +49,9 @@ function Content({
   disableEditAccessCode,
   disableDeleteAccessCode,
   onEdit,
+  deleteConfirmationVisible,
+  toggleDeleteConfirmation,
 }: AccessCodeMenuProps): JSX.Element {
-  const [deleteConfirmationVisible, toggleDeleteConfirmation] = useToggle()
-
   const deleteAccessCode = useDeleteAccessCode()
 
   if (deleteConfirmationVisible) {
@@ -46,10 +59,7 @@ function Content({
       <div className='seam-delete-confirmation'>
         <span>{t.deleteCodeConfirmation}</span>
         <div className='seam-actions'>
-          <Button
-            onClick={toggleDeleteConfirmation}
-            disabled={deleteAccessCode.isPending}
-          >
+          <Button disabled={deleteAccessCode.isPending}>
             {t.cancelDelete}
           </Button>
           <Button
