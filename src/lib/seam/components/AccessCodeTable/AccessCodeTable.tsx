@@ -209,11 +209,13 @@ export function AccessCodeTable({
             disableConnectedAccountInformation
           }
           disableClimateSettingSchedules={disableClimateSettingSchedules}
-          isAccessCodeBeingRemoved={filteredAccessCodes.some(
-            (accessCode) =>
-              accessCode.access_code_id === selectedViewAccessCodeId &&
-              accessCode.status === 'removing'
-          )}
+          isAccessCodeBeingRemoved={
+            !filteredAccessCodes.some(
+              (accessCode) =>
+                accessCode.access_code_id === selectedViewAccessCodeId &&
+                accessCode.status !== 'removing'
+            )
+          }
           onBack={() => {
             setSelectedViewAccessCodeId(null)
           }}
