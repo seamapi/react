@@ -140,14 +140,19 @@ export function AccessCodeTable({
 
   const handleAccessCodeDelete = useCallback((accessCodeId: string): void => {
     setDeletedAccessCodeIds((prev) => [...prev, accessCodeId])
+    setAccessCodeResult('deleted')
   }, [])
 
   const [accessCodeResult, setAccessCodeResult] = useState<
-    'created' | 'updated' | null
+    'created' | 'updated' | 'deleted' | null
   >(null)
 
   const accessCodeResultMessage =
-    accessCodeResult === 'created' ? t.accessCodeCreated : t.accessCodeUpdated
+    accessCodeResult === 'created'
+      ? t.accessCodeCreated
+      : accessCodeResult === 'deleted'
+        ? t.accessCodeDeleted
+        : t.accessCodeUpdated
 
   if (selectedEditAccessCodeId != null) {
     return (
@@ -392,6 +397,7 @@ const t = {
   loading: 'Loading access codes',
   accessCodeUpdated: 'Access code updated',
   accessCodeCreated: 'Access code created',
+  accessCodeDeleted: 'Access code is being removed',
   tryAgain: 'Try again',
   fallbackErrorMessage: 'Access codes could not be loaded',
 }
