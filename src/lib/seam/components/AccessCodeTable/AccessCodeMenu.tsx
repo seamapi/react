@@ -11,6 +11,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 export interface AccessCodeMenuProps {
   accessCode: AccessCode
   onEdit: () => void
+  onDelete: () => void
   onViewDetails: () => void
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
@@ -49,6 +50,7 @@ function Content({
   disableEditAccessCode,
   disableDeleteAccessCode,
   onEdit,
+  onDelete,
   deleteConfirmationVisible,
   toggleDeleteConfirmation,
 }: AccessCodeMenuProps): JSX.Element {
@@ -66,9 +68,14 @@ function Content({
             variant='solid'
             disabled={deleteAccessCode.isPending}
             onClick={() => {
-              deleteAccessCode.mutate({
-                access_code_id: accessCode.access_code_id,
-              })
+              deleteAccessCode.mutate(
+                {
+                  access_code_id: accessCode.access_code_id,
+                },
+                {
+                  onSuccess: onDelete,
+                }
+              )
             }}
           >
             {t.confirmDelete}

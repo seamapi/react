@@ -87,6 +87,7 @@ export function AccessCodeTable({
   const { accessCodes, isInitialLoading, isError, refetch } = useAccessCodes({
     device_id: deviceId,
   })
+  const [deletedAccessCodeIds, setDeletedAccessCodeIds] = useState<string[]>([])
 
   const [selectedViewAccessCodeId, setSelectedViewAccessCodeId] = useState<
     string | null
@@ -102,8 +103,19 @@ export function AccessCodeTable({
     () =>
       accessCodes
         ?.filter((accessCode) => accessCodeFilter(accessCode, searchInputValue))
+        ?.map((accessCode) =>
+          deletedAccessCodeIds.includes(accessCode.access_code_id)
+            ? { ...accessCode, status: 'removing' }
+            : accessCode
+        )
         ?.sort(accessCodeComparator) ?? [],
-    [accessCodes, searchInputValue, accessCodeFilter, accessCodeComparator]
+    [
+      accessCodes,
+      searchInputValue,
+      accessCodeFilter,
+      accessCodeComparator,
+      deletedAccessCodeIds,
+    ]
   )
 
   const handleAccessCodeClick = useCallback(
@@ -126,12 +138,16 @@ export function AccessCodeTable({
     [setSelectedEditAccessCodeId]
   )
 
+  const handleAccessCodeDelete = useCallback((accessCodeId: string): void => {
+    setDeletedAccessCodeIds((prev) => [...prev, accessCodeId])
+  }, [])
+
   const [accessCodeResult, setAccessCodeResult] = useState<
     'created' | 'updated' | null
   >(null)
 
   const accessCodeResultMessage =
-    accessCodeResult === 'created' ? t.accesCodeCreated : t.accesCodeUpdated
+    accessCodeResult === 'created' ? t.accessCodeCreated : t.accessCodeUpdated
 
   if (selectedEditAccessCodeId != null) {
     return (
@@ -174,6 +190,9 @@ export function AccessCodeTable({
           onEdit={() => {
             setSelectedEditAccessCodeId(selectedViewAccessCodeId)
           }}
+          onDelete={() => {
+            handleAccessCodeDelete(selectedViewAccessCodeId)
+          }}
           errorFilter={errorFilter}
           warningFilter={warningFilter}
           disableLockUnlock={disableLockUnlock}
@@ -185,6 +204,11 @@ export function AccessCodeTable({
             disableConnectedAccountInformation
           }
           disableClimateSettingSchedules={disableClimateSettingSchedules}
+          isBeingRemoved={filteredAccessCodes.some(
+            (accessCode) =>
+              accessCode.access_code_id === selectedViewAccessCodeId &&
+              accessCode.status === 'removing'
+          )}
           onBack={() => {
             setSelectedViewAccessCodeId(null)
           }}
@@ -267,6 +291,7 @@ export function AccessCodeTable({
             accessCodes={filteredAccessCodes}
             onAccessCodeClick={handleAccessCodeClick}
             onAccessCodeEdit={handleAccessCodeEdit}
+            onAccessCodeDelete={handleAccessCodeDelete}
             errorFilter={errorFilter}
             warningFilter={warningFilter}
             disableEditAccessCode={disableEditAccessCode}
@@ -295,6 +320,7 @@ function Content(props: {
   accessCodes: AccessCode[]
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
+  onAccessCodeDelete: (accessCodeId: string) => void
   errorFilter: (error: AccessCode['errors'][number]) => boolean
   warningFilter: (warning: AccessCode['warnings'][number]) => boolean
   disableEditAccessCode: boolean
@@ -304,6 +330,7 @@ function Content(props: {
     accessCodes,
     onAccessCodeClick,
     onAccessCodeEdit,
+    onAccessCodeDelete,
     errorFilter,
     warningFilter,
     disableEditAccessCode,
@@ -350,6 +377,9 @@ function Content(props: {
           onEdit={() => {
             onAccessCodeEdit(accessCode.access_code_id)
           }}
+          onDelete={() => {
+            onAccessCodeDelete(accessCode.access_code_id)
+          }}
         />
       ))}
     </>
@@ -360,8 +390,8 @@ const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
   loading: 'Loading access codes',
-  accesCodeUpdated: 'Access code updated',
-  accesCodeCreated: 'Access code created',
+  accessCodeUpdated: 'Access code updated',
+  accessCodeCreated: 'Access code created',
   tryAgain: 'Try again',
   fallbackErrorMessage: 'Access codes could not be loaded',
 }

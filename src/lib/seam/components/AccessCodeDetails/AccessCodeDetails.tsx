@@ -27,6 +27,8 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
+  onDelete: () => void
+  isBeingRemoved?: boolean
 }
 
 export const NestedAccessCodeDetails =
@@ -35,6 +37,7 @@ export const NestedAccessCodeDetails =
 export function AccessCodeDetails({
   accessCodeId,
   onEdit,
+  onDelete,
   errorFilter = () => true,
   warningFilter = () => true,
   disableCreateAccessCode = false,
@@ -44,12 +47,16 @@ export function AccessCodeDetails({
   disableResourceIds = false,
   disableConnectedAccountInformation = false,
   disableClimateSettingSchedules,
+  isBeingRemoved,
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   useComponentTelemetry('AccessCodeDetails')
 
-  const { accessCode } = useAccessCode({ access_code_id: accessCodeId })
+  const { accessCode } = useAccessCode(
+    { access_code_id: accessCodeId },
+    isBeingRemoved !== true
+  )
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isPending: isDeleting } = useDeleteAccessCode()
 
@@ -96,6 +103,15 @@ export function AccessCodeDetails({
         variant: 'warning' as const,
         message: warning.message,
       })),
+
+    ...(isBeingRemoved === true
+      ? [
+          {
+            variant: 'warning' as const,
+            message: t.warningRemoving,
+          },
+        ]
+      : []),
   ]
 
   return (
@@ -134,7 +150,11 @@ export function AccessCodeDetails({
       {(!disableEditAccessCode || !disableDeleteAccessCode) && (
         <div className='seam-actions'>
           {!disableEditAccessCode && (
-            <Button size='small' onClick={onEdit} disabled={isDeleting}>
+            <Button
+              size='small'
+              onClick={onEdit}
+              disabled={isBeingRemoved === true || isDeleting}
+            >
               {t.editCode}
             </Button>
           )}
@@ -142,9 +162,12 @@ export function AccessCodeDetails({
             <Button
               size='small'
               onClick={() => {
-                deleteCode({ access_code_id: accessCode.access_code_id })
+                deleteCode(
+                  { access_code_id: accessCode.access_code_id },
+                  { onSuccess: onDelete }
+                )
               }}
-              disabled={isDeleting}
+              disabled={isBeingRemoved === true || isDeleting}
             >
               {t.deleteCode}
             </Button>
@@ -282,4 +305,5 @@ const t = {
   at: 'at',
   editCode: 'Edit code',
   deleteCode: 'Delete code',
+  warningRemoving: 'This access code is currently being removed.',
 }

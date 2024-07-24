@@ -13,11 +13,12 @@ export type UseAccessCodeParams = AccessCodesGetParams
 export type UseAccessCodeData = AccessCode | null
 
 export function useAccessCode(
-  params: UseAccessCodeParams
+  params: UseAccessCodeParams,
+  isEnabled: boolean = true
 ): UseSeamQueryResult<'accessCode', UseAccessCodeData> {
   const { client } = useSeamClient()
   const { data, ...rest } = useQuery<UseAccessCodeData, SeamHttpApiError>({
-    enabled: client != null,
+    enabled: client != null && isEnabled,
     queryKey: ['access_codes', 'get', params],
     queryFn: async () => {
       if (client == null) return null

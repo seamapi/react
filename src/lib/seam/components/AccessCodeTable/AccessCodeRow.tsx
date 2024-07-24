@@ -13,6 +13,7 @@ export interface AccessCodeRowProps {
   accessCode: AccessCode
   onClick: () => void
   onEdit: () => void
+  onDelete: () => void
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
 }
@@ -21,25 +22,39 @@ export function AccessCodeRow({
   onClick,
   accessCode,
   onEdit,
+  onDelete,
   disableEditAccessCode,
   disableDeleteAccessCode,
 }: AccessCodeRowProps): JSX.Element {
+  const isBeingRemoved = accessCode.status === 'removing'
+
   const errorCount = accessCode.errors.length
-  const warningCount = accessCode.warnings.length
-  const isPlural = errorCount === 0 || errorCount > 1
-  const errorIconTitle = isPlural
-    ? `${errorCount} ${t.codeIssues}`
-    : `${errorCount} ${t.codeIssue}`
-  const warningIconTitle = isPlural
-    ? `${warningCount} ${t.codeIssues}`
-    : `${warningCount} ${t.codeIssue}`
+  const warningCount = accessCode.warnings.length + (isBeingRemoved ? 1 : 0)
+  const errorIconTitle =
+    errorCount === 0 || errorCount > 1
+      ? `${errorCount} ${t.codeIssues}`
+      : `${errorCount} ${t.codeIssue}`
+  const warningIconTitle =
+    warningCount === 0 || warningCount > 1
+      ? `${warningCount} ${t.codeIssues}`
+      : `${warningCount} ${t.codeIssue}`
 
   return (
     <TableRow onClick={onClick}>
-      <TableCell className='seam-icon-cell'>
+      <TableCell
+        className='seam-icon-cell'
+        style={{
+          opacity: isBeingRemoved ? 0.4 : 1,
+        }}
+      >
         <AccessCodeMainIcon accessCode={accessCode} />
       </TableCell>
-      <TableCell className='seam-name-cell'>
+      <TableCell
+        className='seam-name-cell'
+        style={{
+          opacity: isBeingRemoved ? 0.4 : 1,
+        }}
+      >
         <Title className='seam-truncated-text'>{accessCode.name}</Title>
         <CodeDetails accessCode={accessCode} />
       </TableCell>
@@ -63,9 +78,10 @@ export function AccessCodeRow({
         <AccessCodeMenu
           accessCode={accessCode}
           onEdit={onEdit}
+          onDelete={onDelete}
           onViewDetails={onClick}
-          disableDeleteAccessCode={disableDeleteAccessCode}
-          disableEditAccessCode={disableEditAccessCode}
+          disableDeleteAccessCode={isBeingRemoved || disableDeleteAccessCode}
+          disableEditAccessCode={isBeingRemoved || disableEditAccessCode}
         />
       </TableCell>
     </TableRow>
