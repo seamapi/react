@@ -105,7 +105,7 @@ export function AccessCodeTable({
         ?.filter((accessCode) => accessCodeFilter(accessCode, searchInputValue))
         ?.map((accessCode) =>
           deletedAccessCodeIds.includes(accessCode.access_code_id)
-            ? { ...accessCode, status: 'removing' }
+            ? { ...accessCode, status: 'removing' as const }
             : accessCode
         )
         ?.sort(accessCodeComparator) ?? [],

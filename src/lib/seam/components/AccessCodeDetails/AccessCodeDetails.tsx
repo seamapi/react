@@ -27,7 +27,7 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
-  onDelete: () => void
+  onDelete?: () => void
   isBeingRemoved?: boolean
 }
 

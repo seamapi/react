@@ -15,8 +15,6 @@ export interface AccessCodeMenuProps {
   onViewDetails: () => void
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
-  deleteConfirmationVisible: boolean
-  toggleDeleteConfirmation: () => void
 }
 
 export function AccessCodeMenu(props: AccessCodeMenuProps): JSX.Element {
@@ -44,6 +42,11 @@ export function AccessCodeMenu(props: AccessCodeMenuProps): JSX.Element {
   )
 }
 
+interface ContentProps extends AccessCodeMenuProps {
+  deleteConfirmationVisible: boolean
+  toggleDeleteConfirmation: () => void
+}
+
 function Content({
   accessCode,
   onViewDetails,
@@ -53,7 +56,7 @@ function Content({
   onDelete,
   deleteConfirmationVisible,
   toggleDeleteConfirmation,
-}: AccessCodeMenuProps): JSX.Element {
+}: ContentProps): JSX.Element {
   const deleteAccessCode = useDeleteAccessCode()
 
   if (deleteConfirmationVisible) {
