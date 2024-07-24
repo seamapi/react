@@ -26,10 +26,11 @@ export function AccessCodeRow({
   disableEditAccessCode,
   disableDeleteAccessCode,
 }: AccessCodeRowProps): JSX.Element {
-  const isBeingRemoved = accessCode.status === 'removing'
+  const isAccessCodeBeingRemoved = accessCode.status === 'removing'
 
   const errorCount = accessCode.errors.length
-  const warningCount = accessCode.warnings.length + (isBeingRemoved ? 1 : 0)
+  const warningCount =
+    accessCode.warnings.length + (isAccessCodeBeingRemoved ? 1 : 0)
   const errorIconTitle =
     errorCount === 0 || errorCount > 1
       ? `${errorCount} ${t.codeIssues}`
@@ -44,7 +45,7 @@ export function AccessCodeRow({
       <TableCell
         className='seam-icon-cell'
         style={{
-          opacity: isBeingRemoved ? 0.4 : 1,
+          opacity: isAccessCodeBeingRemoved ? 0.4 : 1,
         }}
       >
         <AccessCodeMainIcon accessCode={accessCode} />
@@ -52,7 +53,7 @@ export function AccessCodeRow({
       <TableCell
         className='seam-name-cell'
         style={{
-          opacity: isBeingRemoved ? 0.4 : 1,
+          opacity: isAccessCodeBeingRemoved ? 0.4 : 1,
         }}
       >
         <Title className='seam-truncated-text'>{accessCode.name}</Title>
@@ -80,8 +81,12 @@ export function AccessCodeRow({
           onEdit={onEdit}
           onDelete={onDelete}
           onViewDetails={onClick}
-          disableDeleteAccessCode={isBeingRemoved || disableDeleteAccessCode}
-          disableEditAccessCode={isBeingRemoved || disableEditAccessCode}
+          disableDeleteAccessCode={
+            isAccessCodeBeingRemoved || disableDeleteAccessCode
+          }
+          disableEditAccessCode={
+            isAccessCodeBeingRemoved || disableEditAccessCode
+          }
         />
       </TableCell>
     </TableRow>

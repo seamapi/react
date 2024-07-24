@@ -204,7 +204,7 @@ export function AccessCodeTable({
             disableConnectedAccountInformation
           }
           disableClimateSettingSchedules={disableClimateSettingSchedules}
-          isBeingRemoved={filteredAccessCodes.some(
+          isAccessCodeBeingRemoved={filteredAccessCodes.some(
             (accessCode) =>
               accessCode.access_code_id === selectedViewAccessCodeId &&
               accessCode.status === 'removing'

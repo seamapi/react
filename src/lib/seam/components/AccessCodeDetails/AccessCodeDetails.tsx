@@ -28,7 +28,7 @@ export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
   onDelete?: () => void
-  isBeingRemoved?: boolean
+  isAccessCodeBeingRemoved?: boolean
 }
 
 export const NestedAccessCodeDetails =
@@ -47,7 +47,7 @@ export function AccessCodeDetails({
   disableResourceIds = false,
   disableConnectedAccountInformation = false,
   disableClimateSettingSchedules,
-  isBeingRemoved,
+  isAccessCodeBeingRemoved,
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
@@ -55,7 +55,7 @@ export function AccessCodeDetails({
 
   const { accessCode } = useAccessCode(
     { access_code_id: accessCodeId },
-    isBeingRemoved !== true
+    isAccessCodeBeingRemoved !== true
   )
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isPending: isDeleting } = useDeleteAccessCode()
@@ -104,7 +104,7 @@ export function AccessCodeDetails({
         message: warning.message,
       })),
 
-    ...(isBeingRemoved === true
+    ...(isAccessCodeBeingRemoved === true
       ? [
           {
             variant: 'warning' as const,
@@ -153,7 +153,7 @@ export function AccessCodeDetails({
             <Button
               size='small'
               onClick={onEdit}
-              disabled={isBeingRemoved === true || isDeleting}
+              disabled={isAccessCodeBeingRemoved === true || isDeleting}
             >
               {t.editCode}
             </Button>
@@ -167,7 +167,7 @@ export function AccessCodeDetails({
                   { onSuccess: onDelete }
                 )
               }}
-              disabled={isBeingRemoved === true || isDeleting}
+              disabled={isAccessCodeBeingRemoved === true || isDeleting}
             >
               {t.deleteCode}
             </Button>
