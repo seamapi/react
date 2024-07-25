@@ -63,7 +63,7 @@ const defaultAccessCodeFilter = (
 }
 
 const accessCodeResultToMessage = (
-  result: 'created' | 'updated' | 'deleted' | null
+  result: 'created' | 'updated' | 'deleted'
 ): string => {
   if (result === 'created') return t.accessCodeCreated
   if (result === 'deleted') return t.accessCodeDeleted
@@ -141,9 +141,7 @@ export function AccessCodeTable({
   const [accessCodeResult, setAccessCodeResult] = useState<
     'created' | 'updated' | 'deleted' | null
   >(null)
-  const [snackbarMessage, setSnackbarMessage] = useState<string>(
-    accessCodeResultToMessage(accessCodeResult)
-  )
+  const [snackbarMessage, setSnackbarMessage] = useState<string>('')
 
   useEffect(() => {
     if (accessCodeResult !== null) {
