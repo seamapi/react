@@ -112,14 +112,14 @@ export function AccessCodeTable({
     [setSelectedEditAccessCodeId]
   )
 
-  const handleAccessCodeDeleteSuccess = useCallback((): void => {
-    setAccessCodeResult('deleted')
-  }, [])
-
   const [accessCodeResult, setAccessCodeResult] = useState<
     'created' | 'updated' | 'deleted' | null
   >(null)
   const [snackbarMessage, setSnackbarMessage] = useState<string>('')
+
+  const handleAccessCodeDeleteSuccess = useCallback((): void => {
+    setAccessCodeResult('deleted')
+  }, [setAccessCodeResult])
 
   // Circumvent Snackbar bug that causes it to switch to default message
   // while the dismiss animation is playing
