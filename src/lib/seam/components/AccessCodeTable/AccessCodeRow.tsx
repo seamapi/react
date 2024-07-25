@@ -14,7 +14,7 @@ export interface AccessCodeRowProps {
   accessCode: AccessCode
   onClick: () => void
   onEdit: () => void
-  onDelete: () => void
+  onDeleteSuccess: () => void
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
 }
@@ -23,7 +23,7 @@ export function AccessCodeRow({
   onClick,
   accessCode,
   onEdit,
-  onDelete,
+  onDeleteSuccess,
   disableEditAccessCode,
   disableDeleteAccessCode,
 }: AccessCodeRowProps): JSX.Element {
@@ -77,7 +77,7 @@ export function AccessCodeRow({
         <AccessCodeMenu
           accessCode={accessCode}
           onEdit={onEdit}
-          onDelete={onDelete}
+          onDeleteSuccess={onDeleteSuccess}
           onViewDetails={onClick}
           disableDeleteAccessCode={
             isAccessCodeBeingRemoved || disableDeleteAccessCode

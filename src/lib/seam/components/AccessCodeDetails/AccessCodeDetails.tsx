@@ -27,7 +27,7 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
-  onDelete?: () => void
+  onDeleteSuccess?: () => void
 }
 
 export const NestedAccessCodeDetails =
@@ -36,7 +36,7 @@ export const NestedAccessCodeDetails =
 export function AccessCodeDetails({
   accessCodeId,
   onEdit,
-  onDelete,
+  onDeleteSuccess,
   errorFilter = () => true,
   warningFilter = () => true,
   disableCreateAccessCode = false,
@@ -160,7 +160,7 @@ export function AccessCodeDetails({
               onClick={() => {
                 deleteCode(
                   { access_code_id: accessCode.access_code_id },
-                  { onSuccess: onDelete }
+                  { onSuccess: onDeleteSuccess }
                 )
               }}
               disabled={isAccessCodeBeingRemoved || isDeleting}

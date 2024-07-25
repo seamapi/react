@@ -11,7 +11,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 export interface AccessCodeMenuProps {
   accessCode: AccessCode
   onEdit: () => void
-  onDelete: () => void
+  onDeleteSuccess: () => void
   onViewDetails: () => void
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
@@ -53,7 +53,7 @@ function Content({
   disableEditAccessCode,
   disableDeleteAccessCode,
   onEdit,
-  onDelete,
+  onDeleteSuccess,
   deleteConfirmationVisible,
   toggleDeleteConfirmation,
 }: ContentProps): JSX.Element {
@@ -76,7 +76,7 @@ function Content({
                   access_code_id: accessCode.access_code_id,
                 },
                 {
-                  onSuccess: onDelete,
+                  onSuccess: onDeleteSuccess,
                 }
               )
             }}

@@ -182,7 +182,7 @@ export function AccessCodeTable({
           onEdit={() => {
             setSelectedEditAccessCodeId(selectedViewAccessCodeId)
           }}
-          onDelete={() => {
+          onDeleteSuccess={() => {
             handleAccessCodeDelete()
           }}
           errorFilter={errorFilter}
@@ -364,7 +364,7 @@ function Content(props: {
           onEdit={() => {
             onAccessCodeEdit(accessCode.access_code_id)
           }}
-          onDelete={() => {
+          onDeleteSuccess={() => {
             onAccessCodeDelete(accessCode.access_code_id)
           }}
         />
