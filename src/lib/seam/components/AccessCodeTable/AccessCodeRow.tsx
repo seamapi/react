@@ -79,12 +79,8 @@ export function AccessCodeRow({
           onEdit={onEdit}
           onDeleteSuccess={onDeleteSuccess}
           onViewDetails={onClick}
-          disableDeleteAccessCode={
-            isAccessCodeBeingRemoved || disableDeleteAccessCode
-          }
-          disableEditAccessCode={
-            isAccessCodeBeingRemoved || disableEditAccessCode
-          }
+          disableDeleteAccessCode={disableDeleteAccessCode}
+          disableEditAccessCode={disableEditAccessCode}
         />
       </TableCell>
     </TableRow>

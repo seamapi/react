@@ -58,6 +58,7 @@ function Content({
   toggleDeleteConfirmation,
 }: ContentProps): JSX.Element {
   const deleteAccessCode = useDeleteAccessCode()
+  const isAccessCodeBeingRemoved = accessCode.status === 'removing'
 
   if (deleteConfirmationVisible) {
     return (
@@ -104,10 +105,10 @@ function Content({
       </MenuItem>
       <div className='seam-divider' />
       <MenuItem onClick={onViewDetails}>{t.viewCodeDetails}</MenuItem>
-      {!disableEditAccessCode && (
+      {(!disableEditAccessCode || !isAccessCodeBeingRemoved) && (
         <MenuItem onClick={onEdit}>{t.editCode}</MenuItem>
       )}
-      {!disableDeleteAccessCode && (
+      {(!disableDeleteAccessCode || !isAccessCodeBeingRemoved) && (
         <>
           <div className='seam-divider' />
           <MenuItem
