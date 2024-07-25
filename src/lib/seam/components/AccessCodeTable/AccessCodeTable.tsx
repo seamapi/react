@@ -1,6 +1,6 @@
 import type { AccessCode } from '@seamapi/types/connect'
 import classNames from 'classnames'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AddIcon } from 'lib/icons/Add.js'
@@ -60,6 +60,14 @@ const defaultAccessCodeFilter = (
     name.trim().toLowerCase().includes(value) ||
     code.trim().toLowerCase().includes(value)
   )
+}
+
+const accessCodeResultToMessage = (
+  result: 'created' | 'updated' | 'deleted' | null
+): string => {
+  if (result === 'created') return t.accessCodeCreated
+  if (result === 'deleted') return t.accessCodeDeleted
+  return t.accessCodeUpdated
 }
 
 export function AccessCodeTable({
@@ -133,13 +141,15 @@ export function AccessCodeTable({
   const [accessCodeResult, setAccessCodeResult] = useState<
     'created' | 'updated' | 'deleted' | null
   >(null)
+  const [snackbarMessage, setSnackbarMessage] = useState<string>(
+    accessCodeResultToMessage(accessCodeResult)
+  )
 
-  const accessCodeResultMessage =
-    accessCodeResult === 'created'
-      ? t.accessCodeCreated
-      : accessCodeResult === 'deleted'
-        ? t.accessCodeDeleted
-        : t.accessCodeUpdated
+  useEffect(() => {
+    if (accessCodeResult !== null) {
+      setSnackbarMessage(accessCodeResultToMessage(accessCodeResult))
+    }
+  }, [accessCodeResult])
 
   if (selectedEditAccessCodeId != null) {
     return (
@@ -170,7 +180,7 @@ export function AccessCodeTable({
       <>
         <Snackbar
           variant='success'
-          message={accessCodeResultMessage}
+          message={snackbarMessage}
           visible={accessCodeResult != null}
           autoDismiss
           onClose={() => {
@@ -231,7 +241,7 @@ export function AccessCodeTable({
     <>
       <Snackbar
         variant='success'
-        message={accessCodeResultMessage}
+        message={snackbarMessage}
         visible={accessCodeResult != null}
         autoDismiss
         onClose={() => {
