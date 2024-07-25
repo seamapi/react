@@ -205,6 +205,20 @@ export const seedFake = (db) => {
     is_managed: true,
   })
 
+  db.addAccessCode({
+    device_id: device1.device_id,
+    workspace_id: ws2.workspace_id,
+    created_at: '2023-05-19T03:11:10.000',
+    name: "Luc's Front Door Code",
+    code: '4444',
+    common_code_key: null,
+    type: 'ongoing',
+    status: 'removing',
+    errors: [],
+    warnings: [],
+    is_managed: true,
+  })
+
   const device2 = db.addDevice({
     connected_account_id: ca.connected_account_id,
     device_type: 'august_lock',
