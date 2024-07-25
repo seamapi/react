@@ -48,28 +48,6 @@ export interface AccessCodeTableProps extends CommonProps {
   heading?: string | null
 }
 
-const defaultAccessCodeFilter = (
-  accessCode: AccessCode,
-  searchInputValue: string
-): boolean => {
-  const value = searchInputValue.trim().toLowerCase()
-  if (value === '') return true
-  const name = accessCode.name ?? ''
-  const code = accessCode.code ?? ''
-  return (
-    name.trim().toLowerCase().includes(value) ||
-    code.trim().toLowerCase().includes(value)
-  )
-}
-
-const accessCodeResultToMessage = (
-  result: 'created' | 'updated' | 'deleted'
-): string => {
-  if (result === 'created') return t.accessCodeCreated
-  if (result === 'deleted') return t.accessCodeDeleted
-  return t.accessCodeUpdated
-}
-
 export function AccessCodeTable({
   deviceId,
   disableSearch = false,
@@ -379,6 +357,28 @@ function Content(props: {
       ))}
     </>
   )
+}
+
+const defaultAccessCodeFilter = (
+  accessCode: AccessCode,
+  searchInputValue: string
+): boolean => {
+  const value = searchInputValue.trim().toLowerCase()
+  if (value === '') return true
+  const name = accessCode.name ?? ''
+  const code = accessCode.code ?? ''
+  return (
+    name.trim().toLowerCase().includes(value) ||
+    code.trim().toLowerCase().includes(value)
+  )
+}
+
+const accessCodeResultToMessage = (
+  result: 'created' | 'updated' | 'deleted'
+): string => {
+  if (result === 'created') return t.accessCodeCreated
+  if (result === 'deleted') return t.accessCodeDeleted
+  return t.accessCodeUpdated
 }
 
 const t = {
