@@ -121,6 +121,8 @@ export function AccessCodeTable({
   >(null)
   const [snackbarMessage, setSnackbarMessage] = useState<string>('')
 
+  // Circumvent Snackbar bug that causes it to switch to default message
+  // while the dismiss animation is playing
   useEffect(() => {
     if (accessCodeResult !== null) {
       setSnackbarMessage(accessCodeResultToMessage(accessCodeResult))
@@ -153,38 +155,22 @@ export function AccessCodeTable({
 
   if (selectedViewAccessCodeId != null) {
     return (
-      <>
-        <Snackbar
-          variant='success'
-          message={snackbarMessage}
-          visible={accessCodeResult != null}
-          autoDismiss
-          onClose={() => {
-            setAccessCodeResult(null)
-          }}
-        />
-        <NestedAccessCodeDetails
-          accessCodeId={selectedViewAccessCodeId}
-          onDeleteSuccess={() => {
-            handleAccessCodeDeleteSuccess()
-          }}
-          errorFilter={errorFilter}
-          warningFilter={warningFilter}
-          disableLockUnlock={disableLockUnlock}
-          disableCreateAccessCode={disableCreateAccessCode}
-          disableEditAccessCode={disableEditAccessCode}
-          disableDeleteAccessCode={disableDeleteAccessCode}
-          disableResourceIds={disableResourceIds}
-          disableConnectedAccountInformation={
-            disableConnectedAccountInformation
-          }
-          disableClimateSettingSchedules={disableClimateSettingSchedules}
-          onBack={() => {
-            setSelectedViewAccessCodeId(null)
-          }}
-          className={className}
-        />
-      </>
+      <NestedAccessCodeDetails
+        accessCodeId={selectedViewAccessCodeId}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
+        disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
+        onBack={() => {
+          setSelectedViewAccessCodeId(null)
+        }}
+        className={className}
+      />
     )
   }
 
