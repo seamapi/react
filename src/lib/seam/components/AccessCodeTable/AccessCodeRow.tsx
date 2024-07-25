@@ -30,8 +30,7 @@ export function AccessCodeRow({
   const isAccessCodeBeingRemoved = accessCode.status === 'removing'
 
   const errorCount = accessCode.errors.length
-  const warningCount =
-    accessCode.warnings.length + (isAccessCodeBeingRemoved ? 1 : 0)
+  const warningCount = accessCode.warnings.length
   const errorIconTitle =
     errorCount === 0 || errorCount > 1
       ? `${errorCount} ${t.codeIssues}`
