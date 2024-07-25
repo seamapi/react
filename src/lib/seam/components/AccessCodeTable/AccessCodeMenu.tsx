@@ -105,10 +105,10 @@ function Content({
       </MenuItem>
       <div className='seam-divider' />
       <MenuItem onClick={onViewDetails}>{t.viewCodeDetails}</MenuItem>
-      {(!disableEditAccessCode || !isAccessCodeBeingRemoved) && (
+      {!disableEditAccessCode && !isAccessCodeBeingRemoved && (
         <MenuItem onClick={onEdit}>{t.editCode}</MenuItem>
       )}
-      {(!disableDeleteAccessCode || !isAccessCodeBeingRemoved) && (
+      {!disableDeleteAccessCode && !isAccessCodeBeingRemoved && (
         <>
           <div className='seam-divider' />
           <MenuItem
