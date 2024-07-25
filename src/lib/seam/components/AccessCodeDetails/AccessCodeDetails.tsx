@@ -30,6 +30,8 @@ export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit?: () => void
   preventDefaultOnEdit?: boolean
+  onDelete?: () => void
+  preventDefaultOnDelete?: boolean
 }
 
 export const NestedAccessCodeDetails =
@@ -39,6 +41,8 @@ export function AccessCodeDetails({
   accessCodeId,
   onEdit,
   preventDefaultOnEdit = false,
+  onDelete,
+  preventDefaultOnDelete = false,
   errorFilter = () => true,
   warningFilter = () => true,
   disableCreateAccessCode = false,
@@ -76,6 +80,20 @@ export function AccessCodeDetails({
     if (preventDefaultOnEdit) return
     setEditFormOpen(true)
   }, [onEdit, preventDefaultOnEdit, setEditFormOpen])
+
+  const handleDelete = useCallback((): void => {
+    onDelete?.()
+    if (preventDefaultOnDelete) return
+    if (accessCode == null) return
+    deleteCode(
+      { access_code_id: accessCode.access_code_id },
+      {
+        onSuccess: () => {
+          setAccessCodeResult('deleted')
+        },
+      }
+    )
+  }, [accessCode, deleteCode, onDelete, preventDefaultOnDelete])
 
   if (accessCode == null) {
     return null
@@ -214,16 +232,7 @@ export function AccessCodeDetails({
             {!disableDeleteAccessCode && (
               <Button
                 size='small'
-                onClick={() => {
-                  deleteCode(
-                    { access_code_id: accessCode.access_code_id },
-                    {
-                      onSuccess: () => {
-                        setAccessCodeResult('deleted')
-                      },
-                    }
-                  )
-                }}
+                onClick={handleDelete}
                 disabled={isAccessCodeBeingRemoved || isDeleting}
               >
                 {t.deleteCode}
