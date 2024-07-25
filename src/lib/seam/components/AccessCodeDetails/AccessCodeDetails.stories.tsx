@@ -65,3 +65,12 @@ export const DisableLockUnlock: Story = {
     />
   ),
 }
+
+export const AccessCodeBeingRemoved: Story = {
+  render: (props) => (
+    <AccessCodeDetails
+      {...props}
+      accessCodeId={props.accessCodeId ?? 'access_code5'}
+    />
+  ),
+}

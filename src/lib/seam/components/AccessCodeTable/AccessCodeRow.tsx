@@ -1,4 +1,5 @@
 import type { AccessCode } from '@seamapi/types/connect'
+import classNames from 'classnames'
 
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
@@ -13,6 +14,7 @@ export interface AccessCodeRowProps {
   accessCode: AccessCode
   onClick: () => void
   onEdit: () => void
+  onDeleteSuccess: () => void
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
 }
@@ -21,25 +23,37 @@ export function AccessCodeRow({
   onClick,
   accessCode,
   onEdit,
+  onDeleteSuccess,
   disableEditAccessCode,
   disableDeleteAccessCode,
 }: AccessCodeRowProps): JSX.Element {
+  const isAccessCodeBeingRemoved = accessCode.status === 'removing'
+
   const errorCount = accessCode.errors.length
   const warningCount = accessCode.warnings.length
-  const isPlural = errorCount === 0 || errorCount > 1
-  const errorIconTitle = isPlural
-    ? `${errorCount} ${t.codeIssues}`
-    : `${errorCount} ${t.codeIssue}`
-  const warningIconTitle = isPlural
-    ? `${warningCount} ${t.codeIssues}`
-    : `${warningCount} ${t.codeIssue}`
+  const errorIconTitle =
+    errorCount === 0 || errorCount > 1
+      ? `${errorCount} ${t.codeIssues}`
+      : `${errorCount} ${t.codeIssue}`
+  const warningIconTitle =
+    warningCount === 0 || warningCount > 1
+      ? `${warningCount} ${t.codeIssues}`
+      : `${warningCount} ${t.codeIssue}`
 
   return (
     <TableRow onClick={onClick}>
-      <TableCell className='seam-icon-cell'>
+      <TableCell
+        className={classNames('seam-icon-cell', {
+          'seam-grayed-out': isAccessCodeBeingRemoved,
+        })}
+      >
         <AccessCodeMainIcon accessCode={accessCode} />
       </TableCell>
-      <TableCell className='seam-name-cell'>
+      <TableCell
+        className={classNames('seam-name-cell', {
+          'seam-grayed-out': isAccessCodeBeingRemoved,
+        })}
+      >
         <Title className='seam-truncated-text'>{accessCode.name}</Title>
         <CodeDetails accessCode={accessCode} />
       </TableCell>
@@ -63,6 +77,7 @@ export function AccessCodeRow({
         <AccessCodeMenu
           accessCode={accessCode}
           onEdit={onEdit}
+          onDeleteSuccess={onDeleteSuccess}
           onViewDetails={onClick}
           disableDeleteAccessCode={disableDeleteAccessCode}
           disableEditAccessCode={disableEditAccessCode}

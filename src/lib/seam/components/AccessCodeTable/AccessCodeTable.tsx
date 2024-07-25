@@ -1,6 +1,6 @@
 import type { AccessCode } from '@seamapi/types/connect'
 import classNames from 'classnames'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AddIcon } from 'lib/icons/Add.js'
@@ -46,20 +46,6 @@ export interface AccessCodeTableProps extends CommonProps {
   onAccessCodeClick?: (accessCodeId: string) => void
   preventDefaultOnAccessCodeClick?: boolean
   heading?: string | null
-}
-
-const defaultAccessCodeFilter = (
-  accessCode: AccessCode,
-  searchInputValue: string
-): boolean => {
-  const value = searchInputValue.trim().toLowerCase()
-  if (value === '') return true
-  const name = accessCode.name ?? ''
-  const code = accessCode.code ?? ''
-  return (
-    name.trim().toLowerCase().includes(value) ||
-    code.trim().toLowerCase().includes(value)
-  )
 }
 
 export function AccessCodeTable({
@@ -127,11 +113,21 @@ export function AccessCodeTable({
   )
 
   const [accessCodeResult, setAccessCodeResult] = useState<
-    'created' | 'updated' | null
+    'created' | 'updated' | 'deleted' | null
   >(null)
+  const [snackbarMessage, setSnackbarMessage] = useState<string>('')
 
-  const accessCodeResultMessage =
-    accessCodeResult === 'created' ? t.accesCodeCreated : t.accesCodeUpdated
+  const handleAccessCodeDeleteSuccess = useCallback((): void => {
+    setAccessCodeResult('deleted')
+  }, [setAccessCodeResult])
+
+  // Circumvent Snackbar bug that causes it to switch to default message
+  // while the dismiss animation is playing
+  useEffect(() => {
+    if (accessCodeResult !== null) {
+      setSnackbarMessage(accessCodeResultToMessage(accessCodeResult))
+    }
+  }, [accessCodeResult])
 
   if (selectedEditAccessCodeId != null) {
     return (
@@ -159,38 +155,22 @@ export function AccessCodeTable({
 
   if (selectedViewAccessCodeId != null) {
     return (
-      <>
-        <Snackbar
-          variant='success'
-          message={accessCodeResultMessage}
-          visible={accessCodeResult != null}
-          autoDismiss
-          onClose={() => {
-            setAccessCodeResult(null)
-          }}
-        />
-        <NestedAccessCodeDetails
-          accessCodeId={selectedViewAccessCodeId}
-          onEdit={() => {
-            setSelectedEditAccessCodeId(selectedViewAccessCodeId)
-          }}
-          errorFilter={errorFilter}
-          warningFilter={warningFilter}
-          disableLockUnlock={disableLockUnlock}
-          disableCreateAccessCode={disableCreateAccessCode}
-          disableEditAccessCode={disableEditAccessCode}
-          disableDeleteAccessCode={disableDeleteAccessCode}
-          disableResourceIds={disableResourceIds}
-          disableConnectedAccountInformation={
-            disableConnectedAccountInformation
-          }
-          disableClimateSettingSchedules={disableClimateSettingSchedules}
-          onBack={() => {
-            setSelectedViewAccessCodeId(null)
-          }}
-          className={className}
-        />
-      </>
+      <NestedAccessCodeDetails
+        accessCodeId={selectedViewAccessCodeId}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
+        disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
+        onBack={() => {
+          setSelectedViewAccessCodeId(null)
+        }}
+        className={className}
+      />
     )
   }
 
@@ -220,7 +200,7 @@ export function AccessCodeTable({
     <>
       <Snackbar
         variant='success'
-        message={accessCodeResultMessage}
+        message={snackbarMessage}
         visible={accessCodeResult != null}
         autoDismiss
         onClose={() => {
@@ -267,6 +247,7 @@ export function AccessCodeTable({
             accessCodes={filteredAccessCodes}
             onAccessCodeClick={handleAccessCodeClick}
             onAccessCodeEdit={handleAccessCodeEdit}
+            onAccessCodeDeleteSuccess={handleAccessCodeDeleteSuccess}
             errorFilter={errorFilter}
             warningFilter={warningFilter}
             disableEditAccessCode={disableEditAccessCode}
@@ -295,6 +276,7 @@ function Content(props: {
   accessCodes: AccessCode[]
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
+  onAccessCodeDeleteSuccess: (accessCodeId: string) => void
   errorFilter: (error: AccessCode['errors'][number]) => boolean
   warningFilter: (warning: AccessCode['warnings'][number]) => boolean
   disableEditAccessCode: boolean
@@ -304,6 +286,7 @@ function Content(props: {
     accessCodes,
     onAccessCodeClick,
     onAccessCodeEdit,
+    onAccessCodeDeleteSuccess,
     errorFilter,
     warningFilter,
     disableEditAccessCode,
@@ -350,18 +333,44 @@ function Content(props: {
           onEdit={() => {
             onAccessCodeEdit(accessCode.access_code_id)
           }}
+          onDeleteSuccess={() => {
+            onAccessCodeDeleteSuccess(accessCode.access_code_id)
+          }}
         />
       ))}
     </>
   )
 }
 
+const defaultAccessCodeFilter = (
+  accessCode: AccessCode,
+  searchInputValue: string
+): boolean => {
+  const value = searchInputValue.trim().toLowerCase()
+  if (value === '') return true
+  const name = accessCode.name ?? ''
+  const code = accessCode.code ?? ''
+  return (
+    name.trim().toLowerCase().includes(value) ||
+    code.trim().toLowerCase().includes(value)
+  )
+}
+
+const accessCodeResultToMessage = (
+  result: 'created' | 'updated' | 'deleted'
+): string => {
+  if (result === 'created') return t.accessCodeCreated
+  if (result === 'deleted') return t.accessCodeDeleted
+  return t.accessCodeUpdated
+}
+
 const t = {
   accessCodes: 'Access Codes',
   noAccessCodesMessage: 'Sorry, no access codes were found',
   loading: 'Loading access codes',
-  accesCodeUpdated: 'Access code updated',
-  accesCodeCreated: 'Access code created',
+  accessCodeUpdated: 'Access code updated',
+  accessCodeCreated: 'Access code created',
+  accessCodeDeleted: 'Access code is being removed',
   tryAgain: 'Try again',
   fallbackErrorMessage: 'Access codes could not be loaded',
 }

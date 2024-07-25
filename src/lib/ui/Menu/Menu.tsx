@@ -23,6 +23,7 @@ export interface MenuProps extends PropsWithChildren {
   backgroundProps?: Partial<{
     className?: string
   }>
+  onClose?: () => void
 }
 
 interface MenuContext {
@@ -40,6 +41,7 @@ export function Menu({
   children,
   renderButton,
   backgroundProps,
+  onClose,
 }: MenuProps): JSX.Element | null {
   const { Provider } = menuContext
   const [documentEl, setDocumentEl] = useState<null | HTMLElement>(null)
@@ -59,6 +61,7 @@ export function Menu({
   }, [setDocumentEl])
 
   const handleClose = (): void => {
+    onClose?.()
     setAnchorEl(null)
   }
 

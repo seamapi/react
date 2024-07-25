@@ -11,23 +11,40 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 export interface AccessCodeMenuProps {
   accessCode: AccessCode
   onEdit: () => void
+  onDeleteSuccess: () => void
   onViewDetails: () => void
   disableEditAccessCode: boolean
   disableDeleteAccessCode: boolean
 }
 
 export function AccessCodeMenu(props: AccessCodeMenuProps): JSX.Element {
+  const [deleteConfirmationVisible, toggleDeleteConfirmation] = useToggle()
+
   return (
     <MoreActionsMenu
       menuProps={{
         backgroundProps: {
           className: 'seam-table-action-menu',
         },
+        onClose: () => {
+          if (deleteConfirmationVisible) {
+            toggleDeleteConfirmation()
+          }
+        },
       }}
     >
-      <Content {...props} />
+      <Content
+        {...props}
+        deleteConfirmationVisible={deleteConfirmationVisible}
+        toggleDeleteConfirmation={toggleDeleteConfirmation}
+      />
     </MoreActionsMenu>
   )
+}
+
+interface ContentProps extends AccessCodeMenuProps {
+  deleteConfirmationVisible: boolean
+  toggleDeleteConfirmation: () => void
 }
 
 function Content({
@@ -36,29 +53,33 @@ function Content({
   disableEditAccessCode,
   disableDeleteAccessCode,
   onEdit,
-}: AccessCodeMenuProps): JSX.Element {
-  const [deleteConfirmationVisible, toggleDeleteConfirmation] = useToggle()
-
+  onDeleteSuccess,
+  deleteConfirmationVisible,
+  toggleDeleteConfirmation,
+}: ContentProps): JSX.Element {
   const deleteAccessCode = useDeleteAccessCode()
+  const isAccessCodeBeingRemoved = accessCode.status === 'removing'
 
   if (deleteConfirmationVisible) {
     return (
       <div className='seam-delete-confirmation'>
         <span>{t.deleteCodeConfirmation}</span>
         <div className='seam-actions'>
-          <Button
-            onClick={toggleDeleteConfirmation}
-            disabled={deleteAccessCode.isPending}
-          >
+          <Button disabled={deleteAccessCode.isPending}>
             {t.cancelDelete}
           </Button>
           <Button
             variant='solid'
             disabled={deleteAccessCode.isPending}
             onClick={() => {
-              deleteAccessCode.mutate({
-                access_code_id: accessCode.access_code_id,
-              })
+              deleteAccessCode.mutate(
+                {
+                  access_code_id: accessCode.access_code_id,
+                },
+                {
+                  onSuccess: onDeleteSuccess,
+                }
+              )
             }}
           >
             {t.confirmDelete}
@@ -84,10 +105,10 @@ function Content({
       </MenuItem>
       <div className='seam-divider' />
       <MenuItem onClick={onViewDetails}>{t.viewCodeDetails}</MenuItem>
-      {!disableEditAccessCode && (
+      {!disableEditAccessCode && !isAccessCodeBeingRemoved && (
         <MenuItem onClick={onEdit}>{t.editCode}</MenuItem>
       )}
-      {!disableDeleteAccessCode && (
+      {!disableDeleteAccessCode && !isAccessCodeBeingRemoved && (
         <>
           <div className='seam-divider' />
           <MenuItem

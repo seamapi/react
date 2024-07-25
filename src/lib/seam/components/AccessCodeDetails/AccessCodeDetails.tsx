@@ -1,7 +1,7 @@
 import type { AccessCode } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
@@ -12,6 +12,7 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
 import {
   accessCodeErrorFilter,
   accessCodeWarningFilter,
@@ -22,11 +23,15 @@ import { Button } from 'lib/ui/Button.js'
 import { copyToClipboard } from 'lib/ui/clipboard.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
-  onEdit: () => void
+  onEdit?: () => void
+  preventDefaultOnEdit?: boolean
+  onDelete?: () => void
+  preventDefaultOnDelete?: boolean
 }
 
 export const NestedAccessCodeDetails =
@@ -35,6 +40,9 @@ export const NestedAccessCodeDetails =
 export function AccessCodeDetails({
   accessCodeId,
   onEdit,
+  preventDefaultOnEdit = false,
+  onDelete,
+  preventDefaultOnDelete = false,
   errorFilter = () => true,
   warningFilter = () => true,
   disableCreateAccessCode = false,
@@ -52,12 +60,72 @@ export function AccessCodeDetails({
   const { accessCode } = useAccessCode({ access_code_id: accessCodeId })
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isPending: isDeleting } = useDeleteAccessCode()
+  const [editFormOpen, setEditFormOpen] = useState<boolean>(false)
+
+  const [accessCodeResult, setAccessCodeResult] = useState<
+    'updated' | 'deleted' | null
+  >(null)
+  const [snackbarMessage, setSnackbarMessage] = useState<string>('')
+
+  // Circumvent Snackbar bug that causes it to switch to default message
+  // while the dismiss animation is playing
+  useEffect(() => {
+    if (accessCodeResult !== null) {
+      setSnackbarMessage(accessCodeResultToMessage(accessCodeResult))
+    }
+  }, [accessCodeResult])
+
+  const handleEdit = useCallback((): void => {
+    onEdit?.()
+    if (preventDefaultOnEdit) return
+    setEditFormOpen(true)
+  }, [onEdit, preventDefaultOnEdit, setEditFormOpen])
+
+  const handleDelete = useCallback((): void => {
+    onDelete?.()
+    if (preventDefaultOnDelete) return
+    if (accessCode == null) return
+    deleteCode(
+      { access_code_id: accessCode.access_code_id },
+      {
+        onSuccess: () => {
+          setAccessCodeResult('deleted')
+        },
+      }
+    )
+  }, [accessCode, deleteCode, onDelete, preventDefaultOnDelete])
 
   if (accessCode == null) {
     return null
   }
 
   const name = accessCode.name ?? t.fallbackName
+  const isAccessCodeBeingRemoved = accessCode.status === 'removing'
+
+  if (editFormOpen) {
+    return (
+      <NestedEditAccessCodeForm
+        accessCodeId={accessCode.access_code_id}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
+        disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
+        onBack={() => {
+          setEditFormOpen(false)
+        }}
+        onSuccess={() => {
+          setAccessCodeResult('updated')
+          setEditFormOpen(false)
+        }}
+        className={className}
+      />
+    )
+  }
 
   if (selectedDeviceId != null) {
     return (
@@ -96,92 +164,114 @@ export function AccessCodeDetails({
         variant: 'warning' as const,
         message: warning.message,
       })),
+
+    ...(isAccessCodeBeingRemoved
+      ? [
+          {
+            variant: 'warning' as const,
+            message: t.warningRemoving,
+          },
+        ]
+      : []),
   ]
 
   return (
-    <div className={classNames('seam-access-code-details', className)}>
-      <ContentHeader title='Access code' onBack={onBack} />
-      <div className='seam-summary'>
-        <div
-          className={classNames(
-            'seam-top',
-            alerts.length > 0 && 'seam-top-has-alerts'
-          )}
-        >
-          <span className='seam-label'>{t.accessCode}</span>
-          <h5 className='seam-access-code-name'>{name}</h5>
-          <div className='seam-code'>
-            <span>{accessCode.code}</span>
-            <IconButton
-              onClick={() => {
-                void copyToClipboard(accessCode.code ?? '')
-              }}
-            >
-              <CopyIcon />
-            </IconButton>
-          </div>
-          <div className='seam-duration'>
-            <Duration accessCode={accessCode} />
-          </div>
-        </div>
-        <Alerts alerts={alerts} className='seam-alerts-padded' />
-        <AccessCodeDevice
-          deviceId={accessCode.device_id}
-          disableLockUnlock={disableLockUnlock}
-          onSelectDevice={selectDevice}
-        />
-      </div>
-      {(!disableEditAccessCode || !disableDeleteAccessCode) && (
-        <div className='seam-actions'>
-          {!disableEditAccessCode && (
-            <Button size='small' onClick={onEdit} disabled={isDeleting}>
-              {t.editCode}
-            </Button>
-          )}
-          {!disableDeleteAccessCode && (
-            <Button
-              size='small'
-              onClick={() => {
-                deleteCode({ access_code_id: accessCode.access_code_id })
-              }}
-              disabled={isDeleting}
-            >
-              {t.deleteCode}
-            </Button>
-          )}
-        </div>
-      )}
-      <div className='seam-details'>
-        {!disableResourceIds && (
-          <div className='seam-row'>
-            <div className='seam-heading'>{t.id}:</div>
-            <div className='seam-content seam-code-id'>
-              <span>{accessCode.access_code_id}</span>
+    <>
+      <Snackbar
+        variant='success'
+        message={snackbarMessage}
+        visible={accessCodeResult != null}
+        autoDismiss
+        onClose={() => {
+          setAccessCodeResult(null)
+        }}
+      />
+      <div className={classNames('seam-access-code-details', className)}>
+        <ContentHeader title='Access code' onBack={onBack} />
+        <div className='seam-summary'>
+          <div
+            className={classNames(
+              'seam-top',
+              alerts.length > 0 && 'seam-top-has-alerts'
+            )}
+          >
+            <span className='seam-label'>{t.accessCode}</span>
+            <h5 className='seam-access-code-name'>{name}</h5>
+            <div className='seam-code'>
+              <span>{accessCode.code}</span>
               <IconButton
                 onClick={() => {
-                  void copyToClipboard(accessCode.access_code_id)
+                  void copyToClipboard(accessCode.code ?? '')
                 }}
               >
                 <CopyIcon />
               </IconButton>
             </div>
+            <div className='seam-duration'>
+              <Duration accessCode={accessCode} />
+            </div>
+          </div>
+          <Alerts alerts={alerts} className='seam-alerts-padded' />
+          <AccessCodeDevice
+            deviceId={accessCode.device_id}
+            disableLockUnlock={disableLockUnlock}
+            onSelectDevice={selectDevice}
+          />
+        </div>
+        {(!disableEditAccessCode || !disableDeleteAccessCode) && (
+          <div className='seam-actions'>
+            {!disableEditAccessCode && (
+              <Button
+                size='small'
+                onClick={handleEdit}
+                disabled={isAccessCodeBeingRemoved || isDeleting}
+              >
+                {t.editCode}
+              </Button>
+            )}
+            {!disableDeleteAccessCode && (
+              <Button
+                size='small'
+                onClick={handleDelete}
+                disabled={isAccessCodeBeingRemoved || isDeleting}
+              >
+                {t.deleteCode}
+              </Button>
+            )}
           </div>
         )}
-        <div className='seam-row'>
-          <div className='seam-heading'>{t.created}:</div>
-          <div className='seam-content'>
-            {formatDate(accessCode.created_at)}
+        <div className='seam-details'>
+          {!disableResourceIds && (
+            <div className='seam-row'>
+              <div className='seam-heading'>{t.id}:</div>
+              <div className='seam-content seam-code-id'>
+                <span>{accessCode.access_code_id}</span>
+                <IconButton
+                  onClick={() => {
+                    void copyToClipboard(accessCode.access_code_id)
+                  }}
+                >
+                  <CopyIcon />
+                </IconButton>
+              </div>
+            </div>
+          )}
+          <div className='seam-row'>
+            <div className='seam-heading'>{t.created}:</div>
+            <div className='seam-content'>
+              {formatDate(accessCode.created_at)}
+            </div>
           </div>
-        </div>
 
-        <div className='seam-row seam-schedule'>
-          <div className='seam-heading'>{t.timing}:</div>
-          <div className='seam-content'>
-            <ScheduleInfo accessCode={accessCode} />
+          <div className='seam-row seam-schedule'>
+            <div className='seam-heading'>{t.timing}:</div>
+            <div className='seam-content'>
+              <ScheduleInfo accessCode={accessCode} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -266,6 +356,11 @@ const formatDate = (date: string): string =>
     year: 'numeric',
   })
 
+const accessCodeResultToMessage = (result: 'updated' | 'deleted'): string => {
+  if (result === 'deleted') return t.accessCodeDeleted
+  return t.accessCodeUpdated
+}
+
 const t = {
   accessCode: 'Access code',
   fallbackName: 'Code',
@@ -282,4 +377,7 @@ const t = {
   at: 'at',
   editCode: 'Edit code',
   deleteCode: 'Delete code',
+  warningRemoving: 'This access code is currently being removed.',
+  accessCodeUpdated: 'Access code updated',
+  accessCodeDeleted: 'Access code is being removed',
 }
