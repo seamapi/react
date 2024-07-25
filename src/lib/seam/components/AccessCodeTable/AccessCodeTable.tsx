@@ -165,9 +165,6 @@ export function AccessCodeTable({
         />
         <NestedAccessCodeDetails
           accessCodeId={selectedViewAccessCodeId}
-          onEdit={() => {
-            setSelectedEditAccessCodeId(selectedViewAccessCodeId)
-          }}
           onDeleteSuccess={() => {
             handleAccessCodeDeleteSuccess()
           }}

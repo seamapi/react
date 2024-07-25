@@ -1,7 +1,7 @@
 import type { AccessCode } from '@seamapi/types/connect'
 import classNames from 'classnames'
 import { DateTime } from 'luxon'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
@@ -12,6 +12,7 @@ import {
   withRequiredCommonProps,
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
+import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
 import {
   accessCodeErrorFilter,
   accessCodeWarningFilter,
@@ -26,7 +27,8 @@ import { useIsDateInPast } from 'lib/ui/use-is-date-in-past.js'
 
 export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
-  onEdit: () => void
+  onEdit?: () => void
+  preventDefaultOnEdit?: boolean
   onDeleteSuccess?: () => void
 }
 
@@ -37,6 +39,7 @@ export function AccessCodeDetails({
   accessCodeId,
   onEdit,
   onDeleteSuccess,
+  preventDefaultOnEdit = false,
   errorFilter = () => true,
   warningFilter = () => true,
   disableCreateAccessCode = false,
@@ -54,6 +57,13 @@ export function AccessCodeDetails({
   const { accessCode } = useAccessCode({ access_code_id: accessCodeId })
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isPending: isDeleting } = useDeleteAccessCode()
+  const [editFormOpen, setEditFormOpen] = useState<boolean>(false)
+
+  const handleEdit = useCallback((): void => {
+    onEdit?.()
+    if (preventDefaultOnEdit) return
+    setEditFormOpen(true)
+  }, [onEdit, preventDefaultOnEdit, setEditFormOpen])
 
   if (accessCode == null) {
     return null
@@ -61,6 +71,30 @@ export function AccessCodeDetails({
 
   const name = accessCode.name ?? t.fallbackName
   const isAccessCodeBeingRemoved = accessCode.status === 'removing'
+
+  if (editFormOpen) {
+    return (
+      <NestedEditAccessCodeForm
+        accessCodeId={accessCode.access_code_id}
+        errorFilter={errorFilter}
+        warningFilter={warningFilter}
+        disableLockUnlock={disableLockUnlock}
+        disableCreateAccessCode={disableCreateAccessCode}
+        disableEditAccessCode={disableEditAccessCode}
+        disableDeleteAccessCode={disableDeleteAccessCode}
+        disableResourceIds={disableResourceIds}
+        disableConnectedAccountInformation={disableConnectedAccountInformation}
+        disableClimateSettingSchedules={disableClimateSettingSchedules}
+        onBack={() => {
+          setEditFormOpen(false)
+        }}
+        onSuccess={() => {
+          // TODO setAccessCodeResult('updated')
+        }}
+        className={className}
+      />
+    )
+  }
 
   if (selectedDeviceId != null) {
     return (
@@ -148,7 +182,7 @@ export function AccessCodeDetails({
           {!disableEditAccessCode && (
             <Button
               size='small'
-              onClick={onEdit}
+              onClick={handleEdit}
               disabled={isAccessCodeBeingRemoved || isDeleting}
             >
               {t.editCode}
