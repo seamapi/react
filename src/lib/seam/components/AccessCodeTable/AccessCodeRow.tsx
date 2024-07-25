@@ -1,4 +1,5 @@
 import type { AccessCode } from '@seamapi/types/connect'
+import classNames from 'classnames'
 
 import { ExclamationCircleOutlineIcon } from 'lib/icons/ExclamationCircleOutline.js'
 import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
@@ -43,18 +44,16 @@ export function AccessCodeRow({
   return (
     <TableRow onClick={onClick}>
       <TableCell
-        className='seam-icon-cell'
-        style={{
-          opacity: isAccessCodeBeingRemoved ? 0.4 : 1,
-        }}
+        className={classNames('seam-icon-cell', {
+          'seam-grayed-out': isAccessCodeBeingRemoved,
+        })}
       >
         <AccessCodeMainIcon accessCode={accessCode} />
       </TableCell>
       <TableCell
-        className='seam-name-cell'
-        style={{
-          opacity: isAccessCodeBeingRemoved ? 0.4 : 1,
-        }}
+        className={classNames('seam-name-cell', {
+          'seam-grayed-out': isAccessCodeBeingRemoved,
+        })}
       >
         <Title className='seam-truncated-text'>{accessCode.name}</Title>
         <CodeDetails accessCode={accessCode} />
