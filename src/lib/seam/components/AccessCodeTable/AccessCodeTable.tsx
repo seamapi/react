@@ -112,7 +112,7 @@ export function AccessCodeTable({
     [setSelectedEditAccessCodeId]
   )
 
-  const handleAccessCodeDelete = useCallback((): void => {
+  const handleAccessCodeDeleteSuccess = useCallback((): void => {
     setAccessCodeResult('deleted')
   }, [])
 
@@ -169,7 +169,7 @@ export function AccessCodeTable({
             setSelectedEditAccessCodeId(selectedViewAccessCodeId)
           }}
           onDeleteSuccess={() => {
-            handleAccessCodeDelete()
+            handleAccessCodeDeleteSuccess()
           }}
           errorFilter={errorFilter}
           warningFilter={warningFilter}
@@ -264,7 +264,7 @@ export function AccessCodeTable({
             accessCodes={filteredAccessCodes}
             onAccessCodeClick={handleAccessCodeClick}
             onAccessCodeEdit={handleAccessCodeEdit}
-            onAccessCodeDelete={handleAccessCodeDelete}
+            onAccessCodeDeleteSuccess={handleAccessCodeDeleteSuccess}
             errorFilter={errorFilter}
             warningFilter={warningFilter}
             disableEditAccessCode={disableEditAccessCode}
@@ -293,7 +293,7 @@ function Content(props: {
   accessCodes: AccessCode[]
   onAccessCodeClick: (accessCodeId: string) => void
   onAccessCodeEdit: (accessCodeId: string) => void
-  onAccessCodeDelete: (accessCodeId: string) => void
+  onAccessCodeDeleteSuccess: (accessCodeId: string) => void
   errorFilter: (error: AccessCode['errors'][number]) => boolean
   warningFilter: (warning: AccessCode['warnings'][number]) => boolean
   disableEditAccessCode: boolean
@@ -303,7 +303,7 @@ function Content(props: {
     accessCodes,
     onAccessCodeClick,
     onAccessCodeEdit,
-    onAccessCodeDelete,
+    onAccessCodeDeleteSuccess,
     errorFilter,
     warningFilter,
     disableEditAccessCode,
@@ -351,7 +351,7 @@ function Content(props: {
             onAccessCodeEdit(accessCode.access_code_id)
           }}
           onDeleteSuccess={() => {
-            onAccessCodeDelete(accessCode.access_code_id)
+            onAccessCodeDeleteSuccess(accessCode.access_code_id)
           }}
         />
       ))}
