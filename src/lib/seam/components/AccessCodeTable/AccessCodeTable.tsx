@@ -87,7 +87,6 @@ export function AccessCodeTable({
   const { accessCodes, isInitialLoading, isError, refetch } = useAccessCodes({
     device_id: deviceId,
   })
-  const [deletedAccessCodeIds, setDeletedAccessCodeIds] = useState<string[]>([])
 
   const [selectedViewAccessCodeId, setSelectedViewAccessCodeId] = useState<
     string | null
@@ -103,19 +102,8 @@ export function AccessCodeTable({
     () =>
       accessCodes
         ?.filter((accessCode) => accessCodeFilter(accessCode, searchInputValue))
-        ?.map((accessCode) =>
-          deletedAccessCodeIds.includes(accessCode.access_code_id)
-            ? { ...accessCode, status: 'removing' as const }
-            : accessCode
-        )
         ?.sort(accessCodeComparator) ?? [],
-    [
-      accessCodes,
-      searchInputValue,
-      accessCodeFilter,
-      accessCodeComparator,
-      deletedAccessCodeIds,
-    ]
+    [accessCodes, searchInputValue, accessCodeFilter, accessCodeComparator]
   )
 
   const handleAccessCodeClick = useCallback(
@@ -138,8 +126,7 @@ export function AccessCodeTable({
     [setSelectedEditAccessCodeId]
   )
 
-  const handleAccessCodeDelete = useCallback((accessCodeId: string): void => {
-    setDeletedAccessCodeIds((prev) => [...prev, accessCodeId])
+  const handleAccessCodeDelete = useCallback((): void => {
     setAccessCodeResult('deleted')
   }, [])
 
@@ -196,7 +183,7 @@ export function AccessCodeTable({
             setSelectedEditAccessCodeId(selectedViewAccessCodeId)
           }}
           onDelete={() => {
-            handleAccessCodeDelete(selectedViewAccessCodeId)
+            handleAccessCodeDelete()
           }}
           errorFilter={errorFilter}
           warningFilter={warningFilter}
@@ -209,13 +196,6 @@ export function AccessCodeTable({
             disableConnectedAccountInformation
           }
           disableClimateSettingSchedules={disableClimateSettingSchedules}
-          isAccessCodeBeingRemoved={
-            !filteredAccessCodes.some(
-              (accessCode) =>
-                accessCode.access_code_id === selectedViewAccessCodeId &&
-                accessCode.status !== 'removing'
-            )
-          }
           onBack={() => {
             setSelectedViewAccessCodeId(null)
           }}

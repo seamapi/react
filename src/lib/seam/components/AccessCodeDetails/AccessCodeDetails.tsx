@@ -28,7 +28,6 @@ export interface AccessCodeDetailsProps extends CommonProps {
   accessCodeId: string
   onEdit: () => void
   onDelete?: () => void
-  isAccessCodeBeingRemoved?: boolean
 }
 
 export const NestedAccessCodeDetails =
@@ -47,16 +46,12 @@ export function AccessCodeDetails({
   disableResourceIds = false,
   disableConnectedAccountInformation = false,
   disableClimateSettingSchedules,
-  isAccessCodeBeingRemoved,
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
   useComponentTelemetry('AccessCodeDetails')
 
-  const { accessCode } = useAccessCode(
-    { access_code_id: accessCodeId },
-    isAccessCodeBeingRemoved !== true
-  )
+  const { accessCode } = useAccessCode({ access_code_id: accessCodeId })
   const [selectedDeviceId, selectDevice] = useState<string | null>(null)
   const { mutate: deleteCode, isPending: isDeleting } = useDeleteAccessCode()
 
@@ -65,6 +60,7 @@ export function AccessCodeDetails({
   }
 
   const name = accessCode.name ?? t.fallbackName
+  const isAccessCodeBeingRemoved = accessCode.status === 'removing'
 
   if (selectedDeviceId != null) {
     return (
@@ -104,7 +100,7 @@ export function AccessCodeDetails({
         message: warning.message,
       })),
 
-    ...(isAccessCodeBeingRemoved === true
+    ...(isAccessCodeBeingRemoved
       ? [
           {
             variant: 'warning' as const,
@@ -153,7 +149,7 @@ export function AccessCodeDetails({
             <Button
               size='small'
               onClick={onEdit}
-              disabled={isAccessCodeBeingRemoved === true || isDeleting}
+              disabled={isAccessCodeBeingRemoved || isDeleting}
             >
               {t.editCode}
             </Button>
@@ -167,7 +163,7 @@ export function AccessCodeDetails({
                   { onSuccess: onDelete }
                 )
               }}
-              disabled={isAccessCodeBeingRemoved === true || isDeleting}
+              disabled={isAccessCodeBeingRemoved || isDeleting}
             >
               {t.deleteCode}
             </Button>

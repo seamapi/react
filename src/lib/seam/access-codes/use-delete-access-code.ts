@@ -2,6 +2,7 @@ import type {
   AccessCodesDeleteParams,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
+import type { AccessCode } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
@@ -42,6 +43,20 @@ export function useDeleteAccessCode(): UseMutationResult<
         ],
       })
       void queryClient.invalidateQueries({ queryKey: ['access_codes', 'list'] })
+
+      queryClient.setQueryData<AccessCode | null>(
+        ['access_codes', 'get', { access_code_id: variables.access_code_id }],
+        (accessCode) => {
+          if (accessCode == null) {
+            return
+          }
+
+          return {
+            ...accessCode,
+            status: 'removing',
+          }
+        }
+      )
     },
   })
 }

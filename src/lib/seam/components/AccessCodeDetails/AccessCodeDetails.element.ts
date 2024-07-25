@@ -8,7 +8,6 @@ export const props: ElementProps<AccessCodeDetailsProps> = {
   accessCodeId: 'string',
   onEdit: 'object',
   onDelete: 'object',
-  isAccessCodeBeingRemoved: 'boolean',
 }
 
 export { AccessCodeDetails as Component } from './AccessCodeDetails.js'
