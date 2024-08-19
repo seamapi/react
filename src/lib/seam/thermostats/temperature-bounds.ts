@@ -1,7 +1,4 @@
-import type {
-  HvacModeSetting,
-  ThermostatDevice,
-} from 'lib/seam/thermostats/thermostat-device.js'
+import type { HvacModeSetting } from 'lib/seam/thermostats/thermostat-device.js'
 
 export interface ControlBounds {
   mode: Exclude<HvacModeSetting, 'off'>
@@ -54,25 +51,3 @@ export const getTemperatureBounds = (
   heat: getHeatBounds(controlBounds),
   cool: getCoolBounds(controlBounds),
 })
-
-export const getSupportedThermostatModes = (
-  device: ThermostatDevice
-): HvacModeSetting[] => {
-  const allModes: HvacModeSetting[] = ['heat', 'cool', 'heat_cool', 'off']
-
-  return allModes.filter((mode) => {
-    switch (mode) {
-      case 'cool':
-        return device.properties.is_cooling_available ?? false
-      case 'heat':
-        return device.properties.is_heating_available ?? false
-      case 'heat_cool':
-        return (
-          (device.properties.is_heating_available ?? false) &&
-          (device.properties.is_cooling_available ?? false)
-        )
-      default:
-        return true
-    }
-  })
-}

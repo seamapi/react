@@ -10,8 +10,6 @@ export type ThermostatDevice = Omit<Device, 'properties'> & {
         | 'is_heating'
         | 'is_cooling'
         | 'is_fan_running'
-        | 'is_cooling_available'
-        | 'is_heating_available'
         | 'available_hvac_mode_settings'
         | 'fan_mode_setting'
         | 'current_climate_setting'
@@ -28,8 +26,6 @@ export type HvacModeSetting =
 
 // UPSTREAM: ClimateSetting missing in @seamapi/types.
 export interface ClimateSetting {
-  automatic_heating_enabled?: boolean
-  automatic_cooling_enabled?: boolean
   hvac_mode_setting?: HvacModeSetting
   cooling_set_point_celsius?: number
   heating_set_point_celsius?: number

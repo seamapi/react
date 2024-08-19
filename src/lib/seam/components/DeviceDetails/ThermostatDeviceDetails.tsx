@@ -8,7 +8,6 @@ import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSe
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
-import { getSupportedThermostatModes } from 'lib/seam/thermostats/temperature-bounds.js'
 import type {
   HvacModeSetting,
   ThermostatDevice,
@@ -252,12 +251,13 @@ function ClimateSettingRow({
   const deviceCoolValue =
     device.properties.current_climate_setting.cooling_set_point_fahrenheit
 
-  const supportedModes = getSupportedThermostatModes(device)
+  const availableHvacModes = device.properties.available_hvac_mode_settings
 
   const [showSuccess, setShowSuccess] = useState(false)
   const [mode, setMode] = useState<HvacModeSetting>(
-    (supportedModes.includes('heat_cool') ? 'heat_cool' : supportedModes[0]) ??
-      'off'
+    (availableHvacModes.includes('heat_cool')
+      ? 'heat_cool'
+      : availableHvacModes[0]) ?? 'off'
   )
 
   const [heatValue, setHeatValue] = useState(
@@ -413,7 +413,7 @@ function ClimateSettingRow({
           <ClimateModeMenu
             mode={mode}
             onChange={setMode}
-            supportedModes={supportedModes}
+            supportedModes={availableHvacModes}
           />
         </div>
       </AccordionRow>
