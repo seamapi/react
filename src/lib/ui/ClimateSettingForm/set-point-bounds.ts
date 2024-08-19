@@ -13,17 +13,17 @@ export const getSetPointBounds = (device: ThermostatDevice): SetPointBounds => {
 
   const setPointBounds: SetPointBounds = {}
 
-  if (properties.is_cooling_available) {
+  if (properties.available_hvac_mode_settings.includes('cool')) {
     setPointBounds.minCool = properties.min_cooling_set_point_fahrenheit
     setPointBounds.maxCool = properties.max_cooling_set_point_fahrenheit
   }
 
-  if (properties.is_heating_available) {
+  if (properties.available_hvac_mode_settings.includes('heat')) {
     setPointBounds.minHeat = properties.min_heating_set_point_fahrenheit
     setPointBounds.maxHeat = properties.max_heating_set_point_fahrenheit
   }
 
-  if (properties.is_cooling_available && properties.is_heating_available) {
+  if (properties.available_hvac_mode_settings.includes('heat_cool')) {
     setPointBounds.delta = properties.min_heating_cooling_delta_fahrenheit
   }
 
