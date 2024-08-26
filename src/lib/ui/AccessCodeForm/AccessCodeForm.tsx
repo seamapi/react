@@ -80,7 +80,7 @@ function Content({
     }
 
     const start = startDate.toISO()
-    if (start == null) {
+    if (start == null || start === undefined) {
       throw new Error(`Invalid start date: ${startDate.invalidReason}`)
     }
 
