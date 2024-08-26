@@ -80,12 +80,12 @@ function Content({
     }
 
     const start = startDate.toISO()
-    if (start == null || start === undefined) {
+    if (start === null || start === undefined) {
       throw new Error(`Invalid start date: ${startDate.invalidReason}`)
     }
 
     const end = endDate.toISO()
-    if (end == null) {
+    if (end === null || end === undefined) {
       throw new Error(`Invalid end date: ${endDate.invalidReason}`)
     }
 
