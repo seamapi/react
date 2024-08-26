@@ -172,8 +172,7 @@ function Content({
       ? t.codeLengthRequirement(codeLengthRequirement)
       : null
 
-  const hasCodeInputs =
-    accessCode?.type !== 'time_bound' && accessCode?.is_offline_access_code
+  const hasCodeInputs = accessCode?.type !== 'time_bound'
 
   return (
     <>
