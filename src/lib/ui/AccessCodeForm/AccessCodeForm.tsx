@@ -206,7 +206,7 @@ function Content({
               }}
             />
           </FormField>
-          {hasCodeInputs && (
+          {hasCodeInputs !== null && hasCodeInputs !== undefined && hasCodeInputs && (
             <>
               <FormField className='seam-code-field'>
                 <InputLabel>{t.codeInputLabel}</InputLabel>
