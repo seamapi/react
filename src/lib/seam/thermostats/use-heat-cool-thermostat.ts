@@ -106,8 +106,6 @@ const getUpdatedDevice = (
         current_climate_setting: {
           ...properties.current_climate_setting,
           hvac_mode_setting: 'heat_cool',
-          automatic_heating_enabled: true,
-          automatic_cooling_enabled: true,
           heating_set_point_celsius: getHeatingSetPointCelsius(
             variables,
             device

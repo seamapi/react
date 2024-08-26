@@ -92,8 +92,6 @@ const getUpdatedDevice = (device: Device): Device => {
         is_heating: false,
         current_climate_setting: {
           ...properties.current_climate_setting,
-          automatic_cooling_enabled: false,
-          automatic_heating_enabled: false,
           hvac_mode_setting: 'off',
           heating_set_point_celsius: undefined,
           heating_set_point_fahrenheit: undefined,
