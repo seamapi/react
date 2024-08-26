@@ -80,12 +80,12 @@ function Content({
     }
 
     const start = startDate.toISO()
-    if (start === null || start === undefined) {
+    if (start === null) {
       throw new Error(`Invalid start date: ${startDate.invalidReason}`)
     }
 
     const end = endDate.toISO()
-    if (end === null || end === undefined) {
+    if (end === null) {
       throw new Error(`Invalid end date: ${endDate.invalidReason}`)
     }
 
@@ -205,83 +205,81 @@ function Content({
               }}
             />
           </FormField>
-          {hasCodeInputs !== null &&
-            hasCodeInputs !== undefined &&
-            hasCodeInputs && (
-              <>
-                <FormField className='seam-code-field'>
-                  <InputLabel>{t.codeInputLabel}</InputLabel>
-                  <TextField
-                    size='large'
-                    clearable
-                    hasError={hasCodeError}
-                    helperText={responseErrors?.code ?? errors.code?.message}
-                    inputProps={{
-                      ...register('code', {
-                        required: t.codeRequiredError,
-                        validate: (value: string) =>
-                          validateCodeLength(device, value),
-                      }),
-                    }}
-                  />
-                  <div
-                    className={classNames('seam-bottom', {
-                      'has-hints': codeLengthRequirementMessage != null,
-                    })}
-                  >
-                    {codeLengthRequirementMessage != null && (
-                      <ul
-                        className={classNames('seam-requirements', {
-                          'seam-error': hasCodeError,
-                        })}
-                      >
-                        <li>{codeLengthRequirementMessage}</li>
-                        <li>{t.codeNumbersOnlyRequirement}</li>
-                      </ul>
-                    )}
-                    <Button
-                      size='small'
-                      onMouseDown={(e) => {
-                        e.preventDefault() // Disable stealing input focus
-                        handleGenerateCode()
-                      }}
-                      disabled={isGeneratingCode}
+          {hasCodeInputs && (
+            <>
+              <FormField className='seam-code-field'>
+                <InputLabel>{t.codeInputLabel}</InputLabel>
+                <TextField
+                  size='large'
+                  clearable
+                  hasError={hasCodeError}
+                  helperText={responseErrors?.code ?? errors.code?.message}
+                  inputProps={{
+                    ...register('code', {
+                      required: t.codeRequiredError,
+                      validate: (value: string) =>
+                        validateCodeLength(device, value),
+                    }),
+                  }}
+                />
+                <div
+                  className={classNames('seam-bottom', {
+                    'has-hints': codeLengthRequirementMessage != null,
+                  })}
+                >
+                  {codeLengthRequirementMessage != null && (
+                    <ul
+                      className={classNames('seam-requirements', {
+                        'seam-error': hasCodeError,
+                      })}
                     >
-                      {t.codeGenerateButton}
-                    </Button>
-                  </div>
-                </FormField>
-                <FormField>
-                  <InputLabel>{t.timingInputLabel}</InputLabel>
-                  <RadioField
-                    value={type}
-                    onChange={setType}
-                    name='type'
-                    options={[
-                      {
-                        label: t.typeOngoingLabel,
-                        value: 'ongoing',
-                      },
-                      {
-                        label: t.typeTimeBoundLabel,
-                        value: 'time_bound',
-                      },
-                    ]}
-                  />
-                  <>
-                    {type === 'time_bound' && (
-                      <AccessCodeFormTimes
-                        startDate={startDate}
-                        endDate={endDate}
-                        onEdit={() => {
-                          setDatePickerVisible(true)
-                        }}
-                      />
-                    )}
-                  </>
-                </FormField>
-              </>
-            )}
+                      <li>{codeLengthRequirementMessage}</li>
+                      <li>{t.codeNumbersOnlyRequirement}</li>
+                    </ul>
+                  )}
+                  <Button
+                    size='small'
+                    onMouseDown={(e) => {
+                      e.preventDefault() // Disable stealing input focus
+                      handleGenerateCode()
+                    }}
+                    disabled={isGeneratingCode}
+                  >
+                    {t.codeGenerateButton}
+                  </Button>
+                </div>
+              </FormField>
+              <FormField>
+                <InputLabel>{t.timingInputLabel}</InputLabel>
+                <RadioField
+                  value={type}
+                  onChange={setType}
+                  name='type'
+                  options={[
+                    {
+                      label: t.typeOngoingLabel,
+                      value: 'ongoing',
+                    },
+                    {
+                      label: t.typeTimeBoundLabel,
+                      value: 'time_bound',
+                    },
+                  ]}
+                />
+                <>
+                  {type === 'time_bound' && (
+                    <AccessCodeFormTimes
+                      startDate={startDate}
+                      endDate={endDate}
+                      onEdit={() => {
+                        setDatePickerVisible(true)
+                      }}
+                    />
+                  )}
+                </>
+              </FormField>
+            </>
+          )}
           {responseErrors?.unknown != null && (
             <div className='seam-unknown-error'>{responseErrors?.unknown}</div>
           )}
