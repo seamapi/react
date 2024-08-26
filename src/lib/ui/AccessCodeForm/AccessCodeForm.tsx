@@ -173,7 +173,7 @@ function Content({
       : null
 
   const hasCodeInputs =
-    accessCode?.type !== 'time_bound' || accessCode.is_offline_access_code
+    accessCode?.type !== 'time_bound' && accessCode?.is_offline_access_code
 
   return (
     <>
