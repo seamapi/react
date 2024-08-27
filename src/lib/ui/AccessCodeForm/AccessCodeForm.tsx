@@ -80,12 +80,12 @@ function Content({
     }
 
     const start = startDate.toISO()
-    if (start == null) {
+    if (start === null) {
       throw new Error(`Invalid start date: ${startDate.invalidReason}`)
     }
 
     const end = endDate.toISO()
-    if (end == null) {
+    if (end === null) {
       throw new Error(`Invalid end date: ${endDate.invalidReason}`)
     }
 
@@ -172,8 +172,7 @@ function Content({
       ? t.codeLengthRequirement(codeLengthRequirement)
       : null
 
-  const hasCodeInputs =
-    accessCode?.type !== 'time_bound' || accessCode.is_offline_access_code
+  const hasCodeInputs = accessCode?.is_offline_access_code !== true
 
   return (
     <>
