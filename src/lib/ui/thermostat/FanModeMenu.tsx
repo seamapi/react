@@ -49,4 +49,5 @@ export function FanModeMenu({ mode, onChange }: FanModeMenuProps): JSX.Element {
 const t = {
   auto: 'Auto',
   on: 'On',
+  circulate: 'Circulate',
 }
