@@ -20,7 +20,6 @@ import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
-import { Switch } from 'lib/ui/Switch/Switch.js'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
@@ -36,7 +35,6 @@ export function ThermostatDeviceDetails({
   device,
   disableResourceIds,
   disableConnectedAccountInformation,
-  disableClimateSettingSchedules,
   onBack,
   className,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
@@ -61,26 +59,6 @@ export function ThermostatDeviceDetails({
               <FanModeRow device={device} />
             </DetailSection>
 
-            {!disableClimateSettingSchedules && (
-              <DetailSection
-                label={t.defaultSettings}
-                tooltipContent={t.defaultSettingsTooltip}
-              >
-                <DetailRow label={t.defaultClimate}>
-                  {device.properties.default_climate_setting != null ? (
-                    <ClimateSettingStatus
-                      climateSetting={device.properties.default_climate_setting}
-                      temperatureUnit='fahrenheit'
-                      iconPlacement='right'
-                    />
-                  ) : (
-                    <p>{t.none}</p>
-                  )}
-                </DetailRow>
-
-                <ManualOverrideRow device={device} />
-              </DetailSection>
-            )}
             <DeviceInfo
               device={device}
               disableConnectedAccountInformation={
@@ -92,51 +70,6 @@ export function ThermostatDeviceDetails({
         </div>
       </div>
     </div>
-  )
-}
-
-function ManualOverrideRow({
-  device,
-}: {
-  device: ThermostatDevice
-}): JSX.Element {
-  // const { mutate, isSuccess, isError } = useUpdateThermostat()
-
-  return (
-    <>
-      <div className='seam-detail-row-wrap'>
-        <DetailRow label={t.allowManualOverride}>
-          <Switch
-            checked={
-              device.properties.default_climate_setting
-                ?.manual_override_allowed ?? true
-            }
-            onChange={(checked) => {
-              // mutate({
-              //   device_id: device.device_id,
-              //   default_climate_setting: {
-              //     manual_override_allowed: checked,
-              //   },
-              // })
-            }}
-          />
-        </DetailRow>
-      </div>
-
-      {/* <Snackbar
-        message={t.manualOverrideSuccess}
-        variant='success'
-        visible={isSuccess}
-        automaticVisibility
-      />
-
-      <Snackbar
-        message={t.manualOverrideError}
-        variant='error'
-        visible={isError}
-        automaticVisibility
-      /> */}
-    </>
   )
 }
 
