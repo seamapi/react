@@ -85,7 +85,7 @@ const getUpdatedDevice = (
       ...device,
       properties: {
         ...properties,
-        fallback_climate_preset_key: variables.
+        fallback_climate_preset_key: variables,
         default_climate_setting: {
           ...properties.default_climate_setting,
           ...shake(variables.default_climate_setting),

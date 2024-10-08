@@ -14,7 +14,6 @@ import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermo
 import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
 import { useSetThermostatFanMode } from 'lib/seam/thermostats/use-set-thermostat-fan-mode.js'
 import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
-import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
 import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
@@ -101,7 +100,7 @@ function ManualOverrideRow({
 }: {
   device: ThermostatDevice
 }): JSX.Element {
-  const { mutate, isSuccess, isError } = useUpdateThermostat()
+  // const { mutate, isSuccess, isError } = useUpdateThermostat()
 
   return (
     <>
@@ -113,18 +112,18 @@ function ManualOverrideRow({
                 ?.manual_override_allowed ?? true
             }
             onChange={(checked) => {
-              mutate({
-                device_id: device.device_id,
-                default_climate_setting: {
-                  manual_override_allowed: checked,
-                },
-              })
+              // mutate({
+              //   device_id: device.device_id,
+              //   default_climate_setting: {
+              //     manual_override_allowed: checked,
+              //   },
+              // })
             }}
           />
         </DetailRow>
       </div>
 
-      <Snackbar
+      {/* <Snackbar
         message={t.manualOverrideSuccess}
         variant='success'
         visible={isSuccess}
@@ -136,7 +135,7 @@ function ManualOverrideRow({
         variant='error'
         visible={isError}
         automaticVisibility
-      />
+      /> */}
     </>
   )
 }
