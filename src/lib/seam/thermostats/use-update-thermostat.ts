@@ -1,6 +1,6 @@
 import type {
   SeamHttpApiError,
-  ThermostatsUpdateBody,
+  ThermostatsUpdateClimatePresetBody,
 } from '@seamapi/http/connect'
 import type { Device } from '@seamapi/types/connect'
 import {
@@ -16,7 +16,8 @@ export type UseUpdateThermostatParams = never
 
 export type UseUpdateThermostatData = undefined
 
-export type UseUpdateThermostatMutationVariables = ThermostatsUpdateBody
+export type UseUpdateThermostatMutationVariables =
+  ThermostatsUpdateClimatePresetBody
 
 export function useUpdateThermostat(): UseMutationResult<
   UseUpdateThermostatData,
@@ -33,7 +34,7 @@ export function useUpdateThermostat(): UseMutationResult<
   >({
     mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-      await client.thermostats.update(variables)
+      await client.thermostats.updateClimatePreset(variables)
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<Device | null>(
@@ -71,6 +72,11 @@ const getUpdatedDevice = (
   variables: UseUpdateThermostatMutationVariables
 ): Device => {
   const { properties } = device
+  console.log(properties.fallback_climate_preset_key)
+
+  const fallback = properties.available_climate_presets?.find(
+    (cp) => cp.climate_preset_key === properties.fallback_climate_preset_key
+  )
   if (
     'default_climate_setting' in properties &&
     properties.default_climate_setting != null
@@ -79,6 +85,7 @@ const getUpdatedDevice = (
       ...device,
       properties: {
         ...properties,
+        fallback_climate_preset_key: variables.
         default_climate_setting: {
           ...properties.default_climate_setting,
           ...shake(variables.default_climate_setting),

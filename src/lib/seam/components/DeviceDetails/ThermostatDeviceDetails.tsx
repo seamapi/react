@@ -3,11 +3,8 @@ import { useEffect, useState } from 'react'
 
 import { debounce } from 'lib/debounce.js'
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
-import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
-import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
-import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import type {
   HvacModeSetting,
   ThermostatDevice,
@@ -38,53 +35,15 @@ interface ThermostatDeviceDetailsProps
 
 export function ThermostatDeviceDetails({
   device,
-  errorFilter,
-  warningFilter,
-  disableLockUnlock,
-  disableCreateAccessCode,
-  disableEditAccessCode,
-  disableDeleteAccessCode,
   disableResourceIds,
   disableConnectedAccountInformation,
   disableClimateSettingSchedules,
   onBack,
   className,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
-  const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
-
-  const { climateSettingSchedules } = useClimateSettingSchedules({
-    device_id: device.device_id,
-  })
-
-  if (climateSettingsOpen) {
-    return (
-      <NestedClimateSettingScheduleTable
-        deviceId={device.device_id}
-        errorFilter={errorFilter}
-        warningFilter={warningFilter}
-        disableLockUnlock={disableLockUnlock}
-        disableCreateAccessCode={disableCreateAccessCode}
-        disableEditAccessCode={disableEditAccessCode}
-        disableDeleteAccessCode={disableDeleteAccessCode}
-        disableResourceIds={disableResourceIds}
-        disableConnectedAccountInformation={disableConnectedAccountInformation}
-        disableClimateSettingSchedules={disableClimateSettingSchedules}
-        onBack={() => {
-          setClimateSettingsOpen(false)
-        }}
-        className={className}
-      />
-    )
-  }
-
   if (device == null) {
     return null
   }
-
-  const climateSettingSchedulesLabel =
-    climateSettingSchedules?.length !== 1
-      ? t.climateSchedules
-      : t.climateSchedule
 
   return (
     <div className={classNames('seam-device-details', className)}>
@@ -95,28 +54,6 @@ export function ThermostatDeviceDetails({
 
         <div className='seam-thermostat-device-details'>
           <DetailSectionGroup>
-            {!disableClimateSettingSchedules && (
-              <DetailSection
-                label={t.scheduledClimates}
-                tooltipContent={t.scheduledClimatesTooltip}
-              >
-                <DetailRow
-                  label={
-                    climateSettingSchedules == null
-                      ? t.viewingClimateSchedules
-                      : `${climateSettingSchedules.length} ${climateSettingSchedulesLabel}`
-                  }
-                  onClick={() => {
-                    setClimateSettingsOpen(true)
-                  }}
-                >
-                  <div className='seam-detail-row-rotated-icon'>
-                    <ChevronWideIcon />
-                  </div>
-                </DetailRow>
-              </DetailSection>
-            )}
-
             <DetailSection
               label={t.currentSettings}
               tooltipContent={t.currentSettingsTooltip}
@@ -430,12 +367,6 @@ function ClimateSettingRow({
 
 const t = {
   thermostat: 'Thermostat',
-  climateSchedule: 'scheduled climate',
-  climateSchedules: 'scheduled climates',
-  viewingClimateSchedules: 'View scheduled climates',
-  scheduledClimates: 'Scheduled climates',
-  scheduledClimatesTooltip:
-    "Scheduled climates let you automatically change the thermostat's climate at a set time.",
   currentSettings: 'Current settings',
   currentSettingsTooltip:
     'These are the settings currently on the device. If you change them here, they change on the device.',
