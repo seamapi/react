@@ -31,7 +31,6 @@ export function LockDeviceDetails({
   disableDeleteAccessCode,
   disableResourceIds,
   disableConnectedAccountInformation,
-  disableClimateSettingSchedules,
   onBack,
   className,
 }: LockDeviceDetailsProps): JSX.Element | null {
@@ -62,7 +61,6 @@ export function LockDeviceDetails({
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
         disableConnectedAccountInformation={disableConnectedAccountInformation}
-        disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={toggleAccessCodesOpen}
         className={className}
       />
