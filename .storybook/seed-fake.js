@@ -551,51 +551,6 @@ export const seedFake = (db) => {
     noise_threshold_name: 'Active Hours',
   })
 
-  // add climate setting schedules
-  db.addClimateSettingSchedule({
-    device_id: device5.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2023-05-17T00:16:12.000',
-    name: 'Guest - Robinson',
-    schedule_starts_at: '2024-07-24T00:00:00.000Z',
-    schedule_ends_at: '2024-08-01T00:00:00.000Z',
-    schedule_type: 'time_bound',
-    manual_override_allowed: true,
-    hvac_mode_setting: 'cool',
-    cooling_set_point_fahrenheit: 70,
-    cooling_set_point_celsius: 21,
-  })
-
-  db.addClimateSettingSchedule({
-    device_id: device5.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2023-05-17T00:16:12.000',
-    name: 'Guest - Cabrero',
-    schedule_starts_at: '2024-07-04T00:00:00.000Z',
-    schedule_ends_at: '2024-07-14T00:00:00.000Z',
-    schedule_type: 'time_bound',
-    manual_override_allowed: true,
-    hvac_mode_setting: 'heat_cool',
-    heating_set_point_fahrenheit: 65,
-    heating_set_point_celsius: 18,
-    cooling_set_point_fahrenheit: 72,
-    cooling_set_point_celsius: 22,
-  })
-
-  db.addClimateSettingSchedule({
-    device_id: device5.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2022-05-17T00:16:12.000',
-    name: 'Guest - Robinson with a very long title to test truncation and text wrap',
-    schedule_starts_at: '2023-07-04T00:00:00.000Z',
-    schedule_ends_at: '2027-08-14T00:00:00.000Z',
-    schedule_type: 'time_bound',
-    manual_override_allowed: true,
-    hvac_mode_setting: 'cool',
-    cooling_set_point_fahrenheit: 72,
-    cooling_set_point_celsius: 22.2222,
-  })
-
   db.addClientSession({
     workspace_id: ws2.workspace_id,
     created_at: '2023-05-29T01:02:02.000',
