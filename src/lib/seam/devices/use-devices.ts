@@ -10,7 +10,7 @@ import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
 
 export type UseDevicesParams = DevicesListParams
 
-export type UseDevicesData = DevicesListResponse['devices']
+export type UseDevicesData = Device[]
 
 export function useDevices(
   params?: UseDevicesParams
