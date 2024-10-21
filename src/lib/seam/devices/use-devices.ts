@@ -1,6 +1,5 @@
 import type {
   DevicesListParams,
-  DevicesListResponse,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
