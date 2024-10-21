@@ -1,7 +1,4 @@
-import type {
-  DevicesListParams,
-  SeamHttpApiError,
-} from '@seamapi/http/connect'
+import type { DevicesListParams, SeamHttpApiError } from '@seamapi/http/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
