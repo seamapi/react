@@ -23,11 +23,7 @@ export const seedFake = (db) => {
   })
 
   db.simulateWorkspaceOutage(ws3.workspace_id, {
-    routes: [
-      '/devices/list',
-      '/access_codes/list',
-      '/thermostats/climate_setting_schedules/list',
-    ],
+    routes: ['/devices/list', '/access_codes/list'],
   })
 
   const cw = db.addConnectWebview({
@@ -426,7 +422,6 @@ export const seedFake = (db) => {
       image_url:
         'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
-      is_climate_setting_schedule_active: false,
     },
     errors: [],
   })
@@ -479,7 +474,6 @@ export const seedFake = (db) => {
       image_url:
         'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
-      is_climate_setting_schedule_active: false,
     },
     errors: [],
   })

@@ -26,8 +26,6 @@
 @use './snackbar';
 @use './spinner';
 @use './switch';
-@use './climate-setting-schedule-form';
-@use './climate-setting-schedule-details';
 @use './time-zone-picker';
 @use './tab-set';
 @use './noise-sensor';
@@ -62,12 +60,10 @@
   @include device-table.all;
   @include access-code-details.all;
   @include access-code-form.all;
-  @include climate-setting-schedule-form.all;
   @include alert.all;
   @include supported-device-table.all;
   @include supported-device-table-manufacturer-keys.all;
   @include thermostat.all;
   @include seam-table.all;
-  @include climate-setting-schedule-details.all;
   @include noise-sensor.all;
 }
