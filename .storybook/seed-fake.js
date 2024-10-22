@@ -23,10 +23,7 @@ export const seedFake = (db) => {
   })
 
   db.simulateWorkspaceOutage(ws3.workspace_id, {
-    routes: [
-      '/devices/list',
-      '/access_codes/list',
-    ],
+    routes: ['/devices/list', '/access_codes/list'],
   })
 
   const cw = db.addConnectWebview({
