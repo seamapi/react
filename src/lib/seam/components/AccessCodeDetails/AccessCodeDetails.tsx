@@ -51,7 +51,6 @@ export function AccessCodeDetails({
   disableDeleteAccessCode = false,
   disableResourceIds = false,
   disableConnectedAccountInformation = false,
-  disableClimateSettingSchedules,
   onBack,
   className,
 }: AccessCodeDetailsProps): JSX.Element | null {
@@ -114,7 +113,6 @@ export function AccessCodeDetails({
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
         disableConnectedAccountInformation={disableConnectedAccountInformation}
-        disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           setEditFormOpen(false)
         }}
@@ -139,7 +137,6 @@ export function AccessCodeDetails({
         disableDeleteAccessCode={disableDeleteAccessCode}
         disableResourceIds={disableResourceIds}
         disableConnectedAccountInformation={disableConnectedAccountInformation}
-        disableClimateSettingSchedules={disableClimateSettingSchedules}
         onBack={() => {
           selectDevice(null)
         }}
