@@ -390,15 +390,6 @@ export const seedFake = (db) => {
       temperature_fahrenheit: 70,
       current_climate_setting: {
         hvac_mode_setting: 'heat_cool',
-        manual_override_allowed: false,
-        cooling_set_point_fahrenheit: 75,
-        cooling_set_point_celsius: 23.8,
-        heating_set_point_fahrenheit: 65,
-        heating_set_point_celsius: 18.3,
-      },
-      default_climate_setting: {
-        hvac_mode_setting: 'heat_cool',
-        manual_override_allowed: false,
         cooling_set_point_fahrenheit: 75,
         cooling_set_point_celsius: 23.8,
         heating_set_point_fahrenheit: 65,
@@ -417,7 +408,6 @@ export const seedFake = (db) => {
       min_cooling_set_point_celsius: 18.333333333333336,
       min_heating_set_point_celsius: 7.222222222222222,
       min_heating_cooling_delta_celsius: 2.7777777777777777,
-      is_temporary_manual_override_active: false,
       name: 'Apartment 21A',
       image_url:
         'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
@@ -452,7 +442,6 @@ export const seedFake = (db) => {
       temperature_fahrenheit: 70,
       current_climate_setting: {
         hvac_mode_setting: 'heat',
-        manual_override_allowed: false,
         heating_set_point_celsius: 20,
         heating_set_point_fahrenheit: 68,
       },
@@ -469,7 +458,6 @@ export const seedFake = (db) => {
       min_cooling_set_point_fahrenheit: 65,
       max_heating_set_point_fahrenheit: 79,
       min_heating_set_point_fahrenheit: 45,
-      is_temporary_manual_override_active: false,
       name: 'debating book',
       image_url:
         'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',

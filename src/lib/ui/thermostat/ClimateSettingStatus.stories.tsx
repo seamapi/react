@@ -20,7 +20,6 @@ export const Content: Story = {
             hvac_mode_setting: 'cool',
             cooling_set_point_fahrenheit: 70,
             cooling_set_point_celsius: 21,
-            manual_override_allowed: true,
           }}
         />
 
@@ -29,7 +28,6 @@ export const Content: Story = {
             hvac_mode_setting: 'cool',
             cooling_set_point_fahrenheit: 70,
             cooling_set_point_celsius: 21,
-            manual_override_allowed: true,
           }}
           iconPlacement='right'
         />
@@ -39,7 +37,6 @@ export const Content: Story = {
             hvac_mode_setting: 'cool',
             cooling_set_point_fahrenheit: 70,
             cooling_set_point_celsius: 21,
-            manual_override_allowed: true,
           }}
           temperatureUnit='celsius'
         />
@@ -49,7 +46,6 @@ export const Content: Story = {
             hvac_mode_setting: 'cool',
             cooling_set_point_fahrenheit: 70,
             cooling_set_point_celsius: 21,
-            manual_override_allowed: true,
           }}
           iconPlacement='right'
           temperatureUnit='celsius'
@@ -60,7 +56,6 @@ export const Content: Story = {
             hvac_mode_setting: 'heat',
             heating_set_point_fahrenheit: 70,
             heating_set_point_celsius: 21,
-            manual_override_allowed: true,
           }}
         />
         <ClimateSettingStatus
@@ -68,7 +63,6 @@ export const Content: Story = {
             hvac_mode_setting: 'heat',
             heating_set_point_fahrenheit: 70,
             heating_set_point_celsius: 21,
-            manual_override_allowed: true,
           }}
           iconPlacement='right'
         />
@@ -78,7 +72,6 @@ export const Content: Story = {
             hvac_mode_setting: 'heat',
             heating_set_point_fahrenheit: 70,
             heating_set_point_celsius: 21,
-            manual_override_allowed: true,
           }}
           temperatureUnit='celsius'
         />
@@ -87,7 +80,6 @@ export const Content: Story = {
             hvac_mode_setting: 'heat',
             heating_set_point_fahrenheit: 70,
             heating_set_point_celsius: 21,
-            manual_override_allowed: true,
           }}
           iconPlacement='right'
           temperatureUnit='celsius'
@@ -100,7 +92,6 @@ export const Content: Story = {
             cooling_set_point_celsius: 21,
             heating_set_point_fahrenheit: 60,
             heating_set_point_celsius: 15,
-            manual_override_allowed: true,
           }}
         />
 
@@ -111,7 +102,6 @@ export const Content: Story = {
             cooling_set_point_celsius: 21,
             heating_set_point_fahrenheit: 60,
             heating_set_point_celsius: 15,
-            manual_override_allowed: true,
           }}
           iconPlacement='right'
         />
@@ -123,7 +113,6 @@ export const Content: Story = {
             cooling_set_point_celsius: 21,
             heating_set_point_fahrenheit: 60,
             heating_set_point_celsius: 15,
-            manual_override_allowed: true,
           }}
           temperatureUnit='celsius'
         />
@@ -135,7 +124,6 @@ export const Content: Story = {
             cooling_set_point_celsius: 21,
             heating_set_point_fahrenheit: 60,
             heating_set_point_celsius: 15,
-            manual_override_allowed: true,
           }}
           iconPlacement='right'
           temperatureUnit='celsius'
@@ -144,14 +132,12 @@ export const Content: Story = {
         <ClimateSettingStatus
           climateSetting={{
             hvac_mode_setting: 'off',
-            manual_override_allowed: false,
           }}
         />
 
         <ClimateSettingStatus
           climateSetting={{
             hvac_mode_setting: 'off',
-            manual_override_allowed: false,
           }}
           iconPlacement='right'
         />
