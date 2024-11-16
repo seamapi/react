@@ -3,11 +3,8 @@ import { useEffect, useState } from 'react'
 
 import { debounce } from 'lib/debounce.js'
 import { CheckBlackIcon } from 'lib/icons/CheckBlack.js'
-import { ChevronWideIcon } from 'lib/icons/ChevronWide.js'
-import { NestedClimateSettingScheduleTable } from 'lib/seam/components/ClimateSettingScheduleTable/ClimateSettingScheduleTable.js'
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
-import { useClimateSettingSchedules } from 'lib/seam/thermostats/climate-setting-schedules/use-climate-setting-schedules.js'
 import type {
   HvacModeSetting,
   ThermostatDevice,
@@ -17,14 +14,12 @@ import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermo
 import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
 import { useSetThermostatFanMode } from 'lib/seam/thermostats/use-set-thermostat-fan-mode.js'
 import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
-import { useUpdateThermostat } from 'lib/seam/thermostats/use-update-thermostat.js'
 import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
 import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
-import { Switch } from 'lib/ui/Switch/Switch.js'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
@@ -38,53 +33,14 @@ interface ThermostatDeviceDetailsProps
 
 export function ThermostatDeviceDetails({
   device,
-  errorFilter,
-  warningFilter,
-  disableLockUnlock,
-  disableCreateAccessCode,
-  disableEditAccessCode,
-  disableDeleteAccessCode,
   disableResourceIds,
   disableConnectedAccountInformation,
-  disableClimateSettingSchedules,
   onBack,
   className,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
-  const [climateSettingsOpen, setClimateSettingsOpen] = useState(false)
-
-  const { climateSettingSchedules } = useClimateSettingSchedules({
-    device_id: device.device_id,
-  })
-
-  if (climateSettingsOpen) {
-    return (
-      <NestedClimateSettingScheduleTable
-        deviceId={device.device_id}
-        errorFilter={errorFilter}
-        warningFilter={warningFilter}
-        disableLockUnlock={disableLockUnlock}
-        disableCreateAccessCode={disableCreateAccessCode}
-        disableEditAccessCode={disableEditAccessCode}
-        disableDeleteAccessCode={disableDeleteAccessCode}
-        disableResourceIds={disableResourceIds}
-        disableConnectedAccountInformation={disableConnectedAccountInformation}
-        disableClimateSettingSchedules={disableClimateSettingSchedules}
-        onBack={() => {
-          setClimateSettingsOpen(false)
-        }}
-        className={className}
-      />
-    )
-  }
-
   if (device == null) {
     return null
   }
-
-  const climateSettingSchedulesLabel =
-    climateSettingSchedules?.length !== 1
-      ? t.climateSchedules
-      : t.climateSchedule
 
   return (
     <div className={classNames('seam-device-details', className)}>
@@ -95,28 +51,6 @@ export function ThermostatDeviceDetails({
 
         <div className='seam-thermostat-device-details'>
           <DetailSectionGroup>
-            {!disableClimateSettingSchedules && (
-              <DetailSection
-                label={t.scheduledClimates}
-                tooltipContent={t.scheduledClimatesTooltip}
-              >
-                <DetailRow
-                  label={
-                    climateSettingSchedules == null
-                      ? t.viewingClimateSchedules
-                      : `${climateSettingSchedules.length} ${climateSettingSchedulesLabel}`
-                  }
-                  onClick={() => {
-                    setClimateSettingsOpen(true)
-                  }}
-                >
-                  <div className='seam-detail-row-rotated-icon'>
-                    <ChevronWideIcon />
-                  </div>
-                </DetailRow>
-              </DetailSection>
-            )}
-
             <DetailSection
               label={t.currentSettings}
               tooltipContent={t.currentSettingsTooltip}
@@ -125,26 +59,6 @@ export function ThermostatDeviceDetails({
               <FanModeRow device={device} />
             </DetailSection>
 
-            {!disableClimateSettingSchedules && (
-              <DetailSection
-                label={t.defaultSettings}
-                tooltipContent={t.defaultSettingsTooltip}
-              >
-                <DetailRow label={t.defaultClimate}>
-                  {device.properties.default_climate_setting != null ? (
-                    <ClimateSettingStatus
-                      climateSetting={device.properties.default_climate_setting}
-                      temperatureUnit='fahrenheit'
-                      iconPlacement='right'
-                    />
-                  ) : (
-                    <p>{t.none}</p>
-                  )}
-                </DetailRow>
-
-                <ManualOverrideRow device={device} />
-              </DetailSection>
-            )}
             <DeviceInfo
               device={device}
               disableConnectedAccountInformation={
@@ -156,51 +70,6 @@ export function ThermostatDeviceDetails({
         </div>
       </div>
     </div>
-  )
-}
-
-function ManualOverrideRow({
-  device,
-}: {
-  device: ThermostatDevice
-}): JSX.Element {
-  const { mutate, isSuccess, isError } = useUpdateThermostat()
-
-  return (
-    <>
-      <div className='seam-detail-row-wrap'>
-        <DetailRow label={t.allowManualOverride}>
-          <Switch
-            checked={
-              device.properties.default_climate_setting
-                ?.manual_override_allowed ?? true
-            }
-            onChange={(checked) => {
-              mutate({
-                device_id: device.device_id,
-                default_climate_setting: {
-                  manual_override_allowed: checked,
-                },
-              })
-            }}
-          />
-        </DetailRow>
-      </div>
-
-      <Snackbar
-        message={t.manualOverrideSuccess}
-        variant='success'
-        visible={isSuccess}
-        automaticVisibility
-      />
-
-      <Snackbar
-        message={t.manualOverrideError}
-        variant='error'
-        visible={isError}
-        automaticVisibility
-      />
-    </>
   )
 }
 
@@ -430,27 +299,14 @@ function ClimateSettingRow({
 
 const t = {
   thermostat: 'Thermostat',
-  climateSchedule: 'scheduled climate',
-  climateSchedules: 'scheduled climates',
-  viewingClimateSchedules: 'View scheduled climates',
-  scheduledClimates: 'Scheduled climates',
-  scheduledClimatesTooltip:
-    "Scheduled climates let you automatically change the thermostat's climate at a set time.",
   currentSettings: 'Current settings',
   currentSettingsTooltip:
     'These are the settings currently on the device. If you change them here, they change on the device.',
   climate: 'Climate',
   fanMode: 'Fan mode',
-  defaultSettings: 'Default settings',
-  defaultSettingsTooltip:
-    'When a scheduled climate reaches its end time, the default settings will kick in.',
-  defaultClimate: 'Default climate',
-  allowManualOverride: 'Allow manual override',
   none: 'None',
   fanModeSuccess: 'Successfully updated fan mode!',
   fanModeError: 'Error updating fan mode. Please try again.',
-  manualOverrideSuccess: 'Successfully updated manual override!',
-  manualOverrideError: 'Error updating manual override. Please try again.',
   climateSettingError: 'Error updating climate setting. Please try again.',
   saved: 'Saved',
 }

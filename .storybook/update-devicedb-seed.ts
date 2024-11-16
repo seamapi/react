@@ -33,6 +33,7 @@ const seedDatabase = async (
     userIdentifierKey
   )
   const baseURL = seam.client.defaults.baseURL
+
   seam.client.defaults.baseURL = new URL(
     '/internal/devicedb',
     baseURL

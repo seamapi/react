@@ -23,11 +23,7 @@ export const seedFake = (db) => {
   })
 
   db.simulateWorkspaceOutage(ws3.workspace_id, {
-    routes: [
-      '/devices/list',
-      '/access_codes/list',
-      '/thermostats/climate_setting_schedules/list',
-    ],
+    routes: ['/devices/list', '/access_codes/list'],
   })
 
   const cw = db.addConnectWebview({
@@ -394,15 +390,6 @@ export const seedFake = (db) => {
       temperature_fahrenheit: 70,
       current_climate_setting: {
         hvac_mode_setting: 'heat_cool',
-        manual_override_allowed: false,
-        cooling_set_point_fahrenheit: 75,
-        cooling_set_point_celsius: 23.8,
-        heating_set_point_fahrenheit: 65,
-        heating_set_point_celsius: 18.3,
-      },
-      default_climate_setting: {
-        hvac_mode_setting: 'heat_cool',
-        manual_override_allowed: false,
         cooling_set_point_fahrenheit: 75,
         cooling_set_point_celsius: 23.8,
         heating_set_point_fahrenheit: 65,
@@ -421,12 +408,10 @@ export const seedFake = (db) => {
       min_cooling_set_point_celsius: 18.333333333333336,
       min_heating_set_point_celsius: 7.222222222222222,
       min_heating_cooling_delta_celsius: 2.7777777777777777,
-      is_temporary_manual_override_active: false,
       name: 'Apartment 21A',
       image_url:
         'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
-      is_climate_setting_schedule_active: false,
     },
     errors: [],
   })
@@ -457,7 +442,6 @@ export const seedFake = (db) => {
       temperature_fahrenheit: 70,
       current_climate_setting: {
         hvac_mode_setting: 'heat',
-        manual_override_allowed: false,
         heating_set_point_celsius: 20,
         heating_set_point_fahrenheit: 68,
       },
@@ -474,12 +458,10 @@ export const seedFake = (db) => {
       min_cooling_set_point_fahrenheit: 65,
       max_heating_set_point_fahrenheit: 79,
       min_heating_set_point_fahrenheit: 45,
-      is_temporary_manual_override_active: false,
       name: 'debating book',
       image_url:
         'https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png',
       image_alt_text: 'Placeholder Lock Image',
-      is_climate_setting_schedule_active: false,
     },
     errors: [],
   })
@@ -549,51 +531,6 @@ export const seedFake = (db) => {
     noise_level_decibels: 75,
     noise_threshold_id: 2,
     noise_threshold_name: 'Active Hours',
-  })
-
-  // add climate setting schedules
-  db.addClimateSettingSchedule({
-    device_id: device5.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2023-05-17T00:16:12.000',
-    name: 'Guest - Robinson',
-    schedule_starts_at: '2024-07-24T00:00:00.000Z',
-    schedule_ends_at: '2024-08-01T00:00:00.000Z',
-    schedule_type: 'time_bound',
-    manual_override_allowed: true,
-    hvac_mode_setting: 'cool',
-    cooling_set_point_fahrenheit: 70,
-    cooling_set_point_celsius: 21,
-  })
-
-  db.addClimateSettingSchedule({
-    device_id: device5.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2023-05-17T00:16:12.000',
-    name: 'Guest - Cabrero',
-    schedule_starts_at: '2024-07-04T00:00:00.000Z',
-    schedule_ends_at: '2024-07-14T00:00:00.000Z',
-    schedule_type: 'time_bound',
-    manual_override_allowed: true,
-    hvac_mode_setting: 'heat_cool',
-    heating_set_point_fahrenheit: 65,
-    heating_set_point_celsius: 18,
-    cooling_set_point_fahrenheit: 72,
-    cooling_set_point_celsius: 22,
-  })
-
-  db.addClimateSettingSchedule({
-    device_id: device5.device_id,
-    workspace_id: ws2.workspace_id,
-    created_at: '2022-05-17T00:16:12.000',
-    name: 'Guest - Robinson with a very long title to test truncation and text wrap',
-    schedule_starts_at: '2023-07-04T00:00:00.000Z',
-    schedule_ends_at: '2027-08-14T00:00:00.000Z',
-    schedule_type: 'time_bound',
-    manual_override_allowed: true,
-    hvac_mode_setting: 'cool',
-    cooling_set_point_fahrenheit: 72,
-    cooling_set_point_celsius: 22.2222,
   })
 
   db.addClientSession({
