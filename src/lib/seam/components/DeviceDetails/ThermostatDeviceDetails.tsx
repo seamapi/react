@@ -304,9 +304,6 @@ const t = {
     'These are the settings currently on the device. If you change them here, they change on the device.',
   climate: 'Climate',
   fanMode: 'Fan mode',
-  defaultSettings: 'Default settings',
-  defaultSettingsTooltip:
-    'When a scheduled climate reaches its end time, the default settings will kick in.',
   none: 'None',
   fanModeSuccess: 'Successfully updated fan mode!',
   fanModeError: 'Error updating fan mode. Please try again.',
