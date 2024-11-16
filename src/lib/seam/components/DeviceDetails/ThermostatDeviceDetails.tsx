@@ -307,13 +307,9 @@ const t = {
   defaultSettings: 'Default settings',
   defaultSettingsTooltip:
     'When a scheduled climate reaches its end time, the default settings will kick in.',
-  defaultClimate: 'Default climate',
-  allowManualOverride: 'Allow manual override',
   none: 'None',
   fanModeSuccess: 'Successfully updated fan mode!',
   fanModeError: 'Error updating fan mode. Please try again.',
-  manualOverrideSuccess: 'Successfully updated manual override!',
-  manualOverrideError: 'Error updating manual override. Please try again.',
   climateSettingError: 'Error updating climate setting. Please try again.',
   saved: 'Saved',
 }
