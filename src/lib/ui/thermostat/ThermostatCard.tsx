@@ -8,27 +8,45 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { Temperature } from 'lib/ui/thermostat/Temperature.js'
 
+export type TemperatureUnit = 'fahrenheit' | 'celsius'
+
 interface ThermostatCardProps {
   device: ThermostatDevice
+  temperatureUnit?: TemperatureUnit
+  onChangeTemperatureUnit?: (temperatureUnit: TemperatureUnit) => void
 }
 
-export function ThermostatCard({ device }: ThermostatCardProps): JSX.Element {
+export function ThermostatCard({
+  device,
+  temperatureUnit: externallySpecifiedTemperatureUnit,
+  onChangeTemperatureUnit: onExternalChangeTemperatureUnit,
+}: ThermostatCardProps): JSX.Element {
+  const [internalTemperatureUnit, setInternalTemperatureUnit] =
+    useState<TemperatureUnit>('fahrenheit')
   return (
     <div className='seam-thermostat-card'>
-      <Content device={device} />
+      <Content
+        device={device}
+        temperatureUnit={
+          externallySpecifiedTemperatureUnit ?? internalTemperatureUnit
+        }
+        onChangeTemperatureUnit={
+          onExternalChangeTemperatureUnit ?? setInternalTemperatureUnit
+        }
+      />
     </div>
   )
 }
 
-function Content(props: { device: ThermostatDevice }): JSX.Element | null {
-  const { device } = props
-
-  const [temperatureUnit, setTemperatureUnit] = useState<
-    'fahrenheit' | 'celsius'
-  >('fahrenheit')
+function Content(props: {
+  device: ThermostatDevice
+  temperatureUnit: TemperatureUnit
+  onChangeTemperatureUnit: (temperatureUnit: TemperatureUnit) => void
+}): JSX.Element | null {
+  const { device, temperatureUnit, onChangeTemperatureUnit } = props
 
   const toggleTemperatureUnit = (): void => {
-    setTemperatureUnit(
+    onChangeTemperatureUnit(
       temperatureUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit'
     )
   }

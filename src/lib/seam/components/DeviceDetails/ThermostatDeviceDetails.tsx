@@ -24,7 +24,10 @@ import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
-import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
+import {
+  type TemperatureUnit,
+  ThermostatCard,
+} from 'lib/ui/thermostat/ThermostatCard.js'
 
 interface ThermostatDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
@@ -38,6 +41,10 @@ export function ThermostatDeviceDetails({
   onBack,
   className,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
+  const [temperatureUnit, setTemperatureUnit] = useState<
+    'fahrenheit' | 'celsius'
+  >('fahrenheit')
+
   if (device == null) {
     return null
   }
@@ -47,7 +54,11 @@ export function ThermostatDeviceDetails({
       <ContentHeader title={t.thermostat} onBack={onBack} />
 
       <div className='seam-body'>
-        <ThermostatCard device={device} />
+        <ThermostatCard
+          device={device}
+          temperatureUnit={temperatureUnit}
+          onChangeTemperatureUnit={setTemperatureUnit}
+        />
 
         <div className='seam-thermostat-device-details'>
           <DetailSectionGroup>
@@ -55,7 +66,10 @@ export function ThermostatDeviceDetails({
               label={t.currentSettings}
               tooltipContent={t.currentSettingsTooltip}
             >
-              <ClimateSettingRow device={device} />
+              <ClimateSettingRow
+                device={device}
+                temperatureUnit={temperatureUnit}
+              />
               <FanModeRow device={device} />
             </DetailSection>
 
@@ -112,8 +126,10 @@ function FanModeRow({ device }: { device: ThermostatDevice }): JSX.Element {
 
 function ClimateSettingRow({
   device,
+  temperatureUnit,
 }: {
   device: ThermostatDevice
+  temperatureUnit: TemperatureUnit
 }): JSX.Element {
   const deviceHeatValue =
     device.properties.current_climate_setting.heating_set_point_fahrenheit
@@ -257,7 +273,7 @@ function ClimateSettingRow({
         rightCollapsedContent={
           <ClimateSettingStatus
             climateSetting={device.properties.current_climate_setting}
-            temperatureUnit='fahrenheit'
+            temperatureUnit={temperatureUnit}
             iconPlacement='right'
           />
         }

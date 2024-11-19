@@ -4,10 +4,11 @@ import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
 import { ThermostatOffIcon } from 'lib/icons/ThermostatOff.js'
 import type { ClimateSetting } from 'lib/seam/thermostats/thermostat-device.js'
 import { Temperature } from 'lib/ui/thermostat/Temperature.js'
+import type { TemperatureUnit } from 'lib/ui/thermostat/ThermostatCard.js'
 
 interface ClimateSettingStatusProps {
   climateSetting: ClimateSetting
-  temperatureUnit?: 'fahrenheit' | 'celsius'
+  temperatureUnit?: TemperatureUnit
   iconPlacement?: 'left' | 'right'
 }
 
