@@ -1,7 +1,8 @@
-import { type CommonDevice, isLockDevice } from 'seamapi'
+import type { CommonDevice } from 'seamapi'
 
 import { LockLockedIcon } from 'lib/icons/LockLocked.js'
 import { LockUnlockedIcon } from 'lib/icons/LockUnlocked.js'
+import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 
 interface LockStatusProps {
   device: CommonDevice
