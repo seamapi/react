@@ -6,10 +6,10 @@ import {
 import {
   type ActionAttempt,
   type CommonDevice,
-  isLockDevice,
   type LockDevice,
   type SeamError,
 } from 'seamapi'
+import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 

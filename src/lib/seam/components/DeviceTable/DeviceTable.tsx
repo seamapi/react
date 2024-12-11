@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import { useCallback, useMemo, useState } from 'react'
 import {
   type CommonDevice,
-  isLockDevice,
   isNoiseSensorDevice,
   isThermostatDevice,
 } from 'seamapi'
@@ -23,6 +22,7 @@ import {
   useDevices,
   type UseDevicesData,
 } from 'lib/seam/devices/use-devices.js'
+import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { LoadingToast } from 'lib/ui/LoadingToast/LoadingToast.js'
