@@ -3,14 +3,14 @@ import {
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-import {
-  type ActionAttempt,
-  type CommonDevice,
-  type LockDevice,
-  type SeamError,
+import type {
+  ActionAttempt,
+  CommonDevice,
+  LockDevice,
+  SeamError,
 } from 'seamapi'
-import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 
+import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export function useToggleLock({
