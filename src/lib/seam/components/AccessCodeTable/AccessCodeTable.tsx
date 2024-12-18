@@ -19,6 +19,7 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { NestedCreateAccessCodeForm } from 'lib/seam/components/CreateAccessCodeForm/CreateAccessCodeForm.js'
 import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -89,6 +90,10 @@ export function AccessCodeTable({
   useComponentTelemetry('AccessCodeTable')
 
   const { accessCodes, isInitialLoading, isError, refetch } = useAccessCodes({
+    device_id: deviceId,
+  })
+
+  const { device } = useDevice({
     device_id: deviceId,
   })
 
@@ -220,6 +225,8 @@ export function AccessCodeTable({
     )
   }
 
+  const d = device as any
+
   return (
     <>
       <Snackbar
@@ -242,14 +249,16 @@ export function AccessCodeTable({
             ) : (
               <div className='seam-fragment' />
             )}
-            {!disableCreateAccessCode && (
-              <IconButton
-                onClick={toggleAddAccessCodeForm}
-                className='seam-add-button'
-              >
-                <AddIcon />
-              </IconButton>
-            )}
+            {!disableCreateAccessCode &&
+              ((d?.properties?.online_access_codes_enabled as boolean) ||
+                (d?.can_program_online_access_code as boolean)) && (
+                <IconButton
+                  onClick={toggleAddAccessCodeForm}
+                  className='seam-add-button'
+                >
+                  <AddIcon />
+                </IconButton>
+              )}
           </div>
           <div className='seam-table-header-loading-wrap'>
             <LoadingToast
