@@ -133,22 +133,24 @@ export function AccessCodeDetails({
       </div>
       {(!disableEditAccessCode || !disableDeleteAccessCode) && (
         <div className='seam-actions'>
-          {!disableEditAccessCode && (
-            <Button size='small' onClick={onEdit} disabled={isDeleting}>
-              {t.editCode}
-            </Button>
-          )}
-          {!disableDeleteAccessCode && (
-            <Button
-              size='small'
-              onClick={() => {
-                deleteCode({ access_code_id: accessCode.access_code_id })
-              }}
-              disabled={isDeleting}
-            >
-              {t.deleteCode}
-            </Button>
-          )}
+          {!disableEditAccessCode &&
+            !((accessCode as any).is_offline_access_code as boolean) && (
+              <Button size='small' onClick={onEdit} disabled={isDeleting}>
+                {t.editCode}
+              </Button>
+            )}
+          {!disableDeleteAccessCode &&
+            !((accessCode as any).is_offline_access_code as boolean) && (
+              <Button
+                size='small'
+                onClick={() => {
+                  deleteCode({ access_code_id: accessCode.access_code_id })
+                }}
+                disabled={isDeleting}
+              >
+                {t.deleteCode}
+              </Button>
+            )}
         </div>
       )}
       <div className='seam-details'>
