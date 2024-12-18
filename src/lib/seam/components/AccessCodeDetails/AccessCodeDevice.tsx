@@ -66,7 +66,7 @@ function Content(props: {
           {t.deviceDetails}
         </TextButton>
       </div>
-      {!disableLockUnlock && (
+      {!disableLockUnlock && device.properties.online && (
         <Button
           onClick={() => {
             toggleLock.mutate()
