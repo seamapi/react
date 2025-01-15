@@ -29,6 +29,7 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
+import { useDevice } from 'lib/index.js'
 
 export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
 
@@ -70,6 +71,10 @@ export function AccessCodeTable({
   useComponentTelemetry('AccessCodeTable')
 
   const { accessCodes, isInitialLoading, isError, refetch } = useAccessCodes({
+    device_id: deviceId,
+  })
+
+  const { device } = useDevice({
     device_id: deviceId,
   })
 
@@ -127,6 +132,10 @@ export function AccessCodeTable({
       setSnackbarMessage(accessCodeResultToMessage(accessCodeResult))
     }
   }, [accessCodeResult])
+
+  if (device == null) {
+    return <></>
+  }
 
   if (selectedEditAccessCodeId != null) {
     return (
@@ -214,14 +223,16 @@ export function AccessCodeTable({
             ) : (
               <div className='seam-fragment' />
             )}
-            {!disableCreateAccessCode && (
-              <IconButton
-                onClick={toggleAddAccessCodeForm}
-                className='seam-add-button'
-              >
-                <AddIcon />
-              </IconButton>
-            )}
+            {!disableCreateAccessCode &&
+              (device.properties.online_access_codes_enabled === true ||
+                device.can_program_online_access_codes === true) && (
+                <IconButton
+                  onClick={toggleAddAccessCodeForm}
+                  className='seam-add-button'
+                >
+                  <AddIcon />
+                </IconButton>
+              )}
           </div>
           <div className='seam-table-header-loading-wrap'>
             <LoadingToast
