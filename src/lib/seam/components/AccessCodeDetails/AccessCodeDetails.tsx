@@ -217,7 +217,7 @@ export function AccessCodeDetails({
         </div>
         {(!disableEditAccessCode || !disableDeleteAccessCode) && (
           <div className='seam-actions'>
-            {!disableEditAccessCode && (
+            {!disableEditAccessCode && !accessCode.is_offline_access_code && (
               <Button
                 size='small'
                 onClick={handleEdit}
@@ -226,7 +226,7 @@ export function AccessCodeDetails({
                 {t.editCode}
               </Button>
             )}
-            {!disableDeleteAccessCode && (
+            {!disableDeleteAccessCode && !accessCode.is_offline_access_code && (
               <Button
                 size='small'
                 onClick={handleDelete}

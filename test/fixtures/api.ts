@@ -2,12 +2,18 @@ import {
   createFake as createFakeDevicedb,
   type Fake as FakeDevicedb,
 } from '@seamapi/fake-devicedb'
-import { createFake, type Fake, type Seed } from '@seamapi/fake-seam-connect'
+import {
+  createFake,
+  type Database,
+  type Fake,
+  type Seed,
+} from '@seamapi/fake-seam-connect'
 import { beforeEach } from 'vitest'
 
 export interface ApiTestContext {
   endpoint: string
   seed: Seed
+  database: Database
 }
 
 beforeEach<ApiTestContext>(async (ctx) => {
@@ -22,6 +28,7 @@ beforeEach<ApiTestContext>(async (ctx) => {
 
   ctx.endpoint = endpoint
   ctx.seed = seed
+  ctx.database = fake.database
 
   return () => {
     fake.server?.close()
