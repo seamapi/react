@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AddIcon } from 'lib/icons/Add.js'
+import { useDevice } from 'lib/index.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
 import {
@@ -29,7 +30,6 @@ import { TableTitle } from 'lib/ui/Table/TableTitle.js'
 import { SearchTextField } from 'lib/ui/TextField/SearchTextField.js'
 import { Caption } from 'lib/ui/typography/Caption.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
-import { useDevice } from 'lib/index.js'
 
 export const NestedAccessCodeTable = withRequiredCommonProps(AccessCodeTable)
 
