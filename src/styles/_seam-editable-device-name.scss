@@ -1,0 +1,62 @@
+@use './colors';
+
+@mixin all {
+  .seam-editable-device-name {
+    input {
+      border: none;
+      background-color: transparent;
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: inherit;
+      line-height: inherit;
+      font-family: inherit;
+      margin: 0;
+      padding: 0;
+      border-bottom: 1px dashed currentcolor;
+      outline: none;
+    }
+
+    &-input-wrapper {
+      display: inline-flex;
+      flex-flow: column nowrap;
+    }
+
+    &-input-error {
+      color: colors.$status-red;
+      font-size: 0.8em;
+      margin-top: 5px;
+    }
+
+    &-icon-wrapper {
+      margin-left: 10px;
+      display: inline-flex;
+      flex-flow: row nowrap;
+      gap: 5px;
+    }
+
+    &-icon-button {
+      display: inline-flex;
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+      width: fit-content;
+      cursor: pointer;
+      transform-origin: center;
+      border-radius: 2px;
+
+      path {
+        fill: currentcolor;
+      }
+
+      &:hover {
+        background-color: currentcolor;
+        box-shadow: 0 0 0 2px currentcolor;
+
+        path {
+          fill: white;
+        }
+      }
+    }
+  }
+}
