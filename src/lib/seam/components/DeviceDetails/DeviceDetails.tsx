@@ -6,10 +6,10 @@ import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceD
 import { NoiseSensorDeviceDetails } from 'lib/seam/components/DeviceDetails/NoiseSensorDeviceDetails.js'
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
+import { useSetDeviceName } from 'lib/seam/devices/use-set-device-name.js'
 import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 import { isNoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
-import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
 export interface DeviceDetailsProps extends CommonProps {
@@ -38,24 +38,21 @@ export function DeviceDetails({
 }: DeviceDetailsProps): JSX.Element | null {
   useComponentTelemetry('DeviceDetails')
 
-  const { client } = useSeamClient()
-  const { device, refetch: refetchDevice } = useDevice({
+  const { device } = useDevice({
     device_id: deviceId,
   })
 
-  const updateDeviceName = async (newName: string): Promise<void> => {
-    if (client == null) return
+  const { mutate: setDeviceName } = useSetDeviceName({
+    device_id: deviceId,
+  })
 
-    client.devices
-      .update({
-        device_id: deviceId,
+  const updateDeviceName = (newName: string): void => {
+    if (device != null) {
+      setDeviceName({
+        device_id: device.device_id,
         name: newName,
       })
-      .then(async () => await refetchDevice())
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error(error)
-      })
+    }
   }
 
   if (device == null) {
