@@ -12,25 +12,12 @@ export function EditIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
       fill='none'
       {...props}
     >
-      <mask
-        id='edit_svg__a'
-        width={24}
-        height={24}
-        x={0}
-        y={0}
-        maskUnits='userSpaceOnUse'
-        style={{
-          maskType: 'alpha',
-        }}
-      >
-        <path fill='#D9D9D9' d='M0 0h24v24H0z' />
-      </mask>
-      <g mask='url(#edit_svg__a)'>
-        <path
-          fill='#232B3A'
-          d='M5 19h1.4l8.625-8.625-1.4-1.4L5 17.6zM19.3 8.925l-4.25-4.2 1.4-1.4a1.92 1.92 0 0 1 1.413-.575 1.92 1.92 0 0 1 1.412.575l1.4 1.4q.574.575.6 1.388a1.8 1.8 0 0 1-.55 1.387zM17.85 10.4 7.25 21H3v-4.25l10.6-10.6z'
-        />
-      </g>
+      <path
+        fill='#232426'
+        fillRule='evenodd'
+        d='M16.836 3.336c-1.015 0-1.99.403-2.707 1.121l-10.5 10.5a1 1 0 0 0-.293.707v4a1 1 0 0 0 1 1h4a1 1 0 0 0 .707-.293l9.5-9.5 1-1a3.829 3.829 0 0 0-2.707-6.535m1 5.414.293-.293a1.829 1.829 0 0 0-2.586-2.586l-.293.293zm-4-1.172-8.5 8.5v2.586h2.586l8.5-8.5z'
+        clipRule='evenodd'
+      />
     </svg>
   )
 }

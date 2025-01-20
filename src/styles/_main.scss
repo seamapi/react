@@ -29,6 +29,7 @@
 @use './time-zone-picker';
 @use './tab-set';
 @use './noise-sensor';
+@use './seam-editable-device-name';
 
 .seam-components {
   // Reset
@@ -54,6 +55,7 @@
   @include switch.all;
   @include time-zone-picker.all;
   @include tab-set.all;
+  @include seam-editable-device-name.all;
 
   // Components
   @include device-details.all;

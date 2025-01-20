@@ -21,6 +21,7 @@ export interface NestedSpecificDeviceDetailsProps
   extends Required<Omit<CommonProps, 'onBack' | 'className'>> {
   onBack: (() => void) | undefined
   className: string | undefined
+  onEditName?: (newName: string) => void
 }
 
 export function DeviceDetails({
@@ -60,15 +61,15 @@ export function DeviceDetails({
   }
 
   if (isLockDevice(device)) {
-    return <LockDeviceDetails device={device} {...props} />
+    return <LockDeviceDetails device={device} onEditName={props.onEditName} {...props} />
   }
 
   if (isThermostatDevice(device)) {
-    return <ThermostatDeviceDetails device={device} {...props} />
+    return <ThermostatDeviceDetails device={device} onEditName={props.onEditName} {...props} />
   }
 
   if (isNoiseSensorDevice(device)) {
-    return <NoiseSensorDeviceDetails device={device} {...props} />
+    return <NoiseSensorDeviceDetails device={device} onEditName={props.onEditName} {...props} />
   }
 
   return null
