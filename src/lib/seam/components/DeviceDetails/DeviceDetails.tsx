@@ -1,4 +1,3 @@
-
 import {
   type CommonProps,
   withRequiredCommonProps,
@@ -39,22 +38,23 @@ export function DeviceDetails({
 }: DeviceDetailsProps): JSX.Element | null {
   useComponentTelemetry('DeviceDetails')
 
-  const { client } = useSeamClient();
+  const { client } = useSeamClient()
   const { device, refetch: refetchDevice } = useDevice({
     device_id: deviceId,
   })
 
-
   const updateDeviceName = async (newName: string): Promise<void> => {
-    if (client == null) return;
+    if (client == null) return
 
-    client.devices.update({
-      device_id: deviceId,
-      name: newName,
-    })
+    client.devices
+      .update({
+        device_id: deviceId,
+        name: newName,
+      })
       .then(async () => await refetchDevice())
-      .catch((error) => { console.error(error); })
-
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   if (device == null) {
