@@ -20,7 +20,7 @@ import { useToggle } from 'lib/ui/use-toggle.js'
 
 interface LockDeviceDetailsProps extends NestedSpecificDeviceDetailsProps {
   device: LockDevice
-  onEditName?: (newName: string) => void
+  onEditName?: (newName: string) => void | Promise<void>
 }
 
 export function LockDeviceDetails({

@@ -53,6 +53,7 @@ export function DeviceDetails({
       })
       .then(async () => await refetchDevice())
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.error(error)
       })
   }

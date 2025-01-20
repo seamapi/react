@@ -19,7 +19,7 @@ type TabType = 'details' | 'activity'
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
   device: NoiseSensorDevice
-  onEditName?: (newName: string) => void
+  onEditName?: (newName: string) => void | Promise<void>
 }
 
 export function NoiseSensorDeviceDetails({
