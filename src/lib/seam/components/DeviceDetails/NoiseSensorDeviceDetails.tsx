@@ -16,9 +16,10 @@ import { TabSet } from 'lib/ui/TabSet.js'
 
 type TabType = 'details' | 'activity'
 
-interface NoiseSensorDeviceDetailsProps extends NestedSpecificDeviceDetailsProps {
-  device: NoiseSensorDevice,
-  onEditName?: (newName: string) => void,
+interface NoiseSensorDeviceDetailsProps
+  extends NestedSpecificDeviceDetailsProps {
+  device: NoiseSensorDevice
+  onEditName?: (newName: string) => void
 }
 
 export function NoiseSensorDeviceDetails({
@@ -27,7 +28,7 @@ export function NoiseSensorDeviceDetails({
   disableResourceIds,
   onBack,
   className,
-  onEditName
+  onEditName,
 }: NoiseSensorDeviceDetailsProps): JSX.Element | null {
   const [tab, setTab] = useState<TabType>('details')
 
@@ -47,7 +48,11 @@ export function NoiseSensorDeviceDetails({
               </div>
               <div className='seam-info'>
                 <span className='seam-label'>{t.noiseSensor}</span>
-                <SeamEditableDeviceName onEdit={onEditName} tagName='h4' value={device.properties.name} />
+                <SeamEditableDeviceName
+                  onEdit={onEditName}
+                  tagName='h4'
+                  value={device.properties.name}
+                />
                 <div className='seam-properties'>
                   <span className='seam-label'>{t.status}:</span>{' '}
                   <OnlineStatus device={device} />

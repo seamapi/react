@@ -2,7 +2,6 @@
 
 @mixin all {
   .seam-editable-device-name {
-
     input {
       border: none;
       background-color: transparent;
@@ -13,7 +12,7 @@
       font-family: inherit;
       margin: 0;
       padding: 0;
-      border-bottom: 1px dashed currentColor;
+      border-bottom: 1px dashed currentcolor;
       outline: none;
     }
 
@@ -47,12 +46,12 @@
       border-radius: 2px;
 
       path {
-        fill: currentColor;
+        fill: currentcolor;
       }
 
       &:hover {
-        background-color: currentColor;
-        box-shadow: 0 0 0 2px currentColor;
+        background-color: currentcolor;
+        box-shadow: 0 0 0 2px currentcolor;
 
         path {
           fill: white;

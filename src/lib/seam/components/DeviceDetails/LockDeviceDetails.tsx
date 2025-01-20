@@ -35,7 +35,7 @@ export function LockDeviceDetails({
   disableConnectedAccountInformation,
   onBack,
   className,
-  onEditName
+  onEditName,
 }: LockDeviceDetailsProps): JSX.Element | null {
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock()
