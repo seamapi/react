@@ -16,11 +16,16 @@ export type UseSetDeviceNameParams = never
 
 export type UseSetDeviceNameData = undefined
 
-export type UseSetDeviceNameMutationVariables = Pick<DevicesUpdateBody, 'device_id' | 'name'>
+export type UseSetDeviceNameMutationVariables = Pick<
+  DevicesUpdateBody,
+  'device_id' | 'name'
+>
 
 type MutationError = SeamHttpApiError
 
-export function useSetDeviceName(params: DevicesGetParams): UseMutationResult<
+export function useSetDeviceName(
+  params: DevicesGetParams
+): UseMutationResult<
   UseSetDeviceNameData,
   MutationError,
   UseSetDeviceNameMutationVariables
@@ -38,7 +43,6 @@ export function useSetDeviceName(params: DevicesGetParams): UseMutationResult<
       await client.devices.update(variables)
     },
     onSuccess: (_data, variables) => {
-
       queryClient.setQueryData<Device | null>(
         ['devices', 'get', params],
         (device) => {
@@ -46,7 +50,10 @@ export function useSetDeviceName(params: DevicesGetParams): UseMutationResult<
             return
           }
 
-          return getUpdatedDevice(device, variables.name ?? device.properties.name)
+          return getUpdatedDevice(
+            device,
+            variables.name ?? device.properties.name
+          )
         }
       )
 
@@ -59,7 +66,10 @@ export function useSetDeviceName(params: DevicesGetParams): UseMutationResult<
 
           return devices.map((device) => {
             if (device.device_id === variables.device_id) {
-              return getUpdatedDevice(device, variables.name ?? device.properties.name)
+              return getUpdatedDevice(
+                device,
+                variables.name ?? device.properties.name
+              )
             }
 
             return device
