@@ -29,6 +29,7 @@ import { ThermostatCard } from 'lib/ui/thermostat/ThermostatCard.js'
 interface ThermostatDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
   device: ThermostatDevice
+  onEditName?: (newName: string) => void
 }
 
 export function ThermostatDeviceDetails({
@@ -37,6 +38,7 @@ export function ThermostatDeviceDetails({
   disableConnectedAccountInformation,
   onBack,
   className,
+  onEditName
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
   if (device == null) {
     return null
@@ -47,7 +49,7 @@ export function ThermostatDeviceDetails({
       <ContentHeader title={t.thermostat} onBack={onBack} />
 
       <div className='seam-body'>
-        <ThermostatCard device={device} />
+        <ThermostatCard device={device} onEditName={onEditName} />
 
         <div className='seam-thermostat-device-details'>
           <DetailSectionGroup>
@@ -233,7 +235,7 @@ function ClimateSettingRow({
       }
     }
 
-    return () => {}
+    return () => { }
   }, [isHeatCoolSuccess, isHeatSuccess, isCoolSuccess, isSetOffSuccess])
 
   return (
@@ -273,7 +275,7 @@ function ClimateSettingRow({
               delta={
                 Number(
                   'min_heating_cooling_delta_fahrenheit' in device.properties &&
-                    device.properties.min_heating_cooling_delta_fahrenheit
+                  device.properties.min_heating_cooling_delta_fahrenheit
                 ) ?? 0
               }
             />

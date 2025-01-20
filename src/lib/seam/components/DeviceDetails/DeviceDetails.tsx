@@ -1,3 +1,4 @@
+
 import {
   type CommonProps,
   withRequiredCommonProps,
@@ -9,6 +10,7 @@ import { useDevice } from 'lib/seam/devices/use-device.js'
 import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 import { isNoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
+import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'
 
 export interface DeviceDetailsProps extends CommonProps {
@@ -16,12 +18,10 @@ export interface DeviceDetailsProps extends CommonProps {
 }
 
 export const NestedDeviceDetails = withRequiredCommonProps(DeviceDetails)
-
 export interface NestedSpecificDeviceDetailsProps
   extends Required<Omit<CommonProps, 'onBack' | 'className'>> {
   onBack: (() => void) | undefined
   className: string | undefined
-  onEditName?: (newName: string) => void
 }
 
 export function DeviceDetails({
@@ -39,9 +39,23 @@ export function DeviceDetails({
 }: DeviceDetailsProps): JSX.Element | null {
   useComponentTelemetry('DeviceDetails')
 
-  const { device } = useDevice({
+  const { client } = useSeamClient();
+  const { device, refetch: refetchDevice } = useDevice({
     device_id: deviceId,
   })
+
+
+  const updateDeviceName = async (newName: string): Promise<void> => {
+    if (client == null) return;
+
+    client.devices.update({
+      device_id: deviceId,
+      name: newName,
+    })
+      .then(async () => await refetchDevice())
+      .catch((error) => { console.error(error); })
+
+  }
 
   if (device == null) {
     return null
@@ -64,7 +78,7 @@ export function DeviceDetails({
     return (
       <LockDeviceDetails
         device={device}
-        onEditName={props.onEditName}
+        onEditName={updateDeviceName}
         {...props}
       />
     )
@@ -74,7 +88,7 @@ export function DeviceDetails({
     return (
       <ThermostatDeviceDetails
         device={device}
-        onEditName={props.onEditName}
+        onEditName={updateDeviceName}
         {...props}
       />
     )
@@ -84,7 +98,7 @@ export function DeviceDetails({
     return (
       <NoiseSensorDeviceDetails
         device={device}
-        onEditName={props.onEditName}
+        onEditName={updateDeviceName}
         {...props}
       />
     )
