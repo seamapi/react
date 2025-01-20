@@ -235,7 +235,7 @@ function ClimateSettingRow({
       }
     }
 
-    return () => { }
+    return () => {}
   }, [isHeatCoolSuccess, isHeatSuccess, isCoolSuccess, isSetOffSuccess])
 
   return (
@@ -275,7 +275,7 @@ function ClimateSettingRow({
               delta={
                 Number(
                   'min_heating_cooling_delta_fahrenheit' in device.properties &&
-                  device.properties.min_heating_cooling_delta_fahrenheit
+                    device.properties.min_heating_cooling_delta_fahrenheit
                 ) ?? 0
               }
             />
