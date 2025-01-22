@@ -107,8 +107,12 @@ export function LockDeviceDetails({
               <div className='seam-properties'>
                 <span className='seam-label'>{t.status}:</span>{' '}
                 <OnlineStatus device={device} />
-                <span className='seam-label'>{t.power}:</span>{' '}
-                <BatteryStatusIndicator device={device} />
+                {device.properties.online && (
+                  <>
+                    <span className='seam-label'>{t.power}:</span>{' '}
+                    <BatteryStatusIndicator device={device} />
+                  </>
+                )}
                 <DeviceModel device={device} />
               </div>
             </div>
@@ -128,25 +132,28 @@ export function LockDeviceDetails({
         </div>
 
         <div className='seam-box'>
-          <div className='seam-content seam-lock-status'>
-            <div>
-              <span className='seam-label'>{t.lockStatus}</span>
-              <span className='seam-value'>{lockStatus}</span>
+          {device.properties.locked && device.properties.online && (
+            <div className='seam-content seam-lock-status'>
+              <div>
+                <span className='seam-label'>{t.lockStatus}</span>
+                <span className='seam-value'>{lockStatus}</span>
+              </div>
+              <div className='seam-right'>
+                {!disableLockUnlock &&
+                  device.capabilities_supported.includes('lock') && (
+                    <Button
+                      size='small'
+                      onClick={() => {
+                        toggleLock.mutate(device)
+                      }}
+                    >
+                      {toggleLockLabel}
+                    </Button>
+                  )}
+              </div>
             </div>
-            <div className='seam-right'>
-              {!disableLockUnlock &&
-                device.capabilities_supported.includes('lock') && (
-                  <Button
-                    size='small'
-                    onClick={() => {
-                      toggleLock.mutate(device)
-                    }}
-                  >
-                    {toggleLockLabel}
-                  </Button>
-                )}
-            </div>
-          </div>
+          )}
+
           <AccessCodeLength
             supportedCodeLengths={
               device.properties?.supported_code_lengths ?? []

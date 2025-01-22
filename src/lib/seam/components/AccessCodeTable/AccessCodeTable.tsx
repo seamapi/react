@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { compareByCreatedAtDesc } from 'lib/dates.js'
 import { AddIcon } from 'lib/icons/Add.js'
+import { useDevice } from 'lib/index.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
 import { NestedAccessCodeDetails } from 'lib/seam/components/AccessCodeDetails/AccessCodeDetails.js'
 import {
@@ -73,6 +74,10 @@ export function AccessCodeTable({
     device_id: deviceId,
   })
 
+  const { device } = useDevice({
+    device_id: deviceId,
+  })
+
   const [selectedViewAccessCodeId, setSelectedViewAccessCodeId] = useState<
     string | null
   >(null)
@@ -127,6 +132,10 @@ export function AccessCodeTable({
       setSnackbarMessage(accessCodeResultToMessage(accessCodeResult))
     }
   }, [accessCodeResult])
+
+  if (device == null) {
+    return <></>
+  }
 
   if (selectedEditAccessCodeId != null) {
     return (
@@ -214,14 +223,16 @@ export function AccessCodeTable({
             ) : (
               <div className='seam-fragment' />
             )}
-            {!disableCreateAccessCode && (
-              <IconButton
-                onClick={toggleAddAccessCodeForm}
-                className='seam-add-button'
-              >
-                <AddIcon />
-              </IconButton>
-            )}
+            {!disableCreateAccessCode &&
+              (device.properties.online_access_codes_enabled === true ||
+                device.can_program_online_access_codes === true) && (
+                <IconButton
+                  onClick={toggleAddAccessCodeForm}
+                  className='seam-add-button'
+                >
+                  <AddIcon />
+                </IconButton>
+              )}
           </div>
           <div className='seam-table-header-loading-wrap'>
             <LoadingToast

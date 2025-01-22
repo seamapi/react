@@ -9,9 +9,10 @@ export function ClimateSettingScheduleIcon(
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width={19}
-      height={22}
+      width='1em'
+      height='1em'
       fill='none'
+      viewBox='0 0 19 22'
       {...props}
     >
       <path

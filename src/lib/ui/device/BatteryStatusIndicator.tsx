@@ -34,7 +34,7 @@ function Content(props: {
   if (status === 'full') {
     return (
       <>
-        <BatteryLevelFullIcon />
+        <BatteryLevelFullIcon style={{ fontSize: '24px' }} />
         <span className='seam-status-text'>
           {t.full}
           <Percentage level={level} />
@@ -46,7 +46,7 @@ function Content(props: {
   if (status === 'good') {
     return (
       <>
-        <BatteryLevelHighIcon />
+        <BatteryLevelHighIcon style={{ fontSize: '24px' }} />
         <span className='seam-status-text'>
           {t.high}
           <Percentage level={level} />
@@ -58,7 +58,7 @@ function Content(props: {
   if (status === 'low') {
     return (
       <>
-        <BatteryLevelLowIcon />
+        <BatteryLevelLowIcon style={{ fontSize: '24px' }} />
         <span className='seam-status-text'>
           {t.low}
           <Percentage level={level} />
@@ -70,7 +70,7 @@ function Content(props: {
   if (status === 'critical') {
     return (
       <>
-        <BatteryLevelCriticalIcon />
+        <BatteryLevelCriticalIcon style={{ fontSize: '24px' }} />
         <span className='seam-text-danger'>
           {t.critical}
           <Percentage level={level} />

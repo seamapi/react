@@ -19,6 +19,10 @@ export function LockStatus(props: LockStatusProps): JSX.Element | null {
     },
   } = props
 
+  if (locked === null) {
+    return null
+  }
+
   return (
     <div className='seam-lock-status'>
       <Content isLocked={locked} />

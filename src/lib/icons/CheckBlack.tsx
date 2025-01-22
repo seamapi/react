@@ -7,9 +7,10 @@ export function CheckBlackIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width={14}
-      height={12}
+      width='1em'
+      height='1em'
       fill='none'
+      viewBox='0 0 14 12'
       {...props}
     >
       <path

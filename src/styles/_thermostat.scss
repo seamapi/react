@@ -28,6 +28,10 @@
     align-items: center;
     flex-direction: row;
     gap: 8px;
+
+    .seam-temperature-control-group-block-thermostat-icon {
+      font-size: 24px;
+    }
   }
 }
 
@@ -89,6 +93,10 @@
     align-items: center;
     flex-direction: row;
     gap: 7px;
+
+    svg {
+      font-size: 20px;
+    }
   }
 
   .seam-temperature-range-wrap {
@@ -330,6 +338,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
+
+    .seam-climate-setting-status-icon-heat-cool {
+      font-size: 19px;
+    }
   }
 }
 
@@ -541,6 +554,10 @@
     cursor: pointer;
     transition: 0.2s ease;
 
+    svg {
+      font-size: 20px;
+    }
+
     &:hover {
       border-color: colors.$text-gray-2;
     }
@@ -556,6 +573,10 @@
       align-items: center;
       flex-direction: row;
       gap: 10px;
+
+      svg {
+        font-size: 22px;
+      }
     }
 
     .seam-fan-mode-menu-button-text {
@@ -594,6 +615,10 @@
       background-color: colors.$bg-c;
       border-color: colors.$text-gray-2;
     }
+
+    .seam-climate-mode-menu-button-chevron {
+      font-size: 20px;
+    }
   }
 
   .seam-climate-mode-menu-button-icon {
@@ -602,6 +627,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
   }
 }
 
