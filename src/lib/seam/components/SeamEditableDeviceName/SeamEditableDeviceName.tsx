@@ -1,5 +1,12 @@
 import classNames from 'classnames'
-import { type ChangeEvent, type HTMLAttributes, type KeyboardEvent, type PropsWithChildren, useCallback, useState } from 'react';
+import {
+  type ChangeEvent,
+  type HTMLAttributes,
+  type KeyboardEvent,
+  type PropsWithChildren,
+  useCallback,
+  useState,
+} from 'react'
 
 import { CheckIcon } from 'lib/icons/Check.js'
 import { CloseIcon } from 'lib/icons/Close.js'
@@ -124,7 +131,9 @@ export function SeamEditableDeviceName({
         <span className='seam-editable-device-name-icon-wrapper'>
           <ActionButtons
             editing={editing}
-            onEdit={() => { setEditing(true) }}
+            onEdit={() => {
+              setEditing(true)
+            }}
             onCancel={handleCancel}
             onCheck={handleCheck}
           />
@@ -144,9 +153,7 @@ interface NameViewProps {
 
 function NameView(props: NameViewProps): JSX.Element {
   if (!props.editing) {
-    return (
-      <span>{props.value}</span>
-    )
+    return <span>{props.value}</span>
   }
 
   return (
@@ -192,7 +199,6 @@ function ActionButtons(props: ActionButtonsProps): JSX.Element {
       </>
     )
   }
-
 
   return (
     <IconButton onClick={props.onEdit}>
