@@ -40,6 +40,11 @@
       visibility: visible;
     }
 
+    .seam-snackbar-icon-wrap {
+      font-size: 24px;
+      display: inline-flex;
+    }
+
     .seam-snackbar-message-wrap {
       display: flex;
       max-width: 300px;
@@ -101,6 +106,7 @@
       padding: 0;
       cursor: pointer;
       transition: opacity 0.2s ease-in-out;
+      font-size: 24px;
 
       &:hover {
         opacity: 0.75;

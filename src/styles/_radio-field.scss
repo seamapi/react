@@ -6,23 +6,24 @@
     flex-direction: column;
     gap: 4px;
 
-    > .seam-radio {
+    >.seam-radio {
       display: flex;
       align-items: center;
       gap: 4px;
       padding: 0 8px;
       cursor: pointer;
 
-      > input {
+      >input {
         display: none;
       }
 
-      > .seam-radio-icon {
+      >.seam-radio-icon {
         height: 24px;
         width: 24px;
+        font-size: 24px;
       }
 
-      > .seam-radio-label {
+      >.seam-radio-label {
         font-size: 16px;
         line-height: 134%;
       }

@@ -9,9 +9,10 @@ export function TemperatureSubtractIcon(
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width={18}
-      height={18}
+      width='1em'
+      height='1em'
       fill='none'
+      viewBox='0 0 18 18'
       {...props}
     >
       <mask

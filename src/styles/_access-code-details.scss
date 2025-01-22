@@ -2,19 +2,19 @@
 
 @mixin all {
   .seam-access-code-details {
-    > .seam-summary {
+    >.seam-summary {
       background: colors.$bg-a;
       border-radius: 16px;
       margin: 0 24px 16px;
 
-      > .seam-top {
+      >.seam-top {
         padding: 24px 16px;
 
         &.seam-top-has-alerts {
           padding-bottom: 8px;
         }
 
-        > .seam-label {
+        >.seam-label {
           font-weight: 600;
           font-size: 14px;
           line-height: 134%;
@@ -22,14 +22,14 @@
           margin-bottom: 4px;
         }
 
-        > .seam-access-code-name {
+        >.seam-access-code-name {
           font-weight: 600;
           font-size: 21px;
           line-height: 132%;
           margin-bottom: 8px;
         }
 
-        > .seam-code {
+        >.seam-code {
           background: colors.$white;
           border: 1px solid colors.$text-gray-2;
           border-radius: 8px;
@@ -40,11 +40,11 @@
           display: flex;
           justify-content: space-between;
 
-          > span {
+          >span {
             padding: 10px 16px;
           }
 
-          > .seam-icon-btn {
+          >.seam-icon-btn {
             height: auto;
             border: 0;
             overflow: visible;
@@ -59,7 +59,7 @@
             }
 
             svg {
-              scale: 0.8333;
+              font-size: 20px;
             }
           }
         }
@@ -141,7 +141,7 @@
               }
 
               svg {
-                scale: 0.8333;
+                font-size: 20px;
               }
             }
           }
@@ -156,7 +156,7 @@
               color: colors.$text-gray-2;
             }
 
-            > div {
+            >div {
               div {
                 margin-bottom: 4px;
               }

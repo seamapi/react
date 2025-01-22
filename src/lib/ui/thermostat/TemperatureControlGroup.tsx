@@ -138,7 +138,7 @@ export function TemperatureControlGroup({
     <div className='seam-temperature-control-group'>
       {showHeat && (
         <div className='seam-temperature-control-group-block'>
-          <ThermostatHeatLargeIcon />
+          <ThermostatHeatLargeIcon className='seam-temperature-control-group-block-thermostat-icon' />
           <TemperatureControl
             variant='heat'
             value={heatValue}
@@ -151,7 +151,7 @@ export function TemperatureControlGroup({
 
       {showCool && (
         <div className='seam-temperature-control-group-block'>
-          <ThermostatCoolLargeIcon />
+          <ThermostatCoolLargeIcon className='seam-temperature-control-group-block-thermostat-icon' />
           <TemperatureControl
             variant='cool'
             value={coolValue}

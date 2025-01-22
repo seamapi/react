@@ -13,7 +13,7 @@
 
 @mixin text-field {
   .seam-text-field {
-    > .seam-main {
+    >.seam-main {
       background: colors.$white;
       border: 1px solid colors.$text-gray-3;
       border-radius: 8px;
@@ -49,7 +49,7 @@
       align-items: center;
 
       svg {
-        scale: 0.8333;
+        font-size: 22px;
       }
 
       &.seam-start {
@@ -82,38 +82,38 @@
       }
     }
 
-    > .seam-helper-text {
+    >.seam-helper-text {
       margin-top: 4px;
     }
 
     &.seam-disabled {
-      > .seam-main {
+      >.seam-main {
         border-color: colors.$text-gray-3;
         background: colors.$bg-gray;
         cursor: not-allowed;
 
-        > .seam-text-field-input {
+        >.seam-text-field-input {
           cursor: not-allowed;
         }
       }
     }
 
     &.seam-large {
-      > .seam-main {
+      >.seam-main {
         padding: 0 12px;
 
-        > .seam-text-field-input {
+        >.seam-text-field-input {
           height: 48px;
         }
       }
     }
 
     &.seam-error {
-      > .seam-main {
+      >.seam-main {
         border: 1px solid colors.$status-red;
       }
 
-      > .seam-helper-text {
+      >.seam-helper-text {
         color: colors.$status-red;
       }
     }

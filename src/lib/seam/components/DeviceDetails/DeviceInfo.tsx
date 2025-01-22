@@ -32,7 +32,7 @@ export function DeviceInfo({
       <DetailRow label={t.manufacturer}>
         <div className='seam-detail-row-hstack'>
           {device.properties.model.manufacturer_display_name}
-          {device.properties.manufacturer === 'ecobee' && <BeeIcon />}
+          {device.properties.manufacturer === 'ecobee' && <BeeIcon style={{ fontSize: '33px' }} />}
         </div>
       </DetailRow>
       {!disableConnectedAccountInformation && (

@@ -7,9 +7,10 @@ export function InfoDarkIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width={19}
-      height={19}
+      width='1em'
+      height='1em'
       fill='none'
+      viewBox='0 0 19 19'
       {...props}
     >
       <circle cx={9.755} cy={9.416} r={6.655} fill='#E9EDEF' />

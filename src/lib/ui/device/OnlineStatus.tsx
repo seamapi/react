@@ -25,7 +25,7 @@ export function OnlineStatus(props: OnlineStatusProps): JSX.Element {
 function AccountOfflineContent(): JSX.Element {
   return (
     <>
-      <OnlineStatusAccountOfflineIcon />
+      <OnlineStatusAccountOfflineIcon style={{ fontSize: '24px' }} />
       <span className='seam-text-danger'>{t.accountOffline}</span>
     </>
   )
@@ -36,7 +36,7 @@ function AccountOnlineContent(props: { isOnline: boolean }): JSX.Element {
   if (isOnline) {
     return (
       <>
-        <OnlineStatusOnlineIcon />
+        <OnlineStatusOnlineIcon style={{ fontSize: '24px' }} />
         <span className='seam-status-text'>{t.online}</span>
       </>
     )
@@ -44,7 +44,7 @@ function AccountOnlineContent(props: { isOnline: boolean }): JSX.Element {
 
   return (
     <>
-      <OnlineStatusDeviceOfflineIcon />
+      <OnlineStatusDeviceOfflineIcon style={{ fontSize: '24px' }} />
       <span className='seam-text-danger'>{t.deviceOffline}</span>
     </>
   )

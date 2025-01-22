@@ -2,6 +2,8 @@
 
 @mixin all {
   .seam-lock-icon {
+    font-size: 24px;
+
     * {
       fill: colors.$text-gray-1;
     }

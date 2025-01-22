@@ -1,6 +1,7 @@
 @use './colors';
 
 @mixin all {
+
   // Alerts
   .seam-alerts {
     width: 100%;
@@ -80,6 +81,7 @@
     .seam-alert-icon {
       width: 24px;
       height: 24px;
+      font-size: 24px;
     }
 
     .seam-alert-content {
