@@ -365,7 +365,7 @@ $see-all-button-height: 30px;
         }
       }
 
-      @media only screen and (width >=450px) {
+      @media only screen and (width >= 450px) {
         .seam-model-name {
           font-size: 16px;
         }
@@ -375,7 +375,7 @@ $see-all-button-height: 30px;
         }
       }
 
-      @media only screen and (width >=768px) {
+      @media only screen and (width >= 768px) {
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
