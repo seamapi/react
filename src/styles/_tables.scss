@@ -88,7 +88,7 @@
       padding: 0;
 
       svg {
-        scale: 0.8333;
+        font-size: 20px;
 
         * {
           fill: colors.$text-gray-1;
@@ -107,7 +107,8 @@
     line-height: 134%;
 
     svg {
-      scale: 0.75;
+      font-size: 19px;
+      margin: 3px 4px;
     }
 
     &.seam-clickable {

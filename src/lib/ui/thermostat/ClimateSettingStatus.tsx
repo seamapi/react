@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import { ThermostatHeatCoolIcon } from 'lib/icons/ThermostatHeatCool.js'
@@ -46,7 +48,14 @@ function ClimateSettingIcon(props: {
   const { mode } = props
 
   return (
-    <div className='seam-climate-setting-status-icon'>
+    <div
+      className={classNames('seam-climate-setting-status-icon', {
+        'seam-climate-setting-status-icon-cool': mode === 'cool',
+        'seam-climate-setting-status-icon-heat': mode === 'heat',
+        'seam-climate-setting-status-icon-heat-cool': mode === 'heat_cool',
+        'seam-climate-setting-status-icon-off': mode === 'off',
+      })}
+    >
       {mode === 'cool' && <ThermostatCoolIcon />}
       {mode === 'heat' && <ThermostatHeatIcon />}
       {mode === 'heat_cool' && <ThermostatHeatCoolIcon />}

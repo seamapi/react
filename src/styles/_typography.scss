@@ -55,6 +55,12 @@
   }
 }
 
+@mixin font-size {
+  .seam-font-24 {
+    font-size: 24px;
+  }
+}
+
 @mixin all {
   @include headers;
   @include caption;
@@ -62,4 +68,5 @@
   @include font-family;
   @include defaults;
   @include truncated-text;
+  @include font-size;
 }

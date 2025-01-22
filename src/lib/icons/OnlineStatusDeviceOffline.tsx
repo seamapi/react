@@ -9,9 +9,10 @@ export function OnlineStatusDeviceOfflineIcon(
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width={24}
-      height={25}
+      width='1em'
+      height='1em'
       fill='none'
+      viewBox='0 0 24 25'
       {...props}
     >
       <path

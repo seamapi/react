@@ -7,9 +7,10 @@ export function SeamIcon(props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width={167}
-      height={200}
+      width='1em'
+      height='1em'
       fill='none'
+      viewBox='0 0 167 200'
       {...props}
     >
       <style>{'@media (prefers-color-scheme:dark){path{fill:#fff}}'}</style>

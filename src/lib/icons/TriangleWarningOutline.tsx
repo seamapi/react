@@ -9,9 +9,10 @@ export function TriangleWarningOutlineIcon(
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width={24}
-      height={24}
+      width='1em'
+      height='1em'
       fill='none'
+      viewBox='0 0 24 24'
       {...props}
     >
       <path fill='#FF9800' d='m12 6.49 7.53 13.01H4.47zm0-3.99-11 19h22z' />
