@@ -67,7 +67,10 @@ export function Snackbar({
           'seam-snackbar-visible': automaticVisibility ? !hidden : visible,
         })}
       >
-        <SnackbarIcon variant={variant} />
+        <span className='seam-snackbar-icon-wrap'>
+          <SnackbarIcon variant={variant} />
+        </span>
+
         <div className='seam-snackbar-message-wrap'>
           <p className='seam-snackbar-message'>{message}</p>
         </div>

@@ -18,6 +18,7 @@
       top: 50%;
       transform: translate(4px, -50%);
       left: 0;
+      font-size: 24px;
       cursor: pointer;
     }
 
@@ -281,6 +282,7 @@
       justify-content: center;
       align-items: center;
       transition: transform 0.2s ease-in-out;
+      font-size: 24px;
     }
   }
 }

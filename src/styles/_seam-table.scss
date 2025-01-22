@@ -34,7 +34,7 @@
           justify-content: center;
           margin-right: 4px;
 
-          @media only screen and (width >= 768px) {
+          @media only screen and (width >=768px) {
             width: 40px;
             margin-right: 4px;
           }
@@ -60,7 +60,7 @@
           display: flex;
           flex-wrap: wrap;
 
-          @media only screen and (width >= 768px) {
+          @media only screen and (width >=768px) {
             font-size: 14px;
           }
 
@@ -82,7 +82,7 @@
         align-items: center;
         justify-content: center;
 
-        @media only screen and (width >= 768px) {
+        @media only screen and (width >=768px) {
           margin-right: 12px;
         }
       }
@@ -92,6 +92,7 @@
         justify-content: center;
         align-items: center;
         margin-right: 8px;
+        font-size: 25px;
       }
     }
 

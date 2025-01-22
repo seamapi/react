@@ -25,7 +25,7 @@ export function ClimateModeMenu({
           <div className='seam-climate-mode-menu-button-icon'>
             <ModeIcon mode={mode} />
           </div>
-          <ChevronDownIcon />
+          <ChevronDownIcon className='seam-climate-mode-menu-button-chevron' />
         </button>
       )}
       verticalOffset={-180}
