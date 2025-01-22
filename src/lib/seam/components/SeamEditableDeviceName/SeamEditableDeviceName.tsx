@@ -1,8 +1,5 @@
-/* eslint-disable import/no-duplicates */
-
 import classNames from 'classnames'
-import type React from 'react'
-import { type KeyboardEvent, useCallback, useState } from 'react'
+import { type ChangeEvent, type HTMLAttributes, type KeyboardEvent, type PropsWithChildren, useCallback, useState } from 'react';
 
 import { CheckIcon } from 'lib/icons/Check.js'
 import { CloseIcon } from 'lib/icons/Close.js'
@@ -13,10 +10,10 @@ export type SeamDeviceNameProps = {
   editable?: boolean
   tagName?: string
   value: string
-} & React.HTMLAttributes<HTMLElement>
+} & HTMLAttributes<HTMLElement>
 
 function IconButton(
-  props: React.PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
+  props: PropsWithChildren<HTMLAttributes<HTMLButtonElement>>
 ): JSX.Element {
   return (
     <button
@@ -31,13 +28,13 @@ function IconButton(
   )
 }
 
-function fixName(name: string): string {
+const fixName = (name: string): string => {
   return name.replace(/\s+/g, ' ').trim()
 }
 
-function isValidName(
-  name: string
-): { type: 'success' } | { type: 'error'; message: string } {
+type Result = { type: 'success' } | { type: 'error'; message: string }
+
+const isValidName = (name: string): Result => {
   if (name.length < 2) {
     return {
       type: 'error',
@@ -84,7 +81,7 @@ export function SeamEditableDeviceName({
   }, [currentValue, onEdit])
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>): void => {
+    (event: ChangeEvent<HTMLInputElement>): void => {
       setCurrentValue(event.target.value)
       setErrorText(null)
     },
@@ -115,52 +112,91 @@ export function SeamEditableDeviceName({
       {...props}
       className={classNames('seam-editable-device-name', props.className)}
     >
-      {editing ? (
-        <span className='seam-editable-device-name-input-wrapper'>
-          <input
-            type='text'
-            defaultValue={value}
-            onChange={handleChange}
-            onKeyDown={handleInputKeydown}
-            ref={(el) => {
-              setTimeout(() => {
-                el?.focus()
-              }, 0)
-            }}
+      <NameView
+        editing={editing}
+        value={currentValue}
+        onChange={handleChange}
+        onKeyDown={handleInputKeydown}
+        errorText={errorText}
+      />
+
+      {editable && (
+        <span className='seam-editable-device-name-icon-wrapper'>
+          <ActionButtons
+            editing={editing}
+            onEdit={() => { setEditing(true) }}
+            onCancel={handleCancel}
+            onCheck={handleCheck}
           />
-
-          {errorText != null && (
-            <span className='seam-editable-device-name-input-error'>
-              {errorText}
-            </span>
-          )}
         </span>
-      ) : (
-        <span>{value}</span>
       )}
-
-      <span className='seam-editable-device-name-icon-wrapper'>
-        {editable ? (
-          editing ? (
-            <>
-              <IconButton onClick={handleCheck}>
-                <CheckIcon width='1em' height='1em' viewBox='0 0 24 24' />
-              </IconButton>
-              <IconButton onClick={handleCancel}>
-                <CloseIcon width='1em' height='1em' viewBox='0 0 24 24' />
-              </IconButton>
-            </>
-          ) : (
-            <IconButton
-              onClick={() => {
-                setEditing(true)
-              }}
-            >
-              <EditIcon width='1em' height='1em' viewBox='0 0 24 24' />
-            </IconButton>
-          )
-        ) : null}
-      </span>
     </Tag>
+  )
+}
+
+interface NameViewProps {
+  editing: boolean
+  value: string
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void
+  errorText?: string | null
+}
+
+function NameView(props: NameViewProps): JSX.Element {
+  if (!props.editing) {
+    return (
+      <span>{props.value}</span>
+    )
+  }
+
+  return (
+    <span className='seam-editable-device-name-input-wrapper'>
+      <input
+        type='text'
+        defaultValue={props.value}
+        onChange={props.onChange}
+        onKeyDown={props.onKeyDown}
+        ref={(el) => {
+          setTimeout(() => {
+            el?.focus()
+          }, 0)
+        }}
+      />
+
+      {props.errorText != null && (
+        <span className='seam-editable-device-name-input-error'>
+          {props.errorText}
+        </span>
+      )}
+    </span>
+  )
+}
+
+interface ActionButtonsProps {
+  onEdit: () => void
+  onCancel: () => void
+  onCheck: () => void
+  editing: boolean
+}
+
+function ActionButtons(props: ActionButtonsProps): JSX.Element {
+  if (props.editing) {
+    return (
+      <>
+        <IconButton onClick={props.onCheck}>
+          <CheckIcon width='1em' height='1em' viewBox='0 0 24 24' />
+        </IconButton>
+        <IconButton onClick={props.onCancel}>
+          <CloseIcon width='1em' height='1em' viewBox='0 0 24 24' />
+        </IconButton>
+      </>
+    )
+  }
+
+
+  return (
+    <IconButton onClick={props.onEdit}>
+      <EditIcon width='1em' height='1em' viewBox='0 0 24 24' />
+    </IconButton>
   )
 }

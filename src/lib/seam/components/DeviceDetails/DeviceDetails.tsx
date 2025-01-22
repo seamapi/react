@@ -6,7 +6,7 @@ import { LockDeviceDetails } from 'lib/seam/components/DeviceDetails/LockDeviceD
 import { NoiseSensorDeviceDetails } from 'lib/seam/components/DeviceDetails/NoiseSensorDeviceDetails.js'
 import { ThermostatDeviceDetails } from 'lib/seam/components/DeviceDetails/ThermostatDeviceDetails.js'
 import { useDevice } from 'lib/seam/devices/use-device.js'
-import { useSetDeviceName } from 'lib/seam/devices/use-set-device-name.js'
+import { useUpdateDeviceName } from 'lib/seam/devices/use-update-device-name.js'
 import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 import { isNoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
@@ -42,7 +42,7 @@ export function DeviceDetails({
     device_id: deviceId,
   })
 
-  const { mutate: setDeviceName } = useSetDeviceName({
+  const { mutate: setDeviceName } = useUpdateDeviceName({
     device_id: deviceId,
   })
 

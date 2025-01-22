@@ -12,31 +12,31 @@ import {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export type UseSetDeviceNameParams = never
+export type UseUpdateDeviceNameParams = never
 
-export type UseSetDeviceNameData = undefined
+export type UseUpdateDeviceNameData = undefined
 
-export type UseSetDeviceNameMutationVariables = Pick<
+export type UseUpdateDeviceNameMutationVariables = Pick<
   DevicesUpdateBody,
   'device_id' | 'name'
 >
 
 type MutationError = SeamHttpApiError
 
-export function useSetDeviceName(
+export function useUpdateDeviceName(
   params: DevicesGetParams
 ): UseMutationResult<
-  UseSetDeviceNameData,
+  UseUpdateDeviceNameData,
   MutationError,
-  UseSetDeviceNameMutationVariables
+  UseUpdateDeviceNameMutationVariables
 > {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 
   return useMutation<
-    UseSetDeviceNameData,
+    UseUpdateDeviceNameData,
     MutationError,
-    UseSetDeviceNameMutationVariables
+    UseUpdateDeviceNameMutationVariables
   >({
     mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
