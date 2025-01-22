@@ -48,7 +48,12 @@ function ClimateSettingIcon(props: {
   const { mode } = props
 
   return (
-    <div className={classNames('seam-climate-setting-status-icon', `seam-climate-setting-status-icon-${mode}`)}>
+    <div
+      className={classNames(
+        'seam-climate-setting-status-icon',
+        `seam-climate-setting-status-icon-${mode}`
+      )}
+    >
       {mode === 'cool' && <ThermostatCoolIcon />}
       {mode === 'heat' && <ThermostatHeatIcon />}
       {mode === 'heat_cool' && <ThermostatHeatCoolIcon />}

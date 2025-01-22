@@ -31,7 +31,7 @@ export function Snackbar({
   dismissAfterMs = 5000,
   disableCloseButton = false,
   automaticVisibility = false,
-  onClose = () => { },
+  onClose = () => {},
 }: SnackbarProps): JSX.Element {
   const [hidden, setHidden] = useState(visible)
 
@@ -48,7 +48,7 @@ export function Snackbar({
 
   useEffect(() => {
     if (!autoDismiss) {
-      return () => { }
+      return () => {}
     }
 
     const timeout = globalThis.setTimeout(() => {
