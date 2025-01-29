@@ -9,6 +9,7 @@ import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
 import type { LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
+import { useToggleLockSnackbar } from 'lib/seam/locks/use-toggle-lock-snackbar.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
@@ -38,9 +39,18 @@ export function LockDeviceDetails({
   onEditName,
 }: LockDeviceDetailsProps): JSX.Element | null {
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
-  const toggleLock = useToggleLock()
   const { accessCodes } = useAccessCodes({
     device_id: device.device_id,
+  })
+
+  const { renderSnackbar, showToggleSnackbar } = useToggleLockSnackbar()
+  const toggleLock = useToggleLock({
+    onSuccess: () => {
+      showToggleSnackbar('success')
+    },
+    onError: () => {
+      showToggleSnackbar('error')
+    },
   })
 
   const lockStatus = device.properties.locked ? t.locked : t.unlocked
@@ -88,87 +98,91 @@ export function LockDeviceDetails({
   ]
 
   return (
-    <div className={classNames('seam-device-details', className)}>
-      <ContentHeader title='Device' onBack={onBack} />
-      <div className='seam-body'>
-        <div className='seam-summary'>
-          <div className='seam-content'>
-            <div className='seam-image'>
-              <DeviceImage device={device} />
-            </div>
-            <div className='seam-info'>
-              <span className='seam-label'>{t.device}</span>
-              <EditableDeviceName
-                tagName='h4'
-                value={device.properties.name}
-                className='seam-device-name'
-                onEdit={onEditName}
-              />
-              <div className='seam-properties'>
-                <span className='seam-label'>{t.status}:</span>{' '}
-                <OnlineStatus device={device} />
-                {device.properties.online && (
-                  <>
-                    <span className='seam-label'>{t.power}:</span>{' '}
-                    <BatteryStatusIndicator device={device} />
-                  </>
-                )}
-                <DeviceModel device={device} />
-              </div>
-            </div>
-          </div>
-          <Alerts alerts={alerts} className='seam-alerts-space-top' />
-        </div>
-        <div className='seam-box'>
-          <div
-            className='seam-content seam-access-codes'
-            onClick={toggleAccessCodesOpen}
-          >
-            <span className='seam-value'>
-              {accessCodeCount} {t.accessCodes}
-            </span>
-            <ChevronRightIcon />
-          </div>
-        </div>
+    <>
+      {renderSnackbar()}
 
-        <div className='seam-box'>
-          {device.properties.locked && device.properties.online && (
-            <div className='seam-content seam-lock-status'>
-              <div>
-                <span className='seam-label'>{t.lockStatus}</span>
-                <span className='seam-value'>{lockStatus}</span>
+      <div className={classNames('seam-device-details', className)}>
+        <ContentHeader title='Device' onBack={onBack} />
+        <div className='seam-body'>
+          <div className='seam-summary'>
+            <div className='seam-content'>
+              <div className='seam-image'>
+                <DeviceImage device={device} />
               </div>
-              <div className='seam-right'>
-                {!disableLockUnlock &&
-                  device.capabilities_supported.includes('lock') && (
-                    <Button
-                      size='small'
-                      onClick={() => {
-                        toggleLock.mutate(device)
-                      }}
-                    >
-                      {toggleLockLabel}
-                    </Button>
+              <div className='seam-info'>
+                <span className='seam-label'>{t.device}</span>
+                <EditableDeviceName
+                  tagName='h4'
+                  value={device.properties.name}
+                  className='seam-device-name'
+                  onEdit={onEditName}
+                />
+                <div className='seam-properties'>
+                  <span className='seam-label'>{t.status}:</span>{' '}
+                  <OnlineStatus device={device} />
+                  {device.properties.online && (
+                    <>
+                      <span className='seam-label'>{t.power}:</span>{' '}
+                      <BatteryStatusIndicator device={device} />
+                    </>
                   )}
+                  <DeviceModel device={device} />
+                </div>
               </div>
             </div>
-          )}
+            <Alerts alerts={alerts} className='seam-alerts-space-top' />
+          </div>
+          <div className='seam-box'>
+            <div
+              className='seam-content seam-access-codes'
+              onClick={toggleAccessCodesOpen}
+            >
+              <span className='seam-value'>
+                {accessCodeCount} {t.accessCodes}
+              </span>
+              <ChevronRightIcon />
+            </div>
+          </div>
 
-          <AccessCodeLength
-            supportedCodeLengths={
-              device.properties?.supported_code_lengths ?? []
+          <div className='seam-box'>
+            {device.properties.locked && device.properties.online && (
+              <div className='seam-content seam-lock-status'>
+                <div>
+                  <span className='seam-label'>{t.lockStatus}</span>
+                  <span className='seam-value'>{lockStatus}</span>
+                </div>
+                <div className='seam-right'>
+                  {!disableLockUnlock &&
+                    device.capabilities_supported.includes('lock') && (
+                      <Button
+                        size='small'
+                        onClick={() => {
+                          toggleLock.mutate(device)
+                        }}
+                      >
+                        {toggleLockLabel}
+                      </Button>
+                    )}
+                </div>
+              </div>
+            )}
+
+            <AccessCodeLength
+              supportedCodeLengths={
+                device.properties?.supported_code_lengths ?? []
+              }
+            />
+          </div>
+          <DeviceInfo
+            device={device}
+            disableConnectedAccountInformation={
+              disableConnectedAccountInformation
             }
+            disableResourceIds={disableResourceIds}
           />
         </div>
-        <DeviceInfo
-          device={device}
-          disableConnectedAccountInformation={
-            disableConnectedAccountInformation
-          }
-          disableResourceIds={disableResourceIds}
-        />
       </div>
-    </div>
+    </>
   )
 }
 

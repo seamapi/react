@@ -1,6 +1,7 @@
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { isLockDevice, type LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
+import { useToggleLockSnackbar } from 'lib/seam/locks/use-toggle-lock-snackbar.js'
 import { Button } from 'lib/ui/Button.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { TextButton } from 'lib/ui/TextButton.js'
@@ -49,35 +50,48 @@ function Content(props: {
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element {
   const { device, disableLockUnlock, onSelectDevice } = props
-  const toggleLock = useToggleLock()
+
+  const { renderSnackbar, showToggleSnackbar } = useToggleLockSnackbar()
+  const toggleLock = useToggleLock({
+    onSuccess: () => {
+      showToggleSnackbar('success')
+    },
+    onError: () => {
+      showToggleSnackbar('error')
+    },
+  })
 
   const toggleLockLabel = device.properties.locked ? t.unlock : t.lock
 
   return (
-    <div className='seam-access-code-device'>
-      <div className='seam-device-image'>
-        <DeviceImage device={device} />
+    <>
+      {renderSnackbar()}
+
+      <div className='seam-access-code-device'>
+        <div className='seam-device-image'>
+          <DeviceImage device={device} />
+        </div>
+        <div className='seam-body'>
+          <div>{device.properties.name}</div>
+          <TextButton
+            onClick={() => {
+              onSelectDevice(device.device_id)
+            }}
+          >
+            {t.deviceDetails}
+          </TextButton>
+        </div>
+        {!disableLockUnlock && device.properties.online && (
+          <Button
+            onClick={() => {
+              toggleLock.mutate(device)
+            }}
+          >
+            {toggleLockLabel}
+          </Button>
+        )}
       </div>
-      <div className='seam-body'>
-        <div>{device.properties.name}</div>
-        <TextButton
-          onClick={() => {
-            onSelectDevice(device.device_id)
-          }}
-        >
-          {t.deviceDetails}
-        </TextButton>
-      </div>
-      {!disableLockUnlock && device.properties.online && (
-        <Button
-          onClick={() => {
-            toggleLock.mutate(device)
-          }}
-        >
-          {toggleLockLabel}
-        </Button>
-      )}
-    </div>
+    </>
   )
 }
 

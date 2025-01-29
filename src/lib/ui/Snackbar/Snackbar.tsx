@@ -7,7 +7,7 @@ import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
 
 type SnackbarVariant = 'success' | 'error'
 
-interface SnackbarProps {
+export interface SnackbarProps {
   message: string
   variant: SnackbarVariant
   visible: boolean

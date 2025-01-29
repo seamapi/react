@@ -12,8 +12,6 @@ import {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export type UseToggleLockParams = never
-
 export type UseToggleLockData = undefined
 
 export type UseToggleLockMutationVariables = Pick<Device, 'device_id'> & {
@@ -29,7 +27,14 @@ type MutationError =
   | SeamActionAttemptFailedError<ToggleLockActionAttempt>
   | SeamActionAttemptTimeoutError<ToggleLockActionAttempt>
 
-export function useToggleLock(): UseMutationResult<
+interface UseToggleLockParams {
+  onError?: () => void
+  onSuccess?: () => void
+}
+
+export function useToggleLock(
+  params: UseToggleLockParams = {}
+): UseMutationResult<
   UseToggleLockData,
   MutationError,
   UseToggleLockMutationVariables
@@ -92,12 +97,17 @@ export function useToggleLock(): UseMutationResult<
       )
     },
     onError: async (_error, variables) => {
+      params.onError?.()
+
       await queryClient.invalidateQueries({
         queryKey: ['devices', 'list'],
       })
       await queryClient.invalidateQueries({
         queryKey: ['devices', 'get', { device_id: variables.device_id }],
       })
+    },
+    onSuccess() {
+      params.onSuccess?.()
     },
   })
 }
