@@ -12,48 +12,6 @@ import { CheckIcon } from 'lib/icons/Check.js'
 import { CloseIcon } from 'lib/icons/Close.js'
 import { EditIcon } from 'lib/icons/Edit.js'
 
-function IconButton(
-  props: PropsWithChildren<HTMLAttributes<HTMLButtonElement>>
-): JSX.Element {
-  return (
-    <button
-      {...props}
-      className={classNames(
-        'seam-editable-device-name-icon-button',
-        props.className
-      )}
-    >
-      {props.children}
-    </button>
-  )
-}
-
-const fixName = (name: string): string => {
-  return name.replace(/\s+/g, ' ').trim()
-}
-
-type Result = { type: 'success' } | { type: 'error'; message: string }
-
-const isValidName = (name: string): Result => {
-  if (name.length < 2) {
-    return {
-      type: 'error',
-      message: 'Name must be at least 2 characters long',
-    }
-  }
-
-  if (name.length > 64) {
-    return {
-      type: 'error',
-      message: 'Name must be at most 64 characters long',
-    }
-  }
-
-  return {
-    type: 'success',
-  } as const
-}
-
 type EditableDeviceNameProps = {
   onEdit?: (newName: string) => void
   editable?: boolean
@@ -205,4 +163,51 @@ function ActionButtons(props: ActionButtonsProps): JSX.Element {
       <EditIcon width='1em' height='1em' viewBox='0 0 24 24' />
     </IconButton>
   )
+}
+
+function IconButton(
+  props: PropsWithChildren<HTMLAttributes<HTMLButtonElement>>
+): JSX.Element {
+  return (
+    <button
+      {...props}
+      className={classNames(
+        'seam-editable-device-name-icon-button',
+        props.className
+      )}
+    >
+      {props.children}
+    </button>
+  )
+}
+
+const fixName = (name: string): string => {
+  return name.replace(/\s+/g, ' ').trim()
+}
+
+type Result =
+  | { type: 'success' }
+  | {
+      type: 'error'
+      message: string
+    }
+
+const isValidName = (name: string): Result => {
+  if (name.length < 2) {
+    return {
+      type: 'error',
+      message: 'Name must be at least 2 characters long',
+    }
+  }
+
+  if (name.length > 64) {
+    return {
+      type: 'error',
+      message: 'Name must be at most 64 characters long',
+    }
+  }
+
+  return {
+    type: 'success',
+  } as const
 }
