@@ -4,9 +4,9 @@ import { useState } from 'react'
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
-import { SeamEditableDeviceName } from 'lib/seam/components/SeamEditableDeviceName/SeamEditableDeviceName.js'
 import type { NoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
+import { EditableDeviceName } from 'lib/ui/device/EditableDeviceName.js'
 import { NoiseLevelStatus } from 'lib/ui/device/NoiseLevelStatus.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
@@ -48,7 +48,7 @@ export function NoiseSensorDeviceDetails({
               </div>
               <div className='seam-info'>
                 <span className='seam-label'>{t.noiseSensor}</span>
-                <SeamEditableDeviceName
+                <EditableDeviceName
                   onEdit={onEditName}
                   tagName='h4'
                   value={device.properties.name}

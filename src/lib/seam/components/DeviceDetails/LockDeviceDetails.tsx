@@ -6,7 +6,6 @@ import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/Acces
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
-import { SeamEditableDeviceName } from 'lib/seam/components/SeamEditableDeviceName/SeamEditableDeviceName.js'
 import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
 import type { LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
@@ -14,6 +13,7 @@ import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
+import { EditableDeviceName } from 'lib/ui/device/EditableDeviceName.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
@@ -98,7 +98,7 @@ export function LockDeviceDetails({
             </div>
             <div className='seam-info'>
               <span className='seam-label'>{t.device}</span>
-              <SeamEditableDeviceName
+              <EditableDeviceName
                 tagName='h4'
                 value={device.properties.name}
                 className='seam-device-name'

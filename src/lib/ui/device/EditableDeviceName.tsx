@@ -12,13 +12,6 @@ import { CheckIcon } from 'lib/icons/Check.js'
 import { CloseIcon } from 'lib/icons/Close.js'
 import { EditIcon } from 'lib/icons/Edit.js'
 
-export type SeamDeviceNameProps = {
-  onEdit?: (newName: string) => void
-  editable?: boolean
-  tagName?: string
-  value: string
-} & HTMLAttributes<HTMLElement>
-
 function IconButton(
   props: PropsWithChildren<HTMLAttributes<HTMLButtonElement>>
 ): JSX.Element {
@@ -61,13 +54,20 @@ const isValidName = (name: string): Result => {
   } as const
 }
 
-export function SeamEditableDeviceName({
+type EditableDeviceNameProps = {
+  onEdit?: (newName: string) => void
+  editable?: boolean
+  tagName?: string
+  value: string
+} & HTMLAttributes<HTMLElement>
+
+export function EditableDeviceName({
   onEdit,
   editable = true,
   tagName,
   value,
   ...props
-}: SeamDeviceNameProps): JSX.Element {
+}: EditableDeviceNameProps): JSX.Element {
   const [editing, setEditing] = useState(false)
   const [errorText, setErrorText] = useState<null | string>(null)
   const [currentValue, setCurrentValue] = useState(value)
