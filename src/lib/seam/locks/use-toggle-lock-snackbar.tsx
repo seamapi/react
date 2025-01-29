@@ -1,15 +1,15 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import { Snackbar, type SnackbarProps } from 'lib/ui/Snackbar/Snackbar.js'
+import { Snackbar, type SnackbarVariant } from 'lib/ui/Snackbar/Snackbar.js'
 
 export interface UseToggleLockSnackbarContext {
-  showToggleSnackbar: (type: SnackbarProps['variant']) => void
+  showToggleSnackbar: (variant: SnackbarVariant) => void
   SnackbarNode: JSX.Element
 }
 
 export function useToggleLockSnackbar(): UseToggleLockSnackbarContext {
   const [visible, setVisible] = useState(false)
-  const [variant, setVariant] = useState<SnackbarProps['variant']>('success')
+  const [variant, setVariant] = useState<SnackbarVariant>('success')
 
   const SnackbarNode = useMemo(
     () => (
@@ -29,8 +29,8 @@ export function useToggleLockSnackbar(): UseToggleLockSnackbarContext {
   )
 
   return {
-    showToggleSnackbar: useCallback((type) => {
-      setVariant(type)
+    showToggleSnackbar: useCallback((variant) => {
+      setVariant(variant)
       setVisible(true)
     }, []),
     SnackbarNode,

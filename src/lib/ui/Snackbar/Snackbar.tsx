@@ -5,7 +5,7 @@ import { CheckGreenIcon } from 'lib/icons/CheckGreen.js'
 import { CloseWhiteIcon } from 'lib/icons/CloseWhite.js'
 import { ExclamationCircleIcon } from 'lib/icons/ExclamationCircle.js'
 
-type SnackbarVariant = 'success' | 'error'
+export type SnackbarVariant = 'success' | 'error'
 
 export interface SnackbarProps {
   message: string
