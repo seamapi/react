@@ -4,6 +4,7 @@ import { useState } from 'react'
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
+import { SeamEditableDeviceName } from 'lib/seam/components/SeamEditableDeviceName/SeamEditableDeviceName.js'
 import type { NoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { NoiseLevelStatus } from 'lib/ui/device/NoiseLevelStatus.js'
@@ -18,6 +19,7 @@ type TabType = 'details' | 'activity'
 interface NoiseSensorDeviceDetailsProps
   extends NestedSpecificDeviceDetailsProps {
   device: NoiseSensorDevice
+  onEditName?: (newName: string) => void | Promise<void>
 }
 
 export function NoiseSensorDeviceDetails({
@@ -26,6 +28,7 @@ export function NoiseSensorDeviceDetails({
   disableResourceIds,
   onBack,
   className,
+  onEditName,
 }: NoiseSensorDeviceDetailsProps): JSX.Element | null {
   const [tab, setTab] = useState<TabType>('details')
 
@@ -45,7 +48,11 @@ export function NoiseSensorDeviceDetails({
               </div>
               <div className='seam-info'>
                 <span className='seam-label'>{t.noiseSensor}</span>
-                <h4 className='seam-device-name'>{device.properties.name}</h4>
+                <SeamEditableDeviceName
+                  onEdit={onEditName}
+                  tagName='h4'
+                  value={device.properties.name}
+                />
                 <div className='seam-properties'>
                   <span className='seam-label'>{t.status}:</span>{' '}
                   <OnlineStatus device={device} />
