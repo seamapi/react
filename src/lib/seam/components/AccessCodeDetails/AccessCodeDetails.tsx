@@ -96,11 +96,11 @@ export function AccessCodeDetails({
     )
   }, [accessCode, deleteCode, onDelete, preventDefaultOnDelete])
 
-  const { device } = useDevice({ device_id: accessCode?.device_id });
-  const cannotSpecifyPinCode = device?.properties
-    .code_constraints
-    ?.some(({ constraint_type: type }) => type === "cannot_specify_pin_code")
-    ?? false;
+  const { device } = useDevice({ device_id: accessCode?.device_id })
+  const cannotSpecifyPinCode =
+    device?.properties.code_constraints?.some(
+      ({ constraint_type: type }) => type === 'cannot_specify_pin_code'
+    ) ?? false
 
   if (accessCode == null) {
     return null
@@ -172,11 +172,11 @@ export function AccessCodeDetails({
 
     ...(isAccessCodeBeingRemoved
       ? [
-        {
-          variant: 'warning' as const,
-          message: t.warningRemoving,
-        },
-      ]
+          {
+            variant: 'warning' as const,
+            message: t.warningRemoving,
+          },
+        ]
       : []),
   ]
 
@@ -200,8 +200,8 @@ export function AccessCodeDetails({
               alerts.length > 0 && 'seam-top-has-alerts'
             )}
           >
-            {
-              !cannotSpecifyPinCode && (<>
+            {!cannotSpecifyPinCode && (
+              <>
                 <span className='seam-label'>{t.accessCode}</span>
                 <h5 className='seam-access-code-name'>{name}</h5>
                 <div className='seam-code'>
@@ -214,8 +214,8 @@ export function AccessCodeDetails({
                     <CopyIcon />
                   </IconButton>
                 </div>
-              </>)
-            }
+              </>
+            )}
 
             <div className='seam-duration'>
               <Duration accessCode={accessCode} />
@@ -229,28 +229,30 @@ export function AccessCodeDetails({
           />
         </div>
 
-        {(!cannotSpecifyPinCode && (!disableEditAccessCode || !disableDeleteAccessCode)) && (
-          <div className='seam-actions'>
-            {!disableEditAccessCode && !accessCode.is_offline_access_code && (
-              <Button
-                size='small'
-                onClick={handleEdit}
-                disabled={isAccessCodeBeingRemoved || isDeleting}
-              >
-                {t.editCode}
-              </Button>
-            )}
-            {!disableDeleteAccessCode && !accessCode.is_offline_access_code && (
-              <Button
-                size='small'
-                onClick={handleDelete}
-                disabled={isAccessCodeBeingRemoved || isDeleting}
-              >
-                {t.deleteCode}
-              </Button>
-            )}
-          </div>
-        )}
+        {!cannotSpecifyPinCode &&
+          (!disableEditAccessCode || !disableDeleteAccessCode) && (
+            <div className='seam-actions'>
+              {!disableEditAccessCode && !accessCode.is_offline_access_code && (
+                <Button
+                  size='small'
+                  onClick={handleEdit}
+                  disabled={isAccessCodeBeingRemoved || isDeleting}
+                >
+                  {t.editCode}
+                </Button>
+              )}
+              {!disableDeleteAccessCode &&
+                !accessCode.is_offline_access_code && (
+                  <Button
+                    size='small'
+                    onClick={handleDelete}
+                    disabled={isAccessCodeBeingRemoved || isDeleting}
+                  >
+                    {t.deleteCode}
+                  </Button>
+                )}
+            </div>
+          )}
 
         <div className='seam-details'>
           {!disableResourceIds && (
