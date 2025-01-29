@@ -31,7 +31,7 @@ export function AccessCodeMainIcon({
           <ExclamationCircleOutlineIcon />
         </div>
         <div className='seam-invisible seam-md-flex'>
-          <AccessCodeKeyIcon />
+          <KeyIcon />
         </div>
       </>
     )
@@ -47,7 +47,7 @@ export function AccessCodeMainIcon({
           <TriangleWarningOutlineIcon />
         </div>
         <div className='seam-invisible seam-md-flex'>
-          <AccessCodeKeyIcon />
+          <KeyIcon />
         </div>
       </>
     )
@@ -55,9 +55,13 @@ export function AccessCodeMainIcon({
 
   return (
     <div className='seam-issue-icon-wrap'>
-      <AccessCodeKeyIcon />
+      <KeyIcon />
     </div>
   )
+}
+
+function KeyIcon(): JSX.Element {
+  return <AccessCodeKeyIcon style={{ fontSize: '24px' }} />
 }
 
 const t = {
