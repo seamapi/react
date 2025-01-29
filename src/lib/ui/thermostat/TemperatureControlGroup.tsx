@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react'
 
-import { ThermostatCoolLargeIcon } from 'lib/icons/ThermostatCoolLarge.js'
-import { ThermostatHeatLargeIcon } from 'lib/icons/ThermostatHeatLarge.js'
+import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
+import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import {
   getCoolBounds,
   getHeatBounds,
@@ -138,7 +138,7 @@ export function TemperatureControlGroup({
     <div className='seam-temperature-control-group'>
       {showHeat && (
         <div className='seam-temperature-control-group-block'>
-          <ThermostatHeatLargeIcon className='seam-temperature-control-group-block-thermostat-icon' />
+          <ThermostatHeatIcon className='seam-temperature-control-group-block-thermostat-icon' />
           <TemperatureControl
             variant='heat'
             value={heatValue}
@@ -151,7 +151,7 @@ export function TemperatureControlGroup({
 
       {showCool && (
         <div className='seam-temperature-control-group-block'>
-          <ThermostatCoolLargeIcon className='seam-temperature-control-group-block-thermostat-icon' />
+          <ThermostatCoolIcon className='seam-temperature-control-group-block-thermostat-icon' />
           <TemperatureControl
             variant='cool'
             value={coolValue}
