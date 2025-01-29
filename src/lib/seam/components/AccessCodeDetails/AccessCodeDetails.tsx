@@ -3,6 +3,8 @@ import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useCallback, useEffect, useState } from 'react'
 
+import { useDevice } from '@seamapi/react/hooks'
+
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
@@ -94,6 +96,12 @@ export function AccessCodeDetails({
     )
   }, [accessCode, deleteCode, onDelete, preventDefaultOnDelete])
 
+  const { device } = useDevice({ device_id: accessCode?.device_id });
+  const cannotSpecifyPinCode = device?.properties
+    .code_constraints
+    ?.some(({ constraint_type: type }) => type === "cannot_specify_pin_code")
+    ?? false;
+
   if (accessCode == null) {
     return null
   }
@@ -164,11 +172,11 @@ export function AccessCodeDetails({
 
     ...(isAccessCodeBeingRemoved
       ? [
-          {
-            variant: 'warning' as const,
-            message: t.warningRemoving,
-          },
-        ]
+        {
+          variant: 'warning' as const,
+          message: t.warningRemoving,
+        },
+      ]
       : []),
   ]
 
@@ -192,18 +200,23 @@ export function AccessCodeDetails({
               alerts.length > 0 && 'seam-top-has-alerts'
             )}
           >
-            <span className='seam-label'>{t.accessCode}</span>
-            <h5 className='seam-access-code-name'>{name}</h5>
-            <div className='seam-code'>
-              <span>{accessCode.code}</span>
-              <IconButton
-                onClick={() => {
-                  void copyToClipboard(accessCode.code ?? '')
-                }}
-              >
-                <CopyIcon />
-              </IconButton>
-            </div>
+            {
+              !cannotSpecifyPinCode && (<>
+                <span className='seam-label'>{t.accessCode}</span>
+                <h5 className='seam-access-code-name'>{name}</h5>
+                <div className='seam-code'>
+                  <span>{accessCode.code}</span>
+                  <IconButton
+                    onClick={() => {
+                      void copyToClipboard(accessCode.code ?? '')
+                    }}
+                  >
+                    <CopyIcon />
+                  </IconButton>
+                </div>
+              </>)
+            }
+
             <div className='seam-duration'>
               <Duration accessCode={accessCode} />
             </div>
@@ -215,7 +228,8 @@ export function AccessCodeDetails({
             onSelectDevice={selectDevice}
           />
         </div>
-        {(!disableEditAccessCode || !disableDeleteAccessCode) && (
+
+        {(!cannotSpecifyPinCode && (!disableEditAccessCode || !disableDeleteAccessCode)) && (
           <div className='seam-actions'>
             {!disableEditAccessCode && !accessCode.is_offline_access_code && (
               <Button
@@ -237,6 +251,7 @@ export function AccessCodeDetails({
             )}
           </div>
         )}
+
         <div className='seam-details'>
           {!disableResourceIds && (
             <div className='seam-row'>
