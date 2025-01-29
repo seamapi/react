@@ -43,7 +43,7 @@ export function LockDeviceDetails({
     device_id: device.device_id,
   })
 
-  const { renderSnackbar, showToggleSnackbar } = useToggleLockSnackbar()
+  const { SnackbarNode, showToggleSnackbar } = useToggleLockSnackbar()
   const toggleLock = useToggleLock({
     onSuccess: () => {
       showToggleSnackbar('success')
@@ -99,7 +99,7 @@ export function LockDeviceDetails({
 
   return (
     <>
-      {renderSnackbar()}
+      {SnackbarNode}
 
       <div className={classNames('seam-device-details', className)}>
         <ContentHeader title='Device' onBack={onBack} />

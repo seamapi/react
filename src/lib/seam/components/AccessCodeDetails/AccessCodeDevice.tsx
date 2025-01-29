@@ -51,7 +51,7 @@ function Content(props: {
 }): JSX.Element {
   const { device, disableLockUnlock, onSelectDevice } = props
 
-  const { renderSnackbar, showToggleSnackbar } = useToggleLockSnackbar()
+  const { SnackbarNode, showToggleSnackbar } = useToggleLockSnackbar()
   const toggleLock = useToggleLock({
     onSuccess: () => {
       showToggleSnackbar('success')
@@ -65,7 +65,7 @@ function Content(props: {
 
   return (
     <>
-      {renderSnackbar()}
+      {SnackbarNode}
 
       <div className='seam-access-code-device'>
         <div className='seam-device-image'>
