@@ -8,10 +8,6 @@ export interface AccessCodeMainIconProps {
   accessCode: AccessCode
 }
 
-function KeyIcon(): JSX.Element {
-  return <AccessCodeKeyIcon style={{ fontSize: '24px' }} />
-}
-
 export function AccessCodeMainIcon({
   accessCode,
 }: AccessCodeMainIconProps): JSX.Element {
@@ -62,6 +58,10 @@ export function AccessCodeMainIcon({
       <KeyIcon />
     </div>
   )
+}
+
+function KeyIcon(): JSX.Element {
+  return <AccessCodeKeyIcon style={{ fontSize: '24px' }} />
 }
 
 const t = {
