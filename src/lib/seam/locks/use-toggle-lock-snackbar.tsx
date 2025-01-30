@@ -4,14 +4,14 @@ import { Snackbar, type SnackbarVariant } from 'lib/ui/Snackbar/Snackbar.js'
 
 export interface UseToggleLockSnackbarContext {
   showToggleSnackbar: (variant: SnackbarVariant) => void
-  SnackbarNode: JSX.Element
+  ToggleLockSnackbarNode: JSX.Element
 }
 
 export function useToggleLockSnackbar(): UseToggleLockSnackbarContext {
   const [visible, setVisible] = useState(false)
   const [variant, setVariant] = useState<SnackbarVariant>('success')
 
-  const SnackbarNode = useMemo(
+  const ToggleLockSnackbarNode = useMemo(
     () => (
       <Snackbar
         variant={variant}
@@ -33,7 +33,7 @@ export function useToggleLockSnackbar(): UseToggleLockSnackbarContext {
       setVariant(variant)
       setVisible(true)
     }, []),
-    SnackbarNode,
+    ToggleLockSnackbarNode,
   }
 }
 
