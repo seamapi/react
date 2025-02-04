@@ -3,8 +3,6 @@ import classNames from 'classnames'
 import { DateTime } from 'luxon'
 import { useCallback, useEffect, useState } from 'react'
 
-import { useDevice } from '@seamapi/react/hooks'
-
 import { CopyIcon } from 'lib/icons/Copy.js'
 import { useAccessCode } from 'lib/seam/access-codes/use-access-code.js'
 import { useDeleteAccessCode } from 'lib/seam/access-codes/use-delete-access-code.js'
@@ -15,6 +13,7 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import {
   accessCodeErrorFilter,
   accessCodeWarningFilter,
