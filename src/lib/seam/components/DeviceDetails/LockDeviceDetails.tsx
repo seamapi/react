@@ -13,12 +13,14 @@ import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
+import { EditableDeviceName } from 'lib/ui/device/EditableDeviceName.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 interface LockDeviceDetailsProps extends NestedSpecificDeviceDetailsProps {
   device: LockDevice
+  onEditName?: (newName: string) => void | Promise<void>
 }
 
 export function LockDeviceDetails({
@@ -33,6 +35,7 @@ export function LockDeviceDetails({
   disableConnectedAccountInformation,
   onBack,
   className,
+  onEditName,
 }: LockDeviceDetailsProps): JSX.Element | null {
   const [accessCodesOpen, toggleAccessCodesOpen] = useToggle()
   const toggleLock = useToggleLock()
@@ -95,7 +98,12 @@ export function LockDeviceDetails({
             </div>
             <div className='seam-info'>
               <span className='seam-label'>{t.device}</span>
-              <h4 className='seam-device-name'>{device.properties.name}</h4>
+              <EditableDeviceName
+                tagName='h4'
+                value={device.properties.name}
+                className='seam-device-name'
+                onEdit={onEditName}
+              />
               <div className='seam-properties'>
                 <span className='seam-label'>{t.status}:</span>{' '}
                 <OnlineStatus device={device} />
