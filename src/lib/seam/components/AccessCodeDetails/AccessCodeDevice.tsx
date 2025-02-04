@@ -1,9 +1,11 @@
+import { useState } from 'react'
+
 import { useDevice } from 'lib/seam/devices/use-device.js'
 import { isLockDevice, type LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
-import { useToggleLockSnackbar } from 'lib/seam/locks/use-toggle-lock-snackbar.js'
 import { Button } from 'lib/ui/Button.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
+import { Snackbar, type SnackbarVariant } from 'lib/ui/Snackbar/Snackbar.js'
 import { TextButton } from 'lib/ui/TextButton.js'
 
 export function AccessCodeDevice({
@@ -50,14 +52,18 @@ function Content(props: {
   onSelectDevice: (deviceId: string) => void
 }): JSX.Element {
   const { device, disableLockUnlock, onSelectDevice } = props
+  const [snackbarVisible, setSnackbarVisible] = useState(false)
+  const [snackbarVariant, setSnackbarVariant] =
+    useState<SnackbarVariant>('success')
 
-  const { ToggleLockSnackbarNode, showToggleSnackbar } = useToggleLockSnackbar()
   const toggleLock = useToggleLock({
     onSuccess: () => {
-      showToggleSnackbar('success')
+      setSnackbarVisible(true)
+      setSnackbarVariant('success')
     },
     onError: () => {
-      showToggleSnackbar('error')
+      setSnackbarVisible(true)
+      setSnackbarVariant('error')
     },
   })
 
@@ -65,7 +71,19 @@ function Content(props: {
 
   return (
     <>
-      {ToggleLockSnackbarNode}
+      <Snackbar
+        variant={snackbarVariant}
+        visible={snackbarVisible}
+        onClose={() => {
+          setSnackbarVisible(false)
+        }}
+        message={
+          snackbarVariant === 'success'
+            ? t.successfullyUpdated
+            : t.failedToUpdate
+        }
+        autoDismiss
+      />
 
       <div className='seam-access-code-device'>
         <div className='seam-device-image'>
@@ -99,4 +117,6 @@ const t = {
   deviceDetails: 'Device details',
   unlock: 'Unlock',
   lock: 'Lock',
+  successfullyUpdated: 'Lock status has been successfully updated',
+  failedToUpdate: 'Failed to update lock status',
 }

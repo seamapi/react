@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useState } from 'react'
 
 import { ChevronRightIcon } from 'lib/icons/ChevronRight.js'
 import { useAccessCodes } from 'lib/seam/access-codes/use-access-codes.js'
@@ -9,7 +10,6 @@ import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
 import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
 import type { LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
-import { useToggleLockSnackbar } from 'lib/seam/locks/use-toggle-lock-snackbar.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { Button } from 'lib/ui/Button.js'
 import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
@@ -17,6 +17,7 @@ import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
 import { EditableDeviceName } from 'lib/ui/device/EditableDeviceName.js'
 import { OnlineStatus } from 'lib/ui/device/OnlineStatus.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { Snackbar, type SnackbarVariant } from 'lib/ui/Snackbar/Snackbar.js'
 import { useToggle } from 'lib/ui/use-toggle.js'
 
 interface LockDeviceDetailsProps extends NestedSpecificDeviceDetailsProps {
@@ -43,13 +44,18 @@ export function LockDeviceDetails({
     device_id: device.device_id,
   })
 
-  const { ToggleLockSnackbarNode, showToggleSnackbar } = useToggleLockSnackbar()
+  const [snackbarVisible, setSnackbarVisible] = useState(false)
+  const [snackbarVariant, setSnackbarVariant] =
+    useState<SnackbarVariant>('success')
+
   const toggleLock = useToggleLock({
     onSuccess: () => {
-      showToggleSnackbar('success')
+      setSnackbarVisible(true)
+      setSnackbarVariant('success')
     },
     onError: () => {
-      showToggleSnackbar('error')
+      setSnackbarVisible(true)
+      setSnackbarVariant('error')
     },
   })
 
@@ -99,7 +105,19 @@ export function LockDeviceDetails({
 
   return (
     <>
-      {ToggleLockSnackbarNode}
+      <Snackbar
+        variant={snackbarVariant}
+        visible={snackbarVisible}
+        onClose={() => {
+          setSnackbarVisible(false)
+        }}
+        message={
+          snackbarVariant === 'success'
+            ? t.successfullyUpdated
+            : t.failedToUpdate
+        }
+        autoDismiss
+      />
 
       <div className={classNames('seam-device-details', className)}>
         <ContentHeader title='Device' onBack={onBack} />
@@ -222,4 +240,6 @@ const t = {
   lockStatus: 'Lock status',
   status: 'Status',
   power: 'Power',
+  successfullyUpdated: 'Lock status has been successfully updated',
+  failedToUpdate: 'Failed to update lock status',
 }
