@@ -96,10 +96,10 @@ export function AccessCodeDetails({
   }, [accessCode, deleteCode, onDelete, preventDefaultOnDelete])
 
   const { device } = useDevice({ device_id: accessCode?.device_id })
-  const cannotSpecifyPinCode =
-    device?.properties.code_constraints?.some(
-      ({ constraint_type: type }) => type === 'cannot_specify_pin_code'
-    ) ?? false
+  const canSpecifyPinCode =
+    device?.properties.code_constraints?.every(
+      ({ constraint_type: type }) => type !== 'cannot_specify_pin_code'
+    ) ?? true
 
   if (accessCode == null) {
     return null
@@ -199,7 +199,7 @@ export function AccessCodeDetails({
               alerts.length > 0 && 'seam-top-has-alerts'
             )}
           >
-            {!cannotSpecifyPinCode && (
+            {canSpecifyPinCode && (
               <>
                 <span className='seam-label'>{t.accessCode}</span>
                 <h5 className='seam-access-code-name'>{name}</h5>
@@ -228,7 +228,7 @@ export function AccessCodeDetails({
           />
         </div>
 
-        {!cannotSpecifyPinCode &&
+        {canSpecifyPinCode &&
           (!disableEditAccessCode || !disableDeleteAccessCode) && (
             <div className='seam-actions'>
               {!disableEditAccessCode && !accessCode.is_offline_access_code && (
