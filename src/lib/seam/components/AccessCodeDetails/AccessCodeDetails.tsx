@@ -13,6 +13,7 @@ import {
 } from 'lib/seam/components/common-props.js'
 import { NestedDeviceDetails } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { NestedEditAccessCodeForm } from 'lib/seam/components/EditAccessCodeForm/EditAccessCodeForm.js'
+import { useDevice } from 'lib/seam/devices/use-device.js'
 import {
   accessCodeErrorFilter,
   accessCodeWarningFilter,
@@ -93,6 +94,12 @@ export function AccessCodeDetails({
       }
     )
   }, [accessCode, deleteCode, onDelete, preventDefaultOnDelete])
+
+  const { device } = useDevice({ device_id: accessCode?.device_id })
+  const canSpecifyPinCode =
+    device?.properties.code_constraints?.every(
+      ({ constraint_type: type }) => type !== 'cannot_specify_pin_code'
+    ) ?? true
 
   if (accessCode == null) {
     return null
@@ -192,18 +199,23 @@ export function AccessCodeDetails({
               alerts.length > 0 && 'seam-top-has-alerts'
             )}
           >
-            <span className='seam-label'>{t.accessCode}</span>
-            <h5 className='seam-access-code-name'>{name}</h5>
-            <div className='seam-code'>
-              <span>{accessCode.code}</span>
-              <IconButton
-                onClick={() => {
-                  void copyToClipboard(accessCode.code ?? '')
-                }}
-              >
-                <CopyIcon />
-              </IconButton>
-            </div>
+            {canSpecifyPinCode && (
+              <>
+                <span className='seam-label'>{t.accessCode}</span>
+                <h5 className='seam-access-code-name'>{name}</h5>
+                <div className='seam-code'>
+                  <span>{accessCode.code}</span>
+                  <IconButton
+                    onClick={() => {
+                      void copyToClipboard(accessCode.code ?? '')
+                    }}
+                  >
+                    <CopyIcon />
+                  </IconButton>
+                </div>
+              </>
+            )}
+
             <div className='seam-duration'>
               <Duration accessCode={accessCode} />
             </div>
@@ -215,28 +227,32 @@ export function AccessCodeDetails({
             onSelectDevice={selectDevice}
           />
         </div>
-        {(!disableEditAccessCode || !disableDeleteAccessCode) && (
-          <div className='seam-actions'>
-            {!disableEditAccessCode && !accessCode.is_offline_access_code && (
-              <Button
-                size='small'
-                onClick={handleEdit}
-                disabled={isAccessCodeBeingRemoved || isDeleting}
-              >
-                {t.editCode}
-              </Button>
-            )}
-            {!disableDeleteAccessCode && !accessCode.is_offline_access_code && (
-              <Button
-                size='small'
-                onClick={handleDelete}
-                disabled={isAccessCodeBeingRemoved || isDeleting}
-              >
-                {t.deleteCode}
-              </Button>
-            )}
-          </div>
-        )}
+
+        {canSpecifyPinCode &&
+          (!disableEditAccessCode || !disableDeleteAccessCode) && (
+            <div className='seam-actions'>
+              {!disableEditAccessCode && !accessCode.is_offline_access_code && (
+                <Button
+                  size='small'
+                  onClick={handleEdit}
+                  disabled={isAccessCodeBeingRemoved || isDeleting}
+                >
+                  {t.editCode}
+                </Button>
+              )}
+              {!disableDeleteAccessCode &&
+                !accessCode.is_offline_access_code && (
+                  <Button
+                    size='small'
+                    onClick={handleDelete}
+                    disabled={isAccessCodeBeingRemoved || isDeleting}
+                  >
+                    {t.deleteCode}
+                  </Button>
+                )}
+            </div>
+          )}
+
         <div className='seam-details'>
           {!disableResourceIds && (
             <div className='seam-row'>
