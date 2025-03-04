@@ -6,6 +6,8 @@ import type {
   HvacModeSetting,
   ThermostatDevice,
 } from 'lib/seam/thermostats/thermostat-device.js'
+import { useCreateThermostatClimatePreset } from 'lib/seam/thermostats/use-create-thermostat-climate-preset.js'
+import { useUpdateThermostatClimatePreset } from 'lib/seam/thermostats/use-update-thermostat-climate-preset.js'
 import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
@@ -24,25 +26,27 @@ export type ClimatePresetProps = {
   device: ThermostatDevice
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children'>
 
-export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
-  const { preset, onBack, device, ...attrs } = props
+const toCelcius = (t: number): number => (t - 32) * (5 / 9)
 
-  const originalPreset = useRef<Preset>(
-    preset ?? {
+export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
+  const { preset: _preset, onBack, device, ...attrs } = props
+
+  const preset = useRef<Preset>(
+    _preset ?? {
       climate_preset_key: '',
       can_edit: true,
       can_delete: true,
       display_name: '',
       fan_mode_setting: 'auto',
       hvac_mode_setting: 'off',
-      cooling_set_point_celsius: undefined,
-      heating_set_point_celsius: undefined,
-      cooling_set_point_fahrenheit: undefined,
-      heating_set_point_fahrenheit: undefined,
+      heating_set_point_fahrenheit: 80,
+      cooling_set_point_fahrenheit: 60,
+      heating_set_point_celsius: toCelcius(80),
+      cooling_set_point_celsius: toCelcius(60),
       manual_override_allowed: true,
       name: '',
     }
-  )
+  ).current;
 
   const {
     register,
@@ -54,12 +58,12 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
     setError,
   } = useForm({
     defaultValues: {
-      key: originalPreset.current.climate_preset_key,
-      name: originalPreset.current.display_name,
-      hvacMode: originalPreset.current.hvac_mode_setting,
-      heatPoint: originalPreset.current.heating_set_point_fahrenheit,
-      coolPoint: originalPreset.current.cooling_set_point_fahrenheit,
-      fanMode: originalPreset.current.fan_mode_setting,
+      key: preset.climate_preset_key,
+      name: preset.display_name,
+      hvacMode: preset.hvac_mode_setting,
+      heatPoint: preset.heating_set_point_fahrenheit,
+      coolPoint: preset.cooling_set_point_fahrenheit,
+      fanMode: preset.fan_mode_setting,
     },
   })
 
@@ -67,14 +71,14 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
 
   const onHvacModeChange = (mode: HvacModeSetting): void => {
     if (mode === 'heat_cool') {
-      setValue('heatPoint', originalPreset.current.heating_set_point_fahrenheit)
-      setValue('coolPoint', originalPreset.current.cooling_set_point_fahrenheit)
+      setValue('heatPoint', preset.heating_set_point_fahrenheit)
+      setValue('coolPoint', preset.cooling_set_point_fahrenheit)
     } else if (mode === 'heat') {
-      setValue('heatPoint', originalPreset.current.heating_set_point_fahrenheit)
+      setValue('heatPoint', preset.heating_set_point_fahrenheit)
       setValue('coolPoint', undefined)
     } else if (mode === 'cool') {
       setValue('heatPoint', undefined)
-      setValue('coolPoint', originalPreset.current.cooling_set_point_fahrenheit)
+      setValue('coolPoint', preset.cooling_set_point_fahrenheit)
     } else {
       setValue('heatPoint', undefined)
       setValue('coolPoint', undefined)
@@ -90,13 +94,18 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
     () =>
       allPresets.filter(
         (other) =>
-          other.climate_preset_key !== originalPreset.current.climate_preset_key
+          other.climate_preset_key !== preset.climate_preset_key
       ),
     [allPresets, preset]
   )
 
+  const isCreate = _preset == null
+  const createMutation = useCreateThermostatClimatePreset();
+  const updateMutation = useUpdateThermostatClimatePreset();
+  const loading = isCreate ? createMutation.isPending : updateMutation.isPending;
+
   const onSubmit = (): void => {
-    if (otherPresets.some((other) => other.climate_preset_key === state.key)) {
+    if (isCreate && otherPresets.some((other) => other.climate_preset_key === state.key)) {
       setError('key', {
         type: 'validate',
         message: 'Preset with this key already exists.',
@@ -104,7 +113,28 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
       return
     }
 
-    console.log(state)
+    const name = state.name.replace(/\s+/g, ' ').trim();
+
+    const body = {
+      climate_preset_key: state.key,
+      device_id: device.device_id,
+      name: name === '' ? undefined : name,
+      cooling_set_point_fahrenheit: state.coolPoint,
+      heating_set_point_fahrenheit: state.heatPoint,
+      fan_mode_setting: state.fanMode,
+      cooling_set_point_celsius: typeof state.coolPoint === 'number' ? toCelcius(state.coolPoint) : undefined,
+      heating_set_point_celsius: typeof state.heatPoint === 'number' ? toCelcius(state.heatPoint) : undefined,
+      hvac_mode_setting: state.hvacMode,
+    }
+
+    if (isCreate) {
+      createMutation.mutate(body)
+    } else {
+      updateMutation.mutate({
+        ...body,
+        manual_override_allowed: true,
+      })
+    }
   }
 
   return (
@@ -113,7 +143,7 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
       className={classNames('seam-thermostat-climate-preset', attrs.className)}
     >
       <ContentHeader
-        title={originalPreset.current.display_name}
+        title={preset.display_name}
         onBack={onBack}
       />
 
@@ -123,7 +153,9 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
             void handleSubmit(onSubmit)(e)
           }}
         >
-          <FormField>
+          {
+            isCreate && (
+              <FormField>
             <InputLabel>Key</InputLabel>
             <TextField
               size='large'
@@ -151,6 +183,8 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
               }}
             />
           </FormField>
+            )
+          }
 
           <FormField>
             <InputLabel>Display Name (Optional)</InputLabel>
@@ -241,7 +275,7 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
             <Button
               type='submit'
               variant='danger'
-              disabled={!originalPreset.current.can_delete}
+              disabled={loading || !preset.can_delete}
             >
               Delete
             </Button>
@@ -249,7 +283,8 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
             <Button
               type='submit'
               variant='solid'
-              disabled={!originalPreset.current.can_edit}
+              disabled={loading || !preset.can_edit}
+              loading={loading}
             >
               Save
             </Button>

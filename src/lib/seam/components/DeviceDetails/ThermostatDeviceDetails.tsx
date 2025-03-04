@@ -340,8 +340,7 @@ function ClimatePresetRow({
   return (
     <DetailRow label={t.climatePresets}>
       <Button onClick={onClickManage}>
-        Manage ({(device.properties.available_climate_presets ?? []).length}{' '}
-        Presets)
+        {t.manageNPresets((device.properties.available_climate_presets ?? []).length)}
       </Button>
     </DetailRow>
   )
@@ -360,4 +359,5 @@ const t = {
   fanModeError: 'Error updating fan mode. Please try again.',
   climateSettingError: 'Error updating climate setting. Please try again.',
   saved: 'Saved',
+  manageNPresets: (n: number) => `Manage (${n} Preset${n <= 1 ? '' : 's'})`,
 }

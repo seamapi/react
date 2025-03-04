@@ -423,6 +423,8 @@ export const seedFake = (db) => {
           heating_set_point_celsius: 20,
           cooling_set_point_fahrenheit: 77,
           heating_set_point_fahrenheit: 68,
+          can_edit: true,
+          can_delete: true,
         },
         {
           climate_preset_key: 'unoccupied',
@@ -434,6 +436,8 @@ export const seedFake = (db) => {
           heating_set_point_celsius: 15,
           cooling_set_point_fahrenheit: 86,
           heating_set_point_fahrenheit: 59,
+          can_edit: false,
+          can_delete: false,
         },
       ],
     },

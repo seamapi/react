@@ -155,12 +155,35 @@
     @include button-size;
     @include button-variant;
 
+    position: relative;
     font-weight: 600;
     cursor: pointer;
 
     &.seam-btn-disabled,
     &:disabled {
       cursor: not-allowed;
+    }
+
+    .seam-btn-loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      --spinner-color: currentColor;
+    }
+
+    .seam-btn-content {
+      display: contents;
+    }
+
+    &.seam-btn-loading {
+      .seam-btn-content {
+        visibility: hidden;
+      }
     }
   }
 }

@@ -23,11 +23,7 @@ const fhToCelsius = (t?: number): number | undefined =>
 type ClimatePreset =
   ThermostatDevice['properties']['available_climate_presets'][number]
 
-export function useUpdateThermostatClimatePreset({
-  originalKey,
-}: {
-  originalKey: ClimatePreset['climate_preset_key']
-}): UseMutationResult<
+export function useUpdateThermostatClimatePreset(): UseMutationResult<
   UseUpdateThermostatClimatePresetData,
   SeamHttpApiError,
   UseUpdateThermostatClimatePresetVariables
@@ -66,7 +62,7 @@ export function useUpdateThermostatClimatePreset({
             return
           }
 
-          return getUpdatedDevice(device, originalKey, preset)
+          return getUpdatedDevice(device, preset)
         }
       )
 
@@ -79,7 +75,7 @@ export function useUpdateThermostatClimatePreset({
 
           return devices.map((device) => {
             if (device.device_id === variables.device_id) {
-              return getUpdatedDevice(device, originalKey, preset)
+              return getUpdatedDevice(device, preset)
             }
 
             return device
@@ -92,7 +88,6 @@ export function useUpdateThermostatClimatePreset({
 
 function getUpdatedDevice(
   device: ThermostatDevice,
-  originalKey: ClimatePreset['climate_preset_key'],
   preset: ClimatePreset
 ): ThermostatDevice {
   if (device == null) {
@@ -105,9 +100,7 @@ function getUpdatedDevice(
       ...device.properties,
       available_climate_presets: [
         preset,
-        ...(device.properties.available_climate_presets ?? []).filter(
-          (preset) => preset.climate_preset_key !== originalKey
-        ),
+        ...(device.properties.available_climate_presets ?? [])
       ],
     },
   }

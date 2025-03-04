@@ -17,7 +17,7 @@
   .seam-spinner {
     width: $default-size;
     height: $default-size;
-    border: $default-border-width solid colors.$primary;
+    border: $default-border-width solid var(--spinner-color, colors.$primary);
     border-top: $default-border-width solid transparent;
     display: inline-block;
     border-radius: 50%;
