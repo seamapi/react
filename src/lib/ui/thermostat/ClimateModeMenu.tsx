@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import { OffIcon } from 'lib/icons/Off.js'
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
@@ -11,20 +13,37 @@ interface ClimateModeMenuProps {
   mode: HvacModeSetting
   onChange: (mode: HvacModeSetting) => void
   supportedModes?: HvacModeSetting[]
+  buttonTextVisible?: boolean
+  className?: string
+  style?: React.CSSProperties
+  block?: boolean,
+  size?: 'regular' | 'large',
 }
 
 export function ClimateModeMenu({
   mode,
   onChange,
   supportedModes = ['heat', 'cool', 'heat_cool', 'off'],
+  buttonTextVisible = false,
+  className,
+  style,
+  block,
+  size = 'regular',
 }: ClimateModeMenuProps): JSX.Element {
   return (
     <Menu
       renderButton={({ onOpen }) => (
-        <button onClick={onOpen} className='seam-climate-mode-menu-button'>
+        <button style={style} onClick={onOpen} className={classNames('seam-climate-mode-menu-button', {
+          'seam-climate-mode-menu-button-block': block,
+          'seam-climate-mode-menu-button-regular': size === 'regular',
+          'seam-climate-mode-menu-button-large': size === 'large',
+        }, className)}>
           <div className='seam-climate-mode-menu-button-icon'>
             <ModeIcon mode={mode} />
           </div>
+
+          {buttonTextVisible && <span className='seam-climate-mode-menu-button-text'>{t[mode]}</span>}
+
           <ChevronDownIcon className='seam-climate-mode-menu-button-chevron' />
         </button>
       )}

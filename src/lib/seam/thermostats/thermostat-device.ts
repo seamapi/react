@@ -13,6 +13,7 @@ export type ThermostatDevice = Omit<Device, 'properties'> & {
         | 'available_hvac_mode_settings'
         | 'fan_mode_setting'
         | 'current_climate_setting'
+        | 'available_climate_presets'
       >
     >
 }

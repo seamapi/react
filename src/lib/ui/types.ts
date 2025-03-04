@@ -1,5 +1,5 @@
-import type { HTMLAttributes, HtmlHTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes, HTMLAttributes } from 'react'
 
 export type DivProps = HTMLAttributes<HTMLDivElement>
-export type ButtonProps = HtmlHTMLAttributes<HTMLButtonElement>
-export type SpanProps = HtmlHTMLAttributes<HTMLSpanElement>
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
+export type SpanProps = HTMLAttributes<HTMLSpanElement>

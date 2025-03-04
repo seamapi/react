@@ -14,6 +14,7 @@ import { useHeatCoolThermostat } from 'lib/seam/thermostats/use-heat-cool-thermo
 import { useHeatThermostat } from 'lib/seam/thermostats/use-heat-thermostat.js'
 import { useSetThermostatFanMode } from 'lib/seam/thermostats/use-set-thermostat-fan-mode.js'
 import { useSetThermostatOff } from 'lib/seam/thermostats/use-set-thermostat-off.js'
+import { Button } from 'lib/ui/Button.js'
 import { AccordionRow } from 'lib/ui/layout/AccordionRow.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { DetailRow } from 'lib/ui/layout/DetailRow.js'
@@ -21,6 +22,7 @@ import { DetailSection } from 'lib/ui/layout/DetailSection.js'
 import { DetailSectionGroup } from 'lib/ui/layout/DetailSectionGroup.js'
 import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
+import { ClimatePresets } from 'lib/ui/thermostat/ClimatePresets.js'
 import { ClimateSettingStatus } from 'lib/ui/thermostat/ClimateSettingStatus.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
 import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
@@ -40,8 +42,25 @@ export function ThermostatDeviceDetails({
   className,
   onEditName,
 }: ThermostatDeviceDetailsProps): JSX.Element | null {
+  const [temperatureUnit, setTemperatureUnit] = useState<
+    'fahrenheit' | 'celsius'
+  >('fahrenheit')
+  const [climateSettingsVisible, setClimateSettingsVisible] = useState(false)
+
   if (device == null) {
     return null
+  }
+
+  if (climateSettingsVisible) {
+    return (
+      <ClimatePresets
+        device={device}
+        temperatureUnit={temperatureUnit}
+        onBack={() => {
+          setClimateSettingsVisible(false)
+        }}
+      />
+    )
   }
 
   return (
@@ -49,7 +68,11 @@ export function ThermostatDeviceDetails({
       <ContentHeader title={t.thermostat} onBack={onBack} />
 
       <div className='seam-body'>
-        <ThermostatCard device={device} onEditName={onEditName} />
+        <ThermostatCard
+          onTemperatureUnitChange={setTemperatureUnit}
+          device={device}
+          onEditName={onEditName}
+        />
 
         <div className='seam-thermostat-device-details'>
           <DetailSectionGroup>
@@ -58,6 +81,12 @@ export function ThermostatDeviceDetails({
               tooltipContent={t.currentSettingsTooltip}
             >
               <ClimateSettingRow device={device} />
+              <ClimatePresetRow
+                onClickManage={() => {
+                  setClimateSettingsVisible(true)
+                }}
+                device={device}
+              />
               <FanModeRow device={device} />
             </DetailSection>
 
@@ -299,12 +328,32 @@ function ClimateSettingRow({
   )
 }
 
+interface ClimatePresetRowProps {
+  device: ThermostatDevice
+  onClickManage: () => void
+}
+
+function ClimatePresetRow({
+  device,
+  onClickManage,
+}: ClimatePresetRowProps): JSX.Element {
+  return (
+    <DetailRow label={t.climatePresets}>
+      <Button onClick={onClickManage}>
+        Manage ({(device.properties.available_climate_presets ?? []).length}{' '}
+        Presets)
+      </Button>
+    </DetailRow>
+  )
+}
+
 const t = {
   thermostat: 'Thermostat',
   currentSettings: 'Current settings',
   currentSettingsTooltip:
     'These are the settings currently on the device. If you change them here, they change on the device.',
   climate: 'Climate',
+  climatePresets: 'Climate presets',
   fanMode: 'Fan mode',
   none: 'None',
   fanModeSuccess: 'Successfully updated fan mode!',

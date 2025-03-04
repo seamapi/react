@@ -12,12 +12,17 @@ import { Temperature } from 'lib/ui/thermostat/Temperature.js'
 interface ThermostatCardProps {
   device: ThermostatDevice
   onEditName?: (newName: string) => void
+  onTemperatureUnitChange?: (temperatureUnit: 'fahrenheit' | 'celsius') => void
 }
 
 export function ThermostatCard(props: ThermostatCardProps): JSX.Element {
   return (
     <div className='seam-thermostat-card'>
-      <Content device={props.device} onEditName={props.onEditName} />
+      <Content
+        device={props.device}
+        onEditName={props.onEditName}
+        onTemperatureUnitChange={props.onTemperatureUnitChange}
+      />
     </div>
   )
 }
@@ -30,9 +35,10 @@ function Content(props: ThermostatCardProps): JSX.Element | null {
   >('fahrenheit')
 
   const toggleTemperatureUnit = (): void => {
-    setTemperatureUnit(
-      temperatureUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit'
-    )
+    const newUnit = temperatureUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit'
+
+    setTemperatureUnit(newUnit)
+    props.onTemperatureUnitChange?.(newUnit)
   }
 
   const {

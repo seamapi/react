@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import type { MouseEventHandler, PropsWithChildren } from 'react'
 
 interface ButtonProps extends PropsWithChildren {
-  variant?: 'solid' | 'outline' | 'neutral'
+  variant?: 'solid' | 'outline' | 'neutral' | 'danger'
   size?: 'small' | 'medium' | 'large'
   type?: 'button' | 'submit'
   disabled?: boolean
