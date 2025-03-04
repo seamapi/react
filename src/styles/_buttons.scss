@@ -1,6 +1,6 @@
 @use './typography';
 @use './colors';
-@use "sass:color";
+@use 'sass:color';
 
 @mixin icon-button {
   .seam-icon-btn {

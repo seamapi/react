@@ -1,16 +1,19 @@
-import classNames from "classnames";
-import { type HTMLAttributes,useMemo, useRef } from "react";
-import { Controller, useForm } from "react-hook-form";
+import classNames from 'classnames'
+import { type HTMLAttributes, useMemo, useRef } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 
-import type { HvacModeSetting, ThermostatDevice } from "lib/seam/thermostats/thermostat-device.js";
-import { Button } from "lib/ui/Button.js";
-import { FormField } from "lib/ui/FormField.js";
-import { InputLabel } from "lib/ui/InputLabel.js";
-import { ContentHeader } from "lib/ui/layout/ContentHeader.js";
-import { TextField } from "lib/ui/TextField/TextField.js";
-import { ClimateModeMenu } from "lib/ui/thermostat/ClimateModeMenu.js";
-import { FanModeMenu } from "lib/ui/thermostat/FanModeMenu.js";
-import { TemperatureControlGroup } from "lib/ui/thermostat/TemperatureControlGroup.js";
+import type {
+  HvacModeSetting,
+  ThermostatDevice,
+} from 'lib/seam/thermostats/thermostat-device.js'
+import { Button } from 'lib/ui/Button.js'
+import { FormField } from 'lib/ui/FormField.js'
+import { InputLabel } from 'lib/ui/InputLabel.js'
+import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { TextField } from 'lib/ui/TextField/TextField.js'
+import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
+import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
+import { TemperatureControlGroup } from 'lib/ui/thermostat/TemperatureControlGroup.js'
 
 type Preset =
   ThermostatDevice['properties']['available_climate_presets'][number]
@@ -24,20 +27,22 @@ export type ClimatePresetProps = {
 export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
   const { preset, onBack, device, ...attrs } = props
 
-  const originalPreset = useRef<Preset>(preset ?? {
-      climate_preset_key: "",
+  const originalPreset = useRef<Preset>(
+    preset ?? {
+      climate_preset_key: '',
       can_edit: true,
       can_delete: true,
-      display_name: "",
-      fan_mode_setting: "auto",
-      hvac_mode_setting: "off",
+      display_name: '',
+      fan_mode_setting: 'auto',
+      hvac_mode_setting: 'off',
       cooling_set_point_celsius: undefined,
       heating_set_point_celsius: undefined,
       cooling_set_point_fahrenheit: undefined,
       heating_set_point_fahrenheit: undefined,
       manual_override_allowed: true,
-      name: "",
-    })
+      name: '',
+    }
+  )
 
   const {
     register,
@@ -58,55 +63,66 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
     },
   })
 
-  const state = watch();
+  const state = watch()
 
   const onHvacModeChange = (mode: HvacModeSetting): void => {
-    if (mode === "heat_cool") {
-      setValue("heatPoint", originalPreset.current.heating_set_point_fahrenheit);
-      setValue("coolPoint", originalPreset.current.cooling_set_point_fahrenheit);
-    } else if (mode === "heat") {
-      setValue("heatPoint", originalPreset.current.heating_set_point_fahrenheit);
-      setValue("coolPoint", undefined);
-    } else if (mode === "cool") {
-      setValue("heatPoint", undefined);
-      setValue("coolPoint", originalPreset.current.cooling_set_point_fahrenheit);
+    if (mode === 'heat_cool') {
+      setValue('heatPoint', originalPreset.current.heating_set_point_fahrenheit)
+      setValue('coolPoint', originalPreset.current.cooling_set_point_fahrenheit)
+    } else if (mode === 'heat') {
+      setValue('heatPoint', originalPreset.current.heating_set_point_fahrenheit)
+      setValue('coolPoint', undefined)
+    } else if (mode === 'cool') {
+      setValue('heatPoint', undefined)
+      setValue('coolPoint', originalPreset.current.cooling_set_point_fahrenheit)
     } else {
-      setValue("heatPoint", undefined);
-      setValue("coolPoint", undefined);
+      setValue('heatPoint', undefined)
+      setValue('coolPoint', undefined)
     }
   }
 
-  const allPresets = useMemo(() => (
-    device.properties.available_climate_presets ?? []
-  ), [device])
+  const allPresets = useMemo(
+    () => device.properties.available_climate_presets ?? [],
+    [device]
+  )
 
-  const otherPresets = useMemo(() => (
-    allPresets.filter(other => other.climate_preset_key !== originalPreset.current.climate_preset_key)
-  ), [allPresets, preset])
+  const otherPresets = useMemo(
+    () =>
+      allPresets.filter(
+        (other) =>
+          other.climate_preset_key !== originalPreset.current.climate_preset_key
+      ),
+    [allPresets, preset]
+  )
 
   const onSubmit = (): void => {
-    if(otherPresets.some(other => other.climate_preset_key === state.key)) {
-      setError("key", { type: "validate", message: "Preset with this key already exists." })
-      return;
+    if (otherPresets.some((other) => other.climate_preset_key === state.key)) {
+      setError('key', {
+        type: 'validate',
+        message: 'Preset with this key already exists.',
+      })
+      return
     }
 
-    console.log(state);
+    console.log(state)
   }
 
   return (
     <div
       {...attrs}
-      className={classNames(
-        'seam-thermostat-climate-preset',
-        attrs.className
-      )}
+      className={classNames('seam-thermostat-climate-preset', attrs.className)}
     >
-      <ContentHeader title={originalPreset.current.display_name} onBack={onBack} />
+      <ContentHeader
+        title={originalPreset.current.display_name}
+        onBack={onBack}
+      />
 
-      <div className="seam-main">
-        <form onSubmit={e => {
-          void handleSubmit(onSubmit)(e)
-        }} >
+      <div className='seam-main'>
+        <form
+          onSubmit={(e) => {
+            void handleSubmit(onSubmit)(e)
+          }}
+        >
           <FormField>
             <InputLabel>Key</InputLabel>
             <TextField
@@ -116,19 +132,21 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
               helperText={errors.key?.message}
               inputProps={{
                 ...register('key', {
-                  required: "required",
+                  required: 'required',
                   maxLength: {
                     value: 20,
-                    message: "max 20 chars"
+                    message: 'max 20 chars',
                   },
                   minLength: {
                     value: 3,
-                    message: "min 3 chars"
+                    message: 'min 3 chars',
                   },
                   validate(value) {
-                    const fixedValue = value.replace(/\s+/g, '').trim();
-                    return !otherPresets.some(other => other.climate_preset_key === fixedValue);
-                  }
+                    const fixedValue = value.replace(/\s+/g, '').trim()
+                    return !otherPresets.some(
+                      (other) => other.climate_preset_key === fixedValue
+                    )
+                  },
                 }),
               }}
             />
@@ -145,11 +163,11 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
                 ...register('name', {
                   maxLength: {
                     value: 20,
-                    message: "max 20 chars"
+                    message: 'max 20 chars',
                   },
                   minLength: {
                     value: 3,
-                    message: "min 3 chars"
+                    message: 'min 3 chars',
                   },
                 }),
               }}
@@ -160,11 +178,11 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
             <InputLabel>Fan Mode</InputLabel>
             <Controller
               control={control}
-              name="fanMode"
+              name='fanMode'
               render={({ field: { onChange, value } }) => (
                 <FanModeMenu
                   block
-                  size="large"
+                  size='large'
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   mode={value!}
                   onChange={onChange}
@@ -177,63 +195,60 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
             <InputLabel>HVAC Mode</InputLabel>
             <Controller
               control={control}
-              name="hvacMode"
+              name='hvacMode'
               render={({ field: { onChange, value } }) => (
                 <ClimateModeMenu
                   block
-                  size="large"
+                  size='large'
                   buttonTextVisible
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   mode={value!}
                   onChange={(value) => {
-                    onChange(value);
-                    onHvacModeChange(value);
+                    onChange(value)
+                    onHvacModeChange(value)
                   }}
                 />
               )}
             />
           </FormField>
 
-          {
-            state.hvacMode !== "off" && (
-              <FormField>
-                <InputLabel>Heat / Cool</InputLabel>
-                <TemperatureControlGroup
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  mode={state.hvacMode!}
-                  onHeatValueChange={(value) => {
-                    setValue("heatPoint", value);
-                  }}
-                  onCoolValueChange={(value) => {
-                    setValue("coolPoint", value);
-                  }}
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  heatValue={state.heatPoint!}
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  coolValue={state.coolPoint!}
-                  minHeat={65}
-                  maxHeat={100}
-                  minCool={50}
-                  maxCool={90}
-                  delta={5}
-                />
-              </FormField>
-            )
-          }
+          {state.hvacMode !== 'off' && (
+            <FormField>
+              <InputLabel>Heat / Cool</InputLabel>
+              <TemperatureControlGroup
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                mode={state.hvacMode!}
+                onHeatValueChange={(value) => {
+                  setValue('heatPoint', value)
+                }}
+                onCoolValueChange={(value) => {
+                  setValue('coolPoint', value)
+                }}
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                heatValue={state.heatPoint!}
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                coolValue={state.coolPoint!}
+                minHeat={65}
+                maxHeat={100}
+                minCool={50}
+                maxCool={90}
+                delta={5}
+              />
+            </FormField>
+          )}
 
-          <div className="seam-climate-preset-buttons">
+          <div className='seam-climate-preset-buttons'>
             <Button
-              type="submit"
-              variant="danger"
+              type='submit'
+              variant='danger'
               disabled={!originalPreset.current.can_delete}
-              >
+            >
               Delete
-              </Button>
+            </Button>
 
-            
             <Button
-              type="submit"
-              variant="solid"
+              type='submit'
+              variant='solid'
               disabled={!originalPreset.current.can_edit}
             >
               Save

@@ -25,15 +25,16 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   const [selectedClimatePreset, setSelectedClimatePreset] =
     useState<Preset | null>(null)
 
-
   if (selectedClimatePreset != null) {
-    return <ClimatePreset
-      onBack={() => {
-        setSelectedClimatePreset(null)
-      }}
-      device={device}
-      preset={selectedClimatePreset}
-    />
+    return (
+      <ClimatePreset
+        onBack={() => {
+          setSelectedClimatePreset(null)
+        }}
+        device={device}
+        preset={selectedClimatePreset}
+      />
+    )
   }
 
   return (
@@ -73,7 +74,8 @@ function PresetCard(
     onClickDelete: () => void
   }
 ): JSX.Element {
-  const { preset, temperatureUnit, onClickEdit, onClickDelete, ...attrs } = props
+  const { preset, temperatureUnit, onClickEdit, onClickDelete, ...attrs } =
+    props
 
   const heatPoint =
     temperatureUnit === 'fahrenheit'
@@ -87,23 +89,27 @@ function PresetCard(
 
   const unitSymbol = temperatureUnit === 'fahrenheit' ? '˚F' : '˚C'
 
-  const chips = ([
-    heatPoint != null ? { name: 'Heat', value: `${heatPoint} ${unitSymbol}` } : undefined,
-    coolPoint != null ? { name: 'Cool', value: `${coolPoint} ${unitSymbol}` } : undefined,
-    preset.hvac_mode_setting != null ? { name: 'HVAC', value: preset.hvac_mode_setting } : undefined,
-    preset.fan_mode_setting != null ? { name: 'Fan', value: preset.fan_mode_setting } : undefined,
-  ]
-    .filter(Boolean) as Array<{ name: string, value: string }>)
-    .map(({ name, value }, index) => (
-      <div key={index} className='seam-thermostat-climate-preset-chip'>
-        <span className='seam-thermostat-climate-preset-chip-name'>
-          {name}
-        </span>
-        <span className='seam-thermostat-climate-preset-chip-value'>
-      {value}
-        </span>
-      </div>
-    ))
+  const chips = (
+    [
+      heatPoint != null
+        ? { name: 'Heat', value: `${heatPoint} ${unitSymbol}` }
+        : undefined,
+      coolPoint != null
+        ? { name: 'Cool', value: `${coolPoint} ${unitSymbol}` }
+        : undefined,
+      preset.hvac_mode_setting != null
+        ? { name: 'HVAC', value: preset.hvac_mode_setting }
+        : undefined,
+      preset.fan_mode_setting != null
+        ? { name: 'Fan', value: preset.fan_mode_setting }
+        : undefined,
+    ].filter(Boolean) as Array<{ name: string; value: string }>
+  ).map(({ name, value }, index) => (
+    <div key={index} className='seam-thermostat-climate-preset-chip'>
+      <span className='seam-thermostat-climate-preset-chip-name'>{name}</span>
+      <span className='seam-thermostat-climate-preset-chip-value'>{value}</span>
+    </div>
+  ))
 
   return (
     <div
@@ -115,13 +121,13 @@ function PresetCard(
     >
       <div className='seam-thermostat-climate-presets-card-top'>
         <div className='seam-thermostat-climate-presets-card-name'>
-          { preset.display_name }
+          {preset.display_name}
 
-          {preset.name != null &&
+          {preset.name != null && (
             <div className='seam-thermostat-climate-presets-card-name-key'>
               {preset.climate_preset_key}
             </div>
-          }
+          )}
         </div>
 
         <div className='seam-thermostat-climate-presets-card-buttons'>
@@ -135,9 +141,7 @@ function PresetCard(
         </div>
       </div>
 
-      <div className='seam-thermostat-climate-presets-card-body'>
-        {chips}
-      </div>
+      <div className='seam-thermostat-climate-presets-card-body'>{chips}</div>
     </div>
   )
 }

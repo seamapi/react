@@ -14,13 +14,20 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 export type UseUpdateThermostatClimatePresetParams = never
 export type UseUpdateThermostatClimatePresetData = undefined
 
-export type UseUpdateThermostatClimatePresetVariables = ThermostatsUpdateClimatePresetBody
+export type UseUpdateThermostatClimatePresetVariables =
+  ThermostatsUpdateClimatePresetBody
 
-const fhToCelsius = (t?: number): number | undefined => t == null ? undefined : (t - 32) * (5 / 9)
+const fhToCelsius = (t?: number): number | undefined =>
+  t == null ? undefined : (t - 32) * (5 / 9)
 
-type ClimatePreset = ThermostatDevice['properties']['available_climate_presets'][number];
+type ClimatePreset =
+  ThermostatDevice['properties']['available_climate_presets'][number]
 
-export function useUpdateThermostatClimatePreset({ originalKey }: { originalKey: ClimatePreset['climate_preset_key'] }): UseMutationResult<
+export function useUpdateThermostatClimatePreset({
+  originalKey,
+}: {
+  originalKey: ClimatePreset['climate_preset_key']
+}): UseMutationResult<
   UseUpdateThermostatClimatePresetData,
   SeamHttpApiError,
   UseUpdateThermostatClimatePresetVariables
@@ -40,19 +47,23 @@ export function useUpdateThermostatClimatePreset({ originalKey }: { originalKey:
     onSuccess: (_data, variables) => {
       const preset: ClimatePreset = {
         ...variables,
-        cooling_set_point_celsius: fhToCelsius(variables.cooling_set_point_fahrenheit),
-        heating_set_point_celsius: fhToCelsius(variables.heating_set_point_fahrenheit),
+        cooling_set_point_celsius: fhToCelsius(
+          variables.cooling_set_point_fahrenheit
+        ),
+        heating_set_point_celsius: fhToCelsius(
+          variables.heating_set_point_fahrenheit
+        ),
         display_name: variables.name ?? variables.climate_preset_key,
         can_delete: true,
         can_edit: true,
         manual_override_allowed: true,
-      };
+      }
 
       queryClient.setQueryData<ThermostatDevice | null>(
         ['devices', 'get', { device_id: variables.device_id }],
         (device) => {
           if (device == null) {
-            return;
+            return
           }
 
           return getUpdatedDevice(device, originalKey, preset)
@@ -79,10 +90,13 @@ export function useUpdateThermostatClimatePreset({ originalKey }: { originalKey:
   })
 }
 
-
-function getUpdatedDevice(device: ThermostatDevice, originalKey: ClimatePreset['climate_preset_key'], preset: ClimatePreset): ThermostatDevice {
+function getUpdatedDevice(
+  device: ThermostatDevice,
+  originalKey: ClimatePreset['climate_preset_key'],
+  preset: ClimatePreset
+): ThermostatDevice {
   if (device == null) {
-    return device;
+    return device
   }
 
   return {
@@ -91,8 +105,9 @@ function getUpdatedDevice(device: ThermostatDevice, originalKey: ClimatePreset['
       ...device.properties,
       available_climate_presets: [
         preset,
-        ...(device.properties.available_climate_presets ?? [])
-          .filter(preset => preset.climate_preset_key !== originalKey),
+        ...(device.properties.available_climate_presets ?? []).filter(
+          (preset) => preset.climate_preset_key !== originalKey
+        ),
       ],
     },
   }

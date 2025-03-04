@@ -16,8 +16,8 @@ interface ClimateModeMenuProps {
   buttonTextVisible?: boolean
   className?: string
   style?: React.CSSProperties
-  block?: boolean,
-  size?: 'regular' | 'large',
+  block?: boolean
+  size?: 'regular' | 'large'
 }
 
 export function ClimateModeMenu({
@@ -33,16 +33,28 @@ export function ClimateModeMenu({
   return (
     <Menu
       renderButton={({ onOpen }) => (
-        <button style={style} onClick={onOpen} className={classNames('seam-climate-mode-menu-button', {
-          'seam-climate-mode-menu-button-block': block,
-          'seam-climate-mode-menu-button-regular': size === 'regular',
-          'seam-climate-mode-menu-button-large': size === 'large',
-        }, className)}>
+        <button
+          style={style}
+          onClick={onOpen}
+          className={classNames(
+            'seam-climate-mode-menu-button',
+            {
+              'seam-climate-mode-menu-button-block': block,
+              'seam-climate-mode-menu-button-regular': size === 'regular',
+              'seam-climate-mode-menu-button-large': size === 'large',
+            },
+            className
+          )}
+        >
           <div className='seam-climate-mode-menu-button-icon'>
             <ModeIcon mode={mode} />
           </div>
 
-          {buttonTextVisible && <span className='seam-climate-mode-menu-button-text'>{t[mode]}</span>}
+          {buttonTextVisible && (
+            <span className='seam-climate-mode-menu-button-text'>
+              {t[mode]}
+            </span>
+          )}
 
           <ChevronDownIcon className='seam-climate-mode-menu-button-chevron' />
         </button>
