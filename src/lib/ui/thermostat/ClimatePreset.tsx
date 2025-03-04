@@ -241,8 +241,8 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   mode={value!}
                   onChange={(value) => {
-                    onChange(value)
                     onHvacModeChange(value)
+                    onChange(value);
                   }}
                 />
               )}
