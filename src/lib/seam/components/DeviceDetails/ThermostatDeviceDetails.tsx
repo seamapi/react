@@ -340,7 +340,9 @@ function ClimatePresetRow({
   return (
     <DetailRow label={t.climatePresets}>
       <Button onClick={onClickManage}>
-        {t.manageNPresets((device.properties.available_climate_presets ?? []).length)}
+        {t.manageNPresets(
+          (device.properties.available_climate_presets ?? []).length
+        )}
       </Button>
     </DetailRow>
   )

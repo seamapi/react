@@ -100,7 +100,7 @@ function getUpdatedDevice(
       ...device.properties,
       available_climate_presets: [
         preset,
-        ...(device.properties.available_climate_presets ?? [])
+        ...(device.properties.available_climate_presets ?? []),
       ],
     },
   }

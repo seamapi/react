@@ -29,20 +29,30 @@ type Preset =
 export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   const { device, onBack } = props
 
-  const [selectedClimatePreset, setSelectedClimatePreset] =
-    useState<Preset | typeof CreateNewPresetSymbol | null>(null)
+  const [selectedClimatePreset, setSelectedClimatePreset] = useState<
+    Preset | typeof CreateNewPresetSymbol | null
+  >(null)
 
-  const [inDeletionPresetKey, setInDeletionPresetKey] = useState<Preset['climate_preset_key'] | null>(null);
-  const deleteMutation = useDeleteThermostatClimatePreset();
+  const [inDeletionPresetKey, setInDeletionPresetKey] = useState<
+    Preset['climate_preset_key'] | null
+  >(null)
+  const deleteMutation = useDeleteThermostatClimatePreset()
 
-  if (selectedClimatePreset != null || selectedClimatePreset === CreateNewPresetSymbol) {
+  if (
+    selectedClimatePreset != null ||
+    selectedClimatePreset === CreateNewPresetSymbol
+  ) {
     return (
       <ClimatePreset
         onBack={() => {
           setSelectedClimatePreset(null)
         }}
         device={device}
-        preset={selectedClimatePreset === CreateNewPresetSymbol ? undefined : selectedClimatePreset}
+        preset={
+          selectedClimatePreset === CreateNewPresetSymbol
+            ? undefined
+            : selectedClimatePreset
+        }
       />
     )
   }
@@ -51,9 +61,12 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
     <div className='seam-thermostat-climate-presets'>
       <ContentHeader title='Climate Presets' onBack={onBack} />
       <div className='seam-thermostat-climate-presets-body'>
-        <Button onClick={() => {
-          setSelectedClimatePreset(CreateNewPresetSymbol)
-        }} className='seam-climate-presets-add-button'>
+        <Button
+          onClick={() => {
+            setSelectedClimatePreset(CreateNewPresetSymbol)
+          }}
+          className='seam-climate-presets-add-button'
+        >
           <AddIcon />
           Create New
         </Button>
@@ -74,8 +87,14 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
               temperatureUnit={props.temperatureUnit}
               preset={preset}
               key={preset.climate_preset_key}
-              deletionLoading={deleteMutation.isPending && inDeletionPresetKey === preset.climate_preset_key}
-              disabled={deleteMutation.isPending && inDeletionPresetKey !== preset.climate_preset_key}
+              deletionLoading={
+                deleteMutation.isPending &&
+                inDeletionPresetKey === preset.climate_preset_key
+              }
+              disabled={
+                deleteMutation.isPending &&
+                inDeletionPresetKey !== preset.climate_preset_key
+              }
             />
           ))}
         </div>
@@ -94,8 +113,15 @@ function PresetCard(
     disabled?: boolean
   }
 ): JSX.Element {
-  const { preset, temperatureUnit, onClickEdit, onClickDelete, deletionLoading = false, disabled = false, ...attrs } =
-    props
+  const {
+    preset,
+    temperatureUnit,
+    onClickEdit,
+    onClickDelete,
+    deletionLoading = false,
+    disabled = false,
+    ...attrs
+  } = props
 
   const heatPoint =
     temperatureUnit === 'fahrenheit'
@@ -123,9 +149,7 @@ function PresetCard(
     ].filter(Boolean) as Array<{ icon: ReactNode; value: string }>
   ).map(({ icon, value }, index) => (
     <div key={index} className='seam-thermostat-climate-preset-chip'>
-      <span className='seam-thermostat-climate-preset-chip-icon'>
-        {icon}
-      </span>
+      <span className='seam-thermostat-climate-preset-chip-icon'>{icon}</span>
       <span className='seam-thermostat-climate-preset-chip-value'>{value}</span>
     </div>
   ))
@@ -150,14 +174,18 @@ function PresetCard(
         </div>
 
         <div className='seam-thermostat-climate-presets-card-buttons'>
-          <IconButton disabled={disabled || deletionLoading || !preset.can_edit} onClick={onClickEdit}>
+          <IconButton
+            disabled={disabled || deletionLoading || !preset.can_edit}
+            onClick={onClickEdit}
+          >
             <EditIcon />
           </IconButton>
 
-          <IconButton disabled={disabled || !preset.can_delete} onClick={onClickDelete}>
-            {
-              deletionLoading ? <Spinner size='small' /> : <TrashIcon />
-            }
+          <IconButton
+            disabled={disabled || !preset.can_delete}
+            onClick={onClickDelete}
+          >
+            {deletionLoading ? <Spinner size='small' /> : <TrashIcon />}
           </IconButton>
         </div>
       </div>

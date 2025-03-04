@@ -24,7 +24,6 @@ export function Button({
   onMouseDown,
   type = 'button',
   loading = false,
-  
 }: ButtonProps): JSX.Element {
   return (
     <button
@@ -39,23 +38,21 @@ export function Button({
       disabled={disabled}
       onClick={(e) => {
         if (loading || disabled) {
-          e.preventDefault();
-          return;
+          e.preventDefault()
+          return
         }
 
-        onClick?.(e);
+        onClick?.(e)
       }}
       onMouseDown={onMouseDown}
       type={type}
     >
       <span className='seam-btn-content'>{children}</span>
-      {
-        loading && (
-          <div className='seam-btn-loading'>
-            <Spinner size='small' />
-          </div>
-        )
-      }
+      {loading && (
+        <div className='seam-btn-loading'>
+          <Spinner size='small' />
+        </div>
+      )}
     </button>
   )
 }

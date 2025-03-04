@@ -46,7 +46,7 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
       manual_override_allowed: true,
       name: '',
     }
-  ).current;
+  ).current
 
   const {
     register,
@@ -93,19 +93,21 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
   const otherPresets = useMemo(
     () =>
       allPresets.filter(
-        (other) =>
-          other.climate_preset_key !== preset.climate_preset_key
+        (other) => other.climate_preset_key !== preset.climate_preset_key
       ),
     [allPresets, preset]
   )
 
   const isCreate = _preset == null
-  const createMutation = useCreateThermostatClimatePreset();
-  const updateMutation = useUpdateThermostatClimatePreset();
-  const loading = isCreate ? createMutation.isPending : updateMutation.isPending;
+  const createMutation = useCreateThermostatClimatePreset()
+  const updateMutation = useUpdateThermostatClimatePreset()
+  const loading = isCreate ? createMutation.isPending : updateMutation.isPending
 
   const onSubmit = (): void => {
-    if (isCreate && otherPresets.some((other) => other.climate_preset_key === state.key)) {
+    if (
+      isCreate &&
+      otherPresets.some((other) => other.climate_preset_key === state.key)
+    ) {
       setError('key', {
         type: 'validate',
         message: 'Preset with this key already exists.',
@@ -113,7 +115,7 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
       return
     }
 
-    const name = state.name.replace(/\s+/g, ' ').trim();
+    const name = state.name.replace(/\s+/g, ' ').trim()
 
     const body = {
       climate_preset_key: state.key,
@@ -122,8 +124,14 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
       cooling_set_point_fahrenheit: state.coolPoint,
       heating_set_point_fahrenheit: state.heatPoint,
       fan_mode_setting: state.fanMode,
-      cooling_set_point_celsius: typeof state.coolPoint === 'number' ? toCelcius(state.coolPoint) : undefined,
-      heating_set_point_celsius: typeof state.heatPoint === 'number' ? toCelcius(state.heatPoint) : undefined,
+      cooling_set_point_celsius:
+        typeof state.coolPoint === 'number'
+          ? toCelcius(state.coolPoint)
+          : undefined,
+      heating_set_point_celsius:
+        typeof state.heatPoint === 'number'
+          ? toCelcius(state.heatPoint)
+          : undefined,
       hvac_mode_setting: state.hvacMode,
     }
 
@@ -142,10 +150,7 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
       {...attrs}
       className={classNames('seam-thermostat-climate-preset', attrs.className)}
     >
-      <ContentHeader
-        title={preset.display_name}
-        onBack={onBack}
-      />
+      <ContentHeader title={preset.display_name} onBack={onBack} />
 
       <div className='seam-main'>
         <form
@@ -153,38 +158,36 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
             void handleSubmit(onSubmit)(e)
           }}
         >
-          {
-            isCreate && (
-              <FormField>
-            <InputLabel>Key</InputLabel>
-            <TextField
-              size='large'
-              clearable
-              hasError={errors.key != null}
-              helperText={errors.key?.message}
-              inputProps={{
-                ...register('key', {
-                  required: 'required',
-                  maxLength: {
-                    value: 20,
-                    message: 'max 20 chars',
-                  },
-                  minLength: {
-                    value: 3,
-                    message: 'min 3 chars',
-                  },
-                  validate(value) {
-                    const fixedValue = value.replace(/\s+/g, '').trim()
-                    return !otherPresets.some(
-                      (other) => other.climate_preset_key === fixedValue
-                    )
-                  },
-                }),
-              }}
-            />
-          </FormField>
-            )
-          }
+          {isCreate && (
+            <FormField>
+              <InputLabel>Key</InputLabel>
+              <TextField
+                size='large'
+                clearable
+                hasError={errors.key != null}
+                helperText={errors.key?.message}
+                inputProps={{
+                  ...register('key', {
+                    required: 'required',
+                    maxLength: {
+                      value: 20,
+                      message: 'max 20 chars',
+                    },
+                    minLength: {
+                      value: 3,
+                      message: 'min 3 chars',
+                    },
+                    validate(value) {
+                      const fixedValue = value.replace(/\s+/g, '').trim()
+                      return !otherPresets.some(
+                        (other) => other.climate_preset_key === fixedValue
+                      )
+                    },
+                  }),
+                }}
+              />
+            </FormField>
+          )}
 
           <FormField>
             <InputLabel>Display Name (Optional)</InputLabel>
