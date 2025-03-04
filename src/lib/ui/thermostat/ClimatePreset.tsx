@@ -242,7 +242,7 @@ export function ClimatePreset(props: ClimatePresetProps): JSX.Element {
                   mode={value!}
                   onChange={(value) => {
                     onHvacModeChange(value)
-                    onChange(value);
+                    onChange(value)
                   }}
                 />
               )}
