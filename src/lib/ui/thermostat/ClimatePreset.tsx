@@ -63,7 +63,6 @@ interface PresetFormProps {
     coolPoint: number | undefined
     fanMode: FanModeSetting | undefined
   }
-  editable: boolean
   deletable: boolean
   onSubmit: (values: PresetFormProps['defaultValues']) => void
   onDelete?: () => void
@@ -78,7 +77,6 @@ function PresetForm(props: PresetFormProps): JSX.Element {
     defaultValues,
     device,
     deletable,
-    editable,
     instanceRef,
     loading,
     onDelete,
@@ -259,19 +257,23 @@ function PresetForm(props: PresetFormProps): JSX.Element {
         )}
 
         <div className='seam-climate-preset-buttons'>
-          <Button
-            type='button'
-            variant='danger'
-            disabled={loading || !deletable}
-            onClick={onDelete}
-          >
-            {t.delete}
-          </Button>
+          {
+            deletable && (
+              <Button
+                type='button'
+                variant='danger'
+                disabled={loading}
+                onClick={onDelete}
+              >
+                {t.delete}
+              </Button>
+            )
+          }
 
           <Button
             type='submit'
             variant='solid'
-            disabled={loading || !editable}
+            disabled={loading}
             loading={loading}
           >
             {t.save}
@@ -335,7 +337,6 @@ function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
         fanMode: 'auto',
       }}
       deletable={false}
-      editable={false}
       device={device}
       loading={mutation.isPending}
       onSubmit={onSubmit}
@@ -394,7 +395,6 @@ function UpdateForm({
     <PresetForm
       defaultValues={defaultValues}
       deletable={preset.can_delete}
-      editable={preset.can_edit}
       device={device}
       loading={mutation.isPending}
       onSubmit={onSubmit}
