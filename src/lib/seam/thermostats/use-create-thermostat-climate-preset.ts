@@ -8,7 +8,8 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 
-import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
+import type { ThermostatClimatePreset, ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
+import { fahrenheitToCelsius } from 'lib/seam/thermostats/unit-conversion.js'
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseCreateThermostatClimatePresetParams = never
@@ -16,12 +17,6 @@ export type UseCreateThermostatClimatePresetData = undefined
 
 export type UseCreateThermostatClimatePresetVariables =
   ThermostatsCreateClimatePresetBody
-
-const fhToCelsius = (t?: number): number | undefined =>
-  t == null ? undefined : (t - 32) * (5 / 9)
-
-type ClimatePreset =
-  ThermostatDevice['properties']['available_climate_presets'][number]
 
 export function useCreateThermostatClimatePreset(): UseMutationResult<
   UseCreateThermostatClimatePresetData,
@@ -41,20 +36,6 @@ export function useCreateThermostatClimatePreset(): UseMutationResult<
       await client.thermostats.createClimatePreset(variables)
     },
     onSuccess: (_data, variables) => {
-      const preset: ClimatePreset = {
-        ...variables,
-        cooling_set_point_celsius: fhToCelsius(
-          variables.cooling_set_point_fahrenheit
-        ),
-        heating_set_point_celsius: fhToCelsius(
-          variables.heating_set_point_fahrenheit
-        ),
-        display_name: variables.name ?? variables.climate_preset_key,
-        can_delete: true,
-        can_edit: true,
-        manual_override_allowed: true,
-      }
-
       queryClient.setQueryData<ThermostatDevice | null>(
         ['devices', 'get', { device_id: variables.device_id }],
         (device) => {
@@ -62,7 +43,7 @@ export function useCreateThermostatClimatePreset(): UseMutationResult<
             return
           }
 
-          return getUpdatedDevice(device, preset)
+          return getUpdatedDevice(device, variables)
         }
       )
 
@@ -75,7 +56,7 @@ export function useCreateThermostatClimatePreset(): UseMutationResult<
 
           return devices.map((device) => {
             if (device.device_id === variables.device_id) {
-              return getUpdatedDevice(device, preset)
+              return getUpdatedDevice(device, variables)
             }
 
             return device
@@ -86,12 +67,22 @@ export function useCreateThermostatClimatePreset(): UseMutationResult<
   })
 }
 
-function getUpdatedDevice(
+const getUpdatedDevice =(
   device: ThermostatDevice,
-  preset: ClimatePreset
-): ThermostatDevice {
-  if (device == null) {
-    return device
+  variables: UseCreateThermostatClimatePresetVariables
+): ThermostatDevice => {
+  const preset: ThermostatClimatePreset = {
+    ...variables,
+    cooling_set_point_celsius: fahrenheitToCelsius(
+      variables.cooling_set_point_fahrenheit
+    ),
+    heating_set_point_celsius: fahrenheitToCelsius(
+      variables.heating_set_point_fahrenheit
+    ),
+    display_name: variables.name ?? variables.climate_preset_key,
+    can_delete: true,
+    can_edit: true,
+    manual_override_allowed: false,
   }
 
   return {

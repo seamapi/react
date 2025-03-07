@@ -43,7 +43,7 @@ export function useDeleteThermostatClimatePreset(): UseMutationResult<
             return
           }
 
-          return getUpdatedDevice(device, variables.climate_preset_key)
+          return getUpdatedDevice(device, variables)
         }
       )
 
@@ -56,7 +56,7 @@ export function useDeleteThermostatClimatePreset(): UseMutationResult<
 
           return devices.map((device) => {
             if (device.device_id === variables.device_id) {
-              return getUpdatedDevice(device, variables.climate_preset_key)
+              return getUpdatedDevice(device, variables)
             }
 
             return device
@@ -69,16 +69,16 @@ export function useDeleteThermostatClimatePreset(): UseMutationResult<
 
 function getUpdatedDevice(
   device: ThermostatDevice,
-  climatePresetKey: string
+  variables: UseDeleteThermostatClimatePresetVariables
 ): ThermostatDevice {
   return {
     ...device,
     properties: {
       ...device.properties,
       available_climate_presets:
-        device.properties.available_climate_presets.filter(
-          (preset) => preset.climate_preset_key !== climatePresetKey
-        ),
+        device.properties.available_climate_presets.filter((preset) => {
+          return preset.climate_preset_key !== variables.climate_preset_key
+        }),
     },
   }
 }

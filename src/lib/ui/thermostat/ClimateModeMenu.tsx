@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import type { CSSProperties } from 'react'
 
 import { ChevronDownIcon } from 'lib/icons/ChevronDown.js'
 import { OffIcon } from 'lib/icons/Off.js'
@@ -15,7 +16,7 @@ interface ClimateModeMenuProps {
   supportedModes?: HvacModeSetting[]
   buttonTextVisible?: boolean
   className?: string
-  style?: React.CSSProperties
+  style?: CSSProperties
   block?: boolean
   size?: 'regular' | 'large'
 }

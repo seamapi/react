@@ -7,7 +7,8 @@ import { FanIcon } from 'lib/icons/Fan.js'
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import { TrashIcon } from 'lib/icons/Trash.js'
-import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
+import type { ThermostatClimatePreset, ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
+import { getTemperatureUnitSymbol } from 'lib/seam/thermostats/unit-conversion.js'
 import { useDeleteThermostatClimatePreset } from 'lib/seam/thermostats/use-delete-thermostat-climate-preset.js'
 import { Button } from 'lib/ui/Button.js'
 import { IconButton } from 'lib/ui/IconButton.js'
@@ -15,7 +16,7 @@ import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Spinner } from 'lib/ui/Spinner/Spinner.js'
 import { ClimatePreset } from 'lib/ui/thermostat/ClimatePreset.js'
 
-export interface ClimatePresetsManagement {
+interface ClimatePresetsManagement {
   device: ThermostatDevice
   onBack: () => void
   temperatureUnit: 'fahrenheit' | 'celsius'
@@ -23,18 +24,15 @@ export interface ClimatePresetsManagement {
 
 const CreateNewPresetSymbol = Symbol('CreateNewPreset')
 
-type Preset =
-  ThermostatDevice['properties']['available_climate_presets'][number]
-
 export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   const { device, onBack } = props
 
   const [selectedClimatePreset, setSelectedClimatePreset] = useState<
-    Preset | typeof CreateNewPresetSymbol | null
+    ThermostatClimatePreset | typeof CreateNewPresetSymbol | null
   >(null)
 
   const [inDeletionPresetKey, setInDeletionPresetKey] = useState<
-    Preset['climate_preset_key'] | null
+    ThermostatClimatePreset['climate_preset_key'] | null
   >(null)
   const deleteMutation = useDeleteThermostatClimatePreset()
 
@@ -59,7 +57,7 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
 
   return (
     <div className='seam-thermostat-climate-presets'>
-      <ContentHeader title='Climate Presets' onBack={onBack} />
+      <ContentHeader title={t.title} onBack={onBack} />
       <div className='seam-thermostat-climate-presets-body'>
         <Button
           onClick={() => {
@@ -68,7 +66,7 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
           className='seam-climate-presets-add-button'
         >
           <AddIcon />
-          Create New
+          {t.createNew}
         </Button>
 
         <div className='seam-thermostat-climate-presets-cards'>
@@ -105,7 +103,7 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
 
 function PresetCard(
   props: HTMLAttributes<HTMLDivElement> & {
-    preset: Preset
+    preset: ThermostatClimatePreset
     temperatureUnit: 'fahrenheit' | 'celsius'
     onClickEdit: () => void
     onClickDelete: () => void
@@ -133,7 +131,7 @@ function PresetCard(
       ? preset.cooling_set_point_fahrenheit
       : (preset.cooling_set_point_celsius ?? undefined)
 
-  const unitSymbol = temperatureUnit === 'fahrenheit' ? '˚F' : '˚C'
+  const unitSymbol = getTemperatureUnitSymbol(temperatureUnit)
 
   const chips = (
     [
@@ -177,6 +175,7 @@ function PresetCard(
           <IconButton
             disabled={disabled || deletionLoading || !preset.can_edit}
             onClick={onClickEdit}
+            title={t.edit}
           >
             <EditIcon />
           </IconButton>
@@ -184,6 +183,7 @@ function PresetCard(
           <IconButton
             disabled={disabled || !preset.can_delete}
             onClick={onClickDelete}
+            title={t.delete}
           >
             {deletionLoading ? <Spinner size='small' /> : <TrashIcon />}
           </IconButton>
@@ -193,4 +193,11 @@ function PresetCard(
       <div className='seam-thermostat-climate-presets-card-body'>{chips}</div>
     </div>
   )
+}
+
+const t = {
+  title: 'Climate Presets',
+  createNew: 'Create New',
+  delete: 'Delete',
+  edit: 'Edit',
 }
