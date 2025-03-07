@@ -8,7 +8,10 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 
-import type { ThermostatClimatePreset, ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
+import type {
+  ThermostatClimatePreset,
+  ThermostatDevice,
+} from 'lib/seam/thermostats/thermostat-device.js'
 import { fahrenheitToCelsius } from 'lib/seam/thermostats/unit-conversion.js'
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 

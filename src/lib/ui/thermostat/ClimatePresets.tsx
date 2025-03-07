@@ -7,7 +7,10 @@ import { FanIcon } from 'lib/icons/Fan.js'
 import { ThermostatCoolIcon } from 'lib/icons/ThermostatCool.js'
 import { ThermostatHeatIcon } from 'lib/icons/ThermostatHeat.js'
 import { TrashIcon } from 'lib/icons/Trash.js'
-import type { ThermostatClimatePreset, ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
+import type {
+  ThermostatClimatePreset,
+  ThermostatDevice,
+} from 'lib/seam/thermostats/thermostat-device.js'
 import { getTemperatureUnitSymbol } from 'lib/seam/thermostats/unit-conversion.js'
 import { useDeleteThermostatClimatePreset } from 'lib/seam/thermostats/use-delete-thermostat-climate-preset.js'
 import { Button } from 'lib/ui/Button.js'

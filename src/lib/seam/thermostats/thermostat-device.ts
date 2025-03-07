@@ -38,4 +38,5 @@ export const isThermostatDevice = (
   device: Device
 ): device is ThermostatDevice => 'is_fan_running' in device.properties
 
-export type ThermostatClimatePreset = ThermostatDevice['properties']['available_climate_presets'][number]
+export type ThermostatClimatePreset =
+  ThermostatDevice['properties']['available_climate_presets'][number]
