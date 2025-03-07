@@ -257,18 +257,16 @@ function PresetForm(props: PresetFormProps): JSX.Element {
         )}
 
         <div className='seam-climate-preset-buttons'>
-          {
-            deletable && (
-              <Button
-                type='button'
-                variant='danger'
-                disabled={loading}
-                onClick={onDelete}
-              >
-                {t.delete}
-              </Button>
-            )
-          }
+          {deletable && (
+            <Button
+              type='button'
+              variant='danger'
+              disabled={loading}
+              onClick={onDelete}
+            >
+              {t.delete}
+            </Button>
+          )}
 
           <Button
             type='submit'
