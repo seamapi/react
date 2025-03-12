@@ -63,9 +63,7 @@ interface PresetFormProps {
     coolPoint: number | undefined
     fanMode: FanModeSetting | undefined
   }
-  deletable: boolean
   onSubmit: (values: PresetFormProps['defaultValues']) => void
-  onDelete?: () => void
   device: ThermostatDevice
   loading: boolean
   instanceRef?: Ref<UseFormReturn<PresetFormProps['defaultValues']> | undefined>
@@ -76,10 +74,8 @@ function PresetForm(props: PresetFormProps): JSX.Element {
   const {
     defaultValues,
     device,
-    deletable,
     instanceRef,
     loading,
-    onDelete,
     onSubmit,
     withKeyField,
   } = props
@@ -257,17 +253,6 @@ function PresetForm(props: PresetFormProps): JSX.Element {
         )}
 
         <div className='seam-climate-preset-buttons'>
-          {deletable && (
-            <Button
-              type='button'
-              variant='danger'
-              disabled={loading}
-              onClick={onDelete}
-            >
-              {t.delete}
-            </Button>
-          )}
-
           <Button
             type='submit'
             variant='solid'
@@ -334,7 +319,6 @@ function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
         hvacMode: 'off',
         fanMode: 'auto',
       }}
-      deletable={false}
       device={device}
       loading={mutation.isPending}
       onSubmit={onSubmit}
@@ -392,7 +376,6 @@ function UpdateForm({
   return (
     <PresetForm
       defaultValues={defaultValues}
-      deletable={preset.can_delete}
       device={device}
       loading={mutation.isPending}
       onSubmit={onSubmit}

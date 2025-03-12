@@ -16,6 +16,8 @@ import { useDeleteThermostatClimatePreset } from 'lib/seam/thermostats/use-delet
 import { Button } from 'lib/ui/Button.js'
 import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { Popover } from 'lib/ui/Popover/Popover.js'
+import { PopoverContentPrompt } from 'lib/ui/Popover/PopoverContentPrompt.js'
 import { Spinner } from 'lib/ui/Spinner/Spinner.js'
 import { ClimatePreset } from 'lib/ui/thermostat/ClimatePreset.js'
 
@@ -183,13 +185,27 @@ function PresetCard(
             <EditIcon />
           </IconButton>
 
-          <IconButton
-            disabled={disabled || !preset.can_delete}
-            onClick={onClickDelete}
-            title={t.delete}
+          <Popover
+            content={({ hide }) => (
+              <PopoverContentPrompt
+                onCancel={hide}
+                onConfirm={() => {
+                  onClickDelete()
+                  hide()
+                }}
+              />
+            )}
           >
-            {deletionLoading ? <Spinner size='small' /> : <TrashIcon />}
-          </IconButton>
+            {({ setRef }) => (
+              <IconButton
+                elRef={setRef}
+                disabled={disabled || !preset.can_delete}
+                title={t.delete}
+              >
+                {deletionLoading ? <Spinner size='small' /> : <TrashIcon />}
+              </IconButton>
+            )}
+          </Popover>
         </div>
       </div>
 

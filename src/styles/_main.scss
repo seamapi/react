@@ -30,6 +30,7 @@
 @use './tab-set';
 @use './noise-sensor';
 @use './seam-editable-device-name';
+@use './popover';
 
 .seam-components {
   // Reset
@@ -68,4 +69,5 @@
   @include thermostat.all;
   @include seam-table.all;
   @include noise-sensor.all;
+  @include popover.all;
 }
