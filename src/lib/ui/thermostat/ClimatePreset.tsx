@@ -21,6 +21,7 @@ import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
@@ -265,12 +266,35 @@ interface CreateFormProps {
   onComplete: () => void
 }
 
+/**
+ * @see https://github.com/seamapi/seam-connect/blob/a0b081e086e6f031ad3bcac6dd3f27c46e5b54e5/pages/api/public/thermostats/create_climate_preset.ts#L78-L81
+ **/
+const CreateClimatePresetErrorCodes = {
+  DeviceNotFound: 'device_not_found',
+  ClimatePresetExists: 'climate_preset_exists',
+}
+
 function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
-  const mutation = useCreateThermostatClimatePreset()
+  const { mutate, isError, error, isPending } =
+    useCreateThermostatClimatePreset()
+
+  const errorMessage = useMemo(() => {
+    if (!isError) return ''
+
+    if (error?.code === CreateClimatePresetErrorCodes.ClimatePresetExists) {
+      return t.keyAlreadyExists
+    }
+
+    if (error?.code === CreateClimatePresetErrorCodes.DeviceNotFound) {
+      return t.deviceNotFound
+    }
+
+    return t.unknownErrorOccured
+  }, [error, isError])
 
   const onSubmit = useCallback(
     (values: PresetFormProps['defaultValues']) => {
-      mutation.mutate(
+      mutate(
         {
           climate_preset_key: values.key,
           device_id: device.device_id,
@@ -285,24 +309,33 @@ function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
         { onSuccess: onComplete }
       )
     },
-    [device, mutation, onComplete]
+    [device, mutate, onComplete]
   )
 
   return (
-    <PresetForm
-      defaultValues={{
-        key: '',
-        coolPoint: 60,
-        heatPoint: 80,
-        name: '',
-        hvacMode: 'off',
-        fanMode: 'auto',
-      }}
-      device={device}
-      loading={mutation.isPending}
-      onSubmit={onSubmit}
-      withKeyField
-    />
+    <>
+      <Snackbar
+        message={errorMessage}
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
+
+      <PresetForm
+        defaultValues={{
+          key: '',
+          coolPoint: 60,
+          heatPoint: 80,
+          name: '',
+          hvacMode: 'off',
+          fanMode: 'auto',
+        }}
+        device={device}
+        loading={isPending}
+        onSubmit={onSubmit}
+        withKeyField
+      />
+    </>
   )
 }
 
@@ -312,16 +345,26 @@ interface UpdateFormProps {
   preset: ThermostatClimatePreset
 }
 
+/**
+ * @see https://github.com/seamapi/seam-connect/blob/a0b081e086e6f031ad3bcac6dd3f27c46e5b54e5/pages/api/public/thermostats/update_climate_preset.ts
+ **/
+const UpdateClimatePresetErrorCodes = {
+  DeviceNotFound: 'device_not_found',
+  ClimatePresetNotFound: 'climate_preset_not_found',
+}
+
 function UpdateForm({
   device,
   onComplete,
   preset,
 }: UpdateFormProps): JSX.Element {
-  const mutation = useUpdateThermostatClimatePreset()
+  const { mutate, isError, error, isPending } =
+    useUpdateThermostatClimatePreset()
+
   const defaultValues = useMemo<PresetFormProps['defaultValues']>(
     () => ({
-      coolPoint: preset.cooling_set_point_fahrenheit ?? 60,
-      heatPoint: preset.heating_set_point_fahrenheit ?? 80,
+      coolPoint: preset.cooling_set_point_fahrenheit,
+      heatPoint: preset.heating_set_point_fahrenheit,
       name: preset.display_name,
       hvacMode: preset.hvac_mode_setting,
       fanMode: preset.fan_mode_setting,
@@ -332,7 +375,7 @@ function UpdateForm({
 
   const onSubmit = useCallback(
     (values: PresetFormProps['defaultValues']) => {
-      mutation.mutate(
+      mutate(
         {
           climate_preset_key: values.key,
           device_id: device.device_id,
@@ -347,22 +390,47 @@ function UpdateForm({
         { onSuccess: onComplete }
       )
     },
-    [device, mutation, onComplete]
+    [device, mutate, onComplete]
   )
 
+  const errorMessage = useMemo(() => {
+    if (!isError) return ''
+
+    if (error?.code === UpdateClimatePresetErrorCodes.ClimatePresetNotFound) {
+      return t.climatePresetNotFound
+    }
+
+    if (error?.code === UpdateClimatePresetErrorCodes.DeviceNotFound) {
+      return t.deviceNotFound
+    }
+
+    return t.unknownErrorOccured
+  }, [error, isError])
+
   return (
-    <PresetForm
-      defaultValues={defaultValues}
-      device={device}
-      loading={mutation.isPending}
-      onSubmit={onSubmit}
-    />
+    <>
+      <Snackbar
+        message={errorMessage}
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
+
+      <PresetForm
+        defaultValues={defaultValues}
+        device={device}
+        loading={isPending}
+        onSubmit={onSubmit}
+      />
+    </>
   )
 }
 
 const t = {
   keyAlreadyExists: 'Climate Preset with this key already exists.',
   keyCannotContainSpaces: 'Climate Preset key cannot contain spaces.',
+  climatePresetNotFound: 'Climate Preset not found.',
+  deviceNotFound: 'Device not found.',
   nameField: 'Display Name (Optional)',
   fanModeField: 'Fan Mode',
   hvacModeField: 'HVAC Mode',
@@ -370,4 +438,5 @@ const t = {
   delete: 'Delete',
   save: 'Save',
   crateNewPreset: 'Create New Climate Preset',
+  unknownErrorOccured: 'An unknown error occurred.',
 }
