@@ -266,9 +266,6 @@ interface CreateFormProps {
   onComplete: () => void
 }
 
-/**
- * @see https://github.com/seamapi/seam-connect/blob/a0b081e086e6f031ad3bcac6dd3f27c46e5b54e5/pages/api/public/thermostats/create_climate_preset.ts#L78-L81
- **/
 const CreateClimatePresetErrorCodes = {
   DeviceNotFound: 'device_not_found',
   ClimatePresetExists: 'climate_preset_exists',
