@@ -5,7 +5,6 @@ import {
   useCallback,
   useImperativeHandle,
   useMemo,
-  useRef,
 } from 'react'
 import { Controller, useForm, type UseFormReturn } from 'react-hook-form'
 
@@ -79,9 +78,9 @@ function PresetForm(props: PresetFormProps): JSX.Element {
     onSubmit,
     withKeyField,
   } = props
-  const _form = useForm({ defaultValues })
+  const form = useForm({ defaultValues })
 
-  useImperativeHandle(instanceRef, () => _form)
+  useImperativeHandle(instanceRef, () => form)
 
   const {
     register,
@@ -90,7 +89,7 @@ function PresetForm(props: PresetFormProps): JSX.Element {
     watch,
     setValue,
     control,
-  } = _form
+  } = form
 
   const state = watch()
 
@@ -110,7 +109,7 @@ function PresetForm(props: PresetFormProps): JSX.Element {
     }
   }
 
-  const otherPresets = useMemo(() => {
+  const otherClimatePresets = useMemo(() => {
     if (withKeyField !== true) return []
 
     return (device.properties.available_climate_presets ?? []).filter(
@@ -140,19 +139,21 @@ function PresetForm(props: PresetFormProps): JSX.Element {
               inputProps={{
                 ...register('key', {
                   required: 'required',
-                  maxLength: {
-                    value: 20,
-                    message: 'max 20 chars',
-                  },
-                  minLength: {
-                    value: 3,
-                    message: 'min 3 chars',
-                  },
+                  setValueAs: (value) => value.trim(),
                   validate(value) {
-                    const normalizedValue = value.replace(/\s+/g, '').trim()
-                    return !otherPresets.some(
-                      (other) => other.climate_preset_key === normalizedValue
+                    if(value.includes(' ')) {
+                      return t.keyCannotContainSpaces;
+                    }
+
+                    const exists = !otherClimatePresets.some(
+                      (other) => other.climate_preset_key === value
                     )
+
+                    if (exists) {
+                      return t.keyAlreadyExists
+                    }
+
+                    return true
                   },
                 }),
               }}
@@ -167,18 +168,9 @@ function PresetForm(props: PresetFormProps): JSX.Element {
             clearable
             hasError={errors.name != null}
             helperText={errors.name?.message}
-            inputProps={{
-              ...register('name', {
-                maxLength: {
-                  value: 20,
-                  message: t.max20Chars,
-                },
-                minLength: {
-                  value: 3,
-                  message: t.min3Chars,
-                },
-              }),
-            }}
+            inputProps={register('name', {
+              setValueAs: (value) => value.trim(),
+            })}
           />
         </FormField>
 
@@ -243,11 +235,11 @@ function PresetForm(props: PresetFormProps): JSX.Element {
               }}
               heatValue={state.heatPoint ?? 0}
               coolValue={state.coolPoint ?? 0}
-              minHeat={65}
-              maxHeat={100}
-              minCool={50}
-              maxCool={90}
-              delta={5}
+              minHeat={device.properties.min_heating_cooling_delta_fahrenheit}
+              maxHeat={device.properties.max_heating_set_point_fahrenheit}
+              minCool={device.properties.min_cooling_set_point_fahrenheit}
+              maxCool={device.properties.max_cooling_set_point_fahrenheit}
+              delta={device.properties.min_heating_cooling_delta_fahrenheit}
             />
           </FormField>
         )}
@@ -273,27 +265,13 @@ interface CreateFormProps {
 }
 
 function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
-  const instanceRef = useRef<UseFormReturn<PresetFormProps['defaultValues']>>()
   const mutation = useCreateThermostatClimatePreset()
 
   const onSubmit = useCallback(
     (values: PresetFormProps['defaultValues']) => {
-      if (instanceRef.current == null) return
-
-      const key = values.key.replace(/\s+/g, '').trim()
-      const otherPresets = device.properties.available_climate_presets ?? []
-
-      if (otherPresets.some((other) => other.climate_preset_key === key)) {
-        instanceRef.current.setError('key', {
-          type: 'validate',
-          message: t.keyErrorMsg,
-        })
-        return
-      }
-
       mutation.mutate(
         {
-          climate_preset_key: key,
+          climate_preset_key: values.key,
           device_id: device.device_id,
           name: values.name === '' ? undefined : values.name,
           cooling_set_point_fahrenheit: values.coolPoint,
@@ -322,7 +300,6 @@ function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
       device={device}
       loading={mutation.isPending}
       onSubmit={onSubmit}
-      instanceRef={instanceRef}
       withKeyField
     />
   )
@@ -365,7 +342,6 @@ function UpdateForm({
           cooling_set_point_celsius: fahrenheitToCelsius(values.coolPoint),
           heating_set_point_celsius: fahrenheitToCelsius(values.heatPoint),
           hvac_mode_setting: values.hvacMode,
-          manual_override_allowed: false,
         },
         { onSuccess: onComplete }
       )
@@ -384,14 +360,13 @@ function UpdateForm({
 }
 
 const t = {
-  keyErrorMsg: 'Preset with this key already exists.',
+  keyAlreadyExists: 'Climate Preset with this key already exists.',
+  keyCannotContainSpaces: 'Climate Preset key cannot contain spaces.',
   nameField: 'Display Name (Optional)',
   fanModeField: 'Fan Mode',
   hvacModeField: 'HVAC Mode',
   heatCoolField: 'Heat / Cool',
   delete: 'Delete',
   save: 'Save',
-  max20Chars: 'max 20 chars',
-  min3Chars: 'min 3 chars',
-  crateNewPreset: 'Create New Preset',
+  crateNewPreset: 'Create New Climate Preset',
 }

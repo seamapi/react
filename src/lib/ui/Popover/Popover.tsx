@@ -138,11 +138,11 @@ export function Popover(props: PopoverProps): JSX.Element {
     setTimeout(() => {
       if (preventCloseOnClickOutside === false) return
 
-      window.addEventListener('click', windowClickHandler)
+      globalThis.addEventListener('click', windowClickHandler)
     }, 0)
 
     return () => {
-      window.removeEventListener('click', windowClickHandler)
+      globalThis.removeEventListener('click', windowClickHandler)
     }
   }, [windowClickHandler, preventCloseOnClickOutside])
 
@@ -161,7 +161,7 @@ export function Popover(props: PopoverProps): JSX.Element {
               {typeof content === 'function' ? content(instance) : content}
             </div>
           </div>,
-          document.body
+          globalThis.document.body
         )}
     </>
   )

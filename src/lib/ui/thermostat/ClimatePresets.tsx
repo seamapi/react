@@ -36,7 +36,7 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
     ThermostatClimatePreset | typeof CreateNewPresetSymbol | null
   >(null)
 
-  const [inDeletionPresetKey, setInDeletionPresetKey] = useState<
+  const [climatePresetKeySelectedForDeletion, setClimatePresetKeySelectedForDeletion] = useState<
     ThermostatClimatePreset['climate_preset_key'] | null
   >(null)
   const deleteMutation = useDeleteThermostatClimatePreset()
@@ -81,7 +81,7 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
                 setSelectedClimatePreset(preset)
               }}
               onClickDelete={() => {
-                setInDeletionPresetKey(preset.climate_preset_key)
+                setClimatePresetKeySelectedForDeletion(preset.climate_preset_key)
                 deleteMutation.mutate({
                   climate_preset_key: preset.climate_preset_key,
                   device_id: device.device_id,
@@ -92,11 +92,11 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
               key={preset.climate_preset_key}
               deletionLoading={
                 deleteMutation.isPending &&
-                inDeletionPresetKey === preset.climate_preset_key
+                climatePresetKeySelectedForDeletion === preset.climate_preset_key
               }
               disabled={
                 deleteMutation.isPending &&
-                inDeletionPresetKey !== preset.climate_preset_key
+                climatePresetKeySelectedForDeletion !== preset.climate_preset_key
               }
             />
           ))}
@@ -137,25 +137,6 @@ function PresetCard(
       : (preset.cooling_set_point_celsius ?? undefined)
 
   const unitSymbol = getTemperatureUnitSymbol(temperatureUnit)
-
-  const chips = (
-    [
-      heatPoint != null
-        ? { icon: <ThermostatHeatIcon />, value: `${heatPoint} ${unitSymbol}` }
-        : undefined,
-      coolPoint != null
-        ? { icon: <ThermostatCoolIcon />, value: `${coolPoint} ${unitSymbol}` }
-        : undefined,
-      preset.fan_mode_setting != null
-        ? { icon: <FanIcon />, value: preset.fan_mode_setting }
-        : undefined,
-    ].filter(Boolean) as Array<{ icon: ReactNode; value: string }>
-  ).map(({ icon, value }, index) => (
-    <div key={index} className='seam-thermostat-climate-preset-chip'>
-      <span className='seam-thermostat-climate-preset-chip-icon'>{icon}</span>
-      <span className='seam-thermostat-climate-preset-chip-value'>{value}</span>
-    </div>
-  ))
 
   return (
     <div
@@ -209,7 +190,29 @@ function PresetCard(
         </div>
       </div>
 
-      <div className='seam-thermostat-climate-presets-card-body'>{chips}</div>
+      <div className='seam-thermostat-climate-presets-card-body'>
+        {heatPoint != null && (
+          <Chip icon={<ThermostatHeatIcon />} text={`${heatPoint} ${unitSymbol}`} />
+        )}
+
+        {coolPoint != null && (
+          <Chip icon={<ThermostatCoolIcon />} text={`${coolPoint} ${unitSymbol}`} />
+        )}
+
+        {preset.fan_mode_setting != null && (
+          <Chip icon={<FanIcon  />} text={preset.fan_mode_setting} />
+        )} 
+      </div>
+    </div>
+  )
+}
+
+
+function Chip({ icon, text }: { icon: ReactNode, text: string }): JSX.Element {
+  return (
+    <div className='seam-thermostat-climate-preset-chip'>
+      <span className='seam-thermostat-climate-preset-chip-icon'>{icon}</span>
+      <span className='seam-thermostat-climate-preset-chip-value'>{text}</span>
     </div>
   )
 }

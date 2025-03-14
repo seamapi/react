@@ -19,7 +19,7 @@ export type UseUpdateThermostatClimatePresetParams = never
 export type UseUpdateThermostatClimatePresetData = undefined
 
 export type UseUpdateThermostatClimatePresetVariables =
-  ThermostatsUpdateClimatePresetBody
+  Omit<ThermostatsUpdateClimatePresetBody, "manual_override_allowed">
 
 export function useUpdateThermostatClimatePreset(): UseMutationResult<
   UseUpdateThermostatClimatePresetData,
