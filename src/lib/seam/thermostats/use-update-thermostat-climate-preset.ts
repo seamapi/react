@@ -18,8 +18,10 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 export type UseUpdateThermostatClimatePresetParams = never
 export type UseUpdateThermostatClimatePresetData = undefined
 
-export type UseUpdateThermostatClimatePresetVariables =
-  Omit<ThermostatsUpdateClimatePresetBody, "manual_override_allowed">
+export type UseUpdateThermostatClimatePresetVariables = Omit<
+  ThermostatsUpdateClimatePresetBody,
+  'manual_override_allowed'
+>
 
 export function useUpdateThermostatClimatePreset(): UseMutationResult<
   UseUpdateThermostatClimatePresetData,

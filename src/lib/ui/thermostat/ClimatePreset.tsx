@@ -141,8 +141,8 @@ function PresetForm(props: PresetFormProps): JSX.Element {
                   required: 'required',
                   setValueAs: (value) => value.trim(),
                   validate(value) {
-                    if(value.includes(' ')) {
-                      return t.keyCannotContainSpaces;
+                    if (value.includes(' ')) {
+                      return t.keyCannotContainSpaces
                     }
 
                     const exists = !otherClimatePresets.some(
