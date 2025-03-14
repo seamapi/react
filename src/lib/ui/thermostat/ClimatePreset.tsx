@@ -169,6 +169,7 @@ function PresetForm(props: PresetFormProps): JSX.Element {
             hasError={errors.name != null}
             helperText={errors.name?.message}
             inputProps={register('name', {
+              required: false,
               setValueAs: (value) => value.trim(),
             })}
           />
