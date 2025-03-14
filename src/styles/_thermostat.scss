@@ -1,4 +1,6 @@
 @use './colors';
+@use 'sass:color';
+@use './access-code-form' as acf;
 
 @mixin climate-setting-control-group {
   .seam-climate-setting-control-group {
@@ -542,7 +544,6 @@
 @mixin fan-mode-menu {
   .seam-fan-mode-menu-button {
     width: 130px;
-    height: 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -553,6 +554,14 @@
     gap: 10px;
     cursor: pointer;
     transition: 0.2s ease;
+
+    &.seam-fan-mode-menu-button-size-regular {
+      height: 32px;
+    }
+
+    &.seam-fan-mode-menu-button-size-large {
+      height: 48px;
+    }
 
     svg {
       font-size: 20px;
@@ -579,6 +588,10 @@
       }
     }
 
+    &.seam-fan-mode-menu-button-block-sized {
+      width: 100%;
+    }
+
     .seam-fan-mode-menu-button-text {
       color: colors.$text-gray-1;
       font-size: 16px;
@@ -597,11 +610,22 @@
     border: 1px solid colors.$text-gray-3;
     background: colors.$white;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: row;
     cursor: pointer;
     transition: 0.2s ease;
+
+    &.seam-climate-mode-menu-button-regular {
+      height: 32px;
+    }
+
+    &.seam-climate-mode-menu-button-large {
+      height: 48px;
+    }
+
+    &.seam-climate-mode-menu-button-block {
+      width: 100%;
+    }
 
     &:hover {
       border-color: colors.$text-gray-2;
@@ -618,6 +642,12 @@
 
     .seam-climate-mode-menu-button-chevron {
       font-size: 20px;
+      margin-left: auto;
+    }
+
+    .seam-climate-mode-menu-button-text {
+      font-size: 14px;
+      margin-left: 6px;
     }
   }
 
@@ -656,6 +686,126 @@
   }
 }
 
+@mixin climate-presets {
+  .seam-thermostat-climate-presets-body {
+    margin: 0 24px 24px;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .seam-thermostat-climate-presets-cards {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .seam-climate-presets-add-button {
+    margin: 0 auto;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+
+    svg {
+      font-size: 20px;
+    }
+
+    svg,
+    path {
+      fill: currentcolor;
+    }
+  }
+
+  .seam-thermostat-climate-presets-card {
+    border-radius: 12px;
+    background-color: colors.$bg-a;
+    width: 100%;
+    max-width: 250px;
+    overflow: hidden;
+
+    .seam-thermostat-climate-presets-card-top {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      justify-content: space-between;
+      border-bottom: 1px solid color.scale(colors.$bg-a, $lightness: -5%);
+      padding: 8px;
+      background-color: colors.$bg-b;
+
+      .seam-thermostat-climate-presets-card-name {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 118%;
+        white-space: nowrap;
+      }
+
+      .seam-thermostat-climate-presets-card-name-key {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 118%;
+        white-space: nowrap;
+        color: colors.$text-gray-2;
+      }
+
+      .seam-thermostat-climate-presets-card-buttons {
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 4px;
+        justify-content: flex-end;
+      }
+    }
+
+    .seam-thermostat-climate-presets-card-body {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 8px;
+      justify-content: space-around;
+    }
+
+    .seam-thermostat-climate-preset-chip {
+      display: inline-flex;
+      flex-flow: row nowrap;
+      gap: 4px;
+      align-items: center;
+      justify-content: space-between;
+      width: max-content;
+
+      .seam-thermostat-climate-preset-chip-icon {
+        color: colors.$text-gray-1;
+        font-weight: 600;
+
+        svg {
+          position: relative;
+          top: 2px;
+        }
+      }
+
+      .seam-thermostat-climate-preset-chip-value {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+@mixin climate-preset {
+  .seam-thermostat-climate-preset {
+    @include acf.main;
+
+    .seam-climate-preset-buttons {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 8px;
+    }
+  }
+}
+
 @mixin all {
   @include climate-setting-control-group;
   @include temperature-control-group;
@@ -666,4 +816,6 @@
   @include fan-mode-menu;
   @include climate-mode-menu;
   @include status;
+  @include climate-presets;
+  @include climate-preset;
 }

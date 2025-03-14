@@ -1,0 +1,46 @@
+@use './colors';
+
+@mixin popover {
+  .seam-popover {
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px -2px rgb(0 0 0 / 20%);
+    background-color: colors.$bg-a;
+    border: 1px solid colors.$bg-c;
+  }
+}
+
+@mixin popover-content-prompt {
+  .seam-popover-content-prompt {
+    display: inline-flex;
+    flex-flow: column nowrap;
+    padding: 12px;
+    gap: 12px;
+    background-color: colors.$bg-a;
+  }
+
+  .seam-popover-content-prompt-text {
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .seam-popover-content-prompt-description {
+    font-weight: 400;
+    text-align: center;
+    color: colors.$text-gray-2;
+    font-size: 12px;
+  }
+
+  .seam-popover-content-prompt-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+}
+
+@mixin all {
+  @include popover;
+  @include popover-content-prompt;
+}

@@ -13,6 +13,7 @@ export type ThermostatDevice = Omit<Device, 'properties'> & {
         | 'available_hvac_mode_settings'
         | 'fan_mode_setting'
         | 'current_climate_setting'
+        | 'available_climate_presets'
       >
     >
 }
@@ -36,3 +37,6 @@ export interface ClimateSetting {
 export const isThermostatDevice = (
   device: Device
 ): device is ThermostatDevice => 'is_fan_running' in device.properties
+
+export type ThermostatClimatePreset =
+  ThermostatDevice['properties']['available_climate_presets'][number]
