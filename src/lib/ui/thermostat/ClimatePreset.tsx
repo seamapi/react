@@ -341,10 +341,6 @@ interface UpdateFormProps {
   onComplete: () => void
   preset: ThermostatClimatePreset
 }
-
-/**
- * @see https://github.com/seamapi/seam-connect/blob/a0b081e086e6f031ad3bcac6dd3f27c46e5b54e5/pages/api/public/thermostats/update_climate_preset.ts
- **/
 const UpdateClimatePresetErrorCodes = {
   DeviceNotFound: 'device_not_found',
   ClimatePresetNotFound: 'climate_preset_not_found',
