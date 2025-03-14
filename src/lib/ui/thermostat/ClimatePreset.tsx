@@ -145,7 +145,7 @@ function PresetForm(props: PresetFormProps): JSX.Element {
                       return t.keyCannotContainSpaces
                     }
 
-                    const exists = !otherClimatePresets.some(
+                    const exists = otherClimatePresets.some(
                       (other) => other.climate_preset_key === value
                     )
 
