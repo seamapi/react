@@ -30,9 +30,6 @@ interface ClimatePresetsManagement {
 
 const CreateNewPresetSymbol = Symbol('CreateNewPreset')
 
-/**
- * @see https://github.com/seamapi/seam-connect/blob/a0b081e086e6f031ad3bcac6dd3f27c46e5b54e5/pages/api/public/thermostats/delete_climate_preset.ts
- */
 const DeleteClimatePresetErrorCodes = {
   ClimatePresetNotFound: 'climate_preset_not_found',
   DeviceNotFound: 'device_not_found',
