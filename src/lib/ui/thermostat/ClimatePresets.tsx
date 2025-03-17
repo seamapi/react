@@ -30,12 +30,6 @@ interface ClimatePresetsManagement {
 
 const CreateNewPresetSymbol = Symbol('CreateNewPreset')
 
-const DeleteClimatePresetErrorCodes = {
-  ClimatePresetNotFound: 'climate_preset_not_found',
-  DeviceNotFound: 'device_not_found',
-  ClimatePresetIsScheduled: 'climate_preset_is_scheduled',
-}
-
 export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   const { device, onBack } = props
 
@@ -54,18 +48,8 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   const errorMessage = useMemo(() => {
     if (!isError) return ''
 
-    if (error?.code === DeleteClimatePresetErrorCodes.ClimatePresetNotFound) {
-      return t.climatePresetNotFound
-    }
-
-    if (error?.code === DeleteClimatePresetErrorCodes.DeviceNotFound) {
-      return t.deviceNotFound
-    }
-
-    if (
-      error?.code === DeleteClimatePresetErrorCodes.ClimatePresetIsScheduled
-    ) {
-      return t.climatePresetIsScheduled
+    if(error?.message != null) {
+      return error.message
     }
 
     return t.unknownErrorOccured
@@ -272,7 +256,4 @@ const t = {
   edit: 'Edit',
   unknownErrorOccured: 'An unknown error occurred.',
   climatePresetNotFound: 'Climate Preset not found.',
-  deviceNotFound: 'Device not found.',
-  climatePresetIsScheduled:
-    'The climate preset has upcoming schedules and cannot be deleted.',
 }

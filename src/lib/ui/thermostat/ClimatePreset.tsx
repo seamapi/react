@@ -1,3 +1,4 @@
+import type { SeamHttpApiError } from '@seamapi/http/connect'
 import classNames from 'classnames'
 import {
   type HTMLAttributes,
@@ -68,6 +69,18 @@ interface PresetFormProps {
   loading: boolean
   instanceRef?: Ref<UseFormReturn<PresetFormProps['defaultValues']> | undefined>
   withKeyField?: boolean
+}
+
+function useErrorMessage(isError: boolean, error: SeamHttpApiError | null): string {
+  return useMemo(() => {
+    if (!isError) return ''
+
+    if (error?.message != null) {
+      return error.message
+    }
+
+    return t.unknownErrorOccured
+  }, [error, isError])
 }
 
 function PresetForm(props: PresetFormProps): JSX.Element {
@@ -266,28 +279,11 @@ interface CreateFormProps {
   onComplete: () => void
 }
 
-const CreateClimatePresetErrorCodes = {
-  DeviceNotFound: 'device_not_found',
-  ClimatePresetExists: 'climate_preset_exists',
-}
-
 function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
   const { mutate, isError, error, isPending } =
     useCreateThermostatClimatePreset()
 
-  const errorMessage = useMemo(() => {
-    if (!isError) return ''
-
-    if (error?.code === CreateClimatePresetErrorCodes.ClimatePresetExists) {
-      return t.keyAlreadyExists
-    }
-
-    if (error?.code === CreateClimatePresetErrorCodes.DeviceNotFound) {
-      return t.deviceNotFound
-    }
-
-    return t.unknownErrorOccured
-  }, [error, isError])
+  const errorMessage = useErrorMessage(isError, error)
 
   const onSubmit = useCallback(
     (values: PresetFormProps['defaultValues']) => {
@@ -341,10 +337,6 @@ interface UpdateFormProps {
   onComplete: () => void
   preset: ThermostatClimatePreset
 }
-const UpdateClimatePresetErrorCodes = {
-  DeviceNotFound: 'device_not_found',
-  ClimatePresetNotFound: 'climate_preset_not_found',
-}
 
 function UpdateForm({
   device,
@@ -386,20 +378,8 @@ function UpdateForm({
     [device, mutate, onComplete]
   )
 
-  const errorMessage = useMemo(() => {
-    if (!isError) return ''
-
-    if (error?.code === UpdateClimatePresetErrorCodes.ClimatePresetNotFound) {
-      return t.climatePresetNotFound
-    }
-
-    if (error?.code === UpdateClimatePresetErrorCodes.DeviceNotFound) {
-      return t.deviceNotFound
-    }
-
-    return t.unknownErrorOccured
-  }, [error, isError])
-
+  const errorMessage = useErrorMessage(isError, error);
+  
   return (
     <>
       <Snackbar
@@ -422,8 +402,6 @@ function UpdateForm({
 const t = {
   keyAlreadyExists: 'Climate Preset with this key already exists.',
   keyCannotContainSpaces: 'Climate Preset key cannot contain spaces.',
-  climatePresetNotFound: 'Climate Preset not found.',
-  deviceNotFound: 'Device not found.',
   nameField: 'Display Name (Optional)',
   fanModeField: 'Fan Mode',
   hvacModeField: 'HVAC Mode',
