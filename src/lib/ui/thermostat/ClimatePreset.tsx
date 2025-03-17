@@ -71,7 +71,10 @@ interface PresetFormProps {
   withKeyField?: boolean
 }
 
-function useErrorMessage(isError: boolean, error: SeamHttpApiError | null): string {
+function useErrorMessage(
+  isError: boolean,
+  error: SeamHttpApiError | null
+): string {
   return useMemo(() => {
     if (!isError) return ''
 
@@ -378,8 +381,8 @@ function UpdateForm({
     [device, mutate, onComplete]
   )
 
-  const errorMessage = useErrorMessage(isError, error);
-  
+  const errorMessage = useErrorMessage(isError, error)
+
   return (
     <>
       <Snackbar

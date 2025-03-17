@@ -48,7 +48,7 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   const errorMessage = useMemo(() => {
     if (!isError) return ''
 
-    if(error?.message != null) {
+    if (error?.message != null) {
       return error.message
     }
 
