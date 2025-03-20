@@ -1,4 +1,3 @@
-import type { SeamHttpApiError } from '@seamapi/http/connect'
 import classNames from 'classnames'
 import {
   type HTMLAttributes,
@@ -9,6 +8,7 @@ import {
 } from 'react'
 import { Controller, useForm, type UseFormReturn } from 'react-hook-form'
 
+import { getErrorMessage } from 'lib/errors.js'
 import type {
   FanModeSetting,
   HvacModeSetting,
@@ -69,21 +69,6 @@ interface PresetFormProps {
   loading: boolean
   instanceRef?: Ref<UseFormReturn<PresetFormProps['defaultValues']> | undefined>
   withKeyField?: boolean
-}
-
-function useErrorMessage(
-  isError: boolean,
-  error: SeamHttpApiError | null
-): string {
-  return useMemo(() => {
-    if (!isError) return ''
-
-    if (error?.message != null) {
-      return error.message
-    }
-
-    return t.unknownErrorOccured
-  }, [error, isError])
 }
 
 function PresetForm(props: PresetFormProps): JSX.Element {
@@ -286,7 +271,7 @@ function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
   const { mutate, isError, error, isPending } =
     useCreateThermostatClimatePreset()
 
-  const errorMessage = useErrorMessage(isError, error)
+  const errorMessage = getErrorMessage(error);
 
   const onSubmit = useCallback(
     (values: PresetFormProps['defaultValues']) => {
@@ -381,7 +366,7 @@ function UpdateForm({
     [device, mutate, onComplete]
   )
 
-  const errorMessage = useErrorMessage(isError, error)
+  const errorMessage = getErrorMessage(error);
 
   return (
     <>

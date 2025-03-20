@@ -1,6 +1,7 @@
 import classNames from 'classnames'
-import { type HTMLAttributes, type ReactNode, useMemo, useState } from 'react'
+import { type HTMLAttributes, type ReactNode, useState } from 'react'
 
+import { getErrorMessage } from 'lib/errors.js'
 import { AddIcon } from 'lib/icons/Add.js'
 import { EditIcon } from 'lib/icons/Edit.js'
 import { FanIcon } from 'lib/icons/Fan.js'
@@ -45,15 +46,7 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   const { mutate, isError, error, isPending } =
     useDeleteThermostatClimatePreset()
 
-  const errorMessage = useMemo(() => {
-    if (!isError) return ''
-
-    if (error?.message != null) {
-      return error.message
-    }
-
-    return t.unknownErrorOccured
-  }, [error, isError])
+  const errorMessage = getErrorMessage(error);
 
   if (
     selectedClimatePreset != null ||
@@ -254,6 +247,5 @@ const t = {
   createNew: 'Create New',
   delete: 'Delete',
   edit: 'Edit',
-  unknownErrorOccured: 'An unknown error occurred.',
   climatePresetNotFound: 'Climate Preset not found.',
 }
