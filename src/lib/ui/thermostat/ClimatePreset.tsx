@@ -271,7 +271,7 @@ function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
   const { mutate, isError, error, isPending } =
     useCreateThermostatClimatePreset()
 
-  const errorMessage = getErrorMessage(error);
+  const errorMessage = getErrorMessage(error)
 
   const onSubmit = useCallback(
     (values: PresetFormProps['defaultValues']) => {
@@ -366,7 +366,7 @@ function UpdateForm({
     [device, mutate, onComplete]
   )
 
-  const errorMessage = getErrorMessage(error);
+  const errorMessage = getErrorMessage(error)
 
   return (
     <>

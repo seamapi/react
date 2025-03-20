@@ -1,4 +1,4 @@
-import { isSeamHttpApiError } from "@seamapi/http/connect"
+import { isSeamHttpApiError } from '@seamapi/http/connect'
 
 export function getErrorMessage(error?: Error | null | undefined): string {
   if (isSeamHttpApiError(error)) {

@@ -46,7 +46,7 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   const { mutate, isError, error, isPending } =
     useDeleteThermostatClimatePreset()
 
-  const errorMessage = getErrorMessage(error);
+  const errorMessage = getErrorMessage(error)
 
   if (
     selectedClimatePreset != null ||
