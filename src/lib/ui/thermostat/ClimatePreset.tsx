@@ -8,6 +8,7 @@ import {
 } from 'react'
 import { Controller, useForm, type UseFormReturn } from 'react-hook-form'
 
+import { getErrorMessage } from 'lib/errors.js'
 import type {
   FanModeSetting,
   HvacModeSetting,
@@ -21,6 +22,7 @@ import { Button } from 'lib/ui/Button.js'
 import { FormField } from 'lib/ui/FormField.js'
 import { InputLabel } from 'lib/ui/InputLabel.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { TextField } from 'lib/ui/TextField/TextField.js'
 import { ClimateModeMenu } from 'lib/ui/thermostat/ClimateModeMenu.js'
 import { FanModeMenu } from 'lib/ui/thermostat/FanModeMenu.js'
@@ -266,11 +268,14 @@ interface CreateFormProps {
 }
 
 function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
-  const mutation = useCreateThermostatClimatePreset()
+  const { mutate, isError, error, isPending } =
+    useCreateThermostatClimatePreset()
+
+  const errorMessage = getErrorMessage(error)
 
   const onSubmit = useCallback(
     (values: PresetFormProps['defaultValues']) => {
-      mutation.mutate(
+      mutate(
         {
           climate_preset_key: values.key,
           device_id: device.device_id,
@@ -285,24 +290,33 @@ function CreateForm({ device, onComplete }: CreateFormProps): JSX.Element {
         { onSuccess: onComplete }
       )
     },
-    [device, mutation, onComplete]
+    [device, mutate, onComplete]
   )
 
   return (
-    <PresetForm
-      defaultValues={{
-        key: '',
-        coolPoint: 60,
-        heatPoint: 80,
-        name: '',
-        hvacMode: 'off',
-        fanMode: 'auto',
-      }}
-      device={device}
-      loading={mutation.isPending}
-      onSubmit={onSubmit}
-      withKeyField
-    />
+    <>
+      <Snackbar
+        message={errorMessage}
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
+
+      <PresetForm
+        defaultValues={{
+          key: '',
+          coolPoint: 60,
+          heatPoint: 80,
+          name: '',
+          hvacMode: 'off',
+          fanMode: 'auto',
+        }}
+        device={device}
+        loading={isPending}
+        onSubmit={onSubmit}
+        withKeyField
+      />
+    </>
   )
 }
 
@@ -317,11 +331,13 @@ function UpdateForm({
   onComplete,
   preset,
 }: UpdateFormProps): JSX.Element {
-  const mutation = useUpdateThermostatClimatePreset()
+  const { mutate, isError, error, isPending } =
+    useUpdateThermostatClimatePreset()
+
   const defaultValues = useMemo<PresetFormProps['defaultValues']>(
     () => ({
-      coolPoint: preset.cooling_set_point_fahrenheit ?? 60,
-      heatPoint: preset.heating_set_point_fahrenheit ?? 80,
+      coolPoint: preset.cooling_set_point_fahrenheit,
+      heatPoint: preset.heating_set_point_fahrenheit,
       name: preset.display_name,
       hvacMode: preset.hvac_mode_setting,
       fanMode: preset.fan_mode_setting,
@@ -332,7 +348,7 @@ function UpdateForm({
 
   const onSubmit = useCallback(
     (values: PresetFormProps['defaultValues']) => {
-      mutation.mutate(
+      mutate(
         {
           climate_preset_key: values.key,
           device_id: device.device_id,
@@ -347,16 +363,27 @@ function UpdateForm({
         { onSuccess: onComplete }
       )
     },
-    [device, mutation, onComplete]
+    [device, mutate, onComplete]
   )
 
+  const errorMessage = getErrorMessage(error)
+
   return (
-    <PresetForm
-      defaultValues={defaultValues}
-      device={device}
-      loading={mutation.isPending}
-      onSubmit={onSubmit}
-    />
+    <>
+      <Snackbar
+        message={errorMessage}
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
+
+      <PresetForm
+        defaultValues={defaultValues}
+        device={device}
+        loading={isPending}
+        onSubmit={onSubmit}
+      />
+    </>
   )
 }
 
@@ -370,4 +397,5 @@ const t = {
   delete: 'Delete',
   save: 'Save',
   crateNewPreset: 'Create New Climate Preset',
+  unknownErrorOccured: 'An unknown error occurred.',
 }
