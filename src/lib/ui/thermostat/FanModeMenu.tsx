@@ -26,6 +26,7 @@ export function FanModeMenu({
     <Menu
       renderButton={({ onOpen }) => (
         <button
+          type='button'
           onClick={onOpen}
           className={classNames(
             'seam-fan-mode-menu-button',

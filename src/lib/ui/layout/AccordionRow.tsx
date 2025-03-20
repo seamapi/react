@@ -19,7 +19,7 @@ export function AccordionRow({
 
   return (
     <div className='seam-accordion-row' aria-expanded={isExpanded}>
-      <button className='seam-accordion-row-trigger' onClick={toggle}>
+      <button type='button' className='seam-accordion-row-trigger' onClick={toggle}>
         <div className='seam-row-inner-wrap'>
           <p className='seam-row-label'>{label}</p>
           <div className='seam-row-trigger-left-content'>{leftContent}</div>

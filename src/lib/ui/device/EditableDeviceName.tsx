@@ -170,7 +170,8 @@ function IconButton(
 ): JSX.Element {
   return (
     <button
-      {...props}
+    {...props}
+    type='button'
       className={classNames(
         'seam-editable-device-name-icon-button',
         props.className

@@ -65,6 +65,7 @@ function Content(props: ThermostatCardProps): JSX.Element | null {
             onEdit={props.onEditName}
           />
           <button
+            type='button'
             onClick={toggleTemperatureUnit}
             className='seam-thermostat-temperature-toggle'
           >

@@ -20,7 +20,7 @@ export function ShowAllDevicesButton({
   const label = expanded ? t.showLess : t.showAll(totalDeviceCount)
 
   return (
-    <button className='show-all-devices-button' onClick={onClick}>
+    <button type='button' className='show-all-devices-button' onClick={onClick}>
       <ChevronRightIcon /> {label}
     </button>
   )
