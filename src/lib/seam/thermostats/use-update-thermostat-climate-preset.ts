@@ -18,7 +18,8 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 export type UseUpdateThermostatClimatePresetParams = never
 export type UseUpdateThermostatClimatePresetData = undefined
 
-export type UseUpdateThermostatClimatePresetVariables = ThermostatsUpdateClimatePresetBody
+export type UseUpdateThermostatClimatePresetVariables =
+  ThermostatsUpdateClimatePresetBody
 
 export function useUpdateThermostatClimatePreset(): UseMutationResult<
   UseUpdateThermostatClimatePresetData,
