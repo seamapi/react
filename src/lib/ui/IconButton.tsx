@@ -15,7 +15,7 @@ export function IconButton({
   return (
     <button
       {...props}
-        type='button'
+      type='button'
       ref={elRef}
       className={classNames(
         'seam-icon-btn',

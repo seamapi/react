@@ -30,7 +30,11 @@ export function TemperatureControl({
 
   return (
     <div className='seam-temperature-control'>
-      <button type='button' className='seam-temperature-stepper-button' onClick={decrement}>
+      <button
+        type='button'
+        className='seam-temperature-stepper-button'
+        onClick={decrement}
+      >
         <TemperatureSubtractIcon />
       </button>
       <RangeSlider
@@ -43,7 +47,11 @@ export function TemperatureControl({
         }}
         unit={unit}
       />
-      <button type='button' className='seam-temperature-stepper-button' onClick={increment}>
+      <button
+        type='button'
+        className='seam-temperature-stepper-button'
+        onClick={increment}
+      >
         <TemperatureAddIcon />
       </button>
     </div>

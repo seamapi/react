@@ -10,6 +10,10 @@ export function TextButton({
   ...buttonProps
 }: TextButtonProps): JSX.Element {
   return (
-    <button type='button' className={`seam-text-btn seam-color-${color}`} {...buttonProps} />
+    <button
+      type='button'
+      className={`seam-text-btn seam-color-${color}`}
+      {...buttonProps}
+    />
   )
 }

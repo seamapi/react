@@ -1,8 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "!.storybook"
-  ],
+  "ignorePatterns": ["!.storybook"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": "latest"
@@ -20,10 +18,7 @@
         "ignoreRestSiblings": true
       }
     ],
-    "import/extensions": [
-      "error",
-      "ignorePackages"
-    ],
+    "import/extensions": ["error", "ignorePackages"],
     "import/no-duplicates": [
       "error",
       {
@@ -34,28 +29,13 @@
       "error",
       {
         "groups": [
-          [
-            "^\\u0000"
-          ],
-          [
-            "^node:"
-          ],
-          [
-            "^@?\\w"
-          ],
-          [
-            "^@seamapi/react/"
-          ],
-          [
-            "^fixtures/",
-            "^lib/"
-          ],
-          [
-            "^"
-          ],
-          [
-            "^\\."
-          ]
+          ["^\\u0000"],
+          ["^node:"],
+          ["^@?\\w"],
+          ["^@seamapi/react/"],
+          ["^fixtures/", "^lib/"],
+          ["^"],
+          ["^\\."]
         ]
       }
     ],
@@ -64,21 +44,11 @@
   },
   "overrides": [
     {
-      "files": [
-        "*.js",
-        "*.mjs",
-        "*.cjs"
-      ],
-      "extends": [
-        "standard",
-        "prettier"
-      ]
+      "files": ["*.js", "*.mjs", "*.cjs"],
+      "extends": ["standard", "prettier"]
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "extends": [
         "standard-with-typescript",
         "standard-jsx",
@@ -87,10 +57,7 @@
         "plugin:storybook/recommended",
         "prettier"
       ],
-      "plugins": [
-        "simple-import-sort",
-        "unused-imports"
-      ],
+      "plugins": ["simple-import-sort", "unused-imports"],
       "parserOptions": {
         "project": "./tsconfig.json"
       },
@@ -108,9 +75,7 @@
       },
       "overrides": [
         {
-          "files": [
-            "**/*.stories.tsx"
-          ],
+          "files": ["**/*.stories.tsx"],
           "rules": {
             "react-hooks/rules-of-hooks": "off"
           }

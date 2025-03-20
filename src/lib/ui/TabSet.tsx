@@ -102,7 +102,7 @@ function TabButton<TabType extends string>({
         'seam-tab-button',
         isActive && 'seam-tab-button-active'
       )}
-        type='button'
+      type='button'
       onClick={handleClick}
     >
       <p className='seam-tab-button-label'>{title}</p>

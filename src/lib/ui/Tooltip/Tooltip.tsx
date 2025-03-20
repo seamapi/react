@@ -40,7 +40,11 @@ export function Tooltip({ children }: PropsWithChildren): JSX.Element {
   return (
     <div className='seam-tooltip'>
       <div className='seam-tooltip-trigger-wrap'>
-        <button type='button' onClick={handleToggle} className='seam-tooltip-button'>
+        <button
+          type='button'
+          onClick={handleToggle}
+          className='seam-tooltip-button'
+        >
           <div className='seam-tooltip-button-icon seam-tooltip-button-icon-default'>
             <InfoIcon />
           </div>
