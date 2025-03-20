@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { type HTMLAttributes, type ReactNode, useState } from 'react'
 
+import { getErrorMessage } from 'lib/errors.js'
 import { AddIcon } from 'lib/icons/Add.js'
 import { EditIcon } from 'lib/icons/Edit.js'
 import { FanIcon } from 'lib/icons/Fan.js'
@@ -18,6 +19,7 @@ import { IconButton } from 'lib/ui/IconButton.js'
 import { ContentHeader } from 'lib/ui/layout/ContentHeader.js'
 import { Popover } from 'lib/ui/Popover/Popover.js'
 import { PopoverContentPrompt } from 'lib/ui/Popover/PopoverContentPrompt.js'
+import { Snackbar } from 'lib/ui/Snackbar/Snackbar.js'
 import { Spinner } from 'lib/ui/Spinner/Spinner.js'
 import { ClimatePreset } from 'lib/ui/thermostat/ClimatePreset.js'
 
@@ -40,7 +42,11 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
     climatePresetKeySelectedForDeletion,
     setClimatePresetKeySelectedForDeletion,
   ] = useState<ThermostatClimatePreset['climate_preset_key'] | null>(null)
-  const deleteMutation = useDeleteThermostatClimatePreset()
+
+  const { mutate, isError, error, isPending } =
+    useDeleteThermostatClimatePreset()
+
+  const errorMessage = getErrorMessage(error)
 
   if (
     selectedClimatePreset != null ||
@@ -62,52 +68,61 @@ export function ClimatePresets(props: ClimatePresetsManagement): JSX.Element {
   }
 
   return (
-    <div className='seam-thermostat-climate-presets'>
-      <ContentHeader title={t.title} onBack={onBack} />
-      <div className='seam-thermostat-climate-presets-body'>
-        <Button
-          onClick={() => {
-            setSelectedClimatePreset(CreateNewPresetSymbol)
-          }}
-          className='seam-climate-presets-add-button'
-        >
-          <AddIcon />
-          {t.createNew}
-        </Button>
+    <>
+      <Snackbar
+        message={errorMessage}
+        variant='error'
+        visible={isError}
+        automaticVisibility
+      />
 
-        <div className='seam-thermostat-climate-presets-cards'>
-          {device.properties.available_climate_presets.map((preset) => (
-            <PresetCard
-              onClickEdit={() => {
-                setSelectedClimatePreset(preset)
-              }}
-              onClickDelete={() => {
-                setClimatePresetKeySelectedForDeletion(
-                  preset.climate_preset_key
-                )
-                deleteMutation.mutate({
-                  climate_preset_key: preset.climate_preset_key,
-                  device_id: device.device_id,
-                })
-              }}
-              temperatureUnit={props.temperatureUnit}
-              preset={preset}
-              key={preset.climate_preset_key}
-              deletionLoading={
-                deleteMutation.isPending &&
-                climatePresetKeySelectedForDeletion ===
-                  preset.climate_preset_key
-              }
-              disabled={
-                deleteMutation.isPending &&
-                climatePresetKeySelectedForDeletion !==
-                  preset.climate_preset_key
-              }
-            />
-          ))}
+      <div className='seam-thermostat-climate-presets'>
+        <ContentHeader title={t.title} onBack={onBack} />
+        <div className='seam-thermostat-climate-presets-body'>
+          <Button
+            onClick={() => {
+              setSelectedClimatePreset(CreateNewPresetSymbol)
+            }}
+            className='seam-climate-presets-add-button'
+          >
+            <AddIcon />
+            {t.createNew}
+          </Button>
+
+          <div className='seam-thermostat-climate-presets-cards'>
+            {device.properties.available_climate_presets.map((preset) => (
+              <PresetCard
+                onClickEdit={() => {
+                  setSelectedClimatePreset(preset)
+                }}
+                onClickDelete={() => {
+                  setClimatePresetKeySelectedForDeletion(
+                    preset.climate_preset_key
+                  )
+                  mutate({
+                    climate_preset_key: preset.climate_preset_key,
+                    device_id: device.device_id,
+                  })
+                }}
+                temperatureUnit={props.temperatureUnit}
+                preset={preset}
+                key={preset.climate_preset_key}
+                deletionLoading={
+                  isPending &&
+                  climatePresetKeySelectedForDeletion ===
+                    preset.climate_preset_key
+                }
+                disabled={
+                  isPending &&
+                  climatePresetKeySelectedForDeletion !==
+                    preset.climate_preset_key
+                }
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -232,4 +247,5 @@ const t = {
   createNew: 'Create New',
   delete: 'Delete',
   edit: 'Edit',
+  climatePresetNotFound: 'Climate Preset not found.',
 }
