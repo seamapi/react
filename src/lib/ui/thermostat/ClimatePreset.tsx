@@ -359,6 +359,7 @@ function UpdateForm({
           cooling_set_point_celsius: fahrenheitToCelsius(values.coolPoint),
           heating_set_point_celsius: fahrenheitToCelsius(values.heatPoint),
           hvac_mode_setting: values.hvacMode,
+          manual_override_allowed: false, // deprecated but type still wants it.
         },
         { onSuccess: onComplete }
       )
