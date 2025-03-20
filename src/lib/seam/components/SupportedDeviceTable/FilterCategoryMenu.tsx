@@ -46,7 +46,7 @@ export function FilterCategoryMenu({
       <p>{label}</p>
       <Menu
         renderButton={({ onOpen }) => (
-          <button onClick={onOpen}>
+          <button type='button' onClick={onOpen}>
             <span>{buttonLabel}</span>
             <ChevronDownIcon />
           </button>

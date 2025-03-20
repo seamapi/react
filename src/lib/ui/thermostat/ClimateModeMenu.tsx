@@ -35,6 +35,7 @@ export function ClimateModeMenu({
     <Menu
       renderButton={({ onOpen }) => (
         <button
+          type='button'
           style={style}
           onClick={onOpen}
           className={classNames(

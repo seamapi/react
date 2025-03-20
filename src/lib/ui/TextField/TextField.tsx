@@ -105,6 +105,7 @@ export const TextField = forwardRef<
           <div className='seam-adornment seam-end'>
             {clearable && (
               <button
+                type='button'
                 className={classNames({
                   'seam-hidden': valueIsEmpty,
                 })}

@@ -77,6 +77,7 @@ export function Snackbar({
         <div className='seam-snackbar-actions-wrap'>
           {action != null && (
             <button
+              type='button'
               className='seam-snackbar-action'
               onClick={handleActionClick}
             >
@@ -85,6 +86,7 @@ export function Snackbar({
           )}
           {!disableCloseButton && (
             <button
+              type='button'
               className='seam-snackbar-close-button'
               onClick={() => {
                 handleClose()

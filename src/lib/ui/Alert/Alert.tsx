@@ -49,7 +49,7 @@ function Action(props: ActionProps): JSX.Element | null {
 
   return (
     <div className='seam-alert-action-wrap'>
-      <button onClick={handleClick} className='seam-alert-action'>
+      <button type='button' onClick={handleClick} className='seam-alert-action'>
         {props.label}
       </button>
     </div>

@@ -171,6 +171,7 @@ function IconButton(
   return (
     <button
       {...props}
+      type='button'
       className={classNames(
         'seam-editable-device-name-icon-button',
         props.className

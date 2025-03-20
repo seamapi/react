@@ -19,7 +19,12 @@
       }
     ],
     "import/extensions": ["error", "ignorePackages"],
-    "import/no-duplicates": ["error", { "prefer-inline": true }],
+    "import/no-duplicates": [
+      "error",
+      {
+        "prefer-inline": true
+      }
+    ],
     "simple-import-sort/imports": [
       "error",
       {
