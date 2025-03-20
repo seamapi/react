@@ -18,10 +18,7 @@ import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 export type UseUpdateThermostatClimatePresetParams = never
 export type UseUpdateThermostatClimatePresetData = undefined
 
-export type UseUpdateThermostatClimatePresetVariables = Omit<
-  ThermostatsUpdateClimatePresetBody,
-  'manual_override_allowed'
->
+export type UseUpdateThermostatClimatePresetVariables = ThermostatsUpdateClimatePresetBody
 
 export function useUpdateThermostatClimatePreset(): UseMutationResult<
   UseUpdateThermostatClimatePresetData,
@@ -38,7 +35,7 @@ export function useUpdateThermostatClimatePreset(): UseMutationResult<
   >({
     mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
-      await client.thermostats.createClimatePreset(variables)
+      await client.thermostats.updateClimatePreset(variables)
     },
     onSuccess: (_data, variables) => {
       queryClient.setQueryData<ThermostatDevice | null>(
