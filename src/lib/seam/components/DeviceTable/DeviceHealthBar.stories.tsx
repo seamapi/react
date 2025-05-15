@@ -67,14 +67,16 @@ export const Content: Story = {
                 {
                   error_code: 'account_disconnected',
                   message: 'Device account has been disconnected.',
+                  created_at: '2023-05-08T22:38:30.963Z',
                   is_connected_account_error: true,
                 },
               ],
               warnings: [
                 {
-                  warning_code: 'salto_office_mode',
+                  warning_code: 'salto_ks_office_mode',
+                  created_at: '2023-05-08T22:38:30.963Z',
                   message:
-                    'Salto office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
+                    'Salto KS office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
                 },
               ],
             },
@@ -104,15 +106,17 @@ export const Content: Story = {
               errors: [
                 {
                   error_code: 'device_disconnected',
+                  created_at: '2023-05-08T22:38:30.963Z',
                   message: 'Device has been disconnected.',
                   is_device_error: true,
                 },
               ],
               warnings: [
                 {
-                  warning_code: 'salto_office_mode',
+                  warning_code: 'salto_ks_office_mode',
+                  created_at: '2023-05-08T22:38:30.963Z',
                   message:
-                    'Salto office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
+                    'Salto KS office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
                 },
               ],
             },

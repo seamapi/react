@@ -85,6 +85,7 @@ function getUpdatedDevice(
     display_name: variables.name ?? variables.climate_preset_key,
     can_delete: true,
     can_edit: true,
+    can_program: true,
     manual_override_allowed: true,
   }
 
