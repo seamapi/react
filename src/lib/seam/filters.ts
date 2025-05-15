@@ -28,6 +28,8 @@ export const connectedAccountErrorFilter = (
   error: SeamResourceError
 ): boolean => {
   return (
-    'is_connected_account_error' in error && error.is_connected_account_error
+    ('is_connected_account_error' in error &&
+      error.is_connected_account_error) ??
+    false
   )
 }

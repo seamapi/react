@@ -109,7 +109,7 @@
     "npm": ">= 9.0.0"
   },
   "peerDependencies": {
-    "@seamapi/types": "^1.344.3",
+    "@seamapi/types": "^1.395.3",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "react": "^18.0.0",
@@ -145,7 +145,7 @@
     "@rxfork/r2wc-react-to-web-component": "^2.4.0",
     "@seamapi/fake-devicedb": "^1.6.1",
     "@seamapi/fake-seam-connect": "^1.76.0",
-    "@seamapi/types": "^1.344.3",
+    "@seamapi/types": "^1.395.3",
     "@storybook/addon-designs": "^7.0.1",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",

@@ -52,15 +52,16 @@ export const Content: Story = {
                 {
                   error_code: 'account_disconnected',
                   is_connected_account_error: true,
+                  created_at: '2023-05-08T22:38:30.963Z',
                   message:
                     'Account Disconnected, you may need to reconnect the account with a new webview.',
                 },
               ],
               warnings: [
                 {
-                  warning_code: 'salto_office_mode',
+                  warning_code: 'delay_in_removing_from_device',
                   message:
-                    'Salto office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
+                    'There was a delay removing this access code from the device.',
                 },
               ],
             },
@@ -83,15 +84,16 @@ export const Content: Story = {
                 {
                   error_code: 'account_disconnected',
                   is_connected_account_error: true,
+                  created_at: '2023-05-08T22:38:30.963Z',
                   message:
                     'Account Disconnected, you may need to reconnect the account with a new webview.',
                 },
               ],
               warnings: [
                 {
-                  warning_code: 'salto_office_mode',
+                  warning_code: 'delay_in_removing_from_device',
                   message:
-                    'Salto office mode is enabled. Access codes will not unlock doors. You can disable office mode in the Salto dashboard.',
+                    'There was a delay removing this access code from the device.',
                 },
               ],
             },
