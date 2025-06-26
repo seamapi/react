@@ -44,6 +44,21 @@ $ npm install @seamapi/react
 
 [npm]: https://www.npmjs.com/
 
+### Peer dependencies
+
+If your project uses a recent version of npm, peer dependencies will be handled automatically.
+If you package manager does not automatically install peer dependencies, install these packages:
+
+```
+@seamapi/http react react-dom
+```
+
+If using TypeScript, install these packages as development dependencies:
+
+```
+@seamapi/types @types/react @types/react-dom
+```
+
 ## Usage
 
 ### With React

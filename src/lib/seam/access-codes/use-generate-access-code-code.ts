@@ -1,5 +1,5 @@
 import type {
-  AccessCodesGenerateCodeBody,
+  AccessCodesGenerateCodeParams,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
 import { useMutation, type UseMutationResult } from '@tanstack/react-query'
@@ -11,7 +11,7 @@ export type UseGenerateAccessCodeCodeParams = never
 export type UseGenerateAccessCodeCodeData = string
 
 export type UseGenerateAccessCodeCodeMutationVariables =
-  AccessCodesGenerateCodeBody
+  AccessCodesGenerateCodeParams
 
 export function useGenerateAccessCodeCode(): UseMutationResult<
   UseGenerateAccessCodeCodeData,
