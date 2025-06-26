@@ -1,12 +1,13 @@
-import type { SeamHttpApiError, SeamHttpEndpoints } from '@seamapi/http/connect'
+import type {
+  SeamHttpApiError,
+  SeamHttpEndpointPaths,
+  SeamHttpEndpoints,
+} from '@seamapi/http/connect'
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
-type Endpoints = Pick<
-  SeamHttpEndpoints,
-  Extract<keyof SeamHttpEndpoints, `/${string}`>
->
+type Endpoints = Pick<SeamHttpEndpoints, SeamHttpEndpointPaths>
 
 export function useSeamQuery<T extends keyof Endpoints>(
   endpointPath: T,
