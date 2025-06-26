@@ -11,8 +11,15 @@ import {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
+export type UseSeamMutationParameters<T extends SeamHttpEndpointMutationPaths> =
+  Parameters<SeamHttpEndpoints[T]>[0]
+
 export type UseSeamMutationResult<T extends SeamHttpEndpointMutationPaths> =
-  UseMutationResult<MutationData<T>, SeamHttpApiError, MutationParameters<T>>
+  UseMutationResult<
+    MutationData<T>,
+    SeamHttpApiError,
+    UseSeamMutationParameters<T>
+  >
 
 export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
   endpointPath: T,
@@ -20,7 +27,7 @@ export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
     MutationOptions<
       MutationData<T>,
       SeamHttpApiError,
-      MutationParameters<T>
+      UseSeamMutationParameters<T>
     > = {}
 ): UseSeamMutationResult<T> {
   const { endpointClient: client } = useSeamClient()
@@ -39,9 +46,5 @@ export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
 type MutationData<T extends SeamHttpEndpointMutationPaths> = Awaited<
   ReturnType<SeamHttpEndpoints[T]>
 >
-
-type MutationParameters<T extends SeamHttpEndpointMutationPaths> = Parameters<
-  SeamHttpEndpoints[T]
->[1]
 
 type MutationOptions<X, Y, Z> = Omit<UseMutationOptions<X, Y, Z>, 'mutationFn'>
