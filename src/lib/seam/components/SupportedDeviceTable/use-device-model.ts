@@ -7,7 +7,7 @@ import type {
 import { useQuery } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
-import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
+import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseDeviceModelParams = DeviceModelsGetParams
 
@@ -15,7 +15,7 @@ export type UseDeviceModelData = DeviceModel | null
 
 export function useDeviceModel(
   params: UseDeviceModelParams
-): UseSeamQueryResult<'deviceModel', UseDeviceModelData> {
+): UseSeamQueryResultLegacy<'deviceModel', UseDeviceModelData> {
   const { client: seam } = useSeamClient()
   const { data, ...rest } = useQuery<UseDeviceModelData, SeamHttpApiError>({
     enabled: seam != null,

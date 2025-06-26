@@ -3,7 +3,7 @@ import type { SeamEvent } from '@seamapi/types/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
-import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
+import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseEventsParams = EventsListParams
 
@@ -16,7 +16,7 @@ export interface UseEventsOptions {
 export function useEvents(
   params?: UseEventsParams,
   { refetchInterval }: UseEventsOptions = {}
-): UseSeamQueryResult<'events', UseEventsData> {
+): UseSeamQueryResultLegacy<'events', UseEventsData> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 

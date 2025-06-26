@@ -7,7 +7,7 @@ import type {
 import { useQuery } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
-import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
+import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseManufacturerParams = ManufacturersGetParams
 
@@ -15,7 +15,7 @@ export type UseManufacturerData = Manufacturer | null
 
 export function useManufacturer(
   params: UseManufacturerParams
-): UseSeamQueryResult<'manufacturer', UseManufacturerData> {
+): UseSeamQueryResultLegacy<'manufacturer', UseManufacturerData> {
   const { client: seam } = useSeamClient()
   const { data, ...rest } = useQuery<UseManufacturerData, SeamHttpApiError>({
     enabled: seam != null,
