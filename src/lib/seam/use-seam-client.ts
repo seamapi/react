@@ -1,4 +1,4 @@
-import { SeamHttp } from '@seamapi/http/connect'
+import { SeamHttp, SeamHttpEndpoints } from '@seamapi/http/connect'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -7,6 +7,7 @@ import { useSeamQueryContext } from './SeamQueryProvider.js'
 
 export function useSeamClient(): {
   client: SeamHttp | null
+  endpointClient: SeamHttpEndpoints | null
   isPending: boolean
   isError: boolean
   error: unknown
@@ -22,7 +23,9 @@ export function useSeamClient(): {
     clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
-  const { isPending, isError, error, data } = useQuery<SeamHttp>({
+  const { isPending, isError, error, data } = useQuery<
+    [SeamHttp, SeamHttpEndpoints]
+  >({
     queryKey: [
       'client',
       {
@@ -34,13 +37,19 @@ export function useSeamClient(): {
       },
     ],
     queryFn: async () => {
-      if (client != null) return client
+      if (client != null)
+        return [client, SeamHttpEndpoints.fromClient(client.client)]
 
       if (clientSessionToken != null) {
-        return SeamHttp.fromClientSessionToken(
+        const clientSessionTokenClient = SeamHttp.fromClientSessionToken(
           clientSessionToken,
           clientOptions
         )
+
+        return [
+          clientSessionTokenClient,
+          SeamHttpEndpoints.fromClient(clientSessionTokenClient.client),
+        ]
       }
 
       if (publishableKey == null) {
@@ -49,15 +58,25 @@ export function useSeamClient(): {
         )
       }
 
-      return await SeamHttp.fromPublishableKey(
+      const publishableKeyClient = await SeamHttp.fromPublishableKey(
         publishableKey,
         userIdentifierKey,
         clientOptions
       )
+      return [
+        publishableKeyClient,
+        SeamHttpEndpoints.fromClient(publishableKeyClient.client),
+      ]
     },
   })
 
-  return { client: data ?? null, isPending, isError, error }
+  return {
+    client: data?.[0] ?? null,
+    endpointClient: data?.[1] ?? null,
+    isPending,
+    isError,
+    error,
+  }
 }
 
 export class NullSeamClientError extends Error {

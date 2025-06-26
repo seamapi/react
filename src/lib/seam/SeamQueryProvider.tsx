@@ -1,5 +1,6 @@
 import type {
   SeamHttp,
+  SeamHttpEndpoints,
   SeamHttpOptionsWithClientSessionToken,
 } from '@seamapi/http/connect'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -15,6 +16,7 @@ import { useSeamClient } from './use-seam-client.js'
 
 export interface SeamQueryContext {
   client: SeamHttp | null
+  endpointClient: SeamHttpEndpoints | null
   clientOptions?: SeamQueryProviderClientOptions | undefined
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
@@ -112,13 +114,13 @@ function Session({
 const createDefaultSeamQueryContextValue = (): SeamQueryContext => {
   try {
     if (globalThis.seam == null) {
-      return { client: null }
+      return { client: null, endpointClient: null }
     }
     return createSeamQueryContextValue(globalThis.seam)
   } catch (err) {
     // eslint-disable-next-line no-console
     console.warn(err)
-    return { client: null }
+    return { client: null, endpointClient: null }
   }
 }
 
@@ -126,7 +128,10 @@ const createSeamQueryContextValue = (
   options: SeamQueryProviderProps
 ): SeamQueryContext => {
   if (isSeamQueryProviderPropsWithClient(options)) {
-    return options
+    return {
+      ...options,
+      endpointClient: null,
+    }
   }
 
   if (isSeamQueryProviderPropsWithClientSessionToken(options)) {
@@ -135,6 +140,7 @@ const createSeamQueryContextValue = (
       clientSessionToken,
       clientOptions,
       client: null,
+      endpointClient: null,
     }
   }
 
@@ -145,10 +151,11 @@ const createSeamQueryContextValue = (
       userIdentifierKey,
       clientOptions,
       client: null,
+      endpointClient: null,
     }
   }
 
-  return { client: null }
+  return { client: null, endpointClient: null }
 }
 
 const defaultSeamQueryContextValue = createDefaultSeamQueryContextValue()
