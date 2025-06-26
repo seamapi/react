@@ -14,13 +14,13 @@ import { useSeamClient } from 'lib/seam/use-seam-client.js'
 export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
   endpointPath: T,
   parameters?: Parameters<SeamHttpEndpoints[T]>[0],
-  options?: Parameters<SeamHttpEndpoints[T]>[1],
-  queryOptions: QueryOptions<QueryData<T>, SeamHttpApiError> = {}
+  options: Parameters<SeamHttpEndpoints[T]>[1] &
+    QueryOptions<QueryData<T>, SeamHttpApiError> = {}
 ): UseQueryResult<QueryData<T>, SeamHttpApiError> {
   const { endpointClient: client } = useSeamClient()
   return useQuery({
     enabled: client != null,
-    ...queryOptions,
+    ...options,
     queryKey: [endpointPath, parameters],
     queryFn: async () => {
       if (client == null) return null
