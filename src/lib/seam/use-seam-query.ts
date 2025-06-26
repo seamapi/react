@@ -11,12 +11,15 @@ import {
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
+export type UseSeamQueryResult<T extends SeamHttpEndpointQueryPaths> =
+  UseQueryResult<QueryData<T>, SeamHttpApiError>
+
 export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
   endpointPath: T,
   parameters?: Parameters<SeamHttpEndpoints[T]>[0],
   options: Parameters<SeamHttpEndpoints[T]>[1] &
     QueryOptions<QueryData<T>, SeamHttpApiError> = {}
-): UseQueryResult<QueryData<T>, SeamHttpApiError> {
+): UseSeamQueryResult<T> {
   const { endpointClient: client } = useSeamClient()
   return useQuery({
     enabled: client != null,
