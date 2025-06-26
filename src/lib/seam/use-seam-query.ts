@@ -26,7 +26,7 @@ export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
       if (client == null) return null
       // Using @ts-expect-error over any is preferred, but not possible here because TypeScript will run out of memory.
       // Type assertion is needed here for performance reasons. The types are correct at runtime.
-      const endpoint = client[endpointPath] as any
+      const endpoint = client[endpointPath] as (...args: any) => Promise<any>
       return await endpoint(parameters, options)
     },
   })
