@@ -3,13 +3,13 @@ import type { ClientSession } from '@seamapi/types/connect'
 import { useQuery } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
-import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
+import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseClientSessionParams = never
 
 export type UseClientSessionData = ClientSession | null
 
-export function useClientSession(): UseSeamQueryResult<
+export function useClientSession(): UseSeamQueryResultLegacy<
   'clientSession',
   UseClientSessionData
 > {

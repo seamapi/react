@@ -6,7 +6,7 @@ import type { ConnectedAccount } from '@seamapi/types/connect'
 import { useQuery } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
-import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
+import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseConnectedAccountParams = ConnectedAccountsGetParams
 
@@ -14,7 +14,7 @@ export type UseConnectedAccountData = ConnectedAccount | null
 
 export function useConnectedAccount(
   params: UseConnectedAccountParams
-): UseSeamQueryResult<'connectedAccount', UseConnectedAccountData> {
+): UseSeamQueryResultLegacy<'connectedAccount', UseConnectedAccountData> {
   const { client } = useSeamClient()
   const { data, ...rest } = useQuery<UseConnectedAccountData, SeamHttpApiError>(
     {
