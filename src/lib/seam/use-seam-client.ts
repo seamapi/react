@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-import { useSeamContext } from 'lib/seam/SeamProvider.js'
+import { useSeamQueryContext } from './SeamQueryProvider.js'
 
 export function useSeamClient(): {
   client: SeamHttp | null
@@ -17,7 +17,7 @@ export function useSeamClient(): {
     publishableKey,
     clientSessionToken,
     ...context
-  } = useSeamContext()
+  } = useSeamQueryContext()
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
     clientSessionToken != null ? '' : context.userIdentifierKey
   )

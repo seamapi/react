@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect } from 'react'
 
 import { useClientSession } from 'lib/seam/client-sessions/use-client-session.js'
-import { useSeamContext } from 'lib/seam/SeamProvider.js'
+import { useSeamQueryContext } from 'lib/seam/SeamQueryProvider.js'
 
 import type { TelemetryClient } from './client.js'
 import { useTelemetryContext } from './TelemetryProvider.js'
@@ -23,7 +23,7 @@ export function useComponentTelemetry(name: string): void {
 
 export function useUserTelemetry(): void {
   const telemetry = useTelemetryClient()
-  const { publishableKey } = useSeamContext()
+  const { publishableKey } = useSeamQueryContext()
   const { clientSession } = useClientSession()
 
   // Ensure identify runs earlier than other effects to avoid anonymous telemetry data.
