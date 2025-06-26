@@ -65,7 +65,7 @@ export class NullSeamClientError extends Error {
     super(
       [
         'Attempted to use a null Seam client.',
-        'Either a hook using useSeamClient was called outside of a SeamProvider,',
+        'Either a hook using useSeamClient was called outside of a SeamProvider or SeamQueryProvider,',
         'or there was an error when creating the Seam client in useSeamClient,',
         'or useSeamClient is still loading the client.',
       ].join(' ')
@@ -81,7 +81,7 @@ function useUserIdentifierKeyOrFingerprint(
   useEffect(() => {
     if (userIdentifierKey != null) return
     // eslint-disable-next-line no-console
-    console.warn(`Using an automatically generated fingerprint for the SeamProvider userIdentifierKey!
+    console.warn(`Using an automatically generated fingerprint for the Seam userIdentifierKey!
 The user interface will show warnings when using a fingerprint.
 This is not recommended because the client session is now bound to this machine and is effectively ephemeral.`)
   }, [userIdentifierKey])
