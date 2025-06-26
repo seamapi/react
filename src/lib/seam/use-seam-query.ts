@@ -3,14 +3,21 @@ import type {
   SeamHttpEndpointQueryPaths,
   SeamHttpEndpoints,
 } from '@seamapi/http/connect'
-import { useQuery, type UseQueryResult } from '@tanstack/react-query'
+import {
+  useQuery,
+  type UseQueryOptions,
+  type UseQueryResult,
+} from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
+
+type QueryOptions = Omit<UseQueryOptions, 'queryKey' | 'queryFn'>
 
 export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
   endpointPath: T,
   parameters?: Parameters<SeamHttpEndpoints[T]>[0],
-  options?: Parameters<SeamHttpEndpoints[T]>[1]
+  options?: Parameters<SeamHttpEndpoints[T]>[1],
+  _queryOptions: QueryOptions = {}
 ): UseQueryResult<Awaited<ReturnType<SeamHttpEndpoints[T]>>, SeamHttpApiError> {
   const { endpointClient: client } = useSeamClient()
   return useQuery({
