@@ -1,16 +1,13 @@
-import type {
-  SeamHttp,
-  SeamHttpOptionsWithClientSessionToken,
-} from '@seamapi/http/connect'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import {
-  createContext,
-  type PropsWithChildren,
-  useContext,
-  useEffect,
-  useMemo,
-} from 'react'
+import type { SeamHttp } from '@seamapi/http/connect'
+import type { QueryClient } from '@tanstack/react-query'
+import { createContext, type PropsWithChildren, useMemo } from 'react'
 
+import {
+  SeamQueryProvider,
+  type SeamQueryProviderPropsWithClient,
+  type SeamQueryProviderPropsWithClientSessionToken,
+  type SeamQueryProviderPropsWithPublishableKey,
+} from 'lib/seam/SeamQueryProvider.js'
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
 import {
@@ -18,8 +15,6 @@ import {
   TelemetryProvider,
   useUserTelemetry,
 } from 'lib/telemetry/index.js'
-
-import { useSeamClient } from './use-seam-client.js'
 
 declare global {
   // eslint-disable-next-line no-var
@@ -30,33 +25,28 @@ declare global {
   var seamTelemetryClient: TelemetryClient | undefined
 }
 
-export interface SeamContext {
-  client: SeamHttp | null
-  clientOptions?: SeamProviderClientOptions | undefined
-  publishableKey?: string | undefined
-  userIdentifierKey?: string | undefined
-  clientSessionToken?: string | undefined
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface SeamContext {}
 
 export type SeamProviderProps =
   | SeamProviderPropsWithClient
   | SeamProviderPropsWithPublishableKey
   | SeamProviderPropsWithClientSessionToken
 
-export interface SeamProviderPropsWithClient extends SeamProviderBaseProps {
-  client: SeamHttp
-}
+export interface SeamProviderPropsWithClient
+  extends SeamQueryProviderPropsWithClient,
+    SeamProviderBaseProps {}
 
 export interface SeamProviderPropsWithPublishableKey
   extends SeamProviderBaseProps,
-    SeamProviderClientOptions {
+    SeamQueryProviderPropsWithPublishableKey {
   publishableKey: string
   userIdentifierKey?: string
 }
 
 export interface SeamProviderPropsWithClientSessionToken
   extends SeamProviderBaseProps,
-    SeamProviderClientOptions {
+    SeamQueryProviderPropsWithClientSessionToken {
   clientSessionToken: string
 }
 
@@ -70,12 +60,6 @@ interface SeamProviderBaseProps extends PropsWithChildren {
   onSessionUpdate?: (client: SeamHttp) => void
 }
 
-type SeamClientOptions = SeamHttpOptionsWithClientSessionToken
-
-export type SeamProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
-
-const defaultQueryClient = new QueryClient()
-
 export const seamComponentsClassName = 'seam-components'
 
 export function SeamProvider({
@@ -84,39 +68,19 @@ export function SeamProvider({
   disableCssInjection = false,
   disableFontInjection = false,
   unminifiyCss = false,
-  onSessionUpdate = () => {},
-  queryClient,
   telemetryClient,
   ...props
 }: SeamProviderProps): JSX.Element {
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
   useSeamFont({ disabled: disableFontInjection })
 
-  const value = useMemo(() => {
-    const context = createSeamContextValue(props)
-    if (
-      context.client == null &&
-      context.publishableKey == null &&
-      context.clientSessionToken == null
-    ) {
-      return defaultSeamContextValue
-    }
-    return context
-  }, [props])
-
-  if (
-    value.client == null &&
-    value.publishableKey == null &&
-    value.clientSessionToken == null
-  ) {
-    throw new Error(
-      `Must provide either a Seam client, clientSessionToken, or a publishableKey.`
-    )
-  }
-
   const { Provider } = seamContext
 
   const endpoint = 'endpoint' in props ? props.endpoint : undefined
+  const value = useMemo(() => {
+    const context = createSeamContextValue(props)
+    return context
+  }, [props])
 
   return (
     <div className={seamComponentsClassName}>
@@ -125,157 +89,38 @@ export function SeamProvider({
         disabled={disableTelemetry}
         endpoint={endpoint}
       >
-        <QueryClientProvider
-          client={
-            queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient
-          }
-        >
+        <SeamQueryProvider {...props}>
           <Provider value={value}>
-            <Wrapper onSessionUpdate={onSessionUpdate}>{children}</Wrapper>
+            <Telemetry>{children}</Telemetry>
           </Provider>
-        </QueryClientProvider>
+        </SeamQueryProvider>
       </TelemetryProvider>
     </div>
   )
 }
 
-function Wrapper({
-  onSessionUpdate,
-  children,
-}: Required<Pick<SeamProviderProps, 'onSessionUpdate'>> &
-  PropsWithChildren): JSX.Element | null {
+function Telemetry({ children }: PropsWithChildren): JSX.Element | null {
   useUserTelemetry()
-
-  const { client } = useSeamClient()
-  useEffect(() => {
-    if (client != null) onSessionUpdate(client)
-  }, [onSessionUpdate, client])
-
   return <>{children}</>
 }
 
 const createDefaultSeamContextValue = (): SeamContext => {
   try {
     if (globalThis.seam == null) {
-      return { client: null }
+      return {}
     }
     return createSeamContextValue(globalThis.seam)
   } catch (err) {
     // eslint-disable-next-line no-console
     console.warn(err)
-    return { client: null }
+    return {}
   }
 }
 
-const createSeamContextValue = (options: SeamProviderProps): SeamContext => {
-  if (isSeamProviderPropsWithClient(options)) {
-    return options
-  }
-
-  if (isSeamProviderPropsWithClientSessionToken(options)) {
-    const { clientSessionToken, ...clientOptions } = options
-    return {
-      clientSessionToken,
-      clientOptions,
-      client: null,
-    }
-  }
-
-  if (isSeamProviderPropsWithPublishableKey(options)) {
-    const { publishableKey, userIdentifierKey, ...clientOptions } = options
-    return {
-      publishableKey,
-      userIdentifierKey,
-      clientOptions,
-      client: null,
-    }
-  }
-
-  return { client: null }
+const createSeamContextValue = (_options: SeamProviderProps): SeamContext => {
+  return {}
 }
 
 const defaultSeamContextValue = createDefaultSeamContextValue()
 
-export const seamContext = createContext<SeamContext>(defaultSeamContextValue)
-
-export function useSeamContext(): SeamContext {
-  return useContext(seamContext)
-}
-
-const isSeamProviderPropsWithClient = (
-  props: SeamProviderProps
-): props is SeamProviderPropsWithClient => {
-  if (!('client' in props)) return false
-
-  const { client, ...otherProps } = props
-  if (client == null) return false
-
-  const otherNonNullProps = Object.values(otherProps).filter((v) => v != null)
-  if (otherNonNullProps.length > 0) {
-    throw new InvalidSeamProviderProps(
-      `The client prop cannot be used with ${otherNonNullProps.join(' or ')}.`
-    )
-  }
-
-  return true
-}
-
-const isSeamProviderPropsWithPublishableKey = (
-  props: SeamProviderProps
-): props is SeamProviderPropsWithPublishableKey & SeamProviderClientOptions => {
-  if (!('publishableKey' in props)) return false
-
-  const { publishableKey } = props
-  if (publishableKey == null) return false
-
-  if ('client' in props && props.client != null) {
-    throw new InvalidSeamProviderProps(
-      'The client prop cannot be used with the publishableKey prop.'
-    )
-  }
-
-  if ('clientSessionToken' in props && props.clientSessionToken != null) {
-    throw new InvalidSeamProviderProps(
-      'The clientSessionToken prop cannot be used with the publishableKey prop.'
-    )
-  }
-
-  return true
-}
-
-const isSeamProviderPropsWithClientSessionToken = (
-  props: SeamProviderProps
-): props is SeamProviderPropsWithClientSessionToken &
-  SeamProviderClientOptions => {
-  if (!('clientSessionToken' in props)) return false
-
-  const { clientSessionToken } = props
-  if (clientSessionToken == null) return false
-
-  if ('client' in props && props.client != null) {
-    throw new InvalidSeamProviderProps(
-      'The client prop cannot be used with the clientSessionToken prop.'
-    )
-  }
-
-  if ('publishableKey' in props && props.publishableKey != null) {
-    throw new InvalidSeamProviderProps(
-      'The publishableKey prop cannot be used with the clientSessionToken prop.'
-    )
-  }
-
-  if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
-    throw new InvalidSeamProviderProps(
-      'The userIdentifierKey prop cannot be used with the clientSessionToken prop.'
-    )
-  }
-
-  return true
-}
-
-class InvalidSeamProviderProps extends Error {
-  constructor(message: string) {
-    super(`SeamProvider received invalid props: ${message}`)
-    this.name = this.constructor.name
-  }
-}
+const seamContext = createContext<SeamContext>(defaultSeamContextValue)
