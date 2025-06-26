@@ -3,9 +3,9 @@ import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
-type Endpoints = Omit<
+type Endpoints = Pick<
   SeamHttpEndpoints,
-  Exclude<keyof SeamHttpEndpoints, `/${string}`>
+  Extract<keyof SeamHttpEndpoints, `/${string}`>
 >
 
 export function useSeamQuery<T extends keyof Endpoints>(
