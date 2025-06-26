@@ -11,14 +11,14 @@ import {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-export type UseSeamMutationParameters<T extends SeamHttpEndpointMutationPaths> =
+export type UseSeamMutationVariables<T extends SeamHttpEndpointMutationPaths> =
   Parameters<SeamHttpEndpoints[T]>[0]
 
 export type UseSeamMutationResult<T extends SeamHttpEndpointMutationPaths> =
   UseMutationResult<
     MutationData<T>,
     SeamHttpApiError,
-    UseSeamMutationParameters<T>
+    UseSeamMutationVariables<T>
   >
 
 export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
@@ -27,18 +27,18 @@ export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
     MutationOptions<
       MutationData<T>,
       SeamHttpApiError,
-      UseSeamMutationParameters<T>
+      UseSeamMutationVariables<T>
     > = {}
 ): UseSeamMutationResult<T> {
   const { endpointClient: client } = useSeamClient()
   return useMutation({
     ...options,
-    mutationFn: async (parameters) => {
+    mutationFn: async (variables) => {
       if (client === null) throw new NullSeamClientError()
       // Using @ts-expect-error over any is preferred, but not possible here because TypeScript will run out of memory.
       // Type assertion is needed here for performance reasons. The types are correct at runtime.
       const endpoint = client[endpointPath] as (...args: any) => Promise<any>
-      return await endpoint(parameters, options)
+      return await endpoint(variables, options)
     },
   })
 }
