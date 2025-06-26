@@ -11,19 +11,18 @@ import {
 
 import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
-type MutationOptions = Omit<UseMutationOptions, 'mutationFn'>
-
 export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
   endpointPath: T,
   options?: Parameters<SeamHttpEndpoints[T]>[1],
-  _mutationOptions: MutationOptions = {}
-): UseMutationResult<
-  Awaited<ReturnType<SeamHttpEndpoints[T]>>,
-  SeamHttpApiError,
-  Parameters<SeamHttpEndpoints[T]>[1]
-> {
+  mutationOptions: MutationOptions<
+    MutationData<T>,
+    SeamHttpApiError,
+    MutationParameters<T>
+  > = {}
+): UseMutationResult<MutationData<T>, SeamHttpApiError, MutationParameters<T>> {
   const { endpointClient: client } = useSeamClient()
   return useMutation({
+    ...mutationOptions,
     mutationFn: async (parameters) => {
       if (client === null) throw new NullSeamClientError()
       // Using @ts-expect-error over any is preferred, but not possible here because TypeScript will run out of memory.
@@ -33,3 +32,13 @@ export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
     },
   })
 }
+
+type MutationData<T extends SeamHttpEndpointMutationPaths> = Awaited<
+  ReturnType<SeamHttpEndpoints[T]>
+>
+
+type MutationParameters<T extends SeamHttpEndpointMutationPaths> = Parameters<
+  SeamHttpEndpoints[T]
+>[1]
+
+type MutationOptions<X, Y, Z> = Omit<UseMutationOptions<X, Y, Z>, 'mutationFn'>

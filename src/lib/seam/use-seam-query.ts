@@ -11,17 +11,16 @@ import {
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 
-type QueryOptions = Omit<UseQueryOptions, 'queryKey' | 'queryFn'>
-
 export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
   endpointPath: T,
   parameters?: Parameters<SeamHttpEndpoints[T]>[0],
   options?: Parameters<SeamHttpEndpoints[T]>[1],
-  _queryOptions: QueryOptions = {}
-): UseQueryResult<Awaited<ReturnType<SeamHttpEndpoints[T]>>, SeamHttpApiError> {
+  queryOptions: QueryOptions<QueryData<T>, SeamHttpApiError> = {}
+): UseQueryResult<QueryData<T>, SeamHttpApiError> {
   const { endpointClient: client } = useSeamClient()
   return useQuery({
     enabled: client != null,
+    ...queryOptions,
     queryKey: [endpointPath, parameters],
     queryFn: async () => {
       if (client == null) return null
@@ -32,3 +31,9 @@ export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
     },
   })
 }
+
+type QueryData<T extends SeamHttpEndpointQueryPaths> = Awaited<
+  ReturnType<SeamHttpEndpoints[T]>
+>
+
+type QueryOptions<X, Y> = Omit<UseQueryOptions<X, Y>, 'queryKey' | 'queryFn'>
