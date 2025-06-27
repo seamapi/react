@@ -1,4 +1,7 @@
-import type { DevicesListParameters, SeamHttpApiError } from '@seamapi/http/connect'
+import type {
+  DevicesListParameters,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
 import type { Device } from '@seamapi/types/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 

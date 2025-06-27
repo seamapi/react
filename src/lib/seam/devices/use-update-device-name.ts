@@ -1,15 +1,11 @@
-import type {
-  DevicesUpdateParameters,
-  SeamHttpApiError,
-} from '@seamapi/http/connect'
+import type { DevicesUpdateParameters } from '@seamapi/http/connect'
 import type { Device } from '@seamapi/types/connect'
-import {
-  useMutation,
-  type UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+import {
+  useSeamMutation,
+  type UseSeamMutationResult,
+} from '../use-seam-mutation.js'
 
 export type UseUpdateDeviceNameParams = never
 
@@ -20,28 +16,15 @@ export type UseUpdateDeviceNameMutationVariables = Pick<
   'device_id' | 'name'
 >
 
-type MutationError = SeamHttpApiError
-
 export function useUpdateDeviceName(
   params: DevicesUpdateParameters
-): UseMutationResult<
-  UseUpdateDeviceNameData,
-  MutationError,
-  UseUpdateDeviceNameMutationVariables
-> {
-  const { client } = useSeamClient()
+): UseSeamMutationResult<'/devices/update'> {
   const queryClient = useQueryClient()
 
-  return useMutation<
-    UseUpdateDeviceNameData,
-    MutationError,
-    UseUpdateDeviceNameMutationVariables
-  >({
-    mutationFn: async (variables) => {
-      if (client === null) throw new NullSeamClientError()
-      await client.devices.update(variables)
-    },
+  return useSeamMutation('/devices/update', {
     onSuccess: (_data, variables) => {
+      if (variables == null) return
+
       queryClient.setQueryData<Device | null>(
         ['devices', 'get', params],
         (device) => {

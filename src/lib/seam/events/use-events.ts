@@ -1,4 +1,7 @@
-import type { EventsListParameters, SeamHttpApiError } from '@seamapi/http/connect'
+import type {
+  EventsListParameters,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
 import type { SeamEvent } from '@seamapi/types/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 

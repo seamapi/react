@@ -17,7 +17,8 @@ export type UseSetThermostatFanModeParams = never
 
 export type UseSetThermostatFanModeData = undefined
 
-export type UseSetThermostatFanModeMutationVariables = ThermostatsSetFanModeParameters
+export type UseSetThermostatFanModeMutationVariables =
+  ThermostatsSetFanModeParameters
 
 type SetThermostatFanModeActionAttempt = Extract<
   ActionAttempt,

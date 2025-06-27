@@ -14,7 +14,8 @@ export interface UseCreateConnectWebviewParams {
 
 export type UseCreateConnectWebviewData = ConnectWebview
 
-export type UseCreateConnectWebviewMutationVariables = ConnectWebviewsCreateParameters
+export type UseCreateConnectWebviewMutationVariables =
+  ConnectWebviewsCreateParameters
 
 export function useCreateConnectWebview({
   willNavigateToWebview = false,

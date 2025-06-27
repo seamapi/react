@@ -1,21 +1,16 @@
-import type {
-  SeamActionAttemptFailedError,
-  SeamActionAttemptTimeoutError,
-  SeamHttpApiError,
-  ThermostatsHeatParameters,
-} from '@seamapi/http/connect'
-import type { ActionAttempt, Device } from '@seamapi/types/connect'
-import {
-  useMutation,
-  type UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query'
+import type { ThermostatsHeatParameters } from '@seamapi/http/connect'
+import type { Device } from '@seamapi/types/connect'
+import { useQueryClient } from '@tanstack/react-query'
 
 import {
   getHeatingSetPointCelsius,
   getHeatingSetPointFahrenheit,
 } from 'lib/seam/thermostats/unit-conversion.js'
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+
+import {
+  useSeamMutation,
+  type UseSeamMutationResult,
+} from '../use-seam-mutation.js'
 
 export type UseHeatThermostatParams = never
 
@@ -26,34 +21,13 @@ export type UseHeatThermostatMutationVariables = Pick<
   'device_id' | 'heating_set_point_celsius' | 'heating_set_point_fahrenheit'
 >
 
-type HeatThermostatActionAttempt = Extract<
-  ActionAttempt,
-  { action_type: 'SET_HEAT' }
->
-
-type MutationError =
-  | SeamHttpApiError
-  | SeamActionAttemptFailedError<HeatThermostatActionAttempt>
-  | SeamActionAttemptTimeoutError<HeatThermostatActionAttempt>
-
-export function useHeatThermostat(): UseMutationResult<
-  UseHeatThermostatData,
-  MutationError,
-  UseHeatThermostatMutationVariables
-> {
-  const { client } = useSeamClient()
+export function useHeatThermostat(): UseSeamMutationResult<'/thermostats/heat'> {
   const queryClient = useQueryClient()
 
-  return useMutation<
-    UseHeatThermostatData,
-    MutationError,
-    UseHeatThermostatMutationVariables
-  >({
-    mutationFn: async (variables) => {
-      if (client === null) throw new NullSeamClientError()
-      await client.thermostats.heat(variables)
-    },
+  return useSeamMutation('/thermostats/heat', {
     onSuccess: (_data, variables) => {
+      if (variables == null) return
+
       queryClient.setQueryData<Device | null>(
         ['devices', 'get', { device_id: variables.device_id }],
         (device) => {
