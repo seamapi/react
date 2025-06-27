@@ -1,6 +1,6 @@
 import type {
   SeamHttpApiError,
-  ThermostatsDeleteClimatePresetBody,
+  ThermostatsDeleteClimatePresetParams,
 } from '@seamapi/http/connect'
 import {
   useMutation,
@@ -16,7 +16,7 @@ export type UseDeleteThermostatClimatePresetParams = never
 export type UseDeleteThermostatClimatePresetData = undefined
 
 export type UseDeleteThermostatClimatePresetVariables =
-  ThermostatsDeleteClimatePresetBody
+  ThermostatsDeleteClimatePresetParams
 
 export function useDeleteThermostatClimatePreset(): UseMutationResult<
   UseDeleteThermostatClimatePresetData,

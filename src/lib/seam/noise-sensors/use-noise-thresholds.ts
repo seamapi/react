@@ -6,7 +6,7 @@ import type { NoiseThreshold } from '@seamapi/types/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
-import type { UseSeamQueryResult } from 'lib/seam/use-seam-query-result.js'
+import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseNoiseThresholdsParams = NoiseSensorsNoiseThresholdsListParams
 
@@ -14,7 +14,7 @@ export type UseNoiseThresholdsData = NoiseThreshold[]
 
 export function useNoiseThresholds(
   params: UseNoiseThresholdsParams
-): UseSeamQueryResult<'noiseThresholds', UseNoiseThresholdsData> {
+): UseSeamQueryResultLegacy<'noiseThresholds', UseNoiseThresholdsData> {
   const { client } = useSeamClient()
   const queryClient = useQueryClient()
 

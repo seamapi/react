@@ -1,12 +1,13 @@
-import { SeamHttp } from '@seamapi/http/connect'
+import { SeamHttp, SeamHttpEndpoints } from '@seamapi/http/connect'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-import { useSeamContext } from 'lib/seam/SeamProvider.js'
+import { useSeamQueryContext } from './SeamQueryProvider.js'
 
 export function useSeamClient(): {
   client: SeamHttp | null
+  endpointClient: SeamHttpEndpoints | null
   isPending: boolean
   isError: boolean
   error: unknown
@@ -17,12 +18,14 @@ export function useSeamClient(): {
     publishableKey,
     clientSessionToken,
     ...context
-  } = useSeamContext()
+  } = useSeamQueryContext()
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
     clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
-  const { isPending, isError, error, data } = useQuery<SeamHttp>({
+  const { isPending, isError, error, data } = useQuery<
+    [SeamHttp, SeamHttpEndpoints]
+  >({
     queryKey: [
       'client',
       {
@@ -34,13 +37,19 @@ export function useSeamClient(): {
       },
     ],
     queryFn: async () => {
-      if (client != null) return client
+      if (client != null)
+        return [client, SeamHttpEndpoints.fromClient(client.client)]
 
       if (clientSessionToken != null) {
-        return SeamHttp.fromClientSessionToken(
+        const clientSessionTokenClient = SeamHttp.fromClientSessionToken(
           clientSessionToken,
           clientOptions
         )
+
+        return [
+          clientSessionTokenClient,
+          SeamHttpEndpoints.fromClient(clientSessionTokenClient.client),
+        ]
       }
 
       if (publishableKey == null) {
@@ -49,15 +58,25 @@ export function useSeamClient(): {
         )
       }
 
-      return await SeamHttp.fromPublishableKey(
+      const publishableKeyClient = await SeamHttp.fromPublishableKey(
         publishableKey,
         userIdentifierKey,
         clientOptions
       )
+      return [
+        publishableKeyClient,
+        SeamHttpEndpoints.fromClient(publishableKeyClient.client),
+      ]
     },
   })
 
-  return { client: data ?? null, isPending, isError, error }
+  return {
+    client: data?.[0] ?? null,
+    endpointClient: data?.[1] ?? null,
+    isPending,
+    isError,
+    error,
+  }
 }
 
 export class NullSeamClientError extends Error {
@@ -65,7 +84,7 @@ export class NullSeamClientError extends Error {
     super(
       [
         'Attempted to use a null Seam client.',
-        'Either a hook using useSeamClient was called outside of a SeamProvider,',
+        'Either a hook using useSeamClient was called outside of a SeamProvider or SeamQueryProvider,',
         'or there was an error when creating the Seam client in useSeamClient,',
         'or useSeamClient is still loading the client.',
       ].join(' ')
@@ -81,7 +100,7 @@ function useUserIdentifierKeyOrFingerprint(
   useEffect(() => {
     if (userIdentifierKey != null) return
     // eslint-disable-next-line no-console
-    console.warn(`Using an automatically generated fingerprint for the SeamProvider userIdentifierKey!
+    console.warn(`Using an automatically generated fingerprint for the Seam userIdentifierKey!
 The user interface will show warnings when using a fingerprint.
 This is not recommended because the client session is now bound to this machine and is effectively ephemeral.`)
   }, [userIdentifierKey])
