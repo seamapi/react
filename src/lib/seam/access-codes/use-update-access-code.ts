@@ -1,5 +1,5 @@
 import type {
-  AccessCodesUpdateBody,
+  AccessCodesUpdateParameters,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
 import type { AccessCode } from '@seamapi/types/connect'
@@ -16,7 +16,7 @@ export type UseUpdateAccessCodeParams = never
 export type UseUpdateAccessCodeData = undefined
 
 export type UseUpdateAccessCodeMutationVariables = Pick<
-  AccessCodesUpdateBody,
+  AccessCodesUpdateParameters,
   | 'device_id'
   | 'access_code_id'
   | 'code'

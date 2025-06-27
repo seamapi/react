@@ -1,5 +1,5 @@
 import type {
-  AccessCodesDeleteParams,
+  AccessCodesDeleteParameters,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
 import type { AccessCode } from '@seamapi/types/connect'
@@ -15,7 +15,7 @@ export type UseDeleteAccessCodeParams = never
 
 export type UseDeleteAccessCodeData = undefined
 
-export type UseDeleteAccessCodeMutationVariables = AccessCodesDeleteParams
+export type UseDeleteAccessCodeMutationVariables = AccessCodesDeleteParameters
 
 export function useDeleteAccessCode(): UseMutationResult<
   UseDeleteAccessCodeData,

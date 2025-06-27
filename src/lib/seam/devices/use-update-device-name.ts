@@ -1,6 +1,5 @@
 import type {
-  DevicesGetParams,
-  DevicesUpdateBody,
+  DevicesUpdateParameters,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
 import type { Device } from '@seamapi/types/connect'
@@ -17,14 +16,14 @@ export type UseUpdateDeviceNameParams = never
 export type UseUpdateDeviceNameData = undefined
 
 export type UseUpdateDeviceNameMutationVariables = Pick<
-  DevicesUpdateBody,
+  DevicesUpdateParameters,
   'device_id' | 'name'
 >
 
 type MutationError = SeamHttpApiError
 
 export function useUpdateDeviceName(
-  params: DevicesGetParams
+  params: DevicesUpdateParameters
 ): UseMutationResult<
   UseUpdateDeviceNameData,
   MutationError,

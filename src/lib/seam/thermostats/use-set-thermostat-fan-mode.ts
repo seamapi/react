@@ -2,7 +2,7 @@ import type {
   SeamActionAttemptFailedError,
   SeamActionAttemptTimeoutError,
   SeamHttpApiError,
-  ThermostatsSetFanModeBody,
+  ThermostatsSetFanModeParameters,
 } from '@seamapi/http/connect'
 import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
@@ -17,7 +17,7 @@ export type UseSetThermostatFanModeParams = never
 
 export type UseSetThermostatFanModeData = undefined
 
-export type UseSetThermostatFanModeMutationVariables = ThermostatsSetFanModeBody
+export type UseSetThermostatFanModeMutationVariables = ThermostatsSetFanModeParameters
 
 type SetThermostatFanModeActionAttempt = Extract<
   ActionAttempt,

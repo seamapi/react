@@ -2,7 +2,7 @@ import type {
   SeamActionAttemptFailedError,
   SeamActionAttemptTimeoutError,
   SeamHttpApiError,
-  ThermostatsOffBody,
+  ThermostatsOffParameters,
 } from '@seamapi/http/connect'
 import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
@@ -17,7 +17,7 @@ export type UseSetThermostatOffParams = never
 
 export type UseSetThermostatOffData = undefined
 
-export type UseSetThermostatOffMutationVariables = ThermostatsOffBody
+export type UseSetThermostatOffMutationVariables = ThermostatsOffParameters
 
 type SetThermostatOffActionAttempt = Extract<
   ActionAttempt,

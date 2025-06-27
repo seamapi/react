@@ -2,7 +2,7 @@ import type {
   SeamActionAttemptFailedError,
   SeamActionAttemptTimeoutError,
   SeamHttpApiError,
-  ThermostatsHeatBody,
+  ThermostatsHeatParameters,
 } from '@seamapi/http/connect'
 import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
@@ -22,7 +22,7 @@ export type UseHeatThermostatParams = never
 export type UseHeatThermostatData = undefined
 
 export type UseHeatThermostatMutationVariables = Pick<
-  ThermostatsHeatBody,
+  ThermostatsHeatParameters,
   'device_id' | 'heating_set_point_celsius' | 'heating_set_point_fahrenheit'
 >
 
