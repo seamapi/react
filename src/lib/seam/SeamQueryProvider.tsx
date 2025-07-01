@@ -88,9 +88,7 @@ export function SeamQueryProvider({
   const { Provider } = seamContext
 
   return (
-    <QueryClientProvider
-      client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
-    >
+    <QueryClientProvider client={queryClient ?? defaultQueryClient}>
       <Provider value={value}>
         <Session onSessionUpdate={onSessionUpdate}>{children}</Session>
       </Provider>
