@@ -23,11 +23,15 @@ export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
   options: Parameters<SeamHttpEndpoints[T]>[1] &
     QueryOptions<QueryData<T>, SeamHttpApiError> = {}
 ): UseSeamQueryResult<T> {
-  const { endpointClient: client } = useSeamClient()
+  const { endpointClient: client, queryKeyPrefix } = useSeamClient()
   return useQuery({
     enabled: client != null,
     ...options,
-    queryKey: [endpointPath, parameters],
+    queryKey: [
+      ...queryKeyPrefix,
+      ...endpointPath.split('/').filter((v) => v !== ''),
+      parameters,
+    ],
     queryFn: async () => {
       if (client == null) return null
       // Using @ts-expect-error over any is preferred, but not possible here because TypeScript will run out of memory.

@@ -8,6 +8,7 @@ import { useSeamQueryContext } from './SeamQueryProvider.js'
 export function useSeamClient(): {
   client: SeamHttp | null
   endpointClient: SeamHttpEndpoints | null
+  queryKeyPrefix: string[]
   isPending: boolean
   isError: boolean
   error: unknown
@@ -17,6 +18,7 @@ export function useSeamClient(): {
     clientOptions,
     publishableKey,
     clientSessionToken,
+    queryKeyPrefix,
     ...context
   } = useSeamQueryContext()
   const userIdentifierKey = useUserIdentifierKeyOrFingerprint(
@@ -27,6 +29,7 @@ export function useSeamClient(): {
     [SeamHttp, SeamHttpEndpoints]
   >({
     queryKey: [
+      'seam',
       'client',
       {
         client,
@@ -73,6 +76,15 @@ export function useSeamClient(): {
   return {
     client: data?.[0] ?? null,
     endpointClient: data?.[1] ?? null,
+    queryKeyPrefix: [
+      'seam',
+      queryKeyPrefix ??
+        getQueryKeyPrefix({
+          userIdentifierKey,
+          publishableKey,
+          clientSessionToken,
+        }),
+    ],
     isPending,
     isError,
     error,
@@ -116,4 +128,24 @@ This is not recommended because the client session is now bound to this machine 
   globalThis.localStorage?.setItem('seam_user_fingerprint', fingerprint)
 
   return fingerprint
+}
+
+const getQueryKeyPrefix = ({
+  userIdentifierKey,
+  publishableKey,
+  clientSessionToken,
+}: {
+  userIdentifierKey: string
+  publishableKey: string | undefined
+  clientSessionToken: string | undefined
+}): string => {
+  if (clientSessionToken != null) {
+    return clientSessionToken
+  }
+
+  if (publishableKey != null) {
+    return [publishableKey, userIdentifierKey].join(':')
+  }
+
+  throw new Error('Could not determine a queryKeyPrefix')
 }

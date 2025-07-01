@@ -21,6 +21,7 @@ export interface SeamQueryContext {
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
   clientSessionToken?: string | undefined
+  queryKeyPrefix?: string | undefined
 }
 
 export type SeamQueryProviderProps =
@@ -31,6 +32,7 @@ export type SeamQueryProviderProps =
 export interface SeamQueryProviderPropsWithClient
   extends SeamQueryProviderBaseProps {
   client: SeamHttp
+  queryKeyPrefix: string
 }
 
 export interface SeamQueryProviderPropsWithPublishableKey
@@ -126,6 +128,11 @@ const createSeamQueryContextValue = (
   options: SeamQueryProviderProps
 ): SeamQueryContext => {
   if (isSeamQueryProviderPropsWithClient(options)) {
+    if (options.queryKeyPrefix == null) {
+      throw new InvalidSeamQueryProviderProps(
+        'The client prop must be used with a queryKeyPrefix prop.'
+      )
+    }
     return {
       ...options,
       endpointClient: null,
