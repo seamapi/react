@@ -48,9 +48,7 @@ $ npm install @seamapi/react
 
 If your project uses a recent version of npm, peer dependencies will be handled automatically.
 
-
 If you package manager does not automatically install peer dependencies, install these packages:
-
 
 ```
 @seamapi/http @seamapi/types
