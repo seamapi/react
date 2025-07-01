@@ -3,7 +3,11 @@ import type {
   SeamHttpEndpoints,
   SeamHttpOptionsWithClientSessionToken,
 } from '@seamapi/http/connect'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  QueryClient,
+  QueryClientContext,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import {
   createContext,
   type PropsWithChildren,
@@ -21,6 +25,7 @@ export interface SeamQueryContext {
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
   clientSessionToken?: string | undefined
+  queryKeyPrefix?: string | undefined
 }
 
 export type SeamQueryProviderProps =
@@ -31,6 +36,7 @@ export type SeamQueryProviderProps =
 export interface SeamQueryProviderPropsWithClient
   extends SeamQueryProviderBaseProps {
   client: SeamHttp
+  queryKeyPrefix: string
 }
 
 export interface SeamQueryProviderPropsWithPublishableKey
@@ -86,10 +92,21 @@ export function SeamQueryProvider({
   }
 
   const { Provider } = seamContext
+  const queryClientFromContext = useContext(QueryClientContext)
+
+  if (
+    queryClientFromContext != null &&
+    queryClient != null &&
+    queryClientFromContext !== queryClient
+  ) {
+    throw new Error(
+      'The QueryClient passed into SeamQueryProvider is different from the one in the existing QueryClientContext. Omit the queryClient prop from SeamProvider or SeamQueryProvider to use the existing QueryClient provided by the QueryClientProvider.'
+    )
+  }
 
   return (
     <QueryClientProvider
-      client={queryClient ?? globalThis.seamQueryClient ?? defaultQueryClient}
+      client={queryClientFromContext ?? queryClient ?? defaultQueryClient}
     >
       <Provider value={value}>
         <Session onSessionUpdate={onSessionUpdate}>{children}</Session>
@@ -128,6 +145,11 @@ const createSeamQueryContextValue = (
   options: SeamQueryProviderProps
 ): SeamQueryContext => {
   if (isSeamQueryProviderPropsWithClient(options)) {
+    if (options.queryKeyPrefix == null) {
+      throw new InvalidSeamQueryProviderProps(
+        'The client prop must be used with a queryKeyPrefix prop.'
+      )
+    }
     return {
       ...options,
       endpointClient: null,

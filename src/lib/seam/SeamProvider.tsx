@@ -69,6 +69,7 @@ export function SeamProvider({
   disableFontInjection = false,
   unminifiyCss = false,
   telemetryClient,
+  queryClient,
   ...props
 }: SeamProviderProps): JSX.Element {
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
@@ -89,7 +90,10 @@ export function SeamProvider({
         disabled={disableTelemetry}
         endpoint={endpoint}
       >
-        <SeamQueryProvider {...props}>
+        <SeamQueryProvider
+          queryClient={queryClient ?? globalThis.seamQueryClient}
+          {...props}
+        >
           <Provider value={value}>
             <Telemetry>{children}</Telemetry>
           </Provider>
