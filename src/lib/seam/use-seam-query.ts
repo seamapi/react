@@ -23,12 +23,12 @@ export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
   options: Parameters<SeamHttpEndpoints[T]>[1] &
     QueryOptions<QueryData<T>, SeamHttpApiError> = {}
 ): UseSeamQueryResult<T> {
-  const { endpointClient: client, queryKeyPrefix } = useSeamClient()
+  const { endpointClient: client, queryKeyPrefixes } = useSeamClient()
   return useQuery({
     enabled: client != null,
     ...options,
     queryKey: [
-      ...queryKeyPrefix,
+      ...queryKeyPrefixes,
       ...endpointPath.split('/').filter((v) => v !== ''),
       parameters,
     ],

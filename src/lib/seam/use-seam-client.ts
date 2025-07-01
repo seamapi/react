@@ -8,7 +8,7 @@ import { useSeamQueryContext } from './SeamQueryProvider.js'
 export function useSeamClient(): {
   client: SeamHttp | null
   endpointClient: SeamHttpEndpoints | null
-  queryKeyPrefix: string[]
+  queryKeyPrefixes: string[]
   isPending: boolean
   isError: boolean
   error: unknown
@@ -29,7 +29,7 @@ export function useSeamClient(): {
     [SeamHttp, SeamHttpEndpoints]
   >({
     queryKey: [
-      'seam',
+      ...getQueryKeyPrefixes({ queryKeyPrefix }),
       'client',
       {
         client,
@@ -76,15 +76,12 @@ export function useSeamClient(): {
   return {
     client: data?.[0] ?? null,
     endpointClient: data?.[1] ?? null,
-    queryKeyPrefix: [
-      'seam',
-      queryKeyPrefix ??
-        getQueryKeyPrefix({
-          userIdentifierKey,
-          publishableKey,
-          clientSessionToken,
-        }),
-    ],
+    queryKeyPrefixes: getQueryKeyPrefixes({
+      queryKeyPrefix,
+      userIdentifierKey,
+      publishableKey,
+      clientSessionToken,
+    }),
     isPending,
     isError,
     error,
@@ -130,22 +127,28 @@ This is not recommended because the client session is now bound to this machine 
   return fingerprint
 }
 
-const getQueryKeyPrefix = ({
+const getQueryKeyPrefixes = ({
+  queryKeyPrefix,
   userIdentifierKey,
   publishableKey,
   clientSessionToken,
 }: {
-  userIdentifierKey: string
-  publishableKey: string | undefined
-  clientSessionToken: string | undefined
-}): string => {
+  queryKeyPrefix: string | undefined
+  userIdentifierKey?: string
+  publishableKey?: string | undefined
+  clientSessionToken?: string | undefined
+}): string[] => {
+  const seamPrefix = 'seam'
+
+  if (queryKeyPrefix != null) return [seamPrefix, queryKeyPrefix]
+
   if (clientSessionToken != null) {
-    return clientSessionToken
+    return [seamPrefix, clientSessionToken]
   }
 
-  if (publishableKey != null) {
-    return [publishableKey, userIdentifierKey].join(':')
+  if (publishableKey != null && userIdentifierKey != null) {
+    return [seamPrefix, publishableKey, userIdentifierKey]
   }
 
-  throw new Error('Could not determine a queryKeyPrefix')
+  return [seamPrefix]
 }
