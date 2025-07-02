@@ -213,8 +213,12 @@ const getQueryKeyPrefixes = ({
     return [seamPrefix, publishableKey, userIdentifierKey]
   }
 
-  if (consoleSessionToken != null && workspaceId != null) {
-    return [seamPrefix, consoleSessionToken, workspaceId]
+  if (consoleSessionToken != null) {
+    if (workspaceId != null) {
+      return [seamPrefix, consoleSessionToken, workspaceId]
+    }
+
+    return [seamPrefix, consoleSessionToken, 'without_workspace']
   }
 
   return [seamPrefix]
