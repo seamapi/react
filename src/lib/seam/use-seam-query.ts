@@ -51,6 +51,7 @@ type QueryData<T extends SeamHttpEndpointQueryPaths> = Awaited<
 >
 
 type QueryError<T extends SeamHttpEndpointQueryPaths> =
+  | Error
   | SeamHttpApiError
   | SeamHttpInvalidInputError
   | (QueryData<T> extends ActionAttempt

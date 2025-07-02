@@ -80,6 +80,7 @@ interface QueryData<T extends SeamHttpEndpointPaginatedQueryPaths> {
 }
 
 type QueryError<T extends SeamHttpEndpointPaginatedQueryPaths> =
+  | Error
   | SeamHttpApiError
   | SeamHttpInvalidInputError
   | (QueryData<T>['data'] extends ActionAttempt

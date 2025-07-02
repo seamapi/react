@@ -51,6 +51,6 @@ type QueryData<T extends SeamHttpEndpointWithoutWorkspaceQueryPaths> = Awaited<
   ReturnType<SeamHttpEndpointsWithoutWorkspace[T]>
 >
 
-type QueryError = SeamHttpApiError | SeamHttpInvalidInputError
+type QueryError = Error | SeamHttpApiError | SeamHttpInvalidInputError
 
 type QueryOptions<X, Y> = Omit<UseQueryOptions<X, Y>, 'queryKey' | 'queryFn'>

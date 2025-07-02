@@ -52,6 +52,7 @@ type MutationData<T extends SeamHttpEndpointMutationPaths> = Awaited<
 >
 
 type MutationError<T extends SeamHttpEndpointMutationPaths> =
+  | Error
   | SeamHttpApiError
   | SeamHttpInvalidInputError
   | (MutationData<T> extends ActionAttempt

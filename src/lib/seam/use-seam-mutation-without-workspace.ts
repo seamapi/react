@@ -51,6 +51,6 @@ export function useSeamMutationWithoutWorkspace<
 type MutationData<T extends SeamHttpEndpointWithoutWorkspaceMutationPaths> =
   Awaited<ReturnType<SeamHttpEndpointsWithoutWorkspace[T]>>
 
-type MutationError = SeamHttpApiError | SeamHttpInvalidInputError
+type MutationError = Error | SeamHttpApiError | SeamHttpInvalidInputError
 
 type MutationOptions<X, Y, Z> = Omit<UseMutationOptions<X, Y, Z>, 'mutationFn'>
