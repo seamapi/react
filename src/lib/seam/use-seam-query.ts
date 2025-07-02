@@ -1,8 +1,12 @@
 import type {
+  SeamActionAttemptFailedError,
+  SeamActionAttemptTimeoutError,
   SeamHttpApiError,
   SeamHttpEndpointQueryPaths,
   SeamHttpEndpoints,
+  SeamHttpInvalidInputError,
 } from '@seamapi/http/connect'
+import type { ActionAttempt } from '@seamapi/types/connect'
 import {
   useQuery,
   type UseQueryOptions,
@@ -15,7 +19,7 @@ export type UseSeamQueryParameters<T extends SeamHttpEndpointQueryPaths> =
   Parameters<SeamHttpEndpoints[T]>[0]
 
 export type UseSeamQueryResult<T extends SeamHttpEndpointQueryPaths> =
-  UseQueryResult<QueryData<T>, SeamHttpApiError>
+  UseQueryResult<QueryData<T>, QueryError<T>>
 
 export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
   endpointPath: T,
@@ -45,5 +49,15 @@ export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
 type QueryData<T extends SeamHttpEndpointQueryPaths> = Awaited<
   ReturnType<SeamHttpEndpoints[T]>
 >
+
+type QueryError<T extends SeamHttpEndpointQueryPaths> =
+  | Error
+  | SeamHttpApiError
+  | SeamHttpInvalidInputError
+  | (QueryData<T> extends ActionAttempt
+      ?
+          | SeamActionAttemptFailedError<QueryData<T>>
+          | SeamActionAttemptTimeoutError<QueryData<T>>
+      : never)
 
 type QueryOptions<X, Y> = Omit<UseQueryOptions<X, Y>, 'queryKey' | 'queryFn'>

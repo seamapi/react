@@ -2,6 +2,7 @@ import type {
   SeamHttpApiError,
   SeamHttpEndpointsWithoutWorkspace,
   SeamHttpEndpointWithoutWorkspaceQueryPaths,
+  SeamHttpInvalidInputError,
 } from '@seamapi/http/connect'
 import {
   useQuery,
@@ -17,7 +18,7 @@ export type UseSeamQueryWithoutWorkspaceParameters<
 
 export type UseSeamQueryWithoutWorkspaceResult<
   T extends SeamHttpEndpointWithoutWorkspaceQueryPaths,
-> = UseQueryResult<QueryData<T>, SeamHttpApiError>
+> = UseQueryResult<QueryData<T>, QueryError>
 
 export function useSeamQueryWithoutWorkspace<
   T extends SeamHttpEndpointWithoutWorkspaceQueryPaths,
@@ -25,7 +26,7 @@ export function useSeamQueryWithoutWorkspace<
   endpointPath: T,
   parameters?: UseSeamQueryWithoutWorkspaceParameters<T>,
   options: Parameters<SeamHttpEndpointsWithoutWorkspace[T]>[1] &
-    QueryOptions<QueryData<T>, SeamHttpApiError> = {}
+    QueryOptions<QueryData<T>, QueryError> = {}
 ): UseSeamQueryWithoutWorkspaceResult<T> {
   const { endpointClient: client, queryKeyPrefixes } = useSeamClient()
   return useQuery({
@@ -49,5 +50,7 @@ export function useSeamQueryWithoutWorkspace<
 type QueryData<T extends SeamHttpEndpointWithoutWorkspaceQueryPaths> = Awaited<
   ReturnType<SeamHttpEndpointsWithoutWorkspace[T]>
 >
+
+type QueryError = Error | SeamHttpApiError | SeamHttpInvalidInputError
 
 type QueryOptions<X, Y> = Omit<UseQueryOptions<X, Y>, 'queryKey' | 'queryFn'>

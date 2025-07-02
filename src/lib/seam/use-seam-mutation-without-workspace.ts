@@ -2,6 +2,7 @@ import type {
   SeamHttpApiError,
   SeamHttpEndpointsWithoutWorkspace,
   SeamHttpEndpointWithoutWorkspaceMutationPaths,
+  SeamHttpInvalidInputError,
 } from '@seamapi/http/connect'
 import {
   useMutation,
@@ -19,7 +20,7 @@ export type UseSeamMutationWithoutWorkspaceResult<
   T extends SeamHttpEndpointWithoutWorkspaceMutationPaths,
 > = UseMutationResult<
   MutationData<T>,
-  SeamHttpApiError,
+  MutationError,
   UseSeamMutationWithoutWorkspaceVariables<T>
 >
 
@@ -30,7 +31,7 @@ export function useSeamMutationWithoutWorkspace<
   options: Parameters<SeamHttpEndpointsWithoutWorkspace[T]>[1] &
     MutationOptions<
       MutationData<T>,
-      SeamHttpApiError,
+      MutationError,
       UseSeamMutationWithoutWorkspaceVariables<T>
     > = {}
 ): UseSeamMutationWithoutWorkspaceResult<T> {
@@ -49,5 +50,7 @@ export function useSeamMutationWithoutWorkspace<
 
 type MutationData<T extends SeamHttpEndpointWithoutWorkspaceMutationPaths> =
   Awaited<ReturnType<SeamHttpEndpointsWithoutWorkspace[T]>>
+
+type MutationError = Error | SeamHttpApiError | SeamHttpInvalidInputError
 
 type MutationOptions<X, Y, Z> = Omit<UseMutationOptions<X, Y, Z>, 'mutationFn'>
