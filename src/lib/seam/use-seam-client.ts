@@ -1,7 +1,8 @@
 import {
   SeamHttp,
   SeamHttpEndpoints,
-  SeamHttpMultiWorkspace,
+  SeamHttpEndpointsWithoutWorkspace,
+  SeamHttpWithoutWorkspace,
 } from '@seamapi/http/connect'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
@@ -12,7 +13,8 @@ import { useSeamQueryContext } from './SeamQueryProvider.js'
 export function useSeamClient(): {
   client: SeamHttp | null
   endpointClient: SeamHttpEndpoints | null
-  clientWithoutWorkspace: SeamHttpMultiWorkspace | null
+  clientWithoutWorkspace: SeamHttpWithoutWorkspace | null
+  endpointClientWithoutWorkspace: SeamHttpEndpointsWithoutWorkspace | null
   queryKeyPrefixes: string[]
   isPending: boolean
   isError: boolean
@@ -35,7 +37,8 @@ export function useSeamClient(): {
   const { isPending, isError, error, data } = useQuery<{
     client: SeamHttp | null
     endpointClient: SeamHttpEndpoints | null
-    clientWithoutWorkspace: SeamHttpMultiWorkspace | null
+    clientWithoutWorkspace: SeamHttpWithoutWorkspace | null
+    endpointClientWithoutWorkspace: SeamHttpEndpointsWithoutWorkspace | null
   }>({
     queryKey: [
       ...getQueryKeyPrefixes({ queryKeyPrefix }),
@@ -54,6 +57,7 @@ export function useSeamClient(): {
           client,
           endpointClient: SeamHttpEndpoints.fromClient(client.client),
           clientWithoutWorkspace: null,
+          endpointClientWithoutWorkspace: null,
         }
 
       if (clientSessionToken != null) {
@@ -66,6 +70,7 @@ export function useSeamClient(): {
           client: seam,
           endpointClient: SeamHttpEndpoints.fromClient(seam.client),
           clientWithoutWorkspace: null,
+          endpointClientWithoutWorkspace: null,
         }
       }
 
@@ -80,18 +85,25 @@ export function useSeamClient(): {
           client: seam,
           endpointClient: SeamHttpEndpoints.fromClient(seam.client),
           clientWithoutWorkspace: null,
+          endpointClientWithoutWorkspace: null,
         }
       }
 
       if (consoleSessionToken != null) {
         const clientWithoutWorkspace =
-          SeamHttpMultiWorkspace.fromConsoleSessionToken(consoleSessionToken)
+          SeamHttpWithoutWorkspace.fromConsoleSessionToken(consoleSessionToken)
+
+        const endpointClientWithoutWorkspace =
+          SeamHttpEndpointsWithoutWorkspace.fromClient(
+            clientWithoutWorkspace.client
+          )
 
         if (workspaceId == null) {
           return {
             client: null,
             endpointClient: null,
             clientWithoutWorkspace,
+            endpointClientWithoutWorkspace,
           }
         }
 
@@ -105,6 +117,7 @@ export function useSeamClient(): {
           client: seam,
           endpointClient: SeamHttpEndpoints.fromClient(seam.client),
           clientWithoutWorkspace,
+          endpointClientWithoutWorkspace,
         }
       }
 
@@ -118,6 +131,8 @@ export function useSeamClient(): {
     client: data?.client ?? null,
     endpointClient: data?.endpointClient ?? null,
     clientWithoutWorkspace: data?.clientWithoutWorkspace ?? null,
+    endpointClientWithoutWorkspace:
+      data?.endpointClientWithoutWorkspace ?? null,
     queryKeyPrefixes: getQueryKeyPrefixes({
       queryKeyPrefix,
       userIdentifierKey,
