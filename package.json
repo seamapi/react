@@ -145,7 +145,7 @@
     "@rxfork/r2wc-react-to-web-component": "^2.4.0",
     "@seamapi/fake-devicedb": "^1.6.1",
     "@seamapi/fake-seam-connect": "^1.76.0",
-    "@seamapi/http": "^1.40.0",
+    "@seamapi/http": "^1.40.1",
     "@seamapi/types": "^1.395.3",
     "@storybook/addon-designs": "^7.0.1",
     "@storybook/addon-essentials": "^7.0.2",
