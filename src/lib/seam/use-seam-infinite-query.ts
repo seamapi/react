@@ -40,7 +40,11 @@ export function useSeamInfiniteQuery<
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage.nextPageCursor,
     queryFn: async ({ pageParam }) => {
-      if (client == null) return { data: [] as Awaited<ReturnType<SeamHttpEndpoints[T]>>, nextPageCursor: null }
+      if (client == null)
+        return {
+          data: [] as Awaited<ReturnType<SeamHttpEndpoints[T]>>,
+          nextPageCursor: null,
+        }
       // Using @ts-expect-error over any is preferred, but not possible here because TypeScript will run out of memory.
       // Type assertion is needed here for performance reasons. The types are correct at runtime.
       const endpoint = client[endpointPath] as (...args: any) => any
@@ -48,11 +52,19 @@ export function useSeamInfiniteQuery<
       const pages = client.createPaginator(request)
       if (pageParam == null) {
         const [data, { nextPageCursor }] = await pages.firstPage()
-        return { data: data as Awaited<ReturnType<SeamHttpEndpoints[T]>>, nextPageCursor }
+        return {
+          data: data as Awaited<ReturnType<SeamHttpEndpoints[T]>>,
+          nextPageCursor,
+        }
       }
       // Type assertion is needed for pageParam since the Seam API expects a branded PageCursor type.
-      const [data, { nextPageCursor }] = await pages.nextPage(pageParam as SeamPageCursor)
-      return { data: data as Awaited<ReturnType<SeamHttpEndpoints[T]>>, nextPageCursor }
+      const [data, { nextPageCursor }] = await pages.nextPage(
+        pageParam as SeamPageCursor
+      )
+      return {
+        data: data as Awaited<ReturnType<SeamHttpEndpoints[T]>>,
+        nextPageCursor,
+      }
     },
   })
 }
