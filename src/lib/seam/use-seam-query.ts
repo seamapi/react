@@ -4,6 +4,7 @@ import type {
   SeamHttpApiError,
   SeamHttpEndpointQueryPaths,
   SeamHttpEndpoints,
+  SeamHttpInvalidInputError,
 } from '@seamapi/http/connect'
 import type { ActionAttempt } from '@seamapi/types/connect'
 import {
@@ -51,6 +52,7 @@ type QueryData<T extends SeamHttpEndpointQueryPaths> = Awaited<
 
 type QueryError<T extends SeamHttpEndpointQueryPaths> =
   | SeamHttpApiError
+  | SeamHttpInvalidInputError
   | (QueryData<T> extends ActionAttempt
       ?
           | SeamActionAttemptFailedError<QueryData<T>>

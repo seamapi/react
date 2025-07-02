@@ -4,6 +4,7 @@ import type {
   SeamHttpApiError,
   SeamHttpEndpointMutationPaths,
   SeamHttpEndpoints,
+  SeamHttpInvalidInputError,
 } from '@seamapi/http/connect'
 import type { ActionAttempt } from '@seamapi/types/connect'
 import {
@@ -52,6 +53,7 @@ type MutationData<T extends SeamHttpEndpointMutationPaths> = Awaited<
 
 type MutationError<T extends SeamHttpEndpointMutationPaths> =
   | SeamHttpApiError
+  | SeamHttpInvalidInputError
   | (MutationData<T> extends ActionAttempt
       ?
           | SeamActionAttemptFailedError<MutationData<T>>

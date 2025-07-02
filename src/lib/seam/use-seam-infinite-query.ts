@@ -4,6 +4,7 @@ import type {
   SeamHttpApiError,
   SeamHttpEndpointPaginatedQueryPaths,
   SeamHttpEndpoints,
+  SeamHttpInvalidInputError,
   SeamHttpRequest,
   SeamPageCursor,
 } from '@seamapi/http/connect'
@@ -80,6 +81,7 @@ interface QueryData<T extends SeamHttpEndpointPaginatedQueryPaths> {
 
 type QueryError<T extends SeamHttpEndpointPaginatedQueryPaths> =
   | SeamHttpApiError
+  | SeamHttpInvalidInputError
   | (QueryData<T>['data'] extends ActionAttempt
       ?
           | SeamActionAttemptFailedError<QueryData<T>['data']>
