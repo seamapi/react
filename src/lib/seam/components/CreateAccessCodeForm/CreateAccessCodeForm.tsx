@@ -145,7 +145,7 @@ function useSubmitCreateAccessCode(params: {
 
 export function useResponseErrors(): {
   responseErrors: ResponseErrors | null
-  handleResponseError: (error: SeamHttpApiError) => void
+  handleResponseError: (error: SeamHttpApiError | Error) => void
   resetResponseErrors: () => void
 } {
   const [responseErrors, setResponseErrors] = useState<Record<
@@ -153,7 +153,7 @@ export function useResponseErrors(): {
     string | undefined
   > | null>(null)
 
-  const handleResponseError = (error: SeamHttpApiError): void => {
+  const handleResponseError = (error: SeamHttpApiError | Error): void => {
     if (isSeamHttpInvalidInputError(error)) {
       const errors = shake({
         code: error.getValidationErrorMessages('code')[0],
