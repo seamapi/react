@@ -1,11 +1,14 @@
-import type { DevicesGetParams, SeamHttpApiError } from '@seamapi/http/connect'
+import type {
+  DevicesGetParameters,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
 import type { Device } from '@seamapi/types/connect'
 import { useQuery } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
-export type UseDeviceParams = DevicesGetParams
+export type UseDeviceParams = DevicesGetParameters
 
 export type UseDeviceData = Device | null
 

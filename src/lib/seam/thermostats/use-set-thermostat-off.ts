@@ -1,52 +1,25 @@
-import type {
-  SeamActionAttemptFailedError,
-  SeamActionAttemptTimeoutError,
-  SeamHttpApiError,
-  ThermostatsOffBody,
-} from '@seamapi/http/connect'
-import type { ActionAttempt, Device } from '@seamapi/types/connect'
-import {
-  useMutation,
-  type UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query'
+import type { ThermostatsOffParameters } from '@seamapi/http/connect'
+import type { Device } from '@seamapi/types/connect'
+import { useQueryClient } from '@tanstack/react-query'
 
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+import {
+  useSeamMutation,
+  type UseSeamMutationResult,
+} from '../use-seam-mutation.js'
 
 export type UseSetThermostatOffParams = never
 
 export type UseSetThermostatOffData = undefined
 
-export type UseSetThermostatOffMutationVariables = ThermostatsOffBody
+export type UseSetThermostatOffMutationVariables = ThermostatsOffParameters
 
-type SetThermostatOffActionAttempt = Extract<
-  ActionAttempt,
-  { action_type: 'SET_THERMOSTAT_OFF' }
->
-
-type MutationError =
-  | SeamHttpApiError
-  | SeamActionAttemptFailedError<SetThermostatOffActionAttempt>
-  | SeamActionAttemptTimeoutError<SetThermostatOffActionAttempt>
-
-export function useSetThermostatOff(): UseMutationResult<
-  UseSetThermostatOffData,
-  MutationError,
-  UseSetThermostatOffMutationVariables
-> {
-  const { client } = useSeamClient()
+export function useSetThermostatOff(): UseSeamMutationResult<'/thermostats/off'> {
   const queryClient = useQueryClient()
 
-  return useMutation<
-    UseSetThermostatOffData,
-    MutationError,
-    UseSetThermostatOffMutationVariables
-  >({
-    mutationFn: async (variables) => {
-      if (client === null) throw new NullSeamClientError()
-      await client.thermostats.off(variables)
-    },
+  return useSeamMutation('/thermostats/off', {
     onSuccess: (_data, variables) => {
+      if (variables == null) return
+
       queryClient.setQueryData<Device | null>(
         ['devices', 'get', { device_id: variables.device_id }],
         (device) => {

@@ -1,5 +1,5 @@
 import type {
-  ConnectWebviewsCreateBody,
+  ConnectWebviewsCreateParameters,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
 import type { ConnectWebview } from '@seamapi/types/connect'
@@ -14,7 +14,8 @@ export interface UseCreateConnectWebviewParams {
 
 export type UseCreateConnectWebviewData = ConnectWebview
 
-export type UseCreateConnectWebviewMutationVariables = ConnectWebviewsCreateBody
+export type UseCreateConnectWebviewMutationVariables =
+  ConnectWebviewsCreateParameters
 
 export function useCreateConnectWebview({
   willNavigateToWebview = false,

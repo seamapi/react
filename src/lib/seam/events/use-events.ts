@@ -1,11 +1,14 @@
-import type { EventsListParams, SeamHttpApiError } from '@seamapi/http/connect'
+import type {
+  EventsListParameters,
+  SeamHttpApiError,
+} from '@seamapi/http/connect'
 import type { SeamEvent } from '@seamapi/types/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
-export type UseEventsParams = EventsListParams
+export type UseEventsParams = EventsListParameters
 
 export type UseEventsData = SeamEvent[]
 

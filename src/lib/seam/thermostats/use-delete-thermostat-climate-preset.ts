@@ -1,15 +1,12 @@
-import type {
-  SeamHttpApiError,
-  ThermostatsDeleteClimatePresetParams,
-} from '@seamapi/http/connect'
-import {
-  useMutation,
-  type UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query'
+import type { ThermostatsDeleteClimatePresetParams } from '@seamapi/http/connect'
+import { useQueryClient } from '@tanstack/react-query'
 
 import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+
+import {
+  useSeamMutation,
+  type UseSeamMutationResult,
+} from '../use-seam-mutation.js'
 
 export type UseDeleteThermostatClimatePresetParams = never
 
@@ -18,24 +15,13 @@ export type UseDeleteThermostatClimatePresetData = undefined
 export type UseDeleteThermostatClimatePresetVariables =
   ThermostatsDeleteClimatePresetParams
 
-export function useDeleteThermostatClimatePreset(): UseMutationResult<
-  UseDeleteThermostatClimatePresetData,
-  SeamHttpApiError,
-  UseDeleteThermostatClimatePresetVariables
-> {
-  const { client } = useSeamClient()
+export function useDeleteThermostatClimatePreset(): UseSeamMutationResult<'/thermostats/delete_climate_preset'> {
   const queryClient = useQueryClient()
 
-  return useMutation<
-    UseDeleteThermostatClimatePresetData,
-    SeamHttpApiError,
-    UseDeleteThermostatClimatePresetVariables
-  >({
-    mutationFn: async (variables) => {
-      if (client === null) throw new NullSeamClientError()
-      await client.thermostats.deleteClimatePreset(variables)
-    },
+  return useSeamMutation('/thermostats/delete_climate_preset', {
     onSuccess: (_data, variables) => {
+      if (variables == null) return
+
       queryClient.setQueryData<ThermostatDevice | null>(
         ['devices', 'get', { device_id: variables.device_id }],
         (device) => {

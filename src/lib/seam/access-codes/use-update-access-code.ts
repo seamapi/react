@@ -1,22 +1,18 @@
-import type {
-  AccessCodesUpdateBody,
-  SeamHttpApiError,
-} from '@seamapi/http/connect'
+import type { AccessCodesUpdateParameters } from '@seamapi/http/connect'
 import type { AccessCode } from '@seamapi/types/connect'
-import {
-  useMutation,
-  type UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+import {
+  useSeamMutation,
+  type UseSeamMutationResult,
+} from '../use-seam-mutation.js'
 
 export type UseUpdateAccessCodeParams = never
 
 export type UseUpdateAccessCodeData = undefined
 
 export type UseUpdateAccessCodeMutationVariables = Pick<
-  AccessCodesUpdateBody,
+  AccessCodesUpdateParameters,
   | 'device_id'
   | 'access_code_id'
   | 'code'
@@ -26,24 +22,13 @@ export type UseUpdateAccessCodeMutationVariables = Pick<
   | 'type'
 >
 
-export function useUpdateAccessCode(): UseMutationResult<
-  UseUpdateAccessCodeData,
-  SeamHttpApiError,
-  UseUpdateAccessCodeMutationVariables
-> {
-  const { client } = useSeamClient()
+export function useUpdateAccessCode(): UseSeamMutationResult<'/access_codes/update'> {
   const queryClient = useQueryClient()
 
-  return useMutation<
-    UseUpdateAccessCodeData,
-    SeamHttpApiError,
-    UseUpdateAccessCodeMutationVariables
-  >({
-    mutationFn: async (variables) => {
-      if (client === null) throw new NullSeamClientError()
-      await client.accessCodes.update(variables)
-    },
+  return useSeamMutation('/access_codes/update', {
     onSuccess: (_data, variables) => {
+      if (variables == null) return
+
       queryClient.setQueryData<AccessCode | null>(
         ['access_codes', 'get', { access_code_id: variables.access_code_id }],
         (accessCode) => {

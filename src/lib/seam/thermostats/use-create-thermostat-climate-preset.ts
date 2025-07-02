@@ -1,19 +1,16 @@
-import type {
-  SeamHttpApiError,
-  ThermostatsCreateClimatePresetBody,
-} from '@seamapi/http/connect'
-import {
-  useMutation,
-  type UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query'
+import type { ThermostatsCreateClimatePresetBody } from '@seamapi/http/connect'
+import { useQueryClient } from '@tanstack/react-query'
 
 import type {
   ThermostatClimatePreset,
   ThermostatDevice,
 } from 'lib/seam/thermostats/thermostat-device.js'
 import { fahrenheitToCelsius } from 'lib/seam/thermostats/unit-conversion.js'
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+
+import {
+  useSeamMutation,
+  type UseSeamMutationResult,
+} from '../use-seam-mutation.js'
 
 export type UseCreateThermostatClimatePresetParams = never
 export type UseCreateThermostatClimatePresetData = undefined
@@ -21,24 +18,13 @@ export type UseCreateThermostatClimatePresetData = undefined
 export type UseCreateThermostatClimatePresetVariables =
   ThermostatsCreateClimatePresetBody
 
-export function useCreateThermostatClimatePreset(): UseMutationResult<
-  UseCreateThermostatClimatePresetData,
-  SeamHttpApiError,
-  UseCreateThermostatClimatePresetVariables
-> {
-  const { client } = useSeamClient()
+export function useCreateThermostatClimatePreset(): UseSeamMutationResult<'/thermostats/create_climate_preset'> {
   const queryClient = useQueryClient()
 
-  return useMutation<
-    UseCreateThermostatClimatePresetData,
-    SeamHttpApiError,
-    UseCreateThermostatClimatePresetVariables
-  >({
-    mutationFn: async (variables) => {
-      if (client === null) throw new NullSeamClientError()
-      await client.thermostats.createClimatePreset(variables)
-    },
+  return useSeamMutation('/thermostats/create_climate_preset', {
     onSuccess: (_data, variables) => {
+      if (variables == null) return
+
       queryClient.setQueryData<ThermostatDevice | null>(
         ['devices', 'get', { device_id: variables.device_id }],
         (device) => {

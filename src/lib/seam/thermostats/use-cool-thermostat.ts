@@ -2,7 +2,7 @@ import type {
   SeamActionAttemptFailedError,
   SeamActionAttemptTimeoutError,
   SeamHttpApiError,
-  ThermostatsCoolBody,
+  ThermostatsCoolParameters,
 } from '@seamapi/http/connect'
 import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
@@ -22,7 +22,7 @@ export type UseCoolThermostatParams = never
 export type UseCoolThermostatData = undefined
 
 export type UseCoolThermostatMutationVariables = Pick<
-  ThermostatsCoolBody,
+  ThermostatsCoolParameters,
   'device_id' | 'cooling_set_point_celsius' | 'cooling_set_point_fahrenheit'
 >
 
