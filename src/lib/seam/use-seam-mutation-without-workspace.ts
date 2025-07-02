@@ -23,7 +23,7 @@ export type UseSeamMutationWithoutWorkspaceResult<
   UseSeamMutationWithoutWorkspaceVariables<T>
 >
 
-export function UseSeamMutationWithoutWorkspace<
+export function useSeamMutationWithoutWorkspace<
   T extends SeamHttpEndpointWithoutWorkspaceMutationPaths,
 >(
   endpointPath: T,
