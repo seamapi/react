@@ -2,6 +2,7 @@ import type {
   SeamHttpApiError,
   SeamHttpEndpointPaginatedQueryPaths,
   SeamHttpEndpoints,
+  SeamHttpRequest,
   SeamPageCursor,
 } from '@seamapi/http/connect'
 import {
@@ -49,7 +50,7 @@ export function useSeamInfiniteQuery<
       // Type assertion is needed here for performance reasons. The types are correct at runtime.
       const endpoint = client[endpointPath] as (...args: any) => any
       const request = endpoint(parameters, options)
-      const pages = client.createPaginator(request)
+      const pages = client.createPaginator(request as SeamHttpRequest<any, any>)
       if (pageParam == null) {
         const [data, { nextPageCursor }] = await pages.firstPage()
         return {
