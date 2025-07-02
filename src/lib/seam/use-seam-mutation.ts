@@ -1,8 +1,11 @@
 import type {
+  SeamActionAttemptFailedError,
+  SeamActionAttemptTimeoutError,
   SeamHttpApiError,
   SeamHttpEndpointMutationPaths,
   SeamHttpEndpoints,
 } from '@seamapi/http/connect'
+import type { ActionAttempt } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationOptions,
@@ -17,7 +20,7 @@ export type UseSeamMutationVariables<T extends SeamHttpEndpointMutationPaths> =
 export type UseSeamMutationResult<T extends SeamHttpEndpointMutationPaths> =
   UseMutationResult<
     MutationData<T>,
-    SeamHttpApiError,
+    MutationError<T>,
     UseSeamMutationVariables<T>
   >
 
@@ -26,7 +29,7 @@ export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
   options: Parameters<SeamHttpEndpoints[T]>[1] &
     MutationOptions<
       MutationData<T>,
-      SeamHttpApiError,
+      MutationError<T>,
       UseSeamMutationVariables<T>
     > = {}
 ): UseSeamMutationResult<T> {
@@ -46,5 +49,13 @@ export function useSeamMutation<T extends SeamHttpEndpointMutationPaths>(
 type MutationData<T extends SeamHttpEndpointMutationPaths> = Awaited<
   ReturnType<SeamHttpEndpoints[T]>
 >
+
+type MutationError<T extends SeamHttpEndpointMutationPaths> =
+  | SeamHttpApiError
+  | (MutationData<T> extends ActionAttempt
+      ?
+          | SeamActionAttemptFailedError<MutationData<T>>
+          | SeamActionAttemptTimeoutError<MutationData<T>>
+      : never)
 
 type MutationOptions<X, Y, Z> = Omit<UseMutationOptions<X, Y, Z>, 'mutationFn'>

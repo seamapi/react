@@ -1,10 +1,13 @@
 import type {
+  SeamActionAttemptFailedError,
+  SeamActionAttemptTimeoutError,
   SeamHttpApiError,
   SeamHttpEndpointPaginatedQueryPaths,
   SeamHttpEndpoints,
   SeamHttpRequest,
   SeamPageCursor,
 } from '@seamapi/http/connect'
+import type { ActionAttempt } from '@seamapi/types/connect'
 import {
   useInfiniteQuery,
   type UseInfiniteQueryOptions,
@@ -19,7 +22,7 @@ export type UseSeamInfiniteQueryParameters<
 
 export type UseSeamInfiniteQueryResult<
   T extends SeamHttpEndpointPaginatedQueryPaths,
-> = UseInfiniteQueryResult<QueryData<T>, SeamHttpApiError>
+> = UseInfiniteQueryResult<QueryData<T>, QueryError<T>>
 
 export function useSeamInfiniteQuery<
   T extends SeamHttpEndpointPaginatedQueryPaths,
@@ -27,7 +30,7 @@ export function useSeamInfiniteQuery<
   endpointPath: T,
   parameters?: UseSeamInfiniteQueryParameters<T>,
   options: Parameters<SeamHttpEndpoints[T]>[1] &
-    QueryOptions<QueryData<T>, SeamHttpApiError> = {}
+    QueryOptions<QueryData<T>, QueryError<T>> = {}
 ): UseSeamInfiniteQueryResult<T> {
   const { endpointClient: client, queryKeyPrefixes } = useSeamClient()
   return useInfiniteQuery({
@@ -74,6 +77,14 @@ interface QueryData<T extends SeamHttpEndpointPaginatedQueryPaths> {
   data: Awaited<ReturnType<SeamHttpEndpoints[T]>>
   nextPageCursor: SeamPageCursor | null
 }
+
+type QueryError<T extends SeamHttpEndpointPaginatedQueryPaths> =
+  | SeamHttpApiError
+  | (QueryData<T>['data'] extends ActionAttempt
+      ?
+          | SeamActionAttemptFailedError<QueryData<T>['data']>
+          | SeamActionAttemptTimeoutError<QueryData<T>['data']>
+      : never)
 
 type QueryOptions<X, Y> = Omit<
   UseInfiniteQueryOptions<X, Y>,
