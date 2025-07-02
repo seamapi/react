@@ -1,4 +1,8 @@
-import { SeamHttp, SeamHttpEndpoints } from '@seamapi/http/connect'
+import {
+  SeamHttp,
+  SeamHttpEndpoints,
+  SeamHttpMultiWorkspace,
+} from '@seamapi/http/connect'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -8,6 +12,7 @@ import { useSeamQueryContext } from './SeamQueryProvider.js'
 export function useSeamClient(): {
   client: SeamHttp | null
   endpointClient: SeamHttpEndpoints | null
+  clientWithoutWorkspace: SeamHttpMultiWorkspace | null
   queryKeyPrefixes: string[]
   isPending: boolean
   isError: boolean
@@ -18,6 +23,8 @@ export function useSeamClient(): {
     clientOptions,
     publishableKey,
     clientSessionToken,
+    consoleSessionToken,
+    workspaceId,
     queryKeyPrefix,
     ...context
   } = useSeamQueryContext()
@@ -25,9 +32,11 @@ export function useSeamClient(): {
     clientSessionToken != null ? '' : context.userIdentifierKey
   )
 
-  const { isPending, isError, error, data } = useQuery<
-    [SeamHttp, SeamHttpEndpoints]
-  >({
+  const { isPending, isError, error, data } = useQuery<{
+    client: SeamHttp | null
+    endpointClient: SeamHttpEndpoints | null
+    clientWithoutWorkspace: SeamHttpMultiWorkspace | null
+  }>({
     queryKey: [
       ...getQueryKeyPrefixes({ queryKeyPrefix }),
       'client',
@@ -41,46 +50,81 @@ export function useSeamClient(): {
     ],
     queryFn: async () => {
       if (client != null)
-        return [client, SeamHttpEndpoints.fromClient(client.client)]
+        return {
+          client,
+          endpointClient: SeamHttpEndpoints.fromClient(client.client),
+          clientWithoutWorkspace: null,
+        }
 
       if (clientSessionToken != null) {
-        const clientSessionTokenClient = SeamHttp.fromClientSessionToken(
+        const seam = SeamHttp.fromClientSessionToken(
           clientSessionToken,
           clientOptions
         )
 
-        return [
-          clientSessionTokenClient,
-          SeamHttpEndpoints.fromClient(clientSessionTokenClient.client),
-        ]
+        return {
+          client: seam,
+          endpointClient: SeamHttpEndpoints.fromClient(seam.client),
+          clientWithoutWorkspace: null,
+        }
       }
 
-      if (publishableKey == null) {
-        throw new Error(
-          'Missing either a client, publishableKey, or clientSessionToken'
+      if (publishableKey != null) {
+        const seam = await SeamHttp.fromPublishableKey(
+          publishableKey,
+          userIdentifierKey,
+          clientOptions
         )
+
+        return {
+          client: seam,
+          endpointClient: SeamHttpEndpoints.fromClient(seam.client),
+          clientWithoutWorkspace: null,
+        }
       }
 
-      const publishableKeyClient = await SeamHttp.fromPublishableKey(
-        publishableKey,
-        userIdentifierKey,
-        clientOptions
+      if (consoleSessionToken != null) {
+        const clientWithoutWorkspace =
+          SeamHttpMultiWorkspace.fromConsoleSessionToken(consoleSessionToken)
+
+        if (workspaceId == null) {
+          return {
+            client: null,
+            endpointClient: null,
+            clientWithoutWorkspace,
+          }
+        }
+
+        const seam = SeamHttp.fromConsoleSessionToken(
+          consoleSessionToken,
+          workspaceId,
+          clientOptions
+        )
+
+        return {
+          client: seam,
+          endpointClient: SeamHttpEndpoints.fromClient(seam.client),
+          clientWithoutWorkspace,
+        }
+      }
+
+      throw new Error(
+        'Missing either a client, publishableKey, clientSessionToken, or consoleSessionToken.'
       )
-      return [
-        publishableKeyClient,
-        SeamHttpEndpoints.fromClient(publishableKeyClient.client),
-      ]
     },
   })
 
   return {
-    client: data?.[0] ?? null,
-    endpointClient: data?.[1] ?? null,
+    client: data?.client ?? null,
+    endpointClient: data?.endpointClient ?? null,
+    clientWithoutWorkspace: data?.clientWithoutWorkspace ?? null,
     queryKeyPrefixes: getQueryKeyPrefixes({
       queryKeyPrefix,
       userIdentifierKey,
       publishableKey,
       clientSessionToken,
+      consoleSessionToken,
+      workspaceId,
     }),
     isPending,
     isError,
@@ -132,11 +176,15 @@ const getQueryKeyPrefixes = ({
   userIdentifierKey,
   publishableKey,
   clientSessionToken,
+  consoleSessionToken,
+  workspaceId,
 }: {
   queryKeyPrefix: string | undefined
   userIdentifierKey?: string
   publishableKey?: string | undefined
   clientSessionToken?: string | undefined
+  consoleSessionToken?: string | undefined
+  workspaceId?: string | undefined
 }): string[] => {
   const seamPrefix = 'seam'
 
@@ -148,6 +196,10 @@ const getQueryKeyPrefixes = ({
 
   if (publishableKey != null && userIdentifierKey != null) {
     return [seamPrefix, publishableKey, userIdentifierKey]
+  }
+
+  if (consoleSessionToken != null && workspaceId != null) {
+    return [seamPrefix, consoleSessionToken, workspaceId]
   }
 
   return [seamPrefix]
