@@ -25,6 +25,8 @@ export interface SeamQueryContext {
   publishableKey?: string | undefined
   userIdentifierKey?: string | undefined
   clientSessionToken?: string | undefined
+  consoleSessionToken?: string | undefined
+  workspaceId?: string | undefined
   queryKeyPrefix?: string | undefined
 }
 
@@ -32,6 +34,7 @@ export type SeamQueryProviderProps =
   | SeamQueryProviderPropsWithClient
   | SeamQueryProviderPropsWithPublishableKey
   | SeamQueryProviderPropsWithClientSessionToken
+  | SeamQueryProviderPropsWithConsoleSessionToken
 
 export interface SeamQueryProviderPropsWithClient
   extends SeamQueryProviderBaseProps {
@@ -50,6 +53,13 @@ export interface SeamQueryProviderPropsWithClientSessionToken
   extends SeamQueryProviderBaseProps,
     SeamQueryProviderClientOptions {
   clientSessionToken: string
+}
+
+export interface SeamQueryProviderPropsWithConsoleSessionToken
+  extends SeamQueryProviderBaseProps,
+    SeamQueryProviderClientOptions {
+  consoleSessionToken: string
+  workspaceId?: string | undefined
 }
 
 interface SeamQueryProviderBaseProps extends PropsWithChildren {
@@ -74,7 +84,8 @@ export function SeamQueryProvider({
     if (
       context.client == null &&
       context.publishableKey == null &&
-      context.clientSessionToken == null
+      context.clientSessionToken == null &&
+      context.consoleSessionToken == null
     ) {
       return defaultSeamQueryContextValue
     }
@@ -84,10 +95,11 @@ export function SeamQueryProvider({
   if (
     value.client == null &&
     value.publishableKey == null &&
-    value.clientSessionToken == null
+    value.clientSessionToken == null &&
+    value.consoleSessionToken == null
   ) {
     throw new Error(
-      `Must provide either a Seam client, clientSessionToken, or a publishableKey.`
+      `Must provide either a Seam client, clientSessionToken, publishableKey or consoleSessionToken.`
     )
   }
 
@@ -177,6 +189,17 @@ const createSeamQueryContextValue = (
     }
   }
 
+  if (isSeamQueryProviderPropsWithConsoleSessionToken(options)) {
+    const { consoleSessionToken, workspaceId, ...clientOptions } = options
+    return {
+      consoleSessionToken,
+      workspaceId,
+      clientOptions,
+      client: null,
+      endpointClient: null,
+    }
+  }
+
   return { client: null, endpointClient: null }
 }
 
@@ -229,6 +252,18 @@ const isSeamQueryProviderPropsWithPublishableKey = (
     )
   }
 
+  if ('consoleSessionToken' in props && props.consoleSessionToken != null) {
+    throw new InvalidSeamQueryProviderProps(
+      'The consoleSessionToken prop cannot be used with the publishableKey prop.'
+    )
+  }
+
+  if ('workspaceId' in props && props.workspaceId != null) {
+    throw new InvalidSeamQueryProviderProps(
+      'The workspaceId prop cannot be used with the publishableKey prop.'
+    )
+  }
+
   return true
 }
 
@@ -256,6 +291,54 @@ const isSeamQueryProviderPropsWithClientSessionToken = (
   if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
     throw new InvalidSeamQueryProviderProps(
       'The userIdentifierKey prop cannot be used with the clientSessionToken prop.'
+    )
+  }
+
+  if ('consoleSessionToken' in props && props.consoleSessionToken != null) {
+    throw new InvalidSeamQueryProviderProps(
+      'The consoleSessionToken prop cannot be used with the clientSessionToken prop.'
+    )
+  }
+
+  if ('workspaceId' in props && props.workspaceId != null) {
+    throw new InvalidSeamQueryProviderProps(
+      'The workspaceId prop cannot be used with the clientSessionToken prop.'
+    )
+  }
+
+  return true
+}
+
+const isSeamQueryProviderPropsWithConsoleSessionToken = (
+  props: SeamQueryProviderProps
+): props is SeamQueryProviderPropsWithConsoleSessionToken &
+  SeamQueryProviderClientOptions => {
+  if (!('consoleSessionToken' in props)) return false
+
+  const { consoleSessionToken } = props
+  if (consoleSessionToken == null) return false
+
+  if ('client' in props && props.client != null) {
+    throw new InvalidSeamQueryProviderProps(
+      'The client prop cannot be used with the publishableKey prop.'
+    )
+  }
+
+  if ('clientSessionToken' in props && props.clientSessionToken != null) {
+    throw new InvalidSeamQueryProviderProps(
+      'The clientSessionToken prop cannot be used with the publishableKey prop.'
+    )
+  }
+
+  if ('publishableKey' in props && props.publishableKey != null) {
+    throw new InvalidSeamQueryProviderProps(
+      'The publishableKey prop cannot be used with the consoleSessionToken prop.'
+    )
+  }
+
+  if ('userIdentifierKey' in props && props.userIdentifierKey != null) {
+    throw new InvalidSeamQueryProviderProps(
+      'The userIdentifierKey prop cannot be used with the consoleSessionToken prop.'
     )
   }
 
