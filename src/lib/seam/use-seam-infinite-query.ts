@@ -35,10 +35,15 @@ export function useSeamInfiniteQuery<
     QueryOptions<QueryData<T>, QueryError<T>> = {}
 ): UseSeamInfiniteQueryResult<T> & { queryKey: QueryKey } {
   const { endpointClient: client, queryKeyPrefixes } = useSeamClient()
+
+  if ('page_cursor' in (parameters ?? {})) {
+    throw new Error('Cannot use page_cursor with useSeamInfiniteQuery')
+  }
+
   const queryKey = [
     ...queryKeyPrefixes,
     ...endpointPath.split('/').filter((v) => v !== ''),
-    parameters,
+    parameters ?? {},
   ]
   const result = useInfiniteQuery({
     enabled: client != null,

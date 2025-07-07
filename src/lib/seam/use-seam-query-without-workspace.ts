@@ -33,7 +33,7 @@ export function useSeamQueryWithoutWorkspace<
   const queryKey = [
     ...queryKeyPrefixes,
     ...endpointPath.split('/').filter((v) => v !== ''),
-    parameters,
+    parameters ?? {},
   ]
   const result = useQuery({
     enabled: client != null,
