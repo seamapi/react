@@ -5,9 +5,9 @@ import type {
   SeamHttpInvalidInputError,
 } from '@seamapi/http/connect'
 import {
+  type QueryKey,
   useQuery,
   type UseQueryOptions,
-  type QueryKey,
   type UseQueryResult,
 } from '@tanstack/react-query'
 
