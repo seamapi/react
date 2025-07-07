@@ -69,7 +69,10 @@ interface SeamQueryProviderBaseProps extends PropsWithChildren {
 
 type SeamClientOptions = SeamHttpOptionsWithClientSessionToken
 
-export type SeamQueryProviderClientOptions = Pick<SeamClientOptions, 'endpoint'>
+export type SeamQueryProviderClientOptions = Pick<
+  SeamClientOptions,
+  'endpoint' | 'isUndocumentedApiEnabled'
+>
 
 const defaultQueryClient = new QueryClient()
 

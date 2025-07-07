@@ -56,6 +56,7 @@ const providerProps: R2wcProps<ProviderProps> = {
   userIdentifierKey: 'string',
   clientSessionToken: 'string',
   endpoint: 'string',
+  isUndocumentedApiEnabled: 'boolean',
   queryClient: 'object',
   telemetryClient: 'object',
   disableTelemetry: 'boolean',
