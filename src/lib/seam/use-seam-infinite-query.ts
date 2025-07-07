@@ -10,6 +10,7 @@ import type {
 } from '@seamapi/http/connect'
 import type { ActionAttempt } from '@seamapi/types/connect'
 import {
+  type QueryKey,
   useInfiniteQuery,
   type UseInfiniteQueryOptions,
   type UseInfiniteQueryResult,
@@ -29,19 +30,20 @@ export function useSeamInfiniteQuery<
   T extends SeamHttpEndpointPaginatedQueryPaths,
 >(
   endpointPath: T,
-  parameters?: UseSeamInfiniteQueryParameters<T>,
+  parameters: UseSeamInfiniteQueryParameters<T> = {},
   options: Parameters<SeamHttpEndpoints[T]>[1] &
     QueryOptions<QueryData<T>, QueryError<T>> = {}
-): UseSeamInfiniteQueryResult<T> {
+): UseSeamInfiniteQueryResult<T> & { queryKey: QueryKey } {
   const { endpointClient: client, queryKeyPrefixes } = useSeamClient()
-  return useInfiniteQuery({
+  const queryKey = [
+    ...queryKeyPrefixes,
+    ...endpointPath.split('/').filter((v) => v !== ''),
+    parameters,
+  ]
+  const result = useInfiniteQuery({
     enabled: client != null,
     ...options,
-    queryKey: [
-      ...queryKeyPrefixes,
-      ...endpointPath.split('/').filter((v) => v !== ''),
-      parameters,
-    ],
+    queryKey,
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage.nextPageCursor,
     queryFn: async ({ pageParam }) => {
@@ -72,6 +74,7 @@ export function useSeamInfiniteQuery<
       }
     },
   })
+  return { ...result, queryKey }
 }
 
 interface QueryData<T extends SeamHttpEndpointPaginatedQueryPaths> {

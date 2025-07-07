@@ -8,6 +8,7 @@ import type {
 } from '@seamapi/http/connect'
 import type { ActionAttempt } from '@seamapi/types/connect'
 import {
+  type QueryKey,
   useQuery,
   type UseQueryOptions,
   type UseQueryResult,
@@ -23,19 +24,20 @@ export type UseSeamQueryResult<T extends SeamHttpEndpointQueryPaths> =
 
 export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
   endpointPath: T,
-  parameters?: UseSeamQueryParameters<T>,
+  parameters: UseSeamQueryParameters<T> = {},
   options: Parameters<SeamHttpEndpoints[T]>[1] &
     QueryOptions<QueryData<T>, SeamHttpApiError> = {}
-): UseSeamQueryResult<T> {
+): UseSeamQueryResult<T> & { queryKey: QueryKey } {
   const { endpointClient: client, queryKeyPrefixes } = useSeamClient()
-  return useQuery({
+  const queryKey = [
+    ...queryKeyPrefixes,
+    ...endpointPath.split('/').filter((v) => v !== ''),
+    parameters,
+  ]
+  const result = useQuery({
     enabled: client != null,
     ...options,
-    queryKey: [
-      ...queryKeyPrefixes,
-      ...endpointPath.split('/').filter((v) => v !== ''),
-      parameters,
-    ],
+    queryKey,
     queryFn: async () => {
       if (client == null) return null
       // Using @ts-expect-error over any is preferred, but not possible here because TypeScript will run out of memory.
@@ -44,6 +46,7 @@ export function useSeamQuery<T extends SeamHttpEndpointQueryPaths>(
       return await endpoint(parameters, options)
     },
   })
+  return { ...result, queryKey }
 }
 
 type QueryData<T extends SeamHttpEndpointQueryPaths> = Awaited<

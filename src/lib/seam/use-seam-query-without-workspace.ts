@@ -7,6 +7,7 @@ import type {
 import {
   useQuery,
   type UseQueryOptions,
+  type QueryKey,
   type UseQueryResult,
 } from '@tanstack/react-query'
 
@@ -24,19 +25,20 @@ export function useSeamQueryWithoutWorkspace<
   T extends SeamHttpEndpointWithoutWorkspaceQueryPaths,
 >(
   endpointPath: T,
-  parameters?: UseSeamQueryWithoutWorkspaceParameters<T>,
+  parameters: UseSeamQueryWithoutWorkspaceParameters<T> = {},
   options: Parameters<SeamHttpEndpointsWithoutWorkspace[T]>[1] &
     QueryOptions<QueryData<T>, QueryError> = {}
-): UseSeamQueryWithoutWorkspaceResult<T> {
+): UseSeamQueryWithoutWorkspaceResult<T> & { queryKey: QueryKey } {
   const { endpointClient: client, queryKeyPrefixes } = useSeamClient()
-  return useQuery({
+  const queryKey = [
+    ...queryKeyPrefixes,
+    ...endpointPath.split('/').filter((v) => v !== ''),
+    parameters,
+  ]
+  const result = useQuery({
     enabled: client != null,
     ...options,
-    queryKey: [
-      ...queryKeyPrefixes,
-      ...endpointPath.split('/').filter((v) => v !== ''),
-      parameters,
-    ],
+    queryKey,
     queryFn: async () => {
       if (client == null) return null
       // Using @ts-expect-error over any is preferred, but not possible here because TypeScript will run out of memory.
@@ -45,6 +47,7 @@ export function useSeamQueryWithoutWorkspace<
       return await endpoint(parameters, options)
     },
   })
+  return { ...result, queryKey }
 }
 
 type QueryData<T extends SeamHttpEndpointWithoutWorkspaceQueryPaths> = Awaited<
