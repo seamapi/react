@@ -2,14 +2,13 @@ import type {
   AccessCodesUpdateBody,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 import type { AccessCode } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-
-import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 
 export type UseUpdateAccessCodeParams = never
 

@@ -2,6 +2,7 @@ import type {
   SeamHttpApiError,
   ThermostatsUpdateClimatePresetBody,
 } from '@seamapi/http/connect'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 import {
   useMutation,
   type UseMutationResult,
@@ -13,7 +14,6 @@ import type {
   ThermostatDevice,
 } from 'lib/seam/thermostats/thermostat-device.js'
 import { fahrenheitToCelsius } from 'lib/seam/thermostats/unit-conversion.js'
-import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 
 export type UseUpdateThermostatClimatePresetParams = never
 export type UseUpdateThermostatClimatePresetData = undefined

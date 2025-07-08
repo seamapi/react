@@ -3,14 +3,13 @@ import type {
   DevicesUpdateBody,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 import type { Device } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-
-import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 
 export type UseUpdateDeviceNameParams = never
 

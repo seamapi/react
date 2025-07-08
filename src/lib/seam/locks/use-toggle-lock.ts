@@ -3,14 +3,13 @@ import type {
   SeamActionAttemptTimeoutError,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
   useMutation,
   type UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query'
-
-import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 
 export type UseToggleLockData = undefined
 

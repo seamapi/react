@@ -2,6 +2,7 @@ import type {
   SeamHttpApiError,
   ThermostatsDeleteClimatePresetParams,
 } from '@seamapi/http/connect'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 import {
   useMutation,
   type UseMutationResult,
@@ -9,7 +10,6 @@ import {
 } from '@tanstack/react-query'
 
 import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
-import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 
 export type UseDeleteThermostatClimatePresetParams = never
 

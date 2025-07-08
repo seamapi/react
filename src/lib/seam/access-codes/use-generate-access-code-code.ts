@@ -2,9 +2,8 @@ import type {
   AccessCodesGenerateCodeParams,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
-import { useMutation, type UseMutationResult } from '@tanstack/react-query'
-
 import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
+import { useMutation, type UseMutationResult } from '@tanstack/react-query'
 
 export type UseGenerateAccessCodeCodeParams = never
 
