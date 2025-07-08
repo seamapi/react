@@ -15,7 +15,7 @@ import {
   getCoolingSetPointCelsius,
   getCoolingSetPointFahrenheit,
 } from 'lib/seam/thermostats/unit-conversion.js'
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 
 export type UseCoolThermostatParams = never
 

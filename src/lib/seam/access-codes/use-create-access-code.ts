@@ -1,9 +1,8 @@
-import { useQueryClient } from '@tanstack/react-query'
-
 import {
   useSeamMutation,
   type UseSeamMutationResult,
-} from '../use-seam-mutation.js'
+} from '@seamapi/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 export function useCreateAccessCode(): UseSeamMutationResult<'/access_codes/create'> {
   const queryClient = useQueryClient()

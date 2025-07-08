@@ -13,7 +13,7 @@ import type {
   ThermostatDevice,
 } from 'lib/seam/thermostats/thermostat-device.js'
 import { fahrenheitToCelsius } from 'lib/seam/thermostats/unit-conversion.js'
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 
 export type UseCreateThermostatClimatePresetParams = never
 export type UseCreateThermostatClimatePresetData = undefined

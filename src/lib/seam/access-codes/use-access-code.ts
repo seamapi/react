@@ -5,7 +5,7 @@ import type {
 import type { AccessCode } from '@seamapi/types/connect'
 import { useQuery } from '@tanstack/react-query'
 
-import { useSeamClient } from 'lib/seam/use-seam-client.js'
+import { useSeamClient } from '@seamapi/react-query'
 import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseAccessCodeParams = AccessCodesGetParams

@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-query'
 
 import type { ThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 
 export type UseDeleteThermostatClimatePresetParams = never
 
