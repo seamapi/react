@@ -1,13 +1,13 @@
 import type { SeamHttp } from '@seamapi/http/connect'
-import type { QueryClient } from '@tanstack/react-query'
-import { createContext, type PropsWithChildren, useMemo } from 'react'
-
 import {
   SeamQueryProvider,
   type SeamQueryProviderPropsWithClient,
   type SeamQueryProviderPropsWithClientSessionToken,
   type SeamQueryProviderPropsWithPublishableKey,
-} from 'lib/seam/SeamQueryProvider.js'
+} from '@seamapi/react-query'
+import type { QueryClient } from '@tanstack/react-query'
+import { createContext, type PropsWithChildren, useMemo } from 'react'
+
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
 import {

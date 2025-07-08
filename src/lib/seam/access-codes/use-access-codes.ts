@@ -2,10 +2,10 @@ import type {
   AccessCodesListParams,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
+import { useSeamClient } from '@seamapi/react-query'
 import type { AccessCode } from '@seamapi/types/connect'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseAccessCodesParams = AccessCodesListParams

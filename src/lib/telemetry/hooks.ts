@@ -1,7 +1,7 @@
+import { useSeamQueryContext } from '@seamapi/react-query'
 import { useEffect, useLayoutEffect } from 'react'
 
 import { useClientSession } from 'lib/seam/client-sessions/use-client-session.js'
-import { useSeamQueryContext } from 'lib/seam/SeamQueryProvider.js'
 
 import type { TelemetryClient } from './client.js'
 import { useTelemetryContext } from './TelemetryProvider.js'

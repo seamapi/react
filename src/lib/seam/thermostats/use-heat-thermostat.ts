@@ -4,6 +4,7 @@ import type {
   SeamHttpApiError,
   ThermostatsHeatBody,
 } from '@seamapi/http/connect'
+import { NullSeamClientError, useSeamClient } from '@seamapi/react-query'
 import type { ActionAttempt, Device } from '@seamapi/types/connect'
 import {
   useMutation,
@@ -15,7 +16,6 @@ import {
   getHeatingSetPointCelsius,
   getHeatingSetPointFahrenheit,
 } from 'lib/seam/thermostats/unit-conversion.js'
-import { NullSeamClientError, useSeamClient } from 'lib/seam/use-seam-client.js'
 
 export type UseHeatThermostatParams = never
 

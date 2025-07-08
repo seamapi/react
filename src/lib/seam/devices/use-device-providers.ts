@@ -2,10 +2,10 @@ import type {
   DevicesListDeviceProvidersParams,
   SeamHttpApiError,
 } from '@seamapi/http/connect'
+import { useSeamClient } from '@seamapi/react-query'
 import type { DeviceProvider } from '@seamapi/types/connect'
 import { useQuery } from '@tanstack/react-query'
 
-import { useSeamClient } from 'lib/seam/use-seam-client.js'
 import type { UseSeamQueryResultLegacy } from 'lib/seam/use-seam-query-result.js'
 
 export type UseDeviceProvidersParams = DevicesListDeviceProvidersParams
