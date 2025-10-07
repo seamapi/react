@@ -163,7 +163,7 @@ export function LockDeviceDetails({
           </div>
 
           <div className='seam-box'>
-            {device.properties.locked && device.properties.online && (
+            {device.properties.online && (
               <div className='seam-content seam-lock-status'>
                 <div>
                   <span className='seam-label'>{t.lockStatus}</span>
