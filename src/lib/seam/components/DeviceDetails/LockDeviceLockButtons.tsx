@@ -132,7 +132,7 @@ export function LockDeviceLockButtons({
     <div className='seam-content seam-lock-status'>
       <div>
         <span className='seam-label'>{t.lockStatus}</span>
-        <span className='seam-value'>{lockStatus}</span>
+        <span className='seam-value'>{t.statusUnknown}</span>
       </div>
       <div className='seam-right'>
         <Button
@@ -162,4 +162,5 @@ const t = {
   locked: 'Locked',
   unlocked: 'Unlocked',
   lockStatus: 'Lock status',
+  statusUnknown: 'Unknown',
 }
