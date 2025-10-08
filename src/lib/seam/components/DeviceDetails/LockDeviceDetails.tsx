@@ -7,10 +7,9 @@ import { NestedAccessCodeTable } from 'lib/seam/components/AccessCodeTable/Acces
 import type { NestedSpecificDeviceDetailsProps } from 'lib/seam/components/DeviceDetails/DeviceDetails.js'
 import { DeviceInfo } from 'lib/seam/components/DeviceDetails/DeviceInfo.js'
 import { DeviceModel } from 'lib/seam/components/DeviceDetails/DeviceModel.js'
-import { LockDeviceToggleLockButton } from 'lib/seam/components/DeviceDetails/LockDeviceToggleLockButton.js'
+import { LockDeviceLockButtons } from 'lib/seam/components/DeviceDetails/LockDeviceLockButtons.js'
 import { deviceErrorFilter, deviceWarningFilter } from 'lib/seam/filters.js'
-import type { LockDevice } from 'lib/seam/locks/lock-device.js'
-import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
+import type { LockDevice } from 'lib/seam/locks/is-lock-device.js'
 import { Alerts } from 'lib/ui/Alert/Alerts.js'
 import { BatteryStatusIndicator } from 'lib/ui/device/BatteryStatusIndicator.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
@@ -47,17 +46,6 @@ export function LockDeviceDetails({
   const [snackbarVisible, setSnackbarVisible] = useState(false)
   const [snackbarVariant, setSnackbarVariant] =
     useState<SnackbarVariant>('success')
-
-  const toggleLock = useToggleLock({
-    onSuccess: () => {
-      setSnackbarVisible(true)
-      setSnackbarVariant('success')
-    },
-    onError: () => {
-      setSnackbarVisible(true)
-      setSnackbarVariant('error')
-    },
-  })
 
   const accessCodeCount = accessCodes?.length
 
@@ -160,16 +148,12 @@ export function LockDeviceDetails({
           </div>
 
           <div className='seam-box'>
-            {device.properties.online && (
-              <LockDeviceToggleLockButton
-                onToggle={() => {
-                  toggleLock.mutate(device)
-                }}
-                device={device}
-                disableLockUnlock={disableLockUnlock}
-              />
-            )}
-
+            <LockDeviceLockButtons
+              setSnackbarVisible={setSnackbarVisible}
+              setSnackbarVariant={setSnackbarVariant}
+              device={device}
+              disableLockUnlock={disableLockUnlock}
+            />
             <AccessCodeLength
               supportedCodeLengths={
                 device.properties?.supported_code_lengths ?? []

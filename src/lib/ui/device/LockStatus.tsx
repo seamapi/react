@@ -2,7 +2,7 @@ import type { Device } from '@seamapi/types/connect'
 
 import { LockLockedIcon } from 'lib/icons/LockLocked.js'
 import { LockUnlockedIcon } from 'lib/icons/LockUnlocked.js'
-import { isLockDevice } from 'lib/seam/locks/lock-device.js'
+import { isLockDevice } from 'lib/seam/locks/is-lock-device.js'
 
 interface LockStatusProps {
   device: Device
