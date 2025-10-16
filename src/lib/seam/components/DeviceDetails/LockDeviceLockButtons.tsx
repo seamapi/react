@@ -54,9 +54,6 @@ export function LockDeviceLockButtons({
     },
   })
 
-  if (!device.properties.online) {
-    return null
-  }
 
   if (disableLockUnlock) {
     return null
