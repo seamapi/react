@@ -47,11 +47,7 @@ export function LockDeviceDetails({
   const [snackbarVariant, setSnackbarVariant] =
     useState<SnackbarVariant>('success')
 
-  const accessCodeCount = accessCodes?.length
-
-  if (accessCodes == null) {
-    return null
-  }
+  const accessCodeCount = accessCodes?.length ?? 0
 
   if (accessCodesOpen) {
     return (
@@ -137,13 +133,15 @@ export function LockDeviceDetails({
           </div>
           <div className='seam-box'>
             <div
-              className='seam-content seam-access-codes'
-              onClick={toggleAccessCodesOpen}
+              className={classNames('seam-content seam-access-codes', {
+                disabled: accessCodes == null,
+              })}
+              onClick={accessCodes != null ? toggleAccessCodesOpen : undefined}
             >
               <span className='seam-value'>
-                {accessCodeCount} {t.accessCodes}
+                {accessCodes != null ? accessCodeCount : '–'} {t.accessCodes}
               </span>
-              <ChevronRightIcon />
+              {accessCodes != null && <ChevronRightIcon />}
             </div>
           </div>
 
