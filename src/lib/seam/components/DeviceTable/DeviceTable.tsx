@@ -15,7 +15,7 @@ import {
 } from 'lib/seam/components/DeviceTable/DeviceHealthBar.js'
 import { DeviceRow } from 'lib/seam/components/DeviceTable/DeviceRow.js'
 import { useDevices } from 'lib/seam/devices/use-devices.js'
-import { isLockDevice } from 'lib/seam/locks/is-lock-device.js'
+import { isLockDevice } from 'lib/seam/locks/lock-device.js'
 import { isNoiseSensorDevice } from 'lib/seam/noise-sensors/noise-sensor-device.js'
 import { isThermostatDevice } from 'lib/seam/thermostats/thermostat-device.js'
 import { useComponentTelemetry } from 'lib/telemetry/index.js'

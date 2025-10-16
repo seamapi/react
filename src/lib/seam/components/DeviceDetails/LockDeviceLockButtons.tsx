@@ -1,7 +1,7 @@
-import type { LockDevice } from 'lib/seam/locks/is-lock-device.js'
-import { useLock } from 'lib/seam/locks/use-lock.js'
+import type { LockDevice } from 'lib/seam/locks/lock-device.js'
+import { useLock } from 'lib/seam/locks/use-lock-door.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
-import { useUnlock } from 'lib/seam/locks/use-unlock.js'
+import { useUnlock } from 'lib/seam/locks/use-unlock-door.js'
 import { Button } from 'lib/ui/Button.js'
 import type { SnackbarVariant } from 'lib/ui/Snackbar/Snackbar.js'
 
@@ -124,32 +124,7 @@ export function LockDeviceLockButtons({
     )
   }
 
-  return (
-    <div className='seam-content seam-lock-status'>
-      <div>
-        <span className='seam-label'>{t.lockStatus}</span>
-        <span className='seam-value'>{t.statusUnknown}</span>
-      </div>
-      <div className='seam-right'>
-        <Button
-          size='small'
-          onClick={() => {
-            lock.mutate(device)
-          }}
-        >
-          {t.lock}
-        </Button>
-        <Button
-          size='small'
-          onClick={() => {
-            unlock.mutate(device)
-          }}
-        >
-          {t.unlock}
-        </Button>
-      </div>
-    </div>
-  )
+  return null
 }
 
 const t = {

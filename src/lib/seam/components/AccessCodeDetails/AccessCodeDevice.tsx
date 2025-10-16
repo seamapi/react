@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { useDevice } from 'lib/seam/devices/use-device.js'
-import { isLockDevice, type LockDevice } from 'lib/seam/locks/is-lock-device.js'
+import { isLockDevice, type LockDevice } from 'lib/seam/locks/lock-device.js'
 import { useToggleLock } from 'lib/seam/locks/use-toggle-lock.js'
 import { Button } from 'lib/ui/Button.js'
 import { DeviceImage } from 'lib/ui/device/DeviceImage.js'
