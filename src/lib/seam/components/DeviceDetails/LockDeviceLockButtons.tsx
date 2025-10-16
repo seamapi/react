@@ -54,7 +54,6 @@ export function LockDeviceLockButtons({
     },
   })
 
-
   if (disableLockUnlock) {
     return null
   }
