@@ -7,4 +7,4 @@ export type NoiseSensorDevice = Omit<Device, 'properties'> & {
 
 export const isNoiseSensorDevice = (
   device: Device
-): device is NoiseSensorDevice =>  device.properties.noise_level_decibels != null
+): device is NoiseSensorDevice => device.properties.noise_level_decibels != null
