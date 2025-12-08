@@ -92,12 +92,17 @@ function ModeIcon(props: { mode: HvacModeSetting }): JSX.Element {
       return <ThermostatHeatCoolIcon />
     case 'off':
       return <OffIcon />
+    case 'eco':
+      return <ThermostatHeatCoolIcon />
+    default:
+      return <OffIcon />
   }
 }
 
-const t = {
+const t: Record<HvacModeSetting, string> = {
   heat: 'Heat',
   cool: 'Cool',
   heat_cool: 'Heat & Cool',
   off: 'Off',
+  eco: 'Eco',
 }
