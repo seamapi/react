@@ -172,7 +172,13 @@ function Content({
       ? t.codeLengthRequirement(codeLengthRequirement)
       : null
 
-  const hasCodeInputs = accessCode?.is_offline_access_code !== true
+  const canSpecifyPinCode =
+    device.properties.code_constraints?.every(
+      ({ constraint_type: type }) => type !== 'cannot_specify_pin_code'
+    ) ?? true
+
+  const hasCodeInputs =
+    accessCode?.is_offline_access_code !== true && canSpecifyPinCode
 
   return (
     <>
