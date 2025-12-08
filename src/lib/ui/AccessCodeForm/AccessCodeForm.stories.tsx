@@ -19,6 +19,7 @@ const meta: Meta<typeof AccessCodeForm> = {
       display_name: 'Device 1',
       custom_metadata: {},
       location: {},
+      space_ids: [],
       properties: {
         name: '',
         manufacturer: undefined,

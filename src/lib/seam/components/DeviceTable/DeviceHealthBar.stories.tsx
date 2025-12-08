@@ -52,6 +52,7 @@ export const Content: Story = {
               capabilities_supported: [],
               created_at: '2023-05-08T22:38:30.963Z',
               workspace_id: 'workspace_1',
+              space_ids: [],
               properties: {
                 name: 'mydevice',
                 online: true,
@@ -89,6 +90,7 @@ export const Content: Story = {
               capabilities_supported: [],
               created_at: '2023-05-08T22:38:30.963Z',
               workspace_id: 'workspace_1',
+              space_ids: [],
               custom_metadata: {},
               display_name: 'mydevice',
               location: {},
