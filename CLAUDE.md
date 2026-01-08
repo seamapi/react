@@ -64,18 +64,22 @@ src/
 ## Key Architecture Patterns
 
 ### Component Structure
+
 Each component typically has:
+
 - `ComponentName.tsx` - Main component implementation
 - `ComponentName.element.ts` - Web Component wrapper
 - `ComponentName.stories.tsx` - Storybook stories
 - `ComponentName.test.tsx` - Component tests (optional)
 
 ### Entry Points
+
 - `@seamapi/react` - Full library (components + hooks)
 - `@seamapi/react/hooks` - Hooks only (lighter bundle)
 - `@seamapi/react/elements` - Web Components bundle
 
 ### Path Aliases
+
 - `lib/*` → `./src/lib/*`
 - `fixtures/*` → `./test/fixtures/*`
 - `@seamapi/react` → `./src/index.ts`
