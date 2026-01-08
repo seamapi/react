@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Workflow Requirements
+
+- **Always create a Linear ticket** for all work before starting
+- **Always create a new PR** for all changes - do not commit directly to main
+
 ## Project Overview
 
 @seamapi/react is a React component library for Seam smart device management. It provides white-labeled UI components for device management, access codes, and thermostat controls. Components are available as React components and as native Web Components.
