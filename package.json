@@ -166,7 +166,7 @@
     "@vitest/coverage-v8": "^0.34.4",
     "@vitest/ui": "^0.34.4",
     "concurrently": "^9.1.0",
-    "copy-webpack-plugin": "^11.0.0",
+    "copy-webpack-plugin": "^14.0.0",
     "del-cli": "^6.0.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^9.0.0",
