@@ -56,8 +56,7 @@ src/
     │   │   ├── CreateAccessCodeForm/
     │   │   ├── DeviceDetails/
     │   │   ├── DeviceTable/
-    │   │   ├── EditAccessCodeForm/
-    │   │   └── SupportedDeviceTable/
+    │   │   └── EditAccessCodeForm/
     │   ├── access-codes/                 # Access code hooks
     │   ├── client-sessions/              # Session hooks
     │   ├── connected-accounts/           # Account hooks
