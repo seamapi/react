@@ -21,7 +21,6 @@ refreshing data, and performing actions.
 - [Get started with Angular](https://docs.seam.co/latest/seam-components/overview/angular).
 - [Get started with Vue](https://docs.seam.co/latest/seam-components/overview/vue).
 - [Get started with Client Sessions](https://docs.seam.co/latest/seam-components/get-started-with-react-components-and-client-session-tokens).
-- [Make a Supported Devices Page](https://docs.seam.co/latest/seam-components/make-a-supported-devices-page).
 - Reference the [Component API](https://docs.seam.co/latest/seam-components/react-components).
 - Find developer specific technical documentation in the [README](https://github.com/seamapi/react/).
 - Play with the components live in the interactive [Storybook](https://react.seam.co/)!

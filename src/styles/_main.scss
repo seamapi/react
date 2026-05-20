@@ -13,8 +13,6 @@
 @use './device-details';
 @use './device-table';
 @use './access-code-details';
-@use './supported-device-table';
-@use './supported-device-table-manufacturer-keys';
 @use './access-code-form';
 @use './input-label';
 @use './form-field';
@@ -64,8 +62,6 @@
   @include access-code-details.all;
   @include access-code-form.all;
   @include alert.all;
-  @include supported-device-table.all;
-  @include supported-device-table-manufacturer-keys.all;
   @include thermostat.all;
   @include seam-table.all;
   @include noise-sensor.all;

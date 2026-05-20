@@ -1,9 +1,4 @@
-import {
-  ConnectAccountButton,
-  DeviceTable,
-  SeamProvider,
-  SupportedDeviceTable,
-} from '@seamapi/react'
+import { ConnectAccountButton, DeviceTable, SeamProvider } from '@seamapi/react'
 
 export function App(): JSX.Element {
   return (
@@ -17,8 +12,6 @@ export function App(): JSX.Element {
         <h1>Seam Components</h1>
         <ConnectAccountButton />
         <DeviceTable />
-        <h2>Supported Devices</h2>
-        <SupportedDeviceTable />
       </main>
     </SeamProvider>
   )
