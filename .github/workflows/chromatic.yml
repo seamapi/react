@@ -4,10 +4,11 @@ name: Chromatic
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - '**'
+      # - main
+      - fix-chromatic-workflow
+  # pull_request:
+  #   branches:
+  #     - '**'
 
 jobs:
   commit:
