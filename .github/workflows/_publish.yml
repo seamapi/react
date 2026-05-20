@@ -28,6 +28,7 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
         with:
+          node_version: '24'
           install_dependencies: 'false'
       - name: Download artifact
         uses: actions/download-artifact@v6
