@@ -64,6 +64,8 @@ const providerProps: R2wcProps<ProviderProps> = {
   disableFontInjection: 'boolean',
   unminifiyCss: 'boolean',
   onSessionUpdate: 'object',
+  embedKey: 'string',
+  ecosystemEndpoint: 'string',
 }
 
 export const defineCustomElement = ({
@@ -96,6 +98,8 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
     disableFontInjection,
     unminifiyCss,
     onSessionUpdate,
+    embedKey,
+    ecosystemEndpoint,
     container: _container,
     ...props
   }: ProviderProps & { container: Container } & P): JSX.Element | null {
@@ -114,6 +118,8 @@ function withProvider<P extends JSX.IntrinsicAttributes>(
         }
         unminifiyCss={unminifiyCss ?? globalThis.unminifiySeamCss}
         onSessionUpdate={onSessionUpdate}
+        embedKey={embedKey}
+        ecosystemEndpoint={ecosystemEndpoint}
       >
         <Component {...(props as P)} />
       </SeamProvider>

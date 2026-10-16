@@ -28,6 +28,8 @@ jobs:
           node_version: ${{ inputs.node_version }}
       - name: Build
         run: npm run build
+      - name: Check bundle size
+        run: npm run size
       - name: Package
         run: npm pack
       - name: Upload artifact

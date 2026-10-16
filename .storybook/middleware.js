@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
+import { createFakeEcosystemMiddleware } from './fake-ecosystem.js'
 import { seedFake } from './seed-fake.js'
 
 // UPSTREAM: This file must use the .js extension.
@@ -13,6 +14,12 @@ export default async (app) => {
 
   const fakeUrl = fake.serverUrl
   if (fakeUrl == null) throw new Error('Missing fake url')
+
+  // Must be mounted before the /api proxy to Fake Seam Connect.
+  app.use(
+    '/api/ecosystem',
+    createFakeEcosystemMiddleware({ assetBaseUrl: '/api/ecosystem' })
+  )
 
   app.use(
     '/',

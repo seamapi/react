@@ -1,0 +1,295 @@
+@use './colors';
+
+// Shared styles for the Seam Ecosystem components (CompatibleApps, SupportedDevices).
+// Colors are CSS custom properties so the light, dark and auto themes share one set of rules.
+
+@mixin light-tokens {
+  --seam-ecosystem-fg-1: #{colors.$text-default};
+  --seam-ecosystem-fg-2: #{colors.$text-gray-1};
+  --seam-ecosystem-fg-3: #{colors.$text-gray-2};
+  --seam-ecosystem-surface-1: #{colors.$white};
+  --seam-ecosystem-surface-2: #{colors.$bg-a};
+  --seam-ecosystem-line-1: #{colors.$bg-b};
+  --seam-ecosystem-line-2: #{colors.$bg-d};
+  --seam-ecosystem-accent: #{colors.$primary};
+  --seam-ecosystem-accent-soft: #{colors.$primary-transparent};
+  --seam-ecosystem-skeleton: #{colors.$bg-b};
+}
+
+@mixin dark-tokens {
+  --seam-ecosystem-fg-1: #f1f3f4;
+  --seam-ecosystem-fg-2: #b9bec5;
+  --seam-ecosystem-fg-3: #8a9099;
+  --seam-ecosystem-surface-1: #16191d;
+  --seam-ecosystem-surface-2: #22262c;
+  --seam-ecosystem-line-1: #2c3138;
+  --seam-ecosystem-line-2: #434a54;
+  --seam-ecosystem-accent: #4da3ff;
+  --seam-ecosystem-accent-soft: rgb(77 163 255 / 14%);
+  --seam-ecosystem-skeleton: #2c3138;
+}
+
+@mixin dark-images {
+  .seam-ecosystem-light-only {
+    display: none;
+  }
+
+  .seam-ecosystem-dark-only {
+    display: block;
+  }
+}
+
+@mixin all {
+  .seam-ecosystem {
+    @include light-tokens;
+
+    width: 100%;
+    color: var(--seam-ecosystem-fg-1);
+    font-size: 16px;
+    line-height: 1.4;
+
+    &.seam-ecosystem-theme-dark {
+      @include dark-tokens;
+      @include dark-images;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      &.seam-ecosystem-theme-auto {
+        @include dark-tokens;
+        @include dark-images;
+      }
+    }
+
+    .seam-ecosystem-dark-only {
+      display: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .seam-ecosystem-header {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 16px;
+  }
+
+  .seam-ecosystem-title {
+    margin: 0 auto 0 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--seam-ecosystem-fg-1);
+  }
+
+  .seam-ecosystem-controls {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .seam-ecosystem-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 200px;
+
+    .seam-ecosystem-search-icon {
+      position: absolute;
+      left: 10px;
+      font-size: 18px;
+      pointer-events: none;
+
+      path {
+        fill: var(--seam-ecosystem-fg-3);
+      }
+    }
+
+    .seam-ecosystem-search-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 12px 0 34px;
+      border: 1px solid var(--seam-ecosystem-line-2);
+      border-radius: 8px;
+      background: var(--seam-ecosystem-surface-1);
+      color: var(--seam-ecosystem-fg-1);
+      font: inherit;
+      font-size: 14px;
+
+      &::placeholder {
+        color: var(--seam-ecosystem-fg-3);
+      }
+
+      &:focus {
+        outline: 2px solid var(--seam-ecosystem-accent);
+        outline-offset: -1px;
+        border-color: transparent;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .seam-ecosystem-select {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+
+    .seam-ecosystem-select-input {
+      appearance: none;
+      height: 36px;
+      max-width: 220px;
+      padding: 0 32px 0 12px;
+      border: 1px solid var(--seam-ecosystem-line-2);
+      border-radius: 8px;
+      background: var(--seam-ecosystem-surface-1);
+      color: var(--seam-ecosystem-fg-1);
+      font: inherit;
+      font-size: 14px;
+      text-overflow: ellipsis;
+      cursor: pointer;
+
+      &:focus {
+        outline: 2px solid var(--seam-ecosystem-accent);
+        outline-offset: -1px;
+        border-color: transparent;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    .seam-ecosystem-select-icon {
+      position: absolute;
+      right: 8px;
+      font-size: 18px;
+      pointer-events: none;
+
+      path {
+        fill: var(--seam-ecosystem-fg-2);
+      }
+    }
+  }
+
+  .seam-ecosystem-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 14px;
+    border: 1px solid var(--seam-ecosystem-line-2);
+    border-radius: 8px;
+    background: var(--seam-ecosystem-surface-1);
+    color: var(--seam-ecosystem-fg-1);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--seam-ecosystem-surface-2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--seam-ecosystem-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  .seam-ecosystem-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 32px 16px;
+    border: 1px dashed var(--seam-ecosystem-line-2);
+    border-radius: 12px;
+    color: var(--seam-ecosystem-fg-2);
+    font-size: 14px;
+    text-align: center;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .seam-ecosystem-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: var(--seam-ecosystem-accent-soft);
+    color: var(--seam-ecosystem-accent);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    white-space: nowrap;
+
+    &.seam-ecosystem-badge-type {
+      background: var(--seam-ecosystem-surface-2);
+      color: var(--seam-ecosystem-fg-1);
+    }
+
+    &.seam-ecosystem-badge-conditional {
+      border: 1px dashed var(--seam-ecosystem-accent);
+      background: transparent;
+      cursor: help;
+    }
+  }
+
+  .seam-ecosystem-skeleton {
+    border-radius: 6px;
+    background: var(--seam-ecosystem-skeleton);
+    animation: seam-ecosystem-pulse 1.5s ease-in-out infinite;
+  }
+
+  .seam-ecosystem-skeleton-line {
+    width: 60%;
+    height: 14px;
+  }
+
+  .seam-ecosystem-skeleton-line-short {
+    width: 35%;
+    height: 12px;
+  }
+
+  .seam-ecosystem-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @keyframes seam-ecosystem-pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .seam-ecosystem-skeleton {
+      animation: none;
+    }
+  }
+}

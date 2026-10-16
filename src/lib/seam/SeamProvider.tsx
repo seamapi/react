@@ -8,6 +8,8 @@ import {
 import type { QueryClient } from '@tanstack/react-query'
 import { createContext, type PropsWithChildren, useMemo } from 'react'
 
+import { EcosystemContextProvider } from 'lib/seam/ecosystem/EcosystemProvider.js'
+import { seamComponentsClassName } from 'lib/seam/seam-components-class-name.js'
 import { useSeamFont } from 'lib/seam/use-seam-font.js'
 import { useSeamStyles } from 'lib/seam/use-seam-styles.js'
 import {
@@ -58,9 +60,16 @@ interface SeamProviderBaseProps extends PropsWithChildren {
   queryClient?: QueryClient | undefined
   telemetryClient?: TelemetryClient | undefined
   onSessionUpdate?: (client: SeamHttp) => void
+  /**
+   * Seam Ecosystem embed key (`eco_live_…`) used by the Ecosystem components,
+   * e.g., `CompatibleApps` and `SupportedDevices`.
+   */
+  embedKey?: string | undefined
+  /** Seam Ecosystem API endpoint. Defaults to `https://ecosystem.seam.co/v1/`. */
+  ecosystemEndpoint?: string | undefined
 }
 
-export const seamComponentsClassName = 'seam-components'
+export { seamComponentsClassName }
 
 export function SeamProvider({
   children,
@@ -70,6 +79,8 @@ export function SeamProvider({
   unminifiyCss = false,
   telemetryClient,
   queryClient,
+  embedKey,
+  ecosystemEndpoint,
   ...props
 }: SeamProviderProps): JSX.Element {
   useSeamStyles({ disabled: disableCssInjection, unminified: unminifiyCss })
@@ -95,7 +106,12 @@ export function SeamProvider({
           {...props}
         >
           <Provider value={value}>
-            <Telemetry>{children}</Telemetry>
+            <EcosystemContextProvider
+              embedKey={embedKey}
+              ecosystemEndpoint={ecosystemEndpoint}
+            >
+              <Telemetry>{children}</Telemetry>
+            </EcosystemContextProvider>
           </Provider>
         </SeamQueryProvider>
       </TelemetryProvider>

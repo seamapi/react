@@ -1,0 +1,153 @@
+@mixin all {
+  .seam-supported-devices {
+    container-type: inline-size;
+
+    .seam-supported-devices-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .seam-supported-devices-section {
+      overflow: hidden;
+      border: 1px solid var(--seam-ecosystem-line-1);
+      border-radius: 12px;
+      background: var(--seam-ecosystem-surface-1);
+    }
+
+    .seam-supported-devices-section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--seam-ecosystem-line-1);
+    }
+
+    .seam-supported-devices-logo {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--seam-ecosystem-surface-2);
+      color: var(--seam-ecosystem-fg-2);
+      font-weight: 600;
+
+      img {
+        width: 100%;
+        height: 100%;
+        padding: 4px;
+        object-fit: contain;
+      }
+    }
+
+    .seam-supported-devices-section-title {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      font-size: 18px;
+      font-weight: 600;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .seam-supported-devices-count {
+      flex-shrink: 0;
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 14px;
+    }
+
+    .seam-supported-devices-rows {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .seam-supported-devices-row {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      align-items: center;
+      gap: 8px 12px;
+      padding: 12px 16px;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--seam-ecosystem-line-1);
+      }
+    }
+
+    .seam-supported-devices-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--seam-ecosystem-surface-2);
+      color: var(--seam-ecosystem-fg-3);
+      font-weight: 600;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .seam-supported-devices-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .seam-supported-devices-name {
+      color: var(--seam-ecosystem-fg-1);
+      font-weight: 600;
+    }
+
+    a.seam-supported-devices-name:hover {
+      text-decoration: underline;
+    }
+
+    .seam-supported-devices-meta {
+      overflow: hidden;
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 13px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .seam-supported-devices-badges {
+      display: flex;
+      flex-wrap: wrap;
+      grid-column: 2;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .seam-supported-devices-section-footer {
+      display: flex;
+      justify-content: center;
+      padding: 12px 16px;
+      border-top: 1px solid var(--seam-ecosystem-line-1);
+    }
+
+    @container (width >= 720px) {
+      .seam-supported-devices-row {
+        grid-template-columns: 48px minmax(0, 1fr) minmax(0, 45%);
+      }
+
+      .seam-supported-devices-badges {
+        grid-column: 3;
+        justify-content: flex-end;
+      }
+    }
+  }
+}

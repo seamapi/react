@@ -18,6 +18,10 @@
       "import": "./dist/elements.js",
       "types": "./src/elements.d.ts"
     },
+    "./ecosystem.js": {
+      "import": "./dist/ecosystem.js",
+      "types": "./src/ecosystem.d.ts"
+    },
     "./index.css": {
       "import": "./dist/index.css"
     }
@@ -26,7 +30,8 @@
   "sideEffects": [
     "**/*.css",
     "./elements.js",
-    "./dist/elements.js"
+    "./dist/elements.js",
+    "./dist/ecosystem.js"
   ],
   "keywords": [
     "node"
@@ -64,7 +69,10 @@
     "postbuild": "concurrently --raw --group 'node ./index.js' 'node ./hooks.js'",
     "build:entrypoints": "npm run build:js",
     "prebuild:entrypoints": "npm run build:css",
-    "postbuild:entrypoints": "vite build",
+    "postbuild:entrypoints": "npm run build:elements && npm run build:ecosystem",
+    "build:elements": "vite build",
+    "build:ecosystem": "vite build --mode ecosystem",
+    "size": "tsx ./size.ts",
     "build:js": "tsc --project tsconfig.build.json",
     "postbuild:js": "tsc-alias --project tsconfig.build.json",
     "build:css": "sass --load-path=node_modules src/index.scss:dist/index.css",

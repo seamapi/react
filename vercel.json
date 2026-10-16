@@ -12,6 +12,10 @@
       "destination": "https://react.seam.net/v/:version/:asset"
     },
     {
+      "source": "/api/ecosystem/:ecosystempath*",
+      "destination": "/api/fake-ecosystem"
+    },
+    {
       "source": "/api/:apipath*",
       "destination": "/api/fake-seam-connect"
     }

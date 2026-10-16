@@ -45,6 +45,7 @@ src/
 ├── index.ts              # Main export entry point
 ├── hooks.ts              # Hooks-only entry point
 ├── elements.ts           # Web Components entry point
+├── ecosystem.ts          # Lightweight Seam Ecosystem Web Components entry point
 ├── index.scss            # Main stylesheet
 └── lib/
     ├── seam/
@@ -52,15 +53,18 @@ src/
     │   ├── components/                   # UI components
     │   │   ├── AccessCodeDetails/
     │   │   ├── AccessCodeTable/
+    │   │   ├── CompatibleApps/           # Seam Ecosystem (PartnerDB)
     │   │   ├── ConnectAccountButton/
     │   │   ├── CreateAccessCodeForm/
     │   │   ├── DeviceDetails/
     │   │   ├── DeviceTable/
-    │   │   └── EditAccessCodeForm/
+    │   │   ├── EditAccessCodeForm/
+    │   │   └── SupportedDevices/         # Seam Ecosystem (DeviceDB)
     │   ├── access-codes/                 # Access code hooks
     │   ├── client-sessions/              # Session hooks
     │   ├── connected-accounts/           # Account hooks
     │   ├── devices/                      # Device hooks
+    │   ├── ecosystem/                    # Seam Ecosystem client, EcosystemProvider and hooks
     │   └── thermostats/                  # Thermostat hooks
     └── icons/                            # Generated SVG icon components
 ```
@@ -81,6 +85,9 @@ Each component typically has:
 - `@seamapi/react` - Full library (components + hooks)
 - `@seamapi/react/hooks` - Hooks only (lighter bundle)
 - `@seamapi/react/elements` - Web Components bundle
+- `@seamapi/react/ecosystem.js` - Lightweight bundle with only the Seam Ecosystem Web Components
+  (`<seam-compatible-apps>`, `<seam-supported-devices>`); it must not import `SeamProvider` or `@seamapi/http`
+  (`npm run size` checks this and the size budget after `npm run build`)
 
 ### Path Aliases
 
@@ -111,6 +118,12 @@ npm run test:ui       # Open Vitest UI
 ## Fake Seam Connect
 
 The project uses @seamapi/fake-seam-connect for deterministic testing and Storybook development. Seed data is in `.storybook/seed-fake.js`.
+
+## Fake Seam Ecosystem
+
+The Ecosystem components use a fake of the public Seam Ecosystem API in `.storybook/fake-ecosystem.js`,
+served at `/api/ecosystem` by the Storybook middleware and `api/fake-ecosystem.ts` on Vercel.
+Tests start it with `setupFakeEcosystem()` from `test/fixtures/ecosystem.tsx`. Never use a real embed key or production data.
 
 ## Publishing
 
