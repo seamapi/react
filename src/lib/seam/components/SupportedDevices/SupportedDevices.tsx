@@ -15,7 +15,7 @@ import { FilterSelect } from 'lib/seam/components/SupportedDevices/FilterSelect.
 import { ManufacturerSection } from 'lib/seam/components/SupportedDevices/ManufacturerSection.js'
 import { useEcosystemContext } from 'lib/seam/ecosystem/EcosystemProvider.js'
 import type { Manufacturer } from 'lib/seam/ecosystem/types.js'
-import { useEcosystemDeviceModels } from 'lib/seam/ecosystem/use-ecosystem-device-models.js'
+import { useEcosystemDeviceModelSummaries } from 'lib/seam/ecosystem/use-ecosystem-device-model-summaries.js'
 import { useEcosystemManufacturers } from 'lib/seam/ecosystem/use-ecosystem-manufacturers.js'
 import {
   getEmbedKeyManufacturer,
@@ -82,7 +82,7 @@ export function SupportedDevices({
     isError: isDeviceModelsError,
     error: deviceModelsError,
     refetch: refetchDeviceModels,
-  } = useEcosystemDeviceModels({
+  } = useEcosystemDeviceModelSummaries({
     manufacturer: scopeManufacturer ?? '',
     deviceType: fixedDeviceType ?? '',
     capability:

@@ -3,7 +3,7 @@ import { expect, test } from 'vitest'
 import type {
   CapabilityName,
   CapabilitySupported,
-  DeviceModel,
+  DeviceModelSummary,
   EmbedExclusions,
 } from 'lib/seam/ecosystem/types.js'
 
@@ -33,7 +33,7 @@ const deviceModel = ({
     string,
     Partial<Record<CapabilityName, CapabilitySupported>>
   >
-}): DeviceModel => ({
+}): DeviceModelSummary => ({
   device_model_id: slug,
   slug,
   display_name: `Model ${slug}`,
@@ -41,8 +41,6 @@ const deviceModel = ({
   product_url: null,
   is_forbidden_to_3dparty: false,
   no_longer_sold: false,
-  shop_listings: null,
-  last_commerce_search_at: null,
   manufacturer:
     manufacturer == null
       ? null
@@ -62,23 +60,18 @@ const deviceModel = ({
     ([provider, caps]) => ({
       provider: { provider_id: provider, ...ref(provider) },
       capabilities: Object.entries(caps).map(([name, supported]) => ({
-        capability_id: `${provider}:${name}`,
         name: name as CapabilityName,
         supported,
         integration_support_level: 'stable',
         report: { details: `${name} via ${provider}` },
-        report_raw: null,
-        locale: 'en',
-        computed_at: '2026-10-01T00:00:00.000Z',
       })),
     })
   ),
   capabilities_stale: false,
-  created_at: '2026-10-01T00:00:00.000Z',
   updated_at: '2026-10-01T00:00:00.000Z',
 })
 
-const at = (list: DeviceModel[], index: number): DeviceModel => {
+const at = (list: DeviceModelSummary[], index: number): DeviceModelSummary => {
   const deviceModel = list[index]
   if (deviceModel == null) throw new Error(`Missing device model ${index}`)
   return deviceModel

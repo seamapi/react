@@ -6,10 +6,13 @@ import {
   getDeviceModelName,
   getSupportedCapabilities,
 } from 'lib/seam/components/SupportedDevices/device-models.js'
-import type { DeviceModel, Manufacturer } from 'lib/seam/ecosystem/types.js'
+import type {
+  DeviceModelSummary,
+  Manufacturer,
+} from 'lib/seam/ecosystem/types.js'
 
 interface DeviceModelRowProps {
-  deviceModel: DeviceModel
+  deviceModel: DeviceModelSummary
   manufacturer: Manufacturer | null
 }
 
