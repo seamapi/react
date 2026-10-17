@@ -1,7 +1,7 @@
 import type {
-  CapabilityDetail,
   CapabilityName,
-  DeviceModel,
+  CapabilitySummary,
+  DeviceModelSummary,
   EmbedExclusions,
   Manufacturer,
   ManufacturerRef,
@@ -23,7 +23,7 @@ export interface SupportedCapability {
 export interface ManufacturerGroup {
   key: string
   manufacturer: ManufacturerRef | null
-  deviceModels: DeviceModel[]
+  deviceModels: DeviceModelSummary[]
 }
 
 export interface FilterOption {
@@ -61,9 +61,9 @@ export const getCapabilityLabel = (name: string): string =>
  * resolved capability. A model left with no provider is removed.
  */
 export const applyEmbedExclusions = (
-  deviceModels: DeviceModel[],
+  deviceModels: DeviceModelSummary[],
   exclusions: EmbedExclusions | null | undefined
-): DeviceModel[] => {
+): DeviceModelSummary[] => {
   if (exclusions == null) return deviceModels
 
   const excludedManufacturers = new Set(exclusions.excluded_manufacturers)
@@ -71,7 +71,7 @@ export const applyEmbedExclusions = (
   const unsupportedProviders = new Set(exclusions.unsupported_providers)
   const { capability } = exclusions
 
-  const result: DeviceModel[] = []
+  const result: DeviceModelSummary[] = []
   for (const deviceModel of deviceModels) {
     const manufacturerSlug = deviceModel.manufacturer?.slug ?? ''
     const deviceTypeSlug = deviceModel.device_type?.slug ?? ''
@@ -123,7 +123,7 @@ export const applyEmbedExclusions = (
 
 /** The best support for each capability across the model's providers. */
 export const getSupportedCapabilities = (
-  deviceModel: DeviceModel
+  deviceModel: DeviceModelSummary
 ): SupportedCapability[] => {
   const best = new Map<CapabilityName, SupportedCapability>()
   for (const { capabilities } of deviceModel.capabilities_by_provider) {
@@ -145,15 +145,15 @@ export const getSupportedCapabilities = (
 }
 
 export const supportsCapability = (
-  deviceModel: DeviceModel,
+  deviceModel: DeviceModelSummary,
   capability: string
 ): boolean =>
   getSupportedCapabilities(deviceModel).some((c) => c.name === capability)
 
 export const filterDeviceModels = (
-  deviceModels: DeviceModel[],
+  deviceModels: DeviceModelSummary[],
   { manufacturer, deviceType, capability, search = '' }: DeviceModelFilters
-): DeviceModel[] => {
+): DeviceModelSummary[] => {
   const terms = search.toLowerCase().trim().split(/\s+/).filter(Boolean)
   return deviceModels.filter((deviceModel) => {
     if (manufacturer != null && deviceModel.manufacturer?.slug !== manufacturer)
@@ -168,7 +168,7 @@ export const filterDeviceModels = (
   })
 }
 
-const getSearchText = (deviceModel: DeviceModel): string =>
+const getSearchText = (deviceModel: DeviceModelSummary): string =>
   [
     deviceModel.display_name,
     deviceModel.slug,
@@ -182,7 +182,7 @@ const getSearchText = (deviceModel: DeviceModel): string =>
     .toLowerCase()
 
 export const groupDeviceModelsByManufacturer = (
-  deviceModels: DeviceModel[]
+  deviceModels: DeviceModelSummary[]
 ): ManufacturerGroup[] => {
   const groups = new Map<string, ManufacturerGroup>()
   for (const deviceModel of deviceModels) {
@@ -210,7 +210,7 @@ export const groupDeviceModelsByManufacturer = (
 }
 
 export const getManufacturerOptions = (
-  deviceModels: DeviceModel[]
+  deviceModels: DeviceModelSummary[]
 ): FilterOption[] =>
   uniqueOptions(
     deviceModels.map((m) =>
@@ -224,7 +224,7 @@ export const getManufacturerOptions = (
   )
 
 export const getDeviceTypeOptions = (
-  deviceModels: DeviceModel[]
+  deviceModels: DeviceModelSummary[]
 ): FilterOption[] =>
   uniqueOptions(
     deviceModels.map((m) =>
@@ -235,7 +235,7 @@ export const getDeviceTypeOptions = (
   )
 
 export const getCapabilityOptions = (
-  deviceModels: DeviceModel[]
+  deviceModels: DeviceModelSummary[]
 ): FilterOption[] => {
   const names = new Set<CapabilityName>()
   for (const deviceModel of deviceModels) {
@@ -248,7 +248,7 @@ export const getCapabilityOptions = (
     .map((name) => ({ value: name, label: getCapabilityLabel(name) }))
 }
 
-export const getDeviceModelName = (deviceModel: DeviceModel): string =>
+export const getDeviceModelName = (deviceModel: DeviceModelSummary): string =>
   deviceModel.display_name ?? deviceModel.slug
 
 export const getManufacturerName = (
@@ -257,7 +257,7 @@ export const getManufacturerName = (
 
 /** The best available image URL for a device model. */
 export const getDeviceModelImageUrl = (
-  deviceModel: DeviceModel,
+  deviceModel: DeviceModelSummary,
   manufacturer?: Manufacturer | null
 ): string | null => {
   const image =
@@ -303,7 +303,7 @@ export const getManufacturerLogoUrl = (
 }
 
 const toSupported = (
-  capability: CapabilityDetail
+  capability: CapabilitySummary
 ): SupportedCapability['supported'] | null => {
   if (capability.supported === 'yes') return 'yes'
   if (capability.supported === 'conditionally') return 'conditionally'

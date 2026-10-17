@@ -5,7 +5,9 @@ import { createServer } from 'node:http'
 // It mirrors the routes, parameters, errors and declared-first support resolution of
 // seamapi/ecosystem, with fictional partners and a small set of device models.
 // Unlike the real API, /v1/compatibility always requires an embed key here,
-// as if every caller were cross-origin.
+// as if every caller were cross-origin. Other public reads validate an embed key
+// only when one is sent (Ecosystem's `auth: "optional"`), and a manufacturer key
+// defaults `manufacturer` to its own (DEVDB-439).
 
 export const fakeEmbedKey = 'eco_live_storybook'
 export const fakePartnerEmbedKey = 'eco_live_storybook_partner'
@@ -1162,6 +1164,17 @@ const requireEmbedKey = ({ headers, searchParams }) => {
   return { key, ...embedKey }
 }
 
+// Ecosystem's `auth: "optional"`: an embed key is validated only when one is sent.
+const optionalEmbedKey = ({ headers, searchParams }) => {
+  if (searchParams.get('embed_key') == null && headers['x-embed-key'] == null) {
+    return null
+  }
+  return requireEmbedKey({ headers, searchParams })
+}
+
+const manufacturerContextOf = (embedKey) =>
+  embedKey?.owner_kind === 'manufacturer' ? embedKey.manufacturer_slug : null
+
 const capabilityNames = new Set(Object.values(capabilitiesByDeviceType).flat())
 
 const paginate = (items, searchParams) => {
@@ -1191,9 +1204,120 @@ const listParam = (searchParams, key) =>
     .map((v) => v.trim())
     .filter((v) => v.length > 0)
 
+const listDeviceModels = ({ searchParams, headers, assetBaseUrl }) => {
+  const embedKey = optionalEmbedKey({ headers, searchParams })
+  const capability = searchParams.get('capability')
+  if (capability != null && !capabilityNames.has(capability)) {
+    throw new FakeApiError(400, 'invalid_params', 'Invalid request parameters')
+  }
+  const slugs = listParam(searchParams, 'slugs')
+  const manufacturer =
+    searchParams.get('manufacturer') ?? manufacturerContextOf(embedKey)
+  const deviceType = searchParams.get('device_type')
+  const provider = searchParams.get('provider')
+  const supported = searchParams.get('supported')
+  const isAccessory = searchParams.get('is_accessory')
+  const models = deviceModels
+    .map((row) => toDeviceModel(row, assetBaseUrl))
+    // include_forbidden only unlocks forbidden models for Seam and manufacturer
+    // secret keys, which the fake does not model.
+    .filter((m) => m.is_forbidden_to_3dparty !== true)
+    .filter((m) => slugs.length === 0 || slugs.includes(m.slug))
+    .filter(
+      (m) => manufacturer == null || m.manufacturer?.slug === manufacturer
+    )
+    .filter((m) => deviceType == null || m.device_type?.slug === deviceType)
+    .filter(
+      (m) => provider == null || m.providers.some((p) => p.slug === provider)
+    )
+    .filter(
+      (m) =>
+        isAccessory == null ||
+        String(m.device_type?.is_accessory ?? false) === isAccessory
+    )
+    .filter(
+      (m) =>
+        capability == null ||
+        m.capabilities_by_provider.some(({ capabilities }) =>
+          capabilities.some(
+            (c) =>
+              c.name === capability &&
+              (supported == null || c.supported === supported)
+          )
+        )
+    )
+  return paginate(models, searchParams)
+}
+
+// The slim `device_models/summaries/list` shape (DEVDB-437).
+const toDeviceImage = (asset) =>
+  asset == null
+    ? null
+    : {
+        url: asset.url,
+        mime: asset.mime,
+        width: asset.width,
+        height: asset.height,
+        formats: Object.fromEntries(
+          Object.entries(asset.formats).map(([name, format]) => [
+            name,
+            { url: format.url, width: format.width, height: format.height },
+          ])
+        ),
+      }
+
+const toDeviceModelSummary = (model, { commerce = false } = {}) => ({
+  device_model_id: model.device_model_id,
+  slug: model.slug,
+  display_name: model.display_name,
+  description_md: model.description_md,
+  product_url: model.product_url,
+  no_longer_sold: model.no_longer_sold,
+  is_forbidden_to_3dparty: model.is_forbidden_to_3dparty,
+  manufacturer: model.manufacturer,
+  device_type: model.device_type,
+  device_type_properties: model.device_type_properties,
+  featured_image: toDeviceImage(model.featured_image),
+  variants: model.variants.map((variant) => ({
+    device_model_variant_id: variant.device_model_variant_id,
+    color_name: variant.color_name,
+    style_name: variant.style_name,
+    primary_color_hex: variant.primary_color_hex,
+    manufacturer_model_id: variant.manufacturer_model_id,
+    images: variant.images.map(toDeviceImage),
+    ...(commerce
+      ? {
+          asin: variant.asin,
+          gtins: variant.gtins,
+          marketplace_listings: variant.marketplace_listings,
+        }
+      : {}),
+  })),
+  providers: model.providers,
+  capabilities_by_provider: model.capabilities_by_provider.map(
+    ({ provider, capabilities }) => ({
+      provider,
+      capabilities: capabilities.map((c) => ({
+        name: c.name,
+        supported: c.supported,
+        integration_support_level: c.integration_support_level,
+        report: c.report,
+      })),
+    })
+  ),
+  capabilities_stale: model.capabilities_stale,
+  ...(commerce
+    ? {
+        shop_listings: model.shop_listings,
+        last_commerce_search_at: model.last_commerce_search_at,
+      }
+    : {}),
+  updated_at: model.updated_at,
+})
+
 const routes = {
   'v1/compatibility': ({ searchParams, headers, assetBaseUrl }) => {
-    requireEmbedKey({ headers, searchParams })
+    const embedKey = requireEmbedKey({ headers, searchParams })
     const category = searchParams.get('device_category') ?? ''
     if (!/^[a-z0-9_]+$/.test(category)) {
       throw new FakeApiError(
@@ -1204,7 +1328,10 @@ const routes = {
     }
     const query = {
       device_category: category,
-      manufacturer_slug: searchParams.get('manufacturer_slug') ?? '',
+      manufacturer_slug:
+        searchParams.get('manufacturer_slug') ??
+        manufacturerContextOf(embedKey) ??
+        '',
       provider_slug: searchParams.get('provider_slug') ?? '',
       capability: searchParams.get('capability') ?? '',
     }
@@ -1234,54 +1361,24 @@ const routes = {
     }
   },
 
-  'v1/device_models/list': ({ searchParams, assetBaseUrl }) => {
-    const capability = searchParams.get('capability')
-    if (capability != null && !capabilityNames.has(capability)) {
-      throw new FakeApiError(
-        400,
-        'invalid_params',
-        'Invalid request parameters'
-      )
-    }
-    const slugs = listParam(searchParams, 'slugs')
-    const manufacturer = searchParams.get('manufacturer')
-    const deviceType = searchParams.get('device_type')
-    const provider = searchParams.get('provider')
-    const supported = searchParams.get('supported')
-    const includeForbidden = searchParams.get('include_forbidden') === 'true'
-    const isAccessory = searchParams.get('is_accessory')
-    const models = deviceModels
-      .map((row) => toDeviceModel(row, assetBaseUrl))
-      .filter((m) => includeForbidden || m.is_forbidden_to_3dparty !== true)
-      .filter((m) => slugs.length === 0 || slugs.includes(m.slug))
-      .filter(
-        (m) => manufacturer == null || m.manufacturer?.slug === manufacturer
-      )
-      .filter((m) => deviceType == null || m.device_type?.slug === deviceType)
-      .filter(
-        (m) => provider == null || m.providers.some((p) => p.slug === provider)
-      )
-      .filter(
-        (m) =>
-          isAccessory == null ||
-          String(m.device_type?.is_accessory ?? false) === isAccessory
-      )
-      .filter(
-        (m) =>
-          capability == null ||
-          m.capabilities_by_provider.some(({ capabilities }) =>
-            capabilities.some(
-              (c) =>
-                c.name === capability &&
-                (supported == null || c.supported === supported)
-            )
-          )
-      )
-    const { items, pagination } = paginate(models, searchParams)
+  'v1/device_models/list': (request) => {
+    const { items, pagination } = listDeviceModels(request)
     return { device_models: items, pagination }
   },
 
-  'v1/manufacturers/list': ({ searchParams, assetBaseUrl }) => {
+  'v1/device_models/summaries/list': (request) => {
+    const { items, pagination } = listDeviceModels(request)
+    const include = listParam(request.searchParams, 'include')
+    return {
+      device_models: items.map((m) =>
+        toDeviceModelSummary(m, { commerce: include.includes('commerce') })
+      ),
+      pagination,
+    }
+  },
+
+  'v1/manufacturers/list': ({ searchParams, headers, assetBaseUrl }) => {
+    optionalEmbedKey({ headers, searchParams })
     const slugs = listParam(searchParams, 'slugs')
     const provider = searchParams.get('provider')
     const list = manufacturers
@@ -1292,7 +1389,8 @@ const routes = {
     return { manufacturers: items, pagination }
   },
 
-  'v1/manufacturers/get': ({ searchParams, assetBaseUrl }) => {
+  'v1/manufacturers/get': ({ searchParams, headers, assetBaseUrl }) => {
+    optionalEmbedKey({ headers, searchParams })
     const slug = searchParams.get('slug')
     const manufacturerId = searchParams.get('manufacturer_id')
     if (slug == null && manufacturerId == null) {
@@ -1349,6 +1447,10 @@ const routes = {
         revoked_at: null,
         created_at: timestamp,
       },
+      manufacturer_context:
+        manufacturerContextOf(embedKey) == null
+          ? null
+          : { manufacturer_slug: manufacturerContextOf(embedKey) },
       exclusions,
     }
   },

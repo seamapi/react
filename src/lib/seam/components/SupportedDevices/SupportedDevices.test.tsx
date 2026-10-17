@@ -41,6 +41,13 @@ test<EcosystemTestContext>('SupportedDevices groups device models by manufacture
   screen.getByRole('button', { name: 'Show all 7 Schlage devices' })
 })
 
+test<EcosystemTestContext>('SupportedDevices loads the slim device model summaries', async (ctx) => {
+  renderWithEcosystem(<SupportedDevices manufacturer='schlage' />, ctx)
+  await screen.findByText('Control Smart Lock')
+  expect(ctx.ecosystemRequests).toContain('GET v1/device_models/summaries/list')
+  expect(ctx.ecosystemRequests).not.toContain('GET v1/device_models/list')
+})
+
 test<EcosystemTestContext>('SupportedDevices shows one manufacturer', async (ctx) => {
   renderWithEcosystem(<SupportedDevices manufacturer='schlage' />, ctx)
   await screen.findByText('Control Smart Lock')

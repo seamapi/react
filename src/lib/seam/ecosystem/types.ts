@@ -2,7 +2,7 @@
  * Response types for the public Seam Ecosystem API (PartnerDB and DeviceDB).
  *
  * Hand-copied from the zod schemas in `seamapi/ecosystem` `public-types/`
- * (origin/main 733edf3, 2026-10-16) to avoid a zod runtime dependency.
+ * (origin/main 055335c, 2026-10-17) to avoid a zod runtime dependency.
  * Fields stored verbatim from the source as JSON are typed as `unknown`.
  * Keep in sync with Ecosystem until it publishes its types as a package.
  */
@@ -112,18 +112,16 @@ export interface EmbedExclusions {
   capability_exclusions: EmbedCapabilityExclusion[]
 }
 
-/**
- * Manufacturer context for manufacturer-owned keys.
- * Not returned by Ecosystem yet (DEVDB-439); read when present.
- */
+/** The manufacturer a manufacturer-owned key scopes DeviceDB widgets to (DEVDB-439). */
 export interface EmbedManufacturerContext {
   manufacturer_slug: string
 }
 
 export interface EmbedResolution {
   embed_key: EmbedKey
-  exclusions: EmbedExclusions
+  /** Set for manufacturer-owned keys; null for partner and Seam keys. */
   manufacturer_context?: EmbedManufacturerContext | null
+  exclusions: EmbedExclusions
 }
 
 // Devices (DeviceDB)
@@ -273,6 +271,71 @@ export interface DeviceModel {
   updated_at: string
 }
 
+// Device model summaries (`device_models/summaries/list`, DEVDB-437):
+// the same models in a slim shape, without storage internals or commerce data.
+
+export interface DeviceImageFormat {
+  url: string
+  width: number | null
+  height: number | null
+}
+
+export interface DeviceImage {
+  url: string
+  mime: string | null
+  width: number | null
+  height: number | null
+  formats: Partial<Record<MediaFormatName, DeviceImageFormat>>
+}
+
+export interface CapabilitySummary {
+  name: CapabilityName
+  supported: CapabilitySupported
+  integration_support_level: IntegrationSupportLevel | null
+  report: CapabilityReport | null
+}
+
+export interface DeviceModelSummaryVariant {
+  device_model_variant_id: string
+  color_name: string | null
+  style_name: string | null
+  primary_color_hex: string | null
+  manufacturer_model_id: string | null
+  images: DeviceImage[]
+  /** Only with `include=commerce`. */
+  asin?: string | null
+  /** Only with `include=commerce`. */
+  gtins?: unknown
+  /** Only with `include=commerce`. */
+  marketplace_listings?: unknown
+}
+
+export interface DeviceModelSummary {
+  device_model_id: string
+  slug: string
+  display_name: string | null
+  description_md: string | null
+  product_url: string | null
+  no_longer_sold: boolean | null
+  is_forbidden_to_3dparty: boolean | null
+  manufacturer: ManufacturerRef | null
+  device_type: DeviceTypeRef | null
+  device_type_properties: unknown
+  featured_image: DeviceImage | null
+  variants: DeviceModelSummaryVariant[]
+  providers: ProviderRef[]
+  capabilities_by_provider: Array<{
+    provider: ProviderRef
+    capabilities: CapabilitySummary[]
+  }>
+  capabilities_stale: boolean
+  /** Only with `include=commerce`. */
+  shop_listings?: unknown
+  /** Only with `include=commerce`. */
+  last_commerce_search_at?: string | null
+  updated_at: string
+}
+
 export interface ManufacturerDefaultDeviceImage {
   device_type: DeviceTypeRef
   asset: DeviceAsset
@@ -315,6 +378,11 @@ export interface CompatibilityResponse {
 
 export interface DeviceModelsListResponse {
   device_models: DeviceModel[]
+  pagination: Pagination
+}
+
+export interface DeviceModelSummariesListResponse {
+  device_models: DeviceModelSummary[]
   pagination: Pagination
 }
 
