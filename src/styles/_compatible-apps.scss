@@ -1,0 +1,102 @@
+@mixin all {
+  .seam-compatible-apps {
+    .seam-compatible-apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .seam-compatible-apps-card {
+      border: 1px solid var(--seam-ecosystem-line-1);
+      border-radius: 12px;
+      background: var(--seam-ecosystem-surface-1);
+      transition: border-color 0.15s ease;
+
+      &:hover,
+      &:focus-within {
+        border-color: var(--seam-ecosystem-line-2);
+      }
+    }
+
+    .seam-compatible-apps-card-body {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      height: 100%;
+      padding: 12px;
+      border-radius: 12px;
+
+      &:focus-visible {
+        outline: 2px solid var(--seam-ecosystem-accent);
+        outline-offset: 2px;
+      }
+    }
+
+    .seam-compatible-apps-logo {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      overflow: hidden;
+      border: 1px solid var(--seam-ecosystem-line-1);
+      border-radius: 8px;
+      background: var(--seam-ecosystem-surface-2);
+
+      img {
+        width: 100%;
+        height: 100%;
+        padding: 4px;
+        object-fit: contain;
+        object-position: center;
+      }
+    }
+
+    .seam-compatible-apps-logo-initial {
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .seam-compatible-apps-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .seam-compatible-apps-name {
+      overflow: hidden;
+      color: var(--seam-ecosystem-fg-1);
+      font-weight: 600;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .seam-compatible-apps-subtitle {
+      overflow: hidden;
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 14px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .seam-compatible-apps-note {
+      padding-top: 4px;
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 12px;
+    }
+
+    .seam-compatible-apps-footer {
+      display: flex;
+      justify-content: center;
+      padding-top: 16px;
+    }
+  }
+}

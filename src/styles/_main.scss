@@ -29,6 +29,9 @@
 @use './noise-sensor';
 @use './seam-editable-device-name';
 @use './popover';
+@use './ecosystem';
+@use './compatible-apps';
+@use './supported-devices';
 
 .seam-components {
   // Reset
@@ -66,4 +69,7 @@
   @include seam-table.all;
   @include noise-sensor.all;
   @include popover.all;
+  @include ecosystem.all;
+  @include compatible-apps.all;
+  @include supported-devices.all;
 }

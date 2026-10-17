@@ -1,4 +1,6 @@
+import { defineEcosystemElements } from 'lib/ecosystem-element.js'
 import { defineCustomElement, type ElementDefinition } from 'lib/element.js'
+import * as ecosystemComponents from 'lib/seam/components/ecosystem-elements.js'
 import * as components from 'lib/seam/components/elements.js'
 
 const elementDefinitions = components as unknown as Record<
@@ -30,3 +32,5 @@ for (const key of Object.keys(elementDefinitions)) {
   elementNames.push(name)
   defineCustomElement({ name, Component, props })
 }
+
+elementNames.push(...defineEcosystemElements(ecosystemComponents))

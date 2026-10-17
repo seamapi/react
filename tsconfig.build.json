@@ -14,8 +14,11 @@
   "include": ["src/**/*"],
   "exclude": [
     "src/elements.ts",
+    "src/ecosystem.ts",
     "src/lib/element.tsx",
+    "src/lib/ecosystem-element.tsx",
     "src/lib/seam/components/elements.ts",
+    "src/lib/seam/components/ecosystem-elements.ts",
     "**/*.element.ts",
     "**/*.test.ts",
     "**/*.test.tsx",

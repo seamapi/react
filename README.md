@@ -140,6 +140,98 @@ globalThis.customElements.whenDefined('seam-device-table').then(() => {
 
 [Seam Console]: https://console.seam.co/
 
+### Seam Ecosystem Components
+
+Two components show [Seam Ecosystem] data on any website,
+e.g., a manufacturer's product page or a partner's integrations page:
+
+- `<seam-compatible-apps>` (`CompatibleApps`):
+  the apps (Seam partners) that work with a device type, manufacturer, provider or capability through Seam.
+  A partner is listed only where Seam or the partner has declared support.
+- `<seam-supported-devices>` (`SupportedDevices`):
+  the device models that work with Seam, grouped by manufacturer,
+  with device type and capability badges, search and filters.
+
+These components use an Ecosystem embed key (`eco_live_…`) instead of a publishable key.
+The page origin must be one of the key's allowed origins.
+With a manufacturer key, `<seam-supported-devices>` defaults to that manufacturer.
+With a partner key, it hides what the partner declared unsupported.
+
+Load the lightweight `ecosystem.js` bundle, which only contains these two elements
+(the full `elements.js` bundle defines them too):
+
+```html
+<body>
+  <seam-compatible-apps
+    embed-key="your_embed_key"
+    device-type="smartlock"
+    manufacturer="schlage"
+  ></seam-compatible-apps>
+  <seam-supported-devices
+    embed-key="your_embed_key"
+    manufacturer="schlage"
+  ></seam-supported-devices>
+  <script
+    type="module"
+    src="https://react.seam.co/v/5.0.0/dist/ecosystem.js"
+  ></script>
+</body>
+```
+
+`<seam-compatible-apps>` attributes:
+
+| Attribute      | Description                                                                         |
+| -------------- | ----------------------------------------------------------------------------------- |
+| `device-type`  | Required. Device category, e.g., `smartlock`, `thermostat`, `sensor` or `intercom`. |
+| `manufacturer` | DeviceDB manufacturer slug, e.g., `schlage`.                                        |
+| `provider`     | DeviceDB provider slug, e.g., `salto-ks`. Shows each app's support note.            |
+| `capability`   | DeviceDB capability, e.g., `can_provision_mobile_keys`. Shows each app's note.      |
+| `industry`     | Industry slug, e.g., `short-term-rental`.                                           |
+| `max-visible`  | Apps shown before the show more button. Defaults to 24.                             |
+| `hide-search`  | Hide the search field.                                                              |
+| `hide-title`   | Hide the title.                                                                     |
+
+`<seam-supported-devices>` attributes:
+
+| Attribute      | Description                                                                           |
+| -------------- | ------------------------------------------------------------------------------------- |
+| `manufacturer` | DeviceDB manufacturer slug. Defaults to the manufacturer of a manufacturer embed key. |
+| `device-type`  | DeviceDB device type slug, e.g., `smartlock` or `thermostat`.                         |
+| `capability`   | Only devices supporting this capability, e.g., `can_program_online_access_codes`.     |
+| `hide-search`  | Hide the search field.                                                                |
+| `hide-filters` | Hide the manufacturer, device type and capability filters.                            |
+| `hide-title`   | Hide the title.                                                                       |
+
+Both elements also accept `embed-key`, `theme` (`light`, `dark` or `auto` to follow the visitor's color scheme),
+`ecosystem-endpoint` (defaults to `https://ecosystem.seam.co/v1/`),
+`class-name`, `disable-css-injection`, `disable-font-injection` and `unminifiy-css`.
+Boolean attributes may be set without a value, e.g., `<seam-compatible-apps hide-search>`.
+
+With React, wrap the components in an `EcosystemProvider`,
+or pass `embedKey` to an existing `SeamProvider`:
+
+```tsx
+import {
+  CompatibleApps,
+  EcosystemProvider,
+  SupportedDevices,
+} from '@seamapi/react'
+
+export function ProductPage() {
+  return (
+    <EcosystemProvider embedKey='your_embed_key'>
+      <SupportedDevices manufacturer='schlage' />
+      <CompatibleApps deviceType='smartlock' manufacturer='schlage' />
+    </EcosystemProvider>
+  )
+}
+```
+
+The data is also available with the `useCompatiblePartners`, `useEcosystemDeviceModels`,
+`useEcosystemManufacturers` and `useEmbedKeyResolution` hooks.
+
+[Seam Ecosystem]: https://ecosystem.seam.co/
+
 ### React Hooks
 
 All components interact with the Seam API via a set of React Hooks.
@@ -339,6 +431,15 @@ When serving the CSS styles from the default CDN, extend `style-src` with
 style-src https://react.seam.co
 ```
 
+#### Seam Ecosystem Components CSP
+
+The Ecosystem components call the Ecosystem API and show logos and device images from its media storage.
+Extend the CSP with
+
+```
+connect-src https://ecosystem.seam.co; img-src https://seam-ecosystem-media.fly.storage.tigris.dev
+```
+
 ### Telemetry
 
 By default, this library reports basic usage telemetry to the Seam API.
@@ -481,6 +582,14 @@ The tests use the [default seed](https://github.com/seamapi/fake-seam-connect/bl
 
 Edit the Storybook seed data for the fake or find relevant ids for testing components here:
 [Storybook fake seed](./.storybook/seed-fake.js).
+
+### Fake Seam Ecosystem
+
+The Ecosystem components are developed and tested against a fake of the public Seam Ecosystem API
+with fictional partners and sample device models: [.storybook/fake-ecosystem.js](./.storybook/fake-ecosystem.js).
+Storybook serves it at `/api/ecosystem` (locally via the Storybook middleware, and on react.seam.co via `api/fake-ecosystem.ts`),
+so neither the Storybook nor the tests use a real embed key or production data.
+It accepts the embed keys exported from that file.
 
 ### Fake Devicedb
 
