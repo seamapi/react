@@ -1,11 +1,20 @@
 ARG VARIANT="22-bookworm"
 
+FROM node:22.23.4-bookworm-slim@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d AS patched-node
+
 FROM mcr.microsoft.com/devcontainers/javascript-node:1-${VARIANT}
 
-# Refresh the bundled Node binary; a supported-major image can contain an older patch.
-USER root
-RUN su -s /bin/bash node -c "source /usr/local/share/nvm/nvm.sh && nvm install 22.23.4 && nvm alias default 22.23.4"
-ENV PATH="/usr/local/share/nvm/versions/node/v22.23.4/bin:${PATH}"
+# Patch the system binary and every inherited nvm copy used by interactive shells.
+COPY --from=patched-node /usr/local/bin/node /tmp/patched-node
+RUN install -m 0755 /tmp/patched-node /usr/local/bin/node \
+ && if [ -d /usr/local/share/nvm/versions/node ]; then \
+      find /usr/local/share/nvm/versions/node -type f -path "*/bin/node" \
+        -exec install -m 0755 /tmp/patched-node {} \; ; \
+    fi \
+ && rm /tmp/patched-node \
+ && test "$(node --version)" = "v22.23.4" \
+ && test "$(/usr/local/bin/node --version)" = "v22.23.4"
+ENV NODE_VERSION=22.23.4
 
 USER node
 WORKDIR /home/node
