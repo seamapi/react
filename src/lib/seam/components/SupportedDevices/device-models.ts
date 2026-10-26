@@ -369,7 +369,12 @@ const toSupported = (
   capability: CapabilitySummary
 ): SupportedCapability['supported'] | null => {
   const level = capability.integration_support_level
-  if (level != null && level !== 'stable' && level !== 'beta') return null
+  if (
+    level !== 'stable' &&
+    level !== 'beta' &&
+    capability.name !== 'device_connectivity'
+  )
+    return null
   if (capability.supported === 'yes') return 'yes'
   if (capability.supported === 'conditionally') return 'conditionally'
   return null

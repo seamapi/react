@@ -260,6 +260,7 @@ test('unavailable or stale capabilities never become supported badges or filters
     'in-progress',
     'unavailable',
     'inquire',
+    null,
   ] as const) {
     capability.integration_support_level = level
     expect(getSupportedCapabilities(model)).toEqual([])
