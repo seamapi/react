@@ -236,7 +236,7 @@ The data is also available with the `useCompatiblePartners`, `useEcosystemDevice
 ### Hosted supported-device embed
 
 The native React page at
-`https://react.seam.co/examples/supported-devices/` is designed for documentation
+`https://react.seam.co/examples/supported-devices` is designed for documentation
 hosts such as Mintlify that cannot import an npm component. It composes
 `EcosystemProvider` and `SupportedDevices`, reads the public production Ecosystem
 catalog without an embed key, and never uses Storybook fixtures or Strapi.

@@ -161,7 +161,7 @@
       ]
     },
     {
-      "source": "/examples/supported-devices/:path*",
+      "source": "/examples/supported-devices(/.*)?",
       "headers": [
         {
           "key": "Content-Security-Policy",
