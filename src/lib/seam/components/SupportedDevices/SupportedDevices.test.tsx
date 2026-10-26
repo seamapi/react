@@ -1,5 +1,5 @@
 import { fireEvent, screen, within } from '@testing-library/react'
-import { expect, test } from 'vitest'
+import { expect, test, vi } from 'vitest'
 
 import {
   type EcosystemTestContext,
@@ -14,6 +14,39 @@ import {
 import { SupportedDevices } from './SupportedDevices.js'
 
 setupFakeEcosystem()
+
+test<EcosystemTestContext>('SupportedDevices follows every catalog page', async (ctx) => {
+  const fetch = globalThis.fetch
+  const fetchSpy = vi
+    .spyOn(globalThis, 'fetch')
+    .mockImplementation(async (input, init) => {
+      const response = await fetch(input, init)
+      const url = new URL(String(input))
+      if (
+        !url.pathname.endsWith('device_models/summaries/list') ||
+        url.searchParams.has('page_cursor')
+      )
+        return response
+      const data = await response.json()
+      data.device_models = data.device_models.slice(0, 2)
+      data.pagination = {
+        has_next_page: true,
+        next_page_cursor: data.device_models[1].slug,
+      }
+      return new Response(JSON.stringify(data), { status: 200 })
+    })
+  try {
+    renderWithEcosystem(<SupportedDevices manufacturer='schlage' />, ctx)
+    await screen.findByText('7 devices')
+    expect(
+      ctx.ecosystemRequestUrls.filter((url) =>
+        url.pathname.endsWith('device_models/summaries/list')
+      )
+    ).toHaveLength(2)
+  } finally {
+    fetchSpy.mockRestore()
+  }
+})
 
 const getSectionTitles = (): string[] =>
   screen
@@ -56,6 +89,30 @@ test<EcosystemTestContext>('SupportedDevices shows one manufacturer', async (ctx
   expect(screen.queryByRole('combobox', { name: 'Manufacturer' })).toBeNull()
   expect(screen.queryByRole('button', { name: /Show all/ })).toBeNull()
   screen.getByText('Engage Gateway')
+})
+
+test<EcosystemTestContext>('SupportedDevices scopes the query and badges to a provider', async (ctx) => {
+  renderWithEcosystem(
+    <SupportedDevices manufacturer='schlage' provider='schlage-engage' />,
+    ctx
+  )
+  await screen.findByText('Control Smart Lock')
+  expect(screen.queryByText('Encode Plus Smart WiFi Deadbolt')).toBeNull()
+  expect(screen.queryByText(/via Schlage Home/)).toBeNull()
+  screen.getByText('Engage Gateway')
+  const request = ctx.ecosystemRequestUrls.find((url) =>
+    url.pathname.endsWith('device_models/summaries/list')
+  )
+  expect(request?.searchParams.get('provider')).toBe('schlage-engage')
+})
+
+test<EcosystemTestContext>('conditional requirements are readable without hovering', async (ctx) => {
+  renderWithEcosystem(<SupportedDevices manufacturer='august' />, ctx)
+  const name = await screen.findByText('Smart Lock Pro')
+  const row = name.closest('li')
+  if (row == null) throw new Error('Missing row')
+  within(row).getByText('Requirements and compatibility')
+  within(row).getByText(/Requires an August keypad/)
 })
 
 test<EcosystemTestContext>('SupportedDevices shows device type and capability badges', async (ctx) => {

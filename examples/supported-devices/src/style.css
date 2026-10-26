@@ -1,0 +1,21 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+body {
+  display: flow-root;
+  font-family: system-ui, sans-serif;
+}
+
+.seam-device-embed-footer {
+  margin: 0;
+  padding: 12px 0;
+  font-size: 13px;
+}
+
+.seam-device-embed-footer a {
+  color: #6675d9;
+}

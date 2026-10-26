@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import {
-  type EcosystemApiError,
-  fetchEcosystem,
-} from 'lib/seam/ecosystem/client.js'
+import { EcosystemApiError, fetchEcosystem } from 'lib/seam/ecosystem/client.js'
 import { useEcosystemContext } from 'lib/seam/ecosystem/EcosystemProvider.js'
 import type {
   DeviceModelSummariesListResponse,
@@ -77,10 +74,21 @@ export function useEcosystemDeviceModelSummaries({
         deviceModels.push(...res.device_models)
         const { has_next_page: hasNextPage, next_page_cursor: nextPageCursor } =
           res.pagination
-        if (!hasNextPage || nextPageCursor == null) break
+        if (!hasNextPage) return deviceModels
+        if (nextPageCursor == null || nextPageCursor === pageCursor) {
+          throw new EcosystemApiError({
+            status: 502,
+            type: 'pagination_incomplete',
+            message: 'The device catalog returned an invalid page cursor.',
+          })
+        }
         pageCursor = nextPageCursor
       }
-      return deviceModels
+      throw new EcosystemApiError({
+        status: 502,
+        type: 'pagination_incomplete',
+        message: 'The device catalog exceeded the supported number of pages.',
+      })
     },
     retry: retryEcosystemQuery,
   })

@@ -6,6 +6,7 @@ export const name = 'seam-supported-devices'
 
 export const props: EcosystemElementProps<SupportedDevicesProps> = {
   manufacturer: 'string',
+  provider: 'string',
   deviceType: 'string',
   capability: 'string',
   hideSearch: 'boolean',

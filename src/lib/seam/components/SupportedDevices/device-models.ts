@@ -3,6 +3,7 @@ import type {
   CapabilitySummary,
   DeviceModelSummary,
   EmbedExclusions,
+  IntegrationSupportLevel,
   Manufacturer,
   ManufacturerRef,
 } from 'lib/seam/ecosystem/types.js'
@@ -18,6 +19,8 @@ export interface SupportedCapability {
   name: CapabilityName
   supported: 'yes' | 'conditionally'
   details: string | null
+  integrationSupportLevel: IntegrationSupportLevel | null
+  requirements: string[]
 }
 
 export interface ManufacturerGroup {
@@ -121,27 +124,87 @@ export const applyEmbedExclusions = (
   return result
 }
 
-/** The best support for each capability across the model's providers. */
+/** The API filters models by provider, but still returns every provider's capabilities. */
+export const scopeDeviceModelsToProvider = (
+  deviceModels: DeviceModelSummary[],
+  provider: string | null | undefined
+): DeviceModelSummary[] => {
+  if (provider == null) return deviceModels
+  return deviceModels
+    .filter((model) => model.providers.some((p) => p.slug === provider))
+    .map((model) => ({
+      ...model,
+      providers: model.providers.filter((p) => p.slug === provider),
+      capabilities_by_provider: model.capabilities_by_provider.filter(
+        (entry) => entry.provider.slug === provider
+      ),
+    }))
+}
+
+/** The best currently available support for each capability across the model's providers. */
 export const getSupportedCapabilities = (
   deviceModel: DeviceModelSummary
 ): SupportedCapability[] => {
+  if (deviceModel.capabilities_stale) return []
   const best = new Map<CapabilityName, SupportedCapability>()
   for (const { capabilities } of deviceModel.capabilities_by_provider) {
     for (const capability of capabilities) {
       const supported = toSupported(capability)
       if (supported == null) continue
       const current = best.get(capability.name)
-      if (current?.supported === 'yes') continue
+      if (current != null) {
+        const currentRank = supportRank(
+          current.integrationSupportLevel,
+          current.supported
+        )
+        const nextRank = supportRank(
+          capability.integration_support_level,
+          supported
+        )
+        if (currentRank >= nextRank) continue
+      }
       best.set(capability.name, {
         name: capability.name,
         supported,
         details: capability.report?.details ?? null,
+        integrationSupportLevel: capability.integration_support_level,
+        requirements: getCapabilityRequirements(capability, capabilities),
       })
     }
   }
   return [...best.values()].sort(
     (a, b) => capabilityRank(a.name) - capabilityRank(b.name)
   )
+}
+
+const supportRank = (
+  level: IntegrationSupportLevel | null,
+  supported: SupportedCapability['supported']
+): number =>
+  (level === 'stable' ? 4 : level === 'beta' ? 2 : 0) +
+  (supported === 'yes' ? 1 : 0)
+
+const getCapabilityRequirements = (
+  capability: CapabilitySummary,
+  capabilities: CapabilitySummary[],
+  visited = new Set<string>()
+): string[] => {
+  if (visited.has(capability.name)) return []
+  visited.add(capability.name)
+  const requirements = Object.values(capability.report?.requirements ?? {}).map(
+    (requirement) => requirement.message
+  )
+  for (const name of capability.report?.dependencies ?? []) {
+    const dependency = capabilities.find((c) => c.name === name)
+    if (dependency == null) continue
+    if (dependency.supported !== 'yes' && dependency.report?.details != null) {
+      requirements.push(dependency.report.details)
+    }
+    requirements.push(
+      ...getCapabilityRequirements(dependency, capabilities, visited)
+    )
+  }
+  return [...new Set(requirements)]
 }
 
 export const supportsCapability = (
@@ -305,6 +368,13 @@ export const getManufacturerLogoUrl = (
 const toSupported = (
   capability: CapabilitySummary
 ): SupportedCapability['supported'] | null => {
+  const level = capability.integration_support_level
+  if (
+    level !== 'stable' &&
+    level !== 'beta' &&
+    capability.name !== 'device_connectivity'
+  )
+    return null
   if (capability.supported === 'yes') return 'yes'
   if (capability.supported === 'conditionally') return 'conditionally'
   return null
