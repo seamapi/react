@@ -35,6 +35,17 @@ export function DeviceModelRow({
   const capabilities = getSupportedCapabilities(deviceModel).filter(
     (c) => c.name !== 'device_connectivity'
   )
+  const requirements = [
+    ...new Set(
+      capabilities.flatMap((capability) => [
+        ...capability.requirements,
+        ...(capability.supported === 'conditionally' &&
+        capability.details != null
+          ? [capability.details]
+          : []),
+      ])
+    ),
+  ]
 
   const meta = [
     modelIds.length > 0 ? modelIds.slice(0, 2).join(', ') : null,
@@ -84,11 +95,15 @@ export function DeviceModelRow({
             })}
             title={
               capability.supported === 'conditionally'
-                ? (capability.details ?? t.conditional)
+                ? [
+                    ...capability.requirements,
+                    capability.details ?? t.conditional,
+                  ].join('\n')
                 : undefined
             }
           >
             {getCapabilityLabel(capability.name)}
+            {capability.integrationSupportLevel === 'beta' && ' (beta)'}
             {capability.supported === 'conditionally' && (
               <span className='seam-ecosystem-visually-hidden'>
                 {` (${t.conditional})`}
@@ -97,6 +112,22 @@ export function DeviceModelRow({
           </li>
         ))}
       </ul>
+      {deviceModel.capabilities_stale ? (
+        <span className='seam-supported-devices-status'>{t.refreshing}</span>
+      ) : capabilities.length === 0 &&
+        deviceModel.device_type?.is_accessory !== true ? (
+        <span className='seam-supported-devices-status'>{t.unconfirmed}</span>
+      ) : null}
+      {requirements.length > 0 && (
+        <details className='seam-supported-devices-requirements'>
+          <summary>{t.requirements}</summary>
+          <ul>
+            {requirements.map((requirement) => (
+              <li key={requirement}>{requirement}</li>
+            ))}
+          </ul>
+        </details>
+      )}
     </li>
   )
 }
@@ -105,4 +136,7 @@ const t = {
   via: (providers: string) => `via ${providers}`,
   badges: 'Device type and capabilities',
   conditional: 'conditionally supported',
+  requirements: 'Requirements and compatibility',
+  refreshing: 'Compatibility is being refreshed.',
+  unconfirmed: 'Compatibility not confirmed for this integration.',
 }

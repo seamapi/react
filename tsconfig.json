@@ -33,7 +33,7 @@
       "lib/*": ["./src/lib/*"]
     }
   },
-  "files": ["src/index.ts", "src/ecosystem.d.ts"],
+  "files": ["src/index.ts", "src/elements.d.ts", "src/ecosystem.d.ts"],
   "include": [
     "src/**/*",
     "test/**/*",

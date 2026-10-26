@@ -196,6 +196,7 @@ Load the lightweight `ecosystem.js` bundle, which only contains these two elemen
 | Attribute      | Description                                                                           |
 | -------------- | ------------------------------------------------------------------------------------- |
 | `manufacturer` | DeviceDB manufacturer slug. Defaults to the manufacturer of a manufacturer embed key. |
+| `provider`     | Ecosystem provider slug, e.g., `oracode`. Scopes both models and capability badges.   |
 | `device-type`  | DeviceDB device type slug, e.g., `smartlock` or `thermostat`.                         |
 | `capability`   | Only devices supporting this capability, e.g., `can_program_online_access_codes`.     |
 | `hide-search`  | Hide the search field.                                                                |
@@ -231,6 +232,41 @@ The data is also available with the `useCompatiblePartners`, `useEcosystemDevice
 `useEcosystemManufacturers` and `useEmbedKeyResolution` hooks.
 
 [Seam Ecosystem]: https://ecosystem.seam.co/
+
+### Hosted supported-device embed
+
+The native React page at
+`https://react.seam.co/examples/supported-devices/` is designed for documentation
+hosts such as Mintlify that cannot import an npm component. It composes
+`EcosystemProvider` and `SupportedDevices`, reads the public production Ecosystem
+catalog without an embed key, and never uses Storybook fixtures or Strapi.
+
+Query parameters are `manufacturer`, `provider` (Ecosystem slugs, not Seam Connect
+provider keys), `device_type`, `capability`, and `theme` (`light`, `dark`, `auto`).
+For example, use `?manufacturer=dormakaba&provider=oracode` to avoid listing other
+Dormakaba systems. Provider scoping applies to both models and capability badges.
+Unavailable, planned, and stale capabilities are not advertised as supported;
+beta capabilities are labelled, and conditional requirements can be expanded.
+
+Embed the page in an iframe with `referrerpolicy="origin"`. Approved frame
+ancestors are Seam's website/docs, Mintlify previews, and localhost development.
+Other routes retain their existing frame restrictions. The host should always
+provide a device catalog link outside the iframe, so it remains available if
+scripts or the iframe fail to load.
+
+The iframe posts `{ type: 'seam-supported-devices:resize', height }` to the exact
+origin from `document.referrer` whenever its content height changes. The host
+must check both `event.origin === 'https://react.seam.co'` and
+`event.source === iframe.contentWindow`, then validate a finite positive height.
+From that same parent window and origin, the page accepts
+`{ type: 'seam-supported-devices:theme', theme: 'light' | 'dark' }` and
+`{ type: 'seam-supported-devices:measure' }`. This lets docs follow their theme
+toggle and request a fresh measurement after loading. Listeners and observers
+are removed on unmount.
+
+Deploy this React change before switching the docs snippet to the new URL.
+The page uses the component built in the same deployment and hashed assets;
+it does not load an unpinned npm package or CDN script at runtime.
 
 ### React Hooks
 

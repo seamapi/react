@@ -139,6 +139,22 @@
       border-top: 1px solid var(--seam-ecosystem-line-1);
     }
 
+    .seam-supported-devices-status,
+    .seam-supported-devices-requirements {
+      grid-column: 2 / -1;
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 13px;
+    }
+
+    .seam-supported-devices-requirements summary {
+      cursor: pointer;
+    }
+
+    .seam-supported-devices-requirements ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
     @container (width >= 720px) {
       .seam-supported-devices-row {
         grid-template-columns: 48px minmax(0, 1fr) minmax(0, 45%);

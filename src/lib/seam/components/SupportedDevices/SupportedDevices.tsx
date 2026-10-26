@@ -10,6 +10,7 @@ import {
   getManufacturerName,
   getManufacturerOptions,
   groupDeviceModelsByManufacturer,
+  scopeDeviceModelsToProvider,
 } from 'lib/seam/components/SupportedDevices/device-models.js'
 import { FilterSelect } from 'lib/seam/components/SupportedDevices/FilterSelect.js'
 import { ManufacturerSection } from 'lib/seam/components/SupportedDevices/ManufacturerSection.js'
@@ -35,6 +36,8 @@ export interface SupportedDevicesProps {
    * Defaults to the manufacturer of a manufacturer embed key.
    */
   manufacturer?: string | undefined
+  /** Ecosystem provider slug, e.g., `oracode`. Scopes models and capability badges. */
+  provider?: string | undefined
   /** DeviceDB device type slug, e.g., `smartlock` or `thermostat`. */
   deviceType?: string | undefined
   /** Only devices supporting this capability, e.g., `can_program_online_access_codes`. */
@@ -53,6 +56,7 @@ export interface SupportedDevicesProps {
  */
 export function SupportedDevices({
   manufacturer,
+  provider,
   deviceType,
   capability,
   hideSearch = false,
@@ -63,6 +67,7 @@ export function SupportedDevices({
 }: SupportedDevicesProps): JSX.Element {
   const { embedKey } = useEcosystemContext()
   const explicitManufacturer = normalizeSlug(manufacturer)
+  const fixedProvider = normalizeSlug(provider)
   const fixedDeviceType = normalizeSlug(deviceType)
   const fixedCapability = normalizeSlug(capability)
 
@@ -84,6 +89,7 @@ export function SupportedDevices({
     refetch: refetchDeviceModels,
   } = useEcosystemDeviceModelSummaries({
     manufacturer: scopeManufacturer ?? '',
+    provider: fixedProvider ?? '',
     deviceType: fixedDeviceType ?? '',
     capability:
       fixedCapability != null && fixedCapability in capabilityLabels
@@ -93,8 +99,12 @@ export function SupportedDevices({
   })
 
   const availableDeviceModels = useMemo(
-    () => applyEmbedExclusions(deviceModels ?? [], embedResolution?.exclusions),
-    [deviceModels, embedResolution]
+    () =>
+      scopeDeviceModelsToProvider(
+        applyEmbedExclusions(deviceModels ?? [], embedResolution?.exclusions),
+        fixedProvider
+      ),
+    [deviceModels, embedResolution, fixedProvider]
   )
 
   const manufacturerSlugs = useMemo(

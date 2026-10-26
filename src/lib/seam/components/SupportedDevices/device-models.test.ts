@@ -13,6 +13,7 @@ import {
   getCapabilityOptions,
   getSupportedCapabilities,
   groupDeviceModelsByManufacturer,
+  scopeDeviceModelsToProvider,
 } from './device-models.js'
 
 const ref = (slug: string): { slug: string; display_name: string } => ({
@@ -173,11 +174,15 @@ test('getSupportedCapabilities: takes the best support across providers', () => 
       name: 'can_remotely_unlock',
       supported: 'yes',
       details: 'can_remotely_unlock via cloud',
+      integrationSupportLevel: 'stable',
+      requirements: [],
     },
     {
       name: 'can_provision_mobile_keys',
       supported: 'yes',
       details: 'can_provision_mobile_keys via cloud',
+      integrationSupportLevel: 'stable',
+      requirements: [],
     },
   ])
   expect(getSupportedCapabilities(at(models, 1))).toEqual([
@@ -185,11 +190,89 @@ test('getSupportedCapabilities: takes the best support across providers', () => 
       name: 'can_remotely_unlock',
       supported: 'conditionally',
       details: 'can_remotely_unlock via hub',
+      integrationSupportLevel: 'stable',
+      requirements: [],
     },
   ])
   expect(getSupportedCapabilities(at(models, 2)).map((c) => c.name)).toEqual([
     'can_hvac_heat',
   ])
+})
+
+test('provider scope removes unrelated models, providers and capability badges', () => {
+  const result = scopeDeviceModelsToProvider(models, 'hub')
+  expect(result.map((m) => m.slug)).toEqual(['a', 'b'])
+  expect(result[0]?.providers.map((p) => p.slug)).toEqual(['hub'])
+  expect(
+    result[0]?.capabilities_by_provider.map((p) => p.provider.slug)
+  ).toEqual(['hub'])
+  expect(getSupportedCapabilities(at(result, 0)).map((c) => c.name)).toEqual([
+    'can_remotely_unlock',
+  ])
+  expect(scopeDeviceModelsToProvider(models, 'unknown')).toEqual([])
+  expect(scopeDeviceModelsToProvider(models, null)).toBe(models)
+})
+
+test('conditional requirements include dependency reports without following cycles', () => {
+  const model = deviceModel({
+    slug: 'lock',
+    capabilities: {
+      cloud: {
+        can_program_online_access_codes: 'conditionally',
+        device_connectivity: 'conditionally',
+      },
+    },
+  })
+  const caps = model.capabilities_by_provider[0]?.capabilities
+  if (caps == null) throw new Error('Missing capabilities')
+  const codes = caps.find((c) => c.name === 'can_program_online_access_codes')
+  const connectivity = caps.find((c) => c.name === 'device_connectivity')
+  if (codes == null || connectivity == null)
+    throw new Error('Missing capability')
+  codes.report = {
+    details: 'Codes need a keypad.',
+    requirements: { keypad: { message: 'An external keypad is required.' } },
+    dependencies: ['device_connectivity'],
+  }
+  connectivity.report = {
+    details: 'A Wi-Fi bridge is required.',
+    dependencies: ['can_program_online_access_codes'],
+  }
+  expect(
+    getSupportedCapabilities(model).find((c) => c.name === codes.name)
+      ?.requirements
+  ).toEqual([
+    'An external keypad is required.',
+    'A Wi-Fi bridge is required.',
+    'Codes need a keypad.',
+  ])
+})
+
+test('unavailable or stale capabilities never become supported badges or filters', () => {
+  const model = deviceModel({
+    slug: 'lock',
+    capabilities: { cloud: { can_remotely_unlock: 'yes' } },
+  })
+  const capability = model.capabilities_by_provider[0]?.capabilities[0]
+  if (capability == null) throw new Error('Missing capability')
+  for (const level of [
+    'planned',
+    'in-progress',
+    'unavailable',
+    'inquire',
+  ] as const) {
+    capability.integration_support_level = level
+    expect(getSupportedCapabilities(model)).toEqual([])
+    expect(
+      filterDeviceModels([model], { capability: 'can_remotely_unlock' })
+    ).toEqual([])
+  }
+  capability.integration_support_level = 'beta'
+  expect(getSupportedCapabilities(model)[0]?.integrationSupportLevel).toBe(
+    'beta'
+  )
+  model.capabilities_stale = true
+  expect(getSupportedCapabilities(model)).toEqual([])
 })
 
 test('filterDeviceModels: filters by manufacturer, device type, capability and search', () => {

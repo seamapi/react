@@ -68,6 +68,10 @@ export const SingleManufacturer: Story = {
   args: { manufacturer: 'schlage' },
 }
 
+export const SingleProvider: Story = {
+  args: { manufacturer: 'schlage', provider: 'schlage-engage' },
+}
+
 export const ManufacturerEmbedKey: Story = {
   args: { embedKey: storybookEmbedKeys.manufacturer },
 }

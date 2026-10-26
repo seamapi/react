@@ -45,10 +45,6 @@
           "value": "nosniff"
         },
         {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
           "key": "X-XSS-Protection",
           "value": "1; mode=block"
         },
@@ -149,6 +145,28 @@
     {
       "source": "/iframe.html",
       "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/((?!examples/supported-devices(?:/|$)).*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/examples/supported-devices/:path*",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; connect-src 'self' https://ecosystem.seam.co; img-src 'self' data: https://seam-ecosystem-media.fly.storage.tigris.dev https://strapi-media-bucket.fly.storage.tigris.dev; style-src 'self'; frame-ancestors 'self' https://www.seam.co https://seam.co https://docs.seam.co https://*.mintlify.app http://localhost:* http://127.0.0.1:*"
+        },
         {
           "key": "X-Robots-Tag",
           "value": "noindex, follow"

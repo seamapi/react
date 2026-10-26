@@ -21,6 +21,7 @@ export interface EcosystemTestContext {
   ecosystemEndpoint: string
   /** The method and path of every request to the fake, e.g., `GET v1/compatibility`. */
   ecosystemRequests: string[]
+  ecosystemRequestUrls: URL[]
 }
 
 const fakeEcosystemOrigin = 'http://fake-ecosystem.test'
@@ -35,6 +36,7 @@ export const setupFakeEcosystem = (): void => {
     const requests: string[] = []
     ctx.ecosystemEndpoint = `${fakeEcosystemOrigin}/v1/`
     ctx.ecosystemRequests = requests
+    ctx.ecosystemRequestUrls = []
 
     const { fetch } = globalThis
     // UPSTREAM: Under happy-dom, the global fetch is Node's,
@@ -46,6 +48,7 @@ export const setupFakeEcosystem = (): void => {
       const method = init.method ?? 'GET'
       const path = url.pathname.replace(/^\/+/, '')
       requests.push(`${method} ${path}`)
+      ctx.ecosystemRequestUrls.push(url)
 
       const headers: Record<string, string> = {}
       new Headers(init.headers).forEach((value, key) => {
@@ -83,6 +86,7 @@ export const renderWithEcosystem = (
   {
     ecosystemEndpoint,
     ecosystemRequests: _ecosystemRequests,
+    ecosystemRequestUrls: _ecosystemRequestUrls,
     embedKey,
     ...options
   }: Parameters<Render>[1] & EcosystemTestContext & { embedKey?: string }
