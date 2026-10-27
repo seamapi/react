@@ -55,7 +55,11 @@ export function App(): JSX.Element {
       : `https://www.seam.co/manufacturers/${encodeURIComponent(config.manufacturer)}`
 
   return (
-    <EcosystemProvider disableCssInjection disableFontInjection>
+    <EcosystemProvider
+      ecosystemEndpoint='/ecosystem/v1/'
+      disableCssInjection
+      disableFontInjection
+    >
       <SupportedDevices {...config} theme={theme} />
       <p className='seam-device-embed-footer'>
         <a href={catalogUrl} target='_blank' rel='noopener noreferrer'>

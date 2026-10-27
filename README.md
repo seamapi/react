@@ -241,6 +241,13 @@ hosts such as Mintlify that cannot import an npm component. It composes
 `EcosystemProvider` and `SupportedDevices`, reads the public production Ecosystem
 catalog without an embed key, and never uses Storybook fixtures or Strapi.
 
+The hosted page reads `/ecosystem/v1/device_models/summaries/list` and
+`/ecosystem/v1/manufacturers/list` on its own origin. Vercel forwards these two
+public routes to the production Ecosystem API, preserving query parameters.
+This avoids browser local-network restrictions when a visitor's VPN or split DNS
+resolves `ecosystem.seam.co` to a private address. Vite proxies the same paths
+during local development. These routes do not expose admin or write endpoints.
+
 Query parameters are `manufacturer`, `provider` (Ecosystem slugs, not Seam Connect
 provider keys), `device_type`, `capability`, and `theme` (`light`, `dark`, `auto`).
 For example, use `?manufacturer=dormakaba&provider=oracode` to avoid listing other
