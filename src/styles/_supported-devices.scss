@@ -2,6 +2,36 @@
   .seam-supported-devices {
     container-type: inline-size;
 
+    .seam-ecosystem-controls {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .seam-ecosystem-search {
+      flex: 1;
+      min-width: min(200px, 100%);
+    }
+
+    .seam-supported-devices-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin-bottom: 12px;
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 12px;
+
+      span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
     .seam-supported-devices-sections {
       display: flex;
       flex-direction: column;
@@ -32,8 +62,10 @@
       height: 40px;
       overflow: hidden;
       border-radius: 8px;
-      background: var(--seam-ecosystem-surface-2);
-      color: var(--seam-ecosystem-fg-2);
+
+      // Catalog monochrome logos are often black, not dark-mode variants.
+      background: #fff;
+      color: #434a54;
       font-weight: 600;
 
       img {
@@ -70,9 +102,9 @@
     .seam-supported-devices-row {
       display: grid;
       grid-template-columns: 48px minmax(0, 1fr);
-      align-items: center;
+      align-items: start;
       gap: 8px 12px;
-      padding: 12px 16px;
+      padding: 20px 16px;
 
       &:not(:last-child) {
         border-bottom: 1px solid var(--seam-ecosystem-line-1);
@@ -81,6 +113,7 @@
 
     .seam-supported-devices-image {
       display: flex;
+      grid-row: 1 / span 2;
       align-items: center;
       justify-content: center;
       width: 48px;
@@ -115,21 +148,35 @@
     }
 
     .seam-supported-devices-meta {
-      overflow: hidden;
       color: var(--seam-ecosystem-fg-2);
       font-size: 13px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
 
-    .seam-supported-devices-badges {
+    .seam-supported-devices-features {
       display: flex;
       flex-wrap: wrap;
       grid-column: 2;
-      gap: 4px;
+      gap: 6px 16px;
       margin: 0;
       padding: 0;
       list-style: none;
+      font-size: 13px;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      svg {
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .seam-supported-devices-conditional-icon path {
+        fill: #d48c23;
+      }
     }
 
     .seam-supported-devices-section-footer {
@@ -140,29 +187,67 @@
     }
 
     .seam-supported-devices-status,
-    .seam-supported-devices-requirements {
+    .seam-supported-devices-requirements,
+    .seam-supported-devices-details {
       grid-column: 2 / -1;
       color: var(--seam-ecosystem-fg-2);
       font-size: 13px;
     }
 
-    .seam-supported-devices-requirements summary {
-      cursor: pointer;
-    }
+    .seam-supported-devices-requirements {
+      display: grid;
+      gap: 12px;
+      margin: 4px 0;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--seam-ecosystem-surface-2);
+      list-style: none;
 
-    .seam-supported-devices-requirements ul {
-      margin: 8px 0 0;
-      padding-left: 20px;
-    }
-
-    @container (width >= 720px) {
-      .seam-supported-devices-row {
-        grid-template-columns: 48px minmax(0, 1fr) minmax(0, 45%);
+      li {
+        display: flex;
+        align-items: start;
+        gap: 10px;
       }
 
-      .seam-supported-devices-badges {
-        grid-column: 3;
-        justify-content: flex-end;
+      .seam-supported-devices-requirement-icon {
+        flex-shrink: 0;
+        margin-top: 2px;
+        color: var(--seam-ecosystem-fg-1);
+      }
+    }
+
+    .seam-supported-devices-requirement-features {
+      display: block;
+      margin-top: 2px;
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 12px;
+    }
+
+    .seam-supported-devices-details {
+      overflow-wrap: anywhere;
+
+      summary {
+        width: fit-content;
+        cursor: pointer;
+
+        &:focus-visible {
+          outline: 2px solid var(--seam-ecosystem-accent);
+          outline-offset: 4px;
+        }
+      }
+
+      dl {
+        display: grid;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      dt {
+        font-weight: 600;
+      }
+
+      dd {
+        margin: 2px 0 0;
       }
     }
   }

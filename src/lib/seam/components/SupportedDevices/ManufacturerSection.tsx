@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { useState } from 'react'
 
 import {
@@ -40,8 +39,6 @@ export function ManufacturerSection({
         : t.other
 
   const logoUrl = getManufacturerLogoUrl(manufacturer)
-  const darkLogoUrl = getManufacturerLogoUrl(manufacturer, { mono: true })
-  const hasDarkLogo = darkLogoUrl != null && darkLogoUrl !== logoUrl
 
   return (
     <section className='seam-supported-devices-section'>
@@ -50,28 +47,7 @@ export function ManufacturerSection({
           {logoUrl == null ? (
             <span aria-hidden>{name.slice(0, 1)}</span>
           ) : (
-            <>
-              <img
-                loading='lazy'
-                src={logoUrl}
-                alt=''
-                width={40}
-                height={40}
-                className={classNames({
-                  'seam-ecosystem-light-only': hasDarkLogo,
-                })}
-              />
-              {hasDarkLogo && (
-                <img
-                  loading='lazy'
-                  src={darkLogoUrl}
-                  alt=''
-                  width={40}
-                  height={40}
-                  className='seam-ecosystem-dark-only'
-                />
-              )}
-            </>
+            <img loading='lazy' src={logoUrl} alt='' width={40} height={40} />
           )}
         </div>
         <h3 className='seam-supported-devices-section-title'>{name}</h3>

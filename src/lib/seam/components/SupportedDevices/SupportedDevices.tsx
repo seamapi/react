@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import { useDeferredValue, useMemo, useState } from 'react'
 
+import { CheckIcon } from 'lib/icons/Check.js'
+import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
 import {
   applyEmbedExclusions,
   capabilityLabels,
@@ -330,6 +332,21 @@ export function SupportedDevices({
           </div>
         </div>
       )}
+      {!isLoading && !isError && availableDeviceModels.length > 0 && (
+        <div
+          className='seam-supported-devices-legend'
+          aria-label={t.featureStatus}
+        >
+          <span>
+            <CheckIcon aria-hidden />
+            {t.supported}
+          </span>
+          <span>
+            <TriangleWarningOutlineIcon aria-hidden />
+            {t.requiresSetup}
+          </span>
+        </div>
+      )}
       {content}
     </div>
   )
@@ -382,8 +399,11 @@ const t = {
   allManufacturers: 'All manufacturers',
   deviceType: 'Device type',
   allDeviceTypes: 'All device types',
-  capability: 'Capability',
-  allCapabilities: 'All capabilities',
+  capability: 'Feature',
+  allCapabilities: 'All features',
+  featureStatus: 'Feature status',
+  supported: 'Supported',
+  requiresSetup: 'Requires setup · see requirements below',
   error: 'An error occurred while loading supported devices.',
   retry: 'Retry',
   noDevices: 'No supported devices found.',
