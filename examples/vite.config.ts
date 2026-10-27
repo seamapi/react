@@ -51,6 +51,11 @@ export default defineConfig(async ({ command, mode }) => {
     server: {
       port: 8080,
       proxy: {
+        '/ecosystem/v1': {
+          target: 'https://ecosystem.seam.co',
+          rewrite: (path: string) => path.replace(/^\/ecosystem/, ''),
+          changeOrigin: true,
+        },
         '/api': {
           target,
           rewrite: (path: string) => path.replace(/^\/api/, ''),
