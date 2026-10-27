@@ -86,7 +86,7 @@ export function App() {
   <seam-device-table publishable-key="your_publishable_key"></seam-device-table>
   <script
     type="module"
-    src="https://react.seam.co/v/5.2.0/dist/elements.js"
+    src="https://react.seam.co/v/5.2.1/dist/elements.js"
   ></script>
 </body>
 ```
@@ -173,7 +173,7 @@ Load the lightweight `ecosystem.js` bundle, which only contains these two elemen
   ></seam-supported-devices>
   <script
     type="module"
-    src="https://react.seam.co/v/5.2.0/dist/ecosystem.js"
+    src="https://react.seam.co/v/5.2.1/dist/ecosystem.js"
   ></script>
 </body>
 ```
@@ -349,7 +349,7 @@ or place the following in the `<head>` tag:
 ```html
 <link
   rel="stylesheet"
-  href="https://react.seam.co/v/5.2.0/dist/index.min.css"
+  href="https://react.seam.co/v/5.2.1/dist/index.min.css"
 />
 ```
 
