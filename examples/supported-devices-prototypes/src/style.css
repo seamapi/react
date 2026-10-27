@@ -1,0 +1,605 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.seam-proto-page {
+  min-height: 100vh;
+  background: var(--seam-ecosystem-surface-2);
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
+.seam-proto-page button,
+.seam-proto-page input,
+.seam-proto-page select {
+  font: inherit;
+}
+.seam-proto-page button,
+.seam-proto-page select,
+.seam-proto-page summary {
+  cursor: pointer;
+}
+.seam-proto-page :focus-visible {
+  outline: 2px solid var(--seam-ecosystem-accent);
+  outline-offset: 3px;
+}
+.seam-proto-page h1,
+.seam-proto-page h2,
+.seam-proto-page h3,
+.seam-proto-page h4,
+.seam-proto-page p {
+  margin: 0;
+}
+.seam-proto-page h1 {
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+  font-weight: 600;
+}
+.seam-proto-page h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  font-weight: 600;
+}
+.seam-proto-page h3 {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.seam-proto-page h4 {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--seam-ecosystem-fg-2);
+  margin-bottom: 10px;
+}
+.seam-proto-page strong {
+  font-weight: 550;
+}
+.seam-proto-muted {
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 13px;
+}
+.seam-proto-page a {
+  color: var(--seam-ecosystem-accent);
+  text-underline-offset: 3px;
+}
+.seam-proto-page a:hover {
+  text-decoration: underline;
+}
+.seam-proto-review-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  gap: 16px;
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+  background: var(--seam-ecosystem-surface-1);
+  font-size: 14px;
+}
+.seam-proto-review-controls {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+}
+.seam-proto-review-controls label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--seam-ecosystem-fg-2);
+}
+.seam-proto-page input,
+.seam-proto-page select,
+.seam-proto-review-controls button,
+.seam-proto-state button {
+  color: var(--seam-ecosystem-fg-1);
+  background: var(--seam-ecosystem-surface-1);
+  border: 1px solid var(--seam-ecosystem-line-2);
+  border-radius: 7px;
+  min-height: 40px;
+  padding: 8px 12px;
+}
+.seam-proto-review-controls button[aria-pressed='true'] {
+  background: var(--seam-ecosystem-surface-2);
+}
+.seam-proto-workspace {
+  max-width: 890px;
+  margin: 0 auto;
+  padding: 42px 24px 112px;
+}
+.seam-proto-intro {
+  margin-bottom: 30px;
+}
+.seam-proto-eyebrow {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--seam-ecosystem-fg-2);
+  margin-bottom: 10px;
+}
+.seam-proto-intro p {
+  max-width: 690px;
+  font-size: 14px;
+  color: var(--seam-ecosystem-fg-2);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.seam-proto-intro .seam-proto-shortcuts {
+  font-size: 12px;
+  margin-top: 12px;
+}
+.seam-proto-stage {
+  background: var(--seam-ecosystem-surface-1);
+  border: 1px solid var(--seam-ecosystem-line-1);
+  border-radius: 12px;
+  padding: 28px;
+}
+.seam-proto-context {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--seam-ecosystem-fg-2);
+  margin-bottom: 22px;
+}
+.seam-proto-stage .seam-proto-stage-description {
+  font-size: 14px;
+  color: var(--seam-ecosystem-fg-2);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.seam-proto-filters {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  margin-top: 24px;
+}
+.seam-proto-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--seam-ecosystem-fg-2);
+  min-width: 0;
+}
+.seam-proto-filters input,
+.seam-proto-filters select {
+  width: 100%;
+  font-size: 14px;
+}
+.seam-proto-search {
+  flex: 1;
+}
+.seam-proto-catalog-heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 0 12px;
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+  font-size: 14px;
+}
+.seam-proto-catalog-heading span {
+  font-size: 13px;
+  color: var(--seam-ecosystem-fg-2);
+}
+.seam-proto-device {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+}
+.seam-proto-device-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.seam-proto-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: var(--seam-ecosystem-surface-2);
+}
+.seam-proto-image img {
+  object-fit: contain;
+}
+.seam-proto-device-body {
+  margin: 14px 0 0 60px;
+  font-size: 14px;
+}
+.seam-proto-inline-list {
+  padding: 0 0 0 17px;
+  margin: 0;
+}
+.seam-proto-inline-list > li {
+  padding-left: 2px;
+  margin-bottom: 16px;
+}
+.seam-proto-requirement-list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.seam-proto-requirement-list li {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  margin: 6px 0;
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.seam-proto-page .seam-supported-devices-requirement-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: var(--seam-ecosystem-fg-2);
+}
+.seam-proto-model-details {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--seam-ecosystem-fg-2);
+  font-weight: 400;
+}
+.seam-proto-model-details summary {
+  width: fit-content;
+  min-height: 36px;
+  align-content: center;
+}
+.seam-proto-model-details[open] {
+  padding-bottom: 8px;
+}
+.seam-proto-model-details dl {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+.seam-proto-model-details dt {
+  color: var(--seam-ecosystem-fg-1);
+  font-weight: 500;
+}
+.seam-proto-model-details dd {
+  margin: 0 0 8px;
+  overflow-wrap: anywhere;
+}
+.seam-proto-note-capabilities,
+.seam-proto-capability-bullets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 30px;
+  margin: 0;
+  padding-left: 17px;
+}
+.seam-proto-note-capabilities li {
+  min-height: 32px;
+}
+.seam-proto-page .seam-proto-note-ref {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 30px;
+  margin-left: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  vertical-align: super;
+  border-radius: 5px;
+  background: var(--seam-ecosystem-surface-2);
+}
+.seam-proto-notes {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--seam-ecosystem-surface-2);
+}
+.seam-proto-notes ol {
+  margin: 0;
+  padding-left: 19px;
+  font-size: 13px;
+  color: var(--seam-ecosystem-fg-2);
+}
+.seam-proto-notes li {
+  padding: 3px 4px;
+  scroll-margin-top: 24px;
+  border-radius: 4px;
+}
+.seam-proto-notes li:target {
+  background: var(--seam-ecosystem-accent-soft);
+  color: var(--seam-ecosystem-fg-1);
+  outline: 2px solid var(--seam-ecosystem-accent);
+}
+.seam-proto-groups {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--seam-ecosystem-surface-2);
+}
+.seam-proto-requirement-group {
+  display: flex;
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid var(--seam-ecosystem-line-1);
+  font-size: 14px;
+}
+.seam-proto-requirement-group p {
+  font-size: 13px;
+  color: var(--seam-ecosystem-fg-2);
+  margin: 4px 0;
+}
+.seam-proto-requirement-group .seam-proto-muted {
+  display: block;
+  font-size: 12px;
+}
+.seam-proto-expand-list {
+  border-top: 1px solid var(--seam-ecosystem-line-1);
+}
+.seam-proto-capability-details {
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+}
+.seam-proto-capability-details summary {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  min-height: 48px;
+  list-style: none;
+}
+.seam-proto-capability-details summary::-webkit-details-marker {
+  display: none;
+}
+.seam-proto-capability-details summary::after {
+  content: '+';
+  font-size: 20px;
+  color: var(--seam-ecosystem-fg-2);
+  padding: 0 6px;
+}
+.seam-proto-capability-details[open] summary::after {
+  content: '−';
+}
+.seam-proto-capability-details summary .seam-proto-muted {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.seam-proto-capability-details > .seam-proto-requirement-list {
+  margin: 0 0 14px;
+  padding: 12px;
+  background: var(--seam-ecosystem-surface-2);
+  border-radius: 7px;
+}
+.seam-proto-unconditional {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.seam-proto-table-scroll {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+.seam-proto-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 700px;
+  text-align: left;
+  font-size: 13px;
+}
+.seam-proto-table caption {
+  text-align: left;
+  font-size: 12px;
+  color: var(--seam-ecosystem-fg-2);
+  padding: 8px 0 16px;
+}
+.seam-proto-table th,
+.seam-proto-table td {
+  padding: 16px 12px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+}
+.seam-proto-table thead th {
+  background: var(--seam-ecosystem-surface-2);
+  font-weight: 500;
+}
+.seam-proto-table th:first-child {
+  width: 28%;
+  padding-left: 0;
+}
+.seam-proto-table .seam-proto-device-heading {
+  align-items: start;
+  gap: 8px;
+}
+.seam-proto-table h3 {
+  font-size: 14px;
+}
+.seam-proto-table .seam-proto-image {
+  height: 36px;
+  width: 36px;
+}
+.seam-proto-table .seam-proto-image img {
+  width: 32px;
+  height: 32px;
+}
+.seam-proto-table .seam-proto-requirement-list li {
+  font-size: 12px;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.seam-proto-table .seam-supported-devices-requirement-icon {
+  width: 14px;
+  height: 16px;
+}
+.seam-proto-supported {
+  font-size: 12px;
+  font-weight: 600;
+}
+.seam-proto-page .seam-proto-catalog-link {
+  display: inline-block;
+  font-size: 13px;
+  margin-top: 20px;
+}
+.seam-proto-review-note {
+  font-size: 12px;
+  color: var(--seam-ecosystem-fg-2);
+  text-align: center;
+  margin-top: 18px !important;
+}
+.seam-proto-state {
+  padding: 36px 0;
+  font-size: 14px;
+  color: var(--seam-ecosystem-fg-2);
+}
+.seam-proto-state button {
+  margin-top: 12px;
+}
+@media (max-width: 600px) {
+  .seam-proto-review-bar {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+  }
+  .seam-proto-review-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .seam-proto-workspace {
+    padding: 28px 12px 100px;
+  }
+  .seam-proto-intro {
+    padding: 0 4px;
+  }
+  .seam-proto-page h1 {
+    font-size: 23px;
+  }
+  .seam-proto-stage {
+    padding: 20px 16px;
+  }
+  .seam-proto-filters {
+    flex-wrap: wrap;
+  }
+  .seam-proto-filters label {
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .seam-proto-filters input,
+  .seam-proto-filters select,
+  .seam-proto-review-controls select {
+    font-size: 16px;
+  }
+  .seam-proto-device-body {
+    margin-left: 0;
+    margin-top: 18px;
+  }
+  .seam-proto-note-capabilities {
+    flex-direction: column;
+  }
+  .seam-proto-capability-bullets {
+    gap: 6px 26px;
+  }
+  .seam-proto-model-details summary {
+    min-height: 44px;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .seam-proto-capability-details summary:hover,
+  .seam-proto-model-details summary:hover {
+    color: var(--seam-ecosystem-accent);
+  }
+}
+
+/* Emil's prototype picker: intentionally separate from the product styling. */
+.proto-picker {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.82);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 8px 24px rgba(0, 0, 0, 0.24),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.proto-picker-highlight {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  will-change: transform;
+}
+.proto-picker[data-ready] .proto-picker-highlight {
+  transition:
+    transform 250ms cubic-bezier(0.23, 1, 0.32, 1),
+    width 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .proto-picker[data-ready] .proto-picker-highlight {
+    transition: none;
+  }
+}
+.proto-picker-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font: inherit;
+  cursor: pointer;
+  transition: color 150ms ease-out;
+}
+.proto-picker-item:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+.proto-picker-item:active {
+  transform: scale(0.97);
+}
+.proto-picker-item:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+.proto-picker-item[data-active] {
+  color: #fff;
+}
+.proto-picker-divider {
+  width: 1px;
+  height: 16px;
+  margin: 0 4px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.proto-picker-replay {
+  padding: 0 10px;
+  font-size: 14px;
+}
+.proto-picker[data-position='top'] {
+  bottom: auto;
+  top: 24px;
+}

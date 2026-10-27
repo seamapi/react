@@ -1,0 +1,13 @@
+@use '../../../src/styles/ecosystem';
+
+.seam-proto-page {
+  @include ecosystem.light-tokens;
+
+  color: var(--seam-ecosystem-fg-1);
+  font-size: 16px;
+  line-height: 1.4;
+
+  &.seam-ecosystem-theme-dark {
+    @include ecosystem.dark-tokens;
+  }
+}
