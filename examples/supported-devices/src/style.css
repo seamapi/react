@@ -5,6 +5,21 @@ body {
   background: transparent;
 }
 
+html {
+  color-scheme: light dark;
+  --seam-device-embed-link: #505bb9;
+}
+
+html[data-theme='dark'] {
+  --seam-device-embed-link: #b0aaff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme='auto'] {
+    --seam-device-embed-link: #b0aaff;
+  }
+}
+
 body {
   display: flow-root;
   font-family: system-ui, sans-serif;
@@ -17,5 +32,5 @@ body {
 }
 
 .seam-device-embed-footer a {
-  color: #6675d9;
+  color: var(--seam-device-embed-link);
 }

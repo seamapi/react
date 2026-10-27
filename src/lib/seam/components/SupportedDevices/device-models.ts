@@ -184,6 +184,30 @@ const supportRank = (
   (level === 'stable' ? 4 : level === 'beta' ? 2 : 0) +
   (supported === 'yes' ? 1 : 0)
 
+const genericSupportDetails = new Set([
+  'This feature is supported by this system and can be used through Seam, but please check additional requirements are met.',
+  'Device requires a compatible server bridge',
+])
+
+const isGenericSupportDetail = (details: string): boolean =>
+  genericSupportDetails.has(details.trim())
+
+/** Keep specific constraints; replace boilerplate with an actionable setup note. */
+export const getCapabilityRequirementMessages = (
+  capability: SupportedCapability
+): string[] => {
+  const messages = new Set(capability.requirements)
+  if (capability.supported === 'conditionally') {
+    if (
+      capability.details != null &&
+      !isGenericSupportDetail(capability.details)
+    )
+      messages.add(capability.details)
+    if (messages.size === 0) messages.add('Additional setup is required.')
+  }
+  return [...messages]
+}
+
 const getCapabilityRequirements = (
   capability: CapabilitySummary,
   capabilities: CapabilitySummary[],
@@ -195,14 +219,19 @@ const getCapabilityRequirements = (
     (requirement) => requirement.message
   )
   for (const name of capability.report?.dependencies ?? []) {
+    if (visited.has(name)) continue
     const dependency = capabilities.find((c) => c.name === name)
     if (dependency == null) continue
-    if (dependency.supported !== 'yes' && dependency.report?.details != null) {
+    const nested = getCapabilityRequirements(dependency, capabilities, visited)
+    if (
+      dependency.supported !== 'yes' &&
+      dependency.report?.details != null &&
+      (nested.length === 0 ||
+        !isGenericSupportDetail(dependency.report.details))
+    ) {
       requirements.push(dependency.report.details)
     }
-    requirements.push(
-      ...getCapabilityRequirements(dependency, capabilities, visited)
-    )
+    requirements.push(...nested)
   }
   return [...new Set(requirements)]
 }

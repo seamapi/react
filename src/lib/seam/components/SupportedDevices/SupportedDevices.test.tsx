@@ -111,24 +111,28 @@ test<EcosystemTestContext>('conditional requirements are readable without hoveri
   const name = await screen.findByText('Smart Lock Pro')
   const row = name.closest('li')
   if (row == null) throw new Error('Missing row')
-  within(row).getByText('Requirements and compatibility')
+  within(row).getByRole('list', { name: 'Requirements' })
   within(row).getByText(/Requires an August keypad/)
 })
 
-test<EcosystemTestContext>('SupportedDevices shows device type and capability badges', async (ctx) => {
+test<EcosystemTestContext>('SupportedDevices shows features and keeps identifiers in model details', async (ctx) => {
   renderWithEcosystem(<SupportedDevices manufacturer='schlage' />, ctx)
   const name = await screen.findByText('Encode Plus Smart WiFi Deadbolt')
   const row = name.closest('li')
   if (row == null) throw new Error('Missing row')
   const badges = within(row).getByRole('list', {
-    name: 'Device type and capabilities',
+    name: 'Supported features',
   })
   expect(
     within(badges)
       .getAllByRole('listitem')
       .map((badge) => badge.textContent)
-  ).toEqual(['Smartlock', 'Remote unlock', 'Remote lock', 'Access codes'])
-  within(row).getByText('BE499WB · via Schlage Home')
+  ).toEqual(['Remote unlock', 'Remote lock', 'Access codes'])
+  const modelNumber = within(row).getByText('BE499WB')
+  const details = modelNumber.closest('details')
+  expect(details?.hasAttribute('open')).toBe(false)
+  expect(within(row).getByText('Schlage Home').closest('details')).toBe(details)
+  expect(within(row).queryByText(/via Schlage Home/)).toBeNull()
 })
 
 test<EcosystemTestContext>('SupportedDevices defaults to the manufacturer of a manufacturer key', async (ctx) => {

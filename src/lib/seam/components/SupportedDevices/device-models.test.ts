@@ -11,6 +11,7 @@ import {
   applyEmbedExclusions,
   filterDeviceModels,
   getCapabilityOptions,
+  getCapabilityRequirementMessages,
   getSupportedCapabilities,
   groupDeviceModelsByManufacturer,
   scopeDeviceModelsToProvider,
@@ -241,11 +242,61 @@ test('conditional requirements include dependency reports without following cycl
   expect(
     getSupportedCapabilities(model).find((c) => c.name === codes.name)
       ?.requirements
-  ).toEqual([
-    'An external keypad is required.',
-    'A Wi-Fi bridge is required.',
-    'Codes need a keypad.',
+  ).toEqual(['An external keypad is required.', 'A Wi-Fi bridge is required.'])
+})
+
+test('structured dependency requirements replace generic compatibility prose', () => {
+  const model = deviceModel({
+    slug: 'lock',
+    capabilities: {
+      cloud: {
+        can_remotely_unlock: 'conditionally',
+        device_connectivity: 'conditionally',
+      },
+    },
+  })
+  const caps = model.capabilities_by_provider[0]?.capabilities
+  const unlock = caps?.find((c) => c.name === 'can_remotely_unlock')
+  const connectivity = caps?.find((c) => c.name === 'device_connectivity')
+  if (unlock == null || connectivity == null)
+    throw new Error('Missing capabilities')
+  unlock.report = {
+    details: 'Check additional requirements.',
+    dependencies: ['device_connectivity'],
+  }
+  connectivity.report = {
+    details: 'Device requires a compatible server bridge',
+    requirements: { bridge: { message: 'A compatible bridge is required.' } },
+  }
+  expect(
+    getSupportedCapabilities(model).find((c) => c.name === unlock.name)
+      ?.requirements
+  ).toEqual(['A compatible bridge is required.'])
+})
+
+test('requirement messages preserve specific constraints and flag unknown setup', () => {
+  const capability = {
+    name: 'can_remotely_unlock' as const,
+    supported: 'conditionally' as const,
+    integrationSupportLevel: 'stable' as const,
+    details: 'Only available on firmware 2 or later.',
+    requirements: ['A compatible bridge is required.'],
+  }
+  expect(getCapabilityRequirementMessages(capability)).toEqual([
+    'A compatible bridge is required.',
+    'Only available on firmware 2 or later.',
   ])
+  const generic = {
+    ...capability,
+    details:
+      'This feature is supported by this system and can be used through Seam, but please check additional requirements are met.',
+  }
+  expect(getCapabilityRequirementMessages(generic)).toEqual([
+    'A compatible bridge is required.',
+  ])
+  expect(
+    getCapabilityRequirementMessages({ ...generic, requirements: [] })
+  ).toEqual(['Additional setup is required.'])
 })
 
 test('unavailable or stale capabilities never become supported badges or filters', () => {

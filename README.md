@@ -252,14 +252,22 @@ Query parameters are `manufacturer`, `provider` (Ecosystem slugs, not Seam Conne
 provider keys), `device_type`, `capability`, and `theme` (`light`, `dark`, `auto`).
 For example, use `?manufacturer=dormakaba&provider=oracode` to avoid listing other
 Dormakaba systems. Provider scoping applies to both models and capability badges.
-Unavailable, planned, and stale capabilities are not advertised as supported;
-beta capabilities are labelled, and conditional requirements can be expanded.
+Unavailable, planned, and stale capabilities are not advertised as supported.
+Feature icons distinguish support from features with requirements. Specific
+requirements are grouped with the features they affect, without repeating
+generic compatibility prose. Model numbers and integration providers are in
+expandable model details and remain searchable.
 
 Embed the page in an iframe with `referrerpolicy="origin"`. Approved frame
 ancestors are Seam's website/docs, Mintlify previews, and localhost development.
 Other routes retain their existing frame restrictions. The host should always
 provide a device catalog link outside the iframe, so it remains available if
 scripts or the iframe fail to load.
+
+The document canvas follows the host theme as well as the component. Manufacturer
+logos use a white tile in both themes: monochrome catalog assets may be black,
+so they are not assumed to be dark-mode variants. The catalog footer appears
+only on standalone visits; embedded docs provide their own fallback link.
 
 The iframe posts `{ type: 'seam-supported-devices:resize', height }` to the exact
 origin from `document.referrer` whenever its content height changes. The host

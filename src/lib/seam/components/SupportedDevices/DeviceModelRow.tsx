@@ -1,11 +1,13 @@
-import classNames from 'classnames'
-
+import { CheckIcon } from 'lib/icons/Check.js'
+import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
 import {
   getCapabilityLabel,
+  getCapabilityRequirementMessages,
   getDeviceModelImageUrl,
   getDeviceModelName,
   getSupportedCapabilities,
 } from 'lib/seam/components/SupportedDevices/device-models.js'
+import { RequirementIcon } from 'lib/seam/components/SupportedDevices/RequirementIcon.js'
 import type {
   DeviceModelSummary,
   Manufacturer,
@@ -29,28 +31,19 @@ export function DeviceModelRow({
         .filter((id): id is string => id != null && id.length > 0)
     ),
   ]
-  const providers = deviceModel.providers
-    .map((p) => p.display_name ?? p.slug)
-    .join(', ')
+  const providers = deviceModel.providers.map((p) => p.display_name ?? p.slug)
   const capabilities = getSupportedCapabilities(deviceModel).filter(
     (c) => c.name !== 'device_connectivity'
   )
-  const requirements = [
-    ...new Set(
-      capabilities.flatMap((capability) => [
-        ...capability.requirements,
-        ...(capability.supported === 'conditionally' &&
-        capability.details != null
-          ? [capability.details]
-          : []),
-      ])
-    ),
-  ]
-
-  const meta = [
-    modelIds.length > 0 ? modelIds.slice(0, 2).join(', ') : null,
-    providers.length > 0 ? t.via(providers) : null,
-  ].filter((value): value is string => value != null)
+  const requirements = new Map<string, Set<string>>()
+  for (const capability of capabilities) {
+    const messages = getCapabilityRequirementMessages(capability)
+    for (const message of messages) {
+      const features = requirements.get(message) ?? new Set<string>()
+      features.add(getCapabilityLabel(capability.name))
+      requirements.set(message, features)
+    }
+  }
 
   return (
     <li className='seam-supported-devices-row'>
@@ -74,58 +67,78 @@ export function DeviceModelRow({
             {name}
           </a>
         )}
-        {meta.length > 0 && (
+        {deviceModel.device_type != null && (
           <span className='seam-supported-devices-meta'>
-            {meta.join(' · ')}
+            {deviceModel.device_type.display_name}
           </span>
         )}
       </div>
-      <ul className='seam-supported-devices-badges' aria-label={t.badges}>
-        {deviceModel.device_type != null && (
-          <li className='seam-ecosystem-badge seam-ecosystem-badge-type'>
-            {deviceModel.device_type.display_name}
-          </li>
-        )}
-        {capabilities.map((capability) => (
-          <li
-            key={capability.name}
-            className={classNames('seam-ecosystem-badge', {
-              'seam-ecosystem-badge-conditional':
-                capability.supported === 'conditionally',
-            })}
-            title={
-              capability.supported === 'conditionally'
-                ? [
-                    ...capability.requirements,
-                    capability.details ?? t.conditional,
-                  ].join('\n')
-                : undefined
-            }
-          >
-            {getCapabilityLabel(capability.name)}
-            {capability.integrationSupportLevel === 'beta' && ' (beta)'}
-            {capability.supported === 'conditionally' && (
-              <span className='seam-ecosystem-visually-hidden'>
-                {` (${t.conditional})`}
+      {capabilities.length > 0 && (
+        <ul className='seam-supported-devices-features' aria-label={t.features}>
+          {capabilities.map((capability) => (
+            <li key={capability.name}>
+              {capability.supported === 'conditionally' ? (
+                <TriangleWarningOutlineIcon
+                  aria-hidden
+                  className='seam-supported-devices-conditional-icon'
+                />
+              ) : (
+                <CheckIcon aria-hidden />
+              )}
+              <span>
+                {getCapabilityLabel(capability.name)}
+                {capability.integrationSupportLevel === 'beta' && ' (beta)'}
+                {capability.supported === 'conditionally' && (
+                  <span className='seam-ecosystem-visually-hidden'>
+                    {` (${t.requirementsBelow})`}
+                  </span>
+                )}
               </span>
-            )}
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      )}
       {deviceModel.capabilities_stale ? (
         <span className='seam-supported-devices-status'>{t.refreshing}</span>
       ) : capabilities.length === 0 &&
         deviceModel.device_type?.is_accessory !== true ? (
         <span className='seam-supported-devices-status'>{t.unconfirmed}</span>
       ) : null}
-      {requirements.length > 0 && (
-        <details className='seam-supported-devices-requirements'>
-          <summary>{t.requirements}</summary>
-          <ul>
-            {requirements.map((requirement) => (
-              <li key={requirement}>{requirement}</li>
-            ))}
-          </ul>
+      {requirements.size > 0 && (
+        <ul
+          className='seam-supported-devices-requirements'
+          aria-label={t.requirements}
+        >
+          {[...requirements].map(([message, features]) => (
+            <li key={message}>
+              <RequirementIcon message={message} />
+              <div>
+                <span>{message}</span>
+                <span className='seam-supported-devices-requirement-features'>
+                  {t.requiredFor([...features].join(', '))}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {(modelIds.length > 0 || providers.length > 0) && (
+        <details className='seam-supported-devices-details'>
+          <summary>{t.modelDetails}</summary>
+          <dl>
+            {modelIds.length > 0 && (
+              <div>
+                <dt>{t.modelNumbers}</dt>
+                <dd>{modelIds.join(', ')}</dd>
+              </div>
+            )}
+            {providers.length > 0 && (
+              <div>
+                <dt>{t.integration}</dt>
+                <dd>{providers.join(', ')}</dd>
+              </div>
+            )}
+          </dl>
         </details>
       )}
     </li>
@@ -133,10 +146,13 @@ export function DeviceModelRow({
 }
 
 const t = {
-  via: (providers: string) => `via ${providers}`,
-  badges: 'Device type and capabilities',
-  conditional: 'conditionally supported',
-  requirements: 'Requirements and compatibility',
+  features: 'Supported features',
+  requirements: 'Requirements',
+  requirementsBelow: 'see requirements below',
+  requiredFor: (features: string) => `For ${features}`,
+  modelDetails: 'Model details',
+  modelNumbers: 'Model numbers',
+  integration: 'Integration',
   refreshing: 'Compatibility is being refreshed.',
   unconfirmed: 'Compatibility not confirmed for this integration.',
 }

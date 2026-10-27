@@ -9,7 +9,13 @@ const config = getEmbedConfig(globalThis.location.search)
 const parentOrigin = getParentOrigin(globalThis.document.referrer)
 
 export function App(): JSX.Element {
-  const [theme, setTheme] = useState(config.theme)
+  const [theme, setTheme] = useState(config.theme ?? 'auto')
+
+  useEffect(() => {
+    const root = globalThis.document.documentElement
+    root.dataset['theme'] = theme
+    root.style.colorScheme = theme === 'auto' ? 'light dark' : theme
+  }, [theme])
 
   useEffect(() => {
     if (parentOrigin == null || globalThis.parent === globalThis.window) return
@@ -61,11 +67,13 @@ export function App(): JSX.Element {
       disableFontInjection
     >
       <SupportedDevices {...config} theme={theme} />
-      <p className='seam-device-embed-footer'>
-        <a href={catalogUrl} target='_blank' rel='noopener noreferrer'>
-          View the device catalog on seam.co
-        </a>
-      </p>
+      {globalThis.parent === globalThis.window && (
+        <p className='seam-device-embed-footer'>
+          <a href={catalogUrl} target='_blank' rel='noopener noreferrer'>
+            View the device catalog on seam.co
+          </a>
+        </p>
+      )}
     </EcosystemProvider>
   )
 }
