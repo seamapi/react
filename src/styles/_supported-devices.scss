@@ -152,10 +152,21 @@
       font-size: 13px;
     }
 
+    .seam-supported-devices-capabilities {
+      display: grid;
+      grid-column: 2;
+      gap: 4px;
+    }
+
+    .seam-supported-devices-capabilities-label {
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
     .seam-supported-devices-features {
       display: flex;
       flex-wrap: wrap;
-      grid-column: 2;
       gap: 6px 16px;
       margin: 0;
       padding: 0;
@@ -179,6 +190,29 @@
       }
     }
 
+    .seam-supported-devices-requirement-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      margin: -4px 0 -4px -4px;
+      padding: 4px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+
+      &:hover {
+        background: var(--seam-ecosystem-surface-2);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--seam-ecosystem-accent);
+        outline-offset: 2px;
+      }
+    }
+
     .seam-supported-devices-section-footer {
       display: flex;
       justify-content: center;
@@ -197,7 +231,7 @@
     .seam-supported-devices-requirements {
       display: grid;
       gap: 12px;
-      margin: 4px 0;
+      margin: 12px 0;
       padding: 12px;
       border-radius: 8px;
       background: var(--seam-ecosystem-surface-2);

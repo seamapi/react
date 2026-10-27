@@ -8,6 +8,10 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/ecosystem/v1/providers/list",
+      "destination": "https://ecosystem.seam.co/v1/providers/list"
+    },
+    {
       "source": "/ecosystem/v1/device_models/summaries/list",
       "destination": "https://ecosystem.seam.co/v1/device_models/summaries/list"
     },

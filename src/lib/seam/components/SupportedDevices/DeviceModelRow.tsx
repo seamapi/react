@@ -1,3 +1,5 @@
+import { useId, useState } from 'react'
+
 import { CheckIcon } from 'lib/icons/Check.js'
 import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
 import {
@@ -22,6 +24,8 @@ export function DeviceModelRow({
   deviceModel,
   manufacturer,
 }: DeviceModelRowProps): JSX.Element {
+  const detailsId = useId()
+  const [expanded, setExpanded] = useState(false)
   const name = getDeviceModelName(deviceModel)
   const imageUrl = getDeviceModelImageUrl(deviceModel, manufacturer)
   const modelIds = [
@@ -74,29 +78,51 @@ export function DeviceModelRow({
         )}
       </div>
       {capabilities.length > 0 && (
-        <ul className='seam-supported-devices-features' aria-label={t.features}>
-          {capabilities.map((capability) => (
-            <li key={capability.name}>
-              {capability.supported === 'conditionally' ? (
-                <TriangleWarningOutlineIcon
-                  aria-hidden
-                  className='seam-supported-devices-conditional-icon'
-                />
-              ) : (
-                <CheckIcon aria-hidden />
-              )}
-              <span>
-                {getCapabilityLabel(capability.name)}
-                {capability.integrationSupportLevel === 'beta' && ' (beta)'}
-                {capability.supported === 'conditionally' && (
-                  <span className='seam-ecosystem-visually-hidden'>
-                    {` (${t.requirementsBelow})`}
-                  </span>
+        <div className='seam-supported-devices-capabilities'>
+          <span className='seam-supported-devices-capabilities-label'>
+            {t.features}
+          </span>
+          <ul
+            className='seam-supported-devices-features'
+            aria-label={t.features}
+          >
+            {capabilities.map((capability) => (
+              <li key={capability.name}>
+                {capability.supported === 'conditionally' ? (
+                  <button
+                    type='button'
+                    className='seam-supported-devices-requirement-toggle'
+                    aria-label={t.toggleRequirements(
+                      getCapabilityLabel(capability.name),
+                      name
+                    )}
+                    aria-controls={detailsId}
+                    aria-expanded={expanded}
+                    onClick={() => {
+                      setExpanded((open) => !open)
+                    }}
+                  >
+                    <TriangleWarningOutlineIcon
+                      aria-hidden
+                      className='seam-supported-devices-conditional-icon'
+                    />
+                  </button>
+                ) : (
+                  <CheckIcon aria-hidden />
                 )}
-              </span>
-            </li>
-          ))}
-        </ul>
+                <span>
+                  {getCapabilityLabel(capability.name)}
+                  {capability.integrationSupportLevel === 'beta' && ' (beta)'}
+                  {capability.supported === 'conditionally' && (
+                    <span className='seam-ecosystem-visually-hidden'>
+                      {` (${t.requirementsDetails})`}
+                    </span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
       {deviceModel.capabilities_stale ? (
         <span className='seam-supported-devices-status'>{t.refreshing}</span>
@@ -104,41 +130,52 @@ export function DeviceModelRow({
         deviceModel.device_type?.is_accessory !== true ? (
         <span className='seam-supported-devices-status'>{t.unconfirmed}</span>
       ) : null}
-      {requirements.size > 0 && (
-        <ul
-          className='seam-supported-devices-requirements'
-          aria-label={t.requirements}
+      {(requirements.size > 0 ||
+        modelIds.length > 0 ||
+        providers.length > 0) && (
+        <details
+          id={detailsId}
+          className='seam-supported-devices-details'
+          open={expanded}
+          onToggle={(event) => {
+            setExpanded(event.currentTarget.open)
+          }}
         >
-          {[...requirements].map(([message, features]) => (
-            <li key={message}>
-              <RequirementIcon message={message} />
-              <div>
-                <span>{message}</span>
-                <span className='seam-supported-devices-requirement-features'>
-                  {t.requiredFor([...features].join(', '))}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-      {(modelIds.length > 0 || providers.length > 0) && (
-        <details className='seam-supported-devices-details'>
           <summary>{t.modelDetails}</summary>
-          <dl>
-            {modelIds.length > 0 && (
-              <div>
-                <dt>{t.modelNumbers}</dt>
-                <dd>{modelIds.join(', ')}</dd>
-              </div>
-            )}
-            {providers.length > 0 && (
-              <div>
-                <dt>{t.integration}</dt>
-                <dd>{providers.join(', ')}</dd>
-              </div>
-            )}
-          </dl>
+          {requirements.size > 0 && (
+            <ul
+              className='seam-supported-devices-requirements'
+              aria-label={t.requirements}
+            >
+              {[...requirements].map(([message, features]) => (
+                <li key={message}>
+                  <RequirementIcon message={message} />
+                  <div>
+                    <span>{message}</span>
+                    <span className='seam-supported-devices-requirement-features'>
+                      {t.requiredFor([...features].join(', '))}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {(modelIds.length > 0 || providers.length > 0) && (
+            <dl>
+              {modelIds.length > 0 && (
+                <div>
+                  <dt>{t.modelNumbers}</dt>
+                  <dd>{modelIds.join(', ')}</dd>
+                </div>
+              )}
+              {providers.length > 0 && (
+                <div>
+                  <dt>{t.integration}</dt>
+                  <dd>{providers.join(', ')}</dd>
+                </div>
+              )}
+            </dl>
+          )}
         </details>
       )}
     </li>
@@ -146,11 +183,13 @@ export function DeviceModelRow({
 }
 
 const t = {
-  features: 'Supported features',
+  features: 'Supported capabilities',
   requirements: 'Requirements',
-  requirementsBelow: 'see requirements below',
+  requirementsDetails: 'expand model and requirements details',
+  toggleRequirements: (capability: string, device: string) =>
+    `${capability} requirements for ${device}`,
   requiredFor: (features: string) => `For ${features}`,
-  modelDetails: 'Model details',
+  modelDetails: 'Model and requirements details',
   modelNumbers: 'Model numbers',
   integration: 'Integration',
   refreshing: 'Compatibility is being refreshed.',

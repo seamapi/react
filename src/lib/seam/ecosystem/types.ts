@@ -182,6 +182,12 @@ export interface ProviderRef {
   display_name: string | null
 }
 
+/** Fields used from the public `providers/list` response to recover legacy report text. */
+export interface ProviderRequirements extends ProviderRef {
+  has_requirements: boolean | null
+  requirements_md: string | null
+}
+
 export type CapabilityName =
   | 'device_connectivity'
   | 'can_program_online_access_codes'
@@ -388,6 +394,11 @@ export interface DeviceModelSummariesListResponse {
 
 export interface ManufacturersListResponse {
   manufacturers: Manufacturer[]
+  pagination: Pagination
+}
+
+export interface ProvidersListResponse {
+  providers: ProviderRequirements[]
   pagination: Pagination
 }
 

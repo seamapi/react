@@ -13,7 +13,12 @@ export function RequirementIcon({ message }: { message: string }): JSX.Element {
       strokeLinecap='round'
       strokeLinejoin='round'
     >
-      {/keypad/i.test(message) ? (
+      {/subscription|licen[sc]e|paying|paid|fees?/i.test(message) ? (
+        <>
+          <rect x='2' y='4' width='20' height='16' rx='3' />
+          <path d='M2 9h20M6 15h4m4 0h4' />
+        </>
+      ) : /keypad/i.test(message) ? (
         <>
           <rect x='5' y='2' width='14' height='20' rx='3' />
           <path d='M9 6h6M9 10h.01M12 10h.01M15 10h.01M9 14h.01M12 14h.01M15 14h.01M12 18h.01' />
