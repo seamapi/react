@@ -12,6 +12,26 @@
       min-width: min(200px, 100%);
     }
 
+    .seam-supported-devices-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin-bottom: 12px;
+      color: var(--seam-ecosystem-fg-2);
+      font-size: 12px;
+
+      span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
     .seam-supported-devices-sections {
       display: flex;
       flex-direction: column;
