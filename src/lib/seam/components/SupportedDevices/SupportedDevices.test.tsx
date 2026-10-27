@@ -1,4 +1,4 @@
-import { fireEvent, screen, within } from '@testing-library/react'
+import { fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { expect, test, vi } from 'vitest'
 
 import {
@@ -106,13 +106,34 @@ test<EcosystemTestContext>('SupportedDevices scopes the query and badges to a pr
   expect(request?.searchParams.get('provider')).toBe('schlage-engage')
 })
 
-test<EcosystemTestContext>('conditional requirements are readable without hovering', async (ctx) => {
+test<EcosystemTestContext>('warning buttons toggle requirements and model details together', async (ctx) => {
   renderWithEcosystem(<SupportedDevices manufacturer='august' />, ctx)
   const name = await screen.findByText('Smart Lock Pro')
   const row = name.closest('li')
   if (row == null) throw new Error('Missing row')
+  const requirement = within(row).getByText(/Requires an August keypad/)
+  const details = requirement.closest('details')
+  expect(details?.hasAttribute('open')).toBe(false)
+  expect(within(row).getByText('Model numbers').closest('details')).toBe(
+    details
+  )
+  const warnings = within(row).getAllByRole('button', {
+    name: /requirements for/,
+  })
+  const warning = warnings[0]
+  if (warning == null) throw new Error('Missing warning control')
+  expect(warning.getAttribute('aria-controls')).toBe(details?.id)
+  fireEvent.click(warning)
+  await waitFor(() => {
+    expect(details?.hasAttribute('open')).toBe(true)
+  })
+  for (const button of warnings)
+    expect(button.getAttribute('aria-expanded')).toBe('true')
   within(row).getByRole('list', { name: 'Requirements' })
-  within(row).getByText(/Requires an August keypad/)
+  fireEvent.click(warning)
+  await waitFor(() => {
+    expect(details?.hasAttribute('open')).toBe(false)
+  })
 })
 
 test<EcosystemTestContext>('SupportedDevices shows features and keeps identifiers in model details', async (ctx) => {
@@ -121,7 +142,7 @@ test<EcosystemTestContext>('SupportedDevices shows features and keeps identifier
   const row = name.closest('li')
   if (row == null) throw new Error('Missing row')
   const badges = within(row).getByRole('list', {
-    name: 'Supported features',
+    name: 'Supported capabilities',
   })
   expect(
     within(badges)
@@ -134,6 +155,87 @@ test<EcosystemTestContext>('SupportedDevices shows features and keeps identifier
   expect(within(row).getByText('Schlage Home').closest('details')).toBe(details)
   expect(within(row).queryByText(/via Schlage Home/)).toBeNull()
 })
+
+for (const missingMetadata of [false, true]) {
+  test<EcosystemTestContext>(`lost provider requirement text ${missingMetadata ? 'keeps a warning if metadata is unavailable' : 'is recovered from the matching provider'}`, async (ctx) => {
+    const fetch = globalThis.fetch
+    const providerRequests: URL[] = []
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockImplementation(async (input, init) => {
+        const url = new URL(String(input))
+        if (url.pathname.endsWith('providers/list')) {
+          providerRequests.push(url)
+          return new Response(
+            JSON.stringify({
+              providers: missingMetadata
+                ? []
+                : [
+                    {
+                      provider_id: 'august-access',
+                      slug: 'august-access',
+                      display_name: 'August Access',
+                      has_requirements: true,
+                      requirements_md: 'A paid subscription is required.',
+                    },
+                  ],
+              pagination: { has_next_page: false, next_page_cursor: null },
+            }),
+            { status: 200 }
+          )
+        }
+        const response = await fetch(input, init)
+        if (!url.pathname.endsWith('device_models/summaries/list'))
+          return response
+        const data = await response.json()
+        for (const model of data.device_models) {
+          for (const entry of model.capabilities_by_provider) {
+            for (const capability of entry.capabilities) {
+              if (capability.supported !== 'conditionally') continue
+              capability.report.requirements = {
+                ...capability.report.requirements,
+                provider: { message: 'Requirement message not found' },
+              }
+            }
+          }
+        }
+        return new Response(JSON.stringify(data), { status: 200 })
+      })
+    try {
+      renderWithEcosystem(
+        <SupportedDevices manufacturer='august' provider='august-access' />,
+        ctx
+      )
+      const name = await screen.findByText('Smart Lock Pro')
+      const row = name.closest('li')
+      if (row == null) throw new Error('Missing row')
+      await waitFor(() => {
+        expect(providerRequests).toHaveLength(1)
+      })
+      expect(providerRequests[0]?.searchParams.get('slugs')).toBe(
+        'august-access'
+      )
+      const text = await within(row).findByText(
+        missingMetadata
+          ? 'Additional integration requirements apply. Check with your integration provider.'
+          : 'A paid subscription is required.'
+      )
+      expect(text.closest('details')?.hasAttribute('open')).toBe(false)
+      const warning = within(row).getAllByRole('button', {
+        name: /requirements for/,
+      })[0]
+      if (warning == null) throw new Error('Missing warning control')
+      fireEvent.click(warning)
+      await waitFor(() => {
+        expect(text.closest('details')?.hasAttribute('open')).toBe(true)
+      })
+      within(row).getByText('ASL-03')
+      expect(screen.queryByText('Requirement message not found')).toBeNull()
+    } finally {
+      fetchSpy.mockRestore()
+    }
+  })
+}
 
 test<EcosystemTestContext>('SupportedDevices defaults to the manufacturer of a manufacturer key', async (ctx) => {
   renderWithEcosystem(<SupportedDevices />, {

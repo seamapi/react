@@ -6,6 +6,7 @@ import type {
   IntegrationSupportLevel,
   Manufacturer,
   ManufacturerRef,
+  ProviderRequirements,
 } from 'lib/seam/ecosystem/types.js'
 
 export interface DeviceModelFilters {
@@ -192,14 +193,89 @@ const genericSupportDetails = new Set([
 const isGenericSupportDetail = (details: string): boolean =>
   genericSupportDetails.has(details.trim())
 
+const isMissingMessage = (message: unknown): boolean =>
+  typeof message !== 'string' ||
+  message.trim().length === 0 ||
+  message.trim() === 'Requirement message not found' ||
+  message.trim() === 'Report details not found'
+
+export const getProvidersWithMissingRequirements = (
+  models: DeviceModelSummary[]
+): string[] =>
+  [
+    ...new Set(
+      models.flatMap((model) =>
+        model.capabilities_by_provider
+          .filter((entry) =>
+            entry.capabilities.some(
+              (capability) =>
+                capability.report?.requirements?.['provider'] != null &&
+                isMissingMessage(
+                  capability.report.requirements['provider'].message
+                )
+            )
+          )
+          .map((entry) => entry.provider.slug)
+      )
+    ),
+  ].sort()
+
+/** Legacy translation treats provider prose as a dictionary key; the public provider retains the prose. */
+export const resolveProviderRequirements = (
+  models: DeviceModelSummary[],
+  providers: ProviderRequirements[]
+): DeviceModelSummary[] => {
+  const bySlug = new Map(
+    providers.map((provider) => [provider.slug, provider.requirements_md])
+  )
+  return models.map((model) => ({
+    ...model,
+    capabilities_by_provider: model.capabilities_by_provider.map((entry) => ({
+      ...entry,
+      capabilities: entry.capabilities.map((capability) => {
+        const report = capability.report
+        const requirement = report?.requirements?.['provider']
+        if (
+          report == null ||
+          requirement == null ||
+          !isMissingMessage(requirement.message)
+        )
+          return capability
+        const message = bySlug.get(entry.provider.slug)
+        return {
+          ...capability,
+          report: {
+            ...report,
+            requirements: {
+              ...report.requirements,
+              provider: {
+                ...requirement,
+                message:
+                  typeof message === 'string' && !isMissingMessage(message)
+                    ? message.trim()
+                    : 'Additional integration requirements apply. Check with your integration provider.',
+              },
+            },
+          },
+        }
+      }),
+    })),
+  }))
+}
+
 /** Keep specific constraints; replace boilerplate with an actionable setup note. */
 export const getCapabilityRequirementMessages = (
   capability: SupportedCapability
 ): string[] => {
-  const messages = new Set(capability.requirements)
+  const messages = new Set(
+    capability.requirements.map((message) =>
+      isMissingMessage(message) ? 'Additional setup is required.' : message
+    )
+  )
   if (capability.supported === 'conditionally') {
     if (
       capability.details != null &&
+      !isMissingMessage(capability.details) &&
       !isGenericSupportDetail(capability.details)
     )
       messages.add(capability.details)

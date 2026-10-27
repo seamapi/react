@@ -11,7 +11,9 @@ import {
   getDeviceTypeOptions,
   getManufacturerName,
   getManufacturerOptions,
+  getProvidersWithMissingRequirements,
   groupDeviceModelsByManufacturer,
+  resolveProviderRequirements,
   scopeDeviceModelsToProvider,
 } from 'lib/seam/components/SupportedDevices/device-models.js'
 import { FilterSelect } from 'lib/seam/components/SupportedDevices/FilterSelect.js'
@@ -20,6 +22,7 @@ import { useEcosystemContext } from 'lib/seam/ecosystem/EcosystemProvider.js'
 import type { Manufacturer } from 'lib/seam/ecosystem/types.js'
 import { useEcosystemDeviceModelSummaries } from 'lib/seam/ecosystem/use-ecosystem-device-model-summaries.js'
 import { useEcosystemManufacturers } from 'lib/seam/ecosystem/use-ecosystem-manufacturers.js'
+import { useEcosystemProviderRequirements } from 'lib/seam/ecosystem/use-ecosystem-provider-requirements.js'
 import {
   getEmbedKeyManufacturer,
   useEmbedKeyResolution,
@@ -100,13 +103,23 @@ export function SupportedDevices({
     enabled: (explicitManufacturer != null || isResolved) && !isResolutionError,
   })
 
-  const availableDeviceModels = useMemo(
+  const scopedDeviceModels = useMemo(
     () =>
       scopeDeviceModelsToProvider(
         applyEmbedExclusions(deviceModels ?? [], embedResolution?.exclusions),
         fixedProvider
       ),
     [deviceModels, embedResolution, fixedProvider]
+  )
+
+  const missingProviderSlugs = useMemo(
+    () => getProvidersWithMissingRequirements(scopedDeviceModels),
+    [scopedDeviceModels]
+  )
+  const { providers } = useEcosystemProviderRequirements(missingProviderSlugs)
+  const availableDeviceModels = useMemo(
+    () => resolveProviderRequirements(scopedDeviceModels, providers ?? []),
+    [scopedDeviceModels, providers]
   )
 
   const manufacturerSlugs = useMemo(
@@ -403,7 +416,7 @@ const t = {
   allCapabilities: 'All features',
   featureStatus: 'Feature status',
   supported: 'Supported',
-  requiresSetup: 'Requires setup · see requirements below',
+  requiresSetup: 'Requires setup · expand details',
   error: 'An error occurred while loading supported devices.',
   retry: 'Retry',
   noDevices: 'No supported devices found.',

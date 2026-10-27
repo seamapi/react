@@ -12,8 +12,10 @@ import {
   filterDeviceModels,
   getCapabilityOptions,
   getCapabilityRequirementMessages,
+  getProvidersWithMissingRequirements,
   getSupportedCapabilities,
   groupDeviceModelsByManufacturer,
+  resolveProviderRequirements,
   scopeDeviceModelsToProvider,
 } from './device-models.js'
 
@@ -297,6 +299,78 @@ test('requirement messages preserve specific constraints and flag unknown setup'
   expect(
     getCapabilityRequirementMessages({ ...generic, requirements: [] })
   ).toEqual(['Additional setup is required.'])
+  expect(
+    getCapabilityRequirementMessages({
+      ...generic,
+      details: 'Report details not found',
+      requirements: ['Requirement message not found'],
+    })
+  ).toEqual(['Additional setup is required.'])
+})
+
+test('provider requirements resolve by slug without changing valid messages or source reports', () => {
+  const model = deviceModel({
+    slug: 'lock',
+    capabilities: {
+      cloud: {
+        can_remotely_unlock: 'conditionally',
+        can_remotely_lock: 'conditionally',
+      },
+      hub: { can_remotely_unlock: 'conditionally' },
+    },
+  })
+  for (const entry of model.capabilities_by_provider) {
+    for (const capability of entry.capabilities) {
+      capability.report = {
+        details: '',
+        requirements: {
+          provider: {
+            message:
+              capability.name === 'can_remotely_lock'
+                ? 'Keep this specific requirement.'
+                : 'Requirement message not found',
+          },
+          bridge: { message: 'A compatible bridge is required.' },
+        },
+      }
+    }
+  }
+  expect(getProvidersWithMissingRequirements([model])).toEqual(['cloud', 'hub'])
+  const resolved = resolveProviderRequirements(
+    [model],
+    [
+      {
+        provider_id: 'cloud',
+        ...ref('cloud'),
+        has_requirements: true,
+        requirements_md: ' A paying SmartHosting subscription is required. ',
+      },
+    ]
+  )
+  expect(
+    resolved[0]?.capabilities_by_provider[0]?.capabilities[0]?.report
+      ?.requirements?.['provider']?.message
+  ).toBe('A paying SmartHosting subscription is required.')
+  expect(
+    resolved[0]?.capabilities_by_provider[0]?.capabilities[1]?.report
+      ?.requirements?.['provider']?.message
+  ).toBe('Keep this specific requirement.')
+  expect(
+    resolved[0]?.capabilities_by_provider[1]?.capabilities[0]?.report
+      ?.requirements?.['provider']?.message
+  ).toBe(
+    'Additional integration requirements apply. Check with your integration provider.'
+  )
+  expect(
+    resolved[0]?.capabilities_by_provider[0]?.capabilities[0]?.report
+      ?.requirements?.['bridge']?.message
+  ).toBe('A compatible bridge is required.')
+  expect(
+    model.capabilities_by_provider[0]?.capabilities[0]?.report?.requirements?.[
+      'provider'
+    ]?.message
+  ).toBe('Requirement message not found')
+  expect(getProvidersWithMissingRequirements(resolved)).toEqual([])
 })
 
 test('unavailable or stale capabilities never become supported badges or filters', () => {
