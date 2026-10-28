@@ -3,101 +3,277 @@ import type { PropsWithChildren } from 'react'
 import { getDeviceModelImageUrl } from 'lib/seam/components/SupportedDevices/device-models.js'
 import { RequirementIcon } from 'lib/seam/components/SupportedDevices/RequirementIcon.js'
 
-import type { ReviewDevice } from './model.js'
+import type { Capability, ReviewDevice } from './model.js'
 
-export function DeviceHeading({
-  device,
-}: {
-  device: ReviewDevice
-}): JSX.Element {
-  const image = getDeviceModelImageUrl(device.source, null)
+export function CapabilityIcon({ name }: { name: string }): JSX.Element {
   return (
-    <header className='seam-proto-device-heading'>
-      <span className='seam-proto-image'>
-        {image != null && (
-          <img src={image} alt='' width='44' height='44' loading='lazy' />
-        )}
-      </span>
-      <div>
-        <h3>{device.name}</h3>
-        {device.source.capabilities_stale ? (
-          <p className='seam-proto-muted'>Compatibility is being refreshed.</p>
-        ) : device.capabilities.length === 0 ? (
-          <p className='seam-proto-muted'>
-            Compatibility not confirmed for this integration.
-          </p>
-        ) : null}
-      </div>
-    </header>
+    <svg
+      aria-hidden
+      width='18'
+      height='18'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='1.6'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      {name.includes('access_codes') ? (
+        <>
+          <rect x='5' y='2' width='14' height='20' rx='3' />
+          <path d='M9 6h6M9 10h.01M12 10h.01M15 10h.01M9 14h.01M12 14h.01M15 14h.01M12 18h.01' />
+        </>
+      ) : name.includes('unlock') ? (
+        <>
+          <rect x='5' y='10' width='14' height='11' rx='2' />
+          <path d='M9 10V6a4 4 0 0 1 7-2.6M12 14v3' />
+        </>
+      ) : name.includes('lock') ? (
+        <>
+          <rect x='5' y='10' width='14' height='11' rx='2' />
+          <path d='M8 10V6a4 4 0 0 1 8 0v4M12 14v3' />
+        </>
+      ) : (
+        <>
+          <circle cx='12' cy='12' r='9' />
+          <path d='m8 12 3 3 5-6' />
+        </>
+      )}
+    </svg>
   )
 }
 
-export function DeviceCard({
+export function InfoMark(): JSX.Element {
+  return (
+    <svg
+      aria-hidden
+      width='14'
+      height='14'
+      viewBox='0 0 20 20'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='1.5'
+    >
+      <circle cx='10' cy='10' r='7.25' />
+      <path d='M10 9v5M10 6v.1' strokeLinecap='round' />
+    </svg>
+  )
+}
+
+export function Feature({
+  capability,
+  iconOnly = false,
+}: {
+  capability: Capability
+  iconOnly?: boolean
+}): JSX.Element {
+  const status = capability.messages.length > 0 ? 'Requires setup' : 'Supported'
+  return (
+    <span
+      className={`seam-compact-feature${iconOnly ? ' seam-compact-feature-icon-only' : ''}`}
+      data-conditional={capability.messages.length > 0 ? '' : undefined}
+      title={`${capability.label} · ${status}`}
+    >
+      <CapabilityIcon name={capability.name} />
+      <span className={iconOnly ? 'seam-compact-icon-label' : undefined}>
+        {capability.label}
+      </span>
+      <span className='seam-compact-sr-only'> · {status}</span>
+    </span>
+  )
+}
+
+export function Features({ device }: { device: ReviewDevice }): JSX.Element {
+  return (
+    <span
+      className='seam-compact-features'
+      role='list'
+      aria-label='Supported capabilities'
+    >
+      {device.capabilities.map((capability) => (
+        <span role='listitem' key={capability.name}>
+          <Feature capability={capability} />
+        </span>
+      ))}
+    </span>
+  )
+}
+
+export function DeviceIdentity({
   device,
   children,
-}: PropsWithChildren<{ device: ReviewDevice }>): JSX.Element {
+  showType = true,
+}: PropsWithChildren<{
+  device: ReviewDevice
+  showType?: boolean
+}>): JSX.Element {
+  const image = getDeviceModelImageUrl(device.source, null)
   return (
-    <article className='seam-proto-device' aria-label={device.name}>
-      <DeviceHeading device={device} />
-      <div className='seam-proto-device-body'>
+    <span className='seam-compact-identity'>
+      <span className='seam-compact-image'>
+        {image == null ? (
+          <span aria-hidden>{device.name.slice(0, 1)}</span>
+        ) : (
+          <img src={image} alt='' loading='lazy' width='44' height='44' />
+        )}
+      </span>
+      <span className='seam-compact-identity-text'>
+        {showType && (
+          <span className='seam-compact-device-type'>
+            {device.source.device_type?.display_name ?? 'Device'}
+          </span>
+        )}
+        <span className='seam-compact-device-name'>{device.name}</span>
+        {device.source.capabilities_stale ? (
+          <span className='seam-compact-device-status'>
+            Compatibility is being refreshed.
+          </span>
+        ) : device.capabilities.length === 0 ? (
+          <span className='seam-compact-device-status'>
+            Compatibility not confirmed.
+          </span>
+        ) : null}
         {children}
-        <ModelDetails device={device} />
-      </div>
-    </article>
+      </span>
+    </span>
   )
 }
 
-export function ModelDetails({
+export function CompactRow({
   device,
-}: {
-  device: ReviewDevice
-}): JSX.Element {
-  const modelIds = [
-    ...new Set(
-      device.source.variants
-        .map((variant) => variant.manufacturer_model_id)
-        .filter((id) => id != null && id.length > 0)
-    ),
-  ]
+  layout,
+  children,
+}: PropsWithChildren<{ device: ReviewDevice; layout: string }>): JSX.Element {
+  const conditional = device.requirements.length > 0
   return (
-    <details className='seam-proto-model-details'>
-      <summary>Model details</summary>
-      <dl>
-        {modelIds.length > 0 && (
-          <>
-            <dt>Model numbers</dt>
-            <dd>{modelIds.join(', ')}</dd>
-          </>
-        )}
-        <dt>Integration</dt>
-        <dd>
-          {device.source.providers
-            .map((provider) => provider.display_name ?? provider.slug)
-            .join(', ')}
-        </dd>
-      </dl>
-      {device.source.product_url != null && (
-        <a href={device.source.product_url} target='_blank' rel='noreferrer'>
-          Manufacturer’s product page ↗
-        </a>
-      )}
+    <details
+      className={`seam-compact-row seam-compact-${layout}`}
+      aria-label={device.name}
+    >
+      <summary className='seam-compact-row-summary'>
+        {children}
+        <span
+          className='seam-compact-disclosure'
+          data-conditional={conditional ? '' : undefined}
+        >
+          {conditional && <InfoMark />}
+          <span>{conditional ? 'Requirements' : 'Details'}</span>
+          <svg
+            className='seam-compact-chevron'
+            aria-hidden
+            width='14'
+            height='14'
+            viewBox='0 0 20 20'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='1.5'
+          >
+            <path
+              d='m5 8 5 5 5-5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        </span>
+      </summary>
+      <ExpandedDetails device={device} />
     </details>
   )
 }
 
-export function RequirementList({
-  messages,
-}: {
-  messages: string[]
-}): JSX.Element {
+function ExpandedDetails({ device }: { device: ReviewDevice }): JSX.Element {
+  const modelIds = [
+    ...new Set(
+      device.source.variants
+        .map((variant) => variant.manufacturer_model_id)
+        .filter((id): id is string => id != null && id.length > 0)
+    ),
+  ]
+  const integration = device.source.providers
+    .map((provider) => provider.display_name ?? provider.slug)
+    .join(', ')
   return (
-    <ul className='seam-proto-requirement-list'>
-      {messages.map((message) => (
-        <li key={message}>
-          <RequirementIcon message={message} />
-          <span>{message}</span>
-        </li>
-      ))}
-    </ul>
+    <div className='seam-compact-expanded'>
+      <div className='seam-compact-detail-heading'>
+        <span className='seam-compact-provider-mark' aria-hidden>
+          {integration.slice(0, 1)}
+        </span>
+        <div>
+          <strong>{integration}</strong>
+          <p>
+            {device.requirements.length > 0
+              ? 'Additional setup for these capabilities'
+              : 'Model and integration details'}
+          </p>
+        </div>
+      </div>
+      {device.requirements.length > 0 && (
+        <ul
+          className='seam-compact-requirements'
+          aria-label='Capability requirements'
+        >
+          {device.requirements.map((requirement) => (
+            <li key={requirement.message}>
+              <RequirementIcon message={requirement.message} />
+              <div>
+                <p>{requirement.message}</p>
+                <span>For {requirement.capabilities.join(', ')}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      <dl className='seam-compact-model-info'>
+        {modelIds.length > 0 && (
+          <div>
+            <dt>Model numbers</dt>
+            <dd>{modelIds.join(', ')}</dd>
+          </div>
+        )}
+        <div>
+          <dt>Integration</dt>
+          <dd>{integration}</dd>
+        </div>
+      </dl>
+      {device.source.product_url != null && (
+        <a
+          className='seam-compact-product-link'
+          href={device.source.product_url}
+          target='_blank'
+          rel='noreferrer'
+        >
+          Manufacturer’s product page ↗
+        </a>
+      )}
+    </div>
+  )
+}
+
+export function Legend(): JSX.Element {
+  return (
+    <div className='seam-compact-legend' aria-label='Capability status legend'>
+      <span>
+        <svg
+          aria-hidden
+          width='14'
+          height='14'
+          viewBox='0 0 20 20'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='1.7'
+        >
+          <path
+            d='m4 10 4 4 8-8'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          />
+        </svg>
+        Supported
+      </span>
+      <span>
+        <InfoMark />
+        Requires setup · open requirements
+      </span>
+    </div>
   )
 }

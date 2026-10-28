@@ -9,49 +9,34 @@ import {
 import { useEcosystemDeviceModelSummaries } from 'lib/seam/ecosystem/use-ecosystem-device-model-summaries.js'
 import { useEcosystemProviderRequirements } from 'lib/seam/ecosystem/use-ecosystem-provider-requirements.js'
 
-import { Expand } from './Expand.js'
-import { Groups } from './Groups.js'
-import { Inline } from './Inline.js'
+import { Chips } from './Chips.js'
+import { Columns } from './Columns.js'
 import { reviewDevice } from './model.js'
-import { Notes } from './Notes.js'
 import { Picker } from './Picker.js'
-import { Table } from './Table.js'
+import { Legend } from './shared.js'
+import { Stacked } from './Stacked.js'
 
 const variants = [
   {
-    name: 'Inline',
-    title: 'Requirements beside each capability',
+    name: 'Chips',
+    title: 'Compact rows · capability chips',
     description:
-      'The most direct reading path. Everything is visible, with repetition when capabilities share requirements.',
-    component: Inline,
+      'The original image tiles and row styling, with labeled capability chips and one requirements disclosure.',
+    component: Chips,
   },
   {
-    name: 'Notes',
-    title: 'One shared list of requirements',
+    name: 'Columns',
+    title: 'Compact rows · aligned feature icons',
     description:
-      'A shorter device row. Numbered references connect each capability to what you’ll need below.',
-    component: Notes,
+      'A small icon in each capability column makes the list easy to scan across models. Labels stay above the columns.',
+    component: Columns,
   },
   {
-    name: 'Groups',
-    title: 'Plan around the things you need',
+    name: 'Stacked',
+    title: 'Compact rows · features below the name',
     description:
-      'Subscriptions and accessories appear once, each with the capabilities it enables. Clearer for planning a setup.',
-    component: Groups,
-  },
-  {
-    name: 'Table',
-    title: 'Compare capabilities across models',
-    description:
-      'Scan down a capability column to compare devices. Wider than the other options; scroll the table on a phone.',
-    component: Table,
-  },
-  {
-    name: 'Expand',
-    title: 'Open details for one capability',
-    description:
-      'Short requirement labels stay visible. Open a capability to read the full wording without expanding unrelated information.',
-    component: Expand,
+      'Two compact lines: device name above, supported capabilities below. Requirements open from the right.',
+    component: Stacked,
   },
 ]
 const brands = [
@@ -170,12 +155,12 @@ export function App(): JSX.Element {
       <div className='seam-proto-workspace'>
         <header className='seam-proto-intro'>
           <span className='seam-proto-eyebrow'>
-            Option {active + 1} of 5 · {variant.name}
+            Option {active + 1} of {variants.length} · {variant.name}
           </span>
           <h1>{variant.title}</h1>
           <p>{variant.description}</p>
           <p className='seam-proto-shortcuts'>
-            Switch below or use keys 1–5 / ← →. R resets open details.
+            Switch below or use keys 1–3 / ← →. R resets open details.
           </p>
         </header>
         <section className='seam-proto-stage' aria-labelledby='catalog-title'>
@@ -191,8 +176,8 @@ export function App(): JSX.Element {
           </div>
           <h2 id='catalog-title'>Supported devices</h2>
           <p className='seam-proto-stage-description'>
-            Capabilities available through Seam. Requirements below describe any
-            additional setup.
+            Supported capabilities at a glance. Open a row for setup
+            requirements and model details.
           </p>
           <div className='seam-proto-filters'>
             <label className='seam-proto-search'>
@@ -229,6 +214,7 @@ export function App(): JSX.Element {
               {loading ? 'Loading…' : `${filtered.length} devices`}
             </span>
           </div>
+          <Legend />
           {loading ? (
             <p className='seam-proto-state' role='status'>
               Loading capabilities and requirements…
@@ -240,7 +226,7 @@ export function App(): JSX.Element {
                 type='button'
                 onClick={() => {
                   void modelsQuery.refetch()
-                  void requirementsQuery.refetch()
+                  if (missing.length > 0) void requirementsQuery.refetch()
                 }}
               >
                 Try again

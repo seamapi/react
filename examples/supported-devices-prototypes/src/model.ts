@@ -48,21 +48,3 @@ export function reviewDevice(source: DeviceModelSummary): ReviewDevice {
     })),
   }
 }
-
-// Short labels only for exact known copy; preserve unfamiliar constraints in full.
-export function requirementLabel(message: string): string {
-  const labels: Record<string, string> = {
-    'A paying Nuki SmartHosting subscription is required.':
-      'Nuki SmartHosting subscription',
-    'A compatible bridge is required.': 'Compatible bridge',
-    'An external keypad is required.': 'External keypad',
-    'Additional setup is required.': 'Additional setup',
-  }
-  return labels[message] ?? message
-}
-
-export function requirementSummary(capability: Capability): string {
-  return capability.messages.length === 0
-    ? 'Supported'
-    : `Requires: ${capability.messages.map(requirementLabel).join(' + ')}`
-}
