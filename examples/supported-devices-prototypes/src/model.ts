@@ -54,8 +54,8 @@ export function getRequirementPills(
   device: ReviewDevice
 ): Array<{ label: string; messages: string[] }> {
   const known: Record<string, string> = {
-    'A compatible bridge is required.': 'Bridge Requirements',
-    'An external keypad is required.': 'Keypad Required',
+    'A compatible bridge is required.': 'Accessories Required',
+    'An external keypad is required.': 'Accessories Required',
     'A paying Nuki SmartHosting subscription is required.':
       'Subscription Required',
   }
@@ -65,8 +65,7 @@ export function getRequirementPills(
     groups.set(label, [...(groups.get(label) ?? []), message])
   }
   return [
-    'Bridge Requirements',
-    'Keypad Required',
+    'Accessories Required',
     'Subscription Required',
     'Other Requirements',
   ].flatMap((label) => {
