@@ -36,7 +36,7 @@ const variants = [
     name: 'Pills',
     title: 'Two-line rows · requirement pills',
     description:
-      'The same check/info treatment, with explicit bridge, keypad, and subscription pills. Open a row for the full requirements.',
+      'The same check/info treatment, with accessory and subscription pills. Open a row for the specific requirements.',
     component: RequirementPills,
   },
 ]
