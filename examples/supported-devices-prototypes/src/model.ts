@@ -48,3 +48,29 @@ export function reviewDevice(source: DeviceModelSummary): ReviewDevice {
     })),
   }
 }
+
+/** Presentation aliases for known requirements; unfamiliar source copy stays explicit. */
+export function getRequirementPills(
+  device: ReviewDevice
+): Array<{ label: string; messages: string[] }> {
+  const known: Record<string, string> = {
+    'A compatible bridge is required.': 'Bridge Requirements',
+    'An external keypad is required.': 'Keypad Required',
+    'A paying Nuki SmartHosting subscription is required.':
+      'Subscription Required',
+  }
+  const groups = new Map<string, string[]>()
+  for (const { message } of device.requirements) {
+    const label = known[message] ?? 'Other Requirements'
+    groups.set(label, [...(groups.get(label) ?? []), message])
+  }
+  return [
+    'Bridge Requirements',
+    'Keypad Required',
+    'Subscription Required',
+    'Other Requirements',
+  ].flatMap((label) => {
+    const messages = groups.get(label)
+    return messages == null ? [] : [{ label, messages }]
+  })
+}

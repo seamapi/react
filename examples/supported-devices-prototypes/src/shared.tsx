@@ -3,7 +3,11 @@ import type { PropsWithChildren } from 'react'
 import { getDeviceModelImageUrl } from 'lib/seam/components/SupportedDevices/device-models.js'
 import { RequirementIcon } from 'lib/seam/components/SupportedDevices/RequirementIcon.js'
 
-import type { Capability, ReviewDevice } from './model.js'
+import {
+  type Capability,
+  getRequirementPills,
+  type ReviewDevice,
+} from './model.js'
 
 export function CapabilityIcon({ name }: { name: string }): JSX.Element {
   return (
@@ -60,21 +64,47 @@ export function InfoMark(): JSX.Element {
   )
 }
 
+export function CheckMark(): JSX.Element {
+  return (
+    <svg
+      aria-hidden
+      width='14'
+      height='14'
+      viewBox='0 0 20 20'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='1.7'
+    >
+      <path d='m4 10 4 4 8-8' strokeLinecap='round' strokeLinejoin='round' />
+    </svg>
+  )
+}
+
 export function Feature({
   capability,
   iconOnly = false,
+  statusIcons = false,
 }: {
   capability: Capability
   iconOnly?: boolean
+  statusIcons?: boolean
 }): JSX.Element {
   const status = capability.messages.length > 0 ? 'Requires setup' : 'Supported'
   return (
     <span
-      className={`seam-compact-feature${iconOnly ? ' seam-compact-feature-icon-only' : ''}`}
+      className={`seam-compact-feature${iconOnly ? ' seam-compact-feature-icon-only' : ''}${statusIcons ? ' seam-compact-status-feature' : ''}`}
       data-conditional={capability.messages.length > 0 ? '' : undefined}
       title={`${capability.label} · ${status}`}
     >
-      <CapabilityIcon name={capability.name} />
+      {statusIcons ? (
+        capability.messages.length > 0 ? (
+          <InfoMark />
+        ) : (
+          <CheckMark />
+        )
+      ) : (
+        <CapabilityIcon name={capability.name} />
+      )}
       <span className={iconOnly ? 'seam-compact-icon-label' : undefined}>
         {capability.label}
       </span>
@@ -83,7 +113,13 @@ export function Feature({
   )
 }
 
-export function Features({ device }: { device: ReviewDevice }): JSX.Element {
+export function Features({
+  device,
+  statusIcons = false,
+}: {
+  device: ReviewDevice
+  statusIcons?: boolean
+}): JSX.Element {
   return (
     <span
       className='seam-compact-features'
@@ -92,7 +128,7 @@ export function Features({ device }: { device: ReviewDevice }): JSX.Element {
     >
       {device.capabilities.map((capability) => (
         <span role='listitem' key={capability.name}>
-          <Feature capability={capability} />
+          <Feature capability={capability} statusIcons={statusIcons} />
         </span>
       ))}
     </span>
@@ -143,41 +179,88 @@ export function CompactRow({
   device,
   layout,
   children,
-}: PropsWithChildren<{ device: ReviewDevice; layout: string }>): JSX.Element {
+  showRequirementPills = false,
+}: PropsWithChildren<{
+  device: ReviewDevice
+  layout: string
+  showRequirementPills?: boolean
+}>): JSX.Element {
   const conditional = device.requirements.length > 0
   return (
     <details
-      className={`seam-compact-row seam-compact-${layout}`}
+      className={`seam-compact-row seam-compact-${layout}${showRequirementPills && conditional ? ' seam-compact-with-pills' : ''}`}
       aria-label={device.name}
     >
       <summary className='seam-compact-row-summary'>
         {children}
-        <span
-          className='seam-compact-disclosure'
-          data-conditional={conditional ? '' : undefined}
-        >
-          {conditional && <InfoMark />}
-          <span>{conditional ? 'Requirements' : 'Details'}</span>
-          <svg
-            className='seam-compact-chevron'
-            aria-hidden
-            width='14'
-            height='14'
-            viewBox='0 0 20 20'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='1.5'
+        {showRequirementPills && conditional ? (
+          <PillDisclosure device={device} />
+        ) : (
+          <span
+            className='seam-compact-disclosure'
+            data-conditional={conditional ? '' : undefined}
           >
-            <path
-              d='m5 8 5 5 5-5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
-        </span>
+            {conditional && <InfoMark />}
+            <span>{conditional ? 'Requirements' : 'Details'}</span>
+            <svg
+              className='seam-compact-chevron'
+              aria-hidden
+              width='14'
+              height='14'
+              viewBox='0 0 20 20'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='1.5'
+            >
+              <path
+                d='m5 8 5 5 5-5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          </span>
+        )}
       </summary>
       <ExpandedDetails device={device} />
     </details>
+  )
+}
+
+function PillDisclosure({ device }: { device: ReviewDevice }): JSX.Element {
+  return (
+    <span className='seam-compact-pill-disclosure'>
+      <span
+        className='seam-compact-requirement-pills'
+        role='list'
+        aria-label='Additional requirements'
+      >
+        {getRequirementPills(device).map((pill) => (
+          <span
+            role='listitem'
+            key={pill.label}
+            className='seam-compact-requirement-pill'
+            title={pill.messages.join('\n')}
+          >
+            {pill.label}
+          </span>
+        ))}
+      </span>
+      <svg
+        className='seam-compact-chevron'
+        aria-hidden
+        width='14'
+        height='14'
+        viewBox='0 0 20 20'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='1.5'
+      >
+        <path d='m5 8 5 5 5-5' strokeLinecap='round' strokeLinejoin='round' />
+      </svg>
+      <span className='seam-compact-sr-only'>
+        Open requirements and model details
+      </span>
+    </span>
   )
 }
 

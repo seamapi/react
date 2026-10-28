@@ -9,34 +9,34 @@ import {
 import { useEcosystemDeviceModelSummaries } from 'lib/seam/ecosystem/use-ecosystem-device-model-summaries.js'
 import { useEcosystemProviderRequirements } from 'lib/seam/ecosystem/use-ecosystem-provider-requirements.js'
 
-import { Chips } from './Chips.js'
-import { Columns } from './Columns.js'
+import { CheckInfo } from './CheckInfo.js'
 import { reviewDevice } from './model.js'
 import { Picker } from './Picker.js'
+import { RequirementPills } from './RequirementPills.js'
 import { Legend } from './shared.js'
 import { Stacked } from './Stacked.js'
 
 const variants = [
   {
-    name: 'Chips',
-    title: 'Compact rows · capability chips',
+    name: 'Current',
+    title: 'Two-line rows · current version',
     description:
-      'The original image tiles and row styling, with labeled capability chips and one requirements disclosure.',
-    component: Chips,
-  },
-  {
-    name: 'Columns',
-    title: 'Compact rows · aligned feature icons',
-    description:
-      'A small icon in each capability column makes the list easy to scan across models. Labels stay above the columns.',
-    component: Columns,
-  },
-  {
-    name: 'Stacked',
-    title: 'Compact rows · features below the name',
-    description:
-      'Two compact lines: device name above, supported capabilities below. Requirements open from the right.',
+      'The selected layout, with capability-specific icons and one requirements disclosure.',
     component: Stacked,
+  },
+  {
+    name: 'Checks',
+    title: 'Two-line rows · checks and info',
+    description:
+      'Green checks indicate support. Amber info icons indicate additional requirements. Capability names stay visible.',
+    component: CheckInfo,
+  },
+  {
+    name: 'Pills',
+    title: 'Two-line rows · requirement pills',
+    description:
+      'The same check/info treatment, with explicit bridge, keypad, and subscription pills. Open a row for the full requirements.',
+    component: RequirementPills,
   },
 ]
 const brands = [
