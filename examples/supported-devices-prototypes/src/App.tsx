@@ -11,6 +11,7 @@ import { useEcosystemProviderRequirements } from 'lib/seam/ecosystem/use-ecosyst
 
 import { CheckInfo } from './CheckInfo.js'
 import { reviewDevice } from './model.js'
+import { PhonePreview } from './PhonePreview.js'
 import { Picker } from './Picker.js'
 import { RequirementPills } from './RequirementPills.js'
 import { Legend } from './shared.js'
@@ -45,6 +46,7 @@ const brands = [
   { slug: 'keyincode', label: 'KeyInCode', provider: 'keyincode' },
 ]
 const params = new URLSearchParams(window.location.search)
+const isMobilePreview = params.get('view') === 'mobile'
 const requestedVariant = Number(params.get('v')) - 1
 const initialVariant =
   Number.isInteger(requestedVariant) &&
@@ -58,8 +60,9 @@ export function App(): JSX.Element {
   const [replay, setReplay] = useState(0)
   const [brandSlug, setBrandSlug] = useState(params.get('brand') ?? 'nuki')
   const [dark, setDark] = useState(params.get('theme') === 'dark')
-  const [search, setSearch] = useState('')
-  const [capability, setCapability] = useState('')
+  const [compare, setCompare] = useState(params.get('compare') !== '0')
+  const [search, setSearch] = useState(params.get('q') ?? '')
+  const [capability, setCapability] = useState(params.get('capability') ?? '')
   const brand = brands.find((entry) => entry.slug === brandSlug) ?? brands[0]
   const variant = variants[active] ?? variants[0]
 
@@ -68,9 +71,18 @@ export function App(): JSX.Element {
     url.searchParams.set('v', String(active + 1))
     url.searchParams.set('brand', brandSlug)
     url.searchParams.set('theme', dark ? 'dark' : 'light')
+    if (!isMobilePreview) url.searchParams.set('compare', compare ? '1' : '0')
+    if (search === '') url.searchParams.delete('q')
+    else url.searchParams.set('q', search)
+    if (capability === '') url.searchParams.delete('capability')
+    else url.searchParams.set('capability', capability)
     window.history.replaceState(null, '', url)
     document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
-  }, [active, brandSlug, dark])
+    document.documentElement.classList.toggle(
+      'seam-proto-mobile-document',
+      isMobilePreview
+    )
+  }, [active, brandSlug, dark, compare, search, capability])
 
   const modelsQuery = useEcosystemDeviceModelSummaries({
     manufacturer: brand?.slug,
@@ -111,6 +123,125 @@ export function App(): JSX.Element {
   if (variant == null || brand == null) return <p>Design review unavailable.</p>
   const Variant = variant.component
 
+  const catalog = (
+    <section className='seam-proto-stage' aria-labelledby='catalog-title'>
+      <div className='seam-proto-context'>
+        <span>Brand guides / {brand.label}</span>
+        <a
+          href={`https://www.seam.co/docs/device-and-system-integration-guides/${brand.slug}-locks/index`}
+          target='_blank'
+          rel='noreferrer'
+        >
+          View live guide ↗
+        </a>
+      </div>
+      <h2 id='catalog-title'>Supported devices</h2>
+      <p className='seam-proto-stage-description'>
+        Supported capabilities at a glance. Open a row for setup requirements
+        and model details.
+      </p>
+      <div className='seam-proto-filters'>
+        <label className='seam-proto-search'>
+          Search devices
+          <input
+            type='search'
+            value={search}
+            placeholder='Search by name or model number'
+            onChange={(event) => {
+              setSearch(event.target.value)
+            }}
+          />
+        </label>
+        <label>
+          Capability
+          <select
+            value={capability}
+            onChange={(event) => {
+              setCapability(event.target.value)
+            }}
+          >
+            <option value=''>All capabilities</option>
+            {allCapabilities.map((name) => (
+              <option key={name} value={name}>
+                {getCapabilityLabel(name)}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <div className='seam-proto-catalog-heading'>
+        <strong>{brand.label}</strong>
+        <span aria-live='polite'>
+          {loading ? 'Loading…' : `${filtered.length} devices`}
+        </span>
+      </div>
+      <Legend />
+      {loading ? (
+        <p className='seam-proto-state' role='status'>
+          Loading capabilities and requirements…
+        </p>
+      ) : error ? (
+        <div className='seam-proto-state' role='alert'>
+          <p>We couldn’t load the complete device information.</p>
+          <button
+            type='button'
+            onClick={() => {
+              void modelsQuery.refetch()
+              if (missing.length > 0) void requirementsQuery.refetch()
+            }}
+          >
+            Try again
+          </button>
+        </div>
+      ) : filtered.length === 0 ? (
+        <div className='seam-proto-state'>
+          <p>No devices match these filters.</p>
+          <button
+            type='button'
+            onClick={() => {
+              setSearch('')
+              setCapability('')
+            }}
+          >
+            Clear filters
+          </button>
+        </div>
+      ) : (
+        <div
+          key={`${active}-${replay}-${brand.slug}`}
+          className={`seam-proto-variant seam-proto-variant-${variant.name.toLowerCase()}`}
+        >
+          <Variant devices={filtered} />
+        </div>
+      )}
+      <a
+        className='seam-proto-catalog-link'
+        href={`https://www.seam.co/manufacturers/${brand.slug}`}
+        target='_blank'
+        rel='noreferrer'
+      >
+        View {brand.label} in the device catalog ↗
+      </a>
+    </section>
+  )
+  const mobileParams = new URLSearchParams({
+    view: 'mobile',
+    v: String(active + 1),
+    brand: brand.slug,
+    theme: dark ? 'dark' : 'light',
+    q: search,
+    capability,
+  })
+
+  if (isMobilePreview)
+    return (
+      <div
+        className={`seam-ecosystem seam-ecosystem-theme-${dark ? 'dark' : 'light'} seam-proto-page seam-proto-mobile-page`}
+      >
+        <main className='seam-proto-workspace'>{catalog}</main>
+      </div>
+    )
+
   return (
     <div
       className={`seam-ecosystem seam-ecosystem-theme-${dark ? 'dark' : 'light'} seam-proto-page`}
@@ -124,6 +255,15 @@ export function App(): JSX.Element {
           <span className='seam-proto-muted'>/ Design review</span>
         </span>
         <div className='seam-proto-review-controls'>
+          <button
+            type='button'
+            aria-pressed={compare}
+            onClick={() => {
+              setCompare(!compare)
+            }}
+          >
+            Compare mobile
+          </button>
           <label>
             Preview brand{' '}
             <select
@@ -152,7 +292,9 @@ export function App(): JSX.Element {
           </button>
         </div>
       </aside>
-      <div className='seam-proto-workspace'>
+      <main
+        className={`seam-proto-workspace${compare ? ' seam-proto-workspace-compare' : ''}`}
+      >
         <header className='seam-proto-intro'>
           <span className='seam-proto-eyebrow'>
             Option {active + 1} of {variants.length} · {variant.name}
@@ -163,112 +305,33 @@ export function App(): JSX.Element {
             Switch below or use keys 1–3 / ← →. R resets open details.
           </p>
         </header>
-        <section className='seam-proto-stage' aria-labelledby='catalog-title'>
-          <div className='seam-proto-context'>
-            <span>Brand guides / {brand.label}</span>
-            <a
-              href={`https://www.seam.co/docs/device-and-system-integration-guides/${brand.slug}-locks/index`}
-              target='_blank'
-              rel='noreferrer'
-            >
-              View live guide ↗
-            </a>
+        <div className={compare ? 'seam-proto-comparison' : undefined}>
+          <div className='seam-proto-browser-preview'>
+            {compare && (
+              <div className='seam-proto-preview-label'>
+                <strong>Desktop</strong>
+                <span>
+                  {variant.name} · {brand.label}
+                </span>
+              </div>
+            )}
+            {catalog}
           </div>
-          <h2 id='catalog-title'>Supported devices</h2>
-          <p className='seam-proto-stage-description'>
-            Supported capabilities at a glance. Open a row for setup
-            requirements and model details.
-          </p>
-          <div className='seam-proto-filters'>
-            <label className='seam-proto-search'>
-              Search devices
-              <input
-                type='search'
-                value={search}
-                placeholder='Search by name or model number'
-                onChange={(event) => {
-                  setSearch(event.target.value)
-                }}
-              />
-            </label>
-            <label>
-              Capability
-              <select
-                value={capability}
-                onChange={(event) => {
-                  setCapability(event.target.value)
-                }}
-              >
-                <option value=''>All capabilities</option>
-                {allCapabilities.map((name) => (
-                  <option key={name} value={name}>
-                    {getCapabilityLabel(name)}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div className='seam-proto-catalog-heading'>
-            <strong>{brand.label}</strong>
-            <span aria-live='polite'>
-              {loading ? 'Loading…' : `${filtered.length} devices`}
-            </span>
-          </div>
-          <Legend />
-          {loading ? (
-            <p className='seam-proto-state' role='status'>
-              Loading capabilities and requirements…
-            </p>
-          ) : error ? (
-            <div className='seam-proto-state' role='alert'>
-              <p>We couldn’t load the complete device information.</p>
-              <button
-                type='button'
-                onClick={() => {
-                  void modelsQuery.refetch()
-                  if (missing.length > 0) void requirementsQuery.refetch()
-                }}
-              >
-                Try again
-              </button>
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className='seam-proto-state'>
-              <p>No devices match these filters.</p>
-              <button
-                type='button'
-                onClick={() => {
-                  setSearch('')
-                  setCapability('')
-                }}
-              >
-                Clear filters
-              </button>
-            </div>
-          ) : (
-            <div
-              key={`${active}-${replay}-${brand.slug}`}
-              className={`seam-proto-variant seam-proto-variant-${variant.name.toLowerCase()}`}
-            >
-              <Variant devices={filtered} />
-            </div>
+          {compare && (
+            <PhonePreview
+              key={replay}
+              src={`${window.location.pathname}?${mobileParams.toString()}`}
+              title={`${brand.label} supported devices · ${variant.name} · mobile preview`}
+            />
           )}
-          <a
-            className='seam-proto-catalog-link'
-            href={`https://www.seam.co/manufacturers/${brand.slug}`}
-            target='_blank'
-            rel='noreferrer'
-          >
-            View {brand.label} in the device catalog ↗
-          </a>
-        </section>
+        </div>
         <p className='seam-proto-review-note'>
           Review prototype · Live Ecosystem catalog ·{' '}
           <a href='https://linear.app/seam/issue/DEVDB-466'>
             Dawn’s design feedback ↗
           </a>
         </p>
-      </div>
+      </main>
       <Picker
         names={variants.map((item) => item.name)}
         active={active}

@@ -4,6 +4,9 @@
 body {
   margin: 0;
 }
+.seam-proto-mobile-document {
+  overscroll-behavior-y: contain;
+}
 .seam-proto-page {
   min-height: 100vh;
   background: var(--seam-ecosystem-surface-2);
@@ -88,6 +91,111 @@ body {
   max-width: 1010px;
   margin: 0 auto;
   padding: 24px 24px 100px;
+}
+.seam-proto-workspace-compare {
+  max-width: 1480px;
+}
+.seam-proto-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 414px;
+  align-items: start;
+  gap: 28px;
+}
+.seam-proto-browser-preview,
+.seam-proto-phone-preview {
+  min-width: 0;
+}
+.seam-proto-preview-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+.seam-proto-preview-label > span {
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 11px;
+}
+.seam-proto-phone-preview {
+  width: 414px;
+  max-width: 100%;
+}
+.seam-proto-phone {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #57595c;
+  border-radius: 52px;
+  background: #17181a;
+  box-shadow:
+    0 20px 40px -20px #0005,
+    inset 0 0 0 1px #08090a;
+}
+.seam-proto-phone-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 40px;
+  background: var(--seam-ecosystem-surface-1);
+}
+.seam-proto-phone-status {
+  position: relative;
+  display: flex;
+  height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 26px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--seam-ecosystem-fg-1);
+}
+.seam-proto-phone-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 112px;
+  height: 30px;
+  border-radius: 20px;
+  background: #08090a;
+  transform: translateX(-50%);
+}
+.seam-proto-phone-content {
+  display: block;
+  width: 100%;
+  height: 790px;
+  border: 0;
+  background: var(--seam-ecosystem-surface-1);
+}
+.seam-proto-phone-home {
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  width: 120px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--seam-ecosystem-fg-1);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+.seam-proto-phone-hint {
+  margin-top: 12px !important;
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 11px;
+  text-align: center;
+}
+.seam-proto-mobile-page .seam-proto-workspace {
+  padding: 0 0 24px;
+}
+.seam-proto-mobile-page .seam-proto-stage {
+  border: 0;
+  border-radius: 0;
+}
+@media (max-width: 1199px) {
+  .seam-proto-comparison {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .seam-proto-phone-preview {
+    justify-self: center;
+  }
 }
 .seam-proto-intro {
   margin-bottom: 20px;
@@ -503,6 +611,7 @@ body {
   }
   .seam-proto-review-controls {
     width: 100%;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
   .seam-proto-workspace {
