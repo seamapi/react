@@ -6,8 +6,10 @@ import {
   scopeDeviceModelsToProvider,
 } from 'lib/seam/components/SupportedDevices/device-models.js'
 import { useEcosystemDeviceModelSummaries } from 'lib/seam/ecosystem/use-ecosystem-device-model-summaries.js'
+import { useEcosystemManufacturers } from 'lib/seam/ecosystem/use-ecosystem-manufacturers.js'
 import { useEcosystemProviderRequirements } from 'lib/seam/ecosystem/use-ecosystem-provider-requirements.js'
 
+import { BrandMark } from './BrandMark.js'
 import { CapabilityFilter } from './CapabilityFilter.js'
 import { CheckInfo } from './CheckInfo.js'
 import { reviewDevice } from './model.js'
@@ -67,6 +69,9 @@ export function App(): JSX.Element {
   const [brandSlug, setBrandSlug] = useState(params.get('brand') ?? 'nuki')
   const [dark, setDark] = useState(params.get('theme') === 'dark')
   const [compare, setCompare] = useState(params.get('compare') !== '0')
+  const [requirementView, setRequirementView] = useState<'matrix' | 'list'>(
+    params.get('requirements') === 'list' ? 'list' : 'matrix'
+  )
   const [search, setSearch] = useState(params.get('q') ?? '')
   const [capabilities, setCapabilities] = useState(() => [
     ...new Set(params.getAll('capability').filter((name) => name !== '')),
@@ -80,6 +85,7 @@ export function App(): JSX.Element {
     url.searchParams.set('v', String(active + 1))
     url.searchParams.set('brand', brandSlug)
     url.searchParams.set('theme', dark ? 'dark' : 'light')
+    url.searchParams.set('requirements', requirementView)
     if (!isMobilePreview) url.searchParams.set('compare', compare ? '1' : '0')
     if (search === '') url.searchParams.delete('q')
     else url.searchParams.set('q', search)
@@ -91,7 +97,7 @@ export function App(): JSX.Element {
       'seam-proto-mobile-document',
       isMobilePreview
     )
-  }, [active, brandSlug, dark, compare, search, capabilities])
+  }, [active, brandSlug, dark, compare, search, capabilities, requirementView])
 
   useEffect(() => {
     const receiveFilters = (event: MessageEvent<unknown>): void => {
@@ -139,16 +145,36 @@ export function App(): JSX.Element {
     provider: brand?.provider,
     deviceType: 'smartlock',
   })
-  const scopedModels = scopeDeviceModelsToProvider(
-    modelsQuery.deviceModels ?? [],
-    brand?.provider
+  const rawModels = modelsQuery.deviceModels ?? []
+  const missing = getProvidersWithMissingRequirements(rawModels)
+  const requirementsQuery = useEcosystemProviderRequirements([
+    ...(brand == null ? [] : [brand.provider]),
+    ...rawModels.flatMap((model) =>
+      model.providers.map((provider) => provider.slug)
+    ),
+  ])
+  const { manufacturers } = useEcosystemManufacturers({
+    slugs: brand == null ? [] : [brand.slug],
+  })
+  const manufacturer = manufacturers?.find(
+    (entry) => entry.slug === brand?.slug
   )
-  const missing = getProvidersWithMissingRequirements(scopedModels)
-  const requirementsQuery = useEcosystemProviderRequirements(missing)
-  const devices = resolveProviderRequirements(
-    scopedModels,
+  const resolvedModels = resolveProviderRequirements(
+    rawModels,
     requirementsQuery.providers ?? []
-  ).map(reviewDevice)
+  )
+  const devices = scopeDeviceModelsToProvider(
+    resolvedModels,
+    brand?.provider
+  ).map((source) =>
+    reviewDevice(
+      source,
+      requirementsQuery.providers ?? [],
+      resolvedModels.find(
+        (model) => model.device_model_id === source.device_model_id
+      )
+    )
+  )
   const allCapabilities = [
     ...new Set(
       devices.flatMap((device) => device.capabilities.map((item) => item.name))
@@ -170,7 +196,8 @@ export function App(): JSX.Element {
   })
   const loading =
     modelsQuery.isLoading || (missing.length > 0 && requirementsQuery.isLoading)
-  const error = modelsQuery.isError || requirementsQuery.isError
+  const error =
+    modelsQuery.isError || (missing.length > 0 && requirementsQuery.isError)
   if (variant == null || brand == null) return <p>Design review unavailable.</p>
   const Variant = variant.component
 
@@ -212,7 +239,10 @@ export function App(): JSX.Element {
         />
       </div>
       <div className='seam-proto-catalog-heading'>
-        <strong>{brand.label}</strong>
+        <div className='seam-proto-manufacturer'>
+          <BrandMark name={brand.label} logos={manufacturer?.logos} />
+          <strong>{brand.label}</strong>
+        </div>
         <span aria-live='polite'>
           {loading ? 'Loading…' : `${filtered.length} devices`}
         </span>
@@ -252,7 +282,7 @@ export function App(): JSX.Element {
           key={`${active}-${replay}-${brand.slug}`}
           className={`seam-proto-variant seam-proto-variant-${variant.name.toLowerCase()}`}
         >
-          <Variant devices={filtered} />
+          <Variant devices={filtered} requirementView={requirementView} />
         </div>
       )}
       <a
@@ -270,6 +300,7 @@ export function App(): JSX.Element {
     v: String(active + 1),
     brand: brand.slug,
     theme: dark ? 'dark' : 'light',
+    requirements: requirementView,
   })
 
   if (isMobilePreview)
@@ -343,6 +374,31 @@ export function App(): JSX.Element {
             Switch below or use keys 1–3 / ← →. R resets open details.
           </p>
         </header>
+        <div
+          className='seam-proto-requirement-picker'
+          role='group'
+          aria-label='Provider detail layouts'
+        >
+          <span>Provider details</span>
+          <button
+            type='button'
+            aria-pressed={requirementView === 'matrix'}
+            onClick={() => {
+              setRequirementView('matrix')
+            }}
+          >
+            Matrix · recommended
+          </button>
+          <button
+            type='button'
+            aria-pressed={requirementView === 'list'}
+            onClick={() => {
+              setRequirementView('list')
+            }}
+          >
+            Capability list
+          </button>
+        </div>
         <div className={compare ? 'seam-proto-comparison' : undefined}>
           <div className='seam-proto-browser-preview'>
             {compare && (

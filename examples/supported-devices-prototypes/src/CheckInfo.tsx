@@ -1,7 +1,10 @@
 import type { VariantProps } from './model.js'
 import { CompactRow, DeviceIdentity, Features } from './shared.js'
 
-export function CheckInfo({ devices }: VariantProps): JSX.Element {
+export function CheckInfo({
+  devices,
+  requirementView,
+}: VariantProps): JSX.Element {
   return (
     <div className='seam-compact-list'>
       <div className='seam-compact-list-heading'>
@@ -12,6 +15,7 @@ export function CheckInfo({ devices }: VariantProps): JSX.Element {
           key={device.source.device_model_id}
           device={device}
           layout='stacked'
+          requirementView={requirementView}
           showRequirementPills
         >
           <DeviceIdentity device={device} showType={false}>

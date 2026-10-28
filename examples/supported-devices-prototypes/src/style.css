@@ -359,9 +359,37 @@ body {
 }
 .seam-proto-catalog-heading {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: 18px 0 10px;
   font-size: 16px;
+}
+.seam-proto-manufacturer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.seam-proto-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border: 1px solid #e5e6e8;
+  border-radius: 7px;
+  background: #fff;
+  color: #33373b;
+  font-size: 15px;
+  font-weight: 600;
+}
+.seam-proto-brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .seam-proto-catalog-heading > span {
   font-size: 12px;
@@ -557,26 +585,324 @@ body {
   color: var(--seam-ecosystem-fg-2);
   margin-top: 2px;
 }
-.seam-compact-provider-mark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  border-radius: 7px;
-  background: var(--seam-compact-tile);
-  box-shadow: var(--seam-compact-tile-shadow);
-  color: var(--seam-ecosystem-fg-2);
-  font-size: 15px;
-  font-weight: 600;
-}
 .seam-compact-requirements {
   list-style: none;
   margin: 16px 0;
   padding: 0;
   display: grid;
   gap: 12px;
+}
+.seam-proto-requirement-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 12px;
+}
+.seam-proto-requirement-picker button {
+  padding: 7px 10px;
+  border: 1px solid var(--seam-ecosystem-line-2);
+  border-radius: 7px;
+  background: var(--seam-ecosystem-surface-1);
+  color: var(--seam-ecosystem-fg-1);
+}
+.seam-proto-requirement-picker button[aria-pressed='true'] {
+  border-color: var(--seam-ecosystem-accent);
+  color: var(--seam-ecosystem-accent);
+}
+.seam-proto-hardware > h3,
+.seam-proto-providers > h3 {
+  font-size: 14px;
+  font-weight: 550;
+}
+.seam-proto-gallery {
+  min-width: 0;
+  margin-top: 12px;
+}
+.seam-proto-gallery-thumbnails {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 2px 6px;
+}
+.seam-proto-gallery-thumbnail {
+  display: flex;
+  flex: 0 0 60px;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  padding: 6px;
+  border: 1px solid var(--seam-ecosystem-line-2);
+  border-radius: 8px;
+  background: #fff;
+}
+.seam-proto-gallery-thumbnail:hover {
+  border-color: var(--seam-ecosystem-accent);
+}
+.seam-proto-gallery-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.seam-proto-gallery-hint {
+  margin-top: 6px !important;
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.seam-proto-gallery-hover {
+  position: fixed;
+  z-index: 40;
+  width: 280px;
+  padding: 10px;
+  border: 1px solid #d8dce1;
+  border-radius: 12px;
+  background: #fff;
+  color: #33373b;
+  box-shadow: 0 12px 36px #0003;
+  pointer-events: none;
+}
+.seam-proto-gallery-hover img {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: contain;
+}
+.seam-proto-gallery-hover > span {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  text-align: center;
+}
+.seam-proto-gallery-dialog {
+  width: min(720px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 16px;
+  border: 1px solid var(--seam-ecosystem-line-2);
+  border-radius: 14px;
+  background: var(--seam-ecosystem-surface-1);
+  color: var(--seam-ecosystem-fg-1);
+}
+.seam-proto-gallery-dialog::backdrop {
+  background: #0009;
+}
+.seam-proto-gallery-dialog header,
+.seam-proto-gallery-dialog footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.seam-proto-gallery-dialog h4 {
+  font-size: 14px;
+  font-weight: 550;
+}
+.seam-proto-gallery-dialog button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--seam-ecosystem-line-2);
+  border-radius: 8px;
+  background: var(--seam-ecosystem-surface-1);
+  color: var(--seam-ecosystem-fg-1);
+}
+.seam-proto-gallery-dialog footer {
+  margin-top: 12px;
+  font-size: 12px;
+}
+.seam-proto-gallery-dialog footer > span {
+  min-width: 0;
+  text-align: center;
+}
+.seam-proto-gallery-large-image {
+  display: block;
+  width: 100%;
+  height: min(65dvh, 600px);
+  margin-top: 12px;
+  border-radius: 8px;
+  background: #fff;
+  object-fit: contain;
+}
+.seam-proto-hardware-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+  margin: 16px 0;
+}
+.seam-proto-hardware-facts .seam-proto-model-numbers {
+  grid-column: 1 / -1;
+}
+.seam-proto-hardware-facts dt {
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 11px;
+}
+.seam-proto-hardware-facts dd {
+  margin: 3px 0 0;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.seam-proto-hardware-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 12px;
+}
+.seam-proto-providers {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--seam-ecosystem-line-1);
+}
+.seam-proto-provider-list {
+  margin: 20px 0 0 6px;
+  padding: 0 0 0 20px;
+  list-style: none;
+}
+.seam-proto-provider {
+  position: relative;
+  min-width: 0;
+  padding-bottom: 24px;
+}
+.seam-proto-provider::before {
+  position: absolute;
+  top: -20px;
+  bottom: 0;
+  left: -20px;
+  content: '';
+  border-left: 1px dashed var(--seam-ecosystem-line-2);
+}
+.seam-proto-provider::after {
+  position: absolute;
+  top: 16px;
+  left: -20px;
+  width: 15px;
+  content: '';
+  border-top: 1px dashed var(--seam-ecosystem-line-2);
+}
+.seam-proto-provider:last-child {
+  padding-bottom: 0;
+}
+.seam-proto-provider:last-child::before {
+  bottom: auto;
+  height: 36px;
+}
+.seam-proto-provider-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+.seam-proto-provider-name > span {
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: var(--seam-ecosystem-surface-2);
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 10px;
+}
+.seam-proto-matrix-scroll {
+  max-width: min(100%, 440px);
+  overflow-x: auto;
+  margin-top: 12px;
+}
+.seam-proto-requirement-matrix {
+  width: 100%;
+  min-width: 292px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.seam-proto-requirement-matrix[data-has-other] {
+  min-width: 356px;
+}
+.seam-proto-requirement-matrix th,
+.seam-proto-requirement-matrix td {
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+  font-weight: 400;
+  text-align: center;
+}
+.seam-proto-requirement-matrix th:first-child {
+  text-align: left;
+}
+.seam-proto-requirement-matrix thead th:not(:first-child) {
+  width: 64px;
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 10px;
+}
+.seam-proto-requirement-matrix thead svg {
+  display: block;
+  width: 17px;
+  height: 17px;
+  margin: 0 auto 5px;
+}
+.seam-proto-matrix-required {
+  display: inline-flex;
+  color: var(--seam-compact-status-amber);
+}
+.seam-proto-matrix-none,
+.seam-proto-provider-empty {
+  color: var(--seam-ecosystem-fg-2);
+}
+.seam-proto-matrix-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 8px !important;
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 10px;
+}
+.seam-proto-matrix-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.seam-proto-matrix-legend svg {
+  color: var(--seam-compact-status-amber);
+}
+.seam-proto-provider-empty {
+  margin-top: 12px !important;
+  font-size: 12px;
+}
+.seam-proto-capability-requirements {
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+.seam-proto-capability-requirements > li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+  font-size: 12px;
+}
+.seam-proto-capability-requirements > li > span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.seam-proto-inline-requirement {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 5px;
+  border-radius: 5px;
+  background: var(--seam-compact-status-amber-bg);
+  color: var(--seam-compact-status-amber);
+  font-size: 11px;
+}
+.seam-proto-inline-requirement svg {
+  width: 13px;
+  height: 13px;
 }
 .seam-compact-requirements li {
   display: flex;
@@ -792,7 +1118,7 @@ body {
     height: 14px;
   }
   .seam-compact-expanded {
-    margin: 0 14px 16px 38px;
+    margin: 0 14px 16px;
     padding: 16px 12px 0;
   }
   .seam-compact-expanded::before {
