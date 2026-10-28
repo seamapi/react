@@ -1,9 +1,13 @@
+import type { RefObject } from 'react'
+
 export function PhonePreview({
   src,
   title,
+  frameRef,
 }: {
   src: string
   title: string
+  frameRef: RefObject<HTMLIFrameElement>
 }): JSX.Element {
   return (
     <aside className='seam-proto-phone-preview' aria-label='Mobile comparison'>
@@ -33,6 +37,7 @@ export function PhonePreview({
             </svg>
           </div>
           <iframe
+            ref={frameRef}
             className='seam-proto-phone-content'
             src={src}
             title={title}

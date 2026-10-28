@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import {
-  getCapabilityLabel,
   getProvidersWithMissingRequirements,
   resolveProviderRequirements,
   scopeDeviceModelsToProvider,
@@ -9,10 +8,17 @@ import {
 import { useEcosystemDeviceModelSummaries } from 'lib/seam/ecosystem/use-ecosystem-device-model-summaries.js'
 import { useEcosystemProviderRequirements } from 'lib/seam/ecosystem/use-ecosystem-provider-requirements.js'
 
+import { CapabilityFilter } from './CapabilityFilter.js'
 import { CheckInfo } from './CheckInfo.js'
 import { reviewDevice } from './model.js'
 import { PhonePreview } from './PhonePreview.js'
 import { Picker } from './Picker.js'
+import {
+  postPreviewFilters,
+  type PreviewFilters,
+  previewReadyMessage,
+  readPreviewFilters,
+} from './preview-filters.js'
 import { RequirementPills } from './RequirementPills.js'
 import { Legend } from './shared.js'
 import { Stacked } from './Stacked.js'
@@ -22,14 +28,14 @@ const variants = [
     name: 'Current',
     title: 'Two-line rows · current version',
     description:
-      'The selected layout, with capability-specific icons and one requirements disclosure.',
+      'Capability-specific icons, with accessory and subscription requirements shown as pills. Open a row for the specific requirements.',
     component: Stacked,
   },
   {
     name: 'Checks',
     title: 'Two-line rows · checks and info',
     description:
-      'Green checks indicate support. Amber info icons indicate additional requirements. Capability names stay visible.',
+      'Green checks indicate support. Amber info icons and requirement pills indicate additional setup. Capability names stay visible.',
     component: CheckInfo,
   },
   {
@@ -62,7 +68,10 @@ export function App(): JSX.Element {
   const [dark, setDark] = useState(params.get('theme') === 'dark')
   const [compare, setCompare] = useState(params.get('compare') !== '0')
   const [search, setSearch] = useState(params.get('q') ?? '')
-  const [capability, setCapability] = useState(params.get('capability') ?? '')
+  const [capabilities, setCapabilities] = useState(() => [
+    ...new Set(params.getAll('capability').filter((name) => name !== '')),
+  ])
+  const phoneRef = useRef<HTMLIFrameElement>(null)
   const brand = brands.find((entry) => entry.slug === brandSlug) ?? brands[0]
   const variant = variants[active] ?? variants[0]
 
@@ -74,15 +83,56 @@ export function App(): JSX.Element {
     if (!isMobilePreview) url.searchParams.set('compare', compare ? '1' : '0')
     if (search === '') url.searchParams.delete('q')
     else url.searchParams.set('q', search)
-    if (capability === '') url.searchParams.delete('capability')
-    else url.searchParams.set('capability', capability)
+    url.searchParams.delete('capability')
+    for (const name of capabilities) url.searchParams.append('capability', name)
     window.history.replaceState(null, '', url)
     document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
     document.documentElement.classList.toggle(
       'seam-proto-mobile-document',
       isMobilePreview
     )
-  }, [active, brandSlug, dark, compare, search, capability])
+  }, [active, brandSlug, dark, compare, search, capabilities])
+
+  useEffect(() => {
+    const receiveFilters = (event: MessageEvent<unknown>): void => {
+      const source = isMobilePreview
+        ? window.parent
+        : phoneRef.current?.contentWindow
+      if (event.origin !== window.location.origin || event.source !== source)
+        return
+      if (!isMobilePreview && event.data === previewReadyMessage) {
+        postPreviewFilters(source, { search, capabilities })
+        return
+      }
+      const filters = readPreviewFilters(event.data)
+      if (filters == null) return
+      setSearch(filters.search)
+      setCapabilities(filters.capabilities)
+    }
+    window.addEventListener('message', receiveFilters)
+    return () => {
+      window.removeEventListener('message', receiveFilters)
+    }
+  }, [search, capabilities])
+
+  useEffect(() => {
+    if (isMobilePreview)
+      window.parent.postMessage(previewReadyMessage, window.location.origin)
+  }, [])
+
+  useEffect(() => {
+    if (!isMobilePreview)
+      postPreviewFilters(phoneRef.current?.contentWindow, {
+        search,
+        capabilities,
+      })
+  }, [search, capabilities])
+
+  const changeFilters = (filters: PreviewFilters): void => {
+    setSearch(filters.search)
+    setCapabilities(filters.capabilities)
+    if (isMobilePreview) postPreviewFilters(window.parent, filters)
+  }
 
   const modelsQuery = useEcosystemDeviceModelSummaries({
     manufacturer: brand?.slug,
@@ -113,8 +163,9 @@ export function App(): JSX.Element {
       .toLowerCase()
     return (
       text.includes(search.toLowerCase().trim()) &&
-      (capability === '' ||
-        device.capabilities.some((item) => item.name === capability))
+      capabilities.every((name) =>
+        device.capabilities.some((item) => item.name === name)
+      )
     )
   })
   const loading =
@@ -148,26 +199,17 @@ export function App(): JSX.Element {
             value={search}
             placeholder='Search by name or model number'
             onChange={(event) => {
-              setSearch(event.target.value)
+              changeFilters({ search: event.target.value, capabilities })
             }}
           />
         </label>
-        <label>
-          Capability
-          <select
-            value={capability}
-            onChange={(event) => {
-              setCapability(event.target.value)
-            }}
-          >
-            <option value=''>All capabilities</option>
-            {allCapabilities.map((name) => (
-              <option key={name} value={name}>
-                {getCapabilityLabel(name)}
-              </option>
-            ))}
-          </select>
-        </label>
+        <CapabilityFilter
+          capabilities={allCapabilities}
+          selected={capabilities}
+          onChange={(capabilities) => {
+            changeFilters({ search, capabilities })
+          }}
+        />
       </div>
       <div className='seam-proto-catalog-heading'>
         <strong>{brand.label}</strong>
@@ -199,8 +241,7 @@ export function App(): JSX.Element {
           <button
             type='button'
             onClick={() => {
-              setSearch('')
-              setCapability('')
+              changeFilters({ search: '', capabilities: [] })
             }}
           >
             Clear filters
@@ -229,8 +270,6 @@ export function App(): JSX.Element {
     v: String(active + 1),
     brand: brand.slug,
     theme: dark ? 'dark' : 'light',
-    q: search,
-    capability,
   })
 
   if (isMobilePreview)
@@ -270,8 +309,7 @@ export function App(): JSX.Element {
               value={brand.slug}
               onChange={(event) => {
                 setBrandSlug(event.target.value)
-                setSearch('')
-                setCapability('')
+                changeFilters({ search: '', capabilities: [] })
               }}
             >
               {brands.map((item) => (
@@ -320,6 +358,7 @@ export function App(): JSX.Element {
           {compare && (
             <PhonePreview
               key={replay}
+              frameRef={phoneRef}
               src={`${window.location.pathname}?${mobileParams.toString()}`}
               title={`${brand.label} supported devices · ${variant.name} · mobile preview`}
             />

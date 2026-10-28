@@ -12,6 +12,7 @@ export function Stacked({ devices }: VariantProps): JSX.Element {
           key={device.source.device_model_id}
           device={device}
           layout='stacked'
+          showRequirementPills
         >
           <DeviceIdentity device={device} showType={false}>
             <Features device={device} />

@@ -258,6 +258,105 @@ body {
 .seam-proto-search {
   flex: 1;
 }
+.seam-proto-capability-filter {
+  position: relative;
+  display: flex;
+  flex: 0 0 200px;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 11px;
+}
+.seam-proto-page .seam-proto-capability-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 12px;
+  border: 1px solid var(--seam-ecosystem-line-2);
+  border-radius: 7px;
+  color: var(--seam-ecosystem-fg-1);
+  background: var(--seam-ecosystem-surface-1);
+  font-size: 13px;
+  text-align: left;
+}
+.seam-proto-capability-trigger > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.seam-proto-filter-chevron {
+  flex-shrink: 0;
+}
+.seam-proto-capability-trigger[aria-expanded='true']
+  .seam-proto-filter-chevron {
+  transform: rotate(180deg);
+}
+.seam-proto-capability-options {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 280px;
+  max-width: calc(100vw - 28px);
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid var(--seam-ecosystem-line-2);
+  border-radius: 10px;
+  background: var(--seam-ecosystem-surface-1);
+  box-shadow: 0 8px 24px #0002;
+}
+.seam-proto-capability-options > p {
+  padding: 4px 8px 8px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.seam-proto-capability-options fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.seam-proto-filters .seam-proto-capability-option {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 8px;
+  border-radius: 6px;
+  color: var(--seam-ecosystem-fg-1);
+  font-size: 13px;
+  cursor: pointer;
+}
+.seam-proto-capability-option:hover {
+  background: var(--seam-ecosystem-surface-2);
+}
+.seam-proto-filters .seam-proto-capability-option input {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--seam-ecosystem-accent);
+}
+.seam-proto-page .seam-proto-capability-clear {
+  min-height: 36px;
+  margin-top: 4px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--seam-ecosystem-accent);
+  background: transparent;
+  font-size: 12px;
+}
+.seam-proto-capability-clear:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 .seam-proto-catalog-heading {
   display: flex;
   justify-content: space-between;
@@ -635,7 +734,8 @@ body {
     flex-wrap: wrap;
     gap: 8px;
   }
-  .seam-proto-filters label {
+  .seam-proto-filters > label,
+  .seam-proto-capability-filter {
     width: 100%;
     flex-basis: 100%;
   }
@@ -643,6 +743,13 @@ body {
   .seam-proto-review-controls select {
     font-size: 16px;
     min-height: 40px;
+  }
+  .seam-proto-page .seam-proto-capability-trigger {
+    min-height: 40px;
+    font-size: 16px;
+  }
+  .seam-proto-filters .seam-proto-capability-option {
+    min-height: 44px;
   }
   .seam-compact-row-summary {
     min-height: 81px;
