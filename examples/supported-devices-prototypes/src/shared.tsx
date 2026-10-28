@@ -150,7 +150,7 @@ export function CompactRow({
   layout,
   children,
   showRequirementPills = false,
-  requirementView = 'matrix',
+  requirementView = 'list',
 }: PropsWithChildren<{
   device: ReviewDevice
   layout: string

@@ -32,6 +32,25 @@ export function HardwareGallery({
     }
   if (photos.length === 0 && source.featured_image != null)
     photos.push({ image: source.featured_image, label: name })
+  const swatches = source.variants
+    .filter(
+      (variant) =>
+        variant.color_name != null || variant.primary_color_hex != null
+    )
+    .map((variant) => ({
+      label: variant.color_name ?? 'Color not specified',
+      color: variant.primary_color_hex,
+      index: photos.findIndex((photo) =>
+        variant.images.some((image) => image.url === photo.image.url)
+      ),
+    }))
+    .filter(
+      (swatch, index, all) =>
+        all.findIndex(
+          (entry) =>
+            entry.label === swatch.label && entry.color === swatch.color
+        ) === index
+    )
 
   const [selected, setSelected] = useState<number | null>(null)
   const [hovered, setHovered] = useState<{
@@ -70,65 +89,81 @@ export function HardwareGallery({
 
   return (
     <div className='seam-proto-gallery'>
-      {photos.length === 0 ? (
-        <p className='seam-proto-gallery-hint'>Photos aren’t available yet.</p>
+      {swatches.length > 0 ? (
+        <div
+          className='seam-proto-gallery-swatches'
+          role='group'
+          aria-label={`${name} colors and photos`}
+        >
+          {swatches.map(({ color, label, index }) => (
+            <button
+              key={`${color ?? ''}-${label}`}
+              type='button'
+              className='seam-proto-gallery-swatch'
+              aria-label={`View ${name} in ${label}`}
+              title={`${label} · ${index < 0 ? 'Photos unavailable' : 'View photos'}`}
+              disabled={index < 0}
+              onPointerEnter={(event) => {
+                if (
+                  index < 0 ||
+                  event.pointerType !== 'mouse' ||
+                  window.innerWidth <= 600
+                )
+                  return
+                const rect = event.currentTarget.getBoundingClientRect()
+                const size = 280
+                const nextTo =
+                  rect.right + 12 + size < window.innerWidth - 16
+                    ? rect.right + 12
+                    : rect.left - size - 12
+                setHovered({
+                  index,
+                  left: Math.max(16, nextTo),
+                  top: Math.max(
+                    16,
+                    Math.min(rect.top - 100, window.innerHeight - size - 56)
+                  ),
+                })
+              }}
+              onPointerLeave={() => {
+                setHovered(null)
+              }}
+              onClick={() => {
+                setHovered(null)
+                setSelected(index)
+              }}
+            >
+              <span
+                className='seam-proto-gallery-color'
+                style={{ backgroundColor: color ?? undefined }}
+                data-unknown={color == null ? '' : undefined}
+              />
+            </button>
+          ))}
+          {photos.length > 0 && swatches.every(({ index }) => index < 0) && (
+            <button
+              type='button'
+              className='seam-proto-gallery-photos'
+              onClick={() => {
+                setSelected(0)
+              }}
+            >
+              View photos
+            </button>
+          )}
+        </div>
+      ) : photos.length > 0 ? (
+        <button
+          type='button'
+          className='seam-proto-gallery-photos'
+          onClick={() => {
+            setSelected(0)
+          }}
+        >
+          View photos
+        </button>
       ) : (
-        <>
-          <div
-            className='seam-proto-gallery-thumbnails'
-            aria-label={`${name} photos`}
-          >
-            {photos.map(({ image, label }, index) => (
-              <button
-                key={image.url}
-                type='button'
-                className='seam-proto-gallery-thumbnail'
-                aria-label={`Enlarge ${name}${label === '' ? '' : ` · ${label}`} · photo ${index + 1} of ${photos.length}`}
-                onPointerEnter={(event) => {
-                  if (event.pointerType !== 'mouse' || window.innerWidth <= 600)
-                    return
-                  const rect = event.currentTarget.getBoundingClientRect()
-                  const size = 280
-                  const nextTo =
-                    rect.right + 12 + size < window.innerWidth - 16
-                      ? rect.right + 12
-                      : rect.left - size - 12
-                  setHovered({
-                    index,
-                    left: Math.max(16, nextTo),
-                    top: Math.max(
-                      16,
-                      Math.min(rect.top - 100, window.innerHeight - size - 56)
-                    ),
-                  })
-                }}
-                onPointerLeave={() => {
-                  setHovered(null)
-                }}
-                onClick={() => {
-                  setHovered(null)
-                  setSelected(index)
-                }}
-              >
-                <img
-                  src={
-                    image.formats.thumbnail?.url ??
-                    image.formats.small?.url ??
-                    image.url
-                  }
-                  alt=''
-                  width='48'
-                  height='48'
-                  loading='lazy'
-                />
-              </button>
-            ))}
-          </div>
-          <p className='seam-proto-gallery-hint'>
-            {photos.length} {photos.length === 1 ? 'photo' : 'photos'} · Hover
-            or tap to enlarge.
-          </p>
-        </>
+        <span className='seam-proto-muted'>Not listed</span>
       )}
       {hovered != null && hoverPhoto != null && (
         <div

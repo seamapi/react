@@ -619,39 +619,51 @@ body {
 }
 .seam-proto-gallery {
   min-width: 0;
-  margin-top: 12px;
 }
-.seam-proto-gallery-thumbnails {
+.seam-proto-gallery-swatches {
   display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 2px 2px 6px;
+  flex-wrap: wrap;
+  max-width: 128px;
+  gap: 0;
 }
-.seam-proto-gallery-thumbnail {
+.seam-proto-gallery-swatch {
   display: flex;
-  flex: 0 0 60px;
+  flex: 0 0 32px;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 32px;
+  height: 32px;
   padding: 6px;
-  border: 1px solid var(--seam-ecosystem-line-2);
-  border-radius: 8px;
-  background: #fff;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
-.seam-proto-gallery-thumbnail:hover {
-  border-color: var(--seam-ecosystem-accent);
+.seam-proto-gallery-swatch:hover:not(:disabled) {
+  box-shadow: inset 0 0 0 1px var(--seam-ecosystem-line-2);
 }
-.seam-proto-gallery-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.seam-proto-gallery-color {
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgb(127 127 127 / 40%);
+  border-radius: 50%;
 }
-.seam-proto-gallery-hint {
-  margin-top: 6px !important;
-  color: var(--seam-ecosystem-fg-2);
-  font-size: 11px;
-  line-height: 1.5;
+.seam-proto-gallery-color[data-unknown] {
+  background: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 3px,
+    var(--seam-ecosystem-line-2) 3px,
+    var(--seam-ecosystem-line-2) 4px
+  );
+}
+.seam-proto-gallery-photos {
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--seam-ecosystem-accent);
+  font-size: 12px;
 }
 .seam-proto-gallery-hover {
   position: fixed;
@@ -731,18 +743,28 @@ body {
   background: #fff;
   object-fit: contain;
 }
+.seam-proto-hardware {
+  container-type: inline-size;
+}
 .seam-proto-hardware-facts {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 20px;
-  margin: 16px 0;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: start;
+  gap: 10px 20px;
+  margin: 0;
 }
-.seam-proto-hardware-facts .seam-proto-model-numbers {
-  grid-column: 1 / -1;
+.seam-proto-hardware-facts > div {
+  min-width: 0;
 }
 .seam-proto-hardware-facts dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: var(--seam-ecosystem-fg-2);
   font-size: 11px;
+}
+.seam-proto-hardware-facts dt a {
+  text-decoration: none;
 }
 .seam-proto-hardware-facts dd {
   margin: 3px 0 0;
@@ -750,15 +772,12 @@ body {
   font-size: 12px;
   line-height: 1.5;
 }
-.seam-proto-hardware-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  font-size: 12px;
+.seam-proto-hardware-colors dd {
+  margin-top: -3px;
 }
 .seam-proto-providers {
-  margin-top: 24px;
-  padding-top: 20px;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid var(--seam-ecosystem-line-1);
 }
 .seam-proto-provider-list {
@@ -770,6 +789,7 @@ body {
   position: relative;
   min-width: 0;
   padding-bottom: 24px;
+  container-type: inline-size;
 }
 .seam-proto-provider::before {
   position: absolute;
@@ -872,23 +892,38 @@ body {
   font-size: 12px;
 }
 .seam-proto-capability-requirements {
-  margin: 12px 0;
-  padding: 0;
-  list-style: none;
-}
-.seam-proto-capability-requirements > li {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+  width: min(100%, 560px);
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 12px 0 0;
   font-size: 12px;
 }
-.seam-proto-capability-requirements > li > span {
+.seam-proto-capability-requirements th,
+.seam-proto-capability-requirements td {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--seam-ecosystem-line-1);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.seam-proto-capability-requirements th:first-child {
+  width: 44%;
+  padding-right: 12px;
+}
+.seam-proto-capability-requirements thead th {
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 11px;
+  font-weight: 400;
+}
+.seam-proto-capability-requirements tbody th {
+  font-weight: 500;
+  line-height: 22px;
+}
+.seam-proto-capability-pills {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  align-items: flex-start;
 }
 .seam-proto-inline-requirement {
   display: inline-flex;
@@ -903,6 +938,23 @@ body {
 .seam-proto-inline-requirement svg {
   width: 13px;
   height: 13px;
+  flex-shrink: 0;
+}
+@container (max-width: 500px) {
+  .seam-proto-hardware-facts {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 10px 12px;
+  }
+  .seam-proto-hardware-facts .seam-proto-model-numbers {
+    grid-column: 1 / -1;
+  }
+  .seam-proto-gallery-swatches {
+    max-width: 96px;
+  }
+  .seam-proto-capability-pills {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
 }
 .seam-compact-requirements li {
   display: flex;

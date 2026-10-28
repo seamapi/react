@@ -92,32 +92,48 @@ export function ProviderRequirements({
           </table>
         </div>
       ) : (
-        <ul className='seam-proto-capability-requirements'>
-          {provider.capabilities.map((capability) => (
-            <li key={capability.name}>
-              <strong>{capability.label}</strong>
-              <span>
-                {visibleColumns
-                  .filter(({ kind }) =>
-                    capability.messages.some(
-                      (message) => getRequirementKind(message) === kind
-                    )
-                  )
-                  .map(({ kind, label }) => (
-                    <span className='seam-proto-inline-requirement' key={kind}>
-                      <RequirementIcon message={kind} />
-                      {label}
-                    </span>
-                  ))}
-                {capability.messages.length === 0 && (
-                  <span className='seam-proto-matrix-none'>
-                    No additional requirements listed
-                  </span>
-                )}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <table className='seam-proto-capability-requirements'>
+          <caption className='seam-compact-sr-only'>
+            Supported capabilities and their additional requirements
+          </caption>
+          <thead>
+            <tr>
+              <th scope='col'>Capability</th>
+              <th scope='col'>Requirements</th>
+            </tr>
+          </thead>
+          <tbody>
+            {provider.capabilities.map((capability) => (
+              <tr key={capability.name}>
+                <th scope='row'>{capability.label}</th>
+                <td>
+                  <div className='seam-proto-capability-pills'>
+                    {visibleColumns
+                      .filter(({ kind }) =>
+                        capability.messages.some(
+                          (message) => getRequirementKind(message) === kind
+                        )
+                      )
+                      .map(({ kind, label }) => (
+                        <span
+                          className='seam-proto-inline-requirement'
+                          key={kind}
+                        >
+                          <RequirementIcon message={kind} />
+                          {label}
+                        </span>
+                      ))}
+                    {capability.messages.length === 0 && (
+                      <span className='seam-proto-matrix-none'>
+                        None listed
+                      </span>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
       {view === 'matrix' && provider.capabilities.length > 0 && (
         <p className='seam-proto-matrix-legend'>

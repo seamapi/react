@@ -70,7 +70,7 @@ export function App(): JSX.Element {
   const [dark, setDark] = useState(params.get('theme') === 'dark')
   const [compare, setCompare] = useState(params.get('compare') !== '0')
   const [requirementView, setRequirementView] = useState<'matrix' | 'list'>(
-    params.get('requirements') === 'list' ? 'list' : 'matrix'
+    params.get('requirements') === 'matrix' ? 'matrix' : 'list'
   )
   const [search, setSearch] = useState(params.get('q') ?? '')
   const [capabilities, setCapabilities] = useState(() => [
@@ -387,7 +387,7 @@ export function App(): JSX.Element {
               setRequirementView('matrix')
             }}
           >
-            Matrix · recommended
+            Matrix
           </button>
           <button
             type='button'
@@ -396,7 +396,7 @@ export function App(): JSX.Element {
               setRequirementView('list')
             }}
           >
-            Capability list
+            Capability list · preferred
           </button>
         </div>
         <div className={compare ? 'seam-proto-comparison' : undefined}>
