@@ -52,6 +52,7 @@ const brands = [
   { slug: 'nuki', label: 'Nuki', provider: 'nuki-web' },
   { slug: 'august', label: 'August', provider: 'august-access' },
   { slug: 'keyincode', label: 'KeyInCode', provider: 'keyincode' },
+  { slug: 'salto', label: 'Salto', provider: 'salto-ks' },
 ]
 const params = new URLSearchParams(window.location.search)
 const isMobilePreview = params.get('view') === 'mobile'
