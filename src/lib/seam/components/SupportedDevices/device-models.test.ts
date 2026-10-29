@@ -10,6 +10,7 @@ import type {
 import {
   applyEmbedExclusions,
   filterDeviceModels,
+  getCapabilityLabel,
   getCapabilityOptions,
   getCapabilityRequirementMessages,
   getProvidersWithMissingRequirements,
@@ -111,6 +112,27 @@ const models = [
   }),
   deviceModel({ slug: 'd', manufacturer: null, deviceType: null }),
 ]
+
+test('card assignment is independently displayed and filterable without encoding', () => {
+  const model = deviceModel({
+    slug: 'card-reader',
+    capabilities: {
+      cloud: {
+        can_assign_plastic_cards: 'conditionally',
+        can_encode_plastic_cards: 'no',
+      },
+    },
+  })
+  expect(
+    getSupportedCapabilities(model).map(({ name }) => ({
+      name,
+      label: getCapabilityLabel(name),
+    }))
+  ).toEqual([{ name: 'can_assign_plastic_cards', label: 'Assign key cards' }])
+  expect(getCapabilityOptions([model]).map(({ value }) => value)).toEqual([
+    'can_assign_plastic_cards',
+  ])
+})
 
 test('applyEmbedExclusions: without exclusions returns the models', () => {
   expect(applyEmbedExclusions(models, null)).toBe(models)
