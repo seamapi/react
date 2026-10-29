@@ -25,7 +25,12 @@ export function CapabilityIcon({ name }: { name: string }): JSX.Element {
       strokeLinecap='round'
       strokeLinejoin='round'
     >
-      {name.includes('access_codes') ? (
+      {name.includes('plastic_cards') ? (
+        <>
+          <rect x='3' y='5' width='18' height='14' rx='2' />
+          <path d='M3 9h18M7 14h4' />
+        </>
+      ) : name.includes('access_codes') ? (
         <>
           <rect x='5' y='2' width='14' height='20' rx='3' />
           <path d='M9 6h6M9 10h.01M12 10h.01M15 10h.01M9 14h.01M12 14h.01M15 14h.01M12 18h.01' />
