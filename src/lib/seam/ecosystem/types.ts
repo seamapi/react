@@ -196,6 +196,7 @@ export type CapabilityName =
   | 'can_remotely_unlock'
   | 'can_remotely_lock'
   | 'can_encode_plastic_cards'
+  | 'can_assign_plastic_cards'
   | 'can_provision_mobile_keys'
   | 'can_provision_wallet_keys'
   | 'can_hvac_cool'
