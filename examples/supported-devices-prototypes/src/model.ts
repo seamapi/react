@@ -37,15 +37,28 @@ export interface VariantProps {
   requirementView?: 'matrix' | 'list'
 }
 
-export type RequirementKind = 'subscription' | 'bridge' | 'keypad' | 'other'
+export type RequirementKind =
+  | 'subscription'
+  | 'bridge'
+  | 'keypad'
+  | 'legal'
+  | 'other'
 
-export function getRequirementKind(message: string): RequirementKind {
+/** UI aliases for source prose, which can describe more than one prerequisite. */
+export function getRequirementKinds(message: string): RequirementKind[] {
   const known: Record<string, RequirementKind> = {
     'A compatible bridge is required.': 'bridge',
     'An external keypad is required.': 'keypad',
     'A paying Nuki SmartHosting subscription is required.': 'subscription',
   }
-  return known[message] ?? 'other'
+  const kinds: RequirementKind[] = []
+  const knownKind = known[message.trim()]
+  if (knownKind != null) kinds.push(knownKind)
+  if (/\b(?:eula|waiver|end[- ]user licen[cs]e agreement)\b/i.test(message))
+    kinds.push('legal')
+  if (/\binstall\s+(?:a\s+)?seam\s+bridge\b/i.test(message))
+    kinds.push('bridge')
+  return kinds.length === 0 ? ['other'] : [...new Set(kinds)]
 }
 
 export function reviewDevice(
@@ -116,22 +129,26 @@ function reviewRequirements(
 
 /** Presentation aliases for known requirements; unfamiliar source copy stays explicit. */
 export function getRequirementPills(
-  device: ReviewDevice
+  device: Pick<ReviewDevice, 'requirements'>
 ): Array<{ label: string; messages: string[] }> {
   const labels: Record<RequirementKind, string> = {
     bridge: 'Accessories Required',
     keypad: 'Accessories Required',
     subscription: 'Subscription Required',
+    legal: 'Legal Requirements',
     other: 'Other Requirements',
   }
   const groups = new Map<string, string[]>()
   for (const { message } of device.requirements) {
-    const label = labels[getRequirementKind(message)]
-    groups.set(label, [...(groups.get(label) ?? []), message])
+    for (const kind of getRequirementKinds(message)) {
+      const label = labels[kind]
+      groups.set(label, [...(groups.get(label) ?? []), message])
+    }
   }
   return [
     'Accessories Required',
     'Subscription Required',
+    'Legal Requirements',
     'Other Requirements',
   ].flatMap((label) => {
     const messages = groups.get(label)

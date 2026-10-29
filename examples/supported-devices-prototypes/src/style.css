@@ -839,8 +839,11 @@ body {
   border-collapse: collapse;
   font-size: 12px;
 }
-.seam-proto-requirement-matrix[data-has-other] {
+.seam-proto-requirement-matrix[data-extra-columns='1'] {
   min-width: 356px;
+}
+.seam-proto-requirement-matrix[data-extra-columns='2'] {
+  min-width: 420px;
 }
 .seam-proto-requirement-matrix th,
 .seam-proto-requirement-matrix td {
