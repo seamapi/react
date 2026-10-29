@@ -1,7 +1,7 @@
 import { RequirementIcon } from 'lib/seam/components/SupportedDevices/RequirementIcon.js'
 
 import {
-  getRequirementKind,
+  getRequirementKinds,
   type RequirementKind,
   type ReviewDevice,
 } from './model.js'
@@ -12,6 +12,10 @@ const columns: Array<{ kind: RequirementKind; label: string }> = [
   { kind: 'bridge', label: 'Bridge' },
   { kind: 'keypad', label: 'Keypad' },
 ]
+const additionalColumns: typeof columns = [
+  { kind: 'legal', label: 'Legal' },
+  { kind: 'other', label: 'Other' },
+]
 
 export function ProviderRequirements({
   provider,
@@ -20,11 +24,14 @@ export function ProviderRequirements({
   provider: ReviewDevice['providers'][number]
   view: 'matrix' | 'list'
 }): JSX.Element {
-  const visibleColumns = provider.requirements.some(
-    ({ message }) => getRequirementKind(message) === 'other'
-  )
-    ? [...columns, { kind: 'other' as const, label: 'Other' }]
-    : columns
+  const visibleColumns = [
+    ...columns,
+    ...additionalColumns.filter(({ kind }) =>
+      provider.requirements.some(({ message }) =>
+        getRequirementKinds(message).includes(kind)
+      )
+    ),
+  ]
   return (
     <>
       {provider.capabilities.length === 0 ? (
@@ -42,7 +49,7 @@ export function ProviderRequirements({
         >
           <table
             className='seam-proto-requirement-matrix'
-            data-has-other={visibleColumns.length > 3 ? '' : undefined}
+            data-extra-columns={visibleColumns.length - columns.length}
           >
             <caption className='seam-compact-sr-only'>
               Supported capabilities and their additional requirements
@@ -63,8 +70,8 @@ export function ProviderRequirements({
                 <tr key={capability.name}>
                   <th scope='row'>{capability.label}</th>
                   {visibleColumns.map(({ kind, label }) => {
-                    const required = capability.messages.some(
-                      (message) => getRequirementKind(message) === kind
+                    const required = capability.messages.some((message) =>
+                      getRequirementKinds(message).includes(kind)
                     )
                     return (
                       <td key={kind}>
@@ -127,8 +134,8 @@ export function ProviderRequirements({
                   <div className='seam-proto-capability-pills'>
                     {visibleColumns
                       .filter(({ kind }) =>
-                        capability.messages.some(
-                          (message) => getRequirementKind(message) === kind
+                        capability.messages.some((message) =>
+                          getRequirementKinds(message).includes(kind)
                         )
                       )
                       .map(({ kind, label }) => (
