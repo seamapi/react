@@ -907,8 +907,23 @@ body {
   overflow-wrap: anywhere;
 }
 .seam-proto-capability-requirements th:first-child {
-  width: 44%;
   padding-right: 12px;
+}
+.seam-proto-capability-name-column {
+  width: 36%;
+}
+.seam-proto-capability-supported-column {
+  width: 72px;
+}
+.seam-proto-capability-requirements .seam-proto-capability-support-cell {
+  text-align: center;
+  padding-right: 12px;
+}
+.seam-proto-capability-supported {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  color: var(--seam-compact-green);
 }
 .seam-proto-capability-requirements thead th {
   color: var(--seam-ecosystem-fg-2);
@@ -941,6 +956,15 @@ body {
   flex-shrink: 0;
 }
 @container (max-width: 500px) {
+  .seam-proto-capability-name-column {
+    width: 33%;
+  }
+  .seam-proto-capability-supported-column {
+    width: 60px;
+  }
+  .seam-proto-capability-requirements .seam-proto-capability-support-cell {
+    padding-right: 4px;
+  }
   .seam-proto-hardware-facts {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
     gap: 10px 12px;

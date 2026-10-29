@@ -96,9 +96,17 @@ export function ProviderRequirements({
           <caption className='seam-compact-sr-only'>
             Supported capabilities and their additional requirements
           </caption>
+          <colgroup>
+            <col className='seam-proto-capability-name-column' />
+            <col className='seam-proto-capability-supported-column' />
+            <col />
+          </colgroup>
           <thead>
             <tr>
               <th scope='col'>Capability</th>
+              <th scope='col' className='seam-proto-capability-support-cell'>
+                Supported
+              </th>
               <th scope='col'>Requirements</th>
             </tr>
           </thead>
@@ -106,6 +114,15 @@ export function ProviderRequirements({
             {provider.capabilities.map((capability) => (
               <tr key={capability.name}>
                 <th scope='row'>{capability.label}</th>
+                <td className='seam-proto-capability-support-cell'>
+                  <span
+                    className='seam-proto-capability-supported'
+                    role='img'
+                    aria-label='Supported'
+                  >
+                    <CheckMark />
+                  </span>
+                </td>
                 <td>
                   <div className='seam-proto-capability-pills'>
                     {visibleColumns
@@ -124,8 +141,12 @@ export function ProviderRequirements({
                         </span>
                       ))}
                     {capability.messages.length === 0 && (
-                      <span className='seam-proto-matrix-none'>
-                        None listed
+                      <span
+                        className='seam-proto-matrix-none'
+                        role='img'
+                        aria-label='No additional requirements listed'
+                      >
+                        —
                       </span>
                     )}
                   </div>
