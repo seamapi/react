@@ -24,6 +24,19 @@ export function ProviderRequirements({
   provider: ReviewDevice['providers'][number]
   view: 'matrix' | 'list'
 }): JSX.Element {
+  if (provider.integrationStatus === 'unsupported')
+    return (
+      <a
+        className='seam-proto-request-integration'
+        href='https://www.seam.co/request-new-integration'
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label={`Request Integration with ${provider.display_name ?? provider.slug} (opens in a new tab)`}
+      >
+        Request Integration <span aria-hidden>→</span>
+      </a>
+    )
+
   const visibleColumns = [
     ...columns,
     ...additionalColumns.filter(({ kind }) =>

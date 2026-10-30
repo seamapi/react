@@ -182,11 +182,14 @@ export interface ProviderRef {
   display_name: string | null
 }
 
-/** Fields used from public `providers/list` for branding and legacy report text. */
+/** Fields used from public `providers/list` for branding, support, and report text. */
 export interface ProviderRequirements extends ProviderRef {
   has_requirements: boolean | null
   requirements_md: string | null
   logos?: DeviceAsset[]
+  integrations?: Array<{
+    integration_support_level: IntegrationSupportLevel | null
+  }>
 }
 
 export type CapabilityName =
