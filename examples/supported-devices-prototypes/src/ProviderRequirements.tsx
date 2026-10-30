@@ -1,5 +1,6 @@
 import { RequirementIcon } from 'lib/seam/components/SupportedDevices/RequirementIcon.js'
 
+import { AccessoryLinks } from './AccessoryCatalog.js'
 import {
   getRequirementKinds,
   type RequirementKind,
@@ -189,10 +190,13 @@ export function ProviderRequirements({
           className='seam-compact-requirements'
           aria-label='Requirement details'
         >
-          {provider.requirements.map(({ message }) => (
+          {provider.requirements.map(({ message, deviceSlugs }) => (
             <li key={message}>
               <RequirementIcon message={message} />
-              <p>{message}</p>
+              <div className='seam-proto-requirement-body'>
+                <p>{message}</p>
+                <AccessoryLinks message={message} slugs={deviceSlugs} />
+              </div>
             </li>
           ))}
         </ul>

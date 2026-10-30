@@ -5,6 +5,7 @@ import {
   getSupportedCapabilities,
 } from 'lib/seam/components/SupportedDevices/device-models.js'
 import type {
+  CapabilitySummary,
   DeviceAsset,
   DeviceModelSummary,
   IntegrationSupportLevel,
@@ -22,7 +23,11 @@ export interface ReviewDevice {
   source: DeviceModelSummary
   name: string
   capabilities: Capability[]
-  requirements: Array<{ message: string; capabilities: string[] }>
+  requirements: Array<{
+    message: string
+    capabilities: string[]
+    deviceSlugs?: string[]
+  }>
   providers: ReviewProvider[]
 }
 
@@ -74,7 +79,7 @@ export function reviewDevice(
     source,
     name: getDeviceModelName(source),
     capabilities,
-    requirements: reviewRequirements(capabilities),
+    requirements: reviewRequirements(capabilities, source),
     providers: allProvidersSource.providers
       .map((provider) => {
         const details = providers.find((entry) => entry.slug === provider.slug)
@@ -82,10 +87,11 @@ export function reviewDevice(
           allProvidersSource.capabilities_by_provider.filter(
             (entry) => entry.provider.slug === provider.slug
           )
-        const capabilities = reviewCapabilities({
+        const providerSource = {
           ...allProvidersSource,
           capabilities_by_provider: providerCapabilities,
-        })
+        }
+        const capabilities = reviewCapabilities(providerSource)
         // Provider metadata distinguishes a missing integration from missing
         // device capabilities. Connectivity alone does not imply Seam support.
         const levels =
@@ -109,7 +115,7 @@ export function reviewDevice(
           primary: provider.slug === primarySlug,
           integrationStatus: getIntegrationStatus(levels),
           capabilities,
-          requirements: reviewRequirements(capabilities),
+          requirements: reviewRequirements(capabilities, providerSource),
         }
       })
       .sort((a, b) => {
@@ -146,7 +152,8 @@ function reviewCapabilities(source: DeviceModelSummary): Capability[] {
 }
 
 function reviewRequirements(
-  capabilities: Capability[]
+  capabilities: Capability[],
+  source: DeviceModelSummary
 ): ReviewDevice['requirements'] {
   const requirements = new Map<string, string[]>()
   for (const capability of capabilities)
@@ -158,7 +165,47 @@ function reviewRequirements(
   return [...requirements].map(([message, labels]) => ({
     message,
     capabilities: labels,
+    deviceSlugs: [
+      ...new Set(
+        source.capabilities_by_provider.flatMap(
+          ({ capabilities: rawCapabilities }) =>
+            rawCapabilities
+              .filter((capability) =>
+                capabilities.some(
+                  (supported) =>
+                    supported.name === capability.name &&
+                    supported.messages.includes(message)
+                )
+              )
+              .flatMap((capability) =>
+                getRequirementDeviceSlugs(capability, rawCapabilities, message)
+              )
+        )
+      ),
+    ],
   }))
+}
+
+/** Follow capability dependencies within the same model/provider only. */
+function getRequirementDeviceSlugs(
+  capability: CapabilitySummary,
+  capabilities: CapabilitySummary[],
+  message: string,
+  visited = new Set<string>()
+): string[] {
+  if (visited.has(capability.name)) return []
+  visited.add(capability.name)
+  const slugs = Object.values(capability.report?.requirements ?? {})
+    .filter((requirement) => requirement.message === message)
+    .flatMap((requirement) => requirement.device_slugs ?? [])
+  for (const name of capability.report?.dependencies ?? []) {
+    const dependency = capabilities.find((entry) => entry.name === name)
+    if (dependency != null)
+      slugs.push(
+        ...getRequirementDeviceSlugs(dependency, capabilities, message, visited)
+      )
+  }
+  return slugs
 }
 
 /** Presentation aliases for known requirements; unfamiliar source copy stays explicit. */

@@ -13,7 +13,10 @@ import {
 } from 'lib/seam/ecosystem/use-ecosystem-query-result.js'
 
 export type UseEcosystemDeviceModelSummariesParams =
-  UseEcosystemDeviceModelsParams
+  UseEcosystemDeviceModelsParams & {
+    /** Fetch specific models, including accessories from other manufacturers. */
+    slugs?: string[] | undefined
+  }
 
 export type UseEcosystemDeviceModelSummariesData = DeviceModelSummary[]
 
@@ -30,6 +33,7 @@ export function useEcosystemDeviceModelSummaries({
   deviceType = '',
   provider = '',
   capability = '',
+  slugs = [],
   enabled = true,
 }: UseEcosystemDeviceModelSummariesParams = {}): UseEcosystemQueryResult<
   'deviceModels',
@@ -42,6 +46,9 @@ export function useEcosystemDeviceModelSummaries({
     device_type: deviceType.trim(),
     provider: provider.trim(),
     capability: capability.trim(),
+    slugs: [
+      ...new Set(slugs.map((slug) => slug.trim()).filter(Boolean)),
+    ].sort(),
   }
 
   const { data, ...rest } = useQuery<

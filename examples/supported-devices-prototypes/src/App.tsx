@@ -9,6 +9,7 @@ import { useEcosystemDeviceModelSummaries } from 'lib/seam/ecosystem/use-ecosyst
 import { useEcosystemManufacturers } from 'lib/seam/ecosystem/use-ecosystem-manufacturers.js'
 import { useEcosystemProviderRequirements } from 'lib/seam/ecosystem/use-ecosystem-provider-requirements.js'
 
+import { AccessoryCatalog } from './AccessoryCatalog.js'
 import { BrandMark } from './BrandMark.js'
 import { CapabilityFilter } from './CapabilityFilter.js'
 import { CheckInfo } from './CheckInfo.js'
@@ -283,7 +284,21 @@ export function App(): JSX.Element {
           key={`${active}-${replay}-${brand.slug}`}
           className={`seam-proto-variant seam-proto-variant-${variant.name.toLowerCase()}`}
         >
-          <Variant devices={filtered} requirementView={requirementView} />
+          <AccessoryCatalog
+            slugs={devices.flatMap((device) =>
+              device.providers
+                .filter(
+                  (provider) => provider.integrationStatus !== 'unsupported'
+                )
+                .flatMap((provider) =>
+                  provider.requirements.flatMap(
+                    (requirement) => requirement.deviceSlugs ?? []
+                  )
+                )
+            )}
+          >
+            <Variant devices={filtered} requirementView={requirementView} />
+          </AccessoryCatalog>
         </div>
       )}
       <a
