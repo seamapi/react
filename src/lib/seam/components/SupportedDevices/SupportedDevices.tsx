@@ -1,8 +1,6 @@
 import classNames from 'classnames'
 import { useDeferredValue, useMemo, useState } from 'react'
 
-import { CheckIcon } from 'lib/icons/Check.js'
-import { TriangleWarningOutlineIcon } from 'lib/icons/TriangleWarningOutline.js'
 import {
   applyEmbedExclusions,
   capabilityLabels,
@@ -35,13 +33,18 @@ import {
   getEcosystemThemeClassName,
 } from 'lib/ui/ecosystem/theme.js'
 
+import { AccessoryCatalog } from './AccessoryCatalog.js'
+import { CapabilityFilter } from './CapabilityFilter.js'
+import { CapabilityLegend } from './DeviceRow.js'
+import { presentDevice } from './presentation.js'
+
 export interface SupportedDevicesProps {
   /**
    * DeviceDB manufacturer slug, e.g., `schlage`.
    * Defaults to the manufacturer of a manufacturer embed key.
    */
   manufacturer?: string | undefined
-  /** Ecosystem provider slug, e.g., `oracode`. Scopes models and capability badges. */
+  /** Ecosystem provider slug, e.g., `oracode`. Scopes models and capability summaries. */
   provider?: string | undefined
   /** DeviceDB device type slug, e.g., `smartlock` or `thermostat`. */
   deviceType?: string | undefined
@@ -57,7 +60,7 @@ export interface SupportedDevicesProps {
 
 /**
  * Device models that work with Seam, grouped by manufacturer,
- * with device type and capability badges.
+ * with capability checks and expandable hardware and provider requirements.
  */
 export function SupportedDevices({
   manufacturer,
@@ -103,23 +106,71 @@ export function SupportedDevices({
     enabled: (explicitManufacturer != null || isResolved) && !isResolutionError,
   })
 
-  const scopedDeviceModels = useMemo(
-    () =>
-      scopeDeviceModelsToProvider(
-        applyEmbedExclusions(deviceModels ?? [], embedResolution?.exclusions),
-        fixedProvider
-      ),
-    [deviceModels, embedResolution, fixedProvider]
+  const allowedDeviceModels = useMemo(
+    () => applyEmbedExclusions(deviceModels ?? [], embedResolution?.exclusions),
+    [deviceModels, embedResolution]
   )
 
   const missingProviderSlugs = useMemo(
-    () => getProvidersWithMissingRequirements(scopedDeviceModels),
-    [scopedDeviceModels]
+    () => getProvidersWithMissingRequirements(allowedDeviceModels),
+    [allowedDeviceModels]
   )
-  const { providers } = useEcosystemProviderRequirements(missingProviderSlugs)
+  const providerSlugs = useMemo(
+    () =>
+      allowedDeviceModels.flatMap((model) =>
+        model.providers.map((provider) => provider.slug)
+      ),
+    [allowedDeviceModels]
+  )
+  const {
+    providers,
+    isError: isProvidersError,
+    error: providersError,
+    refetch: refetchProviders,
+  } = useEcosystemProviderRequirements(providerSlugs)
+  const resolvedDeviceModels = useMemo(
+    () => resolveProviderRequirements(allowedDeviceModels, providers ?? []),
+    [allowedDeviceModels, providers]
+  )
   const availableDeviceModels = useMemo(
-    () => resolveProviderRequirements(scopedDeviceModels, providers ?? []),
-    [scopedDeviceModels, providers]
+    () => scopeDeviceModelsToProvider(resolvedDeviceModels, fixedProvider),
+    [resolvedDeviceModels, fixedProvider]
+  )
+  const presentedDevices = useMemo(() => {
+    const allProvidersById = new Map(
+      resolvedDeviceModels.map((model) => [model.device_model_id, model])
+    )
+    return availableDeviceModels.map((source) =>
+      presentDevice(
+        source,
+        providers ?? [],
+        allProvidersById.get(source.device_model_id),
+        fixedProvider ?? undefined
+      )
+    )
+  }, [availableDeviceModels, resolvedDeviceModels, providers, fixedProvider])
+  const presentedDevicesById = useMemo(
+    () =>
+      new Map(
+        presentedDevices.map((device) => [
+          device.source.device_model_id,
+          device,
+        ])
+      ),
+    [presentedDevices]
+  )
+  const accessorySlugs = useMemo(
+    () =>
+      presentedDevices.flatMap((device) =>
+        device.providers
+          .filter((provider) => provider.integrationStatus !== 'unsupported')
+          .flatMap((provider) =>
+            provider.requirements.flatMap(
+              (requirement) => requirement.deviceSlugs ?? []
+            )
+          )
+      ),
+    [presentedDevices]
   )
 
   const manufacturerSlugs = useMemo(
@@ -150,19 +201,21 @@ export function SupportedDevices({
   const [selectedDeviceType, setSelectedDeviceType] = useState<string | null>(
     null
   )
-  const [selectedCapability, setSelectedCapability] = useState<string | null>(
-    null
-  )
+  const [selectedCapabilities, setSelectedCapabilities] = useState<string[]>([])
   const search = useDeferredValue(searchValue)
 
   const filteredDeviceModels = useMemo(
     () =>
-      filterDeviceModels(availableDeviceModels, {
-        manufacturer: scopeManufacturer ?? selectedManufacturer,
-        deviceType: fixedDeviceType ?? selectedDeviceType,
-        capability: fixedCapability ?? selectedCapability,
-        search,
-      }),
+      selectedCapabilities.reduce(
+        (models, selected) =>
+          filterDeviceModels(models, { capability: selected }),
+        filterDeviceModels(availableDeviceModels, {
+          manufacturer: scopeManufacturer ?? selectedManufacturer,
+          deviceType: fixedDeviceType ?? selectedDeviceType,
+          capability: fixedCapability,
+          search,
+        })
+      ),
     [
       availableDeviceModels,
       scopeManufacturer,
@@ -170,7 +223,7 @@ export function SupportedDevices({
       fixedDeviceType,
       selectedDeviceType,
       fixedCapability,
-      selectedCapability,
+      selectedCapabilities,
       search,
     ]
   )
@@ -204,17 +257,25 @@ export function SupportedDevices({
     searchValue.trim().length > 0 ||
     selectedManufacturer != null ||
     selectedDeviceType != null ||
-    selectedCapability != null
+    selectedCapabilities.length > 0
 
   const resetFilters = (): void => {
     setSearchValue('')
     setSelectedManufacturer(null)
     setSelectedDeviceType(null)
-    setSelectedCapability(null)
+    setSelectedCapabilities([])
   }
 
-  const isError = isResolutionError || isDeviceModelsError
-  const isLoading = !isError && (!isResolved || deviceModels == null)
+  const areRequirementsMissing = missingProviderSlugs.length > 0
+  const isError =
+    isResolutionError ||
+    isDeviceModelsError ||
+    (areRequirementsMissing && isProvidersError)
+  const isLoading =
+    !isError &&
+    (!isResolved ||
+      deviceModels == null ||
+      (areRequirementsMissing && providers == null))
 
   const scopedManufacturerName =
     scopeManufacturer == null
@@ -233,7 +294,11 @@ export function SupportedDevices({
   const content = (() => {
     if (isError) {
       const { message, canRetry } = getEcosystemErrorMessage(
-        isResolutionError ? resolutionError : deviceModelsError,
+        isResolutionError
+          ? resolutionError
+          : isDeviceModelsError
+            ? deviceModelsError
+            : providersError,
         t.error
       )
       return (
@@ -245,6 +310,7 @@ export function SupportedDevices({
                 onAction: () => {
                   if (isResolutionError) void refetchResolution()
                   if (isDeviceModelsError) void refetchDeviceModels()
+                  if (isProvidersError) void refetchProviders()
                 },
               }
             : {})}
@@ -277,7 +343,10 @@ export function SupportedDevices({
         {groups.map((group) => (
           <ManufacturerSection
             key={group.key}
-            group={group}
+            devices={group.deviceModels.flatMap((model) => {
+              const device = presentedDevicesById.get(model.device_model_id)
+              return device == null ? [] : [device]
+            })}
             manufacturer={manufacturersBySlug.get(group.key) ?? null}
             collapsible={groups.length > 1}
           />
@@ -303,7 +372,15 @@ export function SupportedDevices({
       {(!hideTitle || !hideSearch || showFilters) && (
         <div className='seam-ecosystem-header'>
           {!hideTitle && <h2 className='seam-ecosystem-title'>{title}</h2>}
-          <div className='seam-ecosystem-controls'>
+          <div className='seam-ecosystem-controls seam-supported-device-filters'>
+            {!hideSearch && (
+              <SearchField
+                label={t.search}
+                value={searchValue}
+                onChange={setSearchValue}
+                disabled={controlsDisabled}
+              />
+            )}
             {showFilters && showManufacturerFilter && (
               <FilterSelect
                 label={t.manufacturer}
@@ -325,20 +402,10 @@ export function SupportedDevices({
               />
             )}
             {showFilters && showCapabilityFilter && (
-              <FilterSelect
-                label={t.capability}
-                allLabel={t.allCapabilities}
-                options={capabilityOptions}
-                value={selectedCapability}
-                onChange={setSelectedCapability}
-                disabled={controlsDisabled}
-              />
-            )}
-            {!hideSearch && (
-              <SearchField
-                label={t.search}
-                value={searchValue}
-                onChange={setSearchValue}
+              <CapabilityFilter
+                capabilities={capabilityOptions.map((option) => option.value)}
+                selected={selectedCapabilities}
+                onChange={setSelectedCapabilities}
                 disabled={controlsDisabled}
               />
             )}
@@ -346,53 +413,20 @@ export function SupportedDevices({
         </div>
       )}
       {!isLoading && !isError && availableDeviceModels.length > 0 && (
-        <div
-          className='seam-supported-devices-legend'
-          aria-label={t.featureStatus}
-        >
-          <span>
-            <CheckIcon aria-hidden />
-            {t.supported}
-          </span>
-          <span>
-            <TriangleWarningOutlineIcon aria-hidden />
-            {t.requiresSetup}
-          </span>
-        </div>
+        <CapabilityLegend />
       )}
-      {content}
+      <AccessoryCatalog slugs={accessorySlugs}>{content}</AccessoryCatalog>
     </div>
   )
 }
 
 function LoadingRows(): JSX.Element {
-  return (
-    <div className='seam-supported-devices-sections' aria-busy='true'>
-      <section className='seam-supported-devices-section'>
-        <div className='seam-supported-devices-section-header'>
-          <div className='seam-ecosystem-skeleton seam-supported-devices-logo' />
-          <div className='seam-ecosystem-skeleton seam-ecosystem-skeleton-line-short' />
-        </div>
-        <ul className='seam-supported-devices-rows'>
-          {Array.from({ length: 3 }, (_, index) => (
-            <li key={index} className='seam-supported-devices-row'>
-              <div className='seam-ecosystem-skeleton seam-supported-devices-image' />
-              <div className='seam-supported-devices-info'>
-                <div className='seam-ecosystem-skeleton seam-ecosystem-skeleton-line' />
-                <div className='seam-ecosystem-skeleton seam-ecosystem-skeleton-line-short' />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
-  )
+  return <StateMessage role='status'>Loading supported devices…</StateMessage>
 }
 
-const normalizeSlug = (value: string | undefined): string | null => {
-  const slug = value?.trim()
-  if (slug == null || slug.length === 0) return null
-  return slug
+const normalizeSlug = (slug: string | undefined): string | null => {
+  const value = slug?.trim()
+  return value == null || value.length === 0 ? null : value
 }
 
 const getScopedManufacturerName = (
@@ -412,11 +446,6 @@ const t = {
   allManufacturers: 'All manufacturers',
   deviceType: 'Device type',
   allDeviceTypes: 'All device types',
-  capability: 'Feature',
-  allCapabilities: 'All features',
-  featureStatus: 'Feature status',
-  supported: 'Supported',
-  requiresSetup: 'Requires setup · expand details',
   error: 'An error occurred while loading supported devices.',
   retry: 'Retry',
   noDevices: 'No supported devices found.',

@@ -11,7 +11,7 @@ import {
   type UseEcosystemQueryResult,
 } from 'lib/seam/ecosystem/use-ecosystem-query-result.js'
 
-/** Only fetch providers whose legacy capability reports lost their free-text requirement. */
+/** Fetch provider branding, integration status, and legacy free-text requirements. */
 export function useEcosystemProviderRequirements(
   slugs: string[]
 ): UseEcosystemQueryResult<'providers', ProviderRequirements[]> {
