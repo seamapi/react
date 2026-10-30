@@ -7,6 +7,7 @@ import {
 import type {
   DeviceAsset,
   DeviceModelSummary,
+  IntegrationSupportLevel,
   ProviderRef,
   ProviderRequirements,
 } from 'lib/seam/ecosystem/types.js'
@@ -28,6 +29,7 @@ export interface ReviewDevice {
 interface ReviewProvider extends ProviderRef {
   logos?: DeviceAsset[]
   primary: boolean
+  integrationStatus: 'supported' | 'unsupported' | 'unknown'
   capabilities: Capability[]
   requirements: ReviewDevice['requirements']
 }
@@ -76,29 +78,61 @@ export function reviewDevice(
     providers: allProvidersSource.providers
       .map((provider) => {
         const details = providers.find((entry) => entry.slug === provider.slug)
+        const providerCapabilities =
+          allProvidersSource.capabilities_by_provider.filter(
+            (entry) => entry.provider.slug === provider.slug
+          )
         const capabilities = reviewCapabilities({
           ...allProvidersSource,
-          capabilities_by_provider:
-            allProvidersSource.capabilities_by_provider.filter(
-              (entry) => entry.provider.slug === provider.slug
-            ),
+          capabilities_by_provider: providerCapabilities,
         })
+        // Provider metadata distinguishes a missing integration from missing
+        // device capabilities. Connectivity alone does not imply Seam support.
+        const levels =
+          details?.integrations != null && details.integrations.length > 0
+            ? details.integrations.map(
+                (entry) => entry.integration_support_level
+              )
+            : allProvidersSource.capabilities_stale
+              ? []
+              : providerCapabilities.flatMap((entry) =>
+                  entry.capabilities
+                    .filter(
+                      (capability) => capability.name !== 'device_connectivity'
+                    )
+                    .map((capability) => capability.integration_support_level)
+                )
         return {
           ...provider,
           display_name: details?.display_name ?? provider.display_name,
           logos: details?.logos,
           primary: provider.slug === primarySlug,
+          integrationStatus: getIntegrationStatus(levels),
           capabilities,
           requirements: reviewRequirements(capabilities),
         }
       })
       .sort((a, b) => {
+        const unsupported =
+          Number(a.integrationStatus === 'unsupported') -
+          Number(b.integrationStatus === 'unsupported')
+        if (unsupported !== 0) return unsupported
         if (a.primary !== b.primary) return a.primary ? -1 : 1
         return (a.display_name ?? a.slug).localeCompare(
           b.display_name ?? b.slug
         )
       }),
   }
+}
+
+function getIntegrationStatus(
+  levels: Array<IntegrationSupportLevel | null>
+): ReviewProvider['integrationStatus'] {
+  if (levels.some((level) => level === 'stable' || level === 'beta'))
+    return 'supported'
+  if (levels.length === 0 || levels.some((level) => level == null))
+    return 'unknown'
+  return 'unsupported'
 }
 
 function reviewCapabilities(source: DeviceModelSummary): Capability[] {

@@ -1,6 +1,18 @@
 import { expect, test } from 'vitest'
 
-import { getRequirementKinds, getRequirementPills } from './model.js'
+import type {
+  CapabilitySummary,
+  DeviceModelSummary,
+  IntegrationSupportLevel,
+  ProviderRef,
+  ProviderRequirements,
+} from 'lib/seam/ecosystem/types.js'
+
+import {
+  getRequirementKinds,
+  getRequirementPills,
+  reviewDevice,
+} from './model.js'
 
 const legal =
   'To be able to use this system, you will need to first sign an EULA with Salto.'
@@ -40,4 +52,142 @@ test('existing accessory and subscription categories remain distinct; unknown pr
   expect(
     getRequirementKinds('Contact the provider to configure access.')
   ).toEqual(['other'])
+})
+
+const providerRef = (slug: string): ProviderRef => ({
+  provider_id: slug,
+  slug,
+  display_name: slug,
+})
+
+function deviceWithProviders(
+  entries: Array<{ slug: string; capabilities: CapabilitySummary[] }>
+): DeviceModelSummary {
+  return {
+    device_model_id: 'lock',
+    slug: 'lock',
+    display_name: 'Lock',
+    description_md: null,
+    product_url: null,
+    no_longer_sold: false,
+    is_forbidden_to_3dparty: false,
+    manufacturer: null,
+    device_type: null,
+    device_type_properties: null,
+    featured_image: null,
+    variants: [],
+    providers: entries.map(({ slug }) => providerRef(slug)),
+    capabilities_by_provider: entries.map(({ slug, capabilities }) => ({
+      provider: providerRef(slug),
+      capabilities,
+    })),
+    capabilities_stale: false,
+    updated_at: '2026-10-01T00:00:00.000Z',
+  }
+}
+
+const capability = (
+  level: IntegrationSupportLevel | null,
+  name: CapabilitySummary['name'] = 'can_remotely_unlock'
+): CapabilitySummary => ({
+  name,
+  supported: 'yes',
+  integration_support_level: level,
+  report: null,
+})
+
+const metadata = (
+  slug: string,
+  levels: Array<IntegrationSupportLevel | null>
+): ProviderRequirements => ({
+  ...providerRef(slug),
+  has_requirements: false,
+  requirements_md: null,
+  integrations: levels.map((level) => ({ integration_support_level: level })),
+})
+
+test('unsupported providers sort last, even when they are the guide provider', () => {
+  const model = deviceWithProviders([
+    { slug: 'homelok', capabilities: [capability('inquire')] },
+    { slug: 'space', capabilities: [capability('stable')] },
+    { slug: 'ks', capabilities: [capability('stable')] },
+  ])
+  const result = reviewDevice(model)
+  expect(result.providers.map((provider) => provider.slug)).toEqual([
+    'ks',
+    'space',
+    'homelok',
+  ])
+  expect(
+    result.providers.map((provider) => provider.integrationStatus)
+  ).toEqual(['supported', 'supported', 'unsupported'])
+  expect(result.providers[2]?.capabilities).toEqual([])
+})
+
+test('the supported guide provider precedes other supported providers', () => {
+  const model = deviceWithProviders([
+    { slug: 'ks', capabilities: [capability('stable')] },
+    { slug: 'homelok', capabilities: [capability('inquire')] },
+    { slug: 'another-live-provider', capabilities: [capability('beta')] },
+  ])
+  expect(
+    reviewDevice(model).providers.map((provider) => provider.slug)
+  ).toEqual(['ks', 'another-live-provider', 'homelok'])
+})
+
+test.each<IntegrationSupportLevel>([
+  'inquire',
+  'unavailable',
+  'planned',
+  'in-progress',
+])('a provider with only %s integrations is not supported', (level) => {
+  const model = deviceWithProviders([{ slug: 'cloud', capabilities: [] }])
+  expect(
+    reviewDevice(model, [metadata('cloud', [level])]).providers[0]
+      ?.integrationStatus
+  ).toBe('unsupported')
+})
+
+test.each<IntegrationSupportLevel>(['stable', 'beta'])(
+  'a %s provider stays supported despite missing or stale device capabilities',
+  (level) => {
+    const model = deviceWithProviders([{ slug: 'cloud', capabilities: [] }])
+    model.capabilities_stale = true
+    const result = reviewDevice(model, [metadata('cloud', ['inquire', level])])
+    expect(result.providers[0]?.integrationStatus).toBe('supported')
+    expect(result.providers[0]?.capabilities).toEqual([])
+  }
+)
+
+test('missing support levels and connectivity alone do not imply an unsupported integration', () => {
+  const model = deviceWithProviders([
+    { slug: 'empty', capabilities: [] },
+    {
+      slug: 'connectivity-only',
+      capabilities: [capability(null, 'device_connectivity')],
+    },
+    { slug: 'null-level', capabilities: [capability(null)] },
+  ])
+  expect(
+    reviewDevice(model).providers.every(
+      (provider) => provider.integrationStatus === 'unknown'
+    )
+  ).toBe(true)
+  expect(
+    reviewDevice(model, [metadata('empty', ['inquire', null])]).providers.find(
+      (provider) => provider.slug === 'empty'
+    )?.integrationStatus
+  ).toBe('unknown')
+})
+
+test('stale device reports cannot classify a provider without metadata', () => {
+  const model = deviceWithProviders([
+    { slug: 'cloud', capabilities: [capability('inquire')] },
+  ])
+  model.capabilities_stale = true
+  expect(reviewDevice(model).providers[0]?.integrationStatus).toBe('unknown')
+  expect(
+    reviewDevice(model, [metadata('cloud', ['inquire'])]).providers[0]
+      ?.integrationStatus
+  ).toBe('unsupported')
 })

@@ -832,6 +832,16 @@ body {
   color: var(--seam-ecosystem-fg-2);
   font-size: 10px;
 }
+.seam-proto-request-integration {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 4px;
+  color: var(--seam-ecosystem-accent);
+  font-size: 12px;
+  text-underline-offset: 3px;
+}
 .seam-proto-matrix-scroll {
   max-width: min(100%, 440px);
   overflow-x: auto;

@@ -258,7 +258,11 @@ function ExpandedDetails({
         <h3>Available providers</h3>
         <ul className='seam-proto-provider-list'>
           {device.providers.map((provider) => (
-            <li className='seam-proto-provider' key={provider.provider_id}>
+            <li
+              className='seam-proto-provider'
+              key={provider.provider_id}
+              data-integration-status={provider.integrationStatus}
+            >
               <div className='seam-compact-detail-heading'>
                 <BrandMark
                   className='seam-compact-provider-mark'
@@ -268,6 +272,9 @@ function ExpandedDetails({
                 <div className='seam-proto-provider-name'>
                   <strong>{provider.display_name ?? provider.slug}</strong>
                   {provider.primary && <span>This guide</span>}
+                  {provider.integrationStatus === 'unsupported' && (
+                    <span>Not supported</span>
+                  )}
                 </div>
               </div>
               <ProviderRequirements
