@@ -191,3 +191,70 @@ test('stale device reports cannot classify a provider without metadata', () => {
       ?.integrationStatus
   ).toBe('unsupported')
 })
+
+test('required accessories follow dependencies and stay specific to each provider', () => {
+  const bridge = 'A compatible bridge is required.'
+  const keypad = 'An external keypad is required.'
+  const code: CapabilitySummary = {
+    ...capability('stable', 'can_program_online_access_codes'),
+    supported: 'conditionally',
+    report: {
+      details: '',
+      requirements: {
+        keypad: { message: keypad, device_slugs: ['keypad-a', 'keypad-b'] },
+      },
+      dependencies: ['device_connectivity'],
+    },
+  }
+  const connectivity = (slug: string): CapabilitySummary => ({
+    ...capability(null, 'device_connectivity'),
+    supported: 'conditionally',
+    report: {
+      details: '',
+      requirements: { bridge: { message: bridge, device_slugs: [slug, slug] } },
+      dependencies: ['can_program_online_access_codes'],
+    },
+  })
+  const model = deviceWithProviders([
+    { slug: 'provider-a', capabilities: [code, connectivity('bridge-a')] },
+    { slug: 'provider-b', capabilities: [code, connectivity('bridge-b')] },
+  ])
+  const result = reviewDevice(model)
+  expect(
+    result.providers[0]?.requirements.find((r) => r.message === bridge)
+      ?.deviceSlugs
+  ).toEqual(['bridge-a'])
+  expect(
+    result.providers[1]?.requirements.find((r) => r.message === bridge)
+      ?.deviceSlugs
+  ).toEqual(['bridge-b'])
+  expect(
+    result.providers[0]?.requirements.find((r) => r.message === keypad)
+      ?.deviceSlugs
+  ).toEqual(['keypad-a', 'keypad-b'])
+})
+
+test('generic requirements without accessory relations do not invent accessory matches', () => {
+  const model = deviceWithProviders([
+    {
+      slug: 'provider',
+      capabilities: [
+        {
+          ...capability('stable'),
+          supported: 'conditionally',
+          report: {
+            details: '',
+            requirements: {
+              bridge: { message: 'A compatible bridge is required.' },
+            },
+          },
+        },
+      ],
+    },
+  ])
+  expect(
+    reviewDevice(model).providers[0]?.requirements[0]?.deviceSlugs
+  ).toEqual([])
+  model.capabilities_stale = true
+  expect(reviewDevice(model).providers[0]?.requirements).toEqual([])
+})

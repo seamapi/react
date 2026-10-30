@@ -1017,6 +1017,56 @@ body {
   font-size: 11px;
   margin-top: 2px;
 }
+.seam-proto-requirement-body {
+  flex: 1;
+  min-width: 0;
+}
+.seam-proto-accessories {
+  max-width: 400px;
+  margin-top: 10px;
+}
+.seam-proto-accessories-label,
+.seam-proto-accessories-state {
+  color: var(--seam-ecosystem-fg-2);
+  font-size: 11px;
+}
+.seam-proto-accessory-list {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.seam-proto-accessory-list > li {
+  display: block;
+}
+.seam-proto-accessory-list > li + li {
+  border-top: 1px solid var(--seam-ecosystem-line-1);
+}
+.seam-proto-accessory-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 0;
+  color: var(--seam-ecosystem-fg-1);
+  font-size: 12px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+a.seam-proto-accessory-link:hover {
+  color: var(--seam-ecosystem-accent);
+}
+.seam-proto-accessory-link img {
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.seam-proto-accessory-link > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.seam-compact-requirements .seam-proto-accessory-arrow {
+  margin: 0 0 0 auto;
+  font-size: 14px;
+}
 .seam-compact-model-info {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
