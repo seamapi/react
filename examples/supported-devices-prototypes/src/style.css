@@ -781,6 +781,8 @@ body {
   border-top: 1px solid var(--seam-ecosystem-line-1);
 }
 .seam-proto-provider-list {
+  display: grid;
+  gap: 20px;
   margin: 20px 0 0 6px;
   padding: 0 0 0 20px;
   list-style: none;
@@ -788,7 +790,10 @@ body {
 .seam-proto-provider {
   position: relative;
   min-width: 0;
-  padding-bottom: 24px;
+  padding: 16px;
+  border: 1px solid var(--seam-ecosystem-line-1);
+  border-radius: 8px;
+  background: var(--seam-ecosystem-surface-2);
   container-type: inline-size;
 }
 .seam-proto-provider::before {
@@ -801,18 +806,18 @@ body {
 }
 .seam-proto-provider::after {
   position: absolute;
-  top: 16px;
+  top: 32px;
   left: -20px;
-  width: 15px;
+  width: 20px;
   content: '';
   border-top: 1px dashed var(--seam-ecosystem-line-2);
 }
-.seam-proto-provider:last-child {
-  padding-bottom: 0;
-}
 .seam-proto-provider:last-child::before {
   bottom: auto;
-  height: 36px;
+  height: 52px;
+}
+.seam-proto-provider > .seam-compact-requirements {
+  margin-bottom: 0;
 }
 .seam-proto-provider-name {
   display: flex;
@@ -823,7 +828,7 @@ body {
 .seam-proto-provider-name > span {
   padding: 3px 6px;
   border-radius: 5px;
-  background: var(--seam-ecosystem-surface-2);
+  background: var(--seam-ecosystem-surface-1);
   color: var(--seam-ecosystem-fg-2);
   font-size: 10px;
 }
@@ -1201,6 +1206,18 @@ body {
     padding: 16px 12px 0;
   }
   .seam-compact-expanded::before {
+    display: none;
+  }
+  .seam-proto-provider-list {
+    gap: 16px;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .seam-proto-provider {
+    padding: 14px 10px;
+  }
+  .seam-proto-provider::before,
+  .seam-proto-provider::after {
     display: none;
   }
   .seam-compact-model-info {
