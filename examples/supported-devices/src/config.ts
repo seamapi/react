@@ -32,3 +32,21 @@ const optionalParam = (
   const value = params.get(name)?.trim()
   return value == null || value.length === 0 ? undefined : value
 }
+
+export const getEmbeddedViewport = (
+  data: unknown
+): { top: number; height: number } | null => {
+  if (data == null || typeof data !== 'object') return null
+  const message = data as { type?: unknown; top?: unknown; height?: unknown }
+  if (
+    message.type !== 'seam-supported-devices:viewport' ||
+    typeof message.top !== 'number' ||
+    !Number.isFinite(message.top) ||
+    message.top < 0 ||
+    typeof message.height !== 'number' ||
+    !Number.isFinite(message.height) ||
+    message.height <= 0
+  )
+    return null
+  return { top: message.top, height: message.height }
+}

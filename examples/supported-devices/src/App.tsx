@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react'
 import { SupportedDevices } from 'lib/seam/components/SupportedDevices/SupportedDevices.js'
 import { EcosystemProvider } from 'lib/seam/ecosystem/EcosystemProvider.js'
 
-import { getEmbedConfig, getParentOrigin } from './config.js'
+import {
+  getEmbedConfig,
+  getEmbeddedViewport,
+  getParentOrigin,
+} from './config.js'
 
 const config = getEmbedConfig(globalThis.location.search)
 const parentOrigin = getParentOrigin(globalThis.document.referrer)
@@ -34,6 +38,18 @@ export function App(): JSX.Element {
     const onMessage = (event: MessageEvent): void => {
       if (event.source !== globalThis.parent || event.origin !== parentOrigin)
         return
+      const viewport = getEmbeddedViewport(event.data)
+      if (viewport != null) {
+        const root = globalThis.document.documentElement
+        root.style.setProperty(
+          '--seam-supported-device-viewport-top',
+          `${viewport.top}px`
+        )
+        root.style.setProperty(
+          '--seam-supported-device-viewport-height',
+          `${viewport.height}px`
+        )
+      }
       const data = event.data as { type?: string; theme?: string } | null
       if (
         data?.type === 'seam-supported-devices:theme' &&

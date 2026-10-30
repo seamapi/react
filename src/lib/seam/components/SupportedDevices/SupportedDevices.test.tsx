@@ -106,40 +106,30 @@ test<EcosystemTestContext>('SupportedDevices scopes the query and badges to a pr
   expect(request?.searchParams.get('provider')).toBe('schlage-engage')
 })
 
-test<EcosystemTestContext>('warning buttons toggle requirements and model details together', async (ctx) => {
+test<EcosystemTestContext>('requirements and hardware share one native device disclosure', async (ctx) => {
   renderWithEcosystem(<SupportedDevices manufacturer='august' />, ctx)
   const name = await screen.findByText('Smart Lock Pro')
-  const row = name.closest('li')
-  if (row == null) throw new Error('Missing row')
-  const requirement = within(row).getByText(/Requires an August keypad/)
-  const details = requirement.closest('details')
-  expect(details?.hasAttribute('open')).toBe(false)
-  expect(within(row).getByText('Model numbers').closest('details')).toBe(
-    details
-  )
-  const warnings = within(row).getAllByRole('button', {
-    name: /requirements for/,
-  })
-  const warning = warnings[0]
-  if (warning == null) throw new Error('Missing warning control')
-  expect(warning.getAttribute('aria-controls')).toBe(details?.id)
-  fireEvent.click(warning)
-  await waitFor(() => {
-    expect(details?.hasAttribute('open')).toBe(true)
-  })
-  for (const button of warnings)
-    expect(button.getAttribute('aria-expanded')).toBe('true')
-  within(row).getByRole('list', { name: 'Requirements' })
-  fireEvent.click(warning)
-  await waitFor(() => {
-    expect(details?.hasAttribute('open')).toBe(false)
-  })
+  const row = name.closest('details')
+  if (row == null) throw new Error('Missing device row')
+  expect(row.hasAttribute('open')).toBe(false)
+  expect(within(row).getByText('Model numbers').closest('details')).toBe(row)
+  expect(
+    within(row)
+      .getByText(/Requires an August keypad/)
+      .closest('details')
+  ).toBe(row)
+  const summary = row.querySelector('summary')
+  if (summary == null) throw new Error('Missing summary')
+  expect(summary.contains(name)).toBe(true)
+  within(row).getByRole('list', { name: 'Requirement details', hidden: true })
 })
 
 test<EcosystemTestContext>('SupportedDevices shows features and keeps identifiers in model details', async (ctx) => {
   renderWithEcosystem(<SupportedDevices manufacturer='schlage' />, ctx)
   const name = await screen.findByText('Encode Plus Smart WiFi Deadbolt')
-  const row = name.closest('li')
+  const row = name.closest<HTMLDetailsElement>(
+    'details.seam-supported-device-row'
+  )
   if (row == null) throw new Error('Missing row')
   const badges = within(row).getByRole('list', {
     name: 'Supported capabilities',
@@ -147,7 +137,7 @@ test<EcosystemTestContext>('SupportedDevices shows features and keeps identifier
   expect(
     within(badges)
       .getAllByRole('listitem')
-      .map((badge) => badge.textContent)
+      .map((badge) => badge.textContent?.replace(' · Supported', ''))
   ).toEqual(['Remote unlock', 'Remote lock', 'Access codes'])
   const modelNumber = within(row).getByText('BE499WB')
   const details = modelNumber.closest('details')
@@ -207,7 +197,9 @@ for (const missingMetadata of [false, true]) {
         ctx
       )
       const name = await screen.findByText('Smart Lock Pro')
-      const row = name.closest('li')
+      const row = name.closest<HTMLDetailsElement>(
+        'details.seam-supported-device-row'
+      )
       if (row == null) throw new Error('Missing row')
       await waitFor(() => {
         expect(providerRequests).toHaveLength(1)
@@ -221,14 +213,9 @@ for (const missingMetadata of [false, true]) {
           : 'A paid subscription is required.'
       )
       expect(text.closest('details')?.hasAttribute('open')).toBe(false)
-      const warning = within(row).getAllByRole('button', {
-        name: /requirements for/,
-      })[0]
-      if (warning == null) throw new Error('Missing warning control')
-      fireEvent.click(warning)
-      await waitFor(() => {
-        expect(text.closest('details')?.hasAttribute('open')).toBe(true)
-      })
+      const summary = row.querySelector('summary')
+      if (summary == null) throw new Error('Missing summary')
+      expect(summary.contains(name)).toBe(true)
       within(row).getByText('ASL-03')
       expect(screen.queryByText('Requirement message not found')).toBeNull()
     } finally {
@@ -289,6 +276,28 @@ test<EcosystemTestContext>('SupportedDevices filters by capability', async (ctx)
   )
   await screen.findByText('XS4 One')
   expect(getSectionTitles()).toEqual(['Salto', 'Schlage'])
+})
+
+test<EcosystemTestContext>('capability checkboxes require every selection and support keyboard dismissal', async (ctx) => {
+  renderWithEcosystem(<SupportedDevices manufacturer='schlage' />, ctx)
+  await screen.findByText('Encode Plus Smart WiFi Deadbolt')
+  const trigger = screen.getByRole('button', {
+    name: /Capabilities All capabilities/,
+  })
+  fireEvent.click(trigger)
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Remote unlock' }))
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Mobile keys' }))
+  await screen.findByText('Control Smart Lock')
+  expect(screen.queryByText('Encode Plus Smart WiFi Deadbolt')).toBeNull()
+  screen.getByRole('button', { name: /Capabilities 2 selected/ })
+  fireEvent.keyDown(screen.getByRole('checkbox', { name: 'Mobile keys' }), {
+    key: 'Escape',
+  })
+  expect(trigger.getAttribute('aria-expanded')).toBe('false')
+  expect(document.activeElement).toBe(trigger)
+  fireEvent.click(trigger)
+  fireEvent.click(screen.getByRole('button', { name: 'Clear selection' }))
+  await screen.findByText('Encode Plus Smart WiFi Deadbolt')
 })
 
 test<EcosystemTestContext>('SupportedDevices searches and filters', async (ctx) => {
