@@ -858,6 +858,7 @@
       color: var(--seam-ecosystem-fg-2);
       font-size: 11px;
       font-weight: 400;
+      white-space: nowrap;
     }
 
     .seam-supported-device-capability-requirements tbody th {
@@ -895,7 +896,7 @@
       }
 
       .seam-supported-device-capability-supported-column {
-        width: 60px;
+        width: 72px;
       }
 
       .seam-supported-device-capability-requirements
@@ -904,7 +905,9 @@
       }
 
       .seam-supported-device-hardware-facts {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+        grid-template-columns:
+          minmax(min-content, 1fr) minmax(min-content, 1fr)
+          minmax(0, 1fr);
         gap: 10px 12px;
       }
 
@@ -919,6 +922,24 @@
 
       .seam-supported-device-capability-pills {
         flex-flow: column nowrap;
+      }
+    }
+
+    @container (max-width: 240px) {
+      .seam-supported-device-capability-name-column {
+        width: 31%;
+      }
+
+      .seam-supported-device-capability-supported-column {
+        width: 64px;
+      }
+
+      .seam-supported-device-capability-requirements thead th {
+        font-size: 10px;
+      }
+
+      .seam-supported-device-capability-requirements th:first-child {
+        padding-right: 8px;
       }
     }
 
