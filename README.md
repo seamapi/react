@@ -233,6 +233,69 @@ The data is also available with the `useCompatiblePartners`, `useEcosystemDevice
 
 [Seam Ecosystem]: https://ecosystem.seam.co/
 
+### Pre-render supported devices in Next.js
+
+Use the native React components from `@seamapi/react/ecosystem-react.js` and the
+server loader from `@seamapi/react/server.js` (5.4.0 or newer). The React entry
+declares the client boundary for App Router; Next.js can still pre-render its
+HTML when data is supplied by the server.
+
+```tsx
+// app/devices/page.tsx — Server Component
+import {
+  EcosystemProvider,
+  SupportedDevices,
+} from '@seamapi/react/ecosystem-react.js'
+import { prefetchSupportedDevices } from '@seamapi/react/server.js'
+
+export default async function Page() {
+  const embedKey = process.env.NEXT_PUBLIC_ECOSYSTEM_EMBED_KEY
+  const filters = {
+    manufacturer: 'august',
+    provider: 'august-access',
+    deviceType: 'smartlock',
+  }
+  const dehydratedState = await prefetchSupportedDevices({
+    ...filters,
+    embedKey,
+    origin: 'https://your-site.example',
+  })
+
+  return (
+    <EcosystemProvider
+      embedKey={embedKey}
+      dehydratedState={dehydratedState}
+      disableCssInjection
+      disableFontInjection
+    >
+      <SupportedDevices {...filters} />
+    </EcosystemProvider>
+  )
+}
+```
+
+Import `@seamapi/react/index.css` in `app/layout.tsx` so the server-rendered
+content is styled before JavaScript loads. The loader resolves the key's
+manufacturer scope and exclusions, paginates the catalog, and fetches provider,
+manufacturer, and linked accessory details. It uses an isolated cache per call,
+removes excluded records before serialization, and throws on failed or
+incomplete reads. Configure the embed key's allowed origins to include the page
+origin; the loader forwards that origin to Ecosystem for validation. Keep the
+loader and component's key, endpoint, and filters identical.
+
+The resulting HTML contains device names, model numbers, capabilities,
+requirements, and accessory links. JavaScript hydrates the existing UI for
+search, filtering, and galleries. Device disclosures and links work without
+JavaScript; the unscoped catalog's per-manufacturer "Show all" button still
+requires it. Server-prefetched queries remain fresh for one minute after their
+fetch time before becoming eligible for background refresh.
+
+For caching, pass a `fetch` implementation that applies your Next.js
+revalidation settings. See the [working Next.js example](./examples/nextjs-supported-devices)
+for hourly revalidation, configuration, and verification. This renders the
+component inline in a Next.js page; it does not change the Mintlify iframe or
+put iframe content into its parent page's HTML.
+
 ### Hosted supported-device embed
 
 The native React page at

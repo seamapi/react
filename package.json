@@ -24,6 +24,14 @@
     },
     "./index.css": {
       "import": "./dist/index.css"
+    },
+    "./ecosystem-react.js": {
+      "types": "./ecosystem-react.d.ts",
+      "import": "./ecosystem-react.js"
+    },
+    "./server.js": {
+      "types": "./server.d.ts",
+      "import": "./server.js"
     }
   },
   "module": "index.js",
@@ -45,6 +53,12 @@
     "email": "devops@getseam.com"
   },
   "files": [
+    "server.js",
+    "server.js.map",
+    "server.d.ts",
+    "ecosystem-react.js",
+    "ecosystem-react.js.map",
+    "ecosystem-react.d.ts",
     "index.js",
     "index.js.map",
     "index.d.ts",
@@ -65,8 +79,8 @@
     "start": "concurrently --raw --kill-others npm:examples:storybook npm:storybook",
     "dev": "npm run start",
     "build": "npm run build:entrypoints",
-    "prebuild": "del 'index.*' 'hooks.*' lib dist",
-    "postbuild": "concurrently --raw --group 'node ./index.js' 'node ./hooks.js'",
+    "prebuild": "del 'index.*' 'hooks.*' 'ecosystem-react.*' 'server.*' lib dist",
+    "postbuild": "concurrently --raw --group 'node ./index.js' 'node ./hooks.js' 'node ./ecosystem-react.js' 'node ./server.js'",
     "build:entrypoints": "npm run build:js",
     "prebuild:entrypoints": "npm run build:css",
     "postbuild:entrypoints": "npm run build:elements && npm run build:ecosystem",

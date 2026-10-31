@@ -1,4 +1,6 @@
 import {
+  type DehydratedState,
+  HydrationBoundary,
   QueryClient,
   QueryClientContext,
   QueryClientProvider,
@@ -8,6 +10,7 @@ import {
   type PropsWithChildren,
   useContext,
   useMemo,
+  useState,
 } from 'react'
 
 import { defaultEcosystemEndpoint } from 'lib/seam/ecosystem/client.js'
@@ -36,12 +39,12 @@ export interface EcosystemProviderProps
   extends EcosystemOptions,
     PropsWithChildren {
   queryClient?: QueryClient | undefined
+  /** Server data returned by `prefetchSupportedDevices` from `@seamapi/react/server.js`. */
+  dehydratedState?: DehydratedState | undefined
   disableCssInjection?: boolean | undefined
   disableFontInjection?: boolean | undefined
   unminifiyCss?: boolean | undefined
 }
-
-const defaultQueryClient = new QueryClient()
 
 /**
  * Provides the Seam Ecosystem context for `CompatibleApps` and `SupportedDevices`.
@@ -53,6 +56,7 @@ const defaultQueryClient = new QueryClient()
 export function EcosystemProvider({
   children,
   queryClient,
+  dehydratedState,
   disableCssInjection = false,
   disableFontInjection = false,
   unminifiyCss = false,
@@ -62,6 +66,8 @@ export function EcosystemProvider({
   useSeamFont({ disabled: disableFontInjection })
 
   const queryClientFromContext = useContext(QueryClientContext)
+  // Each server render gets its own fallback cache; never share request data.
+  const [fallbackQueryClient] = useState(() => new QueryClient())
 
   return (
     <div className={seamComponentsClassName}>
@@ -69,13 +75,17 @@ export function EcosystemProvider({
         client={
           queryClient ??
           queryClientFromContext ??
-          globalThis.seamQueryClient ??
-          defaultQueryClient
+          (typeof window === 'undefined'
+            ? undefined
+            : globalThis.seamQueryClient) ??
+          fallbackQueryClient
         }
       >
-        <EcosystemContextProvider {...options}>
-          {children}
-        </EcosystemContextProvider>
+        <HydrationBoundary state={dehydratedState}>
+          <EcosystemContextProvider {...options}>
+            {children}
+          </EcosystemContextProvider>
+        </HydrationBoundary>
       </QueryClientProvider>
     </div>
   )

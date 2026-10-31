@@ -1377,6 +1377,22 @@ const routes = {
     }
   },
 
+  'v1/providers/list': ({ searchParams, headers }) => {
+    optionalEmbedKey({ headers, searchParams })
+    const slugs = listParam(searchParams, 'slugs')
+    const list = Object.keys(providerProfiles)
+      .filter((slug) => slugs.length === 0 || slugs.includes(slug))
+      .map((slug) => ({
+        ...toProviderRef(slug),
+        has_requirements: false,
+        requirements_md: null,
+        logos: [],
+        integrations: [{ integration_support_level: 'stable' }],
+      }))
+    const { items, pagination } = paginate(list, searchParams)
+    return { providers: items, pagination }
+  },
+
   'v1/manufacturers/list': ({ searchParams, headers, assetBaseUrl }) => {
     optionalEmbedKey({ headers, searchParams })
     const slugs = listParam(searchParams, 'slugs')

@@ -37,7 +37,7 @@ export default defineConfig(async ({ command, mode }) => {
         input: Object.fromEntries(
           glob
             .sync([`./${base}/**/*.html`], {
-              ignore: ['**/dist/**'],
+              ignore: ['**/dist/**', '**/.next/**', '**/node_modules/**'],
               absolute: true,
             })
             .map((file) => [

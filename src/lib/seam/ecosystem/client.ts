@@ -12,6 +12,10 @@ export interface EcosystemRequestOptions {
   embedKey?: string | undefined
   params?: EcosystemQueryParams
   signal?: AbortSignal
+  /** Page origin for server-side embed-key validation. Browsers send their own Origin. */
+  origin?: string
+  /** Optional server fetch implementation, e.g., Next.js fetch with revalidation. */
+  fetch?: typeof globalThis.fetch
 }
 
 /**
@@ -70,16 +74,24 @@ export const getEcosystemUrl = (
 
 export const fetchEcosystem = async <T>(
   path: string,
-  { endpoint, embedKey, params, signal }: EcosystemRequestOptions
+  {
+    endpoint,
+    embedKey,
+    params,
+    signal,
+    origin,
+    fetch = globalThis.fetch,
+  }: EcosystemRequestOptions
 ): Promise<T> => {
   const url = getEcosystemUrl(endpoint, path, params)
 
   const headers: Record<string, string> = { Accept: 'application/json' }
+  if (origin != null) headers['Origin'] = origin
   if (embedKey != null && embedKey.length > 0) {
     headers['X-Embed-Key'] = embedKey
   }
 
-  const res = await globalThis.fetch(url, {
+  const res = await fetch(url, {
     headers,
     ...(signal == null ? {} : { signal }),
   })

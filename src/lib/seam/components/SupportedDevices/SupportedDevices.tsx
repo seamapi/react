@@ -36,7 +36,7 @@ import {
 import { AccessoryCatalog } from './AccessoryCatalog.js'
 import { CapabilityFilter } from './CapabilityFilter.js'
 import { CapabilityLegend } from './DeviceRow.js'
-import { presentDevice } from './presentation.js'
+import { getAccessorySlugs, presentDevice } from './presentation.js'
 
 export interface SupportedDevicesProps {
   /**
@@ -160,16 +160,7 @@ export function SupportedDevices({
     [presentedDevices]
   )
   const accessorySlugs = useMemo(
-    () =>
-      presentedDevices.flatMap((device) =>
-        device.providers
-          .filter((provider) => provider.integrationStatus !== 'unsupported')
-          .flatMap((provider) =>
-            provider.requirements.flatMap(
-              (requirement) => requirement.deviceSlugs ?? []
-            )
-          )
-      ),
+    () => getAccessorySlugs(presentedDevices),
     [presentedDevices]
   )
 
