@@ -1,16 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { EcosystemApiError, fetchEcosystem } from 'lib/seam/ecosystem/client.js'
-import { useEcosystemContext } from 'lib/seam/ecosystem/EcosystemProvider.js'
-import type {
-  DeviceModelSummariesListResponse,
-  DeviceModelSummary,
-} from 'lib/seam/ecosystem/types.js'
-import type { UseEcosystemDeviceModelsParams } from 'lib/seam/ecosystem/use-ecosystem-device-models.js'
+import { useEcosystemContext } from './EcosystemProvider.js'
+import { deviceModelSummariesQuery } from './queries.js'
+import type { DeviceModelSummary } from './types.js'
+import type { UseEcosystemDeviceModelsParams } from './use-ecosystem-device-models.js'
 import {
   retryEcosystemQuery,
   type UseEcosystemQueryResult,
-} from 'lib/seam/ecosystem/use-ecosystem-query-result.js'
+} from './use-ecosystem-query-result.js'
 
 export type UseEcosystemDeviceModelSummariesParams =
   UseEcosystemDeviceModelsParams & {
@@ -20,85 +17,19 @@ export type UseEcosystemDeviceModelSummariesParams =
 
 export type UseEcosystemDeviceModelSummariesData = DeviceModelSummary[]
 
-const pageSize = 500
-const maxPages = 20
-
-/**
- * Published device models in the slim summary shape from Ecosystem
- * `GET /v1/device_models/summaries/list` (no commerce data),
- * following pagination to return every matching model.
- */
+/** Published slim summaries, following pagination to return every matching model. */
 export function useEcosystemDeviceModelSummaries({
-  manufacturer = '',
-  deviceType = '',
-  provider = '',
-  capability = '',
-  slugs = [],
   enabled = true,
+  ...filters
 }: UseEcosystemDeviceModelSummariesParams = {}): UseEcosystemQueryResult<
   'deviceModels',
   UseEcosystemDeviceModelSummariesData
 > {
-  const { embedKey, endpoint } = useEcosystemContext()
-
-  const params = {
-    manufacturer: manufacturer.trim(),
-    device_type: deviceType.trim(),
-    provider: provider.trim(),
-    capability: capability.trim(),
-    slugs: [
-      ...new Set(slugs.map((slug) => slug.trim()).filter(Boolean)),
-    ].sort(),
-  }
-
-  const { data, ...rest } = useQuery<
-    UseEcosystemDeviceModelSummariesData,
-    EcosystemApiError
-  >({
+  const context = useEcosystemContext()
+  const { data, ...rest } = useQuery({
+    ...deviceModelSummariesQuery(context, filters),
     enabled,
-    queryKey: [
-      'ecosystem',
-      endpoint,
-      embedKey ?? null,
-      'device_models',
-      'summaries',
-      'list',
-      params,
-    ],
-    queryFn: async ({ signal }) => {
-      const deviceModels: DeviceModelSummary[] = []
-      let pageCursor: string | undefined
-      for (let page = 0; page < maxPages; page++) {
-        const res = await fetchEcosystem<DeviceModelSummariesListResponse>(
-          'device_models/summaries/list',
-          {
-            endpoint,
-            embedKey,
-            params: { ...params, limit: pageSize, page_cursor: pageCursor },
-            signal,
-          }
-        )
-        deviceModels.push(...res.device_models)
-        const { has_next_page: hasNextPage, next_page_cursor: nextPageCursor } =
-          res.pagination
-        if (!hasNextPage) return deviceModels
-        if (nextPageCursor == null || nextPageCursor === pageCursor) {
-          throw new EcosystemApiError({
-            status: 502,
-            type: 'pagination_incomplete',
-            message: 'The device catalog returned an invalid page cursor.',
-          })
-        }
-        pageCursor = nextPageCursor
-      }
-      throw new EcosystemApiError({
-        status: 502,
-        type: 'pagination_incomplete',
-        message: 'The device catalog exceeded the supported number of pages.',
-      })
-    },
     retry: retryEcosystemQuery,
   })
-
   return { ...rest, deviceModels: data }
 }

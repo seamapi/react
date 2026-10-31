@@ -31,6 +31,17 @@ export interface PresentedDevice {
   providers: PresentedProvider[]
 }
 
+export const getAccessorySlugs = (devices: PresentedDevice[]): string[] =>
+  devices.flatMap((device) =>
+    device.providers
+      .filter((provider) => provider.integrationStatus !== 'unsupported')
+      .flatMap((provider) =>
+        provider.requirements.flatMap(
+          (requirement) => requirement.deviceSlugs ?? []
+        )
+      )
+  )
+
 interface PresentedProvider extends ProviderRef {
   logos?: DeviceAsset[]
   primary: boolean

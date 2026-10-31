@@ -28,7 +28,10 @@ export interface EcosystemElementDefinition {
   props?: Record<string, PropType>
 }
 
-type ProviderProps = Omit<EcosystemProviderProps, 'children'>
+type ProviderProps = Omit<
+  EcosystemProviderProps,
+  'children' | 'dehydratedState'
+>
 
 const providerProps: Record<keyof ProviderProps, PropType> = {
   embedKey: 'string',
