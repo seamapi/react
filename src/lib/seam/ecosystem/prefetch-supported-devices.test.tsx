@@ -68,10 +68,10 @@ test<EcosystemTestContext>('server prefetch includes linked accessory records in
           if (capability.name !== 'can_program_online_access_codes') continue
           capability.supported = 'conditionally'
           capability.report = {
-            details: 'An external keypad is required.',
+            details: 'A compatible bridge is required.',
             requirements: {
               accessory: {
-                message: 'An external keypad is required.',
+                message: 'A compatible bridge is required.',
                 device_slugs: ['august-connect-wifi-bridge'],
               },
             },
@@ -97,7 +97,7 @@ test<EcosystemTestContext>('server prefetch includes linked accessory records in
   expect(html).toContain(
     'https://www.seam.co/bridges/august_august-connect-wifi-bridge'
   )
-  expect(html).toContain('An external keypad is required.')
+  expect(html).toContain('A compatible bridge is required.')
   expect(html).not.toContain('Loading accessories')
   expect(
     ctx.ecosystemRequestUrls.some(
