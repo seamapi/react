@@ -106,7 +106,9 @@
 
     .seam-ecosystem-search-icon {
       position: absolute;
+      top: 50%;
       left: 10px;
+      transform: translateY(-50%);
       font-size: 18px;
       pointer-events: none;
 
@@ -125,6 +127,7 @@
       color: var(--seam-ecosystem-fg-1);
       font: inherit;
       font-size: 14px;
+      line-height: normal;
 
       &::placeholder {
         color: var(--seam-ecosystem-fg-3);
