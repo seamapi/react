@@ -87,7 +87,7 @@ Each component typically has:
 - `@seamapi/react/elements` - Web Components bundle
 - `@seamapi/react/ecosystem.js` - Lightweight bundle with only the Seam Ecosystem Web Components
   (`<seam-compatible-apps>`, `<seam-supported-devices>`); it must not import `SeamProvider` or `@seamapi/http`
-  (`npm run size` checks this and the size budget after `npm run build`)
+  (`postbuild.ts` checks this and the size budget at the end of `npm run build`)
 
 ### Path Aliases
 
