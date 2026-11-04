@@ -42,7 +42,7 @@
     ".storybook/**/*",
     "update-devicedb-seed.ts",
     "prepack.ts",
-    "size.ts",
+    "postbuild.ts",
     "preversion.ts",
     "version.ts",
     "vite.config.ts"
