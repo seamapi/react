@@ -57,6 +57,11 @@ export default defineConfig(async ({ mode }) => {
     test: {
       setupFiles: ['./test/fixtures/api.ts'],
       environment: 'happy-dom',
+      environmentOptions: {
+        happyDOM: {
+          settings: { fetch: { disableSameOriginPolicy: true } },
+        },
+      },
       deps: {
         interopDefault: false,
         web: {
