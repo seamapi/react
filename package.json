@@ -218,5 +218,8 @@
     "vite-tsconfig-paths": "^4.0.8",
     "vitest": "^3.2.6",
     "zustand-hoist": "^2.0.0"
+  },
+  "overrides": {
+    "tinypool": "^2.1.2"
   }
 }
