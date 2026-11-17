@@ -3,13 +3,9 @@ import { fileURLToPath } from 'node:url'
 
 import replace, { type RollupReplaceOptions } from '@rollup/plugin-replace'
 import react from '@vitejs/plugin-react'
-import {
-  defineConfig,
-  type Plugin,
-  transformWithEsbuild,
-  type UserConfig,
-} from 'vite'
+import { defineConfig, type Plugin, transformWithEsbuild } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import type { ViteUserConfig as UserConfig } from 'vitest/config'
 
 // Each library entry is built separately so every bundle is self-contained.
 // Build the ecosystem entry with `vite build --mode ecosystem`.
